@@ -1,0 +1,57 @@
+citHeader("To cite in publications use:")
+
+## R >= 2.8.0 passes package metadata to citation().
+if(!exists("meta") || is.null(meta)) meta <- packageDescription("seriation")
+
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version %s.", meta$Version)
+
+citEntry(entry = "Manual",
+         title = "Infrastructure for seriation",
+         author = {
+             personList(person("Michael", "Hahsler",
+                               email = "michael@hahsler.net"),
+                        person("Christian", "Buchta",
+                               email = "Christian.Buchta@wu.ac.at"),
+                        person("Kurt", "Hornik",
+                               email = "Kurt.Hornik@R-project.org"))
+         },
+         year = year,
+         note = note,
+         url = "http://CRAN.R-project.org/",
+         textVersion = {
+             paste("Michael Hahsler, Christian Buchta and Kurt Hornik",
+                   sprintf("(%s).", year),                         
+                   "Infrastructure for seriation.",
+                   note,
+                   sep = "  ")
+         })
+
+citEntry(entry = "article",
+         title = paste("Getting things in order: ",
+			"An introduction to the R package seriation"),
+         author = {
+             personList(person("Michael", "Hahsler",
+                               email = "michael@hahsler.net"),
+                        person("Kurt", "Hornik",
+                               email = "Kurt.Hornik@R-project.org"),
+                        person("Christian", "Buchta",
+                               email = "Christian.Buchta@wu.ac.at"))
+         },
+         year = 2008,
+         journal = "Journal of Statistical Software",
+         volume = 25,
+         number = 3,
+         pages = "1--34",
+         url = "http://www.jstatsoft.org/v25/i03/",
+         month = "March",
+         issn = "1548-7660",
+         textVersion = {
+             paste(paste("Michael Hahsler, Kurt Hornik and",
+                         "Christian Buchta (2008),",
+                         "Getting things in order: ",
+			 "An introduction to the R package seriation."),
+                   "Journal of Statistical Software 25/3.",
+                   "URL: http://www.jstatsoft.org/v25/i03/.",
+                   sep = "  ")
+         })

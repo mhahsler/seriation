@@ -1,0 +1,32 @@
+Package: seriation
+Type: Package
+Title: Infrastructure for Ordering Objects Using Seriation
+Version: 1.1-2.1
+Date: 2015-x-xx
+Authors@R: c(
+	person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
+	    email = "mhahsler@lyle.smu.edu"),
+	person("Christian", "Buchta", role = c("aut", "cph")),
+	person("Kurt", "Hornik", role = c("aut", "cph")),
+	person("Fionn", "Murtagh", role = c("ctb", "cph")),
+	person("Michael", "Brusco", role = c("ctb", "cph")),
+	person("Stephanie", "Stahl", role = c("ctb", "cph")),
+	person("Hans-Friedrich", "Koehn", role = c("ctb", "cph")))
+Description: Infrastructure for seriation with an implementation of several
+    seriation/sequencing techniques to reorder matrices, dissimilarity
+    matrices, and dendrograms. Also provides (optimally) reordered heatmaps,
+    color images and clustering visualizations like dissimilarity plots, and
+    visual assessment of cluster tendency plots (VAT and iVAT).
+Classification/ACM: G.1.6, G.2.1, G.4
+URL: http://lyle.smu.edu/IDA/seriation
+BugReports: https://r-forge.r-project.org/projects/seriation/
+Depends: R (>= 2.14.0)
+Imports: TSP, qap, grid, cluster, gclus, colorspace, MASS, gplots, registry, methods, stats, grDevices
+Suggests: biclust, testthat
+License: GPL-3
+Copyright: The code in src/bea.f is Copyright (C) 1991 F. Murtagh;
+    src/bbwrcg.f, src/arsa.f and src/bburcg.f are Copyright (C) 2005
+    M. Brusco, H.F. Koehn, and S. Stahl.
+    All other code is Copyright (C) Michael Hahsler, Christian Buchta,
+    and Kurt Hornik.
+
