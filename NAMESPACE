@@ -8,43 +8,43 @@ importFrom("gclus", "reorder.hclust") ## we use :: for gclus in seriate.hclust
 importFrom("cluster", "silhouette") ## we use :: for silhouette in dissplot
 importFrom("MASS", "isoMDS", "sammon")
 importFrom("gplots", "heatmap.2")
-importFrom("stats", "reorder", "as.dist", "hclust", "runif", "rnorm", 
-  "as.dendrogram", "as.hclust", "nobs", "order.dendrogram", 
-  "cmdscale", "prcomp", "cor", "dist")
+importFrom("stats", "reorder", "as.dist", "hclust", "runif", "rnorm",
+  "as.dendrogram", "as.hclust", "nobs", "order.dendrogram",
+  "cmdscale", "prcomp", "cor", "cor.test", "dist")
 importFrom("methods", "is")
 importFrom("grDevices", "gray.colors", "gray")
 
 export(
     bertinplot,
     bertin_cut_line,
-    criterion, 
+    criterion,
     dissplot,
     get_method,
     get_order,
     get_rank,
     get_permutation_matrix,
     hmap,
-    panel.bars, 
-    panel.circles, 
-    panel.squares, 
-    panel.blocks, 
+    panel.bars,
+    panel.circles,
+    panel.squares,
+    panel.blocks,
     panel.lines,
     permute,
     ser_permutation,
     ser_permutation_vector,
     permutation_matrix2vector,
     permutation_vector2matrix,
-    pimage, 
+    pimage,
     seriate,
     is.robinson,
     random.robinson,
-  
+
     path_dist,
     VAT,
     iVAT,
     create_lines_data,
     create_ordered_data,
-  
+
     bluered,
     greenred,
     grays,
@@ -61,7 +61,7 @@ export(
     show_seriation_methods,
     registry_criterion,
     registry_seriate,
-    
+
     ser_dist,
     ser_cor,
     ser_align

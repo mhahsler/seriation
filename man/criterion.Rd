@@ -24,33 +24,33 @@ criterion(x, order = NULL, method = NULL, ...)
   \item{...}{additional parameters passed on to the criterion method.}
 }
 \details{
-For a symmetric dissimilarity matrix 
-\eqn{D} with elements \eqn{d(i,j)} where \eqn{i, j = 1 \ldots p}, 
+For a symmetric dissimilarity matrix
+\eqn{D} with elements \eqn{d(i,j)} where \eqn{i, j = 1 \ldots p},
 the aim is generally to place low distance values close to the diagonal.
 The following criteria to judge the quality of a
-certain permutation of the objects in a dissimilarity matrix 
+certain permutation of the objects in a dissimilarity matrix
 are currently implemented:
 \describe{
 
-\item{\code{"Gradient_raw", "Gradient_weighted"}}{Gradient measures 
+\item{\code{"Gradient_raw", "Gradient_weighted"}}{Gradient measures
     (Hubert et al 2001).
     A symmetric dissimilarity matrix
     where the values in all rows and columns only increase when
     moving away from the main diagonal is called a perfect
-    \emph{anti-Robinson matrix} (Robinson 1951). A suitable merit 
+    \emph{anti-Robinson matrix} (Robinson 1951). A suitable merit
     measure which quantifies the divergence of a matrix from the
     anti-Robinson form is
 
     \deqn{
     M(D) = \sum_{i=1}^p \sum_{i<k<j} f(d_{ij}, d_{ik}) + \sum_{i<k<j} f(d_{ij}, d_{kj})}
-    where \eqn{f(\cdot,\cdot)} 
+    where \eqn{f(\cdot,\cdot)}
     is a function which defines how a violation
     or satisfaction
-    of a gradient condition for an object triple (\eqn{O_i, O_k, O_j}) 
+    of a gradient condition for an object triple (\eqn{O_i, O_k, O_j})
     is counted.
-     
+
     Hubert et al (2001) suggest two functions. The first
-    function is given by: 
+    function is given by:
     \deqn{f(z,y) = \mathrm{sign}(y-z) = +1 \quad \mathrm{if} \quad z < y; \quad 0 \quad \mathrm{if} \quad z = y; \quad \mathrm{and} \quad -1 \quad \mathrm{if} \quad z > y.}
 
     It results in raw number of triples satisfying the gradient
@@ -64,22 +64,22 @@ are currently implemented:
 
 \item{\code{"AR_events", "AR_deviations"}}{Anti-Robinson events (Chen 2002).
     An even simpler loss function can be created in the same way as the gradient
-    measures above by concentrating on violations only. 
+    measures above by concentrating on violations only.
     \deqn{
-        L(D) = 
-        \sum_{i=1}^p \sum_{i<k<j} f(d_{ik}, d_{ij}) + \sum_{i<k<j} f(d_{kj}, d_{ij}) 
+        L(D) =
+        \sum_{i=1}^p \sum_{i<k<j} f(d_{ik}, d_{ij}) + \sum_{i<k<j} f(d_{kj}, d_{ij})
     }
 
     To only count the violations we use
     \deqn{
-        f(z, y) = I(z, y) = 
-            1 \quad \mathrm{if} \quad z < y \quad \mathrm{and} \quad 
+        f(z, y) = I(z, y) =
+            1 \quad \mathrm{if} \quad z < y \quad \mathrm{and} \quad
             0 \quad \mathrm{otherwise.}
    }
 
 
    \eqn{I(\cdot)} is an indicator function returning 1 only for violations.
-   Chen (2002) presented a formulation for an equivalent 
+   Chen (2002) presented a formulation for an equivalent
 loss function and called the violations \emph{anti-Robinson events}
 and also introduced a weighted versions of the loss
 function resulting in
@@ -90,15 +90,15 @@ function resulting in
 }
 
 \item{\code{"RGAR"}}{Relative generalized Anti-Robinson events (Tien et al 2008).
-    Counts Anti-Robinson events in a variable band 
+    Counts Anti-Robinson events in a variable band
     (window specified by \code{w} defaults to the maximum of \eqn{n-1}) around the main diagonal and normalizes by
     the maximum of possible events.
-    
+
     \deqn{
         L(D) = 1/m
-        \sum_{i=1}^p \sum_{max((i-w),1) \le i<k<j} I(d_{ik} < d_{ij}) + \sum_{i<k<j\le min((i+w, n))} I(d_{kj} > d_{ij}) 
-    } where \eqn{m = \sum_{i=1}^p \sum_{max((i-w),1)\le i<k<j} 1 + \sum_{i<k<j\le min((i+w, n))} 1}   
-  
+        \sum_{i=1}^p \sum_{max((i-w),1) \le i<k<j} I(d_{ik} < d_{ij}) + \sum_{i<k<j\le min((i+w, n))} I(d_{kj} > d_{ij})
+    } where \eqn{m = \sum_{i=1}^p \sum_{max((i-w),1)\le i<k<j} 1 + \sum_{i<k<j\le min((i+w, n))} 1}
+
   \eqn{m} represents the maximal number of possible anti-Robinson events.
   The window size \eqn{w} represents the number of neighboring objects (number of entries from the diagonal of the distance matrix) are considered. The window size is \eqn{1 \le w < n}, where smaller values result in
   focusing on the local structure while larger values look at the global structure.
@@ -106,7 +106,7 @@ function resulting in
 
 
 \item{\code{"Path_length"}}{Hamiltonian path length (Caraux and Pinloche 2005).
-    
+
     The order of the objects in a dissimilarity matrix corresponds to a path
     through a graph where each node represents an object and is visited exactly
     once, i.e., a Hamilton path. The length of the path is defined as the sum
@@ -114,64 +114,84 @@ function resulting in
 
     \deqn{L(D) = \sum_{i=1}^{p-1} d_{i,i+1}}
 
-    The length of the Hamiltonian path is equal to the 
+    The length of the Hamiltonian path is equal to the
     value of the minimal span loss function (as used by Chen 2002).
     Both notions are related to the \emph{traveling salesperson problem (TSP).}
-  
+
     If \code{order} is not unique or
     there are non-finite distance values \code{NA} is returned.}
 
-\item{\code{"Inertia"}}{Inertia criterion (Caraux and Pinloche 2005). 
-    
-    Measures the moment of the inertia of dissimilarity values 
+\item{\code{"Inertia"}}{Inertia criterion (Caraux and Pinloche 2005).
+
+    Measures the moment of the inertia of dissimilarity values
     around the diagonal as
-    
+
     \deqn{M(D) = \sum_{i=1}^p \sum_{j=1}^p d(i,j)|i-j|^2}
-    
+
     \eqn{|i-j|} is used as a measure for the distance to the diagonal and
     \eqn{d(i,j)} gives the weight. This criterion gives higher weight
     to values farther away from the diagonal. It increases with quality.}
-  
 
-\item{\code{"Least_squares"}}{Least squares criterion (Caraux and Pinloche 2005). 
-    
+
+\item{\code{"Least_squares"}}{Least squares criterion (Caraux and Pinloche 2005).
+
     The sum of squares of deviations between the
     dissimilarities and rank differences (in the matrix) between two
-    elements: 
+    elements:
     \deqn{L(D) = \sum_{i=1}^p \sum_{j=1}^p (d(i,j) - |i-j|)^2,}
     where \eqn{d(i,j)} is an element of the dissimilarity matrix \eqn{D} and
     \eqn{|i-j|} is the rank difference between the objects.
-   
+
     Note that if Euclidean distance is used to calculate \eqn{D} from
-    a data matrix \eqn{X}, the order of the elements in \eqn{X} by projecting 
+    a data matrix \eqn{X}, the order of the elements in \eqn{X} by projecting
     them on the first principal component of \eqn{X} minimizes this criterion.
-    The least squares criterion is related to 
+    The least squares criterion is related to
     \emph{unidimensional scaling.}
     }
+
+    \item{\code{"LS"}}{Linear Seriation Criterion (Hubert and Schultz 1976).
+
+    Weights the distances with the absolute rank differences.
+
+    \deqn{L(D) \sum_{i,j=1}^p d(i,j) (-|i-j|)}
+    }
+
+    \item{\code{"2SUM"}}{2-Sum Criterion (Barnard, Pothen, and Simon 1993).
+
+    The 2-Sum
+    loss criterion multiplies the similarity between objects
+    with the squared rank differences.
+
+    \deqn{L(D) \sum_{i,j=1}^p 1/(1+d(i,j)) (i-j)^2,}
+
+    where \eqn{s(i,j) = 1/(1+d(i,j))} represents the similarity between
+    objects \eqn{i} and \eqn{j}.
+    }
+
     }
 
 For a general matrix
 \eqn{X = x_{ij}}, \eqn{i = 1 \ldots n} and \eqn{j = 1 \ldots m},
 currently the
-following loss/merit functions 
+following loss/merit functions
 are implemented:
 
 \describe{
 \item{\code{"ME"}}{Measure of
-    Effectiveness (McCormick 1972). 
+    Effectiveness (McCormick 1972).
 
-    The measure of effectiveness (ME) for matrix 
-    \eqn{X}, is defined as 
-    
+    The measure of effectiveness (ME) for matrix
+    \eqn{X}, is defined as
+
     \deqn{M(X) = 1/2 \sum_{i=1}^{n} \sum_{j=1}^{m} x_{i,j}(x_{i,j-1}+x_{i,j+1}+x_{i-1,j}+x_{i+1,j})}
 
     with, by convention
 
     \deqn{x_{0,j}=x_{m+1,j}=x_{i,0}=x_{i,n+1}=0.}
-    
+
     ME is a merit measure,
     i.e. a higher ME indicates a better arrangement.
-    Maximizing ME is the objective of the bond energy algorithm 
+    Maximizing ME is the objective of the bond energy algorithm
     (BEA).
 }
 
@@ -180,10 +200,10 @@ are implemented:
 Stress measures the conciseness of the presentation of a matrix/table and can
 be seen as a purity function which compares the values in a matrix/table with
 its neighbors. The stress measure used here is computed as the sum of squared
-distances of each matrix entry from its adjacent entries. 
+distances of each matrix entry from its adjacent entries.
 
 \deqn{
-    L(X) = 
+    L(X) =
     \sum_{i=1}^n \sum_{j=1}^m \sigma_{ij}
 }
 
@@ -192,21 +212,21 @@ of neighborhoods are available:
 
   \describe{
     \item{Moore:}{comprises the eight adjacent entries.
-    \deqn{   \sigma_{ij} = \sum_{k=\max(1,i-1)}^{\min(n,i+1)} 
-                \sum_{l=\max(1,j-1)}^{\min(m,j+1)} 
+    \deqn{   \sigma_{ij} = \sum_{k=\max(1,i-1)}^{\min(n,i+1)}
+                \sum_{l=\max(1,j-1)}^{\min(m,j+1)}
                 (x_{ij} - x_{kl})^2
 }
     }
     \item{Neumann:}{comprises the four adjacent entries.
     \deqn{
-     \sigma_{ij} = 
-            \sum_{k=\max(1,i-1)}^{\min(n,i+1)} (x_{ij} - x_{kj})^2 + 
+     \sigma_{ij} =
+            \sum_{k=\max(1,i-1)}^{\min(n,i+1)} (x_{ij} - x_{kj})^2 +
             \sum_{l=\max(1,j-1)}^{\min(m,j+1)} (x_{ij} - x_{il})^2
     }
     }
   }
 
-  The major difference between the Moore and the Neumann 
+  The major difference between the Moore and the Neumann
   neighborhood is that for
   the later the contribution of row and column permutations to stress are
   independent and thus can be optimized independently.
@@ -217,8 +237,12 @@ of neighborhoods are available:
   A named vector of real values.
 }
 \references{
+S. T. Barnard,  A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for Envelope Reduction of Sparse Matrices. \emph{In Proceedings of the 1993
+ACM/IEEE Conference on Supercomputing,} 493--502. Supercomputing '93.
+New York, NY, USA: ACM.
+
 G. Caraux and S. Pinloche (2005): Permutmatrix: A Graphical Environment
-to Arrange Gene Expression Profiles in Optimal Linear Order, 
+to Arrange Gene Expression Profiles in Optimal Linear Order,
 \emph{Bioinformatics,}
 \bold{21}(7), 1280--1281.
 
@@ -226,31 +250,37 @@ C.-H. Chen (2002): Generalized association plots:
 Information visualization via iteratively generated correlation matrices,
 \emph{Statistica Sinica,} \bold{12}(1), 7--29.
 
-L. Hubert, P. Arabie, and J. Meulman (2001): \emph{Combinatorial Data Analysis: 
+L. Hubert and J. Schultz (1976): Quadratic Assignment as a General Data Analysis Strategy. \emph{British Journal of Mathematical and Statistical
+Psychology} \bold{29}(2). Blackwell Publishing Ltd. 190--241.
+
+
+L. Hubert, P. Arabie, and J. Meulman (2001): \emph{Combinatorial Data Analysis:
 Optimization by Dynamic Programming.} Society for Industrial Mathematics.
 
-S. Niermann (2005): Optimizing the Ordering of Tables 
+S. Niermann (2005): Optimizing the Ordering of Tables
 With Evolutionary Computation, \emph{The American Statistician,}
 \bold{59}(1), 41--46.
 
-W.T. McCormick, P.J. Schweitzer and T.W. White (1972): 
-Problem decomposition and data reorganization by a clustering technique, 
+W.T. McCormick, P.J. Schweitzer and T.W. White (1972):
+Problem decomposition and data reorganization by a clustering technique,
 \emph{Operations Research,}
 \bold{20}(5), 993-1009.
 
-W.S. Robinson (1951): A method for chronologically ordering archaeological 
-deposits, 
+W.S. Robinson (1951): A method for chronologically ordering archaeological
+deposits,
 \emph{American Antiquity,} \bold{16}, 293--301.
 
-Yin-Jing Tien, Yun-Shien Lee, Han-Ming Wu and Chun-Houh Chen (2008): 
+Yin-Jing Tien, Yun-Shien Lee, Han-Ming Wu and Chun-Houh Chen (2008):
 Methods for simultaneously identifying coherent local clusters with
 smooth global patterns in gene expression profiles,
-\emph{BMC Bioinformatics,} \bold{9}(155), 1--16. 
-
-
-
-
+\emph{BMC Bioinformatics,} \bold{9}(155), 1--16.
 }
+
+\seealso{
+\code{\link{list_criterion_methods}} to query the criterion registry.
+}
+
+
 \author{Christian Buchta and Michael Hahsler}
 \examples{
 ## create random data and calculate distances

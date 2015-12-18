@@ -163,7 +163,7 @@ is presented by \cite{seriation:Ihm:2005}.
 Techniques related to seriation are also popular in several other
 fields.  Especially in ecology scaling techniques are used under the
 name \emph{ordination}.  For these applications several \proglang{R} packages
-already exist (e.g., 
+already exist (e.g.,
 \pkg{ade4}~\citep{seriation:Chessel:2007,seriation:Dray:2007} and
 \pkg{vegan}~\citep{seriation:Oksanen:2007}). This paper describes the new
 package \pkg{seriation} which differs from existing packages in the
@@ -199,18 +199,18 @@ and columns.  The seriation problem is to find a permutation function
 $\Psi^*$
 %$\{1,\dots,n\} \rightarrow \{1,\dots,n\}$, i.e. a
 %bijection that maps the set of indices of the objects (and equally of rows and
-%columns of $\mathbf{D}$) onto itself, 
+%columns of $\mathbf{D}$) onto itself,
 which optimizes the value of a given loss function~$L$ or merit function~$M$.
 This results in the optimization problems
 \begin{equation}
     \Psi^* = \argmin_\Psi L(\Psi(\mathbf{D})) \quad \text{or} \quad
-    \Psi^* = \argmax_\Psi M(\Psi(\mathbf{D})), 
+    \Psi^* = \argmax_\Psi M(\Psi(\mathbf{D})),
 \end{equation}
 respectively.
-%This is clearly a hard discrete optimization problem since the number of 
-%possible permutations is $n!$ which makes an exhaustive 
+%This is clearly a hard discrete optimization problem since the number of
+%possible permutations is $n!$ which makes an exhaustive
 %search for sets with a medium to large number of objects infeasible.
-%Partial enumeration methods and heuristics can be used. Such methods are 
+%Partial enumeration methods and heuristics can be used. Such methods are
 %presented in Section~\ref{sec:methods}.
 %But first, we review commonly used loss functions in the following section.
 %\marginpar{two-mode data missing}
@@ -251,7 +251,7 @@ problem are highly desirable.
 In the following subsections, we review some commonly employed loss/merit
 functions.  Most functions are used for two-way one-mode data but the
 measure of effectiveness and stress can be also used for two-way
-two-mode data. For the implementation of various loss or merit measures 
+two-mode data. For the implementation of various loss or merit measures
 see function~\func{criterion} in Section~\ref{sec:infrastructure}.
 
 
@@ -270,9 +270,9 @@ a perfect \emph{anti-Robinson matrix} after the statistician
 matrix $\mathbf{D}$ is in anti-Robinson form if and only if the
 following two gradient conditions hold~\citep{seriation:Hubert:2001}:
 \begin{align}
-    \text{within rows:} & \quad  d_{ik} \le d_{ij} \quad \text{for} 
-        \quad 1 \le i < k < j \le n; \\ 
-    \text{within columns:} & \quad  d_{kj} \le d_{ij} \quad \text{for} 
+    \text{within rows:} & \quad  d_{ik} \le d_{ij} \quad \text{for}
+        \quad 1 \le i < k < j \le n; \\
+    \text{within columns:} & \quad  d_{kj} \le d_{ij} \quad \text{for}
         \quad 1 \le i < k < j \le n.
 \end{align}
 
@@ -290,8 +290,8 @@ approximation to the anti-Robinson form is possible.
 A suitable merit measure which quantifies the divergence of a matrix from the
 anti-Robinson form was given by \cite{seriation:Hubert:2001} as
 \begin{equation}
-    M(\mathbf{D}) = 
-    \sum_{i<k<j}f(d_{ik}, d_{ij}) + \sum_{i<k<j}f(d_{kj}, d_{ij}) 
+    M(\mathbf{D}) =
+    \sum_{i<k<j}f(d_{ik}, d_{ij}) + \sum_{i<k<j}f(d_{kj}, d_{ij})
     \label{equ:gradient}
 \end{equation}
 where $f(\cdot,\cdot)$ is a function which defines how a violation or
@@ -299,7 +299,7 @@ satisfaction of a gradient condition for an object triple ($O_i$, $O_k$ and
 $O_j$) is counted.  \cite{seriation:Hubert:2001} suggest two functions. The
 first function is given by:
 \begin{equation}
-    f(z,y) = \mathrm{sign}(y-z) = 
+    f(z,y) = \mathrm{sign}(y-z) =
     \begin{cases}
         +1 \quad \text{if} \quad z < y; \\
         \phantom{+}0 \quad \text{if} \quad z = y; \\
@@ -307,7 +307,7 @@ first function is given by:
     \end{cases}
 \end{equation}
 It results in the raw number of triples satisfying the gradient
-constraints minus triples which violate the constraints. 
+constraints minus triples which violate the constraints.
 
 The second function is defined as:
 \begin{equation}
@@ -318,24 +318,24 @@ magnitude given by the absolute difference between the values.
 
 \subsection{Anti-Robinson events}
 An even simpler loss function can be created in the same way as the gradient
-measures above by concentrating on violations only. 
+measures above by concentrating on violations only.
 \begin{equation}
-    L(\mathbf{D}) = 
-    \sum_{i<k<j}f(d_{ik}, d_{ij}) + \sum_{i<k<j}f(d_{kj}, d_{ij}) 
+    L(\mathbf{D}) =
+    \sum_{i<k<j}f(d_{ik}, d_{ij}) + \sum_{i<k<j}f(d_{kj}, d_{ij})
 \end{equation}
 
 To only count the violations we use
 \begin{equation}
-    f(z, y) = I(z, y) = 
+    f(z, y) = I(z, y) =
     \begin{cases}
         1 \quad \text{if} \quad z > y \quad \text{and} \\
         0 \quad \text{otherwise.}
     \end{cases}
 \end{equation}
 $I(\cdot)$ is an indicator function returning $1$ only for violations.
-\cite{seriation:Chen:2002} presented a formulation for an equivalent 
+\cite{seriation:Chen:2002} presented a formulation for an equivalent
 loss function and called the violations \emph{anti-Robinson events}.
-\cite{seriation:Chen:2002} also introduced a weighted versions of the loss 
+\cite{seriation:Chen:2002} also introduced a weighted versions of the loss
 function resulting in
 \begin{equation}
     f(z, y) = |y-z|I(z, y)
@@ -345,7 +345,7 @@ using the absolute deviations as weights.
 \subsection{Hamiltonian path length}
 The dissimilarity matrix $\mathbf{D}$ can be represented as a finite weighted
 graph $G = (\Omega,E)$ where the set of objects~$\Omega$ constitute the
-vertices and each edge~$e_{ij} \in E$ between the objects $O_i, O_j \in \Omega$ 
+vertices and each edge~$e_{ij} \in E$ between the objects $O_i, O_j \in \Omega$
 has a weight~$w_{ij}$ associated which represents the dissimilarity~$d_{ij}$.
 
 Such a graph can be used for seriation~\citep[see,
@@ -364,7 +364,7 @@ Note that the length of the Hamiltonian path is equal to the value of the
 and both notions are related to the \emph{traveling salesperson
 problem}~\citep{seriation:Gutin:2002}.
 
-\subsection{Inertia criterion} 
+\subsection{Inertia criterion}
 Another way to look at the seriation problem is not to focus on placing small
 dissimilarity values close to the diagonal, but to push large values away from
 it. A function to quantify this is the moment of inertia of dissimilarity
@@ -376,7 +376,7 @@ $|i-j|^2$ is used as a measure for the distance to the diagonal and $d_{ij}$
 gives the weight.  This is a merit function since the sum increases when higher
 dissimilarity values are placed farther away from the diagonal.
 
-\subsection{Least squares criterion} 
+\subsection{Least squares criterion}
 Another natural loss function for seriation is to quantify the deviations
 between the dissimilarities in $\mathbf{D}$ and the rank differences of the
 objects.  Such deviations can be measured, e.g, by the sum of squares of
@@ -389,7 +389,7 @@ where $|i-j|$ is the rank difference or gap between $O_i$ and $O_j$.
 The least squares criterion defined here is related to uni-dimensional
 scaling~\citep{seriation:Leeuw:2005}, where the objective is to place all
 $n$ objects on a straight line using a position vector~$\mathbf{z} =
-z_1,z_2,\ldots,z_n$ such that the dissimilarities 
+z_1,z_2,\ldots,z_n$ such that the dissimilarities
 in $\mathbf{D}$ are
 preserved by the relative positions in the best possible way. The optimization
 problem of uni-dimensional scaling is to find the
@@ -403,8 +403,25 @@ Note that if Euclidean distance is used to calculate $\mathbf{D}$ from a data
 matrix~$\mathbf{X}$, using the order of the elements in $\mathbf{X}$ as they
 occur projected on the first principal component of $\mathbf{X}$
 minimizes the loss function of uni-dimensional scaling (using squared
-distances). Using this order, also provides a good solution 
+distances). Using this order, also provides a good solution
 for the least square seriation criterion.
+
+\subsection{Linear Seriation Criterion}
+The Linear Seriation Criterion (Hubert and Schultz 1976)
+weights the distances with the absolute rank differences.
+
+$$L(\mathbf{D}) \sum_{i=1}^n \sum_{j=1}^n d_{ij} (-|i-j|)$$
+
+\subsection{2-Sum Problem}
+The 2-Sum loss criterion \citep{seriation:Barnard:1993}
+multiplies the similarity between objects
+with the squared rank differences.
+
+$$L(\mathbf{D}) \sum_{i,j=1}^p \frac{1}{1+d_{ij}} (i-j)^2,$$
+
+where $s_{ij} = \frac{1}{1+d_{ij}}$ represents the similarity between
+objects $i$ and $j$.
+
 
 \subsection{Measure of effectiveness}
 \label{sec:ME}
@@ -425,9 +442,9 @@ elements as possible.
 
 ME was developed for two-way two-mode data, however, ME can also be used for a
 symmetric  matrix (one-mode data) and gets maximal only if all large values are
-grouped together around the main diagonal. 
+grouped together around the main diagonal.
 
-Note that the definition in equation~(\ref{equ:ME}) 
+Note that the definition in equation~(\ref{equ:ME})
 can be rewritten as
 \begin{equation}
     M(\mathbf{X}) =
@@ -435,7 +452,7 @@ can be rewritten as
     \sum_{i=1}^{n} \sum_{j=1}^{m} x_{ij}[x_{i,j+1}+x_{i,j-1}] +
     \sum_{i=1}^{n} \sum_{j=1}^{m} x_{ij}[x_{i+1,j}+x_{i-1,j}]
 \end{equation}
-showing that the contributions of column and row order to the merit function 
+showing that the contributions of column and row order to the merit function
 are independent.
 
 \subsection{Stress}
@@ -452,16 +469,16 @@ its adjacent entries.  \cite{seriation:Niermann:2005} defined for an $n
     \item The Moore neighborhood comprises the (at most) eight adjacent entries.
         The local stress measure for element~$x_{ij}$ is defined as
         \begin{equation}
-            \sigma_{ij} = \sum_{k=\max(1,i-1)}^{\min(n,i+1)} 
-                \sum_{l=\max(1,j-1)}^{\min(m,j+1)} 
+            \sigma_{ij} = \sum_{k=\max(1,i-1)}^{\min(n,i+1)}
+                \sum_{l=\max(1,j-1)}^{\min(m,j+1)}
                 (x_{ij} - x_{kl})^2
         \end{equation}
 
     \item The Neumann neighborhood comprises the (at most) four adjacent entries
         resulting in the local stress of $x_{ij}$ of
         \begin{equation}
-            \sigma_{ij} = 
-            \sum_{k=\max(1,i-1)}^{\min(n,i+1)} (x_{ij} - x_{kj})^2 + 
+            \sigma_{ij} =
+            \sum_{k=\max(1,i-1)}^{\min(n,i+1)} (x_{ij} - x_{kj})^2 +
             \sum_{l=\max(1,j-1)}^{\min(m,j+1)} (x_{ij} - x_{il})^2
             %(x_{ij} - x(i-1,j))^2 + (x_{ij} - x(i+1,j))^2 +
             %(x_{ij} - x(i,j-1))^2 + (x_{ij} - x(i,j+1))^2
@@ -471,7 +488,7 @@ its adjacent entries.  \cite{seriation:Niermann:2005} defined for an $n
 Both local stress measures can be used to construct a global measure for the
 whole matrix by summing over all entries which can be used as a loss function:
 \begin{equation}
-    L(\mathbf{X}) = 
+    L(\mathbf{X}) =
     \sum_{i=1}^n \sum_{j=1}^m \sigma_{ij}
 \end{equation}
 
@@ -481,9 +498,9 @@ stress are independent.
 
 Stress can be also used as a loss function for
 symmetric proximity matrices (one-mode data).
-%, 
+%,
 %since it can only be optimal, if large values are
-%concentrated around the main diagonal. 
+%concentrated around the main diagonal.
 Note also, that stress with Neumann
 neighborhood is related to the measure of effectiveness defined above (in
 Section~\ref{sec:ME}) since both measures are optimal if for each cell the cell
@@ -533,7 +550,7 @@ reduction of search space is strongly data dependent and poorly structured
 data can lead to very poor performance.  With branch-and-bound slightly larger
 problems can be solved than with dynamic programming in reasonable time.
 \cite{seriation:Brusco:2005} state that depending on the data, in some cases
-proximity matrices with 40 or more objects can be handled with current 
+proximity matrices with 40 or more objects can be handled with current
 hardware.
 
 Partial enumeration methods can be used to find the exact solution
@@ -545,10 +562,10 @@ limited to only relatively small problems.
 Seriation by minimizing the length of a Hamiltonian path through a graph
 is equal to solving a traveling salesperson problem.  The traveling
 salesperson or salesman problem (TSP) is a well known and well
-researched combinatorial optimization 
+researched combinatorial optimization
 problem~\citep[see, e.g.,][]{seriation:Gutin:2002}. The goal is to find the
-shortest tour that, starting from a given city, visits each city in a 
-given list exactly once and then returns to the starting city. 
+shortest tour that, starting from a given city, visits each city in a
+given list exactly once and then returns to the starting city.
 In graph theory a TSP tour is called
 a \emph{Hamiltonian cycle.} But for the seriation problem, we are
 looking for a Hamiltonian path. \cite{seriation:Garfinkel:1985}
@@ -575,7 +592,7 @@ of heuristics and exact methods can be found in \cite{seriation:Gutin:2002}.
 \subsection{Bond energy algorithm}
 
 The \emph{bond energy algorithm}~\citep[BEA;][]{seriation:McCormick:1972} is a
-simple heuristic to rearrange columns and rows of a matrix 
+simple heuristic to rearrange columns and rows of a matrix
 (two-way two-mode data) such that each entry
 is as closely numerically related to its four neighbors as possible.  To
 achieve this, BEA tries to maximize the measure of effectiveness (ME) defined
@@ -584,7 +601,7 @@ treated separately since changing the order of rows does not influence the ME
 contributions of the columns and vice versa. BEA consists of the
 following three steps:
 \begin{enumerate}
- \item Place one randomly chosen column.  
+ \item Place one randomly chosen column.
  \item Try to place each remaining column at each possible position
   left, right and between the already placed columns and calculate every
   time the increase in ME.  Choose the column and position which gives
@@ -630,8 +647,8 @@ variables closer together.
 
 %For hierarchical clustering several methods are available (e.g.,
 %single linkage, average linkage, complete linkage, ward method) resulting in
-%different dendrograms. 
-%However, 
+%different dendrograms.
+%However,
 The order of leaf nodes in a dendrogram is not unique.  A binary
 (two-way splits only) dendrogram for $n$ objects has $2^{n-1}$ internal
 nodes and at each internal node the left and right subtree (or leaves)
@@ -654,37 +671,60 @@ Although hierarchical clustering solves an optimization problem different to
 the seriation problem discussed in this paper, hierarchical clustering still
 can produce useful orderings, e.g., for visualization.
 
-%\subsection{Rank-two ellipse seriation}
-%
-%\cite{seriation:Chen:2002} proposes to
-%generate a sequence of correlation matrices
-%$R^1, R^2, \ldots$. $R^1$ is the correlation matrix
-%of the original distance matrix $\mathbf{D}$ and
-%\begin{equation}
-%R^{n+1} = \phi R^n,
-%\end{equation}
-%where $\phi(\cdot)$ calculates a correlation matrix.
-%
-%\cite{seriation:Chen:2002} shows that the 
-%rank of the matrix $R^n$ falls with increasing $n$ and that if the sequence
-%is continued till the first matrix in the sequence has a rank of 2,
-%projecting all points in this matrix on its first two eigenvectors,
-%all points will fall on an ellipse. 
-%\cite{seriation:Chen:2002} suggests to use the order of the points on 
-%this ellipse as a seriation where the ellipse can be cut at any of the 
-%two interception points (top or bottom) with the vertical axis.
-%
-%Although the rank-two ellipse seriation procedure does not try to solve a
-%combinatorial optimization problem, it still provides for some cases a useful
-%ordering.
+\subsection{Rank-two ellipse seriation}
+
+\cite{seriation:Chen:2002} proposes to
+generate a sequence of correlation matrices
+$R^1, R^2, \ldots$. $R^1$ is the correlation matrix
+of the original distance matrix $\mathbf{D}$ and
+\begin{equation}
+R^{n+1} = \phi R^n,
+\end{equation}
+where $\phi(\cdot)$ calculates a correlation matrix.
+
+\cite{seriation:Chen:2002} shows that the
+rank of the matrix $R^n$ falls with increasing $n$ and that if the sequence
+is continued till the first matrix in the sequence has a rank of 2,
+projecting all points in this matrix on its first two eigenvectors,
+all points will fall on an ellipse.
+\cite{seriation:Chen:2002} suggests to use the order of the points on
+this ellipse as a seriation where the ellipse can be cut at any of the
+two interception points (top or bottom) with the vertical axis.
+
+Although the rank-two ellipse seriation procedure does not try to solve a
+combinatorial optimization problem, it still provides for some cases a useful
+ordering.
+
+\subsection{Spectral Seriation}
+Spectral seriation uses a relaxation to minimize the 2-Sum Problem
+\citep{seriation:Barnard:1993}.
+Rewriting the minimization problem using a permutation vector $\pi$,
+its inverse, rescaling to $\mathrm{q}$ and using a Lagrangian
+multiplier for the constraint on the permutation yields \citep{seriation:Ding:2004} the following equivalent optimization problem:
+
+$$\mathrm{min}_\mathbf{q} \frac{\mathbf{q}^T L_\mathbf{S}\mathbf{q}}{\mathbf{q}^T\mathbf{q}}$$
+
+where $L_\mathbf{S}$ is the Laplacian of $\mathbf{S}$.
+
+The optimal order can be recovered by the sorting order of
+the Fielder vector (i.e., the second smallest eigenvector of the Laplacian
+of the similarity matrix).
+
+\subsection{Quadratic Assignment Problem}
+Both, the linear seriation criterion and the 2-Sum problem formulation
+can be written as a Quadratic Assignment Problem (QAP). However,
+the QAP is in general NP-hard. Methods include
+QIP, linearization, branch and bound and cutting planes as well as
+heuristics including Tabu search, simulated annealing, genetic algorithms, and
+ant systems \citep{seriation:Burkard:1998}.
 
 \section{The package infrastructure}
 \label{sec:infrastructure}
 
 The \pkg{seriation} package provides the data structures and some algorithms
-to efficiently handle seriation with \proglang{R}. As the 
-input data for seriation 
-\proglang{R} 
+to efficiently handle seriation with \proglang{R}. As the
+input data for seriation
+\proglang{R}
 already provides
 
 \begin{itemize}
@@ -705,18 +745,18 @@ already provides
 
 However, \proglang{R} provides no classes for representing permutation vectors.
 \pkg{seriation} adds the necessary data structure (using the S3 class
-system) as depicted in the UML class diagram \citep{seriation:Fowler:2004} in 
-Figure~\ref{fig:infrastructure}. In this diagram classes are represented by 
+system) as depicted in the UML class diagram \citep{seriation:Fowler:2004} in
+Figure~\ref{fig:infrastructure}. In this diagram classes are represented by
 rectangles and different symbols are used to state the type of
 relationship between the classes. The class
-\code{ser\_permutation} 
+\code{ser\_permutation}
 in Figure~\ref{fig:infrastructure}
 represents the permutation information for $k$-mode
 data (including the cases of $k=1$ and $k=2$). It consists of $k$ permutation
 vectors (class \code{ser\_permutation\_vector}). This relationship is
 represented by the solid diamond and the star above the connection between the
 two classes. Class \code{ser\_permutation\_vector} is defined \emph{abstract}
-and only its concrete implementations (classes connected with the triangle 
+and only its concrete implementations (classes connected with the triangle
 symbol) are used to store a permutation vector.
 This design with an abstract class was chosen to allow to use
 different representations for the permutation vectors.
@@ -735,7 +775,7 @@ permutation vector.  For \code{ser\_permutation\_vector} the methods
 \func{get\_method} to get the method used to generate the permutation, and
 \func{get\_order} to access the raw (integer) permutation vector are available.
 To use an additional class to represent permutations as a concrete subclass of
-\code{ser\_permutation\_vector} only an appropriate accessor method 
+\code{ser\_permutation\_vector} only an appropriate accessor method
 \func{get\_order} has to be implemented for the new class.
 
 For \code{ser\_permutation} a constructor is provided which can bind $k$
@@ -761,14 +801,14 @@ where \code{x} is the input data, \code{method} is a string defining the
 seriation method to be used and \code{control} can contain a list with
 additional information for the algorithm.  \func{seriate} returns an object
 of class \code{ser\_permutation} with a length conforming to the number of
-dimensions of~\code{x}.  
-Typical input data are a dissimilarity matrix (class~\code{dist}; 
-see package \pkg{stats} for more information) for one-mode two-way data, 
+dimensions of~\code{x}.
+Typical input data are a dissimilarity matrix (class~\code{dist};
+see package \pkg{stats} for more information) for one-mode two-way data,
 \code{matrix} for two-mode two-way data and \code{array} for $k$-mode $k$-way
 data.
 For \code{matrix} and \code{array} the additional argument
 \code{margin} can be used to restrict the dimensions which should be seriated
-(e.g., with \code{margin = 1} only the first dimension, 
+(e.g., with \code{margin = 1} only the first dimension,
 i.e., the columns of a matrix, are seriated).
 
 %\begin{landscape}
@@ -782,7 +822,7 @@ Simulated annealing & \code{"ARSA"} & Gradient measure &\code{dist} \\
 Branch-and-bound & \code{"BBURCG"} & Gradient measure &\code{dist} \\
 Branch-and-bound & \code{"BBWRCG"} & Gradient measure (weighted)& \code{dist} \\
 TSP solver & \code{"TSP"} & Hamiltonian path length& \code{dist} \\
-Optimal leaf ordering  & \code{"OLO"} 
+Optimal leaf ordering  & \code{"OLO"}
 \code{"OLO_single"}
 \code{"OLO_average"}
 \code{"OLO_complete"}
@@ -792,22 +832,23 @@ Gruvaeus and Wainer & \code{"GW"}
 \code{"GW_average"}
 \code{"GW_complete"}
 & Hamiltonian path length (restricted) & \code{dist} \\
-Bond Energy Algorithm & \code{"BEA"} &
-    Measure of effectiveness & \code{matrix} \\
-TSP to optimize ME & \code{"BEA\_TSP"} &
-    Measure of effectiveness& \code{matrix} \\
 MDS & \code{"MDS"}
-\code{"MDS_metric"} 
-\code{"MDS_nonmetric"} 
+\code{"MDS_metric"}
+\code{"MDS_nonmetric"}
 \code{"MDS_angle"}
 & Least square crit.& \code{dist} \\
-Principal component analysis& \code{"PCA"}
-\code{"PCA_angle"}& 
-    Least square crit.& \code{matrix} \\
-Spectral seriation & \code{"Spectral"} 
+
+Spectral seriation & \code{"Spectral"}
 \code{"Spectral_norm"}
-& Inertia criterion & \code{dist} \\
-Hierarchical clustering & \code{"HC"} 
+& 2-Sum crit. & \code{dist} \\
+
+2-Sum seriation & \code{"QAP_2SUM"}
+& 2-Sum crit. & \code{dist} \\
+
+Linear Seriation & \code{"QAP_LS"}
+& Linear Seriation crit. & \code{dist} \\
+
+Hierarchical clustering & \code{"HC"}
 \code{"HC_single"}
 \code{"HC_average"}
 \code{"HC_complete"}
@@ -816,6 +857,14 @@ Rank-two ellipse seriation  & \code{"R2E"} & Other& \code{dist} \\
 Sorting Points Into Neighborhoods & \code{"SPIN_NH"}
 \code{"SPIN_STS"} & Other& \code{dist} \\
 Visual Assessment of (Clustering) Tendency & \code{"VAT"}& Other& \code{dist} \\
+        \hline
+Bond Energy Algorithm & \code{"BEA"} &
+    Measure of effectiveness & \code{matrix} \\
+TSP to optimize ME & \code{"BEA\_TSP"} &
+    Measure of effectiveness& \code{matrix} \\
+Principal component analysis& \code{"PCA"}
+\code{"PCA_angle"}&
+    Least square crit.& \code{matrix} \\
         \hline
     \end{tabular}
     \caption{Currently implemented methods for \func{seriation}.}
@@ -836,7 +885,7 @@ by~\cite{seriation:Bar-Joseph:2001}. The BEA code was kindly provided by
 Fionn Murtagh.  For the Gruvaeus and Wainer algorithm, the
 implementation in package \pkg{gclus}~\citep{seriation:Hurley:2007} is
 used. For the rank-two ellipse seriation we implemented the algorithm
-by~\cite{seriation:Chen:2002}. 
+by~\cite{seriation:Chen:2002}.
 Spectral seriation is described by~\cite{seriation:Ding:2004}.
 Note that some methods implemented
 (e.g., the rank-two ellipse seriation) do not fall within the
@@ -845,10 +894,10 @@ dealt with here in detail.  They are included in the package since they
 can be useful for various applications.  Over time more methods will be
 added to the package.
 
-To calculate the value of a loss/merit function for data and 
+To calculate the value of a loss/merit function for data and
 a certain permutation, the function
 \begin{quotation}
-\code{criterion(x, order = NULL, method = NULL, ...)} 
+\code{criterion(x, order = NULL, method = NULL, ...)}
 \end{quotation}
 is provided. \code{x} is the data object, \code{order} contains a suitable
 object of class \code{ser\_permutation} (if omitted no permutation is
@@ -858,7 +907,7 @@ with the values of the requested functions.  If \code{method} is omitted
 (\code{method = NULL}), the values for all applicable loss/merit functions are
 calculated and returned.  We already defined different loss/merit functions for
 seriation in Section~\ref{sec:seriation}. In Table~\ref{tab:criteria} we
-indicate the loss/merit functions currently available in the package. 
+indicate the loss/merit functions currently available in the package.
 
 \begin{table}[t]
 \centering
@@ -866,22 +915,27 @@ indicate the loss/merit functions currently available in the package.
         \hline
         Name & \code{method} & merit/loss & Input data \\
         \hline
-        Anti-Robinson events& \code{"AR\_events"} & 
+        Anti-Robinson events& \code{"AR\_events"} &
 loss & \code{dist} \\
-        Anti-Robinson deviations& \code{"AR\_deviations"} & 
+        Anti-Robinson deviations& \code{"AR\_deviations"} &
 loss & \code{dist} \\
-        Gradient measure& \code{"Gradient\_raw"} & 
+        Gradient measure& \code{"Gradient\_raw"} &
 merit & \code{dist} \\
-        Gradient measure (weighted)& \code{"Gradient\_weighted"} & 
+        Gradient measure (weighted)& \code{"Gradient\_weighted"} &
 merit & \code{dist} \\
         Hamiltonian path length & \code{"Path\_length"} & loss & \code{dist} \\
         Inertia criterion& \code{"Inertia"} & merit & \code{dist} \\
         Least squares criterion& \code{"Least\_squares"} & loss & \code{dist} \\
-        Measure of effectiveness& \code{"ME"} & 
+
+        Linear Seriation criterion& \code{"LS"} & loss & \code{dist} \\
+        2-Sum criterion& \code{"2SUM"} & loss & \code{dist} \\
+
+        \hline
+        Measure of effectiveness& \code{"ME"} &
 merit & \code{matrix} \\
-        Stress (Moore neighborhood)& \code{"Moore\_stress"} & 
+        Stress (Moore neighborhood)& \code{"Moore\_stress"} &
 loss & \code{matrix} \\
-        Stress (Neumann neighborhood)& \code{"Neumann\_stress"} & 
+        Stress (Neumann neighborhood)& \code{"Neumann\_stress"} &
 loss & \code{matrix} \\
         \hline
     \end{tabular}
@@ -902,17 +956,17 @@ found in section~\ref{sec:registering} of this paper.
 
 In addition the package offers the (generic) function
 \begin{quotation}
-\code{permute(x, order)} 
+\code{permute(x, order)}
 \end{quotation}
 where \code{x} is the data (a \code{dist} object, a matrix, an
 array, a list or a numeric vector) to be reordered and \code{order} is a
-\code{ser\_permutation} object of suitable length. 
+\code{ser\_permutation} object of suitable length.
 %The permutation for
 %\code{dist} objects uses package \pkg{proxy}~\citep{seriation:Meyer:2007}.
 
 For visualization, the package offers several options:
 \begin{itemize}
-\item Matrix shading with \func{pimage}. In contrast to the 
+\item Matrix shading with \func{pimage}. In contrast to the
         standard \func{image} in package~\pkg{graphics}, \func{pimage}
         displays the matrix as is with the first element in the top
         left-hand corner and using a gamma-corrected gray scale.
@@ -920,11 +974,11 @@ For visualization, the package offers several options:
 \item Different heat maps (e.g., with optimally reordered
     dendrograms) with \func{hmap}.
 
-\item Visualization of data matrices in the spirit 
+\item Visualization of data matrices in the spirit
 of~\cite{seriation:Bertin:1981} with \func{bertinplot}.
 
 \item \emph{Dissimilarity plot}, a new visualization to judge the
-    quality of a clustering using matrix shading 
+    quality of a clustering using matrix shading
     and seriation with \func{dissplot}.
 \end{itemize}
 
@@ -936,7 +990,7 @@ in the examples in the next section.
 
 
 We start this section with a simple first session to demonstrate the basic
-usage of the package. Then we present and discuss several seriation 
+usage of the package. Then we present and discuss several seriation
 applications.
 
 \subsection{A first session using seriation}
@@ -944,7 +998,7 @@ In the following example, we use the well known iris data set
 (from \proglang{R}'s \pkg{datasets} package) which gives the
 measurements in centimeters of the variables sepal length and width and petal
 length and width, respectively, for 50 flowers from each of 3 species of the
-iris family (Iris setosa, versicolor and virginica). 
+iris family (Iris setosa, versicolor and virginica).
 
 First, we load the package \pkg{seriation} and the iris data set.  We
 remove the species classification and reorder the objects randomly since
@@ -972,12 +1026,12 @@ o <- seriate(d)
 o
 @
 
-The result is an object of class \code{ser\_permutation} for 
+The result is an object of class \code{ser\_permutation} for
 one-mode data. The permutation vector length is $150$ for the
 $150$ objects in the iris data set and the used seriation method is
 \code{"ARSA"}, a simulated annealing heuristic
-(see~Table~\ref{tab:methods}). The actual order can be accessed 
-using \func{get\_order}. In the following we show the first 
+(see~Table~\ref{tab:methods}). The actual order can be accessed
+using \func{get\_order}. In the following we show the first
 15 elements in the permutation vector.
 
 <<>>=
@@ -986,7 +1040,7 @@ head(get_order(o), 15)
 
 
 To visually inspect the effect of seriation on the distance matrix, we use
-matrix shading with \func{pimage} (the result is shown in 
+matrix shading with \func{pimage} (the result is shown in
 Figure~\ref{fig:pimage1}).
 
 <<label=pimage1, fig=TRUE, include=FALSE, width=7.5>>=
@@ -1016,20 +1070,20 @@ effectiveness are merit functions and for these measures larger values are
 better (use \code{show\_criterion\_methods("dist")} to find out which measures
 are loss and merit functions).
 
-To visually compare the original data matrix and the 
+To visually compare the original data matrix and the
 result of seriation, we can also use \func{pimage}.
 We standardize the data using scale such that the visualized value
 is the number of standard diviations an object differs from the
 variable mean. For matrices containing negative values, \code{pimage}
-uses automatically a divergent palette. 
-After using \func{pimage} for the original random data matrix, 
-we create a suitable \code{ser\_permutation} object for the original 
+uses automatically a divergent palette.
+After using \func{pimage} for the original random data matrix,
+we create a suitable \code{ser\_permutation} object for the original
 two-mode data. Since the seriation above only produced an order for the rows
-of the data, we add an identity permutation vector 
-for the columns (represented by \code{NA}) 
+of the data, we add an identity permutation vector
+for the columns (represented by \code{NA})
 to the permutations object using the combine
 function \func{c}. This new permutation object for $2$-mode data is used
-for displaying the reordered scaled data. The two plots are shown in 
+for displaying the reordered scaled data. The two plots are shown in
 Figure~\ref{fig:pimage2}.
 
 <<label=pimage2, fig=TRUE, include=FALSE, width=7.5>>=
@@ -1054,7 +1108,7 @@ pimage(scale(x), o_2mode, main = "Reordered")
 To compare different seriation methods we use again the randomized iris data
 set and the distance matrix \code{d} from the previous example.  We include in
 the comparison several seriation methods for dissimilarity matrices described
-in Section~\ref{sec:methods}. 
+in Section~\ref{sec:methods}.
 
 <<>>=
 methods <- c("TSP","R2E", "ARSA", "HC", "GW", "OLO")
@@ -1062,7 +1116,7 @@ o <- sapply(methods, FUN = function(m) seriate(d, m))
 @
 
 <<echo=FALSE>>=
-timing <- sapply(methods, FUN = function(m) system.time(seriate(d, m)), 
+timing <- sapply(methods, FUN = function(m) system.time(seriate(d, m)),
     simplify = FALSE)
 @
 
@@ -1097,9 +1151,9 @@ timing <- sapply(methods, FUN = function(m) system.time(seriate(d, m)),
 Table~\ref{tab:timings} contains the execution times for running
 seriation with the different methods. Except for the simulated annealing
 method (ARSA) the seriation only takes a fraction of a second.
-The direction of the resulting orderings is first normalized (aligned) 
-and then the orderings are displayed using matrix shading 
-(see Figure~\ref{fig:pimage3}). 
+The direction of the resulting orderings is first normalized (aligned)
+and then the orderings are displayed using matrix shading
+(see Figure~\ref{fig:pimage3}).
 
 
 <<label=pimage3-pre, eval=FALSE>>=
@@ -1120,7 +1174,7 @@ for(i in 1:length(o)) {
     \centering
     \includegraphics[width=.3\linewidth]{seriation-pimage_comp_1.pdf}
     \includegraphics[width=.3\linewidth]{seriation-pimage_comp_2.pdf}
-    \includegraphics[width=.3\linewidth]{seriation-pimage_comp_3.pdf}\\ 
+    \includegraphics[width=.3\linewidth]{seriation-pimage_comp_3.pdf}\\
     \includegraphics[width=.3\linewidth]{seriation-pimage_comp_4.pdf}
     \includegraphics[width=.3\linewidth]{seriation-pimage_comp_5.pdf}
     \includegraphics[width=.3\linewidth]{seriation-pimage_comp_6.pdf}
@@ -1142,56 +1196,56 @@ more different and then getting more similar again (see, e.g., the light
 line close to the upper left corner of the TSP image in
 Figure~\ref{fig:pimage3}).
 
-The second row of Figure~\ref{fig:pimage3} contains three images based on 
+The second row of Figure~\ref{fig:pimage3} contains three images based on
 hierarchical clustering. The visual impression gets better from left (just
 hierarchical clustering) to right (first using the Gruvaeus Wainer heuristic
-and then optimal leaf ordering to rearrange the branches of the dendrogram 
-obtained by hierarchical clustering). The most striking feature in the 
+and then optimal leaf ordering to rearrange the branches of the dendrogram
+obtained by hierarchical clustering). The most striking feature in the
 image for hierarchical clustering (HC in Figure~\ref{fig:pimage3}) is the
 distinct cross going right through the center of the plot. This indicates that
 several relatively dissimilar objects are caught in an otherwise homogeneous
 block. This effect vanishes after rearranging the dendrogram branches
-(see GW and OLO in Figure~\ref{fig:pimage3}). 
+(see GW and OLO in Figure~\ref{fig:pimage3}).
 
 %' To investigate this effect,
 %' we plot the dendrogram obtained by hierarchical clustering which is used
 %' to order the objects and compare it to the dendrogram rearranged
 %' using the Gruvaeus Wainer heuristic.
-%' 
+%'
 %' <<label=pimage3_dend, eval=FALSE>>=
 %' plot(o[["HC"]], labels = FALSE, main = "Dendrogram HC")
 %' plot(o[["GW"]], labels = FALSE, main = "Dendrogram GW")
 %' @
 %' <<echo=FALSE, fig=FALSE, include=FALSE, width=9>>=
 %' def.par <- par(no.readonly = TRUE)
-%' pdf(file="seriation-pimage3_dendrogram.pdf", width=9, height=4) 
+%' pdf(file="seriation-pimage3_dendrogram.pdf", width=9, height=4)
 %' layout(t(1:2))
 %' plot(o[["HC"]], labels = FALSE, main = "Dendrogram HC")
-%' symbols(74.7,.5, rect = matrix(c(4, 3), ncol=2), add= TRUE, 
+%' symbols(74.7,.5, rect = matrix(c(4, 3), ncol=2), add= TRUE,
 %'     inches = FALSE, lwd =2)
-%' 
+%'
 %' plot(o[["GW"]], labels = FALSE, main = "Dendrogram GW")
-%' symbols(98.7,.5, rect = matrix(c(4, 3), ncol=2), add= TRUE, 
+%' symbols(98.7,.5, rect = matrix(c(4, 3), ncol=2), add= TRUE,
 %'     inches = FALSE, lwd =2)
 %' par(def.par)
 %' tmp <- dev.off()
 %' @
-%' 
+%'
 %' \begin{figure}
 %'     \centering
 %'     \includegraphics[width=\linewidth, trim=0 80 0 0, clip=TRUE]{seriation-pimage3_dendrogram}
 %'     \caption{Dendrograms for the seriation with HC and GW.}
 %'     \label{fig:pimage3_dendrogram}
 %' \end{figure}
-%' 
+%'
 %' Comparing the two dendrograms in Figure~\ref{fig:pimage3_dendrogram}, we see
 %' that the branch left from the top is almost unchanged. The branch which is
 %' responsible for the light cross in the shaded image is highlighted by a box.
 %' The Gruvaeus Wainer heuristic rotates the highlighted branch towards the right
 %' since the objects in it are more similar to the objects in there.
 
-Finally, we compare the values of the loss/merit functions 
-for the different seriation methods. 
+Finally, we compare the values of the loss/merit functions
+for the different seriation methods.
 <<>>=
 crit <- sapply(o, FUN = function(x) criterion(d, x))
 t(crit)
@@ -1229,7 +1283,7 @@ not directly minimize this loss function.
 New methods to calculate criterion values and to compute a seriation can
 be easily added by the user via the method registry mechanism provided
 in \pkg{seriation}. Here we give a simple example of how to implement and
-register a new seriation method. 
+register a new seriation method.
 
 In the registry we distinguish between methods for different types of
 input data.  With the following two commands we produce a short overview
@@ -1250,7 +1304,7 @@ list_seriation_methods("dist")
 @
 
 To add a new seriation method, we first have to implement the seriation code as
-a function with the two formal arguments \code{x} and \code{control}. 
+a function with the two formal arguments \code{x} and \code{control}.
 \code{x} is the data
 object and \code{control} contains a list with additional information for the
 method passed on from \func{seriate}. The function has to return a list
@@ -1258,8 +1312,8 @@ of objects which can be coerced into \code{ser\_permutation\_vector}
 objects (e.g., a list of integer vectors). The elements in the list
 have to be in order corresponding to the dimensions of \code{x}.
 
-In this example we just create a method to return a permutation 
-which reverses the original order of the objects, i.e., which returns 
+In this example we just create a method to return a permutation
+which reverses the original order of the objects, i.e., which returns
 the reverse identity order.
 
 <<>>=
@@ -1268,7 +1322,7 @@ seriation_method_reverse <- function(x, control = NULL) {
 }
 @
 
-The function produces integer sequences of the correct lengths, 
+The function produces integer sequences of the correct lengths,
 one for each dimension of \code{x} (\code{control} is not used).
 Since the function works for \code{matrix} and \code{array} we can register
 it for both data types under the short name `Reverse'.
@@ -1294,8 +1348,8 @@ get_order(o, 2)
 @
 
 
-Criterion methods can be added in the same way. We refer the interested reader 
-to the documentation accompanying the package for detailed information and 
+Criterion methods can be added in the same way. We refer the interested reader
+to the documentation accompanying the package for detailed information and
 an example.
 
 If you have implemented a new criterion or seriation method, please consider
@@ -1309,14 +1363,14 @@ side and to the top to indicate the order of rows and columns. Typically,
 reordering is done according to row or column means within the restrictions
 imposed by the dendrogram. Heat maps recently became popular for visualizing
 large scale genome expression data obtained via DNA microarray technology
-\citep[see, e.g.,][]{seriation:Eisen:1998}. 
+\citep[see, e.g.,][]{seriation:Eisen:1998}.
 
 From Section~\ref{sec:hierarchical_clustering} we know that it is possible to
 find the optimal ordering of the leaf nodes of a dendrogram which minimizes
 the distances between adjacent objects in reasonable time.  Such an order might
 provide an improvement over using simple reordering such as the row or column
 means with respect to presentation. In \pkg{seriation} we provide
-the function \func{hmap} which uses optimal ordering and can also use 
+the function \func{hmap} which uses optimal ordering and can also use
 seriation directly on distance matrices without using hierarchical
 clustering to produce dendrograms first.
 
@@ -1330,7 +1384,7 @@ x <- scale(x, center = FALSE)
 
 To produce a heat map with optimally reordered dendrograms (using
 by default Optimal Leaf Ordering), the function
-\func{hmap} can be used with its default settings. 
+\func{hmap} can be used with its default settings.
 
 <<eval=FALSE>>=
 hmap(x, margin =c(7, 4), cexCol=1, labRow = FALSE)
@@ -1340,7 +1394,7 @@ With these settings, the
 Euclidean distances between rows and between columns are calculated (with
 \func{dist}), hierarchical clustering (\func{hclust}) is performed, the
 resulting dendrograms are optimally reordered, and \func{heatmap.2} in package
-\pkg{gplots} is used for plotting 
+\pkg{gplots} is used for plotting
 (see Figure~\ref{fig:heatmap}(a) for the resulting plot).
 
 <<eval=FALSE>>=
@@ -1355,7 +1409,7 @@ displayed (see Figure~\ref{fig:heatmap}(b)). A \code{method} argument can be use
 seriation methods.
 
 <<echo=FALSE, fig=FALSE, include=FALSE>>=
-#bitmap(file = "seriation-heatmap1.png", type = "pnggray", 
+#bitmap(file = "seriation-heatmap1.png", type = "pnggray",
 #    height = 6, width = 6, res = 300, pointsize=14)
 pdf(file = "seriation-heatmap1.pdf")
 hmap(x, margin = c(7, 4), labRow = FALSE, cexCol=1)
@@ -1387,7 +1441,7 @@ dissimilarity matrices to the left and on top.}
 
 \subsection{Bertin's permutation matrix}
 
-\cite{seriation:Bertin:1981,seriation:Bertin:1999} 
+\cite{seriation:Bertin:1981,seriation:Bertin:1999}
 introduced permutation matrices to analyze
 multivariate data with medium to low sample size.  The idea is to reveal a more
 homogeneous structure in a data matrix~$\mathbf{X}$ by simultaneously
@@ -1396,7 +1450,7 @@ variables can be grouped manually to gain a better understanding of the data.
 
 %To quantify homogeneity, a purity function
 %\begin{displaymath}
-%  \phi = \Phi(\mathbf{X})  
+%  \phi = \Phi(\mathbf{X})
 %\end{displaymath}
 %is defined. Let $\Pi$ be the set of all permutation functions
 %$\pi$ for matrix $\mathbf{X}$.
@@ -1404,7 +1458,7 @@ variables can be grouped manually to gain a better understanding of the data.
 %The optimal permutation with respect to
 %purity can be found by
 %\begin{displaymath}
-%  \pi^* = \argmax\nolimits_{\pi \in \Pi} \Phi(\pi(\mathbf{X})).  
+%  \pi^* = \argmax\nolimits_{\pi \in \Pi} \Phi(\pi(\mathbf{X})).
 %\end{displaymath}
 %Since, depending on the purity function, finding the optimal
 %solution can be hard, often a near optimal solution is also acceptable
@@ -1421,14 +1475,14 @@ purity function is used. A possible purity function is: Given distances between 
 the sum of distances of adjacent rows/columns. Using this purity function,
 finding the optimal permutation means solving two (independent) TSPs,
 one for the columns and one for the rows which can be done very conveniently
-using the infrastructure provided by \pkg{seriation}. 
+using the infrastructure provided by \pkg{seriation}.
 
 As an example, we use the results of $8$ constitutional referenda for $41$
 Irish communities~\citep{seriation:Falguerolles:1997}\footnote{The Irish data
 set is included in this package. The original data and the text of the
 referenda can be obtained from~\url{http://www.electionsireland.org/}}.  To
 make values comparable across columns (variables), the ranks of the values for
-each variable are used instead of the original values.  
+each variable are used instead of the original values.
 
 <<>>=
 data("Irish")
@@ -1440,7 +1494,7 @@ the sum of absolute rank differences (this is equal to the Minkowski distance
 with power $1$). Then we apply seriation (using a TSP heuristic) to both
 distance matrices and combine the two resulting \code{ser\_permutation} objects
 into one object for two-mode data. The original and the reordered matrix are
-plotted using \func{bertinplot}. 
+plotted using \func{bertinplot}.
 
 <<>>=
 o <- c(
@@ -1466,10 +1520,10 @@ bertinplot(orig_matrix, o)
     \centering
     \includegraphics[width=15cm, trim=60 60 0 0]{seriation-bertin1} \\
     (a)
-    
+
     \includegraphics[width=15cm, trim=60 60 0 0]{seriation-bertin2} \\
-    (b)    
-    \caption{Bertin plot for the (a) original arrangement and the (b) 
+    (b)
+    \caption{Bertin plot for the (a) original arrangement and the (b)
     reordered Irish data set.}
     \label{fig:bertin}
 \end{figure}
@@ -1516,21 +1570,21 @@ After loading the data set (which comes with the package), we use
 \func{bertinplot} to visualize the data (\func{pimage} could also be used
 but \func{bertinplot} allows for a nicer visualization).
 Bars, the standard visualization of \func{bertinplot}, do not
-make much sense for binary data. We therefore use the 
-panel function \func{panel.squares} without spacing 
+make much sense for binary data. We therefore use the
+panel function \func{panel.squares} without spacing
 to plot black squares.
 
 <<fig=TRUE, include=FALSE, label=binary1, width=9>>=
 data("Townships")
 
-bertinplot(Townships, options = list(panel=panel.squares, spacing = 0, 
+bertinplot(Townships, options = list(panel=panel.squares, spacing = 0,
     frame = TRUE))
 @
 
 The original data in Figure~\ref{fig:binary}(a) does not reveal structure in
 the data. To improve the display, we run the  bond energy algorithm (BEA) for
 columns and rows $10$ times with random starting points and report the best
-solution. 
+solution.
 
 <<echo=FALSE>>=
 ## to get consistent results
@@ -1550,7 +1604,7 @@ townships:
 \begin{enumerate}
     \item Rural: No doctor, one-room school and possibly also
         no water supply
-    \item Intermediate: Land reallocation, veterinary and agricultural 
+    \item Intermediate: Land reallocation, veterinary and agricultural
         cooperative
     \item Urban: Railway station, high school and police station
 \end{enumerate}
@@ -1563,12 +1617,12 @@ next higher group.
 \begin{figure}
     \centering
     \includegraphics[width=12cm, trim=0 40 0 30]{seriation-binary1} \\
-    (a)    
+    (a)
 
     \includegraphics[width=12cm, trim=0 40 0 30]{seriation-binary2} \\
-    (b)   
+    (b)
 
-    \caption{The townships data set in original order (a) and 
+    \caption{The townships data set in original order (a) and
     reordered using BEA (b).}
     \label{fig:binary}
 \end{figure}
@@ -1579,7 +1633,7 @@ rbind(original = criterion(Townships), reordered = criterion(Townships, o))
 @
 
 BEA tries to maximize the measure of effectiveness which is
-much higher in the reordered matrix (in fact, 65 is the maximum for 
+much higher in the reordered matrix (in fact, 65 is the maximum for
 the data set). Also the two types of stress are improved
 significantly.
 
@@ -1593,10 +1647,10 @@ clustering even for data without a ``cluster'' structure.
 %A method to judge the quality of a cluster solution is by inspecting a
 %visualization. For hierarchical clustering
 %dendrogramms~\cite{seriation:Hartigan:1967} are available which show the
-%hierarchical structure of the clustering as a binary tree and cluster quality 
+%hierarchical structure of the clustering as a binary tree and cluster quality
 %can be judged by looking at the dissimilarities between objects in a cluster
 %and objects in other clusters. However, such a visualization is
-%only possible for heirarchical/nested clusterings. 
+%only possible for heirarchical/nested clusterings.
 %
 %\marginpar{Cite Pison et al 1999 and Kaufmann and Rousseeuw}
 %For the an arbitrary partitional clustering, the original objects can
@@ -1651,7 +1705,7 @@ d <- dist(as.matrix(iris[-5]), method = "euclidean")
 First, we use \func{dissplot} without a clustering. We set \code{method} to
 \code{NA} to prevent reordering and display the original matrix (see
 Figure~\ref{fig:dissplot1}(a)). Then we omit the method argument which results
-in using the default seriation technique from \func{seriate}. Since we 
+in using the default seriation technique from \func{seriate}. Since we
 did not provide a clustering, the whole matrix is reordered
 in one piece.  From the result shown in Figure~\ref{fig:dissplot1}(b) it seems
 that there is a clear structure in the data which suggests a two cluster
@@ -1681,15 +1735,15 @@ tmp <- dev.off()
     \begin{minipage}[b]{.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{seriation-dissplot1} \\
-    (a)    
+    (a)
     \end{minipage}
     \begin{minipage}[b]{.48\linewidth}
     \centering
     \includegraphics[width=\linewidth]{seriation-dissplot2} \\
-    (b)   
+    (b)
     \end{minipage}
-    \caption{Two dissimilarity plots. 
-    (a) the original dissimilarity matrix and 
+    \caption{Two dissimilarity plots.
+    (a) the original dissimilarity matrix and
     (b) the seriated dissimilarity matrix.}
     \label{fig:dissplot1}
 \end{figure}
@@ -1697,7 +1751,7 @@ tmp <- dev.off()
 Next, we create a cluster solution using the $k$-means algorithm.
 Although we know
 that the data set should contain $3$ groups representing the three species
-of iris, we let $k$-means produce a $10$ cluster solution to study how such a 
+of iris, we let $k$-means produce a $10$ cluster solution to study how such a
 misspecification can be spotted using \func{dissplot}.
 
 <<echo=FALSE>>=
@@ -1712,7 +1766,7 @@ We create a standard dissimilarity plot by providing the cluster
 solution as a vector of labels. The function rearranges the matrix and
 plots the result. Since rearrangement can be a time consuming procedure for
 large matrices, the rearranged matrix and all
-information needed for plotting is returned as the result. 
+information needed for plotting is returned as the result.
 
 <<eval=FALSE, label=dissplot3>>=
 res <- dissplot(d, labels = l,
@@ -1728,7 +1782,7 @@ tmp <- dev.off()
 
 pdf(file = "seriation-dissplot4.pdf")
 ## threshold
-plot(res, options = list(main = "Dissimilarity plot - threshold", 
+plot(res, options = list(main = "Dissimilarity plot - threshold",
     threshold = 1.5))
 
 tmp <- dev.off()
@@ -1738,10 +1792,10 @@ tmp <- dev.off()
     \centering
     \includegraphics[width=10cm]{seriation-dissplot3}\\
     (a)
-    
+
     \includegraphics[width=10cm]{seriation-dissplot4}\\
     (b)
-    \caption{Dissimilarity plot for $k$-means solution with 10 clusters. 
+    \caption{Dissimilarity plot for $k$-means solution with 10 clusters.
     (a) standard plot and (b) plot with threshold.}
     \label{fig:dissplot3}
 \end{figure}
@@ -1751,20 +1805,20 @@ res
 @
 
 The resulting plot is shown in Figure~\ref{fig:dissplot3}(a).  The
-inter-cluster dissimilarities are shown as solid 
+inter-cluster dissimilarities are shown as solid
 gray blocks and the average object
 dissimilarity within each cluster as gray triangles below the main diagonal of
 the matrix. Since the clusters are arranged such that more similar clusters
 are closer together, it is easy to see in Figure~\ref{fig:dissplot3}(a)
-that clusters 6, 3 and 1 as well as clusters 10, 9, 5, 7, 8, 4 and 2 
-are very similar and form two blocks. 
+that clusters 6, 3 and 1 as well as clusters 10, 9, 5, 7, 8, 4 and 2
+are very similar and form two blocks.
 This suggests again that a two cluster solution would
 be reasonable.
 
 Since slight variations of gray values are hard to distinguish,
 we plot the matrix again (using \func{plot} on the result above) and
 use a threshold on the dissimilarity to suppress high dissimilarity
-values in the plot. 
+values in the plot.
 
 <<eval=FALSE>>=
 plot(res, options = list(main = "Seriation - threshold",
@@ -1797,7 +1851,7 @@ To illustrate the results of the dissimilarity plot in case a clustering
 with a $k$ smaller than the actual number of groups in the data is used,
 we use the Ruspini data set which consists of 75 points in four groups and
 is also often used to illustrate clustering techniques. We load the data set,
-calculate distances, perform $k$-means clustering with $k=3$ (although the 
+calculate distances, perform $k$-means clustering with $k=3$ (although the
 real number of groups is 4) and produce
 a dissimilarity plot.
 
@@ -1818,10 +1872,10 @@ dissplot(d, labels = l)
 
 The dissimilarity plot in Figure~\ref{fig:ruspini} shows that
 cluster 3 actually should be two separate clusters represented
-by the two clearly visible darker triangles next to the main diagonal. 
+by the two clearly visible darker triangles next to the main diagonal.
 
-The dissimilarity plot using seriation is a useful tool to inspect the result 
-of clustering. It is especially useful to spot 
+The dissimilarity plot using seriation is a useful tool to inspect the result
+of clustering. It is especially useful to spot
 misspecifications of the number of clusters employed.
 A more detailed treatment of dissimilarity plots as a tool for exploring
 partitional clustering can be found in

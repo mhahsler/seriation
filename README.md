@@ -53,7 +53,6 @@ reordered 356945979      76487641 402332.1     13593.32       5274.093 17810802 
 For disimilarity data:
 
  *  2-SUM (QAP) 
- *  Hierarchical clustering 
  *  Hierarchical clustering (avg. link) 
  *  Hierarchical clustering (avg. link) reordered by Gruvaeus and Wainer heuristic 
  *  Hierarchical clustering (avg. link) with optimal leaf ordering 
@@ -67,7 +66,6 @@ For disimilarity data:
  *  Hierarchical clustering with optimal leaf ordering 
  *  Identity permutation 
  *  Linear Seriation (QAP) 
- *  MDS 
  *  MDS (angle) 
  *  MDS (metric) 
  *  MDS (non-metric) 
@@ -96,6 +94,6 @@ For matrices:
 
 * Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things in Order: An Introduction to the R Package seriation,](http://dx.doi.org/10.18637/jss.v025.i03) _Journal of Statistical Software,_ 25(3), 2008.
 * [Seriation package vignette](http://cran.r-project.org/web/packages/seriation/vignettes/seriation.pdf) with complete examples.
-* [Reference manual](http://cran.r-project.org/web/packages/seriation/TSP.pdf)
+* [Reference manual](http://cran.r-project.org/web/packages/seriation/seriation.pdf)
 
 
