@@ -96,12 +96,15 @@ function resulting in
 
     \deqn{
         L(D) = 1/m
-        \sum_{i=1}^p \sum_{max((i-w),1) \le i<k<j} I(d_{ik} < d_{ij}) + \sum_{i<k<j\le min((i+w, n))} I(d_{kj} > d_{ij})
-    } where \eqn{m = \sum_{i=1}^p \sum_{max((i-w),1)\le i<k<j} 1 + \sum_{i<k<j\le min((i+w, n))} 1}
+        \sum_{i=1}^n \sum_{max((i-w),1) \le i<k<j} I(d_{ik} < d_{ij}) + \sum_{i<k<j\le min((i+w, n))} I(d_{kj} > d_{ij})
+    }
 
-  \eqn{m} represents the maximal number of possible anti-Robinson events.
-  The window size \eqn{w} represents the number of neighboring objects (number of entries from the diagonal of the distance matrix) are considered. The window size is \eqn{1 \le w < n}, where smaller values result in
-  focusing on the local structure while larger values look at the global structure.
+    where \eqn{m=(2/3-n)w + nw^2 - 2/3 w^3}, the maximal number
+    of possible anti-Robinson events in the window.
+  The window size \eqn{w} represents the number of neighboring objects (number of entries from the diagonal of the distance matrix) are considered. The window size is \eqn{2 \le w < n}, where smaller values result in
+  focusing on the local structure while larger values look at the global structure. Alternatively, \code{pct} can be used instead of \code{w} to
+  specify the window as a percentage of \eqn{n}. \code{relative=FALSE} can be
+ to get the GAR, i.e., the absolute number of AR events in the window.
 }
 
 
@@ -298,9 +301,10 @@ rbind(
 )
 
 ## compare RGAR by window size (from local to global)
-RGAR <- sapply(1:(nrow(m)-1), FUN = function (w)
+w <- 2:(nrow(m)-1)
+RGAR <- sapply(w, FUN = function (w)
   criterion(d, o, method="RGAR", w = w))
-plot(RGAR, type = "b", ylim = c(0,1),
+plot(w, RGAR, type = "b", ylim = c(0,1),
   xlab = "Windows size (w)", main = "RGAR by window size")
 }
 \keyword{cluster}
