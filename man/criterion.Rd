@@ -43,7 +43,7 @@ are currently implemented:
 
     \deqn{
     M(D) = \sum_{i=1}^n \sum_{i<k<j} f(d_{ij}, d_{ik}) + \sum_{i<k<j} f(d_{ij}, d_{kj})}
-    where \eqn{f(\cdot,\cdot)}
+    where \eqn{f(.,.)}
     is a function which defines how a violation
     or satisfaction
     of a gradient condition for an object triple (\eqn{O_i, O_k, O_j})
@@ -51,13 +51,13 @@ are currently implemented:
 
     Hubert et al (2001) suggest two functions. The first
     function is given by:
-    \deqn{f(z,y) = \mathrm{sign}(y-z) = +1 \quad \mathrm{if} \quad z < y; \quad 0 \quad \mathrm{if} \quad z = y; \quad \mathrm{and} \quad -1 \quad \mathrm{if} \quad z > y.}
+    \deqn{f(z,y) = sign(y-z) = +1 if z < y; 0 if z = y; and -1 if z > y.}
 
     It results in raw number of triples satisfying the gradient
     constraints minus triples which violate the constraints.
 
     The second function is defined as:
-    \deqn{f(z,y) = |y-z|\mathrm{sign}(y-z) = y-z}
+    \deqn{f(z,y) = |y-z| sign(y-z) = y-z}
     It weights the each satisfaction or violation by the difference by
     its magnitude given by the absolute difference between the values.
 }
@@ -72,9 +72,7 @@ are currently implemented:
 
     To only count the violations we use
     \deqn{
-        f(z, y) = I(z, y) =
-            1 \quad \mathrm{if} \quad z < y \quad \mathrm{and} \quad
-            0 \quad \mathrm{otherwise.}
+        f(z, y) = I(z, y) = 1 if z < y and 0 otherwise.
    }
 
 
@@ -106,6 +104,22 @@ function resulting in
   specify the window as a percentage of \eqn{n}. \code{relative=FALSE} can be
  to get the GAR, i.e., the absolute number of AR events in the window.
 }
+
+\item{\code{"BAR"}}{Banded Anti-Robinson Form and ARc (Earle and Hurley 2015).
+
+    Simplified measure for closeness to the anti-Robinson form in a band of
+    size \eqn{b} with \eqn{1 <= b < n} around the diagonal.
+
+    \deqn{
+        L(D) =
+        \sum_{|i-j|<=b} (b+1-|i-j| d_{ij})
+    }
+
+    For \eqn{b=1} the measure reduces to the Hamiltonian path length.
+    For \eqn{b=n-1} the measure is equivalent to ARc defined
+    (Earle and Hurley, 2015). \eqn{b} defaults to \eqn{n-1}.
+}
+
 
 
 \item{\code{"Path_length"}}{Hamiltonian path length (Caraux and Pinloche 2005).

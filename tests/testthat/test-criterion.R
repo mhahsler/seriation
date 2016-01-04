@@ -51,3 +51,13 @@ expect_equivalent(round(criterion(d, method="RGAR", pct=100), 3), .25)
 expect_equivalent(round(criterion(d, method="RGAR", w=3), 3), .25)
 
 expect_equivalent(criterion(d, method="RGAR", w=3, relative = FALSE), 2)
+
+### BAR
+expect_error(criterion(d, method="BAR", b=0))
+expect_error(criterion(d, method="BAR", b=4))
+
+# b=1 -> Ham. path length
+expect_equivalent(criterion(d, method="BAR", b=1),
+  criterion(d, method="Path_length"))
+# b = n-1 -> ARc
+expect_equivalent(round(criterion(d, method="BAR", b=3), 3), 21.936)

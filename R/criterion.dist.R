@@ -110,6 +110,17 @@ criterion_rgar <- function(x, order, w=NULL, pct=NULL, relative=TRUE, ...) {
     PACKAGE = "seriation")
 }
 
+criterion_bar <- function(x, order, b=NULL, ...) {
+    if(is.null(order)) order <- 1:attr(x, "Size")
+    else order <- get_order(order)
+
+    if(is.null(b)) b <- length(order)-1L
+
+    if(b<1 || b >=length(order))
+      stop("Band size needs to be 1 < b < length(order)!")
+    .Call("bar", x, order, as.integer(b), PACKAGE = "seriation")
+}
+
 criterion_gradient_raw <- function(x, order, ...) {
     if(is.null(order)) order <- 1:attr(x, "Size")
     else order <- get_order(order)
@@ -162,6 +173,8 @@ set_criterion_method("dist", "AR_deviations", criterion_ar_deviations,
 ## set_criterion_method("dist", "AR_weighted", criterion_ar_weighted)
 set_criterion_method("dist", "RGAR", criterion_rgar,
   "Relative generalized anti-Robinson events", FALSE)
+set_criterion_method("dist", "BAR", criterion_bar,
+  "Banded Anti-Robinson Form", FALSE)
 set_criterion_method("dist", "Gradient_raw" , criterion_gradient_raw,
     "Gradient measure", TRUE)
 set_criterion_method("dist", "Gradient_weighted", criterion_gradient_weighted,

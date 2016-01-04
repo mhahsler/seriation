@@ -260,7 +260,6 @@ SEXP gradient(SEXP R_dist, SEXP R_order, SEXP R_which) {
         /* diff = d_ik - d_ij; seems to be wrong in the book*/
         diff = d_ij - d_ik;
 
-
         if(which > 1) {
           /* weighted */
           sum += diff;
@@ -317,13 +316,13 @@ SEXP lazy_path_length(SEXP R_dist, SEXP R_order) {
   if (n != LENGTH(R_order))
     error("length of distance matrix and tour do not match");
 
-  for (int i = 0; i < (n-1); i++) {
-    segment = dist[LT_POS(n, order[i], order[i+1])];
+  for (int i = 1; i <= n-1; i++) {
+    segment = dist[LT_POS(n, order[i-1], order[i])];
 
     // check Inf
     if (segment == R_PosInf) posinf = true;
     else if (segment == R_NegInf) neginf = true;
-    else tour_length +=  (n-i-1) * segment;
+    else tour_length +=  (n-i) * segment;
   }
 
   // do not close tour!
@@ -339,4 +338,36 @@ SEXP lazy_path_length(SEXP R_dist, SEXP R_order) {
   UNPROTECT(1);
 
   return R_tour_length;
+}
+
+
+/*
+ * Banded Anti-Robinson Form (see Earle and Hurley, 2015)
+ */
+SEXP bar(SEXP R_dist, SEXP R_order, SEXP R_b) {
+
+  int n = INTEGER(getAttrib(R_dist, install("Size")))[0];
+  int *o = INTEGER(R_order);
+  double *dist = REAL(R_dist);
+  /* 1 <= b < n */
+  int b = INTEGER(R_b)[0];
+
+  double ar = 0;     /* AR events */
+  int i, j;
+
+  SEXP R_out;
+
+  /* sum_{|i-j|<=b} (b+1-|i-j|) d_{ij} */
+  for (i = 1; i <= n-1; i++) {
+    for (j = i+1; j <= MIN(i+b, n); j++) {
+      ar += (b+1-abs(i-j)) * dist[LT_POS(n, o[i-1], o[j-1])];
+    }
+  }
+
+  // create R object
+  PROTECT(R_out = NEW_NUMERIC(1));
+  REAL(R_out)[0] = ar;
+  UNPROTECT(1);
+
+  return R_out;
 }
