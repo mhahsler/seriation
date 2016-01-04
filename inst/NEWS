@@ -1,6 +1,8 @@
 Changes in version 1.1-3.1 (xx/xx/2015)
     * Fixed RGAR (w needs to be in [2,n-1]).
     * RGAR gained parameter pct to specify the window as a percentage.
+    * added the lazy path length criterion.
+
 
 Changes in version 1.1-3 (12/18/2015)
     * added is.robinson to recognize (pre) Robinson matrices.

@@ -14,6 +14,13 @@ context("criterion")
 expect_equal(criterion(d,method="AR_events"), structure(2, names="AR_events"))
 ## 2
 
+expect_equal(criterion(d,method="Path_length"), structure(4, names="Path_length"))
+## 1+2+1=4
+
+expect_equal(criterion(d,method="Lazy_path_length"),
+  structure(8, names="Lazy_path_length"))
+## (4-1)*1 + (4-2)*2+ (4-3)*1 = 8
+
 expect_true(round(criterion(d, method="AR_deviations"), 6) - 0.504017 < 1e-10)
 ## 2.000000 - 1.732051 +  2.236068 - 2.000000 = 0.504017
 

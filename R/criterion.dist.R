@@ -56,6 +56,11 @@ criterion_path_length <- function(x, order = NULL, ...) {
     .Call("order_length", x, order, PACKAGE = "seriation")
 }
 
+criterion_lazy_path_length <- function(x, order = NULL, ...) {
+  if (is.null(order)) order <- 1:attr(x, "Size")
+  else order <- get_order(order)
+  .Call("lazy_path_length", x, order, PACKAGE = "seriation")
+}
 
 ## Least squares criterion. measures the difference between the
 ## dissimilarities between two elements and the rank distance
@@ -163,6 +168,8 @@ set_criterion_method("dist", "Gradient_weighted", criterion_gradient_weighted,
     "Gradient measure (weighted)", TRUE)
 set_criterion_method("dist", "Path_length", criterion_path_length,
     "Hamiltonian path length", FALSE)
+set_criterion_method("dist", "Lazy_path_length", criterion_lazy_path_length,
+    "Lazy path length", FALSE)
 set_criterion_method("dist", "Inertia", criterion_inertia,
     "Inertia criterion", TRUE)
 set_criterion_method("dist", "Least_squares", criterion_least_squares,

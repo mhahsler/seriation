@@ -19,9 +19,12 @@
 
 #include <R.h>
 #include <Rinternals.h>
+#include <Rdefines.h>
 #include <math.h>
 
 #include "lt.h"
+
+typedef enum {false = 0, true = 1} bool;
 
 /*
  * path length can be found in optimal.c
@@ -293,4 +296,47 @@ SEXP gradient(SEXP R_dist, SEXP R_order, SEXP R_which) {
   UNPROTECT(1);
 
   return(R_out);
+}
+
+/*
+ * Lazy Path length (see Earle and Hurley 2015)
+ */
+SEXP lazy_path_length(SEXP R_dist, SEXP R_order) {
+
+  double tour_length = 0.0;
+  SEXP R_tour_length;
+  double segment;
+  bool posinf = false;
+  bool neginf = false;
+
+  int *order = INTEGER(R_order);
+  int n = INTEGER(getAttrib(R_dist, install("Size")))[0];
+
+  double *dist = REAL(R_dist);
+
+  if (n != LENGTH(R_order))
+    error("length of distance matrix and tour do not match");
+
+  for (int i = 0; i < (n-1); i++) {
+    segment = dist[LT_POS(n, order[i], order[i+1])];
+
+    // check Inf
+    if (segment == R_PosInf) posinf = true;
+    else if (segment == R_NegInf) neginf = true;
+    else tour_length +=  (n-i-1) * segment;
+  }
+
+  // do not close tour!
+
+  // inf
+  if (posinf && neginf) tour_length = NA_REAL;
+  else if (posinf) tour_length = R_PosInf;
+  else if (neginf) tour_length = R_NegInf;
+
+  // create R object
+  PROTECT(R_tour_length = NEW_NUMERIC(1));
+  REAL(R_tour_length)[0] = tour_length;
+  UNPROTECT(1);
+
+  return R_tour_length;
 }

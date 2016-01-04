@@ -25,7 +25,7 @@ criterion(x, order = NULL, method = NULL, ...)
 }
 \details{
 For a symmetric dissimilarity matrix
-\eqn{D} with elements \eqn{d(i,j)} where \eqn{i, j = 1 \ldots p},
+\eqn{D} with elements \eqn{d(i,j)} where \eqn{i, j = 1 \ldots n},
 the aim is generally to place low distance values close to the diagonal.
 The following criteria to judge the quality of a
 certain permutation of the objects in a dissimilarity matrix
@@ -42,7 +42,7 @@ are currently implemented:
     anti-Robinson form is
 
     \deqn{
-    M(D) = \sum_{i=1}^p \sum_{i<k<j} f(d_{ij}, d_{ik}) + \sum_{i<k<j} f(d_{ij}, d_{kj})}
+    M(D) = \sum_{i=1}^n \sum_{i<k<j} f(d_{ij}, d_{ik}) + \sum_{i<k<j} f(d_{ij}, d_{kj})}
     where \eqn{f(\cdot,\cdot)}
     is a function which defines how a violation
     or satisfaction
@@ -67,7 +67,7 @@ are currently implemented:
     measures above by concentrating on violations only.
     \deqn{
         L(D) =
-        \sum_{i=1}^p \sum_{i<k<j} f(d_{ik}, d_{ij}) + \sum_{i<k<j} f(d_{kj}, d_{ij})
+        \sum_{i=1}^n \sum_{i<k<j} f(d_{ik}, d_{ij}) + \sum_{i<k<j} f(d_{kj}, d_{ij})
     }
 
     To only count the violations we use
@@ -96,7 +96,7 @@ function resulting in
 
     \deqn{
         L(D) = 1/m
-        \sum_{i=1}^n \sum_{max((i-w),1) \le i<k<j} I(d_{ik} < d_{ij}) + \sum_{i<k<j\le min((i+w, n))} I(d_{kj} > d_{ij})
+        \sum_{i=1}^n \sum_{(i-w)\le j<k<i} I(d_{ij} < d_{ik}) + \sum_{i<j<k\le(i+w))} I(d_{ij} > d_{ik})
     }
 
     where \eqn{m=(2/3-n)w + nw^2 - 2/3 w^3}, the maximal number
@@ -115,7 +115,7 @@ function resulting in
     once, i.e., a Hamilton path. The length of the path is defined as the sum
     of the edge weights, i.e., dissimilarities.
 
-    \deqn{L(D) = \sum_{i=1}^{p-1} d_{i,i+1}}
+    \deqn{L(D) = \sum_{i=1}^{n-1} d_{i,i+1}}
 
     The length of the Hamiltonian path is equal to the
     value of the minimal span loss function (as used by Chen 2002).
@@ -124,12 +124,25 @@ function resulting in
     If \code{order} is not unique or
     there are non-finite distance values \code{NA} is returned.}
 
+\item{\code{"Lazy_path_length"}}{Lazy path length (Earl and Hurley 2015).
+
+    A weighted version of the Hamiltonian path criterion. This loss function
+    postpones larger distances to later in the order (i.e., a lazy traveling
+    sales person).
+
+    \deqn{L(D) = \sum_{i=1}^{n-1} (n-i) d_{i,i+1}}
+
+    Earl and Hurley (2015) proposed this criterion for reordering in
+    visualizations to concentrate on closer objects first.
+    }
+
+
 \item{\code{"Inertia"}}{Inertia criterion (Caraux and Pinloche 2005).
 
     Measures the moment of the inertia of dissimilarity values
     around the diagonal as
 
-    \deqn{M(D) = \sum_{i=1}^p \sum_{j=1}^p d(i,j)|i-j|^2}
+    \deqn{M(D) = \sum_{i=1}^n \sum_{j=1}^n d(i,j)|i-j|^2}
 
     \eqn{|i-j|} is used as a measure for the distance to the diagonal and
     \eqn{d(i,j)} gives the weight. This criterion gives higher weight
@@ -141,7 +154,7 @@ function resulting in
     The sum of squares of deviations between the
     dissimilarities and rank differences (in the matrix) between two
     elements:
-    \deqn{L(D) = \sum_{i=1}^p \sum_{j=1}^p (d(i,j) - |i-j|)^2,}
+    \deqn{L(D) = \sum_{i=1}^n \sum_{j=1}^n (d(i,j) - |i-j|)^2,}
     where \eqn{d(i,j)} is an element of the dissimilarity matrix \eqn{D} and
     \eqn{|i-j|} is the rank difference between the objects.
 
@@ -156,7 +169,7 @@ function resulting in
 
     Weights the distances with the absolute rank differences.
 
-    \deqn{L(D) \sum_{i,j=1}^p d(i,j) (-|i-j|)}
+    \deqn{L(D) \sum_{i,j=1}^n d(i,j) (-|i-j|)}
     }
 
     \item{\code{"2SUM"}}{2-Sum Criterion (Barnard, Pothen, and Simon 1993).
@@ -165,7 +178,7 @@ function resulting in
     loss criterion multiplies the similarity between objects
     with the squared rank differences.
 
-    \deqn{L(D) \sum_{i,j=1}^p 1/(1+d(i,j)) (i-j)^2,}
+    \deqn{L(D) \sum_{i,j=1}^n 1/(1+d(i,j)) (i-j)^2,}
 
     where \eqn{s(i,j) = 1/(1+d(i,j))} represents the similarity between
     objects \eqn{i} and \eqn{j}.
@@ -252,6 +265,9 @@ to Arrange Gene Expression Profiles in Optimal Linear Order,
 C.-H. Chen (2002): Generalized association plots:
 Information visualization via iteratively generated correlation matrices,
 \emph{Statistica Sinica,} \bold{12}(1), 7--29.
+
+D. Earle and C.B. Hurley (2015): Advances in Dendrogram Seriation for Application to Visualization. \emph{Journal of Computational and Graphical Statistics,}
+\bold{24}(1), 1--25.
 
 L. Hubert and J. Schultz (1976): Quadratic Assignment as a General Data Analysis Strategy. \emph{British Journal of Mathematical and Statistical
 Psychology} \bold{29}(2). Blackwell Publishing Ltd. 190--241.
