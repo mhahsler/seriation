@@ -114,12 +114,16 @@ criterion_bar <- function(x, order, b=NULL, ...) {
     if(is.null(order)) order <- 1:attr(x, "Size")
     else order <- get_order(order)
 
-    if(is.null(b)) b <- length(order)-1L
+    ### we default to 50%
+    if(is.null(b)) b <- min(1,floor(length(order)/2))
 
     if(b<1 || b >=length(order))
-      stop("Band size needs to be 1 < b < length(order)!")
+      stop("Band size needs to be 1 <= b < length(order)!")
     .Call("bar", x, order, as.integer(b), PACKAGE = "seriation")
 }
+
+criterion_arc <- function(x, order, ...) criterion_bar(x, order,
+  b=attr(x, "Size")-1L)
 
 criterion_gradient_raw <- function(x, order, ...) {
     if(is.null(order)) order <- 1:attr(x, "Size")
@@ -171,28 +175,36 @@ set_criterion_method("dist", "AR_events" , criterion_ar_events,
 set_criterion_method("dist", "AR_deviations", criterion_ar_deviations,
     "Anti-Robinson deviations", FALSE)
 ## set_criterion_method("dist", "AR_weighted", criterion_ar_weighted)
+set_criterion_method("dist", "ARc", criterion_arc,
+  "Anti-Robinson criterion", FALSE)
+
 set_criterion_method("dist", "RGAR", criterion_rgar,
   "Relative generalized anti-Robinson events", FALSE)
 set_criterion_method("dist", "BAR", criterion_bar,
   "Banded Anti-Robinson Form", FALSE)
+
 set_criterion_method("dist", "Gradient_raw" , criterion_gradient_raw,
     "Gradient measure", TRUE)
 set_criterion_method("dist", "Gradient_weighted", criterion_gradient_weighted,
     "Gradient measure (weighted)", TRUE)
+
 set_criterion_method("dist", "Path_length", criterion_path_length,
     "Hamiltonian path length", FALSE)
 set_criterion_method("dist", "Lazy_path_length", criterion_lazy_path_length,
     "Lazy path length", FALSE)
+
 set_criterion_method("dist", "Inertia", criterion_inertia,
     "Inertia criterion", TRUE)
 set_criterion_method("dist", "Least_squares", criterion_least_squares,
     "Least squares criterion", FALSE)
 set_criterion_method("dist", "ME", criterion_ME_dist,
     "Measure of effectiveness", TRUE)
+
 set_criterion_method("dist", "Moore_stress", criterion_Moore_stress_dist,
     "Stress (Moore neighborhood)", FALSE)
 set_criterion_method("dist", "Neumann_stress", criterion_Neumann_stress_dist,
     "Stress (Neumann neighborhood)", FALSE)
+
 set_criterion_method("dist", "2SUM", criterion_2SUM,
     "2-SUM objective value (QAP)", FALSE)
 set_criterion_method("dist", "LS", criterion_LS,

@@ -105,7 +105,17 @@ function resulting in
  to get the GAR, i.e., the absolute number of AR events in the window.
 }
 
-\item{\code{"BAR"}}{Banded Anti-Robinson Form and ARc (Earle and Hurley 2015).
+\item{\code{"ARc"}}{Anti-Robinson criterion (Earle and Hurley 2015).
+
+    Simplified measure for closeness to the anti-Robinson form.
+
+    \deqn{
+        L(D) =
+        \sum_{|i-j|<=n-1} (n-|i-j| d_{ij})
+    }
+}
+
+\item{\code{"BAR"}}{Banded Anti-Robinson Form (Earle and Hurley 2015).
 
     Simplified measure for closeness to the anti-Robinson form in a band of
     size \eqn{b} with \eqn{1 <= b < n} around the diagonal.
@@ -117,7 +127,7 @@ function resulting in
 
     For \eqn{b=1} the measure reduces to the Hamiltonian path length.
     For \eqn{b=n-1} the measure is equivalent to ARc defined
-    (Earle and Hurley, 2015). \eqn{b} defaults to \eqn{n-1}.
+    (Earle and Hurley, 2015). \eqn{b} defaults to a band of 50\% of \eqn{n}.
 }
 
 

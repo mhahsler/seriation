@@ -352,7 +352,7 @@ SEXP bar(SEXP R_dist, SEXP R_order, SEXP R_b) {
   /* 1 <= b < n */
   int b = INTEGER(R_b)[0];
 
-  double ar = 0;     /* AR events */
+  double ar = 0;
   int i, j;
 
   SEXP R_out;
