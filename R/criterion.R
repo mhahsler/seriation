@@ -32,23 +32,39 @@ criterion <- function(x, order = NULL, method = NULL, ...)
 ## </NOTE>
 
 
-set_criterion_method <- function(kind, name, fun, 
+set_criterion_method <- function(kind, name, fun,
   description = NULL, merit = NA, ...) {
   ## check formals
   ##if(!identical(names(formals(definition)),
   ##              c("x", "order", "...")))
   ##    stop("Criterion methods must have formals 'x', 'order', and '...'.")
-  
-  registry_criterion$set_entry(
-    kind = kind, name=name, fun = fun, 
-    description = description, merit = merit)
+
+  ## check if criterion is already in registry
+  r <- registry_criterion$get_entry(kind=kind, name=name)
+  if(!is.null(r) && r$name==name) {
+    warning("Entry with name ", name, " already exists! Modifying entry.")
+    registry_criterion$modify_entry(kind=kind, name=name, fun=fun,
+      description=description, merit = merit)
+  } else {
+    registry_criterion$set_entry(
+      kind = kind, name=name, fun = fun,
+      description = description, merit = merit)
+  }
+
 }
 
-get_criterion_method <- function(kind, name)
-  registry_criterion$get_entry(kind=kind, name=name)
+get_criterion_method <- function(kind, name) {
+  method <- registry_criterion$get_entry(kind=kind, name=name)
+  if(is.null(method))
+    stop("Unknown seriation method. Check list_criterion_methods(\"", kind, "\")")
+
+  method
+}
 
 list_criterion_methods <- function(kind)
-  as.vector(sapply(registry_criterion$get_entries(kind=kind), "[[", "name"))
+  sort(as.vector(sapply(registry_criterion$get_entries(kind=kind), "[[", "name")))
 
-show_criterion_methods <- function(kind)
-  registry_criterion$get_entries(kind=kind)
+show_criterion_methods <- function(kind) {
+  m <- registry_criterion$get_entries(kind=kind)
+  m[sort(names(m))]
+}

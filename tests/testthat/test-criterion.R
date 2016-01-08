@@ -53,8 +53,8 @@ expect_equivalent(round(criterion(d, method="RGAR", w=3), 3), .25)
 expect_equivalent(criterion(d, method="RGAR", w=3, relative = FALSE), 2)
 
 ### BAR
-expect_error(criterion(d, method="BAR", b=0))
-expect_error(criterion(d, method="BAR", b=4))
+expect_error(criterion(d, method="BAR", b=0), "Band")
+expect_error(criterion(d, method="BAR", b=4), "Band")
 
 # b=1 -> Ham. path length
 expect_equivalent(criterion(d, method="BAR", b=1),

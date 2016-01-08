@@ -286,7 +286,7 @@ seriate_dist_identity <- function(x, control = NULL) {
 seriate_dist_random <- function(x, control = NULL) {
   #param <- .get_parameters(control, NULL)
   .get_parameters(control, NULL)
-  
+
   o <- 1:attr(x, "Size")
   names(o) <- labels(x)
   sample(o)
