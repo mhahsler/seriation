@@ -64,7 +64,9 @@ export(
 
     ser_dist,
     ser_cor,
-    ser_align
+    ser_align,
+
+    register_DendSer
     )
 
 S3method("c", "ser_permutation")

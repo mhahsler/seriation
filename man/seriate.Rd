@@ -72,7 +72,7 @@ dissimilarities. Currently the following methods are implemented for dist:
       of this dummy city in an optimal tour with minimal length is the best
       cutting point (it lies between the most distant cities).}
 
-\item{\code{"R2E"} or \code{"Chen"}}{Rank-two ellipse seriation (Chen 2002).
+\item{\code{"R2E"}}{Rank-two ellipse seriation (Chen 2002).
 
         This method starts with generating a sequence of correlation matrices
       \eqn{R^1, R^2, \ldots}. \eqn{R^1} is the correlation matrix

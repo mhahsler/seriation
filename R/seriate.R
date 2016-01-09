@@ -28,7 +28,9 @@ seriate.default <- function(x, ...)
 get_seriation_method <- function(kind, name) {
   method <- registry_seriate$get_entry(kind=kind, name=name)
 
-  if(is.null(method)) stop("Unknown seriation method. Check list_seriation_methods(\"", kind, "\")")
+  if(is.null(method))
+    stop("Unknown seriation method. Check list_seriation_methods(\"",
+      kind, "\")")
 
   method
 }
