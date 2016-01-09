@@ -54,29 +54,28 @@ For dissimilarity data:
 
  *  Branch-and-bound to minimize the unweighted/weighted column gradient 
  *  DendSer - Dendrogram seriation heuristic to optimize various criteria
- *  GA - Genetic algorithm with warm start so optimize various criteria
+ *  GA - Genetic algorithm with warm start to optimize various criteria
  *  HC - Hierarchical clustering (single link, avg. link, complete link) 
  *  GW - Hierarchical clustering reordered by Gruvaeus and Wainer heuristic 
  *  OLO - Hierarchical clustering with optimal leaf ordering 
  *  Identity permutation 
- *  MDS - Multi dimensional scaling (metric, non-metric, angle) 
+ *  MDS - Multidimensional scaling (metric, non-metric, angle) 
  *  SA - Simulated annealing to minimize anti-Robinson events  
  *  TSP - Traveling sales person solver to minimize Hamiltonian path length 
  *  R2E - Rank-two ellipse seriation 
  *  Random permutation
  *  Spectral seriation (unnormalized, normalized) 
  *  SPIN - Sorting points into neighborhoods (neighborhood algorithm, side-to-site algorithm) 
- *  VAT - Visual assesment of clustering tendency ordering 
+ *  VAT - Visual assessment of clustering tendency ordering 
  *  QAP - Quadratic assignment problem heuristic (2-SUM, linear seriation, inertia, banded anti-Robinson form)
   
 For matrices:
 
- *  Bond Energy Algorithm to maximize ME 
- *  First principal component 
- *  First two principal components (angle) 
+ *  BEA - Bond Energy Algorithm to maximize the measure of effectiveness (ME) 
  *  Identity permutation 
+ *  PCA - First principal component or angle on the projection on the first two principal components 
  *  Random permutation 
- *  TSP to maximize ME 
+ *  TSP - Traveling sales person solver to maximize ME 
 
 ## Further Information
 
