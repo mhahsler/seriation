@@ -52,25 +52,23 @@ reordered 356945979      76487641 402332.1     13593.32       5274.093 17810802 
 ## Available Seriation Methods
 For dissimilarity data:
 
- *  2-SUM (QAP)
- *  DendSer (dendrogram seriation heuristic to optimize various criteria)
- *  Genetic Algorithm with warm start so optimize various criteria)
- *  Hierarchical clustering (single link, avg. link, complete link) 
- *  Hierarchical clustering reordered by Gruvaeus and Wainer heuristic 
- *  Hierarchical clustering with optimal leaf ordering 
+ *  Branch-and-bound to minimize the unweighted/weighted column gradient 
+ *  DendSer - Dendrogram seriation heuristic to optimize various criteria
+ *  GA - Genetic algorithm with warm start so optimize various criteria
+ *  HC - Hierarchical clustering (single link, avg. link, complete link) 
+ *  GW - Hierarchical clustering reordered by Gruvaeus and Wainer heuristic 
+ *  OLO - Hierarchical clustering with optimal leaf ordering 
  *  Identity permutation 
- *  Linear Seriation (QAP) 
- *  MDS (metric, non-metric, angle) 
- *  Minimize Anti-Robinson events using simulated annealing 
- *  Minimize Hamiltonian path length with a TSP solver 
- *  Minimize the unweighted row/column gradient by branch-and-bound 
- *  Minimize the weighted row/column gradient by branch-and-bound 
- *  Random permutation 
- *  Rank-two ellipse seriation 
+ *  MDS - Multi dimensional scaling (metric, non-metric, angle) 
+ *  SA - Simulated annealing to minimize anti-Robinson events  
+ *  TSP - Traveling sales person solver to minimize Hamiltonian path length 
+ *  R2E - Rank-two ellipse seriation 
+ *  Random permutation
  *  Spectral seriation (unnormalized, normalized) 
- *  SPIN (Neighborhood algorithm, side-to-site algorithm) 
- *  Visual assesment of clustering tendency (VAT) 
-
+ *  SPIN - Sorting points into neighborhoods (neighborhood algorithm, side-to-site algorithm) 
+ *  VAT - Visual assesment of clustering tendency ordering 
+ *  QAP - Quadratic assignment problem heuristic (2-SUM, linear seriation, inertia, banded anti-Robinson form)
+  
 For matrices:
 
  *  Bond Energy Algorithm to maximize ME 
