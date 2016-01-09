@@ -3,6 +3,7 @@ Changes in version 1.1-3.1 (xx/xx/2015)
     * RGAR gained parameter pct to specify the window as a percentage.
     * added the lazy path length criterion.
     * added the banded anti-Robinson form (BAR) criterion.
+    * added QAP_Inertia and QAP_BAR solver.
     * added DendSer using register_DendSer().
     * added GA using register_GA().
     * registry now warns and modifies entries with the same name.

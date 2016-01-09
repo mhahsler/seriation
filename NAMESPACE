@@ -13,6 +13,7 @@ importFrom("stats", "reorder", "as.dist", "hclust", "runif", "rnorm",
   "cmdscale", "prcomp", "cor", "cor.test", "dist")
 importFrom("methods", "is")
 importFrom("grDevices", "gray.colors", "gray")
+importFrom("utils", "modifyList")
 
 export(
     bertinplot,

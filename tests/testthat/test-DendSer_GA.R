@@ -2,9 +2,11 @@ library(seriation)
 
 ## just check if we can register them
 
-context("DendSer")
-register_DendSer()
+## somehow this registers them before!
 
-context("GA")
-register_GA()
+#context("DendSer")
+#register_DendSer()
+
+#context("GA")
+#register_GA()
 

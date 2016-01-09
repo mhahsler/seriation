@@ -211,16 +211,15 @@ signature \code{function(n, sigma, verbose)} can be specified.
 The parameter \code{verbose} can be used to display progress information.
 }
 
-\item{\code{"QAP_LS"}}{ Quadratic assignment problem
+\item{\code{"QAP_LS"}, \code{"QAP_2SUM"}, \code{"QAP_BAR"}, \code{"QAP_Inertia"} }{ Quadratic assignment problem
 formulations for seriation using a simulated annealing solver.
-Minimizes the \bold{Linear Seriation Problem}
-formulation (Hubert and Schultz 1976).
-}
 
-\item{\code{"QAP_2SUM"}}{ Quadratic assignment problem
-formulations for seriation using a simulated annealing solver.
-\code{QAP_2SUM} minimizes the \bold{2-Sum Problem} formulation
-(Barnard, Pothen, and Simon 1993).
+These methods minimize the \bold{Linear Seriation Problem} (LS)
+formulation (Hubert and Schultz 1976),
+the \bold{2-Sum Problem} formulation
+(Barnard, Pothen, and Simon 1993),
+the \bold{banded anti-Robinson form} (BAR) or
+the \bold{inertia criterion.}
 }
 
 
