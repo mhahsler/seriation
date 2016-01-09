@@ -50,35 +50,25 @@ reordered 356945979      76487641 402332.1     13593.32       5274.093 17810802 
 ```
 
 ## Available Seriation Methods
-For disimilarity data:
+For dissimilarity data:
 
- *  2-SUM (QAP) 
- *  Hierarchical clustering (avg. link) 
- *  Hierarchical clustering (avg. link) reordered by Gruvaeus and Wainer heuristic 
- *  Hierarchical clustering (avg. link) with optimal leaf ordering 
- *  Hierarchical clustering (complete link) 
- *  Hierarchical clustering (complete link) reordered by Gruvaeus and Wainer heuristic 
- *  Hierarchical clustering (complete link) with optimal leaf ordering 
+ *  2-SUM (QAP)
+ *  DendSer (dendrogram seriation heuristic to optimize various criteria)
+ *  Genetic Algorithm with warm start so optimize various criteria)
+ *  Hierarchical clustering (single link, avg. link, complete link) 
  *  Hierarchical clustering reordered by Gruvaeus and Wainer heuristic 
- *  Hierarchical clustering (single link) 
- *  Hierarchical clustering (single link) reordered by Gruvaeus and Wainer heuristic 
- *  Hierarchical clustering (single link) with optimal leaf ordering 
  *  Hierarchical clustering with optimal leaf ordering 
  *  Identity permutation 
  *  Linear Seriation (QAP) 
- *  MDS (angle) 
- *  MDS (metric) 
- *  MDS (non-metric) 
+ *  MDS (metric, non-metric, angle) 
  *  Minimize Anti-Robinson events using simulated annealing 
  *  Minimize Hamiltonian path length with a TSP solver 
  *  Minimize the unweighted row/column gradient by branch-and-bound 
  *  Minimize the weighted row/column gradient by branch-and-bound 
  *  Random permutation 
  *  Rank-two ellipse seriation 
- *  Spectral seriation 
- *  Spectral seriation (normalized) 
- *  SPIN (Neighborhood algorithm) 
- *  SPIN (Side-to-Side algorithm) 
+ *  Spectral seriation (unnormalized, normalized) 
+ *  SPIN (Neighborhood algorithm, side-to-site algorithm) 
  *  Visual assesment of clustering tendency (VAT) 
 
 For matrices:
