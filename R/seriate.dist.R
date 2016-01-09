@@ -568,8 +568,8 @@ set_seriation_method("dist", "BBWRCG", seriate_dist_bbwrcg,
 set_seriation_method("dist", "TSP", seriate_dist_tsp,
   "Minimize Hamiltonian path length with a TSP solver")
 
-set_seriation_method("dist", "Chen", seriate_dist_chen,
-  "Rank-two ellipse seriation")
+#set_seriation_method("dist", "Chen", seriate_dist_chen,
+#  "Rank-two ellipse seriation")
 set_seriation_method("dist", "R2E", seriate_dist_chen,
   "Rank-two ellipse seriation")
 
