@@ -1,13 +1,13 @@
 Changes in version 1.1-3.1 (xx/xx/2015)
-    * seriation method alias Chen was removed. Use R2E.
     * Fixed RGAR (w needs to be in [2,n-1]).
     * RGAR gained parameter pct to specify the window as a percentage.
     * added the lazy path length criterion.
     * added the banded anti-Robinson form (BAR) criterion.
-    * DendSer is now supported using register_DendSer().
+    * added DendSer using register_DendSer().
+    * added GA using register_GA().
     * registry now warns and modifies entries with the same name.
     * registry now lists methods in alphabetical order.
-
+    * seriation method alias Chen was removed. Use R2E.
 
 Changes in version 1.1-3 (12/18/2015)
     * added is.robinson to recognize (pre) Robinson matrices.

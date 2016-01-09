@@ -22,7 +22,7 @@ URL: http://lyle.smu.edu/IDA/seriation
 BugReports: https://github.com/mhahsler/seriation/issues
 Depends: R (>= 2.14.0)
 Imports: TSP, qap, grid, cluster, gclus, colorspace, MASS, gplots, registry, methods, stats, grDevices
-Suggests: biclust, testthat, DendSer
+Suggests: biclust, testthat, DendSer, GA
 License: GPL-3
 Copyright: The code in src/bea.f is Copyright (C) 1991 F. Murtagh;
     src/bbwrcg.f, src/arsa.f and src/bburcg.f are Copyright (C) 2005

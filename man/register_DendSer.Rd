@@ -12,8 +12,8 @@ register_DendSer()
 Registers the method \code{"DendSer"} for \code{seriate}.
 DendSer is a fast heuristic for reordering dendrograms developed by
 Earle and Hurley (2015) able to use different criteria.
-The following parameters in \code{control} for \code{seriate} with
-method \code{"DendSer"} are
+\code{control} for \code{seriate} with
+method \code{"DendSer"} accepts the following parameters:
 \describe{
 \item{\code{"h"} or \code{"method"}}{A dendrogram or a method for
 hierarchical clustering (see \code{hclust}). Default: complete-link.}

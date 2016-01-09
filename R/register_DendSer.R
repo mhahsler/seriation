@@ -68,7 +68,7 @@ register_DendSer <- function() {
 
   DendSer_LS <- function(x, control) {
     control$cost <- DendSer::costLS
-    control$hclust <- hclust(x)
+    control$h <- hclust(x)
     DendSer_helper(as.matrix(x)[,1], control)
   }
 
