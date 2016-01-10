@@ -1,5 +1,7 @@
 \name{register_DendSer}
 \alias{register_DendSer}
+\alias{DendSer}
+\alias{dendser}
 \title{Register Seriation Methods from Package DendSer}
 \description{
 Register the DendSer dendrogram seriation method and
@@ -17,12 +19,15 @@ method \code{"DendSer"} accepts the following parameters:
 \describe{
 \item{\code{"h"} or \code{"method"}}{A dendrogram or a method for
 hierarchical clustering (see \code{hclust}). Default: complete-link.}
-\item{\code{"cost"}}{Cost function (criterion) to optimize.
+\item{\code{"cost"} or \code{"criterion"}}{Cost function to optimize.
+Alternatively, you can specify a seriation
+criterion (see \code{list_criterion_methods("dist")}).
 Default: \code{"BAR"} (Banded anti-Robinson from with 20\% band width).}
+\item{\code{"verbose"}}{print progress information.}
+\item{\code{"DendSer_args"}}{additional arguments for \code{DendSer}.}
 }
-More arguments can be found in the documentation for function \code{DendSer}.
 
-For inconvenience the following methods (for differnt cost functions)
+For convenience the following methods (for differnt cost functions)
 are also provided:
 \code{"DendSer_ARc"} (anti-robinson form),
 \code{"DendSer_BAR"} (banded anti-Robinson form),

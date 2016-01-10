@@ -30,25 +30,33 @@ register_DendSer <- function() {
   # h (default is NULL -> complete)
 
   DendSer_helper <- function(x, control) {
+    n <- attr(x, "Size")
 
-    ## produce hclust
-    if(is.null(control$h)) {
-      if(is.null(control$method)) control$method <- "complete"
-      control$h <- hclust(x, control$method)
-    }
-    control$method <- NULL
+    control <- .get_parameters(control, list(
+      h = NULL,
+      method = "complete",
+      criterion = NULL,
+      cost = DendSer::costBAR,
+      DendSer_args = NULL,
+      verbose = FALSE
+    ))
 
     ## fix cost if it is a criterion from seriation
-    if(!is.null(control$cost)) {
-      if(!is.function(control$cost)) {
-        control$cost <- DendSer::crit2cost(crit = control$cost)
-      }
-    }else{
-      control$cost <- DendSer::costBAR
-    }
+    if(!is.null(control$criterion))
+      control$cost <- DendSer::crit2cost(crit = control$criterion)
 
+    ## produce hclust
+    if(is.null(control$h))
+      control$h <- hclust(x, control$method)
+
+    control$method <- NULL
+    control$criterion <- NULL
     control$ser_weight <- x
-    control <- modifyList(as.list(formals(DendSer::DendSer)), control)
+
+    if(!is.null(control$DendSer_args)) {
+      control <- c(control, control$DendSer_args)
+      control$DendSer_args <- NULL
+    }
 
     do.call(DendSer::DendSer, control)
   }

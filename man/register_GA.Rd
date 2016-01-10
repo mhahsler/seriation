@@ -1,5 +1,7 @@
 \name{register_GA}
 \alias{register_GA}
+\alias{GA}
+\alias{ga}
 \alias{gaperm_mixedMutation}
 \title{Register a Genetic Algorithm Seriation Method}
 \description{
