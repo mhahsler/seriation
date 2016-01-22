@@ -39,7 +39,8 @@ operators. This mixed operator is created using
 \code{seriation::gaperm_mixedMutation(ismProb = .8)}, where \code{ismProb} is
 the probability that the simple insertion mutation operator is used.
 See package \pkg{GA} for a description of other available
-cross-over and mutation operators for permutaitons.
+cross-over and mutation operators for permutaitons. The appropriate
+operator functions in \pkg{GA} start with \code{gaperm_}.
 
 We warm start the GA using \code{"suggestions"} given by several
 heuristics. Set \code{"suggestions"} to \code{NA} to start with a purely

@@ -106,7 +106,7 @@ bertinplot <-
     if(options$shading) {
       highlight <- map(x, c(.8,.1))
       highlight[!is.finite(highlight)] <- 1
-      highlight <- matrix(gray(highlight), ncol=ncol(x), nrow=nrow(x))
+      highlight <- matrix(grey(highlight), ncol=ncol(x), nrow=nrow(x))
     }
     
     ncol_x  <- ncol(x)
@@ -241,5 +241,5 @@ bertin_cut_line <- function(x = NULL, y = NULL) {
   grid.lines(x = x,
     y = y,
     default.units= "native",
-    gp=gpar(col="gray", lwd=2))
+    gp=gpar(col="grey", lwd=2))
 }

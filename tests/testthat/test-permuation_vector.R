@@ -56,16 +56,24 @@ expect_error(permute(d, ser_permutation(1:8)))
 l <- list(a = 1:10, b = letters[1:5], 25)
 expect_identical(permute(l, 3:1), rev(l))
 
+## dendrogram
+dend <- as.dendrogram(hclust(d))
+expect_equal(dend, permute(dend, order.dendrogram(dend)))
+expect_equal(rev(dend), permute(dend, rev(order.dendrogram(dend))))
+
+# chances are that a random order will not be perfect
+o <- sample(5)
+expect_warning(permute(dend, o))
+
 ## hclust
 hc <- hclust(d)
-expect_identical(hc, permute(hc, 1:5))
-expect_identical(hc$order[5:1], permute(hc, 5:1)$order)
+expect_equal(hc, permute(hc, get_order(hc)))
 
-## test illegal order
-o <- sample(5)
+### Note: rev for hclust adds labels! (So we only compare merge, height and order)
+#expect_equal(rev(hc), permute(hc, rev(get_order(hc))))
+expect_equal(rev(hc)[1:3], permute(hc, rev(get_order(hc)))[1:3])
+
 expect_warning(permute(hc, o))
-expect_error(permute(hc, o, incompatible = "stop"))
-expect_is(permute(hc, o, incompatible = "ignore"), "hclust")
 
 context("permutation_matrix2vector")
 pv <- sample(1:100)
@@ -73,7 +81,7 @@ pv <- sample(1:100)
 ## convert into a permutation matrix
 pm <- permutation_vector2matrix(pv)
 
-## convert back  
+## convert back
 expect_identical(permutation_matrix2vector(pm), pv)
 
 

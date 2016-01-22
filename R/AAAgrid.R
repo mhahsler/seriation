@@ -207,7 +207,7 @@
 
 
 .grid_barplot_horiz <- function(height, name = "barplot", xlab="", 
-  gp = gpar(), gp_bars = gpar(fill="lightgray")) {
+  gp = gpar(), gp_bars = gpar(fill="lightgrey")) {
   
   n <-  length(height)
   
