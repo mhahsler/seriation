@@ -21,7 +21,9 @@ method \code{"GA"} accepts the following parameters:
   means no warm start. Default: TSP, QAP_LS and Spectral. }
 \item{\code{"selection"}}{ Selection operator (see \pkg{GA}). Default: non-linear rank selection}
 \item{\code{"crossover"}}{ Crossover operator (see \pkg{GA}). Default: ordered crossover (OX)}
-\item{\code{"mutation"}}{ Mutation operator (see \pkg{GA}). Default: simple inversion}
+\item{\code{"mutation"}}{ Mutation operator (see \pkg{GA}). Default:
+  a mixture of the simple insertion (80\% chance) and simple
+  inversion (20\% chance) operators.}
 \item{\code{"pmutation"}}{ proability for permutations. Default: .5}
 \item{\code{"pcrossover"}}{ probability for crossover. Default: .2}
 \item{\code{"popsize"}}{ the population size. Default: 100}
@@ -31,11 +33,19 @@ method \code{"GA"} accepts the following parameters:
 \item{\code{"verbose"}}{ Report progress? Default: TRUE}
 }
 
-The GA uses the ordered cross-over (OX) operator.
-For mutation the GA uses
+The GA uses by default the ordered cross-over (OX) operator.
+For mutation, the GA uses a mixture of simple insertion and simple inversion
+operators. This mixed operator is created using
+\code{seriation::gaperm_mixedMutation(ismProb = .8)}, where \code{ismProb} is
+the probability that the simple insertion mutation operator is used.
+See package \pkg{GA} for a description of other available
+cross-over and mutation operators for permutaitons.
 
+We warm start the GA using \code{"suggestions"} given by several
+heuristics. Set \code{"suggestions"} to \code{NA} to start with a purely
+random initial population.
 
-Note: Package \pkg{GA} needs to be installed.
+\bold{Note:} Package \pkg{GA} needs to be installed.
 }
 %\value{
 %}

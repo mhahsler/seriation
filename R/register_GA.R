@@ -18,9 +18,13 @@
 
 ## registers seriation methods and criteria from package DendSer
 
-gaperm_mixedMutation <- function(object, parent, ...) {
-  if(runif(1)>.8) GA::gaperm_simMutation(object, parent, ...)
-  else GA::gaperm_ismMutation(object, parent, ...)
+# Generates a mutation function which mixes simMutation (simple insertion)
+# with ismMutation (inversion) given the probability.
+gaperm_mixedMutation <- function(ismProb = .8) {
+  function(object, parent, ...) {
+    if(runif(1)>ismProb) GA::gaperm_simMutation(object, parent, ...)
+    else GA::gaperm_ismMutation(object, parent, ...)
+  }
 }
 
 register_GA <- function() {
@@ -34,7 +38,7 @@ register_GA <- function() {
       suggestions = c("TSP", "QAP_LS", "Spectral"),
       selection = GA::gaperm_nlrSelection,
       crossover = GA::gaperm_oxCrossover,
-      mutation = seriation::gaperm_mixedMutation,
+      mutation = seriation::gaperm_mixedMutation(.8),
       pcrossover = .2,
       pmutation = .5,
       popSize = 100,
