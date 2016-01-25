@@ -16,34 +16,36 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-## recognize Robinson structure 
+## recognize Robinson structure
 
 
 is.robinson <- function(x, anti = TRUE, pre = FALSE) {
-  if(is.matrix(x) && !isSymmetric(unname(x))) 
+  if(is.matrix(x) && !isSymmetric(unname(x)))
     stop("x needs to be a symmetric matrix!")
 
-  d <- as.dist(x)  
+  d <- as.dist(x)
   if(!anti) d <- max(d) - d
-  
-  ## pre Robinson matrix can be perfectly seriated using 
+
+  ## pre Robinson matrix can be perfectly seriated using
   ## spectral seriation!
   if(pre) d <- permute(d, seriate(d, method = "spectral"))
-  
+
   unname(criterion(d, method = "AR_events") == 0)
 }
-  
+
 random.robinson <- function(n, anti = TRUE, pre = FALSE, noise = 0) {
-  
+
+  if(noise < 0 | noise > 1) stop("noise has to be beween 0 and 1.")
+
   x <- runif(n)
   if(!pre) x <- sort(x)
-  
-  if(noise) x <- cbind(x, rnorm(n, mean = 0, sd = noise))
-  
+
+  if(noise) x <- cbind(x, runif(n, min = 0, max = noise))
+
   m <- as.matrix(dist(x))
 
   if(!anti) m <- max(m)-m
-  
+
   m
 }
 
