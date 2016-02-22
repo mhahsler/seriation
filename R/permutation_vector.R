@@ -45,7 +45,7 @@ get_order.ser_permutation_vector <- function(x, ...) NextMethod()
 
 get_order.hclust <- function(x, ...) x$order
 
-get_order.dendrogram <- function(x, ...) order.dendrogram(den)
+get_order.dendrogram <- function(x, ...) order.dendrogram(x)
 
 
 get_order.integer <- function(x, ...) {

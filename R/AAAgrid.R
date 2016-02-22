@@ -108,7 +108,7 @@
 
 
 ### new version below uses grid.raster
-.grid_image_old <- function(x, y, z, zlim, col = gray.colors(12, 1, 0), 
+.grid_image_old <- function(x, y, z, zlim, col = grey.colors(12, 1, 0), 
   name = "image", gp = gpar()) {
   
   if(is.matrix(x)){ 
@@ -153,7 +153,7 @@
   upViewport(1)
 }
 
-.grid_image <- function(x, zlim, col = gray.colors(12, 1, 0), 
+.grid_image <- function(x, zlim, col = grey.colors(12, 1, 0), 
   prop = FALSE, name = "image", gp = gpar()) {
   
   if(missing(zlim)) zlim <- range(x, na.rm = TRUE)
