@@ -1,3 +1,5 @@
+Changes in version 1.2-0.1 (x/xx/2016)
+
 Changes in version 1.2-0 (2/22/2016)
     * Fixed RGAR (w needs to be in [2,n-1]).
     * RGAR gained parameter pct to specify the window as a percentage.
