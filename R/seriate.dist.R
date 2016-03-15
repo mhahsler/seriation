@@ -557,6 +557,7 @@ seriate_dist_Inertia <- function(x, control = NULL) {
   n <- attr(x, "Size")
 
   ## inertia uses the same A matrix as 2SUM
+  ## we use n^2 since A needs to be positive
   do.call(qap::qap, c(list(A = n^2-.A_2SUM(n),
     B = as.matrix(x)), control))
 }

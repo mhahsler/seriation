@@ -240,7 +240,7 @@ C
           Z=ZBD
           IF (IVERB == 1) THEN
 C              WRITE(*,*) 'Eval =',z
-              CALL FPRINTF('Eval =  %10.3f', 14, DBLE(z), 0.0)
+              CALL FPRINTF('Eval =  %10.3f', 14, DBLE(Z), 0.0)
           ENDIF
           DO I = 1,N
             X(I)=Q(I)
