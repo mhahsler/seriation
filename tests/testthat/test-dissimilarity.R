@@ -16,35 +16,35 @@ x <- list(
 context("ser_dist")
 
 ## Default is Spearman
-## first two are largest distance (2)
+## first two are equal with reverse
 d <- ser_dist(x)
 expect_true(all(d >= 0))
-expect_equal(d[1], 2)
+expect_equal(d[1], 0)
+
+## first two are largest distance (2) w/o reverse
+d_norev <- ser_dist(x, reverse = FALSE)
+expect_true(all(d_norev >= 0))
+expect_equal(d_norev[1], 2)
 
 ## x,y interface
 d <- ser_dist(x[[1]], x[[2]])
-expect_equal(d[1], 2)
-
-## first two are equal with reverse
-d <- ser_dist(x, reverse = TRUE)
-expect_true(all(d >=0))
 expect_equal(d[1], 0)
 
 ## Manhattan is 100 times 50 difference
-d <- ser_dist(x, method = "Manhattan")
+d <- ser_dist(x, method = "Manhattan", reverse = FALSE)
 expect_true(all(d >=0))
 expect_equal(d[1], 100*50)
 
-d <- ser_dist(x, method = "Manhattan", reverse = TRUE)
+d <- ser_dist(x, method = "Manhattan")
 expect_true(all(d >=0))
 expect_equal(d[1], 0)
 
 ## Hamming is 100
-d <- ser_dist(x, method = "Hamming")
+d <- ser_dist(x, method = "Hamming", reverse = FALSE)
 expect_true(all(d >=0))
 expect_equal(d[1], 100)
 
-d <- ser_dist(x, method = "Hamming", reverse = TRUE)
+d <- ser_dist(x, method = "Hamming")
 expect_true(all(d >=0))
 expect_equal(d[1], 0)
 
@@ -58,15 +58,15 @@ context("ser_cor")
 
 ## Default is Spearman
 ## sequence with its reverse
-co <- ser_cor(x[[1]], x[[2]])
+co <- ser_cor(x[[1]], x[[2]], reverse = FALSE)
 expect_equal(co, rbind(c(1,-1), c(-1,1)))
 
-co <- ser_cor(x)
+co <- ser_cor(x, reverse = FALSE)
 expect_identical(dim(co), rep(length(x), 2))
 expect_true(all(co >=-1 & co <=1))
 expect_equivalent(co[1:2,1:2], rbind(c(1,-1), c(-1,1)))
 
-co <- ser_cor(x, reverse = TRUE)
+co <- ser_cor(x)
 expect_true(all(co >=-1 & co <=1))
 expect_equivalent(co[1:2,1:2], rbind(c(1,1), c(1,1)))
 

@@ -1,4 +1,6 @@
 Changes in version 1.2-0.1 (x/xx/2016)
+    * the default setting for ser_dist and ser_cor is now reverse is TRUE.
+    * Fixed pimage: Does now work with matrices containing only a single value.
 
 Changes in version 1.2-0 (2/22/2016)
     * Fixed RGAR (w needs to be in [2,n-1]).

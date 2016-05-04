@@ -270,6 +270,17 @@
 .grid_colorkey <- function(range, col, threshold = NULL, lab = "",
   name = "colorkey", horizontal=TRUE, gp = gpar()) {
 
+  ### no color key for only a single value
+  if(diff(range) == 0) {
+    vp <- viewport(
+      xscale = c(0,1), yscale = c(0,1),
+      default.units = "native", name = name)
+
+    pushViewport(vp)
+    grid.text(label = range[1], x = 0.5, y = 0.5, default.units = "native")
+    return(upViewport(1))
+  }
+
   if(horizontal)
     vp <- viewport(
       xscale = range, yscale = c(0,1),

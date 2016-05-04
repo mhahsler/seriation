@@ -76,6 +76,10 @@ expect_equal(rev(hc)[1:3], permute(hc, rev(get_order(hc)))[1:3])
 expect_warning(permute(hc, o))
 
 context("permutation_matrix2vector")
+pv <- 1:5
+pm <- permutation_vector2matrix(pv)
+expect_true(all(diag(pm) == 1))
+
 pv <- sample(1:100)
 
 ## convert into a permutation matrix

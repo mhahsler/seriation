@@ -8,32 +8,32 @@
 Calculates dissimilarities/correlations between seriation orders in a list.
 }
 \usage{
-ser_cor(x, y = NULL, method = "spearman", reverse = FALSE, test = FALSE)
-ser_dist(x, y = NULL, method = "spearman", reverse = FALSE)
+ser_cor(x, y = NULL, method = "spearman", reverse = TRUE, test = FALSE)
+ser_dist(x, y = NULL, method = "spearman", reverse = TRUE)
 ser_align(x, method = "spearman")
 }
 \arguments{
-  \item{x}{set of seriation orders as a list with elements which can be 
+  \item{x}{set of seriation orders as a list with elements which can be
   coerced into \code{ser_permutation_vector} objects. }
   \item{y}{ if not \code{NULL} then a single seriation order can be specified.   In this case \code{x} has to be a single seriation order and not a list. }
   \item{method}{ a character string with the name of the used measure. Available
     measures are:
-    \code{"kendall"}, \code{"spearman"}, \code{"manhattan"}, 
-    \code{"euclidean"}, \code{"hamming"}, and 
-    \code{"ppc"} (positional proximity 
+    \code{"kendall"}, \code{"spearman"}, \code{"manhattan"},
+    \code{"euclidean"}, \code{"hamming"}, and
+    \code{"ppc"} (positional proximity
       coefficient).}
-  \item{reverse}{a logical indicating if the orders should also be checked in 
-    reverse order and the best value (highest correlation, lowed distance) is
+  \item{reverse}{a logical indicating if the orders should also be checked in
+    reverse order and the best value (highest correlation, lowest distance) is
     reported. This only affect ranking-based measures and not precedence
-    invariant measures (e.g., ppc). } 
-  \item{test}{a logical indicating if a correlation test should be performed. } 
+    invariant measures (e.g., ppc). }
+  \item{test}{a logical indicating if a correlation test should be performed. }
 }
 \details{
 \code{ser_cor} calculates the correlation between two sequences (orders).
 Not that a seriation order and its reverse are identical and purely an artifact
-due to the method that creates the order. This is a major difference to 
+due to the method that creates the order. This is a major difference to
 rankings.
-For ranking-based correlation measures (Spearman and Kendall) 
+For ranking-based correlation measures (Spearman and Kendall)
 the absolute value of the correlation is returned for \code{reverse = TRUE}
 (in effect returning the correltation for the reversed order).
 If \code{test = TRUE} then the appropriate test for association is performed
@@ -43,8 +43,8 @@ that no correction for multiple testing is performed.
 For \code{ser_dist},
 the correlation coefficients (Kendall's tau and Spearman's rho) are converted
 into a dissimilarity by taking one minus the correlation value.
-Note that Manhattan distance between the 
-ranks in a linear order is equivalent to Spearman's footrule 
+Note that Manhattan distance between the
+ranks in a linear order is equivalent to Spearman's footrule
 metric (Diaconis 1988). \code{reverse = TRUE} returns the pairwise minima
 using also reversed orders.
 
@@ -54,23 +54,23 @@ We use the normalized value (i.e., the generalized correlation coefficient).
 The similarity measure is converted into a dissimilarity via \eqn{1-ppc}.
 For this precedence invariant measure \code{reverse} is ignored.
 
-\code{ser_align} tries to normalize the direction in a list of seriations such 
+\code{ser_align} tries to normalize the direction in a list of seriations such
 that ranking-based methods can be used.
 We add for each permutation also the reversed order to the set and then
 use a modified version of Prim's
-algorithm for finding a minimum spanning tree (MST) to choose if the original seriation order or its reverse should be used. We use the orders first added to 
-the MST. Every time an order is added, its reverse is removed from the possible 
+algorithm for finding a minimum spanning tree (MST) to choose if the original seriation order or its reverse should be used. We use the orders first added to
+the MST. Every time an order is added, its reverse is removed from the possible
 remaining orders.
 }
 \value{
 \code{ser_dist} returns an object of class \code{dist}.
-\code{ser_align} returns a new list with elements of class 
+\code{ser_align} returns a new list with elements of class
     \code{ser_permutation}.
 }
-\references{ 
+\references{
 P. Diaconis (1988): Group Representations in Probability and Statistics. Institute of Mathematical Statistics, Hayward, CA.
 
-J.Y. Goulermas, A. Kostopoulos, and T. Mu (2015): A New Measure for Analyzing and Fusing Sequences of Objects. IEEE Transactions on Pattern Analysis and Machine Intelligence. Forthcomming.  
+J.Y. Goulermas, A. Kostopoulos, and T. Mu (2015): A New Measure for Analyzing and Fusing Sequences of Objects. IEEE Transactions on Pattern Analysis and Machine Intelligence. Forthcomming.
 }
 \seealso{
 \code{\link{ser_permutation_vector}}
@@ -86,7 +86,7 @@ rownames(x) <- 1:50
 d <- dist(x)
 
 ## Create a list of different seriations
-methods <- c("HC_single", "HC_complete", "OLO", "GW", "R2E", "VAT", 
+methods <- c("HC_single", "HC_complete", "OLO", "GW", "R2E", "VAT",
   "TSP", "Spectral", "SPIN", "MDS", "Identity", "Random")
 
 os <- sapply(methods, function(m) {
@@ -96,27 +96,24 @@ os <- sapply(methods, function(m) {
   o
 })
 
-## Compare the methods using distances (default is based on 
-## Spearman's rank correlation coefficient)
+## Compare the methods using distances. Default is based on
+## Spearman's rank correlation coefficient. Reverse orders are considered
+## equivalent.
 ds <- ser_dist(os)
 hmap(ds, margin=c(7,7))
 
-## Compare using actual correlation (reversed orders have low or 
-## negative correlation!)
-cs <- ser_cor(os)
+## Compare using actual correlation between orders. Reversed orders have
+## negative correlation!
+cs <- ser_cor(os, reverse = FALSE)
 hmap(cs, margin=c(7,7))
 
-## Also check reversed seriation orders. 
+## Also check reversed seriation orders.
 ## Now all but random and identity are highly positive correlated
 cs2 <- ser_cor(os, reverse = TRUE)
 hmap(cs2, margin=c(7,7))
-  
+
 ## Use Manhattan distance of the ranks (i.e., Spearman's foot rule)
 ds <- ser_dist(os, method="manhattan")
-plot(hclust(ds))
-
-## Also check reversed orders
-ds <- ser_dist(os, method="manhattan", reverse = TRUE)
 plot(hclust(ds))
 }
 \keyword{cluster}

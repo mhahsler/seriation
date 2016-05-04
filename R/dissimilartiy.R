@@ -20,79 +20,79 @@
 .dist_methods <- c("spearman", "kendall", "manhattan", "euclidean", "hamming",
   "ppc")
 
-ser_cor <- function(x, y = NULL, method = "spearman", 
-  reverse = FALSE, test=FALSE) { 
+ser_cor <- function(x, y = NULL, method = "spearman",
+  reverse = TRUE, test=FALSE) {
   ## Note: not all .dist_methods are implemented!
   method <- match.arg(tolower(method), .dist_methods)
-  
+
   ## make sure everything is a permutation vector
-  if(!is.null(y)) 
+  if(!is.null(y))
     x <- list(ser_permutation_vector(x), ser_permutation_vector(y))
   else x <- lapply(x, ser_permutation_vector)
-  
+
   m <- .lget_rank(x)
-  
+
   if(method == "ppc") {
     if(test) stop("No test for association available for PPC!")
     return(.ppc(x))
   }
-    
-  ## cor based methods 
-  co <- cor(m, method = method)
-  if(reverse) co <- abs(co) 
 
-  ## add a test?
+  ## cor based methods
+  co <- cor(m, method = method)
+  if(reverse) co <- abs(co)
+
+  ## add a correlation test?
   if(test) {
-    p <- outer(1:ncol(m), 1:ncol(m), FUN = 
+    p <- outer(1:ncol(m), 1:ncol(m), FUN =
       Vectorize(
         function(i, j) cor.test(m[,i], m[,j], method = method)$p.value))
     dimnames(p) <- dimnames(co)
     attr(co, "p-value") <- p
   }
-  
+
   co
 }
 
-ser_dist <- function(x, y = NULL, method = "spearman", reverse = FALSE) {
-  
+ser_dist <- function(x, y = NULL, method = "spearman", reverse = TRUE) {
+
   method <- match.arg(tolower(method), .dist_methods)
-  
+
   ## make sure everything is a permutation vector
-  if(!is.null(y)) 
+  if(!is.null(y))
     x <- list(ser_permutation_vector(x), ser_permutation_vector(y))
   else x <- lapply(x, ser_permutation_vector)
-  
+
   if(!reverse) switch(method,
     spearman = as.dist(1-ser_cor(x, method="spearman", reverse = FALSE)),
     kendall = as.dist(1-ser_cor(x, method="kendal", reverse = FALSE)),
-    
-    ### Manhattan == Spearman's footrule  
+
+    ### Manhattan == Spearman's footrule
     manhattan = dist(t(.lget_rank(x)), method="manhattan"),
     euclidean = dist(t(.lget_rank(x)), method="euclidean"),
-    hamming   = .dist_hamming(t(.lget_rank(x))), 
+    hamming   = .dist_hamming(t(.lget_rank(x))),
     ppc = as.dist(1-ser_cor(x, method="ppc", reverse = FALSE))
   )
-  
+
   else switch(method,
     spearman = as.dist(1-ser_cor(x, method="spearman", reverse = TRUE)),
     kendall =  as.dist(1-ser_cor(x, method="kendal", reverse = TRUE)),
-    
-    ### Manhattan == Spearman's footrule  
-    manhattan = .find_best(dist(t(.lget_rank(.add_rev(x))), 
+
+    ### Manhattan == Spearman's footrule
+    manhattan = .find_best(dist(t(.lget_rank(.add_rev(x))),
       method="manhattan")),
-    euclidean = .find_best(dist(t(.lget_rank(.add_rev(x))), 
+    euclidean = .find_best(dist(t(.lget_rank(.add_rev(x))),
       method="euclidean")),
     hamming   = .find_best(.dist_hamming(t(.lget_rank(.add_rev(x))))),
-    
+
     ### positional proximity coefficient is direction invariant
     ppc = as.dist(1-ser_cor(x, method="ppc", reverse = FALSE))
   )
 }
 
 ser_align <- function(x, method = "spearman") {
-    if(!is.list(x) || any(!sapply(x, is, "ser_permutation_vector"))) 
-      stop("x needs to be a list with elements of type 'ser_permutation_vector'")  
-  
+    if(!is.list(x) || any(!sapply(x, is, "ser_permutation_vector")))
+      stop("x needs to be a list with elements of type 'ser_permutation_vector'")
+
     .do_rev(x, .alignment(x, method=method))
 }
 
@@ -123,7 +123,7 @@ ser_align <- function(x, method = "spearman") {
   x
 }
 
-### finds the smallest distance in lists with reversed orders present 
+### finds the smallest distance in lists with reversed orders present
 .find_best <- function(d) {
   ### find smallest values
   m <- as.matrix(d)
@@ -149,48 +149,48 @@ ser_align <- function(x, method = "spearman") {
 
 ### returns TRUE for sequences which should be reversed
 .alignment <- function(x, method = "spearman") {
-    if(!is.list(x) || any(!sapply(x, is, "ser_permutation_vector"))) stop("x needs to be a list with elements of type 'ser_permutation_vector'")  
-  
-    method <- match.arg(tolower(method), .dist_methods) 
-    
+    if(!is.list(x) || any(!sapply(x, is, "ser_permutation_vector"))) stop("x needs to be a list with elements of type 'ser_permutation_vector'")
+
+    method <- match.arg(tolower(method), .dist_methods)
+
     n <- length(x)
-  
-    ## calculate dist (orders + reversed orders)  
+
+    ## calculate dist (orders + reversed orders)
     d <- as.matrix(ser_dist(.add_rev(x), method=method, reverse=FALSE))
     diag(d) <- NA
-    for(i in 1:n) { 
+    for(i in 1:n) {
       d[i, n+i] <- NA
-      d[n+i, i] <- NA  
+      d[n+i, i] <- NA
     }
-     
+
     ## start with closest pair
     take <- which(d == min(d, na.rm = TRUE), arr.ind = TRUE)[1,]
     #d[, c(take, (take+n) %% (2*n))] <- NA
-    
+
     ## mark order and complement as taken
     d[, c(take, (take+n) %% (2*n))] <- Inf
 
-    ## keep adding the closest 
+    ## keep adding the closest
     while(length(take) < n) {
       t2 <- which(d[take,] == min(d[take,], na.rm = TRUE), arr.ind = TRUE)[1, 2]
       #d[, c(t2,  (t2+n) %% (2*n))] <- NA
-      
+
       ### closest to all
       #t2 <- which.min(colSums(d[take,], na.rm = T))
       d[, c(t2,  (t2+n) %% (2*n))] <- Inf
-      
+
       take <- append(take, t2)
     }
-  
+
     ## create indicator vector for the orders which need to be reversed
     take_ind <- logical(n)
     take_ind[take[take>n]-n] <- TRUE
     names(take_ind) <- names(x)
     take_ind
 }
-   
+
 ## Propositional Proximity Coefficient (1 - generalized corr. coef.)
-## Goulermas, Kostopoulos and Mu, A new measure for analyzing and fusing 
+## Goulermas, Kostopoulos and Mu, A new measure for analyzing and fusing
 ## sequences of objects, IEEE Transactions on Pattern Analysis and Machine
 ## Intelligence, forthcomming.
 ##
@@ -199,7 +199,7 @@ ser_align <- function(x, method = "spearman") {
   x <- get_rank(x)
   y <- get_rank(y)
   n <- length(x)
-  
+
   #sum <- 0
   #for(j in 2:n) for(i in 1:(j-1)) sum <- sum + (x[i]-x[j])^2 * (y[i]-y[j])^2
 
@@ -207,10 +207,10 @@ ser_align <- function(x, method = "spearman") {
   Ax <- (x %*% rbind(rep_len(1, n)) - tcrossprod(cbind(rep_len(1, n)), x))^2
   Ay <- (y %*% rbind(rep_len(1, n)) - tcrossprod(cbind(rep_len(1, n)), y))^2
   ## note: Ay is symetric
-  sum <- sum(diag(Ax %*% Ay)) 
-  
+  sum <- sum(diag(Ax %*% Ay))
+
   ## scale by theoretical maximum
-  sum / (n^6/15 - n^4/6 + n^2/10) 
+  sum / (n^6/15 - n^4/6 + n^2/10)
 }
 
 .vppc <- Vectorize(.ppc_int)

@@ -19,9 +19,8 @@ method \code{"DendSer"} accepts the following parameters:
 \describe{
 \item{\code{"h"} or \code{"method"}}{A dendrogram or a method for
 hierarchical clustering (see \code{hclust}). Default: complete-link.}
-\item{\code{"cost"} or \code{"criterion"}}{Cost function to optimize.
-Alternatively, you can specify a seriation
-criterion (see \code{list_criterion_methods("dist")}).
+\item{\code{"criterion"}}{A seriation
+criterion to optimize (see \code{list_criterion_methods("dist")}).
 Default: \code{"BAR"} (Banded anti-Robinson from with 20\% band width).}
 \item{\code{"verbose"}}{print progress information.}
 \item{\code{"DendSer_args"}}{additional arguments for \code{DendSer}.}
@@ -63,7 +62,7 @@ pimage(d, o)
 
 ## use different hclust method (Ward) and AR as the cost function for
 ## dendrogram reordering
-o <- seriate(d, "DendSer", control = list(method = "ward.D2", cost = "AR"))
+o <- seriate(d, "DendSer", control = list(method = "ward.D2", criterion = "AR"))
 pimage(d, o)
 }
 }

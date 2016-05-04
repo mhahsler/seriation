@@ -65,7 +65,14 @@ register_DendSer <- function() {
   DendSer_BAR <- DendSer_helper
 
   DendSer_PL <- function(x, control) {
-    control$cost <- DendSer::costPL
+    #control$cost <- DendSer::costPL
+    control$criterion <- "Path_length"
+    DendSer_helper(x, control)
+  }
+
+  DendSer_LPL <- function(x, control) {
+    #control$cost <- DendSer::costLPL
+    control$criterion <- "Lazy_path_length"
     DendSer_helper(x, control)
   }
 
@@ -74,11 +81,13 @@ register_DendSer <- function() {
     DendSer_helper(x, control)
   }
 
-  DendSer_LS <- function(x, control) {
-    control$cost <- DendSer::costLS
-    control$h <- hclust(x)
-    DendSer_helper(as.matrix(x)[,1], control)
-  }
+  ## This is not Least Squares!
+  #  DendSer_LS <- function(x, control) {
+  #    control$cost <- DendSer::costLS
+  #    control$criterion <- "LS"
+  #    control$h <- hclust(x)
+  #    DendSer_helper(as.matrix(x)[,1], control)
+  #  }
 
   seriation::set_seriation_method("dist", "DendSer",
     DendSer_helper, "Dendrogram seriation (DendSer)")
@@ -87,10 +96,12 @@ register_DendSer <- function() {
     DendSer_BAR, "Dendrogram seriation (BAR)")
   seriation::set_seriation_method("dist", "DendSer_PL",
     DendSer_PL, "Dendrogram seriation (Path length)")
+  seriation::set_seriation_method("dist", "DendSer_LPL",
+    DendSer_PL, "Dendrogram seriation (Lazy path length)")
   seriation::set_seriation_method("dist", "DendSer_ARc",
     DendSer_ARc, "Dendrogram seriation (ARc)")
-  seriation::set_seriation_method("dist", "DendSer_LS",
-    DendSer_LS, "Dendrogram seriation (Leaf sort)")
+  #  seriation::set_seriation_method("dist", "DendSer_LS",
+  #    DendSer_LS, "Dendrogram seriation (Leaf sort)")
 
 
   ## criteria
