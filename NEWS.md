@@ -1,41 +1,43 @@
 # Changes in version 1.2-0.1 (x/xx/2016)
 
-* the default setting for ser_dist and ser_cor is now reverse is TRUE.
-* Fixed pimage: Did now work with matrices containing only a single value.
+* The default setting for ser_dist and ser_cor is now reverse is TRUE.
+* Bugfix: pimage did now work with matrices containing only a single value.
+* Bugfix: control parameters for method TSP are now correctly passed on
+  (reported by David Aliyev)
 
 # Changes in version 1.2-0 (2/22/2016)
 
 * Fixed RGAR (w needs to be in [2,n-1]).
 * RGAR gained parameter pct to specify the window as a percentage.
-* added the lazy path length criterion.
-* added the banded anti-Robinson form (BAR) criterion.
-* added QAP_Inertia and QAP_BAR solver.
-* added DendSer using register_DendSer().
-* added GA using register_GA().
-* registry now warns and modifies entries with the same name.
-* registry now lists methods in alphabetical order.
-* seriation method alias Chen was removed. Use R2E.
+* Added the lazy path length criterion.
+* Added the banded anti-Robinson form (BAR) criterion.
+* Added QAP_Inertia and QAP_BAR solver.
+* Added DendSer using register_DendSer().
+* Added GA using register_GA().
+* Registry now warns and modifies entries with the same name.
+* Registry now lists methods in alphabetical order.
+* Seriation method alias Chen was removed. Use R2E.
 
 # Changes in version 1.1-3 (12/18/2015)
 
-* added is.robinson to recognize (pre) Robinson matrices.
-* added random.robinson to create random Robinson matrices.
-* added seriation methods "QAP_LS" and "QAP_2SUM" (QAP-based seriation).
-* added criteria "LS" and "2SUM" from QAP-based seriation.
+* Added is.robinson to recognize (pre) Robinson matrices.
+* Added random.robinson to create random Robinson matrices.
+* Added seriation methods "QAP_LS" and "QAP_2SUM" (QAP-based seriation).
+* Added criteria "LS" and "2SUM" from QAP-based seriation.
 * Fixed Spectral_norm seriation.
 * hmap now honors zlim also in dendrogram-based maps.
 * hmap gained option sym for seriation based maps. showdist can now be
       one of "none" (default), "row", "column", or "both".
 * ser_cor and ser_dist gained parameter y. ser_cor gained parameter test
       to perform tests for association.
-* added permute method for hclust and dendrogram objects.
+* Added permute method for hclust and dendrogram objects.
 
 # Changes in version 1.1-2 (8/23/2015)
 
 * Argument (control and ...) check warns now instead of throwing an error.
 * seriation_dist, seriation_cor and seriation_align are now shortened to
       ser_dist, ser_cor and ser_align.
-* method "ppc" is now faster and also available in ser_cor.
+* Method "ppc" is now faster and also available in ser_cor.
 * Fixed ser_cor for "spearman" and "Kendall" (uses now rank correctly).
 * ser_cor and ser_dist gained parameter reverse to indicate that
         permuations are also tried in reverse and the best value is reported.
@@ -72,12 +74,12 @@
         consistent (all use now zlim, consistent default color palettes).
 * pimage gained axes and prop; NA in matrix now works.
 * seriation checks now control arguments consistently.
-* we use now package registry to manage methods.
+* We use now package registry to manage methods.
 * reorder for hclust added.
 * iVAT with path distance added.
 * color palettes (bluered, greenred, greys) added.
-* improved speed of C code.
-* fixed problem with testthat filenames fixed.
+* Improved speed of C code.
+* Fixed problem with testthat filenames fixed.
 * bburg.f/bbwrg.f: memory access problem fixed.
 
 # Changes in version 1.0-14 (12/02/2014)

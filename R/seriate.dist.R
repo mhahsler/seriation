@@ -94,7 +94,7 @@ seriate_dist_tsp <- function(x, control = NULL){
     )
 
   tour <- solve_TSP(tsp, method = control$method,
-    control = control$control)
+    control = control)
 
   o <- cut_tour(tour, cut = "cut_here", exclude_cut = TRUE)
   names(o) <- labels(x)[o]
