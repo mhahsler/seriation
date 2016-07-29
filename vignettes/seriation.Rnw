@@ -707,7 +707,7 @@ $$\mathrm{min}_\mathbf{q} \frac{\mathbf{q}^T L_\mathbf{S}\mathbf{q}}{\mathbf{q}^
 where $L_\mathbf{S}$ is the Laplacian of $\mathbf{S}$.
 
 The optimal order can be recovered by the sorting order of
-the Fielder vector (i.e., the second smallest eigenvector of the Laplacian
+the Fiedler vector (i.e., the second smallest eigenvector of the Laplacian
 of the similarity matrix).
 
 \subsection{Quadratic Assignment Problem}

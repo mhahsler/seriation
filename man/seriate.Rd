@@ -175,7 +175,7 @@ be supplied using an element named \code{"hclust"}.
 
 Spectral seriation uses a relaxation to
 minimize the \bold{2-Sum Problem} (Barnard, Pothen, and Simon 1993).
-It uses the order of the Fielder
+It uses the order of the Fiedler
 vector of the similarity matrix's (normalized) Laplacian.
   }
 

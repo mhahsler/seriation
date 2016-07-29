@@ -49,7 +49,7 @@ metric (Diaconis 1988). \code{reverse = TRUE} returns the pairwise minima
 using also reversed orders.
 
 The positional proximity coefficient (ppc) is a precedence invariant measure based on
-the squared positional distances in two permutations (see Goulermas et al 2015).
+the squared positional distances in two permutations (see Goulermas et al 2016).
 We use the normalized value (i.e., the generalized correlation coefficient).
 The similarity measure is converted into a dissimilarity via \eqn{1-ppc}.
 For this precedence invariant measure \code{reverse} is ignored.
@@ -70,7 +70,7 @@ remaining orders.
 \references{
 P. Diaconis (1988): Group Representations in Probability and Statistics. Institute of Mathematical Statistics, Hayward, CA.
 
-J.Y. Goulermas, A. Kostopoulos, and T. Mu (2015): A New Measure for Analyzing and Fusing Sequences of Objects. IEEE Transactions on Pattern Analysis and Machine Intelligence. Forthcomming.
+J.Y. Goulermas, A. Kostopoulos, and T. Mu (2016): A New Measure for Analyzing and Fusing Sequences of Objects. IEEE Transactions on Pattern Analysis and Machine Intelligence 38(5):833-48.
 }
 \seealso{
 \code{\link{ser_permutation_vector}}
