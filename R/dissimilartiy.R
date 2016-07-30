@@ -190,9 +190,9 @@ ser_align <- function(x, method = "spearman") {
 }
 
 ## Propositional Proximity Coefficient (1 - generalized corr. coef.)
-## Goulermas, Kostopoulos and Mu, A new measure for analyzing and fusing
+## Goulermas, Kostopoulos and Mu (2016). A new measure for analyzing and fusing
 ## sequences of objects, IEEE Transactions on Pattern Analysis and Machine
-## Intelligence, forthcomming.
+## Intelligence 38(5):833-48.
 ##
 ## x,y ... permutation vectors (ranks)
 .ppc_int <- function(x, y) {
