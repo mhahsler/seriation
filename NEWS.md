@@ -4,6 +4,7 @@
 * Bugfix: pimage did now work with matrices containing only a single value.
 * Bugfix: control parameters for method TSP are now correctly passed on
   (reported by David Aliyev)
+* Added distance new measure for absolute pairwise rank differences.
 
 # Changes in version 1.2-0 (2/22/2016)
 

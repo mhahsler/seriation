@@ -9,7 +9,7 @@ Calculates dissimilarities/correlations between seriation orders in a list.
 }
 \usage{
 ser_cor(x, y = NULL, method = "spearman", reverse = TRUE, test = FALSE)
-ser_dist(x, y = NULL, method = "spearman", reverse = TRUE)
+ser_dist(x, y = NULL, method = "spearman", reverse = TRUE, ...)
 ser_align(x, method = "spearman")
 }
 \arguments{
@@ -19,18 +19,19 @@ ser_align(x, method = "spearman")
   \item{method}{ a character string with the name of the used measure. Available
     measures are:
     \code{"kendall"}, \code{"spearman"}, \code{"manhattan"},
-    \code{"euclidean"}, \code{"hamming"}, and
-    \code{"ppc"} (positional proximity
-      coefficient).}
+    \code{"euclidean"}, \code{"hamming"},
+    \code{"ppc"} (positional proximity coefficient), and
+    \code{"aprd"} (absolute pairwise rank differences).}
   \item{reverse}{a logical indicating if the orders should also be checked in
     reverse order and the best value (highest correlation, lowest distance) is
     reported. This only affect ranking-based measures and not precedence
-    invariant measures (e.g., ppc). }
+    invariant measures (e.g., ppc, aprd). }
   \item{test}{a logical indicating if a correlation test should be performed. }
+  \item{...}{Further arguments passed on to the method. }
 }
 \details{
 \code{ser_cor} calculates the correlation between two sequences (orders).
-Not that a seriation order and its reverse are identical and purely an artifact
+Note that a seriation order and its reverse are identical and purely an artifact
 due to the method that creates the order. This is a major difference to
 rankings.
 For ranking-based correlation measures (Spearman and Kendall)
@@ -48,10 +49,27 @@ ranks in a linear order is equivalent to Spearman's footrule
 metric (Diaconis 1988). \code{reverse = TRUE} returns the pairwise minima
 using also reversed orders.
 
-The positional proximity coefficient (ppc) is a precedence invariant measure based on
-the squared positional distances in two permutations (see Goulermas et al 2016).
-We use the normalized value (i.e., the generalized correlation coefficient).
-The similarity measure is converted into a dissimilarity via \eqn{1-ppc}.
+
+The positional proximity coefficient (ppc) is a precedence invariant measure based on product of the squared positional distances in two permutations defined as (see Goulermas et al 2016):
+
+\deqn{d_{ppc}(R, S) =
+1/h  \sum_{i,j} (\pi_R(i)-\pi_R(j))^2 * (\pi_S(i)-\pi_S(j))^2,}
+
+where
+\eqn{R} and \eqn{S} are two seriation orders, \eqn{pi_R} and \eqn{pi_S}
+are the associated permutation vectors and
+\eqn{h} is a normalization factor.
+The associatied generalized correlation coefficient is defined as \eqn{1-d_{ppc}}.
+For this precedence invariant measure \code{reverse} is ignored.
+
+The absolute pairwise rank difference (aprd) is also precedence invariant
+and defined as a distance measure:
+
+\deqn{d_{aprd}(R, S) =
+\sum_{i,j} | |\pi_R(i)-\pi_R(j)| - |\pi_S(i)-\pi_S(j)| |^p,}
+
+where \eqn{p} is the power which can be passed on as
+parameter \code{p} and is by default set to 2.
 For this precedence invariant measure \code{reverse} is ignored.
 
 \code{ser_align} tries to normalize the direction in a list of seriations such

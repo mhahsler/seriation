@@ -18,7 +18,7 @@
 
 
 .dist_methods <- c("spearman", "kendall", "manhattan", "euclidean", "hamming",
-  "ppc")
+  "ppc", "aprd")
 
 ser_cor <- function(x, y = NULL, method = "spearman",
   reverse = TRUE, test=FALSE) {
@@ -53,7 +53,7 @@ ser_cor <- function(x, y = NULL, method = "spearman",
   co
 }
 
-ser_dist <- function(x, y = NULL, method = "spearman", reverse = TRUE) {
+ser_dist <- function(x, y = NULL, method = "spearman", reverse = TRUE, ...) {
 
   method <- match.arg(tolower(method), .dist_methods)
 
@@ -70,12 +70,13 @@ ser_dist <- function(x, y = NULL, method = "spearman", reverse = TRUE) {
     manhattan = dist(t(.lget_rank(x)), method="manhattan"),
     euclidean = dist(t(.lget_rank(x)), method="euclidean"),
     hamming   = .dist_hamming(t(.lget_rank(x))),
-    ppc = as.dist(1-ser_cor(x, method="ppc", reverse = FALSE))
+    ppc       = as.dist(1-ser_cor(x, method="ppc", reverse = FALSE)),
+    aprd      = as.dist(.aprd(x, ...))
   )
 
   else switch(method,
-    spearman = as.dist(1-ser_cor(x, method="spearman", reverse = TRUE)),
-    kendall =  as.dist(1-ser_cor(x, method="kendal", reverse = TRUE)),
+    spearman  = as.dist(1-ser_cor(x, method="spearman", reverse = TRUE)),
+    kendall   =  as.dist(1-ser_cor(x, method="kendal", reverse = TRUE)),
 
     ### Manhattan == Spearman's footrule
     manhattan = .find_best(dist(t(.lget_rank(.add_rev(x))),
@@ -85,7 +86,8 @@ ser_dist <- function(x, y = NULL, method = "spearman", reverse = TRUE) {
     hamming   = .find_best(.dist_hamming(t(.lget_rank(.add_rev(x))))),
 
     ### positional proximity coefficient is direction invariant
-    ppc = as.dist(1-ser_cor(x, method="ppc", reverse = FALSE))
+    ppc       = as.dist(1-ser_cor(x, method="ppc", reverse = FALSE)),
+    aprd      = as.dist(.aprd(x, ...))
   )
 }
 
@@ -195,7 +197,7 @@ ser_align <- function(x, method = "spearman") {
 ## Intelligence 38(5):833-48.
 ##
 ## x,y ... permutation vectors (ranks)
-.ppc_int <- function(x, y) {
+.vppc <- Vectorize(function(x, y) {
   x <- get_rank(x)
   y <- get_rank(y)
   n <- length(x)
@@ -210,8 +212,29 @@ ser_align <- function(x, method = "spearman") {
   sum <- sum(diag(Ax %*% Ay))
 
   ## scale by theoretical maximum
-  sum / (n^6/15 - n^4/6 + n^2/10)
-}
+  zapsmall(sum / (n^6/15 - n^4/6 + n^2/10))
+})
 
-.vppc <- Vectorize(.ppc_int)
 .ppc <- function(x) outer(x, x, .vppc)
+
+# Sum of differences of rank differences
+#
+# distance(R, S) =
+#  \sum_{i,j} | |\pi_R(i)-\pi_R(j)| - |\pi_S(i)-\pi_S(j)| |^p
+#
+
+.vaprd <- Vectorize(function(x, y, p = 2) {
+  x <- get_rank(x)
+  y <- get_rank(y)
+  n <- length(x)
+
+  sum <- 0
+  for(j in 2:n) for(i in 1:(j-1))
+    sum <- sum + abs(abs(x[i]-x[j]) - abs(y[i]-y[j]))^p
+
+  ## FIXME: scale by theoretical maximum?
+  sum
+})
+
+.aprd <- function(x, p = 2) outer(x, x, .vaprd, p=p)
+
