@@ -53,7 +53,7 @@ using also reversed orders.
 The positional proximity coefficient (ppc) is a precedence invariant measure based on product of the squared positional distances in two permutations defined as (see Goulermas et al 2016):
 
 \deqn{d_{ppc}(R, S) =
-1/h  \sum_{i,j} (\pi_R(i)-\pi_R(j))^2 * (\pi_S(i)-\pi_S(j))^2,}
+1/h  \sum_{j=2}^n \sum_{i=1}^{j-1} (\pi_R(i)-\pi_R(j))^2 * (\pi_S(i)-\pi_S(j))^2,}
 
 where
 \eqn{R} and \eqn{S} are two seriation orders, \eqn{pi_R} and \eqn{pi_S}
@@ -66,7 +66,7 @@ The absolute pairwise rank difference (aprd) is also precedence invariant
 and defined as a distance measure:
 
 \deqn{d_{aprd}(R, S) =
-\sum_{i,j} | |\pi_R(i)-\pi_R(j)| - |\pi_S(i)-\pi_S(j)| |^p,}
+\sum_{j=2}^n \sum_{i=1}^{j-1} | |\pi_R(i)-\pi_R(j)| - |\pi_S(i)-\pi_S(j)| |^p,}
 
 where \eqn{p} is the power which can be passed on as
 parameter \code{p} and is by default set to 2.
