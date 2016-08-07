@@ -1,7 +1,7 @@
 # seriation - Infrastructure for Ordering Objects Using Seriation - R package
 
-[![CRAN version](http://www.r-pkg.org/badges/version/seriation)](http://cran.r-project.org/web/packages/seriation/index.html)
-[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/seriation)](http://cran.r-project.org/web/packages/seriation/index.html)
+[![CRAN version](http://www.r-pkg.org/badges/version/seriation)](https://cran.r-project.org/package=seriation)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/seriation)](https://cran.r-project.org/package=seriation)
 [![Travis-CI Build Status](https://travis-ci.org/mhahsler/seriation.svg?branch=master)](https://travis-ci.org/mhahsler/seriation)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mhahsler/seriation?branch=master&svg=true)](https://ci.appveyor.com/project/mhahsler/seriation)
 
