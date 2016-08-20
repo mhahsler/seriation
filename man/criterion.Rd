@@ -235,7 +235,7 @@ are implemented:
     (BEA).
 }
 
-\item{\code{"Cor_R"}}{Correlation coefficient R developed
+\item{\code{"Cor_R"}}{Weighted correlation coefficient R developed
      as the Measure of Effectiveness for the Moment Ordering
      Algorithm (Deutsch and Martin 1971).
 

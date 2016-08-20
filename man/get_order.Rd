@@ -23,12 +23,12 @@ get_rank(x, \ldots)
 get_permutation_matrix(x, \ldots)
 }
 \arguments{
-  \item{x}{ an object of class \code{ser_permutation} or 
+  \item{x}{ an object of class \code{ser_permutation} or
       \code{ser_permutation_vector}.}
   \item{dim}{ order information for which dimension should be returned?}
-  \item{\ldots}{further arguments are ignorred for \code{get_order}. 
-    For \code{get_rank} and 
-    for \code{get_permutation_matrix} the additional arguments are passed on to 
+  \item{\ldots}{further arguments are ignorred for \code{get_order}.
+    For \code{get_rank} and
+    for \code{get_permutation_matrix} the additional arguments are passed on to
     \code{get_order} (e.g., as \code{dim}).}
     }
 \details{
@@ -40,11 +40,12 @@ get_permutation_matrix(x, \ldots)
   order-based permutation vectors.
 
 \code{get_rank} returns the seriation as an integer vector containing
-  the rank/position for each objects in the permutation. That is, 
+  the rank/position for each objects in the permutation. That is,
   position of the first, second, \eqn{..., n}-th object after permutation.
-  
+  Note: Use \code{order()} to convert ranks back to an order.
 
-\code{get_permutation_matrix} returns a \eqn{n \times n}{n x n} permutation matrix. 
+
+\code{get_permutation_matrix} returns a \eqn{n \times n}{n x n} permutation matrix.
 }
 \value{
 Returns an integer permutation vector/a permutation matrix.

@@ -88,18 +88,28 @@ criterion_R_matrix <- function(x, order, ...) {
 
   M <- nrow(x)
   N <- ncol(x)
+
+  ## total sum
   T <- sum(x)
 
+  ## X_i = i/M; Y_j = j/N
   X_i <- (1:M)/M
   Y_j <- (1:N)/N
+
+  ## X_bar = 1/T sum_i,j a_ij X_i
   X_bar <- 1/T * sum(crossprod(x, X_i))
+  ## Y_bar = 1/T sum_i,j a_ij Y_j
   Y_bar <- 1/T * sum(crossprod(t(x), Y_j))
 
+  ## S_X2 = 1/(T-1) sum_i,j a_ij (X_i - X_bar)^2
   S_X2 <- 1/(T-1) * sum(crossprod(x, (X_i-X_bar)^2))
+  ## S_Y2 = 1/(T-1) sum_i,j a_ij (Y_j - Y_bar)^2
   S_Y2 <- 1/(T-1) * sum(crossprod(t(x), (Y_j-Y_bar)^2))
 
+  ## S_XY = 1/(T-1) sum_i,j a_ij  (X_i - X_bar) (Y_j - Y_bar)
   S_XY <- 1/(T-1) * sum(x * outer(X_i-X_bar, Y_j-Y_bar))
 
+  ## R = S_XY/(S_X S_Y)
   S_XY/(sqrt(S_X2)*sqrt(S_Y2))
 }
 

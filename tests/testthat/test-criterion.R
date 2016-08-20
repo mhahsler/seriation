@@ -34,9 +34,9 @@ expect_true(round(criterion(d, method="Gradient_weighted"), 6) - 3.968119 < 1e-1
 
 ## test stress
 expect_equal(round(criterion(d, method="Neumann"), 3),
-	structure(5.12, names="Neumann_stress"))
+	structure(7.787, names="Neumann_stress"))
 expect_equal(round(criterion(d, method="Moore"), 3),
-	structure(6.273, names="Moore_stress"))
+	structure(11.539, names="Moore_stress"))
 
 expect_equal(criterion(m, method="Neumann"),
 	structure(22, names="Neumann_stress"))
