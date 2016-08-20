@@ -156,14 +156,15 @@ criterion_LS <- function(x, order, ...) {
 }
 
 
+### these measures are calculated on similarity matrices
 criterion_ME_dist <- function(x, order, ...)
-    criterion(as.matrix(x), c(order, order), "ME")
+    criterion(as.matrix(1/(1+x)), c(order, order), "ME")
 
 criterion_Moore_stress_dist  <- function(x, order, ...)
-    criterion(as.matrix(x), c(order, order), "Moore_stress")
+    criterion(as.matrix(1/(1+x)), c(order, order), "Moore_stress")
 
 criterion_Neumann_stress_dist  <- function(x, order, ...)
-    criterion(as.matrix(x), c(order, order), "Neumann_stress")
+    criterion(as.matrix(1/(1+x)), c(order, order), "Neumann_stress")
 
 
 ### register methods

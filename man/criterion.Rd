@@ -201,6 +201,12 @@ function resulting in
     objects \eqn{i} and \eqn{j}.
     }
 
+    \item{\code{"ME"}, \code{"Moore_stress"}, \code{"Neumann_stress"}}{These
+    criteria are defined on general matrices (see below for definitions).
+    The dissimilarity matrix is first converted into a similarity matrix
+    using \eqn{S = 1/(1+D)}. If a different transformation is required, then
+    perform the transformation first and supply a matrix instead
+    of a dist object.}
     }
 
 For a general matrix

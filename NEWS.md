@@ -1,3 +1,8 @@
+# Changes in version 1.2-1.1 (xx/x/2016)
+
+* Criterion: dist objects are now automatically converted into a  
+  similarity matrix for ME, Moore\_stress and Neumann\_stress.
+
 # Changes in version 1.2-1 (08/06/2016)
 
 * The default setting for ser_dist and ser_cor is now reverse is TRUE.
