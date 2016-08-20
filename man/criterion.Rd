@@ -201,7 +201,8 @@ function resulting in
     objects \eqn{i} and \eqn{j}.
     }
 
-    \item{\code{"ME"}, \code{"Moore_stress"}, \code{"Neumann_stress"}}{These
+    \item{\code{"ME"}, \code{"Moore_stress"},
+          \code{"Neumann_stress"}, \code{"Cor_R"}}{These
     criteria are defined on general matrices (see below for definitions).
     The dissimilarity matrix is first converted into a similarity matrix
     using \eqn{S = 1/(1+D)}. If a different transformation is required, then
@@ -232,6 +233,18 @@ are implemented:
     i.e. a higher ME indicates a better arrangement.
     Maximizing ME is the objective of the bond energy algorithm
     (BEA).
+}
+
+\item{\code{"Cor_R"}}{Correlation coefficient R developed
+     as the Measure of Effectiveness for the Moment Ordering
+     Algorithm (Deutsch and Martin 1971).
+
+     R is a merit measure normalized so that its value always
+     lies in \eqn{[-1,1]}.
+     For the special case of a square matrix \eqn{R=1} corresponds to only the
+     main diagonal being filled, \eqn{R=0} to a random distribution of value
+     throughout the array, and \eqn{R=-1} to the opposite diagonal only being
+     filled.
 }
 
 \item{\code{"Moore_stress"}, \code{"Neumann_stress"}}{ Stress (Niermann 2005).
@@ -288,6 +301,9 @@ to Arrange Gene Expression Profiles in Optimal Linear Order,
 C.-H. Chen (2002): Generalized association plots:
 Information visualization via iteratively generated correlation matrices,
 \emph{Statistica Sinica,} \bold{12}(1), 7--29.
+
+S.B. Deutsch and J.J. Martin (1971): An ordering algorithm for analysis of
+data arrays. \emph{Operational Research,} \bold{19}(6), 1350--1362.
 
 D. Earle and C.B. Hurley (2015): Advances in Dendrogram Seriation for Application to Visualization. \emph{Journal of Computational and Graphical Statistics,}
 \bold{24}(1), 1--25.

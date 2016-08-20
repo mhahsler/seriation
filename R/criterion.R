@@ -56,15 +56,20 @@ set_criterion_method <- function(kind, name, fun,
 get_criterion_method <- function(kind, name) {
   method <- registry_criterion$get_entry(kind=kind, name=name)
   if(is.null(method))
-    stop("Unknown seriation method. Check list_criterion_methods(\"", kind, "\")")
+    stop("Unknown criterion. Check list_criterion_methods(\"", kind, "\")")
 
   method
 }
 
-list_criterion_methods <- function(kind)
-  sort(as.vector(sapply(registry_criterion$get_entries(kind=kind), "[[", "name")))
+list_criterion_methods <- function(kind){
+  if(missing(kind)) m <- registry_criterion$get_entries()
+  else m <- registry_criterion$get_entries(kind=kind)
+
+  sort(as.vector(sapply(m, "[[", "name")))
+}
 
 show_criterion_methods <- function(kind) {
-  m <- registry_criterion$get_entries(kind=kind)
+  if(missing(kind)) m <- registry_criterion$get_entries()
+  else m <- registry_criterion$get_entries(kind=kind)
   m[sort(names(m))]
 }

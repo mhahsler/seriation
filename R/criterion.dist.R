@@ -155,14 +155,33 @@ criterion_LS <- function(x, order, ...) {
     qap::qap.obj(.A_LS(attr(x, "Size")), as.matrix(x), order)
 }
 
+### A MEASURE OF EFFECTIVENESS FOR THE MOMENT ORDERING ALGORITHM
+### by Deutsch & Martin (1971)
+### Correlation coefficient R for matrices. This is the special case
+### for a symmetric distance matrix (converted into a similarity matrix)
+criterion_R_dist <- function(x, order, ...) {
+
+  if(is.null(order)) o <- 1:attr(x, "Size")
+  else o <- get_order(order)
+
+  x <- as.matrix(1/(1+x))[o,o]
+
+  n <- nrow(x)
+  T <- sum(x)
+
+  S_XY <- 1/(T-1) * sum(x * outer((1:n)/n, (1:n)/n))
+  S_X2 <- 1/(T-1) * sum(x *((1:n)/n)^2)
+
+  S_XY/S_X2
+}
+
+
 
 ### these measures are calculated on similarity matrices
 criterion_ME_dist <- function(x, order, ...)
     criterion(as.matrix(1/(1+x)), c(order, order), "ME")
-
 criterion_Moore_stress_dist  <- function(x, order, ...)
     criterion(as.matrix(1/(1+x)), c(order, order), "Moore_stress")
-
 criterion_Neumann_stress_dist  <- function(x, order, ...)
     criterion(as.matrix(1/(1+x)), c(order, order), "Neumann_stress")
 
@@ -195,6 +214,8 @@ set_criterion_method("dist", "Least_squares", criterion_least_squares,
     "Least squares criterion", FALSE)
 set_criterion_method("dist", "ME", criterion_ME_dist,
     "Measure of effectiveness", TRUE)
+set_criterion_method("dist", "Cor_R", criterion_R_dist,
+    "Correlation coefficient R", TRUE)
 
 set_criterion_method("dist", "Moore_stress", criterion_Moore_stress_dist,
     "Stress (Moore neighborhood)", FALSE)

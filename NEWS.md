@@ -2,6 +2,8 @@
 
 * Criterion: dist objects are now automatically converted into a  
   similarity matrix for ME, Moore\_stress and Neumann\_stress.
+* Added criterion Cor_R (ME for the moment ordering algorithm by 
+  Deutsch and Martin)
 
 # Changes in version 1.2-1 (08/06/2016)
 

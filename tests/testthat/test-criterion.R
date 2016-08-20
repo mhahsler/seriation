@@ -34,9 +34,15 @@ expect_true(round(criterion(d, method="Gradient_weighted"), 6) - 3.968119 < 1e-1
 
 ## test stress
 expect_equal(round(criterion(d, method="Neumann"), 3),
-	structure(57.275, names="Neumann_stress"))
+	structure(5.12, names="Neumann_stress"))
 expect_equal(round(criterion(d, method="Moore"), 3),
-	structure(98.291, names="Moore_stress"))
+	structure(6.273, names="Moore_stress"))
+
+expect_equal(criterion(m, method="Neumann"),
+	structure(22, names="Neumann_stress"))
+expect_equal(criterion(m, method="Moore"),
+	structure(44, names="Moore_stress"))
+
 
 ## RGAR
 ## for w = 2 -> 1/4
@@ -61,3 +67,15 @@ expect_equivalent(criterion(d, method="BAR", b=1),
   criterion(d, method="Path_length"))
 # b = n-1 -> ARc
 expect_equivalent(round(criterion(d, method="BAR", b=3), 3), 21.936)
+
+### Cor R
+m <- diag(100)
+
+expect_equivalent(criterion(m, method="Cor_R"), 1.0)
+expect_equivalent(criterion(m[nrow(m):1,], method="Cor_R"), -1.0)
+
+# this should be close to 0
+set.seed(1234)
+r <- replicate(100, criterion(m[sample(nrow(m)),], method="Cor_R"))
+# hist(r)
+expect_true(abs(mean(r)) < 0.1)
