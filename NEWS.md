@@ -4,6 +4,8 @@
   similarity matrix for ME, Moore\_stress and Neumann\_stress.
 * Added criterion Cor_R (ME for the moment ordering algorithm by 
   Deutsch and Martin)
+* pimage now supresses the color key for logical matrices and checks for
+  all NAs and infinite entries.
 
 # Changes in version 1.2-1 (08/06/2016)
 
