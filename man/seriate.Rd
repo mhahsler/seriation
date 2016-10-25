@@ -42,7 +42,9 @@ A definition of the measures can be found in the
 
 Two-way two-mode data has to be provided as a dist object (not as a symmetric
 matrix). Similarities have to be transformed in a suitable way into
-dissimilarities. Currently the following methods are implemented for dist:
+dissimilarities. Currently the following methods are implemented for dist
+(for a more detailed description and an experimental comparison see
+Hahsler (2017)):
 
 \describe{
 \item{\code{"ARSA"}}{Anti-Robinson seriation by simulated annealing to minimize
@@ -331,6 +333,9 @@ Gruvaeus, G. and Wainer, H. (1972): Two Additions to Hierarchical Cluster
 Analysis,
 \emph{British Journal of Mathematical and Statistical Psychology,}
 \bold{25}, 200--206.
+
+Hahsler, M. (2017): An experimental comparison of seriation methods for one-mode two-way data. \emph{European Journal of Operational Research,} \bold{257},
+133--143.
 
 Hubert, Lawrence, and James Schultz (1976): Quadratic Assignment as a General Data Analysis Strategy. \emph{British Journal of Mathematical and Statistical
 Psychology} \bold{29}(2). Blackwell Publishing Ltd. 190--241.
