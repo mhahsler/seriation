@@ -14,33 +14,46 @@ visual assessment of cluster tendency plots (VAT and iVAT).
 
 ## Installation
 
-* __Stable CRAN version:__ install from within R.
-* __Current development version:__ Download package from [AppVeyor](https://ci.appveyor.com/project/mhahsler/seriation/build/artifacts) or install via `install_github("mhahsler/seriation")` (requires R package `devtools`) 
-
-## Example
-
+__Stable CRAN version:__ install from within R with
 ```R
-## load library and read data
-R> library(seriation)
-R> data("iris")
-R> x <- as.matrix(iris[-5])
-R> x <- x[sample(1:nrow(x)),]
+install.packages("seriation")
+```
+__Current development version:__ Download package from [AppVeyor](https://ci.appveyor.com/project/mhahsler/seriation/build/artifacts) or install from GitHub (needs devtools).
+```R 
+install_git("mhahsler/seriation")
+```
 
-## calculate distances and use default seriation
-R> d <- dist(x)
-R> order <- seriate(d)
-R> order
+## Usage
+
+Load library, read data and calculate distances. Then use default seriation.
+```R
+library(seriation)
+data("iris")
+x <- as.matrix(iris[-5])
+x <- x[sample(1:nrow(x)),]
+
+d <- dist(x)
+order <- seriate(d)
+order
+```
+
+```
 object of class ‘ser_permutation’, ‘list’
 contains permutation vectors for 1-mode data
 
   vector length seriation method
 1           150             ARSA
+```
 
-## compare quality
-R> rbind(
-+ random = criterion(d),
-+ reordered = criterion(d, order)
-+ )
+Compare quality.
+```R
+rbind(
+ random = criterion(d),
+ reordered = criterion(d, order)
+)
+```
+
+```
           AR_events AR_deviations       RGAR Gradient_raw Gradient_weighted Path_length
 random       550620    948833.712 0.49938328          741         -1759.954   392.77766
 reordered     54846      9426.094 0.04974243       992214       1772123.418    83.95758
@@ -77,11 +90,8 @@ For matrices:
  *  Random permutation 
  *  TSP - Traveling sales person solver to maximize ME 
 
-## Further Information
+## References
 
-* Development version of [seriation on github](https://github.com/mhahsler/seriation).
 * Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things in Order: An Introduction to the R Package seriation,](http://dx.doi.org/10.18637/jss.v025.i03) _Journal of Statistical Software,_ 25(3), 2008.
-* [Seriation package vignette](http://cran.r-project.org/web/packages/seriation/vignettes/seriation.pdf) with complete examples.
-* [Reference manual](http://cran.r-project.org/web/packages/seriation/seriation.pdf)
-
-_Maintainer:_ [Michael Hahsler](http://michael.hahsler.net)
+* [Seriation package vignette](http://cran.r-project.org/package=seriation/vignettes/seriation.pdf) with complete examples.
+* [Reference manual](http://cran.r-project.org/package=seriation/seriation.pdf)
