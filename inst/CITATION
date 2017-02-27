@@ -1,33 +1,7 @@
-citHeader("To cite in publications use:")
 
-## R >= 2.8.0 passes package metadata to citation().
-if(!exists("meta") || is.null(meta)) meta <- packageDescription("seriation")
+citation(auto = meta)
 
-year <- sub("-.*", "", meta$Date)
-note <- sprintf("R package version %s.", meta$Version)
-
-citEntry(entry = "Manual",
-         title = "Infrastructure for seriation",
-         author = {
-             personList(person("Michael", "Hahsler",
-                               email = "michael@hahsler.net"),
-                        person("Christian", "Buchta",
-                               email = "Christian.Buchta@wu.ac.at"),
-                        person("Kurt", "Hornik",
-                               email = "Kurt.Hornik@R-project.org"))
-         },
-         year = year,
-         note = note,
-         url = "http://CRAN.R-project.org/",
-         textVersion = {
-             paste("Michael Hahsler, Christian Buchta and Kurt Hornik",
-                   sprintf("(%s).", year),                         
-                   "Infrastructure for seriation.",
-                   note,
-                   sep = "  ")
-         })
-
-citEntry(entry = "article",
+bibentry(bibtype = "article",
          title = paste("Getting things in order: ",
 			"An introduction to the R package seriation"),
          author = {
