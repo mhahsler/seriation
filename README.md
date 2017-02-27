@@ -93,5 +93,6 @@ For matrices:
 ## References
 
 * Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things in Order: An Introduction to the R Package seriation,](http://dx.doi.org/10.18637/jss.v025.i03) _Journal of Statistical Software,_ 25(3), 2008.
-* [Seriation package vignette](http://cran.r-project.org/package=seriation/vignettes/seriation.pdf) with complete examples.
-* [Reference manual](http://cran.r-project.org/package=seriation/seriation.pdf)
+* Michael Hahsler. [An experimental comparison of seriation methods for one-mode two-way data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) _European Journal of Operational Research,_ 257:133-143, 2017.
+* [Seriation package vignette](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf) with complete examples.
+* [Reference manual](https://cran.r-project.org/package=seriation/seriation.pdf)
