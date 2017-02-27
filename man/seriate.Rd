@@ -224,6 +224,8 @@ the \bold{banded anti-Robinson form} (BAR) or
 the \bold{inertia criterion.}
 }
 
+\item{\code{"GA"}}{ Use a genetic algorithm to optimize for various criteria.
+ The GA code has to be first registered. A detailed description can be found in the manual page for \code{\link{register_GA}}.}
 
 \item{\code{"Identity"}}{ Produces an identity permutation. }
 
@@ -359,6 +361,7 @@ Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany, E.
 \seealso{
 \code{\link{list_seriation_methods}},
 \code{\link{criterion}},
+\code{\link{register_GA}},
 \code{\link[TSP]{solve_TSP}} in \pkg{TSP},
 \code{\link{hclust}} in \pkg{stats}.
 }
