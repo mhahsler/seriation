@@ -48,7 +48,7 @@ Hahsler (2017)):
 
 \describe{
 \item{\code{"ARSA"}}{Anti-Robinson seriation by simulated annealing to minimize
-  the \bold{unweighted gradient measure} (Brusco et al 2007).
+  the \bold{unweighted gradient measure} (simulated annealing initialization used in Brusco et al 2008).
     }
 \item{\code{"BBURCG"}}{Anti-Robinson seriation by branch-and-bound to minimize
   the \bold{unweighted gradient measure} (Brusco and Stahl 2005).
@@ -64,8 +64,9 @@ Hahsler (2017)):
       the \bold{Hamiltonian path length}.
       The solvers in \pkg{TSP} are used (see \code{solve_TSP}).
       The solver method can be passed on via the
-      \code{control} argument, e.g. \code{control = list(method = "2-opt")}.
-      Default is the nearest insertion heuristic.
+      \code{control} argument, e.g. \code{control = list(method = "two_opt")}.
+      Default is the est of 10 runs of
+      arbitrary insertion heuristic with 2-opt improvement.
 
       Since a tour returned by a TSP solver is a connected circle and we are
       looking for a path representing a linear order, we need to find the best
@@ -224,6 +225,8 @@ the \bold{banded anti-Robinson form} (BAR) or
 the \bold{inertia criterion.}
 }
 
+\item{\code{"GA"}}{ Use a genetic algorithm to optimize for various criteria.
+ The GA code has to be first registered. A detailed description can be found in the manual page for \code{\link{register_GA}}.}
 
 \item{\code{"Identity"}}{ Produces an identity permutation. }
 
@@ -300,15 +303,15 @@ Optimal Leaf Ordering for Hierarchical Clustering.
 \emph{Bioinformatics,} \bold{17}(1), 22--29.
 
 Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for Envelope Reduction of Sparse Matrices. \emph{In Proceedings of the 1993
-ACM/IEEE Conference on Supercomputing,} 493-502. Supercomputing '93.
+ACM/IEEE Conference on Supercomputing,} 493--502. Supercomputing '93.
 New York, NY, USA: ACM.
 
 Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual assessment of (cluster) tendency. \emph{Proceedings of the 2002 International Joint
 Conference on Neural Networks (IJCNN '02)}, Volume: 3, 2225--2230.
 
-Brusco, M., Koehn, H.F., and Stahl, S. (2007): Heuristic Implementation of
+Brusco, M., Koehn, H.F., and Stahl, S. (2008): Heuristic Implementation of
 Dynamic Programming for Matrix Permutation Problems in Combinatorial
-Data Analysis. \emph{Psychometrika,} conditionally accepted.
+Data Analysis. \emph{Psychometrika,} \bold{73}(3), 503--522.
 
 Brusco, M., and Stahl, S. (2005):
 \emph{Branch-and-Bound Applications in Combinatorial Data Analysis.}
@@ -359,6 +362,7 @@ Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany, E.
 \seealso{
 \code{\link{list_seriation_methods}},
 \code{\link{criterion}},
+\code{\link{register_GA}},
 \code{\link[TSP]{solve_TSP}} in \pkg{TSP},
 \code{\link{hclust}} in \pkg{stats}.
 }
