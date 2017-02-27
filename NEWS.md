@@ -1,4 +1,4 @@
-# Changes in version 1.2-1.1 (xx/x/2016)
+# seriation 1.2-1.1 (xx/x/2016)
 
 * Criterion: dist objects are now automatically converted into a  
   similarity matrix for ME, Moore\_stress and Neumann\_stress.
@@ -7,7 +7,7 @@
 * pimage now supresses the color key for logical matrices and checks for
   all NAs and infinite entries.
 
-# Changes in version 1.2-1 (08/06/2016)
+# seriation 1.2-1 (08/06/2016)
 
 * The default setting for ser_dist and ser_cor is now reverse is TRUE.
 * Bugfix: pimage did now work with matrices containing only a single value.
@@ -15,7 +15,7 @@
   (reported by David Aliyev)
 * Added new distance measure called absolute pairwise rank differences.
 
-# Changes in version 1.2-0 (2/22/2016)
+# seriation 1.2-0 (2/22/2016)
 
 * Fixed RGAR (w needs to be in [2,n-1]).
 * RGAR gained parameter pct to specify the window as a percentage.
@@ -28,7 +28,7 @@
 * Registry now lists methods in alphabetical order.
 * Seriation method alias Chen was removed. Use R2E.
 
-# Changes in version 1.1-3 (12/18/2015)
+# seriation 1.1-3 (12/18/2015)
 
 * Added is.robinson to recognize (pre) Robinson matrices.
 * Added random.robinson to create random Robinson matrices.
@@ -42,7 +42,7 @@
       to perform tests for association.
 * Added permute method for hclust and dendrogram objects.
 
-# Changes in version 1.1-2 (8/23/2015)
+# seriation 1.1-2 (8/23/2015)
 
 * Argument (control and ...) check warns now instead of throwing an error.
 * seriation_dist, seriation_cor and seriation_align are now shortened to
@@ -52,7 +52,7 @@
 * ser_cor and ser_dist gained parameter reverse to indicate that
         permuations are also tried in reverse and the best value is reported.
 
-# Changes in version 1.1-1 (7/1/2015)
+# seriation 1.1-1 (7/1/2015)
 
 * get_permutation_matrix added.
 * seriation_dist measure "ppc" (positional proximity coefficient) added.
@@ -61,7 +61,7 @@
         get_permutation_matrix.
 * Fixed imports for non-base R packages.
 
-# Changes in version 1.1-0 (06/09/2015)
+# seriation 1.1-0 (06/09/2015)
 
 * Seriation method 'Identity' added.
 * Seriation method 'Random' added.
@@ -92,18 +92,18 @@
 * Fixed problem with testthat filenames fixed.
 * bburg.f/bbwrg.f: memory access problem fixed.
 
-# Changes in version 1.0-14 (12/02/2014)
+# seriation 1.0-14 (12/02/2014)
 
 * arsa.f: removed 0 flag in rand() so it compiles under AIX
       (reported by Lei Zhang)
 * arsa.f/bburg.f/bbwrg.f: calls now R RNG to be compatible with certain
 	    compilers (e.g., Intel FORTRAN) (reported by Rohan Shah)
 
-# Changes in version 1.0-13 (3/11/2014)
+# seriation 1.0-13 (3/11/2014)
 
 * Fixed dependence on MASS
 
-# Changes in version 1.0-12 (2/18/2014)
+# seriation 1.0-12 (2/18/2014)
 
 * ser_permutation_vectors can now be reversed with rev
 * get_order: removed the weird labels.
@@ -113,53 +113,53 @@
 * Cleaned up dependencies: TSP, grid, cluster, gclus and colorspace are
 	    now imports instead of dependencies.
 
-# Changes in version 1.0-11 (9/6/2013)
+# seriation 1.0-11 (9/6/2013)
 
 * service release.
 
-# Changes in version 1.0-10 (2/15/2013)
+# seriation 1.0-10 (2/15/2013)
 
 * pimage has now a colorkey and a range argument
 * fixed bug in ARSA when the distance matrix contains all 0s
 * added PACKAGE argument to .Fortran calls
 
-# Changes in version 1.0-8 and 1.0-9 (11/6/2012)
+# seriation 1.0-8 and 1.0-9 (11/6/2012)
 
 * get_order: labels are now in the correct order (Bug report by Crt Ahlin)
 * Replaced Fortran I/O with R I/O for verb=TRUE
 * Fixed pop/newpage bug in pimage.dist (reported by Bettina Gruen)
 
-# Changes in version 1.0-7 (9/25/2012)
+# seriation 1.0-7 (9/25/2012)
 
 * Fixed out-of-bounds bug in arsa.f (reported by Rohan Shah)
 * Fixed out-of-bounds bug in bburcg.f
 
-# Changes in version 1.0-6 (10/19/2011)
+# seriation 1.0-6 (10/19/2011)
 
 * removed deprecated parameter gamma for dissplot()
 
-# Changes in version 1.0-5 (9/2/2011)
+# seriation 1.0-5 (9/2/2011)
 
 * bertinplot(): fixed representation for 0, neg. values and highlight.
 	    (Bug report by G. Sawitzki).
 * bertinplot(): added panel.blocks and option for shading
 * bertinplot(): added bertin_cut_line()
 
-# Changes in version 1.0-4 (6/28/2011)
+# seriation 1.0-4 (6/28/2011)
 
 * pimage() now uses grid.raster.
 * dissplot() now uses grid.raster.
 
-# Changes in version 1.0-3 (1/14/2011)
+# seriation 1.0-3 (1/14/2011)
 
 * improved validity check for permutations and added check for dist with
 	    neg. entries to seriate.dist.
 
-# Changes in version 1.0-2 (3/13/2010)
+# seriation 1.0-2 (3/13/2010)
 
 * service release
 
-# Changes in version 1.0-1 (8/25/2009)
+# seriation 1.0-1 (8/25/2009)
 
 * added drop=FALSE in permute for matrix.
 * fixed reordering for labels.
@@ -171,4 +171,8 @@
 
 # Version 1.0-0 (3/24/2009)
 
+* many changes and first stable release.
+
 # Version 0.1-1 (9/1/2007)
+
+* Initial beta release.
