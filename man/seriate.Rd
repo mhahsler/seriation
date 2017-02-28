@@ -48,7 +48,7 @@ Hahsler (2017)):
 
 \describe{
 \item{\code{"ARSA"}}{Anti-Robinson seriation by simulated annealing to minimize
-  the \bold{unweighted gradient measure} (simulated annealing initialization used in Brusco et al 2008).
+  the \bold{linear seriation criterion} (simulated annealing initialization used in Brusco et al 2008).
     }
 \item{\code{"BBURCG"}}{Anti-Robinson seriation by branch-and-bound to minimize
   the \bold{unweighted gradient measure} (Brusco and Stahl 2005).
@@ -228,6 +228,9 @@ the \bold{inertia criterion.}
 \item{\code{"GA"}}{ Use a genetic algorithm to optimize for various criteria.
  The GA code has to be first registered. A detailed description can be found in the manual page for \code{\link{register_GA}}.}
 
+ \item{\code{"DendSer"}}{ Use heuristic dendrogram seriation to optimize for various criteria.
+ The DendSer code has to be first registered. A detailed description can be found in the manual page for \code{\link{register_DendSer}}.}
+
 \item{\code{"Identity"}}{ Produces an identity permutation. }
 
 \item{\code{"Random"}}{ Produces a random permutation. }
@@ -363,6 +366,7 @@ Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany, E.
 \code{\link{list_seriation_methods}},
 \code{\link{criterion}},
 \code{\link{register_GA}},
+\code{\link{register_DendSer}},
 \code{\link[TSP]{solve_TSP}} in \pkg{TSP},
 \code{\link{hclust}} in \pkg{stats}.
 }

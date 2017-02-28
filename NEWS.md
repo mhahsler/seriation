@@ -1,18 +1,19 @@
-# seriation 1.2-1.1 (xx/x/2016)
+# seriation 1.2-1.1 (xx/x/2017)
 
 * Criterion: dist objects are now automatically converted into a  
   similarity matrix for ME, Moore\_stress and Neumann\_stress.
 * Added criterion Cor_R (ME for the moment ordering algorithm by 
-  Deutsch and Martin)
+  Deutsch and Martin).
 * pimage now supresses the color key for logical matrices and checks for
   all NAs and infinite entries.
+* Correction: ARSA minimizes the linear seriation criterion.
 
 # seriation 1.2-1 (08/06/2016)
 
 * The default setting for ser_dist and ser_cor is now reverse is TRUE.
 * Bugfix: pimage did now work with matrices containing only a single value.
 * Bugfix: control parameters for method TSP are now correctly passed on
-  (reported by David Aliyev)
+  (reported by David Aliyev).
 * Added new distance measure called absolute pairwise rank differences.
 
 # seriation 1.2-0 (2/22/2016)

@@ -141,10 +141,11 @@ criterion_2SUM <- function(x, order, ...) {
     if(is.null(order)) order <- 1:attr(x, "Size")
     else order <- get_order(order)
 
+    # this is sum(diag(A%*%B[o,o]))
     qap::qap.obj(.A_2SUM(attr(x, "Size")), 1/(1+as.matrix(x)), order)
 }
 
-### Note: We use n-abs(1-j) sice QAP needs positive entires in A!
+### Note: We use n-abs(1-j) since QAP needs positive entires in A!
 .A_LS <- function(n)
   outer(1:n,1:n, FUN = function(i,j) n-abs(i-j))
 
@@ -152,6 +153,7 @@ criterion_LS <- function(x, order, ...) {
     if(is.null(order)) order <- 1:attr(x, "Size")
     else order <- get_order(order)
 
+    # this is sum(diag(A%*%B[o,o]))
     qap::qap.obj(.A_LS(attr(x, "Size")), as.matrix(x), order)
 }
 

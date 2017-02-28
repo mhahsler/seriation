@@ -818,7 +818,7 @@ i.e., the columns of a matrix, are seriated).
         \hline
 Algorithm & \code{method} & Optimizes & Input data \\
         \hline
-Simulated annealing & \code{"ARSA"} & Gradient measure &\code{dist} \\
+Simulated annealing & \code{"ARSA"} & Linear seriation crit.&\code{dist} \\
 Branch-and-bound & \code{"BBURCG"} & Gradient measure &\code{dist} \\
 Branch-and-bound & \code{"BBWRCG"} & Gradient measure (weighted)& \code{dist} \\
 TSP solver & \code{"TSP"} & Hamiltonian path length& \code{dist} \\
@@ -842,11 +842,23 @@ Spectral seriation & \code{"Spectral"}
 \code{"Spectral_norm"}
 & 2-Sum crit. & \code{dist} \\
 
-2-Sum seriation & \code{"QAP_2SUM"}
+QAP & \code{"QAP_2SUM"}
 & 2-Sum crit. & \code{dist} \\
 
-Linear Seriation & \code{"QAP_LS"}
-& Linear Seriation crit. & \code{dist} \\
+ & \code{"QAP_LS"}
+& Linear seriation crit. & \code{dist} \\
+
+ & \code{"QAP_BAR"}
+& Banded AR form  & \code{dist} \\
+
+ & \code{"QAP_Inertia"}
+& Inertia crit. & \code{dist} \\
+
+	Genetic Algorithm & \code{"GA"}*
+& various & \code{dist} \\
+
+	DendSer & \code{"DendSer"}*
+& various & \code{dist} \\
 
 Hierarchical clustering & \code{"HC"}
 \code{"HC_single"}
@@ -867,7 +879,7 @@ Principal component analysis& \code{"PCA"}
     Least square crit.& \code{matrix} \\
         \hline
     \end{tabular}
-    \caption{Currently implemented methods for \func{seriation}.}
+    \caption{Currently implemented methods for \func{seriation} (* methods need to be registered).}
 \label{tab:methods}
 \end{table}
 %\end{landscape}
@@ -918,6 +930,8 @@ indicate the loss/merit functions currently available in the package.
         Anti-Robinson events& \code{"AR\_events"} &
 loss & \code{dist} \\
         Anti-Robinson deviations& \code{"AR\_deviations"} &
+loss & \code{dist} \\
+        Banded Anti-Robinson& \code{"BAR"} &
 loss & \code{dist} \\
         Gradient measure& \code{"Gradient\_raw"} &
 merit & \code{dist} \\
@@ -1273,8 +1287,7 @@ using the Moore neighborhood. Clearly, the methods which directly try to
 minimize the Hamiltonian path length (hierarchical clustering with optimal leaf
 ordering (\code{OLO}) and the TSP heuristic) provide the best results
 concerning the path length. For the number of anti-Robinson events, using the
-simulated annealing heuristic (\code{ARSA}) provides the best result since it
-directly aims at minimizing this loss function.  Regarding stress, the
+simulated annealing heuristic (\code{ARSA}) provides the best result.  Regarding stress, the
 simulated annealing heuristic also provides the best result although, it does
 not directly minimize this loss function.
 
@@ -1921,6 +1934,7 @@ The authors would like to thank Michael Brusco, Hans-Friedrich K{\"o}hn
 and Stephanie Stahl for their seriation code, Fionn Murtagh for his BEA
 implementation and the anonymous reviewers for their valuable comments
 and suggestions.
+
 
 %
 %\bibliographystyle{abbrvnat}
