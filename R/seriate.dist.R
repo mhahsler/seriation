@@ -20,7 +20,7 @@
 
 ## seriate dist objects
 
-seriate.dist <- function(x, method = "ARSA", control = NULL, ...) {
+seriate.dist <- function(x, method = "Spectral", control = NULL, ...) {
     if(!all(x>=0)) stop("Negative distances not supported!")
 
     ## add ... to control

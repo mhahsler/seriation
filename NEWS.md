@@ -1,11 +1,17 @@
 # seriation 1.2-1.1 (xx/x/2017)
 
+* Default for seriate (dist) and dissplot is now "Spectal" since it 
+  gives a better tradeoff between quality and speed.
+* Criterion gained parameter force_loss (default is FALSE). Merit measures 
+  are converted into loss values by multiplying with -1.
 * Criterion: dist objects are now automatically converted into a  
   similarity matrix for ME, Moore\_stress and Neumann\_stress.
 * Added criterion Cor_R (ME for the moment ordering algorithm by 
   Deutsch and Martin).
-* pimage now supresses the color key for logical matrices and checks for
+* pimage now suppresses the color key for logical matrices and checks for
   all NAs and infinite entries.
+* Seriaiton method ARSA's control argument nreps is now for consistency 
+  called reps.
 * Correction: ARSA minimizes the linear seriation criterion.
 
 # seriation 1.2-1 (08/06/2016)

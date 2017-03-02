@@ -10,7 +10,7 @@ matrix (two-way one mode data), a data matrix (two-way two-mode data) or a
 data array (k-way k-mode data).
 }
 \usage{
-\method{seriate}{dist}(x, method = "ARSA", control = NULL, \ldots)
+\method{seriate}{dist}(x, method = "Spectral", control = NULL, \ldots)
 \method{seriate}{matrix}(x, method = "PCA", control = NULL,
     margin = c(1,2), \ldots)
 \method{seriate}{array}(x, method = "PCA", control = NULL,
@@ -49,7 +49,11 @@ Hahsler (2017)):
 \describe{
 \item{\code{"ARSA"}}{Anti-Robinson seriation by simulated annealing to minimize
   the \bold{linear seriation criterion} (simulated annealing initialization used in Brusco et al 2008).
+
+\code{control} parameter \code{reps} times the simulated annealing algorithm
+is restarted (default is 1).
     }
+
 \item{\code{"BBURCG"}}{Anti-Robinson seriation by branch-and-bound to minimize
   the \bold{unweighted gradient measure} (Brusco and Stahl 2005).
   This is only feasible for a
@@ -180,6 +184,9 @@ Spectral seriation uses a relaxation to
 minimize the \bold{2-Sum Problem} (Barnard, Pothen, and Simon 1993).
 It uses the order of the Fiedler
 vector of the similarity matrix's (normalized) Laplacian.
+
+Spectral seriation gives a good trade-off between seriation quality, speed and
+scalability (see Hahsler, 2017).
   }
 
 \item{\code{"SPIN_NH"}, \code{"SPIN_STS"}}{ Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005).
@@ -216,13 +223,16 @@ The parameter \code{verbose} can be used to display progress information.
 
 \item{\code{"QAP_LS"}, \code{"QAP_2SUM"}, \code{"QAP_BAR"}, \code{"QAP_Inertia"} }{ Quadratic assignment problem
 formulations for seriation using a simulated annealing solver.
-
 These methods minimize the \bold{Linear Seriation Problem} (LS)
 formulation (Hubert and Schultz 1976),
 the \bold{2-Sum Problem} formulation
 (Barnard, Pothen, and Simon 1993),
 the \bold{banded anti-Robinson form} (BAR) or
 the \bold{inertia criterion.}
+
+The parameters in \code{control} are passed on to \code{qap} in \pkg{qap}.
+An important parameter is \code{rep} to return the best result out of
+the given number of repetitions with random restarts. Default is 1, but bigger numbers result in better and more stable results.
 }
 
 \item{\code{"GA"}}{ Use a genetic algorithm to optimize for various criteria.

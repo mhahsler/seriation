@@ -19,7 +19,8 @@
 ## Criterion for the quality of a permutation of a dissimilarity
 ## matrix
 
-criterion.dist <- function(x, order = NULL, method = NULL, ...) {
+criterion.dist <- function(x, order = NULL, method = NULL,
+  force_loss = FALSE, ...) {
 
     ## check order and x
     if(!is.null(order)) {
@@ -37,8 +38,13 @@ criterion.dist <- function(x, order = NULL, method = NULL, ...) {
     if(is.null(method)) method <- list_criterion_methods("dist")
     method <- lapply(method, function(m) get_criterion_method("dist", m))
 
-    sapply(method,
+    crit <- sapply(method,
         function(m) structure(m$fun(x, order, ...), names=m$name))
+
+    if(force_loss) crit <- crit * sapply(method, FUN =
+          function(m) ((as.integer(m$merit)*-2)+1))
+
+    crit
 }
 
 criterion.default <- criterion.dist

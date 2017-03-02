@@ -21,8 +21,8 @@
 ## Criterion for the quality of a permutation of a matrix
 
 criterion.matrix <-
-function(x, order = NULL, method = NULL, ...)
-  .criterion_array_helper(x, order, method, "matrix")
+function(x, order = NULL, method = NULL, force_loss = FALSE, ...)
+  .criterion_array_helper(x, order, method, "matrix", force_loss)
 
 ## Bond energy (BEA)
 criterion_ME <- function(x, order = NULL, ...) {

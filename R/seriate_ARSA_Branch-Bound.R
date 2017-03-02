@@ -21,13 +21,13 @@ seriate_dist_arsa <- function(x, control = NULL) {
   param <- .get_parameters(control, list(
     cool = 0.5,
     tmin = 0.1,
-    nreps = 1L,
+    reps = 1L,
     verbose = FALSE
   ))
 
   A <- as.matrix(x)
   # SUBROUTINE arsa(N, A, COOL, TMIN, NREPS, IPERM, R1, R2, D, U,
-  #      S, T, SB, verbose)
+  #      S, T, SB, ZBEST, verbose)
   N <- ncol(A)
   IPERM <- integer(N)
   R1 <- double(N*N/2)
@@ -37,9 +37,12 @@ seriate_dist_arsa <- function(x, control = NULL) {
   S <- integer(N)
   T <- integer(100*N)
   SB <- integer(N)
+  ZBEST <- double(1)
 
-  ret <- .Fortran("arsa", N, A, param$cool, param$tmin, param$nreps, IPERM,
-    R1, R2, D, U, S, T, SB, param$verbose, PACKAGE="seriation")
+  ret <- .Fortran("arsa", N, A,
+    as.numeric(param$cool), as.numeric(param$tmin), as.integer(param$reps),
+    IPERM, R1, R2, D, U, S, T, SB, ZBEST, as.logical(param$verbose),
+    PACKAGE="seriation")
 
   o <- ret[[6]]
   names(o) <- labels(x)[o]

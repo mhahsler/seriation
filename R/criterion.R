@@ -19,7 +19,7 @@
 
 
 ## Criterion generic.
-criterion <- function(x, order = NULL, method = NULL, ...)
+criterion <- function(x, order = NULL, method = NULL, force_loss = FALSE, ...)
   UseMethod("criterion")
 
 ## Criterion method registry.

@@ -3,7 +3,7 @@
 #include <stdlib.h> // for NULL
 #include <R_ext/Rdynload.h>
 
-/* FIXME: 
+/* FIXME:
    Check these declarations against the C/Fortran source code.
 */
 
@@ -48,7 +48,7 @@ static const R_CallMethodDef CallEntries[] = {
 };
 
 static const R_FortranMethodDef FortranEntries[] = {
-    {"arsa",   (DL_FUNC) &F77_NAME(arsa),   14},
+    {"arsa",   (DL_FUNC) &F77_NAME(arsa),   15},
     {"bburcg", (DL_FUNC) &F77_NAME(bburcg), 10},
     {"bbwrcg", (DL_FUNC) &F77_NAME(bbwrcg), 10},
     {"cbea",   (DL_FUNC) &F77_NAME(cbea),    7},

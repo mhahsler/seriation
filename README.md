@@ -73,7 +73,7 @@ For dissimilarity data:
  *  OLO - Hierarchical clustering with optimal leaf ordering 
  *  Identity permutation 
  *  MDS - Multidimensional scaling (metric, non-metric, angle) 
- *  SA - Simulated annealing to minimize anti-Robinson events  
+ *  ARSA - Simulated annealing (linear seriation)   
  *  TSP - Traveling sales person solver to minimize Hamiltonian path length 
  *  R2E - Rank-two ellipse seriation 
  *  Random permutation

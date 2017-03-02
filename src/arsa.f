@@ -4,16 +4,16 @@ C   by Brusco, M., Koehn, H.F., and Stahl, S.
 C   R Interface by Michael Hahsler
 
 C      PROGRAM SANNEAL
-      SUBROUTINE arsa(N, A, COOL, TMIN, NREPS, IPERM, R1, R2, D, U, 
-     1 S, T, SB, IVERB)
-      
+      SUBROUTINE arsa(N, A, COOL, TMIN, NREPS, IPERM, R1, R2, D, U,
+     1 S, T, SB, ZMAX, IVERB)
+
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
       DIMENSION A(N,N)
       DIMENSION IPERM(N)
 C      DOUBLE PRECISION A(400,400), SOLS(100), RMED(100),
       DOUBLE PRECISION R1(N*N/2), R2(N*N/2), D(N,N)
       REAL S1, RCRIT
-      INTEGER U(N), S(N), UNSEL, T(100,N), SB(N), Q
+      INTEGER U(N), S(N), UNSEL, T(100,N), SB(N), Q, NREPS
 
 C	Initialize R RNG
       CALL getrngstate()
@@ -24,11 +24,11 @@ C         PRINT *, 'based on arsa.f by Brusco, M., Koehn, H.F.,',
 C     1 'and Stahl, S. (2007)'
 
           CALL FPRINTF('Anti-Robinson seriation by simulated '
-     1 //'annealing', 46, 0.0, 0.0) 
+     1 //'annealing', 46, 0.0, 0.0)
           CALL FPRINTF('based on arsa.f by Brusco, M., '
-     1 //'Koehn, H.F.,', 41, 0.0, 0.0) 
-          CALL FPRINTF('and Stahl, S. (2007)', 21, 0.0, 0.0) 
-          CALL FPRINTF('', 0, 0.0, 0.0) 
+     1 //'Koehn, H.F.,', 41, 0.0, 0.0)
+          CALL FPRINTF('and Stahl, S. (2007)', 21, 0.0, 0.0)
+          CALL FPRINTF('', 0, 0.0, 0.0)
 
 C          PRINT *, ''
 C          PRINT *, 'COOL =', COOL
@@ -36,10 +36,10 @@ C          PRINT *, 'TMIN =', TMIN
 C          PRINT *, 'NREPS =', NREPS
 C          PRINT *, ''
 
-          CALL FPRINTF('COOL = %5.3f', 12, DBLE(COOL), 0.0) 
-          CALL FPRINTF('TMIN = %5.3f', 12, DBLE(TMIN), 0.0) 
-          CALL FPRINTF('NREPS= %5.0f', 12, DBLE(NREPS), 0.0) 
-          CALL FPRINTF('', 0, 0.0, 0.0) 
+          CALL FPRINTF('COOL = %5.3f', 12, DBLE(COOL), 0.0)
+          CALL FPRINTF('TMIN = %5.3f', 12, DBLE(TMIN), 0.0)
+          CALL FPRINTF('NREPS= %5.0f', 12, DBLE(NREPS), 0.0)
+          CALL FPRINTF('', 0, 0.0, 0.0)
 
       ENDIF
 
@@ -49,8 +49,8 @@ C      OPEN(1, FILE = 'DATASET')
 C      OPEN(2, FILE = 'OUTPUT')
 C      OPEN(3, FILE = 'PERMUT')
 C      CALL GETTIM (IHR, IMIN, ISEC, I100)
-C      CALL GETDAT (IYR, IMON, IDAY)  
-C      TIMEA = DFLOAT(86400*IDAY+3600*IHR+60*IMIN+ISEC)+DFLOAT(I100)/100.  
+C      CALL GETDAT (IYR, IMON, IDAY)
+C      TIMEA = DFLOAT(86400*IDAY+3600*IHR+60*IMIN+ISEC)+DFLOAT(I100)/100.
       RULE = .5
 C      READ(1,*) N
 C      READ(1,*) JNK
@@ -97,7 +97,7 @@ C          S1 = rand()
           ISET = S1 * FLOAT(UNSEL) + 1.
           IF(ISET.GT.UNSEL) ISET = UNSEL
           T(III,I) = U(ISET)
-C          DO J = ISET,UNSEL   
+C          DO J = ISET,UNSEL
 C	    out of bounds error reported by Rohan Shah (9/13/12)
           DO J = ISET,UNSEL-1
             U(J) = U(J+1)
@@ -159,7 +159,7 @@ C        WRITE(*,21) TMIN,TMAX,NLOOP
 C  21    FORMAT(2F14.5,I6)
         IF (IVERB == 1) THEN
 C            WRITE(*,21) NLOOP
-            CALL FPRINTF('Steps needed:  %10.0f', 21, DBLE(NLOOP), 0.0) 
+            CALL FPRINTF('Steps needed:  %10.0f', 21, DBLE(NLOOP), 0.0)
         ENDIF
 C  21    FORMAT('Steps needed: ',I10)
 C        GO TO 889
@@ -171,7 +171,7 @@ C
         DO 2000 IJK = 1,NLOOP
         IF (IVERB == 1) THEN
 C            WRITE(*,22) TEMP
-            CALL FPRINTF('Temp = %14.5f', 13, DBLE(TEMP), 0.0) 
+            CALL FPRINTF('Temp = %14.5f', 13, DBLE(TEMP), 0.0)
         ENDIF
 C  22    FORMAT('Temp = ', F14.5)
 
@@ -293,7 +293,7 @@ C 599        S1 = rand()
                 M = S(I)
                 DELTA = DELTA - SPAN2*A(K,M)
               END DO
-            END IF  
+            END IF
             IF(DELTA.GT.-EPS) THEN
               Z = Z + DELTA
               IF(J1.GT.I1) THEN
@@ -352,11 +352,15 @@ C        ZSUM = ZSUM + ZBEST
             IPERM(I) = SB(I)
           END DO
         END IF
-C        WRITE(*,77) iii,zbest
+C        WRITE(*,77) III,ZBEST
+        IF (IVERB == 1) THEN
+          CALL FPRINTF('Rep  = %3.0f', 12, DBLE(III), 0.0)
+          CALL FPRINTF('ZMAX = %10.0f', 13, DBLE(ZMAX), 0.0)
+        END IF
  1000 CONTINUE
-C      CALL GETTIM (IHR, IMIN, ISEC, I100)  
-C      CALL GETDAT (IYR, IMON, IDAY)  
-C      TIMEB = DFLOAT(86400*IDAY+3600*IHR+60*IMIN+ISEC)+DFLOAT(I100)/100.  
+C      CALL GETTIM (IHR, IMIN, ISEC, I100)
+C      CALL GETDAT (IYR, IMON, IDAY)
+C      TIMEB = DFLOAT(86400*IDAY+3600*IHR+60*IMIN+ISEC)+DFLOAT(I100)/100.
 C      TIMTOT = TIMEB - TIMEA
 C      ZSUM = ZSUM/DFLOAT(NREPS)
 C      TIMTOT = TIMTOT / DFLOAT(NREPS)
@@ -391,7 +395,7 @@ C    Return R RNG
       CALL Putrngstate()
 
       RETURN
-   
+
 C   77 format(I5,f15.4)
 C  200 FORMAT(I3,2F20.6)
 C  201 FORMAT(9X,'MIN',11X,'AVG',11X,'MED',10X,'MAX',5X,'ATT',3X,'TIME')

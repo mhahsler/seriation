@@ -10,7 +10,7 @@ merit function \eqn{M} for
   data given a permutation.
 }
 \usage{
-criterion(x, order = NULL, method = NULL, ...)
+criterion(x, order = NULL, method = NULL, force_loss = FALSE, ...)
 }
 \arguments{
   \item{x}{an object of class \code{dist} or a matrix (currently no
@@ -22,6 +22,8 @@ criterion(x, order = NULL, method = NULL, ...)
     employed, or \code{NULL} (default) in which case all available
     criteria are used.}
   \item{...}{additional parameters passed on to the criterion method.}
+  \item{force_loss}{logical; should merit function be converted into
+    loss functions by multiplying with -1?}
 }
 \details{
 For a symmetric dissimilarity matrix
