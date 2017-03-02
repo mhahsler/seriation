@@ -237,9 +237,12 @@ the given number of repetitions with random restarts. Default is 1, but bigger n
 
 \item{\code{"GA"}}{ Use a genetic algorithm to optimize for various criteria.
  The GA code has to be first registered. A detailed description can be found in the manual page for \code{\link{register_GA}}.}
+<<<<<<< HEAD
 
  \item{\code{"DendSer"}}{ Use heuristic dendrogram seriation to optimize for various criteria.
  The DendSer code has to be first registered. A detailed description can be found in the manual page for \code{\link{register_DendSer}}.}
+=======
+>>>>>>> a76a5cb384d41fc958784ca1d8fd9e26bd7c3c40
 
 \item{\code{"Identity"}}{ Produces an identity permutation. }
 
@@ -376,7 +379,10 @@ Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany, E.
 \code{\link{list_seriation_methods}},
 \code{\link{criterion}},
 \code{\link{register_GA}},
+<<<<<<< HEAD
 \code{\link{register_DendSer}},
+=======
+>>>>>>> a76a5cb384d41fc958784ca1d8fd9e26bd7c3c40
 \code{\link[TSP]{solve_TSP}} in \pkg{TSP},
 \code{\link{hclust}} in \pkg{stats}.
 }
