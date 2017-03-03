@@ -43,10 +43,9 @@ Michael Hahsler with code from Patrick Mair (from \pkg{smacof}).
 \code{\link[smacof]{uniscale}} in \pkg{smacof}.
 }
 \examples{
-data(Psych24)
+data(SupremeCourt)
 
-# convert the correlation matrix into a distance matrix
-d <- as.dist(1 - abs(Psych24))
+d <- as.dist(SupremeCourt)
 
 sc <- uniscale(d)
 sc

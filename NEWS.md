@@ -1,15 +1,21 @@
 # seriation 1.2-1.1 (xx/x/2017)
 
+## New features
+
 * Default for seriate (dist) and dissplot is now "Spectal" since it 
   gives a better tradeoff between quality and speed.
-* Criterion gained parameter force_loss (default is FALSE). Merit measures 
-  are converted into loss values by multiplying with -1.
-* Criterion: dist objects are now automatically converted into a  
-  similarity matrix for ME, Moore\_stress and Neumann\_stress.
 * Added criterion Cor_R (ME for the moment ordering algorithm by 
   Deutsch and Martin).
 * Added uniscale to produce a unidimensional scaling configuration given
   a distance matrix and a permutation.
+* Criterion gained parameter force_loss (default is FALSE). Merit measures 
+  are converted into loss values by multiplying with -1.
+* Added Supreme Court dataset.
+
+## Changes and bugfixes
+
+* Criterion: dist objects are now automatically converted into a
+  similarity matrix for ME, Moore\_stress and Neumann\_stress.
 * pimage now suppresses the color key for logical matrices and checks for
   all NAs and infinite entries.
 * Seriaiton method ARSA's control argument nreps is now for consistency 
@@ -18,21 +24,31 @@
 
 # seriation 1.2-1 (08/06/2016)
 
-* The default setting for ser_dist and ser_cor is now reverse is TRUE.
-* Bugfix: pimage did now work with matrices containing only a single value.
-* Bugfix: control parameters for method TSP are now correctly passed on
-  (reported by David Aliyev).
+## New features
+
 * Added new distance measure called absolute pairwise rank differences.
+
+## Changes and bugfixes
+
+* The default setting for ser_dist and ser_cor is now reverse is TRUE.
+* pimage does now work with matrices containing only a single value.
+* control parameters for method TSP are now correctly passed on
+  (reported by David Aliyev).
 
 # seriation 1.2-0 (2/22/2016)
 
-* Fixed RGAR (w needs to be in [2,n-1]).
+## New features
+
 * RGAR gained parameter pct to specify the window as a percentage.
 * Added the lazy path length criterion.
 * Added the banded anti-Robinson form (BAR) criterion.
 * Added QAP_Inertia and QAP_BAR solver.
 * Added DendSer using register_DendSer().
 * Added GA using register_GA().
+
+## Changes and bugfixes
+
+* Fixed RGAR (w needs to be in [2,n-1]).
 * Registry now warns and modifies entries with the same name.
 * Registry now lists methods in alphabetical order.
 * Seriation method alias Chen was removed. Use R2E.
