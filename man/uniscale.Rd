@@ -34,7 +34,7 @@ datasets since it does not check all permutations.
 A vector with the fitted configuration.
 }
 \references{
-Mair P., De Leeuw J. (2015). Unidimensional scaling. In Wiley StatsRef: Statistics Reference Online, Wiley, New York.
+Mair P., De Leeuw J. (2015). Unidimensional scaling. In \emph{Wiley StatsRef: Statistics Reference Online,} Wiley, New York.
 }
 \author{
 Michael Hahsler with code from Patrick Mair (from \pkg{smacof}).

@@ -104,9 +104,12 @@ is restarted (default is 1).
 \item{\code{"MDS"}, \code{"MDS_metric"}, \code{"MDS_nonmetric"},
   \code{"MDS_angle"}}{Multidimensional scaling (MDS).
 
-    Use multidimensional scaling techniques to find an linear order. Note
-    that unidimensional scaling would be more appropriate but is very hard to
-    solve. Generally, ordering along the first component of
+    Use multidimensional scaling techniques to find an linear order
+    by minimizing \bold{stress}. Note
+    MDS algorithms used for a single dimension tend to end up in local optima
+    and unidimensional scaling (see Maier and De Leeuw, 2015)
+    would be more appropriate.
+    However, generally, ordering along the first component of
     MDS provides good results.
 
     By default, metric MDS (\code{cmdscale} in \pkg{stats}) is used.
@@ -364,6 +367,8 @@ Data.
 Lenstra, J.K (1974): Clustering a Data Array and the Traveling-Salesman
 Problem, \emph{Operations Research,} \bold{22}(2) 413--414.
 
+Mair P., De Leeuw J. (2015). Unidimensional scaling. In \emph{Wiley StatsRef: Statistics Reference Online,} Wiley, New York.
+
 McCormick, W.T., P.J. Schweitzer and T.W. White (1972): Problem decomposition
 and data reorganization by a clustering technique,
 \emph{Operations Research,}
@@ -376,10 +381,7 @@ Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany, E.
 \code{\link{list_seriation_methods}},
 \code{\link{criterion}},
 \code{\link{register_GA}},
-<<<<<<< HEAD
 \code{\link{register_DendSer}},
-=======
->>>>>>> a76a5cb384d41fc958784ca1d8fd9e26bd7c3c40
 \code{\link[TSP]{solve_TSP}} in \pkg{TSP},
 \code{\link{hclust}} in \pkg{stats}.
 }
