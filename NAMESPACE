@@ -46,6 +46,9 @@ export(
     create_lines_data,
     create_ordered_data,
 
+    orderplot,
+    uniscale,
+
     bluered,
     greenred,
     grays,
