@@ -8,7 +8,7 @@
     Decisions are aggregated to
     the joint probability for disagreement between judges.
 }
-\usage{data("Townships")}
+\usage{data("SupremeCourt")}
 \format{
   A square, symmetric 9-by-9 matrix with the joint probability for disagreement.
 }
