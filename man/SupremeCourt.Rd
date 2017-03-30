@@ -14,7 +14,7 @@
 }
 \references{
     Sirovich, L. (2003). A pattern analysis of the second Rehnquist
-    U.S. Supreme Court. \emph{Proceedings of the National Academy of Sciences of the United States of America,} 100, 7432–7437. doi:10.1073/pnas.1132164100.
+    U.S. Supreme Court. \emph{Proceedings of the National Academy of Sciences of the United States of America,} 100, 7432-7437. doi:10.1073/pnas.1132164100.
 }
 \author{Michael Hahsler}
 \examples{
