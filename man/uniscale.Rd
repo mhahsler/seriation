@@ -13,7 +13,7 @@ uniscale(d, order = NULL, method = "QAP_LS", rep = 10, ...)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{d}{a dissimilarity matrix.}
-  \item{order}{a precomputed permutation order obtained via seriation.
+  \item{order}{a precomputed permutation (configuration) order.
   If \code{NULL}, then seriation is performed using the method
   specified in \code{method}.
 }
@@ -24,8 +24,8 @@ uniscale(d, order = NULL, method = "QAP_LS", rep = 10, ...)
 }
 \details{
 Uses the method describes in Maier and De Leeuw (2015) to calculate the
-minimum stress configuration for a, either a given or a
-permutation created via a seriation method.
+minimum stress configuration for either a given configuration/permutation/order
+or for a permutation computed via a seriation method.
 
 The code is similar to \code{uniscale} in \pkg{smacof}, but scales to larger
 datasets since it does not check all permutations.
