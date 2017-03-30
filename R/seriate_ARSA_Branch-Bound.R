@@ -19,9 +19,11 @@
 ## Brusco: simulated annealing for anti-robinson
 seriate_dist_arsa <- function(x, control = NULL) {
   param <- .get_parameters(control, list(
-    cool = 0.5,
-    tmin = 0.1,
-    reps = 1L,
+    cool = 0.5,                  ## Brusco: 0.95
+    tmin = 0.0001,               ## Brusco: 0.0001
+    swap_to_inversion = .5,      ## Brusco: .5
+    try_multiplier = 100,        ## Brusco: 100
+    reps = 1L,                   ## Brusco: 20
     verbose = FALSE
   ))
 
@@ -29,19 +31,21 @@ seriate_dist_arsa <- function(x, control = NULL) {
   # SUBROUTINE arsa(N, A, COOL, TMIN, NREPS, IPERM, R1, R2, D, U,
   #      S, T, SB, ZBEST, verbose)
   N <- ncol(A)
+  NREPS <- as.integer(param$reps)
   IPERM <- integer(N)
-  R1 <- double(N*N/2)
-  R2 <- double(N*N/2)
+#  R1 <- double(N*N/2)
+#  R2 <- double(N*N/2)
   D <- double(N*N)
   U <- integer(N)
   S <- integer(N)
-  T <- integer(100*N)
+  T <- integer(NREPS*N)
   SB <- integer(N)
   ZBEST <- double(1)
 
   ret <- .Fortran("arsa", N, A,
-    as.numeric(param$cool), as.numeric(param$tmin), as.integer(param$reps),
-    IPERM, R1, R2, D, U, S, T, SB, ZBEST, as.logical(param$verbose),
+    as.numeric(param$cool), as.numeric(param$tmin), NREPS,
+    IPERM, D, U, S, T, SB, ZBEST, as.numeric(param$swap_to_insertion),
+    as.numeric(param$try_multiplier), as.logical(param$verbose),
     PACKAGE="seriation")
 
   o <- ret[[6]]

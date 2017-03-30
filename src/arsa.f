@@ -4,24 +4,27 @@ C   by Brusco, M., Koehn, H.F., and Stahl, S.
 C   R Interface by Michael Hahsler
 
 C      PROGRAM SANNEAL
-      SUBROUTINE arsa(N, A, COOL, TMIN, NREPS, IPERM, R1, R2, D, U,
-     1 S, T, SB, ZMAX, IVERB)
+      SUBROUTINE arsa(N, A, COOL, TMIN, NREPS, IPERM, D, U,
+     1 S, T, SB, ZMAX, RULE, TRYMULT, IVERB)
 
       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
       DIMENSION A(N,N)
       DIMENSION IPERM(N)
-C      DOUBLE PRECISION A(400,400), SOLS(100), RMED(100),
-      DOUBLE PRECISION R1(N*N/2), R2(N*N/2), D(N,N)
+      DOUBLE PRECISION D(N,N)
       REAL S1, RCRIT
-      INTEGER U(N), S(N), UNSEL, T(100,N), SB(N), Q, NREPS
+      INTEGER U(N), S(N), UNSEL, T(NREPS,N), SB(N), Q, NREPS
+
+      EPS = 1.0D-08
+
+C   Defaults
+C      RULE = .5
+C        COOL = .95
+C        TMIN = .0001d0
 
 C	Initialize R RNG
       CALL getrngstate()
 
       IF (IVERB == 1) THEN
-C         PRINT *, 'Anti-Robinson seriation by simulated annealing'
-C         PRINT *, 'based on arsa.f by Brusco, M., Koehn, H.F.,',
-C     1 'and Stahl, S. (2007)'
 
           CALL FPRINTF('Anti-Robinson seriation by simulated '
      1 //'annealing', 46, 0.0, 0.0)
@@ -30,12 +33,6 @@ C     1 'and Stahl, S. (2007)'
           CALL FPRINTF('and Stahl, S. (2007)', 21, 0.0, 0.0)
           CALL FPRINTF('', 0, 0.0, 0.0)
 
-C          PRINT *, ''
-C          PRINT *, 'COOL =', COOL
-C          PRINT *, 'TMIN =', TMIN
-C          PRINT *, 'NREPS =', NREPS
-C          PRINT *, ''
-
           CALL FPRINTF('COOL = %5.3f', 12, DBLE(COOL), 0.0)
           CALL FPRINTF('TMIN = %5.3f', 12, DBLE(TMIN), 0.0)
           CALL FPRINTF('NREPS= %5.0f', 12, DBLE(NREPS), 0.0)
@@ -43,48 +40,13 @@ C          PRINT *, ''
 
       ENDIF
 
-C      INTEGER U(400), S(400), UNSEL, T(100,400), SB(400), Q, GB(400)
-C      CHARACTER JNK
-C      OPEN(1, FILE = 'DATASET')
-C      OPEN(2, FILE = 'OUTPUT')
-C      OPEN(3, FILE = 'PERMUT')
-C      CALL GETTIM (IHR, IMIN, ISEC, I100)
-C      CALL GETDAT (IYR, IMON, IDAY)
-C      TIMEA = DFLOAT(86400*IDAY+3600*IHR+60*IMIN+ISEC)+DFLOAT(I100)/100.
-      RULE = .5
-C      READ(1,*) N
-C      READ(1,*) JNK
-C      READ(1,*) ((A(I,J),J=1,N),I=1,N)
-      ICT = 0
       DO I = 1,N-1
         DO J = I+1,N
-          ICT = ICT + 1
           D(I,J) = DFLOAT(J-I)
           D(J,I) = D(I,J)
-          R1(ICT) = D(I,J)
-          R2(ICT) = A(I,J)
         END DO
       END DO
-      DO I = 1, ICT-1
-        DO J = I+1,ICT
-          IF(R1(J).GT.R1(I)) THEN
-            RDUM = R1(J)
-            R1(J) = R1(I)
-            R1(I) = RDUM
-          END IF
-          IF(R2(J).GT.R2(I)) THEN
-            RDUM = R2(J)
-            R2(J) = R2(I)
-            R2(I) = RDUM
-          END IF
-        END DO
-      END DO
-      ASUM = 0.0D0
-      DO I = 1,ICT
-        ASUM = ASUM + R1(I) * R2(I)
-      END DO
-      EPS = 1.0D-08
-C      NREPS = 20
+
       DO 999 III = 1,NREPS
         DO I = 1,N
           U(I) = I
@@ -123,7 +85,9 @@ C
         END DO
         ZBEST = Z
         TMAX = 0.0D0
-        DO LLL = 1,5000
+C        DO LLL = 1,5000
+C   Find initial TMAX using N*10 tries
+        DO LLL = 1,N*10
 C          S1 = rand()
           CALL unifrand(S1)
           I1 = S1 * FLOAT(N) + 1.
@@ -150,19 +114,12 @@ C 199      S1 = rand()
             IF(ABS(DELTA).GT.TMAX) TMAX = ABS(DELTA)
           END IF
         END DO
-C        COOL = .95
-C        TMIN = .0001d0
 C        TMAX = Z
-        ILOOP = 100*N
+        ILOOP = TRYMULT*N
         NLOOP = (LOG(TMIN)-LOG(TMAX))/LOG(COOL)
-C        WRITE(*,21) TMIN,TMAX,NLOOP
-C  21    FORMAT(2F14.5,I6)
         IF (IVERB == 1) THEN
-C            WRITE(*,21) NLOOP
             CALL FPRINTF('Steps needed:  %10.0f', 21, DBLE(NLOOP), 0.0)
         ENDIF
-C  21    FORMAT('Steps needed: ',I10)
-C        GO TO 889
         TEMP = TMAX
         DO I = 1,N
           SB(I) = S(I)
@@ -170,10 +127,8 @@ C        GO TO 889
 C
         DO 2000 IJK = 1,NLOOP
         IF (IVERB == 1) THEN
-C            WRITE(*,22) TEMP
             CALL FPRINTF('Temp = %14.5f', 13, DBLE(TEMP), 0.0)
         ENDIF
-C  22    FORMAT('Temp = ', F14.5)
 
 C   R interrupt
         CALL rchkusr()
@@ -338,13 +293,7 @@ C
  2001     CONTINUE
           TEMP = TEMP*COOL
  2000   CONTINUE
-C
-C        DO I = 1,N
-C          WRITE(3,*) SB(I)
-C        END DO
-C        SOLS(III) = ZBEST
-C        RMED(III) = ZBEST
-C        ZSUM = ZSUM + ZBEST
+
         IF(ZBEST.LT.ZMIN) ZMIN = ZBEST
         IF(ZBEST.GT.ZMAX) THEN
           ZMAX = ZBEST
@@ -352,54 +301,16 @@ C        ZSUM = ZSUM + ZBEST
             IPERM(I) = SB(I)
           END DO
         END IF
-C        WRITE(*,77) III,ZBEST
         IF (IVERB == 1) THEN
           CALL FPRINTF('Rep  = %3.0f', 12, DBLE(III), 0.0)
           CALL FPRINTF('ZMAX = %10.0f', 13, DBLE(ZMAX), 0.0)
         END IF
  1000 CONTINUE
-C      CALL GETTIM (IHR, IMIN, ISEC, I100)
-C      CALL GETDAT (IYR, IMON, IDAY)
-C      TIMEB = DFLOAT(86400*IDAY+3600*IHR+60*IMIN+ISEC)+DFLOAT(I100)/100.
-C      TIMTOT = TIMEB - TIMEA
-C      ZSUM = ZSUM/DFLOAT(NREPS)
-C      TIMTOT = TIMTOT / DFLOAT(NREPS)
-C      IBEST = 0
-C      DO I = 1,NREPS
-C        IF(SOLS(I).GT.ZMAX-1) IBEST = IBEST + 1
-C      END DO
-C      ATTR = 100.*(DFLOAT(IBEST) / DFLOAT(NREPS))
-C      DO I = 1,NREPS-1
-C        DO J = I + 1,NREPS
-C          IF(RMED(J).LT.RMED(I)) THEN
-C            RST = RMED(J)
-C            RMED(J) = RMED(I)
-C            RMED(I) = RST
-C          END IF
-C        END DO
-C      END DO
-C      NR = NREPS/2
-C      RMN = (RMED(NR)+RMED(NR+1))/2.0
-C      WRITE(3,*) N
-C      DO I = 1,N
-C        WRITE(3,*) I,GB(I)
-C      END DO
-C      WRITE(2,201)
-C      WRITE(*,201)
-C      WRITE(2,202) ZMIN, ZSUM, RMN, ZMAX,ATTR,TIMTOT
-C      WRITE(*,202) ZMIN, ZSUM, RMN, ZMAX,ATTR,TIMTOT
-C      WRITE(2,203) ZMAX,ZMAX/ASUM,ATTR,TIMTOT/20.
-C      WRITE(*,203) ZMAX,ZMAX/ASUM,ATTR,TIMTOT/20.
 
 C    Return R RNG
       CALL Putrngstate()
 
       RETURN
 
-C   77 format(I5,f15.4)
-C  200 FORMAT(I3,2F20.6)
-C  201 FORMAT(9X,'MIN',11X,'AVG',11X,'MED',10X,'MAX',5X,'ATT',3X,'TIME')
-C  202 FORMAT(4F18.2,F5.0,F7.2)
-C  203 FORMAT(F20.4,F11.8,F5.0,F7.2)
   889 CONTINUE
       END

@@ -42,7 +42,7 @@ criterion.dist <- function(x, order = NULL, method = NULL,
         function(m) structure(m$fun(x, order, ...), names=m$name))
 
     if(force_loss) crit <- crit * sapply(method, FUN =
-          function(m) ((as.integer(m$merit)*-2)+1))
+          function(m) ifelse(m$merit, -1, 1))
 
     crit
 }
