@@ -2,7 +2,7 @@ Package: seriation
 Type: Package
 Title: Infrastructure for Ordering Objects Using Seriation
 Version: 1.2-1.1
-Date: 2016-xx-x
+Date: 2017-xx-x
 Authors@R: c(
 	person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
 	    email = "mhahsler@lyle.smu.edu"),
@@ -19,7 +19,7 @@ Description: Infrastructure for seriation with an implementation of several
     visual assessment of cluster tendency plots (VAT and iVAT).
 Classification/ACM: G.1.6, G.2.1, G.4
 URL: http://lyle.smu.edu/IDA/seriation
-BugReports: https://github.com/mhahsler/seriation/issues
+BugReports: https://github.com/mhahsler/seriation
 Depends: R (>= 2.14.0)
 Imports: TSP, qap, grid, cluster, gclus, dendextend, colorspace, MASS, gplots, registry, methods, stats, grDevices
 Suggests: biclust, testthat, DendSer, GA

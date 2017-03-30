@@ -2,8 +2,6 @@
 
 ## New features
 
-* Default for seriate (dist) and dissplot is now "Spectal" since it 
-  gives a better tradeoff between quality and speed.
 * Added criterion Cor_R (ME for the moment ordering algorithm by 
   Deutsch and Martin).
 * Added uniscale to produce a unidimensional scaling configuration given
@@ -14,13 +12,16 @@
 
 ## Changes and bugfixes
 
+* Default for seriate (dist) and dissplot is now "Spectal" since it 
+  gives a better tradeoff between quality and speed.
+* Seriaiton method ARSA's control argument nreps is now for consistency 
+  called reps.
 * Criterion: dist objects are now automatically converted into a
   similarity matrix for ME, Moore\_stress and Neumann\_stress.
 * pimage now suppresses the color key for logical matrices and checks for
   all NAs and infinite entries.
-* Seriaiton method ARSA's control argument nreps is now for consistency 
-  called reps.
-* Correction: ARSA minimizes the linear seriation criterion.
+* Correction: ARSA minimizes the linear seriation criterion (man 
+  page and vignette). 
 
 # seriation 1.2-1 (08/06/2016)
 
