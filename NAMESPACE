@@ -55,6 +55,12 @@ export(
     grays,
     greys,
 
+    # local search
+    LS_insert,
+    LS_swap,
+    LS_reverse,
+    LS_mixed,
+
   ## registries
     set_criterion_method,
     get_criterion_method,

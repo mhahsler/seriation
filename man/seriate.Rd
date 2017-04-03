@@ -3,6 +3,10 @@
 \alias{seriate.matrix}
 \alias{seriate.dist}
 \alias{seriate.array}
+\alias{LS_insert}
+\alias{LS_swap}
+\alias{LS_reverse}
+\alias{LS_mixed}
 \title{Seriate Dissimilarity Matrices, Matrices or Arrays}
 \description{
 Tries to find an linear order for objects using data in form of a dissimilarity
@@ -50,8 +54,14 @@ Hahsler (2017)):
 \item{\code{"ARSA"}}{Anti-Robinson seriation by simulated annealing to minimize
   the \bold{linear seriation criterion} (simulated annealing initialization used in Brusco et al 2008).
 
-\code{control} parameter \code{reps} times the simulated annealing algorithm
-is restarted (default is 1).
+Several \code{control} parameters are available:
+    \code{cool} (cooling rate),
+    \code{tmin} (minimum temperature),
+    \code{swap_to_inversion} (proportion of swaps to inversions for local neighborhood search),
+    \code{try_multiplier} (local search tries per temperature; multiplied with the number of objects),
+    \code{reps} (repeat the algorithm with random initialization),
+    \code{verbose}. Use \code{verbose = TRUE} to see the default values
+    for the parameters.
     }
 
 \item{\code{"BBURCG"}}{Anti-Robinson seriation by branch-and-bound to minimize
@@ -180,6 +190,33 @@ be supplied using an element named \code{"hclust"}.
     The order is given by the order in which the nodes (objects) are added
     to the MST.
     }
+
+\item{\code{"SA"}}{ Simulated Annealing for diverse criterion measures.
+
+Implement simulated annealing similar to the ARSA method, however,
+it works for any criterion measure defined in \pkg{seriation}.
+By default the algorithm optimizes for raw gradient measure and is warm started with the result of spectral seriation (2-Sum problem)
+since Hahsler (2017) shows that 2-Sum solutions are similar to
+solutions for the gradient measure.
+
+Local neighborhood functions are \code{LS_insert}, \code{LS_swap},
+\code{LS_reverse}, and \code{LS_mix} (1/3 insertion, 1/3 swap and 1/3 reverse).
+Any neighborhood function can be defined. It needs to take as the only argument
+the order (integer vector) and return a random neighbor.
+
+Note that this is an R implementation repeatedly calling criterion, and therefore is relatively slow.
+
+Several \code{control} parameters are available:
+    \code{criterion} (criterion to optimize; default: "Gradient_raw"),
+    \code{init} (initial order; default: "Spectral"),
+    \code{localsearch} (neighborhood function; default: LS_insert),
+    \code{cool} (cooling rate),
+    \code{tmin} (minimum temperature),
+    \code{swap_to_inversion} (proportion of swaps to inversions),
+    \code{nlocal} (number of objects times nlocal is the number of search tries per temperature),
+    \code{verbose}. Use \code{verbose = TRUE} to see the default values
+    for the parameters.
+}
 
 \item{\code{"Spectral"}, \code{"Spectral_norm"}}{ Spectral seriation (Ding and He 2004).
 

@@ -2,6 +2,8 @@
 
 ## New features
 
+* Added new seriation method SA which provides simulated annealing for all 
+  criterion measures.
 * Added criterion Cor_R (ME for the moment ordering algorithm by 
   Deutsch and Martin).
 * Added uniscale to produce a unidimensional scaling configuration given

@@ -16,7 +16,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-## Brusco: simulated annealing for anti-robinson
+## Brusco: simulated annealing for the Linear Seriation Criterion
 seriate_dist_arsa <- function(x, control = NULL) {
   param <- .get_parameters(control, list(
     cool = 0.5,                  ## Brusco: 0.95
