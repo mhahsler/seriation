@@ -33,11 +33,11 @@ seriate_dist_spectral <- function(x, control = NULL) {
   D <- diag(rowSums(W))
   L <- D - W
 
-  ## Fielder vector q1 is eigenvector with the smallest eigenvalue
+  ## The Fiedler vector is the eigenvector with the smallest eigenvalue
   ## eigen reports eigenvectors/values in decreasing order
   q <- eigen(L)
-  fielder <- q$vectors[,ncol(W)-1L]
-  o <- order(fielder)
+  fiedler <- q$vectors[,ncol(W)-1L]
+  o <- order(fiedler)
   names(o) <- names(x)[o]
   o
 }
