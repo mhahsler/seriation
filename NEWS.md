@@ -1,4 +1,4 @@
-# seriation 1.2-1.1 (xx/x/2017)
+# seriation 1.2-2 (05/08/2017)
 
 ## New features
 
