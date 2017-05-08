@@ -115,7 +115,7 @@ seriate_dist_bbwrcg <- function(x, control = NULL) {
 }
 
 set_seriation_method("dist", "ARSA", seriate_dist_arsa,
-  "Minimize Anti-Robinson events using simulated annealing")
+  "Minimize the linear seriation criterion using simulated annealing")
 set_seriation_method("dist", "BBURCG", seriate_dist_bburcg,
   "Minimize the unweighted row/column gradient by branch-and-bound")
 set_seriation_method("dist", "BBWRCG", seriate_dist_bbwrcg,
