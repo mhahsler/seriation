@@ -70,7 +70,8 @@ seriate_sa <- function(x, control = NULL) {
   }
 
   z <- criterion(x, o, method = param$criterion, force_loss = TRUE)
-  if(param$verbose) cat("Initial z =", z, "\n")
+  if(param$verbose) cat("Initial z =", z,
+    "(converted into loss if necessary)\n")
 
   iloop <- param$nlocal*n
 
