@@ -20,7 +20,8 @@ install.packages("seriation")
 ```
 __Current development version:__ Download package from [AppVeyor](https://ci.appveyor.com/project/mhahsler/seriation/build/artifacts) or install from GitHub (needs devtools).
 ```R 
-install_git("mhahsler/seriation")
+library("devtools")
+install_github("mhahsler/seriation")
 ```
 
 ## Usage
