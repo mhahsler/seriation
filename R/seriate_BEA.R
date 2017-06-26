@@ -47,6 +47,9 @@ seriate_matrix_bea_tsp <- function(x, control) {
   col <- seriate(max(criterion)-criterion,
     method = "TSP", control = control)[[1]]
 
+  attr(row, "method") <- "BEA_TSP"
+  attr(col, "method") <- "BEA_TSP"
+
   list(row = row, col = col)
 }
 
@@ -80,7 +83,7 @@ seriate_matrix_bea <- function(x, control = NULL){
 }
 
 ## register methods
-set_seriation_method("matrix", "BEA_TSP", seriate_matrix_bea_tsp,
-  "TSP to maximize ME")
 set_seriation_method("matrix", "BEA", seriate_matrix_bea,
   "Bond Energy Algorithm to maximize ME")
+set_seriation_method("matrix", "BEA_TSP", seriate_matrix_bea_tsp,
+  "TSP to maximize ME")

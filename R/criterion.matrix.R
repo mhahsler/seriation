@@ -37,12 +37,13 @@ criterion_ME <- function(x, order = NULL, ...) {
     if(!is.null(order)) x <- permute(x, order)
 
     mode(x) <- "single"
+    ener <- 0.0
 
     energy <- .Fortran("energy",
-                       n = n,
-                       m = m,
-                       b = x,
-                       ener = as.single(0.0),
+                       n = as.integer(n),
+                       m = as.integer(m),
+                       b = as.matrix(x),
+                       ener = as.single(ener),
 		       PACKAGE="seriation")
 
     0.5 * as.numeric(energy$ener)

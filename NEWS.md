@@ -1,3 +1,10 @@
+# seriation 1.2-2.1 (xx/xx/2017)
+
+## Bugfixes
+* seriation method "BEA" is now not longer masked by "BEA_TSP". 
+  Also the FORTRAN calls now work.
+
+
 # seriation 1.2-2 (05/08/2017)
 
 ## New features

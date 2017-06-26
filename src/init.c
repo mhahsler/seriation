@@ -27,8 +27,8 @@ extern void F77_NAME(arsa)(void *, void *, void *, void *, void *, void *, void 
 extern void F77_NAME(bburcg)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void F77_NAME(bbwrcg)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void F77_NAME(cbea)(void *, void *, void *, void *, void *, void *, void *);
-extern void F77_NAME(energy)(void *, void *, void *, void *);
 extern void F77_NAME(rbea)(void *, void *, void *, void *, void *, void *, void *);
+extern void F77_NAME(energy)(void *, void *, void *, void *);
 
 static const R_CallMethodDef CallEntries[] = {
     {"ar",                      (DL_FUNC) &ar,                      3},
@@ -52,8 +52,8 @@ static const R_FortranMethodDef FortranEntries[] = {
     {"bburcg", (DL_FUNC) &F77_NAME(bburcg), 10},
     {"bbwrcg", (DL_FUNC) &F77_NAME(bbwrcg), 10},
     {"cbea",   (DL_FUNC) &F77_NAME(cbea),    7},
-    {"energy", (DL_FUNC) &F77_NAME(energy),  4},
     {"rbea",   (DL_FUNC) &F77_NAME(rbea),    7},
+    {"energy", (DL_FUNC) &F77_NAME(energy),  4},
     {NULL, NULL, 0}
 };
 

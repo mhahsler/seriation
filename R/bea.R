@@ -60,12 +60,12 @@ bea <- function(a, istart=0, jstart=0)
 		      jfin = as.integer(jfin),      # for book-keeping
 		      PACKAGE="seriation")
 
-    energ  <- .Fortran("energy",
+    energy  <- .Fortran("energy",
                        n = as.integer(n),
                        m = as.integer(m),
                        b = as.matrix(bea2$b),
                        ener = as.single(ener),
 		       PACKAGE="seriation")
 
-    list(b = bea2$b, ib = bea1$ib, jb = bea2$jb, e = energ$ener)
+    list(b = bea2$b, ib = bea1$ib, jb = bea2$jb, e = energy$ener)
 }
