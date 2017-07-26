@@ -3,7 +3,8 @@
 ## Bugfixes
 * seriation method "BEA" is now not longer masked by "BEA_TSP". 
   Also the FORTRAN calls now work.
-
+* SPIN: making the matrix doubly stocjastic now checks 
+  all rows/columns (reported and fixed by cerebis)
 
 # seriation 1.2-2 (05/08/2017)
 
