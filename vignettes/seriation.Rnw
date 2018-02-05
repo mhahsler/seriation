@@ -903,8 +903,11 @@ Note that some methods implemented
 (e.g., the rank-two ellipse seriation) do not fall within the
 combinatorial optimization framework of this paper and thus are not
 dealt with here in detail.  They are included in the package since they
-can be useful for various applications.  Over time more methods will be
-added to the package.
+can be useful for various applications.  
+A detailed empirical comparison of seriation methods and crieria can be found
+in the study by \cite{hahsler:Hahsler2016d}.
+%Over time more methods will be
+%added to the package.
 
 To calculate the value of a loss/merit function for data and
 a certain permutation, the function

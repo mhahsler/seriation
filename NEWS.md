@@ -1,9 +1,9 @@
-# seriation 1.2-2.1 (xx/xx/2017)
+# seriation 1.2-3 (02/x05/2018)
 
 ## Bugfixes
 * seriation method "BEA" is now not longer masked by "BEA_TSP". 
   Also the FORTRAN calls now work.
-* SPIN: making the matrix doubly stocjastic now checks 
+* SPIN: making the matrix doubly stochastic now checks 
   all rows/columns (reported and fixed by cerebis)
 
 # seriation 1.2-2 (05/08/2017)
