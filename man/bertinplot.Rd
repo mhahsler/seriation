@@ -14,18 +14,18 @@ structure in the data visible (see Falguerolles et al 1997).
 \code{bertin_cut_line()} can be used to add cut lines (see Details).
 }
 \usage{
-bertinplot(x, order = NULL, highlight = TRUE,  options = NULL)   
+bertinplot(x, order = NULL, highlight = TRUE,  options = NULL)
 }
 \arguments{
-  \item{x}{ a data matrix. Note that following Bertin, 
-      columns are variables and rows are cases. This behavior can be 
+  \item{x}{ a data matrix. Note that following Bertin,
+      columns are variables and rows are cases. This behavior can be
       reversed using \code{reverse = TRUE} in \code{options}.}
   \item{order}{an object of class \code{ser_permutation} to rearrange \code{x} before
       plotting.  If \code{NULL}, no rearrangement is performed.}
   \item{highlight}{ a logical scalar indicating whether to use highlighting.
       If \code{TRUE}, all variables with values greater than the variable-wise
-      mean are  highlighted. To control highlighting, also a 
-      logical matrix with the same dimensions as \code{x} can be supplied.}
+      mean are  highlighted. To control highlighting, also a
+      logical matrix or a matrix with colors with the same dimensions as \code{x} can be supplied.}
   \item{options}{a list with options for plotting. The
       list can contain the following elements:
 
@@ -39,17 +39,18 @@ bertinplot(x, order = NULL, highlight = TRUE,  options = NULL)
       \code{panel.lines}. For circles and squares neg. values are
       represented by a dashed border. For blocks all blocks are the same size
       (can be used with \code{shading=TRUE}).}
-  \item{\code{reverse}}{ logical indicating whether to swap cases and variables 
-      in the plot. The default (\code{FALSE}) 
+  \item{\code{reverse}}{ logical indicating whether to swap cases and variables
+      in the plot. The default (\code{FALSE})
       is to plot cases as columns and variables as rows.}
   \item{\code{xlab, ylab}}{ labels (default: use labels from \code{x}).}
   \item{\code{spacing}}{ relative space between symbols (default: 0.2).}
   \item{\code{shading}}{ use gray shades to encode value instead of highlighting (default: FALSE).}
+  \item{\code{shading.function}}{ a function that accepts a single argument in range [.1, .8] and returns a valid corresponding color (e.g., using \code{rgb}). }
   \item{\code{frame}}{ plot a grid to separate symbols (default: code{FALSE}).}
   \item{\code{mar}}{ margins (see \code{par}).}
   \item{\code{gp_labels}}{ gpar object for labels (see \code{gpar}).}
   \item{\code{gp_panels}}{ gpar object for panels (see \code{gpar}).}
-  \item{\code{newpage}}{ a logical indicating  whether to start the plot 
+  \item{\code{newpage}}{ a logical indicating  whether to start the plot
       on a new page (see \code{grid.newpage}). }
   \item{\code{pop}}{a logical indicating whether to pop the created viewports
       (see \code{pop.viewport})?  }
@@ -57,21 +58,21 @@ bertinplot(x, order = NULL, highlight = TRUE,  options = NULL)
 }}
 \details{
 The plot is organized as a matrix of symbols. The symbols are drawn
-by a panel function, where all symbols of a row are drawn 
+by a panel function, where all symbols of a row are drawn
 by one call of the function (using vectorization). The interface for the
 panel function is \code{panel.myfunction(value, spacing, hl)}.
-\code{value} is the vector of values for a row scaled between 0 and 1, 
+\code{value} is the vector of values for a row scaled between 0 and 1,
 \code{spacing} contains the relative space between symbols and
 \code{hl} is a logical vector indicating which symbol should be highlighted.
 
-Cut lines can be added to an existing bertin plot 
-using \code{bertin_cut_line(x=NULL, y=NULL)}. 
+Cut lines can be added to an existing bertin plot
+using \code{bertin_cut_line(x=NULL, y=NULL)}.
 \code{x}/\code{y} is can be a number indicating where to
 draw the cut line between two columns/rows. If both \code{x}
 and \code{y} is specified then one can select a row/column and the
 other can select a range to draw a line which does only span a part
 of the row/column. It is important to
-call \code{bertinplot()} with the option \code{pop=FALSE}. 
+call \code{bertinplot()} with the option \code{pop=FALSE}.
 
 
 }
@@ -107,13 +108,13 @@ bertinplot(x, order)
 bertinplot(x, order, options = list(shading = TRUE, panel = panel.blocks))
 bertinplot(x, order, options = list(panel = panel.lines))
 bertinplot(x, order, options = list(panel = panel.squares))
-bertinplot(x, order, 
+bertinplot(x, order,
     options = list(panel = panel.circles, spacing = -0.5))
 
 ## plot with cut lines (we manually set the order here)
-order <- ser_permutation(c(21, 16, 19, 18, 14, 12, 20, 15, 
-    17, 26, 13, 41,  7, 11, 5, 23, 28, 34, 31, 1, 38, 40,  
-    3, 39,  4, 27, 24,  8, 37, 36, 25, 30, 33, 35,  2, 
+order <- ser_permutation(c(21, 16, 19, 18, 14, 12, 20, 15,
+    17, 26, 13, 41,  7, 11, 5, 23, 28, 34, 31, 1, 38, 40,
+    3, 39,  4, 27, 24,  8, 37, 36, 25, 30, 33, 35,  2,
     22, 32, 29, 10,  6,  9),
     c(4, 2, 1, 6, 8, 7, 5, 3))
 

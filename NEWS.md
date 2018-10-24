@@ -1,4 +1,9 @@
-# seriation 1.2-3 (02/x05/2018)
+# seriation 1.2-3.1 (xx/xx/2018)
+
+## New features
+* bertinplot: panel colors can now be specified in highlight and as shading.function.
+
+# seriation 1.2-3 (02/05/2018)
 
 ## Bugfixes
 * seriation method "BEA" is now not longer masked by "BEA_TSP". 
