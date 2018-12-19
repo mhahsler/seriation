@@ -5,9 +5,9 @@
 [![Travis-CI Build Status](https://travis-ci.org/mhahsler/seriation.svg?branch=master)](https://travis-ci.org/mhahsler/seriation)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mhahsler/seriation?branch=master&svg=true)](https://ci.appveyor.com/project/mhahsler/seriation)
 
-This package provides the infrastructure for seriation 
+This package provides the infrastructure for ordering objects 
 with an implementation of several
-seriation/sequencing techniques to reorder matrices, dissimilarity
+[seriation](https://en.wikipedia.org/wiki/Seriation_(archaeology))/sequencing/[ordination](https://en.wikipedia.org/wiki/Ordination_(statistics)) techniques to reorder matrices, dissimilarity
 matrices, and dendrograms (see below for a full list). Also provides (optimally) reordered heatmaps, 
 color images and clustering visualizations like dissimilarity plots, and
 visual assessment of cluster tendency plots (VAT and iVAT).
