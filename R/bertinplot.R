@@ -155,7 +155,8 @@ bertinplot <-
       ## do frame
       if(options$frame) grid.rect(x = 1:length(value),
         width = 1,
-        default.units = "native")
+        default.units = "native", 
+        gp = gpar(fill = NA))
 
       upViewport(1)
     }
