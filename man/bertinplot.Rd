@@ -46,7 +46,7 @@ bertinplot(x, order = NULL, highlight = TRUE,  options = NULL)
   \item{\code{spacing}}{ relative space between symbols (default: 0.2).}
   \item{\code{shading}}{ use gray shades to encode value instead of highlighting (default: FALSE).}
   \item{\code{shading.function}}{ a function that accepts a single argument in range [.1, .8] and returns a valid corresponding color (e.g., using \code{rgb}). }
-  \item{\code{frame}}{ plot a grid to separate symbols (default: code{FALSE}).}
+  \item{\code{frame}}{ plot a grid to separate symbols (default: \code{FALSE}).}
   \item{\code{mar}}{ margins (see \code{par}).}
   \item{\code{gp_labels}}{ gpar object for labels (see \code{gpar}).}
   \item{\code{gp_panels}}{ gpar object for panels (see \code{gpar}).}
