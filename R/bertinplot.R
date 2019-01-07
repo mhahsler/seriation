@@ -155,7 +155,7 @@ bertinplot <-
       ## do frame
       if(options$frame) grid.rect(x = 1:length(value),
         width = 1,
-        default.units = "native", 
+        default.units = "native",
         gp = gpar(fill = NA))
 
       upViewport(1)
@@ -196,6 +196,8 @@ panel.circles <- function(value, spacing, hl) {
 
   value <- abs(value)
 
+  value[value==0] <- NA ### hide emply squares
+
   grid.circle(x = 1:length(value), y=.5,
     r = value/2*(1 - spacing),
     default.units = "native",
@@ -206,6 +208,8 @@ panel.squares <- function(value, spacing, hl) {
   ## neg. values are dashed
   lty <- as.integer(value<0)+1L
   lty[!is.finite(lty)] <- 0L
+
+  value[value==0] <- NA ### hide emply squares
 
   grid.rect(x = 1:length(value),
     width = value*(1 - spacing),
