@@ -3,6 +3,9 @@
 ## New features
 * bertinplot: panel colors can now be specified in highlight and as shading.function.
 
+## Bugfixes
+* bertinplot: fix white squares when frame = TRUE (by Dirk Seidensticker).
+
 # seriation 1.2-3 (02/05/2018)
 
 ## Bugfixes
