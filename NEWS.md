@@ -5,6 +5,7 @@
 
 ## Bugfixes
 * bertinplot: fix white squares when frame = TRUE (by Dirk Seidensticker).
+* seriation method "BEA" has now a slight code improvement (suggested by  RichardKav)
 
 # seriation 1.2-3 (02/05/2018)
 
