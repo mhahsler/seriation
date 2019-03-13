@@ -30,7 +30,7 @@ create_W <- function(n, sigma, verbose=FALSE) {
     #cat(i, ".")
     W <- sweep(W, MARGIN = 1, STATS = rowSums(W), "/")
     W <- sweep(W, MARGIN = 2, STATS = colSums(W), "/")
-    if(all(round(rowSums(W), 5)) == 1 && all(round(colSums(W), 5)) == 1) break
+    if(all(round(rowSums(W), 5) == 1) && all(round(colSums(W), 5) == 1)) break
   }
 
   if(verbose) cat("It took", i, "iterations to make W doubly stochastic!\n")
