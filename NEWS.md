@@ -1,4 +1,4 @@
-# seriation 1.2-3.1 (xx/xx/2018)
+# seriation 1.2-4 (05/29/2019)
 
 ## New features
 * bertinplot: panel colors can now be specified in highlight and as shading.function.
