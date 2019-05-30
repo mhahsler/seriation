@@ -28,7 +28,8 @@ c------------------------------------------------------------------------------
 c
 c     Flags to indicate if row already chosen; 1 = not yet chosen/placed.
       do 200 i = 1, n
- 200     ifin(i) = 1
+        ifin(i) = 1
+ 200  continue
 c
 c     Anticipate 1st placement. 'nplace' = # rows placed. 'nrem' = # remaining.
       nplace = 1
@@ -170,7 +171,8 @@ c------------------------------------------------------------------------------
 c
 c     Flags to indicate if col. already chosen
       do 200 j = 1, m
- 200     jfin(j) = 1
+        jfin(j) = 1
+ 200  continue   
 c
 c     'nplace' cols. placed (anticipating!); 'nrem' cols. still to be placed.
       nplace = 1

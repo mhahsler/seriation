@@ -45,7 +45,7 @@ seriate_dist_arsa <- function(x, control = NULL) {
   ret <- .Fortran("arsa", N, A,
     as.numeric(param$cool), as.numeric(param$tmin), NREPS,
     IPERM, D, U, S, T, SB, ZBEST, as.numeric(param$swap_to_insertion),
-    as.numeric(param$try_multiplier), as.logical(param$verbose),
+    as.numeric(param$try_multiplier), as.integer(param$verbose),
     PACKAGE="seriation")
 
   o <- ret[[6]]

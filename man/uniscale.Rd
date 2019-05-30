@@ -39,9 +39,6 @@ Mair P., De Leeuw J. (2015). Unidimensional scaling. In \emph{Wiley StatsRef: St
 \author{
 Michael Hahsler with code from Patrick Mair (from \pkg{smacof}).
 }
-\seealso{
-\code{\link[smacof]{uniscale}} in \pkg{smacof}.
-}
 \examples{
 data(SupremeCourt)
 

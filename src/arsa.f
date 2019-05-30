@@ -21,7 +21,7 @@ C      RULE = .5
 C        COOL = .95
 C        TMIN = .0001d0
 
-C	Initialize R RNG
+C     Initialize R RNG
       CALL getrngstate()
 
       IF (IVERB == 1) THEN
@@ -56,11 +56,11 @@ C	Initialize R RNG
         DO 1 I = 1,N
 C          S1 = rand()
           CALL unifrand(S1)
-          ISET = S1 * FLOAT(UNSEL) + 1.
+          ISET = INT(S1 * FLOAT(UNSEL) + 1.)
           IF(ISET.GT.UNSEL) ISET = UNSEL
           T(III,I) = U(ISET)
 C          DO J = ISET,UNSEL
-C	    out of bounds error reported by Rohan Shah (9/13/12)
+C          out of bounds error reported by Rohan Shah (9/13/12)
           DO J = ISET,UNSEL-1
             U(J) = U(J+1)
           END DO
@@ -90,11 +90,11 @@ C   Find initial TMAX using N*10 tries
         DO LLL = 1,N*10
 C          S1 = rand()
           CALL unifrand(S1)
-          I1 = S1 * FLOAT(N) + 1.
+          I1 = INT(S1 * FLOAT(N) + 1.)
           IF(I1.GT.N) I1 = N
 C 199      S1 = rand()
  199      CALL unifrand(S1)
-          J1 = S1 * FLOAT(N) + 1.
+          J1 = INT(S1 * FLOAT(N) + 1.)
           IF(J1.GT.N) J1 = N
           IF(I1.EQ.J1) GO TO 199
           IF(I1.GT.J1) THEN
@@ -115,8 +115,8 @@ C 199      S1 = rand()
           END IF
         END DO
 C        TMAX = Z
-        ILOOP = TRYMULT*N
-        NLOOP = (LOG(TMIN)-LOG(TMAX))/LOG(COOL)
+        ILOOP = INT(TRYMULT*N)
+        NLOOP = INT((LOG(TMIN)-LOG(TMAX))/LOG(COOL))
         IF (IVERB == 1) THEN
             CALL FPRINTF('Steps needed:  %10.0f', 21, DBLE(NLOOP), 0.0)
         ENDIF
@@ -140,11 +140,11 @@ C            S1 = rand()
             IF(S1.LE.RULE) THEN     ! INTERCHANGE / INSERTION / OR BOTH
 C            S1 = rand()
             CALL unifrand(S1)
-            I1 = S1 * FLOAT(N) + 1.
+            I1 = INT(S1 * FLOAT(N) + 1.)
             IF(I1.GT.N) I1 = N
 C 99         S1 = rand()
  99         CALL unifrand(S1)
-            J1 = S1 * FLOAT(N) + 1.
+            J1 = INT(S1 * FLOAT(N) + 1.)
             IF(J1.GT.N) J1 = N
             IF(I1.EQ.J1) GO TO 99
             IF(I1.GT.J1) THEN
@@ -173,7 +173,7 @@ C 99         S1 = rand()
             ELSE
 C              S1 = rand()
               CALL unifrand(S1)
-              RCRIT = EXP(DELTA/TEMP)
+              RCRIT = REAL(EXP(DELTA/TEMP))
               IF(S1.LE.RCRIT) THEN
                 Z = Z + DELTA
                 S(I1) = M
@@ -185,11 +185,11 @@ C              S1 = rand()
 
 C            S1 = rand()
             CALL unifrand(S1)
-            I1 = S1 * FLOAT(N) + 1.      ! OBJECT POSITION IS I1
+            I1 = INT(S1 * FLOAT(N) + 1.)      ! OBJECT POSITION IS I1
             IF(I1.GT.N) I1 = N
 C 599        S1 = rand()
  599        CALL unifrand(S1)
-            J1 = S1 * FLOAT(N) + 1.
+            J1 = INT(S1 * FLOAT(N) + 1.)
             IF(J1.GT.N) J1 = N
             IF(I1.EQ.J1) GO TO 599
             K = S(I1)
@@ -272,7 +272,7 @@ C 599        S1 = rand()
             ELSE
 C              S1 = rand()
               CALL unifrand(S1)
-              RCRIT = EXP(DELTA/TEMP)
+              RCRIT = REAL(EXP(DELTA/TEMP))
               IF(S1.LE.RCRIT) THEN
                 Z = Z + DELTA
                 IF(J1.GT.I1) THEN
@@ -311,6 +311,4 @@ C    Return R RNG
       CALL Putrngstate()
 
       RETURN
-
-  889 CONTINUE
       END

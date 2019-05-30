@@ -111,7 +111,7 @@ C
 C 3501   CALL RANDOM(S1)
 C 3501   S1 = rand()
  3501   CALL unifrand(S1)
-        ISEL = 1. + S1*FLOAT(NNSEL)
+        ISEL = INT(1. + S1*FLOAT(NNSEL))
         IF(ISEL.GT.NNSEL) ISEL = NNSEL
         Q(NNSEL) = UNSEL(ISEL)
         DO J = ISEL,NNSEL-1
@@ -233,7 +233,7 @@ C only for bburcg
       IF(TRIG.EQ.0.AND.Q(M).EQ.2) GO TO 2    ! SYMMETRY FATHOM
 C
       S(Q(M))=1
- 22   IF(M.EQ.1) GO TO 1
+      IF(M.EQ.1) GO TO 1
       IF(M.EQ.N-1) THEN
         CALL EVALBBURCG(ZBD,Q,N,D)
         IF(ZBD.GT.Z) THEN
@@ -250,7 +250,7 @@ C              WRITE(*,*) 'Eval =',z
         S(Q(M))=0
         GO TO 2
       ELSE
-  252   DO 251 MM = M-1,1,-1    ! Insertion Test
+        DO 251 MM = M-1,1,-1    ! Insertion Test
           R3=Q(M)
           IDX1=0
           IDX2=0
@@ -353,7 +353,7 @@ C            ism = ism + 1
           END IF
   151   CONTINUE
 C
-  253   CALL BOUND2BBURCG(ZBD,N,Q,M,D,S,DD)
+        CALL BOUND2BBURCG(ZBD,N,Q,M,D,S,DD)
         IF(ZBD.LE.Z) THEN
           S(Q(M))=0
 C          ism3 = ism3 + 1

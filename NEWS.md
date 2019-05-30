@@ -1,3 +1,9 @@
+# seriation 1.2-5 (05/30/2019)
+
+## Bugfixes
+* Fixed compilation warnings in Fortran code.
+
+
 # seriation 1.2-4 (05/29/2019)
 
 ## New features
