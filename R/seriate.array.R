@@ -34,7 +34,8 @@
 
     method <- get_seriation_method(datatype, method)
 
-
+    if(!is.null(control$verbose) && control$verbose) cat(method$name, ": ",
+      method$description, "\n\n", sep="")
 
     order <- method$fun(x, control)
 

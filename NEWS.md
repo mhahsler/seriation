@@ -1,8 +1,13 @@
+# seriation 1.2-6 (06/03/2019)
+
+## Bugfixes
+* Converted print routines in Fortran code to dblepr, intpr, etc.
+* seriate.matrix also prints now method name for control verbose = TRUE.
+
 # seriation 1.2-5 (05/30/2019)
 
 ## Bugfixes
 * Fixed compilation warnings in Fortran code.
-
 
 # seriation 1.2-4 (05/29/2019)
 

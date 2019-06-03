@@ -35,7 +35,7 @@ seriate.dist <- function(x, method = "Spectral", control = NULL, ...) {
     method <- get_seriation_method("dist", method)
 
     if(!is.null(control$verbose) && control$verbose) cat(method$name, ": ",
-      method$description, "\n", sep="")
+      method$description, "\n\n", sep="")
 
     order <- method$fun(x, control = control)
 

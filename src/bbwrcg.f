@@ -20,16 +20,6 @@ C     EPS is unused this is to supress the warning.
 C       Initialize R RNG
       CALL getrngstate()
 
-      IF (IVERB == 1) THEN
-C          PRINT *,'Anti-Robinson Seriation by branch-and-bound'
-C          PRINT *,'based on bbwrcg.f by Brusco, and Stahl, S. (2005)'
-          CALL FPRINTF('Anti-Robinson seriation by branch-and-bound',
-     1 43, 0.0, 0.0)
-          CALL FPRINTF('based on bburcg.f by Brusco, '
-     1 //'and Stahl, S. (2005)', 53, 0.0, 0.0)
-          CALL FPRINTF('', 0, 0.0, 0.0)
-      ENDIF
-
       OLDM=0
       CHECKS=0
 
@@ -185,8 +175,7 @@ C
 C      WRITE(2,3505) ZBEST
       IF (IVERB == 1) THEN
 C          WRITE(*,3505) ZBEST
-          CALL FPRINTF('HEURISTIC OBJ VALUE: %12.3f', 28,
-     1 DBLE(ZBEST), 0.0)
+          CALL dblepr('HEURISTIC OBJ VALUE', -1, DBLE(ZBEST), 1)
       ENDIF
 C 3505 FORMAT(' HEURISTIC OBJ VALUE ',F20.4)
       Z = ZBEST-1
@@ -208,8 +197,8 @@ C
       CHECKS=CHECKS+1
       IF (IVERB == 1 .AND. M .GT. OLDM) THEN
 C          WRITE (*,6000) M+1, CHECKS
-          CALL FPRINTF('reached position %5.0f with %9.0f checks',
-     1 41, DBLE(M+1), DBLE(CHECKS))
+          CALL intpr('reached position', -1, M+1, 1)
+          CALL intpr('with following number of checks', -1, CHECKS, 1)
 C 6000 FORMAT('reached position ', I5, ' with ', I9, ' checks')
           OLDM=M
       ENDIF
@@ -238,7 +227,7 @@ C
           Z=ZBD
           IF (IVERB == 1) THEN
 C              WRITE(*,*) 'Eval =',z
-              CALL FPRINTF('Eval =  %10.3f', 14, DBLE(z), 0.0)
+              CALL dblepr('Eval', -1, DBLE(z), 1)
           ENDIF
           DO I = 1,N
             X(I)=Q(I)
@@ -258,7 +247,7 @@ C              WRITE(*,*) 'Eval =',z
               R4=Q(J)
               IDX1=IDX1+D(R1,R4,R3)
               IDX2=IDX2+D(R1,R3,R4)
-C  
+C
             END DO
 C
           END DO
@@ -309,7 +298,7 @@ C
               R4=Q(J)
               IDX1=IDX1+D(R1,R2,R4)
               IDX2=IDX2+D(R1,R3,R4)
-C  
+C
               IDX1=IDX1+D(R1,R4,R3)
               IDX2=IDX2+D(R1,R4,R2)
 C
@@ -391,10 +380,9 @@ C 70   FORMAT(30I3)
 C
   9   IF (IVERB == 1) THEN
 C          PRINT *, 'total number of checks: ', CHECKS
-          CALL FPRINTF('total number of checks: %10.0f',
-     1 32, DBLE(CHECKS), 0.0)
+          CALL intpr('total number of checks', -1, CHECKS, 1)
       ENDIF
- 
+
 C    Return R RNG
       CALL Putrngstate()
 

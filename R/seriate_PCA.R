@@ -17,14 +17,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-
-## seriate matrices
-
-seriate.matrix <- function(x, method = "PCA", control = NULL,
-  margin = c(1,2), ...)
-  .seriate_array_helper(x, method, control, margin,
-    datatype = "matrix", defmethod = "BEA_TSP", ...)
-
 ## use the projection on the first pricipal component to determine the
 ## order
 seriate_matrix_fpc <- function(x, control = NULL) {

@@ -24,22 +24,6 @@ C        TMIN = .0001d0
 C     Initialize R RNG
       CALL getrngstate()
 
-      IF (IVERB == 1) THEN
-
-          CALL FPRINTF('Anti-Robinson seriation by simulated '
-     1 //'annealing', 46, 0.0, 0.0)
-          CALL FPRINTF('based on arsa.f by Brusco, M., '
-     1 //'Koehn, H.F.,', 41, 0.0, 0.0)
-          CALL FPRINTF('and Stahl, S. (2007)', 21, 0.0, 0.0)
-          CALL FPRINTF('', 0, 0.0, 0.0)
-
-          CALL FPRINTF('COOL = %5.3f', 12, DBLE(COOL), 0.0)
-          CALL FPRINTF('TMIN = %5.3f', 12, DBLE(TMIN), 0.0)
-          CALL FPRINTF('NREPS= %5.0f', 12, DBLE(NREPS), 0.0)
-          CALL FPRINTF('', 0, 0.0, 0.0)
-
-      ENDIF
-
       DO I = 1,N-1
         DO J = I+1,N
           D(I,J) = DFLOAT(J-I)
@@ -118,7 +102,8 @@ C        TMAX = Z
         ILOOP = INT(TRYMULT*N)
         NLOOP = INT((LOG(TMIN)-LOG(TMAX))/LOG(COOL))
         IF (IVERB == 1) THEN
-            CALL FPRINTF('Steps needed:  %10.0f', 21, DBLE(NLOOP), 0.0)
+            CALL intpr('Steps needed', -1, NLOOP, 1)
+            CALL intpr('Temp', -1, NLOOP, 0)
         ENDIF
         TEMP = TMAX
         DO I = 1,N
@@ -127,7 +112,7 @@ C        TMAX = Z
 C
         DO 2000 IJK = 1,NLOOP
         IF (IVERB == 1) THEN
-            CALL FPRINTF('Temp = %14.5f', 13, DBLE(TEMP), 0.0)
+            CALL dblepr('', -1, DBLE(TEMP), 1)
         ENDIF
 
 C   R interrupt
@@ -302,8 +287,8 @@ C
           END DO
         END IF
         IF (IVERB == 1) THEN
-          CALL FPRINTF('Rep  = %3.0f', 12, DBLE(III), 0.0)
-          CALL FPRINTF('ZMAX = %10.0f', 13, DBLE(ZMAX), 0.0)
+          CALL intpr('Rep', -1, III, 1)
+          CALL dblepr('ZMAX', -1, DBLE(ZMAX), 1)
         END IF
  1000 CONTINUE
 

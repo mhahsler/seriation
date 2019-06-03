@@ -43,7 +43,6 @@
           collapse = ", ")), call. = FALSE, immediate. = TRUE)
 
       cat("Available parameter (with default values):\n")
-      #print(defaults)
       cat(rbind(names(defaults)," = ", gsub("\n"," ",as.character(defaults))),
         sep=c("\t"," ","\n"))
     }
@@ -53,10 +52,10 @@
 
   if(defaults$verbose) {
     cat("Used parameters:\n")
-    #print(defaults)
     cat(rbind(names(defaults)," = ",
       strtrim(gsub("\n"," ",as.character(defaults)), 50)),
       sep=c("\t"," ","\n"))
+    cat("\n")
   }
 
   defaults
