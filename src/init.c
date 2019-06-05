@@ -3,10 +3,6 @@
 #include <stdlib.h> // for NULL
 #include <R_ext/Rdynload.h>
 
-/* FIXME:
-   Check these declarations against the C/Fortran source code.
-*/
-
 /* .Call calls */
 extern SEXP ar(SEXP, SEXP, SEXP);
 extern SEXP bar(SEXP, SEXP, SEXP);
@@ -23,7 +19,7 @@ extern SEXP rgar(SEXP, SEXP, SEXP, SEXP);
 extern SEXP stress(SEXP, SEXP, SEXP, SEXP);
 
 /* .Fortran calls */
-extern void F77_NAME(arsa)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
+extern void F77_NAME(arsa)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void F77_NAME(bburcg)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void F77_NAME(bbwrcg)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
 extern void F77_NAME(cbea)(void *, void *, void *, void *, void *, void *, void *);
