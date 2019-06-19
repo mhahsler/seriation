@@ -31,6 +31,8 @@ registry_seriate$set_field("fun", type = "function",
   is_key = FALSE)
 registry_seriate$set_field("description", type = "character",
   is_key = FALSE)
+registry_seriate$set_field("control", type = "list",
+  is_key = FALSE)
 
 
 print.seriation_method <- function(x, ...) {
@@ -38,6 +40,16 @@ print.seriation_method <- function(x, ...) {
     gettextf("name:        %s", x$name),
     gettextf("kind:        %s", x$kind),
     gettextf("description: %s", x$description)))
+
+  if(length(x$control)>0) {
+    writeLines("control (default values):")
+
+    contr <- lapply(x$control, FUN =
+        function(p) capture.output(dput(p, control = list()))[1])
+
+    print(as.data.frame(contr))
+  } else writeLines("control: no parameters registered.")
+
   invisible(x)
 }
 

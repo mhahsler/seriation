@@ -30,23 +30,25 @@ gaperm_mixedMutation <- function(ismProb = .8) {
 register_GA <- function() {
   if(!.installed("GA")) stop("Package 'GA' needs to be  installed!")
 
+  .ga_contr <- list(
+    criterion = "BAR",
+    suggestions = c("TSP", "QAP_LS", "Spectral"),
+    selection = GA::gaperm_nlrSelection,
+    crossover = GA::gaperm_oxCrossover,
+    mutation = seriation::gaperm_mixedMutation(.8),
+    pcrossover = .2,
+    pmutation = .5,
+    popSize = 100,
+    maxiter = 1000,
+    run = 50,
+    parallel = TRUE,
+    verbose = TRUE
+  )
+
   GA_helper <- function(x, control) {
     n <- attr(x, "Size")
 
-    control <- .get_parameters(control, list(
-      criterion = "BAR",
-      suggestions = c("TSP", "QAP_LS", "Spectral"),
-      selection = GA::gaperm_nlrSelection,
-      crossover = GA::gaperm_oxCrossover,
-      mutation = seriation::gaperm_mixedMutation(.8),
-      pcrossover = .2,
-      pmutation = .5,
-      popSize = 100,
-      maxiter = 1000,
-      run = 50,
-      parallel = TRUE,
-      verbose = TRUE
-    ))
+    control <- .get_parameters(control, .ga_contr)
 
     if(control$verbose) cat("\nPreparing suggestions\n")
 
@@ -90,5 +92,5 @@ register_GA <- function() {
   }
 
   set_seriation_method("dist", "GA",
-    GA_helper, "Genetic Algorithm")
+    GA_helper, "Use a genetic algorithm to optimize for various criteria.", .ga_contr)
 }

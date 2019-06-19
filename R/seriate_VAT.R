@@ -50,4 +50,4 @@ seriate_dist_VAT <- function(x, control = NULL) {
 
 
 set_seriation_method("dist", "VAT", seriate_dist_VAT,
-  "Visual assesment of clustering tendency (VAT)")
+  "Visual assesment of clustering tendency (Bezdek and Hathaway (2002). Creates an order based on Prim's algorithm for finding a minimum spanning tree (MST) in a weighted connected graph representing the distance matrix. The order is given by the order in which the nodes (objects) are added to the MST.")

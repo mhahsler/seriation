@@ -55,12 +55,14 @@ seriate_matrix_bea_tsp <- function(x, control) {
 
 
 ## Bond Energy Algorithm (McCormick 1972)
+.bea_contr <- list(
+  istart = 0,
+  jstart = 0,
+  rep = 1
+)
+
 seriate_matrix_bea <- function(x, control = NULL){
-  control <- .get_parameters(control, list(
-    istart = 0,
-    jstart = 0,
-    rep = 1
-  ))
+  control <- .get_parameters(control, .bea_contr)
 
   if(any(x < 0)) stop("Requires a nonnegative matrix.")
   istart <- control$istart
@@ -84,6 +86,6 @@ seriate_matrix_bea <- function(x, control = NULL){
 
 ## register methods
 set_seriation_method("matrix", "BEA", seriate_matrix_bea,
-  "Bond Energy Algorithm to maximize ME")
+  "Bond Energy Algorithm (BEA; McCormick 1972) to maximize the Measure of Effectiveness of a non-negative matrix.", .bea_contr)
 set_seriation_method("matrix", "BEA_TSP", seriate_matrix_bea_tsp,
-  "TSP to maximize ME")
+  "Use a TSP to optimize the Measure of Effectiveness (Lenstra 1974). Control is passed on to the seriation method TSP.")

@@ -15,6 +15,7 @@ importFrom("stats", "reorder", "as.dist", "hclust", "runif", "rnorm",
 importFrom("methods", "is")
 importFrom("grDevices", "grey.colors", "grey")
 importFrom("dendextend", "rotate")
+importFrom("utils", "capture.output")
 
 export(
     bertinplot,

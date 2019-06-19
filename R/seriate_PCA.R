@@ -19,13 +19,15 @@
 
 ## use the projection on the first pricipal component to determine the
 ## order
+.pca_contr <- list(
+  center = TRUE,
+  scale. = FALSE,
+  tol = NULL,
+  verbose = FALSE
+)
+
 seriate_matrix_fpc <- function(x, control = NULL) {
-  control <- .get_parameters(control, list(
-    center = TRUE,
-    scale. = FALSE,
-    tol = NULL,
-    verbose = FALSE
-  ))
+  control <- .get_parameters(control, .pca_contr)
 
   center  <- control$center
   scale.  <- control$scale.
@@ -61,13 +63,14 @@ seriate_matrix_fpc <- function(x, control = NULL) {
 
 }
 
+.angle_contr <- list(
+  center = TRUE,
+  scale. = FALSE,
+  tol = NULL
+)
 
 seriate_matrix_angle <- function(x, control = NULL) {
-  control <- .get_parameters(control, list(
-    center = TRUE,
-    scale. = FALSE,
-    tol = NULL
-  ))
+  control <- .get_parameters(control, .angle_contr)
 
   center  <- control$center
   scale.  <- control$scale.
@@ -86,7 +89,7 @@ seriate_matrix_angle <- function(x, control = NULL) {
 }
 
 set_seriation_method("matrix", "PCA", seriate_matrix_fpc,
-  "First principal component")
+  "Uses the projection of the data on its first principal component to determine the order. Note that for a distance matrix calculated from x with Euclidean distance, this methods minimizes the least square criterion.", .pca_contr)
 set_seriation_method("matrix", "PCA_angle", seriate_matrix_angle,
-  "First two principal components (angle)")
+  "Projects the data on the first two principal components and then orders by the angle in this space. The order is split by the larges gap between adjacent angles.", .angle_contr)
 

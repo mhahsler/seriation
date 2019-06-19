@@ -17,16 +17,17 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 ## Bridge to package tsp
+.tsp_control <- list(
+  method="arbitrary insertion",
+  rep = 10,
+  two_opt = TRUE
+)
+
 seriate_dist_tsp <- function(x, control = NULL){
   ## add a dummy city for cutting
   tsp <- insert_dummy(TSP(x), n = 1, label = "cut_here")
 
-  if(is.null(control))
-    control <- list(
-      method="arbitrary insertion",
-      rep = 10,
-      two_opt = TRUE
-    )
+  if(is.null(control)) control <- .tsp_control
 
   tour <- solve_TSP(tsp, method = control$method,
     control = control)
@@ -37,5 +38,5 @@ seriate_dist_tsp <- function(x, control = NULL){
 }
 
 set_seriation_method("dist", "TSP", seriate_dist_tsp,
-  "Minimize Hamiltonian path length with a TSP solver")
+  "Minimize Hamiltonian path length with a TSP solver (see solve_TSP in package TSP for available methods).", .tsp_control)
 

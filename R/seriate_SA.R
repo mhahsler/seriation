@@ -47,18 +47,18 @@ LS_mixed <- function(o, pos = sample.int(length(o), 2)) {
   )
 }
 
+.sa_contr <- list(
+  criterion = "Gradient_raw",
+  init = "Spectral",    ## use "Random" for random init.
+  localsearch = LS_insert,
+  cool = 0.5,
+  tmin = 0.0001,
+  nlocal = 10,      ## try nlocal x n local search steps
+  verbose = FALSE
+)
 
 seriate_sa <- function(x, control = NULL) {
-  param <- .get_parameters(control, list(
-    criterion = "Gradient_raw",
-    init = "Spectral",    ## use "Random" for random init.
-    localsearch = seriation::LS_insert,
-    cool = 0.5,
-    tmin = 0.0001,
-    nlocal = 10,      ## try nlocal x n local search steps
-    verbose = FALSE
-  ))
-
+  param <- .get_parameters(control, .sa_contr)
   n <- attr(x, "Size")
 
   if(is.numeric(param$init)) {
@@ -118,4 +118,5 @@ seriate_sa <- function(x, control = NULL) {
 }
 
 set_seriation_method("dist", "SA", seriate_sa,
-  "Minimize a specified measure using simulated annealing (with warm start).")
+  "Minimize a specified seriation measure (criterion) using simulated annealing. Control parameter init specifies an algorithm used to create an initial solution (use \"Random\" for no warm start). localsearch specified the local neighborhood function. Built-in functions are \"LS_insert\", \"LS_swap\", \"LS_reverse\", and \"LS_mix\" (1/3 insertion, 1/3 swap and 1/3 reverse).", .sa_contr)
+

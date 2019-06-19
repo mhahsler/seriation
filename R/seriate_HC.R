@@ -18,11 +18,13 @@
 
 
 ## Hierarchical clustering related seriations
+.hc_control <- list(
+  hclust = NULL,
+  method = "average"
+)
+
 .hclust_helper <- function(d, control = NULL){
-  control <- .get_parameters(control, list(
-    hclust = NULL,
-    method = "average"
-    ))
+  control <- .get_parameters(control, .hc_control)
 
   if(!is.null(control$hclust)) return(control$hclust)
   return(hclust(d, method = control$method))
@@ -62,37 +64,40 @@ seriate_dist_olo_complete <- function(x, control = NULL)
 seriate_dist_olo_ward <- function(x, control = NULL)
   reorder(seriate_dist_hc_ward(x, control), x, method="OLO")
 
+
+.hc_desc <- "Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering"
 set_seriation_method("dist", "HC", seriate_dist_hc,
-  "Hierarchical clustering")
+  .hc_desc, .hc_control)
 set_seriation_method("dist", "HC_single", seriate_dist_hc_single,
-  "Hierarchical clustering (single link)")
+  paste(.hc_desc, "(single link)"))
 set_seriation_method("dist", "HC_complete", seriate_dist_hc_complete,
-  "Hierarchical clustering (complete link)")
+  paste(.hc_desc, "(complete link)."))
 set_seriation_method("dist", "HC_average", seriate_dist_hc_average,
-  "Hierarchical clustering (avg. link)")
+  paste(.hc_desc, "(avg. link)."))
 set_seriation_method("dist", "HC_ward", seriate_dist_hc_ward,
-  "Hierarchical clustering (Ward's method)")
+  paste(.hc_desc, "(Ward's method)."))
 
+.gw_desc <- "Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by the Gruvaeus and Wainer (1972) heuristic"
 set_seriation_method("dist", "GW", seriate_dist_gw,
-  "Hierarchical clustering reordered by Gruvaeus and Wainer heuristic")
+  .gw_desc, .hc_control)
 set_seriation_method("dist", "GW_single", seriate_dist_gw_single,
-  "Hierarchical clustering (single link) reordered by Gruvaeus and Wainer heuristic")
+  paste(.gw_desc, "(single link)"))
 set_seriation_method("dist", "GW_average", seriate_dist_gw_average,
-  "Hierarchical clustering (avg. link) reordered by Gruvaeus and Wainer heuristic")
+  paste(.gw_desc, "(avg.link)"))
 set_seriation_method("dist", "GW_complete", seriate_dist_gw_complete,
-  "Hierarchical clustering (complete link) reordered by Gruvaeus and Wainer heuristic")
+  paste(.gw_desc, "(complete link)"))
 set_seriation_method("dist", "GW_ward", seriate_dist_gw_ward,
-  "Hierarchical clustering (Ward's method) reordered by Gruvaeus and Wainer heuristic")
+  paste(.gw_desc, "(Ward's method)"))
 
-
+.olo_desc <- "Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001)"
 set_seriation_method("dist", "OLO", seriate_dist_olo,
-  "Hierarchical clustering (single link) with optimal leaf ordering")
+  .olo_desc, .hc_control)
 set_seriation_method("dist", "OLO_single", seriate_dist_olo_single,
-  "Hierarchical clustering with optimal leaf ordering")
+  paste(.olo_desc, "(single link)"))
 set_seriation_method("dist", "OLO_average", seriate_dist_olo_average,
-  "Hierarchical clustering (avg. link) with optimal leaf ordering")
+  paste(.olo_desc, "(avg. link)"))
 set_seriation_method("dist", "OLO_complete", seriate_dist_olo_complete,
-  "Hierarchical clustering (complete link) with optimal leaf ordering")
+  paste(.olo_desc, "(complete link)"))
 set_seriation_method("dist", "OLO_ward", seriate_dist_olo_ward,
-  "Hierarchical clustering (Ward's method) with optimal leaf ordering")
+  paste(.olo_desc, "(Ward's method)"))
 

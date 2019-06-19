@@ -1,4 +1,9 @@
-# seriation 1.2-6.1 (xx/xx/2019)
+# seriation 1.2-7.1 (xx/xx/2019)
+
+## New features
+* get_seriation_method now has better information and also show available control parameters.
+
+# seriation 1.2-7 (06/07/2019)
 
 ## Bugfixes
 * Added missing void * to init.c

@@ -17,11 +17,13 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
+.mds_control <- list(
+  method = "cmdscale"
+)
+
 ## Multidimensional scaling
 seriate_dist_mds <- function(x, control = NULL){
-  control <- .get_parameters(control, list(
-    method = "cmdscale"
-  ))
+  control <- .get_parameters(control, .mds_control)
 
   if(control$method == "cmdscale" ) {
     sc <- cmdscale(x, k=1)
@@ -55,11 +57,11 @@ seriate_dist_angle <- function(x, control = NULL) {
 
 
 set_seriation_method("dist", "MDS", seriate_dist_mds,
-  "MDS")
+  "Order using the first component found by multidimensional scaling. Element method in control can be \"cmdscale\", \"isoMDS\" or \"sammon\".", .mds_control)
 set_seriation_method("dist", "MDS_metric", seriate_dist_mds_metric,
-  "MDS (metric)")
+  "Order using the first component found by metric multidimensional scaling (cmdscsale).")
 set_seriation_method("dist", "MDS_nonmetric", seriate_dist_mds_nonmetric,
-  "MDS (non-metric)")
+  "Order using the first component found by non-metric multidimensional scaling (isoMDS).")
 set_seriation_method("dist", "MDS_angle", seriate_dist_angle,
-  "MDS (angle)")
+  "Order by the angle in this space given by the first two components found by MDS (Friendly, 2002).")
 

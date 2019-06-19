@@ -38,14 +38,16 @@ create_W <- function(n, sigma, verbose=FALSE) {
   W
 }
 
+.spin_contr <- list(
+  sigma = seq(20,1, length.out = 10),
+  step = 5,
+  W_function = NULL,
+  verbose = FALSE
+)
+
 ## SPIN: Neighborhood algorithms
 seriate_dist_SPIN <- function(x, control = NULL) {
-  param <- .get_parameters(control, list(
-    sigma = seq(20,1, length.out = 10),
-    step = 5,
-    W_function = NULL,
-    verbose = FALSE
-  ))
+  param <- .get_parameters(control, .spin_contr)
 
   W_function <- if(is.null(param$W_function)) create_W else param$W_function
   sigma <- param$sigma
@@ -108,13 +110,15 @@ seriate_dist_SPIN <- function(x, control = NULL) {
 ## SPIN: Side-to-Side algorithm
 
 ## this is the weight: pimage(tcrossprod(1:n - (n+1)/2))
+.spin_sts_contr <- list(
+  step = 25,
+  nstart = 10,
+  X = function(n) 1:n - (n+1)/2,
+  verbose = FALSE
+)
+
 seriate_dist_SPIN_STS <- function(x, control = NULL) {
-  param <- .get_parameters(control, list(
-    step = 25,
-    nstart = 10,
-    X = function(n) 1:n - (n+1)/2,
-    verbose = FALSE
-  ))
+  param <- .get_parameters(control, .spin_sts_contr)
 
   step <- param$step
   verbose <- param$verbose
@@ -186,6 +190,6 @@ seriate_dist_SPIN_STS <- function(x, control = NULL) {
 }
 
 set_seriation_method("dist", "SPIN_NH", seriate_dist_SPIN,
-  "SPIN (Neighborhood algorithm)")
+  "Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Nighborhood algorithm to concentrate low distance values around the diagonal with a Gaussian weight matrix W_{ij} = exp(-(i-j)^2/(n*sigma)), where n is the size of the dissimilarity matrix and sigma is the variance around the diagonal that control the influence of global (large sigma) or local (small sigma) structure.", .spin_contr)
 set_seriation_method("dist", "SPIN_STS", seriate_dist_SPIN_STS,
-  "SPIN (Side-to-Side algorithm)")
+  "Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Side-to-Side algorithm which tries to push out large distance values.", .spin_sts_contr)

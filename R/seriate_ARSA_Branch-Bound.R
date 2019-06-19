@@ -17,15 +17,17 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 ## Brusco: simulated annealing for the Linear Seriation Criterion
+.arsa_control <- list(
+  cool = 0.5,                  ## Brusco: 0.95
+  tmin = 0.0001,               ## Brusco: 0.0001
+  swap_to_inversion = .5,      ## Brusco: .5
+  try_multiplier = 100,        ## Brusco: 100
+  reps = 1L,                   ## Brusco: 20
+  verbose = FALSE
+)
+
 seriate_dist_arsa <- function(x, control = NULL) {
-  param <- .get_parameters(control, list(
-    cool = 0.5,                  ## Brusco: 0.95
-    tmin = 0.0001,               ## Brusco: 0.0001
-    swap_to_inversion = .5,      ## Brusco: .5
-    try_multiplier = 100,        ## Brusco: 100
-    reps = 1L,                   ## Brusco: 20
-    verbose = FALSE
-  ))
+  param <- .get_parameters(control, .arsa_control)
 
   A <- as.matrix(x)
   # SUBROUTINE arsa(N, A, COOL, TMIN, NREPS, IPERM, R1, R2, D, U,
@@ -62,11 +64,13 @@ seriate_dist_arsa <- function(x, control = NULL) {
 
 
 ## Brusco: branch-and-bound - unweighted row gradient
+.bb_control <- list(
+  eps = 1e-7,
+  verbose = FALSE
+)
+
 seriate_dist_bburcg <- function(x, control = NULL) {
-  param <- .get_parameters(control, list(
-    eps = 1e-7,
-    verbose = FALSE
-  ))
+  param <- .get_parameters(control, .bb_control)
 
   A <- as.matrix(x)
   N <- ncol(A)
@@ -90,10 +94,7 @@ seriate_dist_bburcg <- function(x, control = NULL) {
 
 ## Brusco: branch-and-bound - weighted row gradient
 seriate_dist_bbwrcg <- function(x, control = NULL) {
-  param <- .get_parameters(control, list(
-    eps = 1e-7,
-    verbose = FALSE
-  ))
+  param <- .get_parameters(control, .bb_control)
 
   A <- as.matrix(x)
   N <- ncol(A)
@@ -115,8 +116,10 @@ seriate_dist_bbwrcg <- function(x, control = NULL) {
 }
 
 set_seriation_method("dist", "ARSA", seriate_dist_arsa,
-  "Minimize the linear seriation criterion using simulated annealing")
+  "Minimize the linear seriation criterion using simulated annealing (Brusco et al, 2008).\ncontrol parameters:\n  cool (cooling rate)\n  tmin (minimum temperature)\n  swap_to_inversion (proportion of swaps to inversions for local neighborhood search)\n  try_multiplier (local search tries per temperature; multiplied with the number of objects)\n  reps (repeat the algorithm with random initialization)\n  verbose. Use verbose = TRUE to see the default values for the parameters.", control = .arsa_control)
+
 set_seriation_method("dist", "BBURCG", seriate_dist_bburcg,
-  "Minimize the unweighted row/column gradient by branch-and-bound")
+  "Minimize the unweighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.", control  = .bb_control)
+
 set_seriation_method("dist", "BBWRCG", seriate_dist_bbwrcg,
-  "Minimize the weighted row/column gradient by branch-and-bound")
+  "Minimize the weighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.", control  = .bb_control)

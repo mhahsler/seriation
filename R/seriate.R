@@ -36,7 +36,7 @@ get_seriation_method <- function(kind, name) {
 }
 
 set_seriation_method <-
-  function(kind, name, definition, description = NULL, ...){
+  function(kind, name, definition, description = NULL, control = list(), ...){
 
     ## check formals
     if(!identical(names(formals(definition)),
@@ -49,10 +49,10 @@ set_seriation_method <-
       warning("Entry with name \"", name, "\" for kind \"", kind,
         "\" already exists! Modifying entry.")
       registry_seriate$modify_entry(kind=kind, name=name, fun=definition,
-        description=description)
+        description=description, control = control)
     } else {
       registry_seriate$set_entry(name=name, kind=kind, fun=definition,
-        description=description)
+        description=description, control = control)
     }
   }
 

@@ -29,17 +29,20 @@ register_DendSer <- function() {
   #   ## costLS, costPL, costLPL, costED, costARc, costBAR
   # h (default is NULL -> complete)
 
+
+  .DendSer_control <- list(
+    h = NULL,
+    method = "complete",
+    criterion = NULL,
+    cost = DendSer::costBAR,
+    DendSer_args = NULL,
+    verbose = FALSE
+  )
+
   DendSer_helper <- function(x, control) {
     n <- attr(x, "Size")
 
-    control <- .get_parameters(control, list(
-      h = NULL,
-      method = "complete",
-      criterion = NULL,
-      cost = DendSer::costBAR,
-      DendSer_args = NULL,
-      verbose = FALSE
-    ))
+    control <- .get_parameters(control, .DendSer_control)
 
     ## fix cost if it is a criterion from seriation
     if(!is.null(control$criterion))
@@ -90,16 +93,16 @@ register_DendSer <- function() {
   #  }
 
   seriation::set_seriation_method("dist", "DendSer",
-    DendSer_helper, "Dendrogram seriation (DendSer)")
+    DendSer_helper, "Dendrogram seriation (Earle and Hurley, 2015).", .DendSer_control)
 
   seriation::set_seriation_method("dist", "DendSer_BAR",
-    DendSer_BAR, "Dendrogram seriation (BAR)")
+    DendSer_BAR, "Dendrogram seriation  with BAR (Earle and Hurley, 2015).", .DendSer_control)
   seriation::set_seriation_method("dist", "DendSer_PL",
-    DendSer_PL, "Dendrogram seriation (Path length)")
+    DendSer_PL, "Dendrogram seriation (Path length)", .DendSer_control)
   seriation::set_seriation_method("dist", "DendSer_LPL",
-    DendSer_PL, "Dendrogram seriation (Lazy path length)")
+    DendSer_PL, "Dendrogram seriation (Lazy path length)", .DendSer_control)
   seriation::set_seriation_method("dist", "DendSer_ARc",
-    DendSer_ARc, "Dendrogram seriation (ARc)")
+    DendSer_ARc, "Dendrogram seriation (ARc)", .DendSer_control)
   #  seriation::set_seriation_method("dist", "DendSer_LS",
   #    DendSer_LS, "Dendrogram seriation (Leaf sort)")
 

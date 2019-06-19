@@ -67,11 +67,12 @@ seriate_dist_BAR <- function(x, control = NULL) {
     B = as.matrix(x)), control))
 }
 
+
 set_seriation_method("dist", "QAP_2SUM", seriate_dist_2SUM,
-  "QAP (2-SUM)")
+  "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the 2-Sum Problem criterion (Barnard, Pothen, and Simon 1993). Control arguments are passed to qap in package qap.")
 set_seriation_method("dist", "QAP_LS", seriate_dist_LS,
-  "QAP (Linear Seriation)")
+  "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the Linear Seriation Problem (LS) criterion (Hubert and Schultz 1976).Control arguments are passed to qap in package qap.")
 set_seriation_method("dist", "QAP_BAR", seriate_dist_BAR,
-  "QAP (Banded anti-Robinson form)")
+  "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the banded anti-Robinson form (BAR). Control arguments are passed to qap in package qap.")
 set_seriation_method("dist", "QAP_Inertia", seriate_dist_Inertia,
-  "QAP (Inertia)")
+  "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the Inertia criterion. Control arguments are passed to qap in package qap.")
