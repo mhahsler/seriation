@@ -58,21 +58,13 @@ register_GA <- function() {
 
     if(control$verbose) cat("\nStarting GA\n")
 
-    ### FIXME: handle ...
-    ## max fitness
-    crit2fit <- function(x, method) {
-      if(seriation::get_criterion_method("dist", method)$merit)
-        function(o) criterion(x, o, method)
-      else
-        function(o) -criterion(x, o, method)
-    }
-
-    f <- crit2fit(x, control$criterion)
+    # fitness function
+    f <- function(o) -criterion(x, o, method = control$criterion, force_loss = TRUE)
 
     result <- GA::ga(type="permutation",
       fitness=f,
-      min=rep(1L, times = n),
-      max=rep(n, times = n),
+      lower=rep(1L, times = n),
+      upper=rep(n, times = n),
       selection = control$selection,
       mutation = control$mutation,
       crossover = control$crossover,
@@ -84,7 +76,7 @@ register_GA <- function() {
       parallel = control$parallel,
       maxiter = control$maxiter,
       run = control$run,
-      maxfitness = Inf,
+      maxFitness = Inf,
       popSize = control$popSize
     )
 

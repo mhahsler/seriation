@@ -3,6 +3,9 @@
 ## New features
 * get_seriation_method now has better information and also show available control parameters.
 
+## Bugfixes
+* GA: Updated parameter names after change in package ga.
+
 # seriation 1.2-7 (06/07/2019)
 
 ## Bugfixes
