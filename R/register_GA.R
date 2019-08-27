@@ -58,6 +58,7 @@ register_GA <- function() {
 
     if(control$verbose) cat("\nStarting GA\n")
 
+    ### FIXME: need to be able to set bandwidth for BAR
     # fitness function
     f <- function(o) -criterion(x, o, method = control$criterion, force_loss = TRUE)
 
