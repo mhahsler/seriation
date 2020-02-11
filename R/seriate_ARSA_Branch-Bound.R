@@ -116,7 +116,7 @@ seriate_dist_bbwrcg <- function(x, control = NULL) {
 }
 
 set_seriation_method("dist", "ARSA", seriate_dist_arsa,
-  "Minimize the linear seriation criterion using simulated annealing (Brusco et al, 2008).\ncontrol parameters:\n  cool (cooling rate)\n  tmin (minimum temperature)\n  swap_to_inversion (proportion of swaps to inversions for local neighborhood search)\n  try_multiplier (local search tries per temperature; multiplied with the number of objects)\n  reps (repeat the algorithm with random initialization)\n  verbose. Use verbose = TRUE to see the default values for the parameters.", control = .arsa_control)
+  "Minimize the linear seriation criterion using simulated annealing (Brusco et al, 2008).\ncontrol parameters:\n - cool (cooling rate)\n - tmin (minimum temperature)\n - swap_to_inversion (proportion of swaps to inversions for local neighborhood search)\n - try_multiplier (local search tries per temperature; multiplied with the number of objects)\n - reps (repeat the algorithm with random initialization)\n", control = .arsa_control)
 
 set_seriation_method("dist", "BBURCG", seriate_dist_bburcg,
   "Minimize the unweighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.", control  = .bb_control)

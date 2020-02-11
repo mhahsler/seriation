@@ -26,7 +26,8 @@ seriate.default <- function(x, ...)
 
 ## Seriation methods db.
 get_seriation_method <- function(kind, name) {
-  method <- registry_seriate$get_entry(kind=kind, name=name)
+  if(missing(kind)) method <- registry_seriate$get_entry(name=name)
+  else method <- registry_seriate$get_entry(kind=kind, name=name)
 
   if(is.null(method))
     stop("Unknown seriation method. Check list_seriation_methods(\"",
@@ -35,31 +36,34 @@ get_seriation_method <- function(kind, name) {
   method
 }
 
-set_seriation_method <-
-  function(kind, name, definition, description = NULL, control = list(), ...){
+set_seriation_method <- function(kind, name, definition,
+  description = NULL, control = list(), ...){
 
-    ## check formals
-    if(!identical(names(formals(definition)),
-      c("x", "control")))
-      stop("Seriation methods must have formals 'x' and 'control'.")
+  ## check formals
+  if(!identical(names(formals(definition)),
+    c("x", "control")))
+    stop("Seriation methods must have formals 'x' and 'control'.")
 
-    ## check if entry already exists
-    r <- registry_seriate$get_entry(kind=kind, name=name)
-    if(!is.null(r) && r$name==name) {
-      warning("Entry with name \"", name, "\" for kind \"", kind,
-        "\" already exists! Modifying entry.")
-      registry_seriate$modify_entry(kind=kind, name=name, fun=definition,
-        description=description, control = control)
-    } else {
-      registry_seriate$set_entry(name=name, kind=kind, fun=definition,
-        description=description, control = control)
-    }
+  ## check if entry already exists
+  r <- registry_seriate$get_entry(kind=kind, name=name)
+  if(!is.null(r) && r$name==name) {
+    warning("Entry with name \"", name, "\" for kind \"", kind,
+      "\" already exists! Modifying entry.")
+    registry_seriate$modify_entry(kind=kind, name=name, fun=definition,
+      description=description, control = control)
+  } else {
+    registry_seriate$set_entry(name=name, kind=kind, fun=definition,
+      description=description, control = control)
   }
+}
 
-list_seriation_methods <- function(kind)
-  sort(as.vector(sapply(registry_seriate$get_entries(kind=kind), "[[", "name")))
+list_seriation_methods <- function(kind) {
+  if(missing(kind)) sort(as.vector(sapply(registry_seriate$get_entries(), "[[", "name")))
+  else sort(as.vector(sapply(registry_seriate$get_entries(kind=kind), "[[", "name")))
+}
 
-show_seriation_methods <- function(kind){
-  m <- registry_seriate$get_entries(kind=kind)
+show_seriation_methods <- function(kind) {
+  if(missing(kind)) m <- registry_seriate$get_entries()
+  else m <- registry_seriate$get_entries(kind=kind)
   m[sort(names(m))]
 }

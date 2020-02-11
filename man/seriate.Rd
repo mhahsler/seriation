@@ -16,21 +16,21 @@ data array (k-way k-mode data).
 \usage{
 \method{seriate}{dist}(x, method = "Spectral", control = NULL, \ldots)
 \method{seriate}{matrix}(x, method = "PCA", control = NULL,
-    margin = c(1,2), \ldots)
+margin = c(1,2), \ldots)
 \method{seriate}{array}(x, method = "PCA", control = NULL,
-    margin = seq(length(dim(x))), \ldots)
+margin = seq(length(dim(x))), \ldots)
 }
 \arguments{
-  \item{x}{the data.}
-  \item{method}{ a character string with the name of the seriation method
-    (default: varies by data type).}
-  \item{control}{ a list of control options passed on to the seriation
-      algorithm.}
-  \item{margin}{ a vector giving the margins to be seriated. For matrix,
-        \code{1} indicates rows, \code{2} indicates columns, \code{c(1,2)}
-        indicates rows and columns. For array, margin gets a vector with
-        the dimensions to seriate.}
-  \item{\ldots}{ further arguments (unused).}
+\item{x}{the data.}
+\item{method}{ a character string with the name of the seriation method
+(default: varies by data type).}
+\item{control}{ a list of control options passed on to the seriation
+algorithm.}
+\item{margin}{ a vector giving the margins to be seriated. For matrix,
+\code{1} indicates rows, \code{2} indicates columns, \code{c(1,2)}
+indicates rows and columns. For array, margin gets a vector with
+the dimensions to seriate.}
+\item{\ldots}{ further arguments are added to the \code{control} list.}
 }
 \details{
 Seriation methods are available via a registry.
@@ -52,144 +52,136 @@ Hahsler (2017)):
 
 \describe{
 \item{\code{"ARSA"}}{Anti-Robinson seriation by simulated annealing to minimize
-  the \bold{linear seriation criterion} (simulated annealing initialization used in Brusco et al 2008).
-
-Several \code{control} parameters are available:
-    \code{cool} (cooling rate),
-    \code{tmin} (minimum temperature),
-    \code{swap_to_inversion} (proportion of swaps to inversions for local neighborhood search),
-    \code{try_multiplier} (local search tries per temperature; multiplied with the number of objects),
-    \code{reps} (repeat the algorithm with random initialization),
-    \code{verbose}. Use \code{verbose = TRUE} to see the default values
-    for the parameters.
-    }
+the \bold{linear seriation criterion} (simulated annealing initialization used in Brusco et al 2008).
+}
 
 \item{\code{"BBURCG"}}{Anti-Robinson seriation by branch-and-bound to minimize
-  the \bold{unweighted gradient measure} (Brusco and Stahl 2005).
-  This is only feasible for a
-  relatively small number of objects.
-    }
+the \bold{unweighted gradient measure} (Brusco and Stahl 2005).
+This is only feasible for a
+relatively small number of objects.
+}
 \item{\code{"BBWRCG"}}{Anti-Robinson seriation by branch-and-bound to minimize
-  the \bold{weighted gradient measure} (Brusco and Stahl 2005). This is only feasible for a
-  relatively small number of objects.
-    }
+the \bold{weighted gradient measure} (Brusco and Stahl 2005). This is only feasible for a
+relatively small number of objects.
+}
 
 \item{\code{"TSP"}}{Traveling salesperson problem solver to minimize
-      the \bold{Hamiltonian path length}.
-      The solvers in \pkg{TSP} are used (see \code{solve_TSP}).
-      The solver method can be passed on via the
-      \code{control} argument, e.g. \code{control = list(method = "two_opt")}.
-      Default is the est of 10 runs of
-      arbitrary insertion heuristic with 2-opt improvement.
+the \bold{Hamiltonian path length}.
+The solvers in \pkg{TSP} are used (see \code{solve_TSP}).
+The solver method can be passed on via the
+\code{control} argument, e.g. \code{control = list(method = "two_opt")}.
+Default is the est of 10 runs of
+arbitrary insertion heuristic with 2-opt improvement.
 
-      Since a tour returned by a TSP solver is a connected circle and we are
-      looking for a path representing a linear order, we need to find the best
-      cutting point.  Climer and Zhang (2006) suggest to add a dummy city with
-      equal distance to each other city before generating the tour. The place
-      of this dummy city in an optimal tour with minimal length is the best
-      cutting point (it lies between the most distant cities).}
+Since a tour returned by a TSP solver is a connected circle and we are
+looking for a path representing a linear order, we need to find the best
+cutting point.  Climer and Zhang (2006) suggest to add a dummy city with
+equal distance to each other city before generating the tour. The place
+of this dummy city in an optimal tour with minimal length is the best
+cutting point (it lies between the most distant cities).
+}
 
 \item{\code{"R2E"}}{Rank-two ellipse seriation (Chen 2002).
 
-        This method starts with generating a sequence of correlation matrices
-      \eqn{R^1, R^2, \ldots}. \eqn{R^1} is the correlation matrix
-      of the original distance matrix \eqn{D} (supplied to the function as
-      \code{x}),
-      and
-        \deqn{R^{n+1} = \phi R^n,}
-      where \eqn{\phi} calculates the
-      correlation matrix.
+This method starts with generating a sequence of correlation matrices
+\eqn{R^1, R^2, \ldots}. \eqn{R^1} is the correlation matrix
+of the original distance matrix \eqn{D} (supplied to the function as
+\code{x}),
+and
+\deqn{R^{n+1} = \phi R^n,}
+where \eqn{\phi} calculates the
+correlation matrix.
 
-      The rank of the matrix \eqn{R^n} falls with increasing \eqn{n}. The
-      first \eqn{R^n} in the sequence which has a rank of 2 is found.
-      Projecting all points in this matrix on the first two eigenvectors,
-      all points fall on an ellipse. The order of the points on this ellipse
-      is the resulting order.
+The rank of the matrix \eqn{R^n} falls with increasing \eqn{n}. The
+first \eqn{R^n} in the sequence which has a rank of 2 is found.
+Projecting all points in this matrix on the first two eigenvectors,
+all points fall on an ellipse. The order of the points on this ellipse
+is the resulting order.
 
-      The ellipse can be cut at the two interception points
-      (top or bottom) of the vertical axis with the ellipse.
-      In this implementation the top most cutting point is used.
-      }
+The ellipse can be cut at the two interception points
+(top or bottom) of the vertical axis with the ellipse.
+In this implementation the top most cutting point is used.
+}
 
 \item{\code{"MDS"}, \code{"MDS_metric"}, \code{"MDS_nonmetric"},
-  \code{"MDS_angle"}}{Multidimensional scaling (MDS).
+\code{"MDS_angle"}}{Multidimensional scaling (MDS).
 
-    Use multidimensional scaling techniques to find an linear order
-    by minimizing \bold{stress}. Note
-    MDS algorithms used for a single dimension tend to end up in local optima
-    and unidimensional scaling (see Maier and De Leeuw, 2015)
-    would be more appropriate.
-    However, generally, ordering along the first component of
-    MDS provides good results.
+Use multidimensional scaling techniques to find an linear order
+by minimizing \bold{stress}. Note
+MDS algorithms used for a single dimension tend to end up in local optima
+and unidimensional scaling (see Maier and De Leeuw, 2015)
+would be more appropriate.
+However, generally, ordering along the first component of
+MDS provides good results.
 
-    By default, metric MDS (\code{cmdscale} in \pkg{stats}) is used.
-    In case of of general dissimilarities, non-metric MDS can be used.
-    The choices are \code{isoMDS} and \code{sammon} from \pkg{MASS}.
-    The method can be specified as the element \code{method}
-    (\code{"cmdscale"}, \code{"isoMDS"} or \code{"sammon"}) in \code{control}.
+By default, metric MDS (\code{cmdscale} in \pkg{stats}) is used.
+In case of of general dissimilarities, non-metric MDS can be used.
+The choices are \code{isoMDS} and \code{sammon} from \pkg{MASS}.
+The method can be specified as the element \code{method}
+(\code{"cmdscale"}, \code{"isoMDS"} or \code{"sammon"}) in \code{control}.
 
-    For convenience, \code{"MDS_metric"} performs \code{cmdscale} and
-    \code{"MDS_nonmetric"} performs \code{isoMDS}.
+For convenience, \code{"MDS_metric"} performs \code{cmdscale} and
+\code{"MDS_nonmetric"} performs \code{isoMDS}.
 
-    \code{"MDS_angle"} projects the data on the first two components
-    found by MDS and then orders by the angle in this space. The order
-    is split by the larges gap between adjacent angles. A similar method was
-    used for ordering correlation matrices by Friendly (2002).
+\code{"MDS_angle"} projects the data on the first two components
+found by MDS and then orders by the angle in this space. The order
+is split by the larges gap between adjacent angles. A similar method was
+used for ordering correlation matrices by Friendly (2002).
 
-  }
+}
 \item{\code{"HC"}, \code{"HC_single"}, \code{"HC_complete"}, \code{"HC_average"},\code{"HC_ward"}}{Hierarchical clustering.
 
-    Using the order of the leaf nodes in a dendrogram obtained by hierarchical
-    clustering can be used as a very simple seriation technique.
-    This method applies hierarchical clustering (\code{hclust}) to \code{x}.
-    The clustering method can be given using a \code{"method"} element in
-    the \code{control} list. If omitted, the default \code{"average"} is
-    used.
+Using the order of the leaf nodes in a dendrogram obtained by hierarchical
+clustering can be used as a very simple seriation technique.
+This method applies hierarchical clustering (\code{hclust}) to \code{x}.
+The clustering method can be given using a \code{"method"} element in
+the \code{control} list. If omitted, the default \code{"average"} is
+used.
 
-    For convenience the other methods are provided as shortcuts.
-    }
+For convenience the other methods are provided as shortcuts.
+}
 
 
 \item{\code{"GW"}, \code{"OLO"}}{Hierarchical
-    clustering (by default using average-link)
-      with additional leaf-node reordering to minimize
-    \bold{Hamiltonian path length (restricted)}.
+clustering (by default using average-link)
+with additional leaf-node reordering to minimize
+\bold{Hamiltonian path length (restricted)}.
 
-    A dendrogram (binary tree) has \eqn{2^{n-1}} internal nodes (subtrees) and
-    the same number of leaf orderings. That is, at each internal node the left
-    and right subtree (or leaves) can be swapped, or, in terms of a dendrogram,
-    be flipped.
+A dendrogram (binary tree) has \eqn{2^{n-1}} internal nodes (subtrees) and
+the same number of leaf orderings. That is, at each internal node the left
+and right subtree (or leaves) can be swapped, or, in terms of a dendrogram,
+be flipped.
 
-    Method \code{"GW"} uses an algorithm developed by Gruvaeus and Wainer
+Method \code{"GW"} uses an algorithm developed by Gruvaeus and Wainer
 (1972) and implemented in package \pkg{gclus} (Hurley 2004).  The clusters are
 ordered at each level so that the objects at the edge of each cluster are
 adjacent to that object outside the cluster to which it is nearest. The method
 produces an unique order.
 
-    Method \code{"OLO"} (Optimal leaf ordering, Bar-Joseph et al., 2001)
+Method \code{"OLO"} (Optimal leaf ordering, Bar-Joseph et al., 2001)
 produces an optimal leaf ordering with respect to the
 minimizing the sum of the distances along the (Hamiltonian) path connecting the
 leaves in the given order. The time complexity of the algorithm is \eqn{O(n^3)}.
 Note that non-finite distance values are not allowed.
 
-   Both methods start with a dendrogram created by \code{hclust}. As  the
+Both methods start with a dendrogram created by \code{hclust}. As  the
 \code{"method"} element in the \code{control} list a clustering method (default
 \code{"average"}) can be specified. Alternatively, a \code{hclust} object can
 be supplied using an element named \code{"hclust"}.
 
-   For convenience  \code{"GW_single"}, \code{"GW_average"},
-   \code{"GW_complete"}, \code{"GW_ward"} and
-   \code{"OLO_single"},    \code{"OLO_average"},
-    \code{"OLO_complete"},  \code{"OLO_ward"} are provided.
-    }
+For convenience  \code{"GW_single"}, \code{"GW_average"},
+\code{"GW_complete"}, \code{"GW_ward"} and
+\code{"OLO_single"},    \code{"OLO_average"},
+\code{"OLO_complete"},  \code{"OLO_ward"} are provided.
+}
 
-  \item{\code{"VAT"}}{Visual Assessment of (Clustering) Tendency (Bezdek and Hathaway (2002)).
+\item{\code{"VAT"}}{Visual Assessment of (Clustering) Tendency (Bezdek and Hathaway (2002)).
 
-    Creates an order based on Prim's algorithm for finding a minimum spanning
-    tree (MST) in a weighted connected graph representing the distance matrix.
-    The order is given by the order in which the nodes (objects) are added
-    to the MST.
-    }
+Creates an order based on Prim's algorithm for finding a minimum spanning
+tree (MST) in a weighted connected graph representing the distance matrix.
+The order is given by the order in which the nodes (objects) are added
+to the MST.
+}
 
 \item{\code{"SA"}}{ Simulated Annealing for diverse criterion measures.
 
@@ -205,17 +197,6 @@ Any neighborhood function can be defined. It needs to take as the only argument
 the order (integer vector) and return a random neighbor.
 
 Note that this is an R implementation repeatedly calling criterion, and therefore is relatively slow.
-
-Several \code{control} parameters are available:
-    \code{criterion} (criterion to optimize; default: "Gradient_raw"),
-    \code{init} (initial order; default: "Spectral"),
-    \code{localsearch} (neighborhood function; default: LS_insert),
-    \code{cool} (cooling rate),
-    \code{tmin} (minimum temperature),
-    \code{swap_to_inversion} (proportion of swaps to inversions),
-    \code{nlocal} (number of objects times nlocal is the number of search tries per temperature),
-    \code{verbose}. Use \code{verbose = TRUE} to see the default values
-    for the parameters.
 }
 
 \item{\code{"Spectral"}, \code{"Spectral_norm"}}{ Spectral seriation (Ding and He 2004).
@@ -227,7 +208,7 @@ vector of the similarity matrix's (normalized) Laplacian.
 
 Spectral seriation gives a good trade-off between seriation quality, speed and
 scalability (see Hahsler, 2017).
-  }
+}
 
 \item{\code{"SPIN_NH"}, \code{"SPIN_STS"}}{ Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005).
 Given a weight matrix \eqn{W}, the algorithms try to minimize the energy for a permutation (matrix \eqn{P})
@@ -276,68 +257,69 @@ the given number of repetitions with random restarts. Default is 1, but bigger n
 }
 
 \item{\code{"GA"}}{ Use a genetic algorithm to optimize for various criteria.
- The GA code has to be first registered. A detailed description can be found in the manual page for \code{\link{register_GA}}.}
+The GA code has to be first registered. A detailed description can be found in the manual page for \code{\link{register_GA}}.}
 
- \item{\code{"DendSer"}}{ Use heuristic dendrogram seriation to optimize for various criteria.
- The DendSer code has to be first registered. A detailed description can be found in the manual page for \code{\link{register_DendSer}}.}
+\item{\code{"DendSer"}}{ Use heuristic dendrogram seriation to optimize for various criteria.
+The DendSer code has to be first registered. A detailed description can be found in the manual page for \code{\link{register_DendSer}}.}
 
 \item{\code{"Identity"}}{ Produces an identity permutation. }
 
 \item{\code{"Random"}}{ Produces a random permutation. }
+
 }
 
 Two-way two mode data are general positive matrices.
 Currently the following methods are implemented for matrix:
 \describe{
 \item{\code{"BEA"}}{Bond Energy Algorithm (BEA; McCormick 1972).
-     The algorithm tries to maximize the \bold{Measure of Effectiveness.}
-     of a non-negative matrix. Due to the definition
-     of this measure, the tasks of ordering rows and columns is separable
-     and can  be solved independently.
+The algorithm tries to maximize the \bold{Measure of Effectiveness.}
+of a non-negative matrix. Due to the definition
+of this measure, the tasks of ordering rows and columns is separable
+and can  be solved independently.
 
-     A row is arbitrarily placed; then rows are positioned one by one. When
-     this is completed, the columns are treated similarly. The overall
-     procedure amounts to two approximate traveling salesperson problems (TSP),
-     one on the rows and one on the columns. The so-called `best insertion
-     strategy' is used: rows (or columns) are inserted into the current
-     permuted list of rows (or columns). Several consecutive runs of the
-     algorithm might improve the energy.
+A row is arbitrarily placed; then rows are positioned one by one. When
+this is completed, the columns are treated similarly. The overall
+procedure amounts to two approximate traveling salesperson problems (TSP),
+one on the rows and one on the columns. The so-called `best insertion
+strategy' is used: rows (or columns) are inserted into the current
+permuted list of rows (or columns). Several consecutive runs of the
+algorithm might improve the energy.
 
-     Note that Arabie and Hubert (1990) question its use with non-binary data
-     if the objective is to find a seriation or one-dimensional orderings of
-     rows and columns.
+Note that Arabie and Hubert (1990) question its use with non-binary data
+if the objective is to find a seriation or one-dimensional orderings of
+rows and columns.
 
-     The BEA code used in this package was implemented by Fionn Murtagh.
+The BEA code used in this package was implemented by Fionn Murtagh.
 
-     In \code{control} as element \code{"rep"} the number of runs can be
-     specified. The results of the best run will be returned.
-     }
+In \code{control} as element \code{"rep"} the number of runs can be
+specified. The results of the best run will be returned.
+}
 
 \item{\code{"BEA_TSP"}}{Use a TSP to optimize the \bold{Measure of Effectiveness}
-    (Lenstra 1974).
+(Lenstra 1974).
 
-    In \code{control} as element \code{"method"} a TSP solver method can be
-    specified (see package \pkg{TSP}).
-    }
+In \code{control} as element \code{"method"} a TSP solver method can be
+specified (see package \pkg{TSP}).
+}
 
 \item{\code{"PCA"}, \code{"PCA_angle"}}{ Principal component analysis.
 
-      Uses the projection of the data on its first principal component to
-      determine the order.
+Uses the projection of the data on its first principal component to
+determine the order.
 
-      Note that for a distance matrix calculated from \code{x} with Euclidean
-      distance, this methods minimizes the least square criterion.
+Note that for a distance matrix calculated from \code{x} with Euclidean
+distance, this methods minimizes the least square criterion.
 
-      \code{"PCA_angle"} projects the data on the first two principal components
-    and then orders by the angle in this space. The order
-    is split by the larges gap between adjacent angles. A similar method was
-    used for ordering correlation matrices by Friendly (2002).
-
-      }
+\code{"PCA_angle"} projects the data on the first two principal components
+and then orders by the angle in this space. The order
+is split by the larges gap between adjacent angles. A similar method was
+used for ordering correlation matrices by Friendly (2002).
+}
 
 \item{\code{"Identity"}}{ Produces an identity permutation. }
 
 \item{\code{"Random"}}{ Produces a random permutation. }
+
 }
 
 For array no built-in methods are currently available.

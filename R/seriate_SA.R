@@ -118,5 +118,13 @@ seriate_sa <- function(x, control = NULL) {
 }
 
 set_seriation_method("dist", "SA", seriate_sa,
-  "Minimize a specified seriation measure (criterion) using simulated annealing. Control parameter init specifies an algorithm used to create an initial solution (use \"Random\" for no warm start). localsearch specified the local neighborhood function. Built-in functions are \"LS_insert\", \"LS_swap\", \"LS_reverse\", and \"LS_mix\" (1/3 insertion, 1/3 swap and 1/3 reverse).", .sa_contr)
+  paste0("Minimize a specified seriation measure (criterion) using simulated annealing.\n",
+    "Control parameters:\n",
+    " - criterion to optimize\n",
+    " - init (initial order; use \"Random\" for no warm start\n",
+    " - localsearch (neighborhood function; Built-in functions are LS_insert, LS_swap, LS_reverse, and LS_mix (1/3 insertion, 1/3 swap and 1/3 reverse)\n",
+    " - cool (cooling rate)\n",
+    " - tmin (minimum temperature)\n",
+    " - swap_to_inversion (proportion of swaps to inversions)\n",
+    " - nlocal (number of objects times nlocal is the number of search tries per temperature\n"), .sa_contr)
 

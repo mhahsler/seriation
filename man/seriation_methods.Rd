@@ -16,7 +16,7 @@ set_seriation_method(kind, name, definition, description = NULL, control = list(
 }
 \arguments{
   \item{kind}{the data type the method works on. For example, \code{"dist"},
-  \code{"matrix"} or \code{"array"}.}
+  \code{"matrix"} or \code{"array"}. If missing, then methods for any type are shown. }
   \item{name}{a short name for the method used to refer to the method in
   \code{seriate()}.}
   \item{definition}{a function containing the method's code.}
@@ -55,11 +55,12 @@ have to be in corresponding order to the dimensions of \code{x}.
 registry_seriate
 
 ## convenience functions
+show_seriation_methods()
 show_seriation_methods("matrix")
 
 list_seriation_methods("matrix")
 
-get_seriation_method("matrix", "BEA")
+get_seriation_method(name = "BEA")
 
 ## define a new method
 
