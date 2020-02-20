@@ -61,8 +61,12 @@ pimage(x, order = NULL, col = NULL, main ="", xlab = "", ylab = "",
 
   The viewports used for plotting are called: \code{"plot"}, \code{"image"}
   and \code{"colorkey"}.
+
+  \bold{Note:} Since \code{pimage} uses \pkg{grid}, it should not be mixed with base R primitive plotting
+  functions, but the appropriate functions in \code{\link[grid]{grid-package}}.
 }
 \seealso{
+\code{\link[grid]{grid-package}},
 \code{\link{seriate}},
 \code{\link{hmap}},
 \code{\link{dissplot}} and
@@ -89,9 +93,9 @@ pimage(d, upper.tri = FALSE, main = "Distances")
 
 pimage(d, seriate(d), upper.tri = FALSE, main = "Distances", axes = "both")
 
-## add to the plot using grid (use pop = FALSE)
-library(grid)
-pimage(x, pop = FALSE)
+## add to the plot using functions in package grid
+library("grid")
+pimage(x, pop = FALSE)           ### pop = FALSE allows us to manipulate viewports
 downViewport(name = "image")
 
 ## highlight cell 7/5 with a red arrow

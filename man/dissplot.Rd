@@ -7,16 +7,7 @@
 Visualizes a dissimilarity matrix using seriation and matrix shading
 using the method developed by Hahsler and Hornik (2011).
 Entries with lower dissimilarities (higher similarity) are plotted darker.
-Such a plot can be used to uncover hidden structure in the data.
-
-The plot can also be used to visualize cluster quality (see Ling 1973).
-Objects belonging to the same cluster are displayed in consecutive order. The
-placement of clusters and the within cluster order is obtained by a seriation
-algorithm which tries to place large similarities/small dissimilarities close to
-the diagonal. Compact clusters are visible as dark squares (low dissimilarity)
-on the diagonal of the plot. Additionally, a Silhouette plot (Rousseeuw 1987)
-is added. This visualization is similar to CLUSION (see Strehl and Ghosh 2002),
-however, allows for using arbitrary seriating algorithms.
+Dissimilarity plots can be used to uncover hidden structure in the data and judge cluster quality.
 }
 \usage{
 dissplot(x, labels = NULL, method = "Spectral",
@@ -108,6 +99,21 @@ dissplot(x, labels = NULL, method = "Spectral",
   }
   \item{\ldots}{further arguments are added to \code{options}.}
 }
+\details{
+The plot can also be used to visualize cluster quality (see Ling 1973).
+Objects belonging to the same cluster are displayed in consecutive order. The
+placement of clusters and the within cluster order is obtained by a seriation
+algorithm which tries to place large similarities/small dissimilarities close to
+the diagonal. Compact clusters are visible as dark squares (low dissimilarity)
+on the diagonal of the plot. Additionally, a Silhouette plot (Rousseeuw 1987)
+is added. This visualization is similar to CLUSION (see Strehl and Ghosh 2002),
+however, allows for using arbitrary seriating algorithms.
+
+\bold{Note:} Since \code{pimage} uses \pkg{grid}, it should not be mixed with base R primitive plotting
+  functions, but the appropriate functions in \code{\link[grid]{grid-package}}.
+}
+
+
 \value{
 An invisible object of class \code{cluster_proximity_matrix} with the following
 elements:
@@ -150,6 +156,7 @@ visualization for high-dimensional data mining.
 
 }
 \seealso{
+  \code{\link[grid]{grid-package}},
   \code{\link[stats]{dist}},
   \code{\link{seriate}},
   \code{\link{pimage}} and
