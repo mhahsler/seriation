@@ -3,19 +3,20 @@ useDynLib(seriation)
 import("TSP")
 import("grid")
 import("registry")
-importFrom("colorspace", "sequential_hcl")
-importFrom("gclus", "reorder.hclust") ## we use :: for gclus in seriate.hclust
-importFrom("cluster", "silhouette") ## we use :: for silhouette in dissplot
-importFrom("MASS", "isoMDS", "sammon")
+
 importFrom("graphics", "plot", "text", "title")
-importFrom("gplots", "heatmap.2")
 importFrom("stats", "reorder", "as.dist", "hclust", "runif", "rnorm",
   "as.dendrogram", "as.hclust", "nobs", "order.dendrogram",
   "cmdscale", "prcomp", "cor", "cor.test", "dist")
-importFrom("methods", "is")
 importFrom("grDevices", "grey.colors", "grey")
-importFrom("dendextend", "rotate")
-importFrom("utils", "capture.output")
+# we use :: for the rest
+#importFrom("colorspace", "sequential_hcl")
+#importFrom("gclus", "reorder.hclust") ## we use :: for gclus in seriate.hclust
+#importFrom("cluster", "silhouette") ## we use :: for silhouette in dissplot
+#importFrom("MASS", "isoMDS", "sammon")
+#importFrom("gplots", "heatmap.2")
+#importFrom("dendextend", "rotate")
+#importFrom("utils", "capture.output")
 
 export(
     bertinplot,

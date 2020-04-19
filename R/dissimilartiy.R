@@ -92,7 +92,7 @@ ser_dist <- function(x, y = NULL, method = "spearman", reverse = TRUE, ...) {
 }
 
 ser_align <- function(x, method = "spearman") {
-    if(!is.list(x) || any(!sapply(x, is, "ser_permutation_vector")))
+    if(!is.list(x) || any(!sapply(x, inherits, "ser_permutation_vector")))
       stop("x needs to be a list with elements of type 'ser_permutation_vector'")
 
     .do_rev(x, .alignment(x, method=method))
@@ -151,7 +151,7 @@ ser_align <- function(x, method = "spearman") {
 
 ### returns TRUE for sequences which should be reversed
 .alignment <- function(x, method = "spearman") {
-    if(!is.list(x) || any(!sapply(x, is, "ser_permutation_vector"))) stop("x needs to be a list with elements of type 'ser_permutation_vector'")
+    if(!is.list(x) || any(!sapply(x, inherits, "ser_permutation_vector"))) stop("x needs to be a list with elements of type 'ser_permutation_vector'")
 
     method <- match.arg(tolower(method), .dist_methods)
 

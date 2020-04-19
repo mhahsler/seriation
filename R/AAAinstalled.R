@@ -17,5 +17,5 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-.installed <- function(pkg) !is(try(utils::installed.packages()[pkg,],
+.installed <- function(pkg) !inherits(try(utils::installed.packages()[pkg,],
   silent=TRUE), "try-error")

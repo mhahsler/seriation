@@ -1,4 +1,5 @@
 # seriation 1.2-8-1 (xx/xx/2020)
+* removed dependency on methods.
 
 # seriation 1.2-8 (08/27/2019)
 

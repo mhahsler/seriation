@@ -26,13 +26,13 @@
 ## constructor (NA is identity vector)
 ser_permutation_vector <- function(x, method = NULL) {
   if(inherits(x, "ser_permutation_vector")) return(x)
-  
+
   ## make sure it's an integer vector
   if(is.vector(x) && !is.integer(x)) x <- as.integer(x)
 
   if(.is_identity_permutation(x)) attr(x, "method") <- "identity permutation"
   if(!is.null(method)) attr(x, "method") <- method
-    
+
   class(x) <- c("ser_permutation_vector", class(x))
   .valid_permutation_vector(x)
   x
@@ -56,25 +56,25 @@ get_order.integer <- function(x, ...) {
 }
 
 ## returns the order of objects (index of first, second, etc. object)
-get_order.default <- function(x, ...) 
+get_order.default <- function(x, ...)
   stop(gettextf("No permutation accessor implemented for class '%s'. ",
     class(x)))
 
 ## returns for each object its rank (rank of first, second, etc. object)
 get_rank <- function(x, ...) order(get_order(x, ...))
 
-get_permutation_matrix <- function(x, ...) 
+get_permutation_matrix <- function(x, ...)
   permutation_vector2matrix(get_order(x, ...))
 
 ## c will create a ser_permutation!
-c.ser_permutation_vector <- function(..., recursive = FALSE) 
-  do.call("ser_permutation", list(...)) 
+c.ser_permutation_vector <- function(..., recursive = FALSE)
+  do.call("ser_permutation", list(...))
 
 ## convert to permuation matrix
 permutation_vector2matrix <- function(x) {
   x <- get_order(x)
   .valid_permutation_vector(x)
-  
+
   n <- length(x)
   pm <- matrix(0, nrow = n, ncol = n)
   for(i in 1:n) pm[i, x[i]] <- 1
@@ -89,7 +89,7 @@ permutation_matrix2vector <- function(x) {
 
 ## reverse
 rev.ser_permutation_vector <- function(x) {
-  if(is(x, "hclust")) { x$order <- rev(x$order); x } 
+  if(inherits(x, "hclust")) { x$order <- rev(x$order); x }
   else ser_permutation_vector(rev(get_order(x)), method=get_method(x))
 }
 
@@ -97,15 +97,15 @@ rev.ser_permutation_vector <- function(x) {
 ## currently method is an attribute of permutation
 get_method <- function(x, printable = FALSE) {
   method <- attr(x, "method")
-  
+
   if(printable && is.null(method)) method <- "unknown"
   method
 }
 
 
 ## print et al
-length.ser_permutation_vector <- function(x) 
-  if(!.is_identity_permutation(x)) length(get_order(x)) else 0L 
+length.ser_permutation_vector <- function(x)
+  if(!.is_identity_permutation(x)) length(get_order(x)) else 0L
 
 print.ser_permutation_vector <-
   function(x, ...)
@@ -119,7 +119,7 @@ print.ser_permutation_vector <-
     invisible(x)
   }
 
-## fake summary (we dont really provide a summary, 
+## fake summary (we dont really provide a summary,
 ## but summary produces now a reasonable result --- same as print)
 summary.ser_permutation_vector <- function(object, ...) {
   object
@@ -127,26 +127,26 @@ summary.ser_permutation_vector <- function(object, ...) {
 
 
 ## helpers
-.is_identity_permutation <- function (x) 
-  if(is(x, "integer") && length(as.vector(x))==1 && is.na(x[1])) TRUE else FALSE
+.is_identity_permutation <- function (x)
+  if(is.integer(x) && length(as.vector(x))==1 && is.na(x[1])) TRUE else FALSE
 
 .valid_permutation_vector <- function(x) {
   ## identity vector
   if(.is_identity_permutation(x)) return()
-  
+
   perm <- get_order(x)
   valid <- TRUE
-  
+
   tab <- table(perm)
   if(any(tab != 1)) valid <- FALSE
-  if(length(tab) != length(perm) 
+  if(length(tab) != length(perm)
     || any(names(tab) != sequence(length(perm)))) valid <- FALSE
-  
-  if(!valid) stop("Invalid permutation vector!\nVector: ", 
+
+  if(!valid) stop("Invalid permutation vector!\nVector: ",
     paste(perm, collapse=", "))
 }
 
 .valid_permutation_matrix <- function(x) {
-  if(any(rowSums(x)!=1) || any(colSums(x)!=1) || any(x!=1 & x!=0)) 
+  if(any(rowSums(x)!=1) || any(colSums(x)!=1) || any(x!=1 & x!=0))
     stop("Not a valid permutation matrix")
 }

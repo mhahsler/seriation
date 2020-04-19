@@ -45,7 +45,7 @@ print.seriation_method <- function(x, ...) {
     writeLines("control (default values):")
 
     contr <- lapply(x$control, FUN =
-        function(p) capture.output(dput(p, control = list()))[1])
+        function(p) utils::capture.output(dput(p, control = list()))[1])
 
     print(as.data.frame(contr))
   } else writeLines("control: no parameters registered.")
