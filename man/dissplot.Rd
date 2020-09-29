@@ -135,24 +135,24 @@ object and \code{options} contains a list with plotting options (see above).
 }
 \references{
 Hahsler, M. and Hornik, K. (2011):
- Dissimilarity plots: A visual exploration tool for partitional clustering. \emph{Journal of Computational and Graphical Statistics,} \bold{10}(2):335--354.
+ Dissimilarity plots: A visual exploration tool for partitional clustering. \emph{Journal of Computational and Graphical Statistics,} \bold{10}(2):335--354. \doi{10.1198/jcgs.2010.09139}
 
 Ling, R.F. (1973):
 A computer generated aid for cluster analysis.
 \emph{Communications of the ACM,}
-\bold{16}(6), 355--361.
+\bold{16}(6), 355--361. \doi{10.1145/362248.362263}
 
 Rousseeuw, P.J. (1987):
 Silhouettes: A graphical aid to the interpretation and
 validation of cluster analysis.
 \emph{Journal of Computational and Applied Mathematics,}
-\bold{20}(1), 53--65.
+\bold{20}(1), 53--65. \doi{10.1016/0377-0427(87)90125-7}
 
 Strehl, A. and Ghosh, J. (2003):
 Relationship-based clustering and
 visualization for high-dimensional data mining.
 \emph{INFORMS Journal on Computing,}
-\bold{15}(2), 208--230.
+\bold{15}(2), 208--230. \doi{10.1287/ijoc.15.2.208.14448}
 
 }
 \seealso{

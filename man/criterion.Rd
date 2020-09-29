@@ -305,39 +305,46 @@ Chen, C.-H. (2002): Generalized association plots:
 Information visualization via iteratively generated correlation matrices,
 \emph{Statistica Sinica,} \bold{12}(1), 7--29.
 
-Deutsch, S.B. and J.J. Martin (1971): An ordering algorithm for analysis of
-data arrays. \emph{Operational Research,} \bold{19}(6), 1350--1362.
+Deutsch, S.B. and J.J. Martin (1971):
+An ordering algorithm for analysis of data arrays.
+\emph{Operational Research,} \bold{19}(6), 1350--1362.
+\doi{10.1287/opre.19.6.1350}
+
 
 Earle, D. and C.B. Hurley (2015): Advances in Dendrogram Seriation for Application to Visualization. \emph{Journal of Computational and Graphical Statistics,}
 \bold{24}(1), 1--25.
+\doi{10.1080/10618600.2013.874295}
 
-Hahsler, M. (2017): An experimental comparison of seriation methods for one-mode two-way data. \emph{European Journal of Operational Research,} \bold{257},
-133--143.
+Hahsler, M. (2017): An experimental comparison of seriation methods for one-mode two-way data. \emph{European Journal of Operational Research,} \bold{257}, 133--143. \doi{10.1016/j.ejor.2016.08.066}
 
 Hubert, L. and J. Schultz (1976): Quadratic Assignment as a General Data Analysis Strategy. \emph{British Journal of Mathematical and Statistical
 Psychology,} \bold{29}(2). Blackwell Publishing Ltd. 190--241.
+\doi{10.1111/j.2044-8317.1976.tb00714.x}
 
 
 Hubert, L., P. Arabie, and J. Meulman (2001): \emph{Combinatorial Data Analysis:
-Optimization by Dynamic Programming.} Society for Industrial Mathematics.
+Optimization by Dynamic Programming.} Society for Industrial Mathematics. \doi{10.1137/1.9780898718553}
 
 Niermann, S. (2005): Optimizing the Ordering of Tables
 With Evolutionary Computation, \emph{The American Statistician,}
 \bold{59}(1), 41--46.
+\doi{10.1198/000313005X22770}
 
 McCormick, W.T., P.J. Schweitzer and T.W. White (1972):
 Problem decomposition and data reorganization by a clustering technique,
 \emph{Operations Research,}
 \bold{20}(5), 993-1009.
+\doi{10.1287/opre.20.5.993}
 
-Robinson, W.S. (1951): A method for chronologically ordering archaeological
-deposits,
+Robinson, W.S. (1951): A method for chronologically ordering archaeological deposits,
 \emph{American Antiquity,} \bold{16}, 293--301.
+\doi{10.2307/276978}
 
 Tien, Y-J., Yun-Shien Lee, Han-Ming Wu and Chun-Houh Chen (2008):
 Methods for simultaneously identifying coherent local clusters with
 smooth global patterns in gene expression profiles,
 \emph{BMC Bioinformatics,} \bold{9}(155), 1--16.
+\doi{10.1186/1471-2105-9-155}
 }
 
 \seealso{

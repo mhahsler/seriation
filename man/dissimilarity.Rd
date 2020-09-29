@@ -88,7 +88,8 @@ remaining orders.
 \references{
 P. Diaconis (1988): Group Representations in Probability and Statistics. Institute of Mathematical Statistics, Hayward, CA.
 
-J.Y. Goulermas, A. Kostopoulos, and T. Mu (2016): A New Measure for Analyzing and Fusing Sequences of Objects. IEEE Transactions on Pattern Analysis and Machine Intelligence 38(5):833-48.
+J.Y. Goulermas, A. Kostopoulos, and T. Mu (2016): A New Measure for Analyzing and Fusing Sequences of Objects. \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence} 38(5):833-48.
+\doi{10.1109/TPAMI.2015.2470671}
 }
 \seealso{
 \code{\link{ser_permutation_vector}}

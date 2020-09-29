@@ -48,7 +48,7 @@ Two-way two-mode data has to be provided as a dist object (not as a symmetric
 matrix). Similarities have to be transformed in a suitable way into
 dissimilarities. Currently the following methods are implemented for dist
 (for a more detailed description and an experimental comparison see
-Hahsler (2017)):
+\href{http://michael.hahsler.net/research/misc/EJOR_seriation_2016.pdf}{Hahsler (2017)}):
 
 \describe{
 \item{\code{"ARSA"}}{Anti-Robinson seriation by simulated annealing to minimize
@@ -331,70 +331,79 @@ Returns an object of class \code{ser_permutation}.
 \references{
 Arabie, P. and L.J. Hubert (1990): The bond energy algorithm revisited,
 \emph{IEEE Transactions on Systems, Man, and Cybernetics,}
-\bold{20}(1), 268--274.
+\bold{20}(1), 268--274. \doi{10.1109/21.47829}
 
-Bar-Joseph, Z., E. D. Demaine, D. K. Gifford, and T. Jaakkola. (2001): Fast
-Optimal Leaf Ordering for Hierarchical Clustering.
-\emph{Bioinformatics,} \bold{17}(1), 22--29.
+Bar-Joseph, Z., E. D. Demaine, D. K. Gifford, and T. Jaakkola. (2001):
+Fast Optimal Leaf Ordering for Hierarchical Clustering.
+\emph{Bioinformatics,} \bold{17}(1), 22--29. \doi{10.1093/bioinformatics/17.suppl_1.S22}
 
-Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for Envelope Reduction of Sparse Matrices. \emph{In Proceedings of the 1993
+Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for Envelope Reduction of Sparse Matrices.
+\emph{In Proceedings of the 1993
 ACM/IEEE Conference on Supercomputing,} 493--502. Supercomputing '93.
-New York, NY, USA: ACM.
+New York, NY, USA: ACM. \doi{10.1109/SUPERC.1993.1263497}
 
 Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual assessment of (cluster) tendency. \emph{Proceedings of the 2002 International Joint
 Conference on Neural Networks (IJCNN '02)}, Volume: 3, 2225--2230.
+\doi{10.1109/IJCNN.2002.1007487}
 
 Brusco, M., Koehn, H.F., and Stahl, S. (2008): Heuristic Implementation of
 Dynamic Programming for Matrix Permutation Problems in Combinatorial
-Data Analysis. \emph{Psychometrika,} \bold{73}(3), 503--522.
+Data Analysis. \emph{Psychometrika,} \bold{73}(3), 503--522. \doi{10.1007/s11336-007-9049-5}
 
 Brusco, M., and Stahl, S. (2005):
 \emph{Branch-and-Bound Applications in Combinatorial Data Analysis.}
-New York: Springer.
+New York: Springer. \doi{10.1007/0-387-28810-4}
 
 Chen, C. H. (2002):  Generalized Association Plots: Information
 Visualization via Iteratively Generated Correlation Matrices.
 \emph{Statistica Sinica,} \bold{12}(1), 7--29.
 
-Ding, C. and Xiaofeng He (2004): Linearized cluster assignment via spectral ordering. \emph{Proceedings of the Twenty-first International Conference on Machine learning (ICML '04)}.
+Ding, C. and Xiaofeng He (2004): Linearized cluster assignment via spectral ordering. \emph{Proceedings of the Twenty-first International Conference on Machine learning (ICML '04)}. \doi{10.1145/1015330.1015407}
 
-Climer, S. and Xiongnu Zhang (2006): Rearrangement Clustering: Pitfalls,
-Remedies, and Applications,
+Climer, S. and Xiongnu Zhang (2006):
+Rearrangement Clustering: Pitfalls, Remedies, and Applications,
 \emph{Journal of Machine Learning Research,} \bold{7}(Jun),
 919--943.
 
 Friendly, M. (2002):
 Corrgrams: Exploratory Displays for Correlation Matrices.
 \emph{The American Statistician}, \bold{56}(4), 316--324.
+\doi{10.1198/000313002533}
 
-Gruvaeus, G. and Wainer, H. (1972): Two Additions to Hierarchical Cluster
-Analysis,
+Gruvaeus, G. and Wainer, H. (1972):
+Two Additions to Hierarchical Cluster Analysis,
 \emph{British Journal of Mathematical and Statistical Psychology,}
-\bold{25}, 200--206.
+\bold{25}, 200--206. \doi{10.1111/j.2044-8317.1972.tb00491.x}
 
-Hahsler, M. (2017): An experimental comparison of seriation methods for one-mode two-way data. \emph{European Journal of Operational Research,} \bold{257},
-133--143.
+Hahsler, M. (2017): An experimental comparison of seriation methods for one-mode two-way data. \emph{European Journal of Operational Research,} \bold{257}, 133--143. \doi{10.1016/j.ejor.2016.08.066}
 
-Hubert, Lawrence, and James Schultz (1976): Quadratic Assignment as a General Data Analysis Strategy. \emph{British Journal of Mathematical and Statistical
-Psychology} \bold{29}(2). Blackwell Publishing Ltd. 190--241.
+Hubert, Lawrence, and James Schultz (1976):
+Quadratic Assignment as a General Data Analysis Strategy.
+\emph{British Journal of Mathematical and Statistical Psychology}
+\bold{29}(2). Blackwell Publishing Ltd. 190--241.
+\doi{10.1111/j.2044-8317.1976.tb00714.x}
 
-Hurley, Catherine B. (2004): Clustering Visualizations of Multidimensional
-Data.
+Hurley, Catherine B. (2004):
+Clustering Visualizations of Multidimensional Data.
 \emph{Journal of Computational and Graphical Statistics,}
 \bold{13}(4), 788--806.
+\doi{10.1198/106186004X12425}
 
 Lenstra, J.K (1974): Clustering a Data Array and the Traveling-Salesman
 Problem, \emph{Operations Research,} \bold{22}(2) 413--414.
+\doi{10.1287/opre.22.2.413}
 
-Mair P., De Leeuw J. (2015). Unidimensional scaling. In \emph{Wiley StatsRef: Statistics Reference Online,} Wiley, New York.
+Mair P., De Leeuw J. (2015). Unidimensional scaling.
+In \emph{Wiley StatsRef: Statistics Reference Online,} Wiley, New York.
+\doi{10.1002/9781118445112.stat06462.pub2}
 
-McCormick, W.T., P.J. Schweitzer and T.W. White (1972): Problem decomposition
-and data reorganization by a clustering technique,
-\emph{Operations Research,}
-\bold{20}(5), 993--1009.
+McCormick, W.T., P.J. Schweitzer and T.W. White (1972):
+Problem decomposition and data reorganization by a clustering technique,
+\emph{Operations Research,} \bold{20}(5), 993--1009.
+\doi{10.1287/opre.20.5.993}
 
-Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany, E.
-(2005): Sorting points into neighborhoods (SPIN): data analysis and visualization by ordering distance matrices, \emph{Bioinformatics,} \bold{21}(10) 2301--8.
+Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany, E. (2005): Sorting points into neighborhoods (SPIN): data analysis and visualization by ordering distance matrices, \emph{Bioinformatics,} \bold{21}(10) 2301--8.
+\doi{10.1093/bioinformatics/bti329}
 }
 \seealso{
 \code{\link{list_seriation_methods}},

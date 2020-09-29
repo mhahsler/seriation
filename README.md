@@ -63,8 +63,9 @@ random    214602194      78852819 291618.0    927570.00     461133.357 29954845 
 reordered 356945979      76487641 402332.1     13593.32       5274.093 17810802 4486900
 ```
 
-## Available Seriation Methods
-For dissimilarity data:
+## Available Seriation Method
+
+The following methods are available for dissimilarity data:
 
  *  Branch-and-bound to minimize the unweighted/weighted column gradient 
  *  DendSer - Dendrogram seriation heuristic to optimize various criteria
@@ -83,7 +84,11 @@ For dissimilarity data:
  *  VAT - Visual assessment of clustering tendency ordering 
  *  QAP - Quadratic assignment problem heuristic (2-SUM, linear seriation, inertia, banded anti-Robinson form)
   
-For matrices:
+A detailed comparison of the methods is available in the paper 
+[An experimental comparison of seriation methods for one-mode two-way data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) (read[ preprint](https://michael.hahsler.net/research/misc/EJOR_seriation_2016.pdf)).
+  
+  
+The following methods are available for matrices:
 
  *  BEA - Bond Energy Algorithm to maximize the measure of effectiveness (ME) 
  *  Identity permutation 
@@ -91,9 +96,11 @@ For matrices:
  *  Random permutation 
  *  TSP - Traveling sales person solver to maximize ME 
 
+
+
 ## References
 
 * Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things in Order: An Introduction to the R Package seriation,](http://dx.doi.org/10.18637/jss.v025.i03) _Journal of Statistical Software,_ 25(3), 2008.
-* Michael Hahsler. [An experimental comparison of seriation methods for one-mode two-way data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) _European Journal of Operational Research,_ 257:133-143, 2017.
+* Michael Hahsler. [An experimental comparison of seriation methods for one-mode two-way data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) _European Journal of Operational Research,_ 257:133-143, 2017. (read [preprint](https://michael.hahsler.net/research/misc/EJOR_seriation_2016.pdf))
 * [Seriation package vignette](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf) with complete examples.
 * [Reference manual](https://cran.r-project.org/package=seriation/seriation.pdf)

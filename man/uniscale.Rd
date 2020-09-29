@@ -35,6 +35,7 @@ A vector with the fitted configuration.
 }
 \references{
 Mair P., De Leeuw J. (2015). Unidimensional scaling. In \emph{Wiley StatsRef: Statistics Reference Online,} Wiley, New York.
+\doi{10.1002/9781118445112.stat06462.pub2}
 }
 \author{
 Michael Hahsler with code from Patrick Mair (from \pkg{smacof}).

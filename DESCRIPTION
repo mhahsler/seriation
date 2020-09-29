@@ -16,7 +16,7 @@ Description: Infrastructure for ordering objects with an implementation of sever
     seriation/sequencing/ordination techniques to reorder matrices, dissimilarity
     matrices, and dendrograms. Also provides (optimally) reordered heatmaps,
     color images and clustering visualizations like dissimilarity plots, and
-    visual assessment of cluster tendency plots (VAT and iVAT).
+    visual assessment of cluster tendency plots (VAT and iVAT). Hahsler et al (2008) <doi:10.18637/jss.v025.i03>.
 Classification/ACM: G.1.6, G.2.1, G.4
 URL: https://github.com/mhahsler/seriation
 BugReports: https://github.com/mhahsler/seriation/issues
