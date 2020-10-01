@@ -48,7 +48,7 @@ Two-way two-mode data has to be provided as a dist object (not as a symmetric
 matrix). Similarities have to be transformed in a suitable way into
 dissimilarities. Currently the following methods are implemented for dist
 (for a more detailed description and an experimental comparison see
-\href{http://michael.hahsler.net/research/misc/EJOR_seriation_2016.pdf}{Hahsler (2017)}):
+\href{https://michael.hahsler.net/research/misc/EJOR_seriation_2016.pdf}{Hahsler (2017)}):
 
 \describe{
 \item{\code{"ARSA"}}{Anti-Robinson seriation by simulated annealing to minimize

@@ -36,7 +36,7 @@ and is available from the UCI Machine Learning Repository
 \source{
 D.J. Newman, S. Hettich, C.L. Blake and C.J. Merz (1998):
 UCI Repository of machine learning databases,
-\url{http://www.ics.uci.edu/~mlearn/MLRepository.html},
+\url{https://www.ics.uci.edu/~mlearn/MLRepository.html},
 University of California, Irvine, Dept. of Information and Computer Sciences.
 }
 \examples{

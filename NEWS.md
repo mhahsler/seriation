@@ -1,4 +1,4 @@
-# seriation 1.2-8-1 (xx/xx/2020)
+# seriation 1.2-9 (09/29/2020)
 * removed dependency on methods.
 * added DOIs.
 

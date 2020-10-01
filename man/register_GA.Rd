@@ -53,7 +53,7 @@ random initial population.
 \references{
 Luca Scrucca (2013): GA: A Package for Genetic Algorithms in R.
 \emph{Journal of Statistical Software,} \bold{53}(4), 1--37.
-URL \url{http://www.jstatsoft.org/v53/i04/}.
+URL \doi{10.18637/jss.v053.i04}.
 }
 \author{
 Michael Hahsler
