@@ -22,7 +22,7 @@ URL: https://github.com/mhahsler/seriation
 BugReports: https://github.com/mhahsler/seriation/issues
 Depends: R (>= 2.14.0)
 Imports: stats, grDevices, grid, TSP, qap, cluster, gclus, colorspace, MASS, gplots, registry
-Suggests: biclust, testthat, DendSer, GA
+Suggests: biclust, testthat, DendSer, GA, dendextend
 License: GPL-3
 Copyright: The code in src/bea.f is Copyright (C) 1991 F. Murtagh;
     src/bbwrcg.f, src/arsa.f and src/bburcg.f are Copyright (C) 2005

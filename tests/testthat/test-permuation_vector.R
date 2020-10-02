@@ -1,4 +1,6 @@
 library(seriation)
+library(dendextend) ## Needed because it redefined all.equal for dendrograms
+
 set.seed(0)
 
 context("ser_permutation_vector")
@@ -62,10 +64,12 @@ expect_identical(permute(l, 3:1), rev(l))
 ## the check may be pointless
 dend <- as.dendrogram(hclust(d))
 
-expect_equal(dend, permute(dend, get_order(dend)),
-  check.attributes = FALSE)
-expect_equal(rev(dend), permute(dend, rev(get_order(dend))),
-  check.attributes = FALSE)
+expect_equal(dend, permute(dend, get_order(dend)))
+#,
+#  check.attributes = FALSE)
+expect_equal(rev(dend), permute(dend, rev(get_order(dend))))
+#,
+#  check.attributes = FALSE)
 
 # chances are that a random order will not be perfect
 o <- sample(5)
