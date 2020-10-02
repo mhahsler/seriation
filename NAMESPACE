@@ -15,7 +15,6 @@ importFrom("grDevices", "grey.colors", "grey")
 #importFrom("cluster", "silhouette") ## we use :: for silhouette in dissplot
 #importFrom("MASS", "isoMDS", "sammon")
 #importFrom("gplots", "heatmap.2")
-#importFrom("dendextend", "rotate")
 #importFrom("utils", "capture.output")
 
 export(

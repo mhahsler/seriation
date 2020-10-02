@@ -68,9 +68,34 @@ permute.dendrogram <- function(x, order, ...) {
   if(length(get_order(order)) != nobs(x))
     stop("Length of order and number of leaves in dendrogram do not agree!")
 
-  x <- dendextend::rotate(x, order = match(get_order(order), order.dendrogram(x)))
 
-  if(any(order.dendrogram(x) != get_order(order)))
+## modeled after rotate in dendextend. Copied here to reduce the heavy dependency count of dendextend.
+##  x <- dendextend::rotate(x, order = match(get_order(order), get_order(x)))
+  rot <- function (x, order, ...)
+  {
+    if (missing(order)) {
+      warning("'order' parameter is missing, returning the tree as it was.")
+      return(x)
+    }
+    labels_x <- labels(x)
+    order_x <- order.dendrogram(x)
+    number_of_leaves <- length(order_x)
+    if (!is.numeric(order)) {
+      order <- as.character(order)
+      if (length(intersect(order, labels_x)) != number_of_leaves) {
+        stop("'order' is neither numeric nor a vector with ALL of the labels (in the order you want them to be)")
+      }
+      order <- match(order, labels_x)
+    }
+    weights <- seq_len(number_of_leaves)
+    weights_for_order <- numeric(number_of_leaves)
+    weights_for_order[order_x[order]] <- weights
+    reorder(x, weights_for_order, mean, ...)
+  }
+
+  x <- rot(x, order = match(get_order(order), get_order(x)))
+
+  if(any(get_order(x) != get_order(order)))
     warning("Dendrogram cannot be perfectly reordered! Using best approximation.")
 
   x
