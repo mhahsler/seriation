@@ -116,23 +116,32 @@ os <- sapply(methods, function(m) {
 })
 
 ## Compare the methods using distances. Default is based on
-## Spearman's rank correlation coefficient. Reverse orders are considered
-## equivalent.
+## Spearman's rank correlation coefficient where reverse orders are
+## also considered.
 ds <- ser_dist(os)
-hmap(ds, margin=c(7,7))
+hmap(ds, margin = c(7,7))
 
-## Compare using actual correlation between orders. Reversed orders have
+## Compare using correlation between orders. Reversed orders have
 ## negative correlation!
 cs <- ser_cor(os, reverse = FALSE)
-hmap(cs, margin=c(7,7))
+hmap(cs, margin = c(7,7))
 
-## Also check reversed seriation orders.
+## Compare orders by allowing orders to be reversed.
 ## Now all but random and identity are highly positive correlated
 cs2 <- ser_cor(os, reverse = TRUE)
 hmap(cs2, margin=c(7,7))
 
-## Use Manhattan distance of the ranks (i.e., Spearman's foot rule)
-ds <- ser_dist(os, method="manhattan")
+## A better approach is to align the direction of the orders first
+## and then calculate correlation.
+os_aligned <- ser_align(os)
+cs3 <- ser_cor(os_aligned, reverse = FALSE)
+hmap(cs3, margin = c(7,7))
+
+## Compare the orders using clustering. We use Spearman's foot rule
+## (Manhattan distance of ranks). In order to use rank-based method,
+## we align the direction of the orders.
+os_aligned <- ser_align(os)
+ds <- ser_dist(os_aligned, method = "manhattan")
 plot(hclust(ds))
 }
 \keyword{cluster}
