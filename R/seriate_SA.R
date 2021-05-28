@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2017 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2017 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ LS_swap <- function(o, pos = sample.int(length(o), 2)) {
 
 ### insert pos[1] in pos[2]
 LS_insert <- function(o, pos = sample.int(length(o), 2)) {
-  append(o[-pos[1]], o[pos[1]], after = pos[2]-1)
+  append(o[-pos[1]], o[pos[1]], after = pos[2] - 1)
 }
 
 LS_reverse <- function(o, pos = sample.int(length(o), 2)) {
@@ -43,17 +43,18 @@ LS_mixed <- function(o, pos = sample.int(length(o), 2)) {
   switch(sample.int(3, 1),
     LS_swap(o, pos),
     LS_insert(o, pos),
-    LS_reverse(o, pos)
-  )
+    LS_reverse(o, pos))
 }
 
 .sa_contr <- list(
   criterion = "Gradient_raw",
-  init = "Spectral",    ## use "Random" for random init.
+  init = "Spectral",
+  ## use "Random" for random init.
   localsearch = LS_insert,
   cool = 0.5,
   tmin = 0.0001,
-  nlocal = 10,      ## try nlocal x n local search steps
+  nlocal = 10,
+  ## try nlocal x n local search steps
   verbose = FALSE
 )
 
@@ -61,54 +62,71 @@ seriate_sa <- function(x, control = NULL) {
   param <- .get_parameters(control, .sa_contr)
   n <- attr(x, "Size")
 
-  if(is.numeric(param$init)) {
+  if (is.numeric(param$init)) {
     .check_dist_perm(x, order = param$init)
-  }else{
-    if(param$verbose) cat("\nObtaining initial solution via:",
-      param$init, "\n")
+  } else{
+    if (param$verbose)
+      cat("\nObtaining initial solution via:",
+        param$init, "\n")
     o <- get_order(seriate(x, method = param$init))
   }
 
   z <- criterion(x, o, method = param$criterion, force_loss = TRUE)
-  if(param$verbose) cat("Initial z =", z,
-    "(converted into loss if necessary)\n")
+  if (param$verbose)
+    cat("Initial z =", z,
+      "(converted into loss if necessary)\n")
 
-  iloop <- param$nlocal*n
+  iloop <- param$nlocal * n
 
   # find tmax (largest change for a move)
   znew <- replicate(iloop, expr = {
-    criterion(x, param$localsearch(o), method = param$criterion,
+    criterion(x,
+      param$localsearch(o),
+      method = param$criterion,
       force_loss = TRUE)
   })
 
-  tmax <- max(z-znew)
-  if(tmax < 0) nloop <- 1L
-  else nloop <- as.integer((log(param$tmin)-log(tmax))/log(param$cool))
+  tmax <- max(z - znew)
+  if (tmax < 0)
+    nloop <- 1L
+  else
+    nloop <- as.integer((log(param$tmin) - log(tmax)) / log(param$cool))
 
-  if(param$verbose) cat("Found tmax = ", tmax, "using", nloop, "iterations\n")
+  if (param$verbose)
+    cat("Found tmax = ", tmax, "using", nloop, "iterations\n")
 
   zbest <- z
   temp <- tmax
 
-  for(i in 1:nloop) {
+  for (i in 1:nloop) {
     m <- 0L
 
-    for(j in 1:iloop) {
-
+    for (j in 1:iloop) {
       onew <- param$localsearch(o)
-      znew <- criterion(x, onew, method = param$criterion, force_loss = TRUE)
-      delta <- z-znew
+      znew <-
+        criterion(x,
+          onew,
+          method = param$criterion,
+          force_loss = TRUE)
+      delta <- z - znew
 
-      if(delta > 0 || runif(1) < exp(delta/temp)) {
+      if (delta > 0 || runif(1) < exp(delta / temp)) {
         o <- onew
         z <- znew
-        m <- m+1L
+        m <- m + 1L
       }
     }
 
-    if(param$verbose) {
-      cat("temp = ", round(temp, 4), "\tz =", z,
-        "\t performed moves = ", m, "/", iloop, "\n")
+    if (param$verbose) {
+      cat("temp = ",
+        round(temp, 4),
+        "\tz =",
+        z,
+        "\t performed moves = ",
+        m,
+        "/",
+        iloop,
+        "\n")
     }
 
     temp <- temp * param$cool
@@ -117,8 +135,12 @@ seriate_sa <- function(x, control = NULL) {
   o
 }
 
-set_seriation_method("dist", "SA", seriate_sa,
-  paste0("Minimize a specified seriation measure (criterion) using simulated annealing.\n",
+set_seriation_method(
+  "dist",
+  "SA",
+  seriate_sa,
+  paste0(
+    "Minimize a specified seriation measure (criterion) using simulated annealing.\n",
     "Control parameters:\n",
     " - criterion to optimize\n",
     " - init (initial order; use \"Random\" for no warm start\n",
@@ -126,5 +148,7 @@ set_seriation_method("dist", "SA", seriate_sa,
     " - cool (cooling rate)\n",
     " - tmin (minimum temperature)\n",
     " - swap_to_inversion (proportion of swaps to inversions)\n",
-    " - nlocal (number of objects times nlocal is the number of search tries per temperature\n"), .sa_contr)
-
+    " - nlocal (number of objects times nlocal is the number of search tries per temperature\n"
+  ),
+  .sa_contr
+)

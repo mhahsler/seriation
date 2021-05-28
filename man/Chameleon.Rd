@@ -43,6 +43,6 @@ An Efficient Formulation of the Improved Visual Assessment of Cluster Tendency (
 \examples{
 data(Chameleon)
 
-plot(chameleon_ds4, cex=.1)
+plot(chameleon_ds4, cex = .1)
 }
 \keyword{datasets}

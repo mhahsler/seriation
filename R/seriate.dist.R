@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,22 +20,31 @@
 
 ## seriate dist objects
 
-seriate.dist <- function(x, method = "Spectral", control = NULL, ...) {
-    if(!all(x>=0)) stop("Negative distances not supported!")
+seriate.dist <-
+  function(x,
+    method = "Spectral",
+    control = NULL,
+    ...) {
+    if (!all(x >= 0))
+      stop("Negative distances not supported!")
 
     ## add ... to control
     control <- c(control, list(...))
 
     ## check x
-    if(any(is.na(x))) stop("NAs not allowed in x!")
-    if(any(x<0)) stop("No negative values allowed in x!")
+    if (any(is.na(x)))
+      stop("NAs not allowed in x!")
+    if (any(x < 0))
+      stop("No negative values allowed in x!")
 
-    if(!is.character(method) || (length(method) != 1L))
+    if (!is.character(method) || (length(method) != 1L))
       stop("Argument 'method' must be a character string.")
     method <- get_seriation_method("dist", method)
 
-    if(!is.null(control$verbose) && control$verbose) cat(method$name, ": ",
-      method$description, "\n\n", sep="")
+    if (!is.null(control$verbose) &&
+        control$verbose)
+      cat(method$name, ": ",
+        method$description, "\n\n", sep = "")
 
     order <- method$fun(x, control = control)
 
@@ -61,7 +70,9 @@ seriate_dist_random <- function(x, control = NULL) {
 }
 
 
-set_seriation_method("dist", "Identity", seriate_dist_identity,
+set_seriation_method("dist",
+  "Identity",
+  seriate_dist_identity,
   "Identity permutation")
 set_seriation_method("dist", "Random", seriate_dist_random,
   "Random permutation")

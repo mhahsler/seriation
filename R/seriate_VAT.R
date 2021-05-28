@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,13 +32,13 @@ seriate_dist_VAT <- function(x, control = NULL) {
   I <- rep(FALSE, N)
   ### J is !I
 
-  i <- which(D == max(D, na.rm = TRUE), arr.ind = TRUE)[1,1]
+  i <- which(D == max(D, na.rm = TRUE), arr.ind = TRUE)[1, 1]
   P[1] <- i
   I[i] <- TRUE
 
-  for(r in 2:N) {
-    D2 <- D[I,!I, drop=FALSE]
-    j <- which(D2 == min(D2, na.rm = TRUE), arr.ind = TRUE)[1,2]
+  for (r in 2:N) {
+    D2 <- D[I, !I, drop = FALSE]
+    j <- which(D2 == min(D2, na.rm = TRUE), arr.ind = TRUE)[1, 2]
     j <- which(!I)[j]
     P[r] <- j
     I[j] <- TRUE
@@ -49,5 +49,9 @@ seriate_dist_VAT <- function(x, control = NULL) {
 }
 
 
-set_seriation_method("dist", "VAT", seriate_dist_VAT,
-  "Visual assesment of clustering tendency (Bezdek and Hathaway (2002). Creates an order based on Prim's algorithm for finding a minimum spanning tree (MST) in a weighted connected graph representing the distance matrix. The order is given by the order in which the nodes (objects) are added to the MST.")
+set_seriation_method(
+  "dist",
+  "VAT",
+  seriate_dist_VAT,
+  "Visual assesment of clustering tendency (Bezdek and Hathaway (2002). Creates an order based on Prim's algorithm for finding a minimum spanning tree (MST) in a weighted connected graph representing the distance matrix. The order is given by the order in which the nodes (objects) are added to the MST."
+)

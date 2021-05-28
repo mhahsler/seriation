@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,36 +20,51 @@
 
 ## seriate general arrays
 
-.seriate_array_helper <- function(x, method = "PCA", control = NULL,
-    margin = seq(length(dim(x))), datatype = "array", defmethod, ...){
+.seriate_array_helper <- function(x,
+  method = "PCA",
+  control = NULL,
+  margin = seq(length(dim(x))),
+  datatype = "array",
+  defmethod,
+  ...) {
+  ## add ... to control
+  control <- c(control, list(...))
 
-    ## add ... to control
-    control <- c(control, list(...))
+  ## margin 1...rows, 2...cols, ...
+  #if(is.null(method)) method <- "PCA"
+  #else
+  if (!is.character(method) || (length(method) != 1L))
+    stop("Argument 'method' must be a character string.")
 
-    ## margin 1...rows, 2...cols, ...
-    #if(is.null(method)) method <- "PCA"
-    #else
-    if(!is.character(method) || (length(method) != 1L))
-      stop("Argument 'method' must be a character string.")
+  method <- get_seriation_method(datatype, method)
 
-    method <- get_seriation_method(datatype, method)
+  if (!is.null(control$verbose) &&
+      control$verbose)
+    cat(method$name, ": ",
+      method$description, "\n\n", sep = "")
 
-    if(!is.null(control$verbose) && control$verbose) cat(method$name, ": ",
-      method$description, "\n\n", sep="")
+  order <- method$fun(x, control)
 
-    order <- method$fun(x, control)
+  perm <- do.call("ser_permutation",
+    unname(lapply(
+      order, "ser_permutation_vector", method$name
+    )))
 
-    perm <- do.call("ser_permutation",
-      unname(lapply(order, "ser_permutation_vector", method$name))
-    )
+  perm[margin]
+}
 
-    perm[margin]
-  }
-
-seriate.array <- function(x, method = "PCA", control = NULL,
-    margin = seq(length(dim(x))), ...)
-    .seriate_array_helper(x, method, control, margin,
-      datatype = "array", defmethod = NA,...)
+seriate.array <- function(x,
+  method = "PCA",
+  control = NULL,
+  margin = seq(length(dim(x))),
+  ...)
+  .seriate_array_helper(x,
+    method,
+    control,
+    margin,
+    datatype = "array",
+    defmethod = NA,
+    ...)
 ## we currently have no method and therefore also no default method!
 
 

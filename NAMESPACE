@@ -8,8 +8,8 @@ importFrom("graphics", "plot", "text", "title")
 importFrom("stats", "reorder", "as.dist", "hclust", "runif", "rnorm",
   "as.dendrogram", "as.hclust", "nobs", "order.dendrogram",
   "cmdscale", "prcomp", "cor", "cor.test", "dist")
-importFrom("grDevices", "grey.colors", "grey")
 # we use :: for the rest
+#importFrom("grDevices", "gray")
 #importFrom("colorspace", "sequential_hcl")
 #importFrom("gclus", "reorder.hclust") ## we use :: for gclus in seriate.hclust
 #importFrom("cluster", "silhouette") ## we use :: for silhouette in dissplot

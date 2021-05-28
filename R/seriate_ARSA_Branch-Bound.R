@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,11 +18,16 @@
 
 ## Brusco: simulated annealing for the Linear Seriation Criterion
 .arsa_control <- list(
-  cool = 0.5,                  ## Brusco: 0.95
-  tmin = 0.0001,               ## Brusco: 0.0001
-  swap_to_inversion = .5,      ## Brusco: .5
-  try_multiplier = 100,        ## Brusco: 100
-  reps = 1L,                   ## Brusco: 20
+  cool = 0.5,
+  ## Brusco: 0.95
+  tmin = 0.0001,
+  ## Brusco: 0.0001
+  swap_to_inversion = .5,
+  ## Brusco: .5
+  try_multiplier = 100,
+  ## Brusco: 100
+  reps = 1L,
+  ## Brusco: 20
   verbose = FALSE
 )
 
@@ -35,28 +40,44 @@ seriate_dist_arsa <- function(x, control = NULL) {
   N <- ncol(A)
   NREPS <- as.integer(param$reps)
   IPERM <- integer(N)
-#  R1 <- double(N*N/2)
-#  R2 <- double(N*N/2)
-  D <- double(N*N)
+  #  R1 <- double(N*N/2)
+  #  R2 <- double(N*N/2)
+  D <- double(N * N)
   U <- integer(N)
   S <- integer(N)
-  T <- integer(NREPS*N)
+  T <- integer(NREPS * N)
   SB <- integer(N)
   ZBEST <- double(1)
 
-  ret <- .Fortran("arsa", N, A,
-    as.numeric(param$cool), as.numeric(param$tmin), NREPS,
-    IPERM, D, U, S, T, SB, ZBEST, as.numeric(param$swap_to_insertion),
-    as.numeric(param$try_multiplier), as.integer(param$verbose),
-    PACKAGE="seriation")
+  ret <- .Fortran(
+    "arsa",
+    N,
+    A,
+    as.numeric(param$cool),
+    as.numeric(param$tmin),
+    NREPS,
+    IPERM,
+    D,
+    U,
+    S,
+    T,
+    SB,
+    ZBEST,
+    as.numeric(param$swap_to_insertion),
+    as.numeric(param$try_multiplier),
+    as.integer(param$verbose),
+    PACKAGE = "seriation"
+  )
 
   o <- ret[[6]]
   names(o) <- labels(x)[o]
 
   ### ARSA returns all 0's in some cases
-  if(all(o == 0)) {
+  if (all(o == 0)) {
     o <- 1:N
-    warning("ARSA has returned an invalid permutation vector! Check the supplied dissimilarity matrix.")
+    warning(
+      "ARSA has returned an invalid permutation vector! Check the supplied dissimilarity matrix."
+    )
   }
 
   o
@@ -64,10 +85,8 @@ seriate_dist_arsa <- function(x, control = NULL) {
 
 
 ## Brusco: branch-and-bound - unweighted row gradient
-.bb_control <- list(
-  eps = 1e-7,
-  verbose = FALSE
-)
+.bb_control <- list(eps = 1e-7,
+  verbose = FALSE)
 
 seriate_dist_bburcg <- function(x, control = NULL) {
   param <- .get_parameters(control, .bb_control)
@@ -78,8 +97,8 @@ seriate_dist_bburcg <- function(x, control = NULL) {
   # SUBROUTINE bburcg(N, A, EPS, X, Q, D, DD, S, UNSEL, IVERB)
   X <- integer(N)
   Q <- integer(N)
-  D <- integer(N*N*N)
-  DD <- integer(N*N*N)
+  D <- integer(N * N * N)
+  DD <- integer(N * N * N)
   S <- integer(N)
   UNSEL <- integer(N)
 
@@ -102,8 +121,8 @@ seriate_dist_bbwrcg <- function(x, control = NULL) {
   # SUBROUTINE bbwrcg(N, A, EPS, X, Q, D, DD, S, UNSEL, IVERB)
   X <- integer(N)
   Q <- integer(N)
-  D <- double(N*N*N)
-  DD <- double(N*N*N)
+  D <- double(N * N * N)
+  DD <- double(N * N * N)
   S <- integer(N)
   UNSEL <- integer(N)
 
@@ -115,11 +134,26 @@ seriate_dist_bbwrcg <- function(x, control = NULL) {
   o
 }
 
-set_seriation_method("dist", "ARSA", seriate_dist_arsa,
-  "Minimize the linear seriation criterion using simulated annealing (Brusco et al, 2008).\ncontrol parameters:\n - cool (cooling rate)\n - tmin (minimum temperature)\n - swap_to_inversion (proportion of swaps to inversions for local neighborhood search)\n - try_multiplier (local search tries per temperature; multiplied with the number of objects)\n - reps (repeat the algorithm with random initialization)\n", control = .arsa_control)
+set_seriation_method(
+  "dist",
+  "ARSA",
+  seriate_dist_arsa,
+  "Minimize the linear seriation criterion using simulated annealing (Brusco et al, 2008).\ncontrol parameters:\n - cool (cooling rate)\n - tmin (minimum temperature)\n - swap_to_inversion (proportion of swaps to inversions for local neighborhood search)\n - try_multiplier (local search tries per temperature; multiplied with the number of objects)\n - reps (repeat the algorithm with random initialization)\n",
+  control = .arsa_control
+)
 
-set_seriation_method("dist", "BBURCG", seriate_dist_bburcg,
-  "Minimize the unweighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.", control  = .bb_control)
+set_seriation_method(
+  "dist",
+  "BBURCG",
+  seriate_dist_bburcg,
+  "Minimize the unweighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.",
+  control  = .bb_control
+)
 
-set_seriation_method("dist", "BBWRCG", seriate_dist_bbwrcg,
-  "Minimize the weighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.", control  = .bb_control)
+set_seriation_method(
+  "dist",
+  "BBWRCG",
+  seriate_dist_bbwrcg,
+  "Minimize the weighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.",
+  control  = .bb_control
+)

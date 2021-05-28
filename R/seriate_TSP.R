@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,17 +17,16 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 ## Bridge to package tsp
-.tsp_control <- list(
-  method="arbitrary insertion",
+.tsp_control <- list(method = "arbitrary insertion",
   rep = 10,
-  two_opt = TRUE
-)
+  two_opt = TRUE)
 
-seriate_dist_tsp <- function(x, control = NULL){
+seriate_dist_tsp <- function(x, control = NULL) {
   ## add a dummy city for cutting
   tsp <- insert_dummy(TSP(x), n = 1, label = "cut_here")
 
-  if(is.null(control)) control <- .tsp_control
+  if (is.null(control))
+    control <- .tsp_control
 
   tour <- solve_TSP(tsp, method = control$method,
     control = control)
@@ -37,6 +36,10 @@ seriate_dist_tsp <- function(x, control = NULL){
   o
 }
 
-set_seriation_method("dist", "TSP", seriate_dist_tsp,
-  "Minimize Hamiltonian path length with a TSP solver (see solve_TSP in package TSP for available methods).", .tsp_control)
-
+set_seriation_method(
+  "dist",
+  "TSP",
+  seriate_dist_tsp,
+  "Minimize Hamiltonian path length with a TSP solver (see solve_TSP in package TSP for available methods).",
+  .tsp_control
+)

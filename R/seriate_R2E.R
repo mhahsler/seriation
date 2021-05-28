@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 ## with rank 2. The elements are projected into the plane spanned by the
 ## first two eigenvectors. All points are lying on a ellipse. The order
 ## of the elements on the ellipse is returned (see Chen 2002).
-seriate_dist_chen <- function(x, control = NULL){
+seriate_dist_chen <- function(x, control = NULL) {
   .get_parameters(control, NULL)
 
   x <- as.matrix(x)
@@ -29,14 +29,14 @@ seriate_dist_chen <- function(x, control = NULL){
 
   ## find the first correlation matrix of rank 2
   n <- 0
-  while(rank > 2){
+  while (rank > 2) {
     x <- cor(x)
     n <- n + 1
     rank <- qr(x)$rank
   }
 
   ## project the matrix on the first 2 eigenvectors
-  e <- eigen(x)$vectors[,1:2]
+  e <- eigen(x)$vectors[, 1:2]
 
   ## extract the order
   ## chen says that he uses the one of the two possible cuts
@@ -44,12 +44,12 @@ seriate_dist_chen <- function(x, control = NULL){
   ## separate further towards right and left, cutting on the vertical
   ## axis of the ellipse yields the same result.
 
-  right <- which(e[,1] >= 0)
-  right <- right[order(e[right,2], decreasing = TRUE)]
-  left <- which(e[,1] < 0)
-  left <- left[order(e[left,2])]
+  right <- which(e[, 1] >= 0)
+  right <- right[order(e[right, 2], decreasing = TRUE)]
+  left <- which(e[, 1] < 0)
+  left <- left[order(e[left, 2])]
 
-  o <- c(right,left)
+  o <- c(right, left)
   names(o) <- labels(x)[o]
   o
 }
@@ -59,4 +59,3 @@ seriate_dist_chen <- function(x, control = NULL){
 
 set_seriation_method("dist", "R2E", seriate_dist_chen,
   "Rank-two ellipse seriation")
-

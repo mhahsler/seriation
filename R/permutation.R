@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,18 +17,20 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-######################################################
-## permutations
-
 ## constructor
 ser_permutation <- function(x, ...) {
   x <- c(list(x), list(...))
 
-  x <- lapply(x, FUN = function(obj) {
-    if(inherits(obj, "ser_permutation")) return(obj)
-    if(inherits(obj, "ser_permutation_vector")) return(list(obj))
-    return(list(ser_permutation_vector(obj)))
-    })
+  x <- lapply(
+    x,
+    FUN = function(obj) {
+      if (inherits(obj, "ser_permutation"))
+        return(obj)
+      if (inherits(obj, "ser_permutation_vector"))
+        return(list(obj))
+      return(list(ser_permutation_vector(obj)))
+    }
+  )
 
   x <- unlist(x, recursive = FALSE)
   class(x) <- c("ser_permutation", "list")
@@ -36,22 +38,36 @@ ser_permutation <- function(x, ...) {
 }
 
 ## so we can say get_order to permutations
-get_order.ser_permutation <- function(x, dim = 1, ...) get_order(x[[dim]])
+get_order.ser_permutation <-
+  function(x, dim = 1, ...)
+    get_order(x[[dim]])
 
 ## print et al
 print.ser_permutation <- function(x, ...) {
   writeLines(c(
     gettextf("object of class %s",
-      paste(sQuote(class(x)), collapse = ", ")),
+      paste(sQuote(class(
+        x
+      )), collapse = ", ")),
     gettextf("contains permutation vectors for %d-mode data\n",
       length(x))
   ))
 
-  print(data.frame("vector length" = sapply(x,
-    FUN = function(o) if(.is_identity_permutation(o)) NA_integer_ else length(o)),
-    "seriation method" =
-      sapply(x, get_method, printable = TRUE),
-    check.names = FALSE))
+  print(
+    data.frame(
+      "vector length" = sapply(
+        x,
+        FUN = function(o)
+          if (.is_identity_permutation(o))
+            NA_integer_
+        else
+          length(o)
+      ),
+      "seriation method" =
+        sapply(x, get_method, printable = TRUE),
+      check.names = FALSE
+    )
+  )
 
   invisible(x)
 }

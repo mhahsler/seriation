@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,20 +15,20 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-    
-greenred <- function(n, bias = 1)
-  grDevices::colorRampPalette(c("green", "black", "red"), bias = bias, space = "Lab")(n)
 
-### Lab looks a little purple here!
-bluered <- function(n, bias = 1) 
-  grDevices::colorRampPalette(c("blue", "white", "red"), bias = bias)(n)
 
-grays <- function(n, power = 1)
-  colorspace::sequential_hcl(n, c.=c(0), l=c(95, 40), power = power)
+bluered <- function(n = 100, bias = 1, power = 1, ...)
+  grDevices::colorRampPalette(colorspace::diverging_hcl(n, palette = "Blue-Red", power = power, ...), bias = bias)(n)
 
-greys <- grays
+greenred <- function(n = 100, bias = 1, power = 1,...)
+  grDevices::colorRampPalette(rev(colorspace::diverging_hcl(n, palette = "Red-Green", power = power, ...)), bias = bias)(n)
 
+reds <- function(n = 100, bias = 1, power = 1, ...)
+  grDevices::colorRampPalette(rev(colorspace::sequential_hcl(n, palette = "Reds", power = power, ...)), bias = bias)(n)
+
+greys <- grays <- function(n = 100, bias = 1, power = 1, ...)
+  grDevices::colorRampPalette(rev(colorspace::sequential_hcl(n, palette = "Grays", power = power, ...)), bias = bias)(n)
 
 ## define default colors
-.sequential_pal <- function(n=100, power=1) greys(n, power)
-.diverge_pal <- function(n=100, bias=1) bluered(n, bias)
+.sequential_pal <- grays
+.diverge_pal <- bluered

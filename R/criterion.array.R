@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,31 +21,47 @@
 ## Criterion for the quality of a permutation of a array
 
 .criterion_array_helper <-
-function(x, order = NULL, method = NULL, datatype = "array",
-  force_loss = FALSE)
-{
+  function(x,
+    order = NULL,
+    method = NULL,
+    datatype = "array",
+    force_loss = FALSE)
+  {
     ## check order
-    if(!is.null(order)){
-        if(!inherits(order, "ser_permutation"))
-            stop("Argument 'order' has to be of class 'ser_permutation'.")
-        .check_matrix_perm(x, order)
+    if (!is.null(order)) {
+      if (!inherits(order, "ser_permutation"))
+        stop("Argument 'order' has to be of class 'ser_permutation'.")
+      .check_matrix_perm(x, order)
     }
 
     ## get methods
-    if(is.null(method)) method <- list_criterion_methods(datatype)
-    method <- lapply(method, function(m) get_criterion_method(datatype, m))
+    if (is.null(method))
+      method <- list_criterion_methods(datatype)
+    method <-
+      lapply(method, function(m)
+        get_criterion_method(datatype, m))
 
     crit <- sapply(method,
-        function(m) structure(m$fun(x, order), names=m$name))
+      function(m)
+        structure(m$fun(x, order), names = m$name))
 
-    if(force_loss) crit <- crit * sapply(method, FUN =
-        function(m) ((as.integer(m$merit)*-2)+1))
+    if (force_loss)
+      crit <- crit * sapply(
+        method,
+        FUN =
+          function(m)
+            ((as.integer(m$merit) * -2) + 1)
+      )
 
     crit
-}
+  }
 
 criterion.array <-
-function(x, order = NULL, method = NULL, force_loss = FALSE, ...)
+  function(x,
+    order = NULL,
+    method = NULL,
+    force_loss = FALSE,
+    ...)
     .criterion_array_helper(x, order, method, "array", force_loss)
 
 ## methods

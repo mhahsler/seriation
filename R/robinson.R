@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,32 +20,40 @@
 
 
 is.robinson <- function(x, anti = TRUE, pre = FALSE) {
-  if(is.matrix(x) && !isSymmetric(unname(x)))
+  if (is.matrix(x) && !isSymmetric(unname(x)))
     stop("x needs to be a symmetric matrix!")
 
   d <- as.dist(x)
-  if(!anti) d <- max(d) - d
+  if (!anti)
+    d <- max(d) - d
 
   ## pre Robinson matrix can be perfectly seriated using
   ## spectral seriation!
-  if(pre) d <- permute(d, seriate(d, method = "spectral"))
+  if (pre)
+    d <- permute(d, seriate(d, method = "spectral"))
 
   unname(criterion(d, method = "AR_events") == 0)
 }
 
-random.robinson <- function(n, anti = TRUE, pre = FALSE, noise = 0) {
+random.robinson <-
+  function(n,
+    anti = TRUE,
+    pre = FALSE,
+    noise = 0) {
+    if (noise < 0 | noise > 1)
+      stop("noise has to be beween 0 and 1.")
 
-  if(noise < 0 | noise > 1) stop("noise has to be beween 0 and 1.")
+    x <- runif(n)
+    if (!pre)
+      x <- sort(x)
 
-  x <- runif(n)
-  if(!pre) x <- sort(x)
+    if (noise)
+      x <- cbind(x, runif(n, min = 0, max = noise))
 
-  if(noise) x <- cbind(x, runif(n, min = 0, max = noise))
+    m <- as.matrix(dist(x))
 
-  m <- as.matrix(dist(x))
+    if (!anti)
+      m <- max(m) - m
 
-  if(!anti) m <- max(m)-m
-
-  m
-}
-
+    m
+  }

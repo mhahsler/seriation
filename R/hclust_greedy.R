@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,10 +27,10 @@ hclust_greedy <- function(dist) {
     if (!inherits(dist, "dist"))
         stop("Argument 'dist' is not of class 'dist'.")
     if (!is.double(dist))
-    mode(dist) <- "double"
+        mode(dist) <- "double"
     obj <- .Call("order_greedy", dist)
-    names(obj) <- c("merge", "order", "height");
+    names(obj) <- c("merge", "order", "height")
+
     class(obj) <- "hclust"
     obj
 }
-

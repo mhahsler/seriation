@@ -73,7 +73,7 @@ pimage(x, order = NULL, col = NULL, main ="", xlab = "", ylab = "",
 \code{\link[graphics]{image}}.}
 \author{Christian Buchta and Michael Hahsler}
 \examples{
-x <- matrix(sample(c(FALSE, TRUE), 300, rep=TRUE), ncol=10,
+x <- matrix(sample(c(FALSE, TRUE), 300, rep = TRUE), ncol = 10,
   dimnames = list(1:30, LETTERS[1:10]))
 
 ## matrix (large values are dark/black)
@@ -85,7 +85,7 @@ pimage(x, seriate(x), col = c("white", "red"),
 
 ## show correlation (for neg. values a diverging color scheme is
 ## used automatically)
-pimage(cor(x), prop=TRUE)
+pimage(cor(x), prop = TRUE)
 
 ## distances (note that low distances are represented dark!)
 d <- dist(x, method = "binary")
@@ -100,12 +100,12 @@ downViewport(name = "image")
 
 ## highlight cell 7/5 with a red arrow
 grid.lines(x = c(5, 7), y = c(3, 5), arrow = arrow(),
-  default.units = "native", gp = gpar(col="red", lwd = 3))
+  default.units = "native", gp = gpar(col = "red", lwd = 3))
 
 ## add a red box around rows 15 and 16
 grid.rect(x = 0.5, y = 15.5, width = ncol(x), height = 2,
   just = "left",
-  default.units = "native", gp = gpar(col="red", lwd = 3, fill = NA))
+  default.units = "native", gp = gpar(col = "red", lwd = 3, fill = NA))
 
 ## remove the viewports
 popViewport(0)

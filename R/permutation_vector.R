@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,13 +25,17 @@
 
 ## constructor (NA is identity vector)
 ser_permutation_vector <- function(x, method = NULL) {
-  if(inherits(x, "ser_permutation_vector")) return(x)
+  if (inherits(x, "ser_permutation_vector"))
+    return(x)
 
   ## make sure it's an integer vector
-  if(is.vector(x) && !is.integer(x)) x <- as.integer(x)
+  if (is.vector(x) && !is.integer(x))
+    x <- as.integer(x)
 
-  if(.is_identity_permutation(x)) attr(x, "method") <- "identity permutation"
-  if(!is.null(method)) attr(x, "method") <- method
+  if (.is_identity_permutation(x))
+    attr(x, "method") <- "identity permutation"
+  if (!is.null(method))
+    attr(x, "method") <- method
 
   class(x) <- c("ser_permutation_vector", class(x))
   .valid_permutation_vector(x)
@@ -39,18 +43,23 @@ ser_permutation_vector <- function(x, method = NULL) {
 }
 
 ## accessors
-get_order <- function(x, ...) UseMethod("get_order")
+get_order <- function(x, ...)
+  UseMethod("get_order")
 
-get_order.ser_permutation_vector <- function(x, ...) NextMethod()
+get_order.ser_permutation_vector <- function(x, ...)
+  NextMethod()
 
-get_order.hclust <- function(x, ...) x$order
+get_order.hclust <- function(x, ...)
+  x$order
 
-get_order.dendrogram <- function(x, ...) order.dendrogram(x)
+get_order.dendrogram <- function(x, ...)
+  order.dendrogram(x)
 
 
 get_order.integer <- function(x, ...) {
   o <- as.integer(x)
-  if(.is_identity_permutation(x)) stop("Cannot get order from identity permutation.")
+  if (.is_identity_permutation(x))
+    stop("Cannot get order from identity permutation.")
   #names(o) <- names(x)[o]
   o
 }
@@ -61,7 +70,8 @@ get_order.default <- function(x, ...)
     class(x)))
 
 ## returns for each object its rank (rank of first, second, etc. object)
-get_rank <- function(x, ...) order(get_order(x, ...))
+get_rank <- function(x, ...)
+  order(get_order(x, ...))
 
 get_permutation_matrix <- function(x, ...)
   permutation_vector2matrix(get_order(x, ...))
@@ -77,20 +87,30 @@ permutation_vector2matrix <- function(x) {
 
   n <- length(x)
   pm <- matrix(0, nrow = n, ncol = n)
-  for(i in 1:n) pm[i, x[i]] <- 1
+  for (i in 1:n)
+    pm[i, x[i]] <- 1
   pm
 }
 
 permutation_matrix2vector <- function(x) {
   .valid_permutation_matrix(x)
-  o <- apply(x, MARGIN = 1, FUN = function(r) which(r==1))
+  o <- apply(
+    x,
+    MARGIN = 1,
+    FUN = function(r)
+      which(r == 1)
+  )
   o
 }
 
 ## reverse
 rev.ser_permutation_vector <- function(x) {
-  if(inherits(x, "hclust")) { x$order <- rev(x$order); x }
-  else ser_permutation_vector(rev(get_order(x)), method=get_method(x))
+  if (inherits(x, "hclust")) {
+    x$order <- rev(x$order)
+    x
+  }
+  else
+    ser_permutation_vector(rev(get_order(x)), method = get_method(x))
 }
 
 
@@ -98,24 +118,32 @@ rev.ser_permutation_vector <- function(x) {
 get_method <- function(x, printable = FALSE) {
   method <- attr(x, "method")
 
-  if(printable && is.null(method)) method <- "unknown"
+  if (printable && is.null(method))
+    method <- "unknown"
   method
 }
 
 
 ## print et al
-length.ser_permutation_vector <- function(x)
-  if(!.is_identity_permutation(x)) length(get_order(x)) else 0L
+length.ser_permutation_vector <- function(x) {
+  if (!.is_identity_permutation(x))
+    length(get_order(x))
+  else
+    0L
+}
 
 print.ser_permutation_vector <-
   function(x, ...)
   {
-    writeLines(
-      c(gettextf("object of class %s",
-        paste(sQuote(class(x)), collapse = ", ")),
-        gettextf("contains a permutation vector of length %d", length(x)),
-        gettextf("used seriation method: '%s'",
-          get_method(x, printable = TRUE))))
+    writeLines(c(
+      gettextf("object of class %s",
+        paste(sQuote(class(
+          x
+        )), collapse = ", ")),
+      gettextf("contains a permutation vector of length %d", length(x)),
+      gettextf("used seriation method: '%s'",
+        get_method(x, printable = TRUE))
+    ))
     invisible(x)
   }
 
@@ -127,26 +155,36 @@ summary.ser_permutation_vector <- function(object, ...) {
 
 
 ## helpers
-.is_identity_permutation <- function (x)
-  if(is.integer(x) && length(as.vector(x))==1 && is.na(x[1])) TRUE else FALSE
+.is_identity_permutation <- function (x) {
+  if (is.integer(x) &&
+      length(as.vector(x)) == 1 && is.na(x[1]))
+    TRUE
+  else
+    FALSE
+}
 
 .valid_permutation_vector <- function(x) {
   ## identity vector
-  if(.is_identity_permutation(x)) return()
+  if (.is_identity_permutation(x))
+    return()
 
   perm <- get_order(x)
   valid <- TRUE
 
   tab <- table(perm)
-  if(any(tab != 1)) valid <- FALSE
-  if(length(tab) != length(perm)
-    || any(names(tab) != sequence(length(perm)))) valid <- FALSE
+  if (any(tab != 1))
+    valid <- FALSE
+  if (length(tab) != length(perm)
+    || any(names(tab) != sequence(length(perm))))
+    valid <- FALSE
 
-  if(!valid) stop("Invalid permutation vector!\nVector: ",
-    paste(perm, collapse=", "))
+  if (!valid)
+    stop("Invalid permutation vector!\nVector: ",
+      paste(perm, collapse = ", "))
 }
 
 .valid_permutation_matrix <- function(x) {
-  if(any(rowSums(x)!=1) || any(colSums(x)!=1) || any(x!=1 & x!=0))
+  if (any(rowSums(x) != 1) || any(colSums(x) != 1) ||
+      any(x != 1 & x != 0))
     stop("Not a valid permutation matrix")
 }

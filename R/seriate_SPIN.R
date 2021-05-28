@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,25 +21,34 @@
 
 ## Weight matrix
 ## pimage(create_x(n=150, sigma=20, verbose=TRUE))
-create_W <- function(n, sigma, verbose=FALSE) {
-  w <- function(i, j, n, sigma) exp(-1*(i-j)^2/n/sigma)
-  W <- outer(1:n, 1:n, FUN = w, n=n, sigma=sigma)
+create_W <- function(n, sigma, verbose = FALSE) {
+  w <- function(i, j, n, sigma)
+    exp(-1 * (i - j) ^ 2 / n / sigma)
+  W <- outer(1:n,
+    1:n,
+    FUN = w,
+    n = n,
+    sigma = sigma)
 
   ## make doubly stochastic
-  for(i in 1:1000) {
+  for (i in 1:1000) {
     #cat(i, ".")
     W <- sweep(W, MARGIN = 1, STATS = rowSums(W), "/")
     W <- sweep(W, MARGIN = 2, STATS = colSums(W), "/")
-    if(all(round(rowSums(W), 5) == 1) && all(round(colSums(W), 5) == 1)) break
+    if (all(round(rowSums(W), 5) == 1) &&
+        all(round(colSums(W), 5) == 1))
+      break
   }
 
-  if(verbose) cat("It took", i, "iterations to make W doubly stochastic!\n")
-  if(i >999) warning("Weight matrix did not converge to doubly stochastic in 1000 itermation!")
+  if (verbose)
+    cat("It took", i, "iterations to make W doubly stochastic!\n")
+  if (i > 999)
+    warning("Weight matrix did not converge to doubly stochastic in 1000 itermation!")
   W
 }
 
 .spin_contr <- list(
-  sigma = seq(20,1, length.out = 10),
+  sigma = seq(20, 1, length.out = 10),
   step = 5,
   W_function = NULL,
   verbose = FALSE
@@ -49,7 +58,11 @@ create_W <- function(n, sigma, verbose=FALSE) {
 seriate_dist_SPIN <- function(x, control = NULL) {
   param <- .get_parameters(control, .spin_contr)
 
-  W_function <- if(is.null(param$W_function)) create_W else param$W_function
+  W_function <-
+    if (is.null(param$W_function))
+      create_W
+  else
+    param$W_function
   sigma <- param$sigma
   step <- param$step
   verbose <- param$verbose
@@ -62,31 +75,33 @@ seriate_dist_SPIN <- function(x, control = NULL) {
 
   energy_best <- Inf
 
-  for(i in 1:(length(sigma)*step)) {
-    if(verbose) cat("Iteration", i, "... ")
+  for (i in 1:(length(sigma) * step)) {
+    if (verbose)
+      cat("Iteration", i, "... ")
 
     M <- D %*% W
 
     ## heuristic for the linear assignment problem
     ## (second argument to order breakes ties randomly)
-    P <- permutation_vector2matrix(
-      order(apply(M, MARGIN = 1, which.min), sample(1:n)))
+    P <- permutation_vector2matrix(order(apply(M, MARGIN = 1, which.min), sample(1:n)))
     #if(verbose) print(table(apply(M, MARGIN = 1, which.min)))
 
     energy_new <- sum(diag(P %*% M))
-    if(verbose) cat("best energy:", energy_best,
-      "new energy: ", energy_new, "\n")
+    if (verbose)
+      cat("best energy:", energy_best,
+        "new energy: ", energy_new, "\n")
 
     ## was energy improved?
-    if(energy_new < energy_best) {
+    if (energy_new < energy_best) {
       energy_best <- energy_new
       P_best <- P
     }
 
     ## adapt sigma
-    if(!(i %% step) && i != length(sigma)*step) {
-      s <- sigma[i/step+1]
-      if(verbose) cat("\nReducing sigma to:", s, "\n")
+    if (!(i %% step) && i != length(sigma) * step) {
+      s <- sigma[i / step + 1]
+      if (verbose)
+        cat("\nReducing sigma to:", s, "\n")
 
       W_orig <- W_function(n, s, verbose)
 
@@ -95,13 +110,15 @@ seriate_dist_SPIN <- function(x, control = NULL) {
       W <- crossprod(P, W_orig) ### t(P) %*% W
       M <- D %*% W
       energy_best <- sum(diag(P %*% M))
-      if(verbose) cat("best energy is now:", energy_best, "\n\n")
-    }else {
+      if (verbose)
+        cat("best energy is now:", energy_best, "\n\n")
+    } else {
       W <- crossprod(P, W_orig) ### t(P) %*% W
     }
   }
 
-  if(verbose) cat("Best Energy:", energy_best, "\n")
+  if (verbose)
+    cat("Best Energy:", energy_best, "\n")
   o <- permutation_matrix2vector(P_best)
   names(o) <- names(x)[o]
   o
@@ -113,7 +130,8 @@ seriate_dist_SPIN <- function(x, control = NULL) {
 .spin_sts_contr <- list(
   step = 25,
   nstart = 10,
-  X = function(n) 1:n - (n+1)/2,
+  X = function(n)
+    1:n - (n + 1) / 2,
   verbose = FALSE
 )
 
@@ -129,12 +147,16 @@ seriate_dist_SPIN_STS <- function(x, control = NULL) {
   n <- nrow(D)
 
   ## X for weights W = X %*% t(X) (colunm vector)
-  if(is.function(X)) X <- X(n)
-  if(!is.numeric(X) || length(X) != n) stop("Invalid weight vector X.")
+  if (is.function(X))
+    X <- X(n)
+  if (!is.numeric(X) ||
+      length(X) != n)
+    stop("Invalid weight vector X.")
   W <- tcrossprod(X) ## X %*% t(X)
 
   .STS_run <- function() {
-    if(verbose) cat("\nStarting new run\n")
+    if (verbose)
+      cat("\nStarting new run\n")
 
     ## start with random permutation
     o_best <- o <- sample(1:n)
@@ -142,10 +164,11 @@ seriate_dist_SPIN_STS <- function(x, control = NULL) {
     #X_current <- crossprod(P, X)
     X_current <- X[o]
     #energy_best <- sum(diag(P %*% D %*% t(P) %*% W))
-    energy_best <- sum(diag(D[o,o] %*% W))
+    energy_best <- sum(diag(D[o, o] %*% W))
 
-    for(i in 1:step) {
-      if(verbose) cat("Iteration", i, "... ")
+    for (i in 1:step) {
+      if (verbose)
+        cat("Iteration", i, "... ")
 
       ## permutation matrix that orders S in descending order (break ties)
       S <- D %*% X_current
@@ -156,23 +179,27 @@ seriate_dist_SPIN_STS <- function(x, control = NULL) {
 
       ## calculate energy F(P)
       #energy_new <- sum(diag(P %*% D %*% t(P) %*% W))
-      energy_new <- sum(diag(D[o,o] %*% W))
-      if(verbose) cat("best energy:", energy_best,
-        "new energy: ", energy_new)
+      energy_new <- sum(diag(D[o, o] %*% W))
+      if (verbose)
+        cat("best energy:", energy_best,
+          "new energy: ", energy_new)
 
       ## was energy improved?
-      if(energy_new < energy_best) {
+      if (energy_new < energy_best) {
         energy_best <- energy_new
         #P_best <- P
         o_best <- o
-        if(verbose) cat(" - update")
+        if (verbose)
+          cat(" - update")
       }
 
-      if(verbose) cat("\n")
+      if (verbose)
+        cat("\n")
 
     }
 
-    if(verbose) cat("Best Energy:", energy_best, "\n")
+    if (verbose)
+      cat("Best Energy:", energy_best, "\n")
 
     #o <- permutation_matrix2vector(P_best)
     o <- o_best
@@ -183,13 +210,24 @@ seriate_dist_SPIN_STS <- function(x, control = NULL) {
   res <- replicate(nstart, .STS_run(), simplify = FALSE)
   energy <- sapply(res, attr, "energy")
 
-  if(verbose) cat("Overall best Energy:", min(energy), "\n")
+  if (verbose)
+    cat("Overall best Energy:", min(energy), "\n")
   o <- res[[which.min(energy)]]
   names(o) <- names(x)[o]
   o
 }
 
-set_seriation_method("dist", "SPIN_NH", seriate_dist_SPIN,
-  "Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Nighborhood algorithm to concentrate low distance values around the diagonal with a Gaussian weight matrix W_{ij} = exp(-(i-j)^2/(n*sigma)), where n is the size of the dissimilarity matrix and sigma is the variance around the diagonal that control the influence of global (large sigma) or local (small sigma) structure.", .spin_contr)
-set_seriation_method("dist", "SPIN_STS", seriate_dist_SPIN_STS,
-  "Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Side-to-Side algorithm which tries to push out large distance values.", .spin_sts_contr)
+set_seriation_method(
+  "dist",
+  "SPIN_NH",
+  seriate_dist_SPIN,
+  "Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Nighborhood algorithm to concentrate low distance values around the diagonal with a Gaussian weight matrix W_{ij} = exp(-(i-j)^2/(n*sigma)), where n is the size of the dissimilarity matrix and sigma is the variance around the diagonal that control the influence of global (large sigma) or local (small sigma) structure.",
+  .spin_contr
+)
+set_seriation_method(
+  "dist",
+  "SPIN_STS",
+  seriate_dist_SPIN_STS,
+  "Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Side-to-Side algorithm which tries to push out large distance values.",
+  .spin_sts_contr
+)

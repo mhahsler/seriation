@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,13 +20,17 @@
 ## setup registries
 
 ## seriate
-registry_seriate <- registry(registry_class="seriation_registry",
-  entry_class="seriation_method")
+registry_seriate <- registry(registry_class = "seriation_registry",
+  entry_class = "seriation_method")
 
-registry_seriate$set_field("kind", type = "character",
-  is_key = TRUE, index_FUN = match_partial_ignorecase)
-registry_seriate$set_field("name", type = "character",
-  is_key = TRUE, index_FUN = match_partial_ignorecase)
+registry_seriate$set_field("kind",
+  type = "character",
+  is_key = TRUE,
+  index_FUN = match_partial_ignorecase)
+registry_seriate$set_field("name",
+  type = "character",
+  is_key = TRUE,
+  index_FUN = match_partial_ignorecase)
 registry_seriate$set_field("fun", type = "function",
   is_key = FALSE)
 registry_seriate$set_field("description", type = "character",
@@ -39,29 +43,40 @@ print.seriation_method <- function(x, ...) {
   writeLines(c(
     gettextf("name:        %s", x$name),
     gettextf("kind:        %s", x$kind),
-    gettextf("description: %s", x$description)))
+    gettextf("description: %s", x$description)
+  ))
 
-  if(length(x$control)>0) {
+  if (length(x$control) > 0) {
     writeLines("control (default values):")
 
-    contr <- lapply(x$control, FUN =
-        function(p) utils::capture.output(dput(p, control = list()))[1])
+    contr <- lapply(
+      x$control,
+      FUN =
+        function(p)
+          utils::capture.output(dput(p, control = list()))[1]
+    )
 
     print(as.data.frame(contr))
-  } else writeLines("control: no parameters registered.")
+  } else
+    writeLines("control: no parameters registered.")
 
   invisible(x)
 }
 
 
 ## criterion
-registry_criterion <- registry(registry_class="criterion_registry",
-  entry_class="criterion_method")
+registry_criterion <-
+  registry(registry_class = "criterion_registry",
+    entry_class = "criterion_method")
 
-registry_criterion$set_field("kind", type = "character",
-  is_key = TRUE, index_FUN = match_partial_ignorecase)
-registry_criterion$set_field("name", type = "character",
-  is_key = TRUE, index_FUN = match_partial_ignorecase)
+registry_criterion$set_field("kind",
+  type = "character",
+  is_key = TRUE,
+  index_FUN = match_partial_ignorecase)
+registry_criterion$set_field("name",
+  type = "character",
+  is_key = TRUE,
+  index_FUN = match_partial_ignorecase)
 registry_criterion$set_field("fun", type = "function",
   is_key = FALSE)
 registry_criterion$set_field("description", type = "character",
@@ -70,14 +85,12 @@ registry_criterion$set_field("merit", type = "logical",
   is_key = FALSE)
 
 
-print.criterion_method <-function(x, ...) {
+print.criterion_method <- function(x, ...) {
   writeLines(c(
     gettextf("name:        %s", x$name),
     gettextf("kind:        %s", x$kind),
     gettextf("description: %s", x$description),
-    gettextf("merit:       %s", x$merit)))
+    gettextf("merit:       %s", x$merit)
+  ))
   invisible(x)
 }
-
-
-

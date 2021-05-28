@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,14 +29,14 @@ seriate_dist_spectral <- function(x, control = NULL) {
   .get_parameters(control, NULL)
 
   ### calculate Laplacian
-  W <- 1/(1+as.matrix(x))
+  W <- 1 / (1 + as.matrix(x))
   D <- diag(rowSums(W))
   L <- D - W
 
   ## The Fiedler vector is the eigenvector with the smallest eigenvalue
   ## eigen reports eigenvectors/values in decreasing order
   q <- eigen(L)
-  fiedler <- q$vectors[,ncol(W)-1L]
+  fiedler <- q$vectors[, ncol(W) - 1L]
   o <- order(fiedler)
   names(o) <- names(x)[o]
   o
@@ -47,22 +47,30 @@ seriate_dist_spectral_norm <- function(x, control = NULL) {
   .get_parameters(control, NULL)
 
   ### calculate normalized Laplacian
-  W <- 1/(1+as.matrix(x))
-  D_sqrt<- diag(rowSums(1/W^.5))
+  W <- 1 / (1 + as.matrix(x))
+  D_sqrt <- diag(rowSums(1 / W ^ .5))
   L <- D_sqrt %*% W %*% D_sqrt
 
   z <- eigen(L)$vectors
   q <- D_sqrt %*% z
 
   ## look for the vector with the largest eigenvalue
-  largest_ev <- q[,2L]
+  largest_ev <- q[, 2L]
   o <- order(largest_ev)
   names(o) <- names(x)[o]
   o
 }
 
 
-set_seriation_method("dist", "Spectral", seriate_dist_spectral,
-  "Spectral seriation (Ding and He 2004)  uses a relaxation to minimize the 2-Sum Problem (Barnard, Pothen, and Simon 1993). It uses the order of the Fiedler vector of the similarity matrix's Laplacian.")
-set_seriation_method("dist", "Spectral_norm", seriate_dist_spectral_norm,
-  "Spectral seriation (Ding and He 2004)  uses a relaxation to minimize the 2-Sum Problem (Barnard, Pothen, and Simon 1993). It uses the order of the Fiedler vector of the similarity matrix's normalized Laplacian.")
+set_seriation_method(
+  "dist",
+  "Spectral",
+  seriate_dist_spectral,
+  "Spectral seriation (Ding and He 2004)  uses a relaxation to minimize the 2-Sum Problem (Barnard, Pothen, and Simon 1993). It uses the order of the Fiedler vector of the similarity matrix's Laplacian."
+)
+set_seriation_method(
+  "dist",
+  "Spectral_norm",
+  seriate_dist_spectral_norm,
+  "Spectral seriation (Ding and He 2004)  uses a relaxation to minimize the 2-Sum Problem (Barnard, Pothen, and Simon 1993). It uses the order of the Fiedler vector of the similarity matrix's normalized Laplacian."
+)

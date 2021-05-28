@@ -1,6 +1,6 @@
 #######################################################################
 # seriation - Infrastructure for seriation
-# Copyrigth (C) 2015 Michael Hahsler, Christian Buchta and Kurt Hornik
+# Copyright (C) 2015 Michael Hahsler, Christian Buchta and Kurt Hornik
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 ## registers seriation methods and criteria from package DendSer
 
 register_DendSer <- function() {
-  if(!.installed("DendSer")) stop("Package 'DendSer' needs to be  installed!")
+  check_installed("DendSer")
 
   ## seriation methods
 
@@ -45,18 +45,18 @@ register_DendSer <- function() {
     control <- .get_parameters(control, .DendSer_control)
 
     ## fix cost if it is a criterion from seriation
-    if(!is.null(control$criterion))
+    if (!is.null(control$criterion))
       control$cost <- DendSer::crit2cost(crit = control$criterion)
 
     ## produce hclust
-    if(is.null(control$h))
+    if (is.null(control$h))
       control$h <- hclust(x, control$method)
 
     control$method <- NULL
     control$criterion <- NULL
     control$ser_weight <- x
 
-    if(!is.null(control$DendSer_args)) {
+    if (!is.null(control$DendSer_args)) {
       control <- c(control, control$DendSer_args)
       control$DendSer_args <- NULL
     }
@@ -92,17 +92,40 @@ register_DendSer <- function() {
   #    DendSer_helper(as.matrix(x)[,1], control)
   #  }
 
-  seriation::set_seriation_method("dist", "DendSer",
-    DendSer_helper, "Dendrogram seriation (Earle and Hurley, 2015).", .DendSer_control)
+  seriation::set_seriation_method(
+    "dist",
+    "DendSer",
+    DendSer_helper,
+    "Dendrogram seriation (Earle and Hurley, 2015).",
+    .DendSer_control
+  )
 
-  seriation::set_seriation_method("dist", "DendSer_BAR",
-    DendSer_BAR, "Dendrogram seriation  with BAR (Earle and Hurley, 2015).", .DendSer_control)
-  seriation::set_seriation_method("dist", "DendSer_PL",
-    DendSer_PL, "Dendrogram seriation (Path length)", .DendSer_control)
-  seriation::set_seriation_method("dist", "DendSer_LPL",
-    DendSer_PL, "Dendrogram seriation (Lazy path length)", .DendSer_control)
-  seriation::set_seriation_method("dist", "DendSer_ARc",
-    DendSer_ARc, "Dendrogram seriation (ARc)", .DendSer_control)
+  seriation::set_seriation_method(
+    "dist",
+    "DendSer_BAR",
+    DendSer_BAR,
+    "Dendrogram seriation  with BAR (Earle and Hurley, 2015).",
+    .DendSer_control
+  )
+  seriation::set_seriation_method(
+    "dist",
+    "DendSer_PL",
+    DendSer_PL,
+    "Dendrogram seriation (Path length)",
+    .DendSer_control
+  )
+  seriation::set_seriation_method(
+    "dist",
+    "DendSer_LPL",
+    DendSer_PL,
+    "Dendrogram seriation (Lazy path length)",
+    .DendSer_control
+  )
+  seriation::set_seriation_method("dist",
+    "DendSer_ARc",
+    DendSer_ARc,
+    "Dendrogram seriation (ARc)",
+    .DendSer_control)
   #  seriation::set_seriation_method("dist", "DendSer_LS",
   #    DendSer_LS, "Dendrogram seriation (Leaf sort)")
 
@@ -111,9 +134,11 @@ register_DendSer <- function() {
 
   DendSer_crit_ARc <- function(x, order, ...) {
     x <- as.matrix(x)
-    if (is.null(order)) order <- 1:nrow(x)
-    else order <- get_order(order)
-    DendSer::costARc(x,order,...)
+    if (is.null(order))
+      order <- 1:nrow(x)
+    else
+      order <- get_order(order)
+    DendSer::costARc(x, order, ...)
   }
 
   seriation::set_criterion_method("dist", "ARc", DendSer_crit_ARc,
