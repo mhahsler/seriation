@@ -1,5 +1,7 @@
 # seriation 1.2-9.1 (00/00/0000)
 * dependency dendextend is now only suggested.
+* pimage gained parameter interpolate.
+* colors are now more consistent.
 
 # seriation 1.2-9 (09/29/2020)
 * removed dependency on methods.

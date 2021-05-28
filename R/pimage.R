@@ -34,6 +34,7 @@ pimage <-
     symkey = TRUE,
     upper.tri = TRUE,
     lower.tri = TRUE,
+    interpolate = FALSE,
     prop = NULL,
     ...,
     newpage = TRUE,
@@ -56,6 +57,7 @@ pimage.matrix <-
     symkey = TRUE,
     upper.tri = TRUE,
     lower.tri = TRUE,
+    interpolate = FALSE,
     prop = NULL,
     ...,
     newpage = TRUE,
@@ -169,6 +171,7 @@ pimage.matrix <-
     .grid_image(x,
       col = col,
       zlim = zlim,
+      interpolate = interpolate,
       prop = prop) #, gp=gp)
 
     ## axes and labs
@@ -226,6 +229,7 @@ pimage.dist <-
     symkey = TRUE,
     upper.tri = TRUE,
     lower.tri = TRUE,
+    interpolate = FALSE,
     prop = NULL,
     ...,
     newpage = TRUE,

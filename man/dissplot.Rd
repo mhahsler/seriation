@@ -187,32 +187,33 @@ pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 ## visualize the clustering (using Spectral between clusters and MDS within)
 res <- dissplot(d, l, method = list(inter = "Spectral", intra = "MDS"),
-    options = list(main = "PAM + Seriation - standard",
+    options = list(main = "PAM + Seriation (standard)",
     newpage = FALSE))
 
 popViewport()
 pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
 
 ## more visualization options. Note that we reuse the reordered object res!
-## color: use 100 shades red-blue, biased towards small distances
-plot(res, options = list(main = "PAM + Seriation",
-    col= bluered(100, bias = .5), newpage = FALSE))
+## color: use 10 shades red-blue, biased towards small distances
+plot(res, options = list(main = "PAM + Seriation (red-blue + biased)",
+    col= bluered(10, bias = .5), newpage = FALSE))
 
 popViewport()
 pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 1))
 
 ## threshold (using zlim) and cubic scale to highlight differences
-plot(res, options = list(main = "PAM + Seriation - threshold",
+plot(res, options = list(main = "PAM + Seriation (cubic + threshold)",
     zlim = c(0, 1.5), col = grays(100, power = 2), newpage = FALSE))
 
 popViewport()
 pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
 
-## use custom (logistic) scale
-plot(res, options = list(main = "PAM + Seriation - logistic scale",
-    col = hcl(c = 0, l = (plogis(seq(10, 0, length=100),
-	location = 2, scale = 1/2, log = FALSE))*100),
-	newpage = FALSE))
+## use custom logistic gray scale
+plot(res, options = list(main = "PAM + Seriation (logistic scale)",
+  col = gray(
+    plogis(seq(10, 0, length.out = 100), location = 2, scale = 1/2, log = FALSE)
+    ),
+  newpage = FALSE))
 
 popViewport(2)
 

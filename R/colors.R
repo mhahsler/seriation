@@ -18,7 +18,7 @@
 
 
 bluered <- function(n = 100, bias = 1, power = 1, ...)
-  grDevices::colorRampPalette(colorspace::diverging_hcl(n, palette = "Blue-Red", power = power, ...), bias = bias)(n)
+  grDevices::colorRampPalette(colorspace::diverging_hcl(n, palette = "Blue-Red 2", power = power, ...), bias = bias)(n)
 
 greenred <- function(n = 100, bias = 1, power = 1,...)
   grDevices::colorRampPalette(rev(colorspace::diverging_hcl(n, palette = "Red-Green", power = power, ...)), bias = bias)(n)

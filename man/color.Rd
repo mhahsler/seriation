@@ -47,23 +47,26 @@ A vector with \code{n} colors.
 }
 \author{Michael Hahsler}
 \examples{
-pimage(rbind(1:100))
-pimage(rbind(1:100), col = greys(100, power = 2))
-pimage(rbind(1:100), col = greys(100, bias = 2))
-pimage(rbind(1:100), col = bluered(100))
-pimage(rbind(1:100), col = bluered(100, power = .5))
-pimage(rbind(1:100), col = bluered(100, bias = 2))
-pimage(rbind(-50:100), col = greenred(20, bias = 1.5))
+m <- outer(1:10,1:10)
+m
+
+pimage(m)
+pimage(m, col = greys(100, power = 2))
+pimage(m, col = greys(100, bias = 2))
+pimage(m, col = bluered(100))
+pimage(m, col = bluered(100, power = .5))
+pimage(m, col = bluered(100, bias = 2))
+pimage(m - 25, col = greenred(20, bias = 2))
 
 ## choose your own color palettes
 library(colorspace)
 hcl_palettes(plot = TRUE)
 
 ## blues (with 20 shades)
-pimage(rbind(1:100),
+pimage(m,
   col = colorspace::sequential_hcl(20, "Blues", rev = TRUE))
-## blue to green
-pimage(rbind(1:100),
-  col = colorspace::diverging_hcl(100, "Tofino"))
+## blue to green (aka "Cork")
+pimage(m,
+  col = colorspace::diverging_hcl(100, "Cork"))
 }
 \keyword{hplot}

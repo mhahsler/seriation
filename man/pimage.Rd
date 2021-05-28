@@ -14,8 +14,8 @@
 \usage{
 pimage(x, order = NULL, col = NULL, main ="", xlab = "", ylab = "",
   axes = "auto", zlim=NULL, key=TRUE, key.lab="", symkey=TRUE,
-  upper.tri = TRUE, lower.tri = TRUE, prop = NULL,
-  ..., newpage=TRUE, pop=TRUE, gp=NULL)
+  upper.tri = TRUE, lower.tri = TRUE, interpolate = FALSE, prop = NULL,
+  ..., newpage = TRUE, pop = TRUE, gp = NULL)
 }
 
 \arguments{
@@ -45,6 +45,7 @@ pimage(x, order = NULL, col = NULL, main ="", xlab = "", ylab = "",
     color palate be symmetric (zero is in the middle)>}
   \item{upper.tri, lower.tri}{ a logical indicating whether to show the
       upper or lower triangle of the distance matrix. }
+  \item{interpolate}{logical; interpolate color between matrix cells. }
   \item{prop}{logical; draw the cells in the image proportional (defaults to
     \code{TRUE} for \code{dist} and \code{FALSE} for matrix).}
   \item{\dots}{further arguments passed on to \code{image} in \pkg{graphics}.}
