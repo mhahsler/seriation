@@ -168,11 +168,13 @@ pimage.matrix <-
       )
 
     downViewport("plot")
-    .grid_image(x,
+    .grid_image(
+      x,
       col = col,
       zlim = zlim,
       interpolate = interpolate,
-      prop = prop) #, gp=gp)
+      prop = prop
+    ) #, gp=gp)
 
     ## axes and labs
     downViewport("image")
@@ -202,8 +204,7 @@ pimage.matrix <-
     #, gp=gp)
     if (ylab != "")
       grid.text(ylab,
-        x = ,
-        -1 * left_mar + unit(1, "lines"),
+        x = ,-1 * left_mar + unit(1, "lines"),
         rot = 90) #, gp=gp)
 
     if (pop)
@@ -264,5 +265,4 @@ pimage.dist <-
       pop = pop,
       gp = gp
     )
-
   }

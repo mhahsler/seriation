@@ -2,20 +2,28 @@
 \alias{pimage}
 \alias{pimage.matrix}
 \alias{pimage.dist}
+\alias{ggpimage}
+\alias{ggpimage.matrix}
+\alias{ggpimage.dist}
 \title{Permutation Image Plot}
 \description{
   Provides methods for plotting image plots for
   matrix and \code{dist} objects given a permutation.
   By default, no permutation is performed.
-  This plot can also
-  be used as a more versatile replacement of \code{image} plot
-  in \pkg{graphics} based on \pkg{grid}.
+  This plot represents the rows in the order in which they apprear in the matrix
+  and provides a color key.
+  Implementations based on the \pkg{grid} gaphics engine and based n \pkg{ggplot2} are provided.
 }
 \usage{
+# grid-based image plot
 pimage(x, order = NULL, col = NULL, main ="", xlab = "", ylab = "",
-  axes = "auto", zlim=NULL, key=TRUE, key.lab="", symkey=TRUE,
+  axes = "auto", zlim = NULL, key = TRUE, key.lab = "", symkey = TRUE,
   upper.tri = TRUE, lower.tri = TRUE, interpolate = FALSE, prop = NULL,
   ..., newpage = TRUE, pop = TRUE, gp = NULL)
+
+# ggplot2-based image plot
+ggpimage(x, order = NULL, axes = "auto",
+  upper.tri = TRUE, lower.tri = TRUE)
 }
 
 \arguments{
@@ -54,17 +62,21 @@ pimage(x, order = NULL, col = NULL, main ="", xlab = "", ylab = "",
 }
 \details{
   Plots a matrix in its original row and column orientation. This means, in a
-  plot the columns become the x-coordinates and the reversed rows the
-  y-coordinates.
+  plot the columns become the x-coordinates and the rows the
+  y-coordinates (in reverse order).
 
   If \code{x} is of class \code{dist} it is converted to full-storage
   representation before plotting.
 
+  \bold{Grid-based plot:}
   The viewports used for plotting are called: \code{"plot"}, \code{"image"}
   and \code{"colorkey"}.
-
-  \bold{Note:} Since \code{pimage} uses \pkg{grid}, it should not be mixed with base R primitive plotting
+  \emph{Note:} Since \code{pimage} uses \pkg{grid}, it should not be mixed with base R primitive plotting
   functions, but the appropriate functions in \code{\link[grid]{grid-package}}.
+
+  \bold{ggplot2-based plot:} A ggplot2 object is returned. Colors, axis limites and other visual aspects
+  can be added using standard ggplot2 functions
+  (\code{labs}, \code{scale_fill_continuous}, \code{labs}, etc.).
 }
 \seealso{
 \code{\link[grid]{grid-package}},
@@ -77,22 +89,23 @@ pimage(x, order = NULL, col = NULL, main ="", xlab = "", ylab = "",
 x <- matrix(sample(c(FALSE, TRUE), 300, rep = TRUE), ncol = 10,
   dimnames = list(1:30, LETTERS[1:10]))
 
-## matrix (large values are dark/black)
+## matrix (TRUE values are black)
 pimage(x, main = "Random data", key = FALSE)
 
 ## plot seriated matrix (use red, proportional display and plot all axes)
 pimage(x, seriate(x), col = c("white", "red"),
-  prop = TRUE, axes="both", main = "Reordered data", key = FALSE)
+  prop = TRUE, axes = "both", main = "Reordered data", key = FALSE)
 
-## show correlation (for neg. values a diverging color scheme is
+## show correlation (with neg. values, a diverging color scheme is
 ## used automatically)
-pimage(cor(x), prop = TRUE)
+corr <- cor(x)
+pimage(corr, order = seriate(corr), prop = TRUE)
 
 ## distances (note that low distances are represented dark!)
 d <- dist(x, method = "binary")
 pimage(d, upper.tri = FALSE, main = "Distances")
 
-pimage(d, seriate(d), upper.tri = FALSE, main = "Distances", axes = "both")
+pimage(d, order = seriate(d), upper.tri = FALSE, main = "Distances", axes = "both")
 
 ## add to the plot using functions in package grid
 library("grid")
@@ -131,5 +144,35 @@ pimage(d, o[[1]], upper.tri = FALSE, main = "Distances", axes = "both",
 
 upViewport(1)
 popViewport(0)
+
+## ggplot2 Examples
+if (require("ggplot2")) {
+  x <- matrix(sample(c(FALSE, TRUE), 300, rep = TRUE), ncol = 10,
+    dimnames = list(1:30, LETTERS[1:10]))
+
+  ## matrix (TRUE values are dark). We also hide the legend
+  ggpimage(x, axes = "both") +
+    labs(title = "Random data") +
+    theme(legend.position = "none")
+
+  ## show reordered correlation (with neg. values, a diverging color scheme is
+  ## used automatically)
+  corr <- cor(x)
+  ggpimage(corr, order = seriate(corr)) +
+    theme(aspect.ratio = 1)
+
+  ## distances (distances are shown with an aspect ratio of 1 and dark means low distance)
+  ## the suppressed triangle is set to white with na.value = "white"
+  d <- dist(x, method = "binary")
+  ggpimage(d, order = seriate(d), upper.tri = FALSE, axes = "both") + labs(title = "Distances")
+
+  ## replace default colors using Colorbrewer and colorspace
+  ggpimage(d, order = seriate(d), upper.tri = FALSE) +
+    scale_fill_distiller(palette = "Spectral", direction = +1)
+
+  library(colorspace)
+  ggpimage(d, order = seriate(d), upper.tri = FALSE) +
+    scale_fill_continuous_sequential("Reds", rev = FALSE)
+}
 }
 \keyword{hplot}

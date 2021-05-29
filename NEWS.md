@@ -2,6 +2,7 @@
 * dependency dendextend is now only suggested.
 * pimage gained parameter interpolate.
 * colors are now more consistent.
+* added ggplot2-based ggpimage. 
 
 # seriation 1.2-9 (09/29/2020)
 * removed dependency on methods.

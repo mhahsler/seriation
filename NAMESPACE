@@ -38,6 +38,7 @@ export(
     permutation_matrix2vector,
     permutation_vector2matrix,
     pimage,
+    ggpimage,
     seriate,
     is.robinson,
     random.robinson,
@@ -103,6 +104,8 @@ S3method(length, ser_permutation_vector)
 
 S3method(pimage, matrix)
 S3method(pimage, dist)
+S3method(ggpimage, matrix)
+S3method(ggpimage, dist)
 
 S3method(plot, reordered_cluster_dissimilarity_matrix)
 

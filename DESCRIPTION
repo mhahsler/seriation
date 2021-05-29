@@ -35,7 +35,8 @@ Imports: stats,
 Suggests: DendSer, 
   GA, 
   testthat, 
-  dendextend
+  dendextend,
+  ggplot2
 License: GPL-3
 Copyright: The code in src/bea.f is Copyright (C) 1991 F. Murtagh;
     src/bbwrcg.f, src/arsa.f and src/bburcg.f are Copyright (C) 2005
