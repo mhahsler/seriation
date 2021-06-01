@@ -415,41 +415,41 @@ Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany, E. (
 }
 \author{Michael Hahsler}
 \examples{
-## show available seriation methods (for dist and matrix)
+# Show available seriation methods (for dist and matrix)
 show_seriation_methods("dist")
 show_seriation_methods("matrix")
 
-##seriate dist
+# Seriate as distance matrix (for the iris dataset)
 data("iris")
 x <- as.matrix(iris[-5])
-x <- x[sample(1:nrow(x)),]
+x <- x[sample(1:nrow(x)), ]
 d <- dist(x)
 
-## default seriation
+# Default seriation
 order <- seriate(d)
 order
 
-## plot
 pimage(d, main = "Random")
 pimage(d, order, main = "Reordered")
 
-## compare quality
+# Compare seriation quality
 rbind(
         random = criterion(d),
         reordered = criterion(d, order)
      )
 
-## seriate matrix
+# Seriate matrix
 data("iris")
 x <- as.matrix(iris[-5])
 
-## to make the variables comparable, we scale the data
+# To make the variables comparable, we scale the data
 x <- scale(x, center = FALSE)
 
-## try some methods
+# The iris flowers are ordered by species in the data set
 pimage(x, main = "original data")
 criterion(x)
 
+# Apply some methods
 order <- seriate(x, method = "BEA_TSP")
 pimage(x, order, main = "TSP to optimize ME")
 criterion(x, order)
@@ -458,12 +458,17 @@ order <- seriate(x, method = "PCA")
 pimage(x, order, main = "First principal component")
 criterion(x, order)
 
-## 2 TSPs
+order <- seriate(x, method = "heatmap")
+pimage(x, order, main = "Heatmap seriation")
+criterion(x, order)
+
+# create a heatmap seriation manually by calculating
+# distances between rows and between columns
 order <- c(
-    seriate(dist(x), method = "TSP"),
-    seriate(dist(t(x)), method = "TSP")
+    seriate(dist(x), method = "OLO"),
+    seriate(dist(t(x)), method = "OLO")
 )
-pimage(x, order, main = "2 TSPs")
+pimage(x, order, main = "heatmap")
 criterion(x, order)
 }
 \keyword{optimize}

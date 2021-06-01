@@ -20,26 +20,28 @@
 ## the rows and columns are swapped and the order of the
 ## columns (original rows) is reversed.
 
-
 ggpimage <-
   function(x,
     order = NULL,
-    axes = "auto",
     upper.tri = TRUE,
-    lower.tri = TRUE)
+    lower.tri = TRUE,
+    labRow = NULL,
+    labCol = NULL)
     UseMethod("ggpimage")
 
 ### Note for matrix large values are dark, for dist large values are light!
 ggpimage.matrix <-
   function(x,
     order = NULL,
-    axes = "auto",
     upper.tri = TRUE,
-    lower.tri = TRUE) {
+    lower.tri = TRUE,
+    labRow = NULL,
+    labCol = NULL) {
     check_installed("ggplot2")
 
-    # check data
     x <- as.matrix(x)
+
+    # check data
     if (all(is.na(x)))
       stop("all data missing in x.")
     if (any(is.infinite(x)))
@@ -59,6 +61,41 @@ ggpimage.matrix <-
     if (!lower.tri)
       x[lower.tri(x)] <- NA
 
+    # deal with row/col labels
+    if (!is.null(labRow) && !is.logical(labRow)) {
+      if (length(labRow) != nrow(x))
+        stop("Length of labRow does not match the number of rows of x.")
+      rownames(x) <- labRow
+      labRow <- TRUE
+    }
+
+    if (!is.null(labCol) && !is.logical(labCol)) {
+      if (length(labCol) != ncol(x))
+        stop("Length of labCol does not match the number of columns of x.")
+      colnames(x) <- labCol
+      labCol <- TRUE
+    }
+
+    if (is.null(labRow))
+      if (!is.null(rownames(x)) &&
+          nrow(x) < 25) {
+        labRow <- TRUE
+      } else{
+        labRow <- FALSE
+      }
+    if (is.null(labCol))
+      if (!is.null(colnames(x)) &&
+          ncol(x) < 25) {
+        labCol <- TRUE
+      } else{
+        labCol <- FALSE
+      }
+
+    if (is.null(rownames(x)))
+      rownames(x) <- seq(nrow(x))
+    if (is.null(colnames(x)))
+      colnames(x) <- seq(ncol(x))
+
     # convert to data.frame
     x_df <- data.frame(
       row = factor(rep(seq(nrow(
@@ -75,40 +112,41 @@ ggpimage.matrix <-
     if (!is.null(colnames(x)))
       levels(x_df[["col"]]) <- colnames(x)
 
-    m <-
-      match.arg(axes, c("auto", "x", "y", "rows", "cols", "both", "none"))
-
-    row_labels <- col_labels <- FALSE
-
-    if (m == "auto") {
-      row_labels <- nrow(x) >= 25
-      col_labels <- ncol(x) >= 25
-    }
-    else if (m == "x" || m == "cols")
-      col_labels <- TRUE
-    else if (m == "y" || m == "rows")
-      row_labels <- TRUE
-    else if (m == "both")
-      row_labels <- col_labels <- TRUE
-
+    # plot
     g <- ggplot2::ggplot(x_df,
       ggplot2::aes(y = row,
         x = col,
         fill = x)) +
       ggplot2::geom_raster() +
-      ggplot2::scale_x_discrete(breaks = if (col_labels) ggplot2::waiver() else NULL,
+      ggplot2::scale_x_discrete(breaks = if (labCol)
+        ggplot2::waiver()
+        else
+          NULL,
         expand = c(0, 0)) +
-      ggplot2::scale_y_discrete(breaks = if (row_labels) ggplot2::waiver() else NULL,
+      ggplot2::scale_y_discrete(breaks = if (labRow)
+        ggplot2::waiver()
+        else
+          NULL,
         expand = c(0, 0)) +
-      ggplot2::theme(legend.title = ggplot2::element_blank(), axis.title = ggplot2::element_blank())
+      ggplot2::theme(
+        legend.title = ggplot2::element_blank(),
+        axis.title = ggplot2::element_blank()
+      )
 
     # colors for logical
     if (is.logical(x))
-      g <- g + ggplot2::scale_fill_manual(values = c("gray", "black"))
+      g <-
+      g + ggplot2::scale_fill_manual(values = c("gray", "black"))
 
     # colors for diverging
     if (any(x < 0, na.rm = TRUE) && any(x > 0, na.rm = TRUE))
-      g <- g + ggplot2::scale_fill_gradient2(low = "blue" , mid = "white", high = "red", midpoint = 0)
+      g <-
+      g + ggplot2::scale_fill_gradient2(
+        low = "blue" ,
+        mid = "white",
+        high = "red",
+        midpoint = 0
+      )
 
     g
 
@@ -120,9 +158,10 @@ ggpimage.default <- ggpimage.matrix
 ggpimage.dist <-
   function(x,
     order = NULL,
-    axes = "auto",
     upper.tri = TRUE,
-    lower.tri = TRUE) {
+    lower.tri = TRUE,
+    labRow = NULL,
+    labCol = NULL) {
     check_installed("ggplot2")
 
     # reorder
@@ -130,7 +169,7 @@ ggpimage.dist <-
       x <- permute(x, order)
     order <- NULL
 
-    ggpimage.matrix(as.matrix(x), order, axes, upper.tri, lower.tri) +
+    ggpimage.matrix(as.matrix(x), order, upper.tri, lower.tri, labRow, labCol) +
       ggplot2::scale_fill_gradient(low = "black",
         high = "white",
         na.value = "white") +

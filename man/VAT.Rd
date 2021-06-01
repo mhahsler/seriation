@@ -2,6 +2,8 @@
 \alias{path_dist}
 \alias{iVAT}
 \alias{VAT}
+\alias{ggiVAT}
+\alias{ggVAT}
 \title{Visual Analysis for Cluster Tendency Assessment (VAT/iVAT)}
 \description{
 Implements Visual Analysis
@@ -9,13 +11,19 @@ for Cluster Tendency Assessment (VAT; Bezdek and Hathaway, 2002) and Improved
 Visual Analysis for Cluster Tendency Assessment (iVAT; Wang et al, 2010).
 }
 \usage{
+path_dist(x)
+
 VAT(x, ...)
 iVAT(x, ...)
-path_dist(x)
+
+ggVAT(x, ...)
+ggiVAT(x, ...)
+
 }
 \arguments{
   \item{x}{a \code{dist} object.}
-  \item{...}{further arguments are passed on to \code{pimage}.}
+  \item{...}{further arguments are passed on to \code{\link{pimage}} for the regular plots and \code{\link{ggpimage}} for
+    the ggplot2 plots.}
 }
 \details{
 \code{path_dist} redefines the distance between two objects as the minimum over
@@ -25,6 +33,7 @@ iVAT.
 \seealso{
 \code{\link{seriate}},
 \code{\link{pimage}},
+\code{\link{ggpimage}},
 \code{\link{create_lines_data}}.
 }
 \references{
@@ -48,21 +57,31 @@ plot(x, xlim=c(-5,5), ylim=c(-3,3), cex=.2)
 d <- dist(x)
 
 ## create regular VAT
-VAT(d, colorkey = TRUE, main = "VAT")
+VAT(d, main = "VAT for Lines")
 ## same as: pimage(d, seriate(d, "VAT"))
 
+## ggplot2 version
+if (require("ggplot2")) {
+  ggVAT(d) + labs(title = "VAT")
+}
+
 ## create iVAT which shows visually the three lines
-iVAT(d, main = "iVAT")
+iVAT(d, main = "iVAT for Lines")
 ## same as:
 ## d_path <- path_dist(d)
-## pimage(d_path, seriate(d_path, "VAT"))
+## pimage(d_path, seriate(d_path, "VAT for Lines"))
+
+## ggplot2 version
+if (require("ggplot2")) {
+  ggiVAT(d) + labs(title = "iVAT for Lines")
+}
 
 ## compare with dissplot (shows banded structures and relationship between
 ## center line and the two outer lines)
-dissplot(d, method="OLO_single", main = "Dissplot", col = bluered(100, bias = .5))
+dissplot(d, method = "OLO_single", main = "Dissplot for Lines", col = bluered(100, bias = .5))
 
 ## compare with optimally reordered heatmap
-hmap(d, method="OLO_single", main = "Heat map (opt. leaf ordering)",
+hmap(d, method = "OLO_single", main = "Heatmap for Lines (opt. leaf ordering)",
   col = bluered(100, bias = .5))
 }
 \keyword{cluster}

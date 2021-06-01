@@ -30,10 +30,12 @@ criterion.matrix <-
 
 ## Bond energy (BEA)
 criterion_ME <- function(x, order = NULL, ...) {
-  ### ... unused
+  # ... unused
 
-  if (any(x < 0))
-    stop("Bond energy (ME) is only defined for nonnegative matrices.")
+  if (any(x < 0)) {
+    warning("Bond energy (ME) is only defined for nonnegative matrices. Returning NA.")
+    return(NA_real_)
+  }
 
   n <- nrow(x)
   m <- ncol(x)

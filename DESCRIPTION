@@ -30,7 +30,6 @@ Imports: stats,
   gclus, 
   colorspace, 
   MASS, 
-  gplots, 
   registry
 Suggests: DendSer, 
   GA, 

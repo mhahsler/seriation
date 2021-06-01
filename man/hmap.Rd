@@ -1,12 +1,18 @@
 \name{hmap}
 \alias{hmap}
+\alias{gghmap}
+\alias{heatmap}
 \title{Plot Heat Map Reordered Using Seriation}
 \description{
-Provides heat maps reordered using several different seriation methods.
+Provides heatmaps reordered using several different seriation methods.
 This includes dendrogram based reordering with optimal leaf order and matrix seriation based heat maps.
 }
 \usage{
-hmap(x, distfun = dist, method = "OLO", control = NULL, zlim = NULL, ...)
+hmap(x, distfun = dist, method = "OLO", control = NULL,
+  scale = c("none", "row", "column"), showDend = TRUE, col = NULL, ...)
+
+gghmap(x, distfun = dist, method = "OLO", control = NULL,
+  scale = c("none", "row", "column"), ...)
 }
 \arguments{
   \item{x}{a matrix or a dissimilarity matrix of class dist. If a dissimilarity
@@ -19,17 +25,19 @@ hmap(x, distfun = dist, method = "OLO", control = NULL, zlim = NULL, ...)
       reordered distance matrices are shown instead.}
   \item{control}{a list of control options passed on to the seriation
       algorithm specified in \code{method}.}
-  \item{zlim}{range of values to display (defaults to the range
-      of \code{x}).}
-  \item{\dots}{further arguments.}
+  \item{scale}{character indicating if the values should be centered and scaled in either
+    the row direction or the column direction, or none. Default is none.}
+  \item{showDend}{ Show dendrograms in the margin? }
+  \item{col}{a list of colors used.}
+  \item{\dots}{further arguments passed on to \code{\link{heatmap}} in package \pkg{stats}.}
 }
 \details{
 
-  For dendrogram based heat maps the
-      arguments are passed on to \code{heatmap.2} in
-      \pkg{gplots}. See for example \code{margins} and \code{col}.
-      The following arguments for \code{heatmap.2} cannot be used:
-      \code{Rowv, Colv, hclustfun, reorderfun}.
+  For dendrogram based heat maps, the
+      arguments are passed on to \code{heatmap} in
+      \pkg{stats}.
+      The following arguments for\code{heatmap} cannot be used:
+      \code{margins, Rowv, Colv, hclustfun, reorderfun}.
 
   For seriation-based heat maps further arguments include:
        \describe{
@@ -40,34 +48,21 @@ hmap(x, distfun = dist, method = "OLO", control = NULL, zlim = NULL, ...)
                 page (see \code{gpar} in package \pkg{grid}).}
           \item{\code{prop}}{a logical indicating whether the height and width of
                 \code{x} should be plotted proportional to its dimensions.}
-          \item{\code{showdist}}{Display seriated dissimilarity matrices?                      Values are \code{"none"}, \code{"both"},
+          \item{\code{showdist}}{Display seriated dissimilarity matrices?
+              Values are \code{"none"}, \code{"both"},
                 \code{"rows"} or \code{"columns"}. }
          \item{\code{key}}{logical; show a colorkey?.}
          \item{key.lab}{ string plotted next to the color key.}
-         \item{\code{axes}}{ one of \code{"auto"} (default; show axis
-                labels if there are
-                less than 25 labels), \code{"x"}, \code{"y"},
-                \code{"both"} and \code{"none"}.}
+#         \item{\code{}}{ one of \code{"auto"} (default; show axis
+#                labels if there are
+#                less than 25 labels), \code{"x"}, \code{"y"},
+#                \code{"both"} and \code{"none"}.}
          \item{\code{margins}}{ bottom and right-hand-side margins are
                 calculated automatically or can be specifies as a vector
                 of two numbers (in lines).}
          \item{\code{zlim}}{ range of values displayed.}
          \item{\code{col}, \code{col_dist}}{ color palettes used.}
       }
-
-For \code{dendrogram = TRUE}, \code{seriate.hclust}
-with the default method \code{"optimal"} is used for arranging the
-dendrograms and \code{x}. \code{heatmap} is used for plotting.
-
-For \code{dendrogram = FALSE}, \code{seriate.dist}
-with the default method \code{"tsp"}
-(a traveling salesperson solver) for arranging \code{x} is used.
-\pkg{grid} code implemented in this package
-is used to produce the plot.
-
-Note that unlike the default behavior of \code{heatmap},
-scaling is not automatically applied. The data
-have to be scaled before using \code{hmap}.
 }
 \value{
 An invisible list with elements:
@@ -81,26 +76,40 @@ The list may contain additional elements (dendrograms, colors, etc).
 \code{\link{seriate}},
 \code{\link{pimage}},
 \code{\link{dissplot}},
-\code{\link[gplots]{heatmap.2}} in \pkg{gplots}.}
+\code{\link[stats]{heatmap}} in \pkg{stats}.}
 \author{Michael Hahsler}
 \examples{
 data("Wood")
 
-## default heatmap does Euclidean distance, hierarchical clustering with
-## average-link and optimal leaf ordering
-hmap(Wood)
+# Default heatmap does Euclidean distance, hierarchical clustering with
+# average-link and optimal leaf ordering
+hmap(Wood, main = "Wood (opt. leaf ordering)")
 
-## heatmap with correlation-based distance, green-red color (greenred is
+# Heatmap shown without dendrograms
+hmap(Wood, main = "Wood (opt. leaf ordering)",  showDend = FALSE)
+
+# ggplot 2 version does not support dendrograms in the margin (for now)
+if (require("ggplot2")) {
+  gghmap(Wood) + labs(title = "Wood (opt. leaf ordering)")
+}
+
+## Heatmap with correlation-based distance, green-red color (greenred is
 ## predefined) and optimal leaf ordering and no row label
 dist_cor <- function(x) as.dist(1 - cor(t(x)))
+hmap(Wood, distfun = dist_cor, col = greenred(100), labRow = FALSE,
+  main = "Wood (reorded by corr. between obs.)")
 
-hmap(Wood, method = "OLO", distfun = dist_cor, col=greenred(100), labRow = FALSE)
+## Heatmap with order based on the angle in two-dimensional MDS space.
+hmap(Wood, method = "MDS_angle", col = greenred(100), labRow = FALSE,
+  main = "Wood (reorderd using ange in MDS space)")
 
-## order-based heatmap
-hmap(Wood, method = "MDS_angle", distfun = dist_cor, col = greenred(100))
+# Heatmap for distances
+d <- dist(Wood)
+hmap(d, method = "OLO", main = "Wood (Euclidean distances)")
 
 ## order-based with dissimilarity matrices
-hmap(Wood, method = "MDS_angle", distfun = dist_cor, showdist = "both",
-  col = greenred(100))
+hmap(Wood, method = "MDS_angle", showdist = "both",
+  col = greenred(100), col_dist = greens(100),
+  key.lab = "norm. Expression", main = "Wood (reporderd with distances)")
 }
 \keyword{hplot}

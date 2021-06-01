@@ -6,16 +6,8 @@ import("registry")
 
 importFrom("graphics", "plot", "text", "title")
 importFrom("stats", "reorder", "as.dist", "hclust", "runif", "rnorm",
-  "as.dendrogram", "as.hclust", "nobs", "order.dendrogram",
+  "as.dendrogram", "as.hclust", "nobs", "order.dendrogram", "heatmap",
   "cmdscale", "prcomp", "cor", "cor.test", "dist")
-# we use :: for the rest
-#importFrom("grDevices", "gray")
-#importFrom("colorspace", "sequential_hcl")
-#importFrom("gclus", "reorder.hclust") ## we use :: for gclus in seriate.hclust
-#importFrom("cluster", "silhouette") ## we use :: for silhouette in dissplot
-#importFrom("MASS", "isoMDS", "sammon")
-#importFrom("gplots", "heatmap.2")
-#importFrom("utils", "capture.output")
 
 export(
     bertinplot,
@@ -26,7 +18,6 @@ export(
     get_order,
     get_rank,
     get_permutation_matrix,
-    hmap,
     panel.bars,
     panel.circles,
     panel.squares,
@@ -37,15 +28,21 @@ export(
     ser_permutation_vector,
     permutation_matrix2vector,
     permutation_vector2matrix,
-    pimage,
-    ggpimage,
     seriate,
     is.robinson,
     random.robinson,
 
+    pimage,
+    ggpimage,
+
+    hmap,
+    gghmap,
+
     path_dist,
     VAT,
     iVAT,
+    ggVAT,
+    ggiVAT,
     create_lines_data,
     create_ordered_data,
 
@@ -54,6 +51,9 @@ export(
 
     bluered,
     greenred,
+    reds,
+    blues,
+    greens,
     grays,
     greys,
 

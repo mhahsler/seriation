@@ -82,12 +82,22 @@ get_criterion_method <- function(kind, name) {
 }
 
 list_criterion_methods <- function(kind) {
-  if (missing(kind))
-    m <- registry_criterion$get_entries()
-  else
-    m <- registry_criterion$get_entries(kind = kind)
+  if (missing(kind)) {
+    kinds <- unique(sort(as.vector(
+      sapply(registry_criterion$get_entries(), "[[", "kind")
+    )))
 
-  sort(as.vector(sapply(m, "[[", "name")))
+    sapply(
+      kinds,
+      FUN = function(k)
+        list_criterion_methods(k)
+    )
+
+  } else{
+    sort(as.vector(sapply(
+      registry_criterion$get_entries(kind = kind), "[[", "name"
+    )))
+  }
 }
 
 show_criterion_methods <- function(kind) {

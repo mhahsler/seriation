@@ -17,7 +17,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-## use the projection on the first pricipal component to determine the
+## use the projection on the first principal component to determine the
 ## order
 .pca_contr <- list(
   center = TRUE,

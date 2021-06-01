@@ -32,9 +32,13 @@ get_seriation_method <- function(kind, name) {
     method <- registry_seriate$get_entry(kind = kind, name = name)
 
   if (is.null(method))
-    stop("Unknown seriation method. Check list_seriation_methods(\"",
+    stop(
+      "Unknown seriation method for data type ",
       kind,
-      "\")")
+      ". Check list_seriation_methods(\"",
+      kind,
+      "\")"
+    )
 
   method
 }
@@ -79,17 +83,27 @@ set_seriation_method <- function(kind,
 }
 
 list_seriation_methods <- function(kind) {
-  if (missing(kind))
-    sort(as.vector(sapply(
-      registry_seriate$get_entries(), "[[", "name"
+  if (missing(kind)) {
+    kinds <- unique(sort(as.vector(
+      sapply(registry_seriate$get_entries(), "[[", "kind")
     )))
-  else
+
+    sapply(
+      kinds,
+      FUN = function(k)
+        list_seriation_methods(k)
+    )
+
+  } else{
     sort(as.vector(sapply(
       registry_seriate$get_entries(kind = kind), "[[", "name"
     )))
+  }
 }
 
+### deprecated
 show_seriation_methods <- function(kind) {
+  warning("Function is deprecated use: get_seriation_method() instead!")
   if (missing(kind))
     m <- registry_seriate$get_entries()
   else

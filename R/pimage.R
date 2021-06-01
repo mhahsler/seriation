@@ -27,14 +27,15 @@ pimage <-
     main = "",
     xlab = "",
     ylab = "",
-    axes = "auto",
+    axes = NULL,
     zlim = NULL,
     key = TRUE,
     key.lab = "",
     symkey = TRUE,
     upper.tri = TRUE,
     lower.tri = TRUE,
-    interpolate = FALSE,
+    labRow = NULL,
+    labCol = NULL,
     prop = NULL,
     ...,
     newpage = TRUE,
@@ -50,14 +51,15 @@ pimage.matrix <-
     main = "",
     xlab = "",
     ylab = "",
-    axes = "auto",
+    axes = NULL,
     zlim = NULL,
     key = TRUE,
     key.lab = "",
     symkey = TRUE,
     upper.tri = TRUE,
     lower.tri = TRUE,
-    interpolate = FALSE,
+    labRow= NULL,
+    labCol = NULL,
     prop = NULL,
     ...,
     newpage = TRUE,
@@ -65,13 +67,17 @@ pimage.matrix <-
     gp = NULL) {
     x <- as.matrix(x)
 
-    ### check data
+    # deprecated
+    if(!is.null(axes)) warning("Parameter axes is deprecated and ignored. Use labRow and labCol instead.")
+
+    # check data
     if (all(is.na(x)))
       stop("all data missing in x.")
     if (any(is.infinite(x)))
       stop("x contains infinite entries.")
 
-    ### no key for logical data!
+    # set default values
+    # no key for logical data!
     if (is.logical(x))
       key <- FALSE
 
@@ -87,15 +93,20 @@ pimage.matrix <-
         col <- .sequential_pal(100)
     }
 
-    if (!is.null(order))
-      x <- permute(x, order)
     if (is.null(prop))
       prop <- FALSE
+
     if (is.null(gp))
       gp <- gpar()
+
     if (is.null(zlim))
       zlim <- range(x, na.rm = TRUE)
 
+    # reorder
+    if (!is.null(order))
+      x <- permute(x, order)
+
+    # mask triangles
     if (any(!upper.tri ||
         !lower.tri) &&
         nrow(x) != ncol(x))
@@ -105,39 +116,47 @@ pimage.matrix <-
     if (!lower.tri)
       x[lower.tri(x)] <- NA
 
-    ## axes
-    m <- pmatch(axes, c("auto", "x", "y", "both", "none"))
-    if (is.na(m))
-      stop("Illegal vaule for axes. Use: 'auto', 'x', 'y', 'both' or 'none'!")
-    if (m == 1L) {
-      axes_row <- nrow(x) <= 25
-      axes_col <- ncol(x) <= 25
+    # deal with row/col labels
+    if (!is.null(labRow) && !is.logical(labRow)) {
+      if (length(labRow) != nrow(x))
+        stop("Length of labRow does not match the number of rows of x.")
+      rownames(x) <- labRow
+      labRow <- TRUE
     }
-    else if (m == 2L) {
-      axes_row <- FALSE
-      axes_col <- TRUE
+
+    if (!is.null(labCol) && !is.logical(labCol)) {
+      if (length(labCol) != ncol(x))
+        stop("Length of labCol does not match the number of columns of x.")
+      colnames(x) <- labCol
+      labCol <- TRUE
     }
-    else if (m == 3L) {
-      axes_row <- TRUE
-      axes_col <- FALSE
-    }
-    else if (m == 4L) {
-      axes_row <- TRUE
-      axes_col <- TRUE
-    }
-    else if (m == 5L) {
-      axes_row <- FALSE
-      axes_col <- FALSE
-    }
-    if (is.null(colnames(x)))
-      axes_col <- FALSE
+
+    if (is.null(labRow))
+      if (!is.null(rownames(x)) &&
+          nrow(x) < 25) {
+        labRow <- TRUE
+      } else{
+        labRow <- FALSE
+      }
+    if (is.null(labCol))
+      if (!is.null(colnames(x)) &&
+          ncol(x) < 25) {
+        labCol <- TRUE
+      } else{
+        labCol <- FALSE
+      }
+
     if (is.null(rownames(x)))
-      axes_row <- FALSE
-    bottom_mar <- if (axes_col)
+      rownames(x) <- seq(nrow(x))
+    if (is.null(colnames(x)))
+      colnames(x) <- seq(ncol(x))
+
+    # create layout for plot
+    bottom_mar <- if (labCol)
       max(stringWidth(colnames(x))) + unit(3, "lines")
     else
       unit(4, "lines")
-    left_mar <- if (axes_row)
+    left_mar <- if (labRow)
       max(stringWidth(rownames(x))) + unit(3, "lines")
     else
       unit(4, "lines")
@@ -172,13 +191,12 @@ pimage.matrix <-
       x,
       col = col,
       zlim = zlim,
-      interpolate = interpolate,
       prop = prop
     ) #, gp=gp)
 
     ## axes and labs
     downViewport("image")
-    if (axes_col)
+    if (labCol)
       grid.text(
         colnames(x),
         y = unit(-1, "lines"),
@@ -188,7 +206,7 @@ pimage.matrix <-
       ) #, gp=gp)
     #grid.xaxis(at=1:ncol(x),
     #	    label=colnames(x))
-    if (axes_row)
+    if (labRow)
       grid.text(
         rownames(x),
         x = unit(-1, "lines"),
@@ -223,14 +241,15 @@ pimage.dist <-
     main = "",
     xlab = "",
     ylab = "",
-    axes = "auto",
+    axes = NULL,
     zlim = NULL,
     key = TRUE,
     key.lab = "",
     symkey = TRUE,
     upper.tri = TRUE,
     lower.tri = TRUE,
-    interpolate = FALSE,
+    labRow = NULL,
+    labCol = NULL,
     prop = NULL,
     ...,
     newpage = TRUE,
@@ -259,6 +278,8 @@ pimage.dist <-
       symkey = symkey,
       upper.tri = upper.tri,
       lower.tri = lower.tri,
+      labRow = labRow,
+      labCol = labCol,
       prop = prop,
       ...,
       newpage = newpage,

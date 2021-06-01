@@ -235,7 +235,7 @@ are implemented:
     ME is a merit measure,
     i.e. a higher ME indicates a better arrangement.
     Maximizing ME is the objective of the bond energy algorithm
-    (BEA).
+    (BEA). ME is not defined for matrices with negative values. \code{NA} is returned in this case.
 }
 
 \item{\code{"Cor_R"}}{Weighted correlation coefficient R developed

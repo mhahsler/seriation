@@ -1,8 +1,18 @@
 # seriation 1.2-9.1 (00/00/0000)
+
+## Changes
+* pimage: axes is not deprecated. Use labCol and labRow instead.
+* criterion returns now NA with a warning for ME for non-positive matrices (used to stop with an error).
+* list_seriation_methods and list_criterion_methods without kind return now a list.
+* show_seriation_methods and show_criterion_methods are deprecated
 * dependency dendextend is now only suggested.
-* pimage gained parameter interpolate.
-* colors are now more consistent.
-* added ggplot2-based ggpimage. 
+* hmap now uses heatmap from package stats.
+
+
+## New Features
+* colors are now more consistent and all have bias and power.
+* added ggplot2-based plots, ggimage, gghmap, ggVAT, ggiVAT 
+* seriate for matrix has now method "Heatmap".
 
 # seriation 1.2-9 (09/29/2020)
 * removed dependency on methods.

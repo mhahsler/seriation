@@ -16,29 +16,42 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+### TODO: make sure dists are seriated and shown with the diagonal top-left to bottom-right.
+
 hmap <- function(x,
   distfun = dist,
   method = "OLO",
   control = NULL,
-  zlim = NULL,
+  scale = c("none", "row", "column"),
+  showDend = TRUE,
+  col = NULL,
   ...) {
-  args <- list(...)
+  scale <- match.arg(scale)
 
-  ## dist or matrix
-  is_dist <- inherits(x, "dist")
-  if (is_dist) {
+  if (is.null(col)) {
+    if (any(x < 0, na.rm = TRUE))
+      col <- .diverge_pal()
+    else
+      col <- .sequential_pal()
+  }
+
+  # dist or matrix?
+  if (inherits(x, "dist")) {
     dist_row <- dist_col <- x
     o_col <- o_row <- seriate(x,
       method = method, control = control)[[1]]
     x <- as.matrix(x)
+
+    # dist uses reversed colors!
+    col <- rev(col)
   } else {
     if (!is.matrix(x))
       x <- as.matrix(x)
 
-    if (!is.null(args$scale)) {
-      if (args$scale == "row")
+    if (!is.null(scale)) {
+      if (scale == "row")
         x <- t(scale(t(x)))
-      if (args$scale == "col")
+      if (scale == "col")
         x <- scale(x)
     }
 
@@ -51,73 +64,38 @@ hmap <- function(x,
       method = method, control = control)[[1]]
   }
 
-  ## zlim
-  if (!is.null(zlim))
-    x[x < zlim[1] | x > zlim[2]] <- NA
 
-  ### is hierarchical? then let's do heatmap in gplots
-  if (inherits(o_col, "hclust")) {
-    ## heatmap by default scales rows: we don't want that!
-    ## options are ignored for now: we use ...
+  # is hierarchical? then let's do a heatmap from stats
+  if (inherits(o_col, "hclust") && showDend) {
+    # heatmap by default scales rows: we don't want that!
+    # options are ignored for now: we use ...
 
-    if (is.null(args$col)) {
-      if (any(x < 0, na.rm = TRUE))
-        args$col <- .diverge_pal()
-      else
-        args$col <- .sequential_pal()
-    }
 
-    ## dist uses reversed colors!
-    if (is_dist)
-      args$col <- rev(args$col)
-
-    args$scale <- "none"
-    if (is.null(args$trace))
-      args$trace <- "none"
-    if (is.null(args$density.info))
-      args$density.info <- "none"
-
-    ## cex
-    if (is.null(args$cexRow))
-      args$cexRow <- 1
-    if (is.null(args$cexCol))
-      args$cexCol <- 1
-
-    ## zlim
-    if (!is.null(zlim))
-      args$breaks <-
-      seq(zlim[1], zlim[2],  length.out = length(args$col) + 1L)
-
-    args <- c(list(
-      x = x,
+    stats::heatmap(
+      x,
+      Rowv = as.dendrogram(o_row),
       Colv = as.dendrogram(o_col),
-      Rowv = as.dendrogram(o_row)
-    ),
-      args)
+      scale = "none",
+      col = col,
+      ...
+    )
 
-    ## FIXME: image throws warning about unsorted breaks
-    ## if breaks are specified!
-    suppressWarnings(ret <- do.call(gplots::heatmap.2, args))
-
-    ret$seriation_method <- method
   } else {
     ### we plot seriated distance matrices
-    .hmap_dist(x, method, dist_row, dist_col, o_row, o_col, ...)
+    .hmap_dist(x, method, dist_row, dist_col, o_row, o_col, col = col, ...)
 
-    ## return permutation indices
-    ret <-
-      list(rowInd = o_row,
-        colInd = o_col,
-        seriation_method = method)
   }
 
-  return(invisible(ret))
+  ## return permutation indices
+  return(invisible(list(
+    rowInd = o_row,
+    colInd = o_col,
+    seriation_method = method
+  )))
 
 }
 
-## workhorse
-
-## dissimilarity plot with seriation
+## grid-based dissimilarity plot with seriation
 .hmap_dist <-
   function(x,
     method,
@@ -139,8 +117,9 @@ hmap <- function(x,
         prop      = FALSE,
         main      = NULL,
         key       = TRUE,
-        key.lab = "",
-        axes      = "auto",
+        key.lab   = "",
+        labRow    = NULL,
+        labCol    = NULL,
         showdist  = "none",
         symm      = FALSE,
         margins   = NULL,
@@ -174,8 +153,9 @@ hmap <- function(x,
         x,
         col = options$col,
         main = options$main,
-        axes = options$axes,
         zlim = options$zlim,
+        labRow = options$labRow,
+        labCol = options$labCol,
         prop = options$prop,
         key = options$key,
         newpage = options$newpage,
@@ -187,49 +167,56 @@ hmap <- function(x,
     dist_row <- permute(dist_row, o_row)
     dist_col <- permute(dist_col, o_col)
 
-    ## axes
-    m <-
-      pmatch(options$axes, c("auto", "x", "col", "y", "row", "both", "none"))
-    if (is.na(m))
-      stop("Illegal vaule for axes. Use: 'auto', 'x', 'y', 'both' or 'none'!")
-    if (m == 1) {
-      axes_row <- nrow(x) <= 25
-      axes_col <- ncol(x) <= 25
+    # deal with row/col labels
+    labRow <- options$labRow
+    labCol <- options$labCol
+    if (!is.null(labRow) && !is.logical(labRow)) {
+      if (length(labRow) != nrow(x))
+        stop("Length of labRow does not match the number of rows of x.")
+      rownames(x) <- labRow
+      labRow <- TRUE
     }
-    else if (m == 2 || m == 3) {
-      axes_row <- FALSE
-      axes_col <- TRUE
+
+    if (!is.null(labCol) && !is.logical(labCol)) {
+      if (length(labCol) != ncol(x))
+        stop("Length of labCol does not match the number of columns of x.")
+      colnames(x) <- labCol
+      labCol <- TRUE
     }
-    else if (m == 4 || m == 5) {
-      axes_row <- TRUE
-      axes_col <- FALSE
-    }
-    else if (m == 6) {
-      axes_row <- TRUE
-      axes_col <- TRUE
-    }
-    else if (m == 7) {
-      axes_row <- FALSE
-      axes_col <- FALSE
-    }
-    if (is.null(colnames(x)))
-      axes_col <- FALSE
+
+    if (is.null(labRow))
+      if (!is.null(rownames(x)) &&
+          nrow(x) < 25) {
+        labRow <- TRUE
+      } else{
+        labRow <- FALSE
+      }
+    if (is.null(labCol))
+      if (!is.null(colnames(x)) &&
+          ncol(x) < 25) {
+        labCol <- TRUE
+      } else{
+        labCol <- FALSE
+      }
+
     if (is.null(rownames(x)))
-      axes_row <- FALSE
+      rownames(x) <- seq(nrow(x))
+    if (is.null(colnames(x)))
+      colnames(x) <- seq(ncol(x))
 
     ## Note: we need a list to store units!
     if (is.null(options$margins)) {
       options$margins <- list(unit(1, "lines"), unit(1, "lines"))
-      if (axes_col)
+      if (labCol)
         options$margins[[1]] <-
           max(stringWidth(colnames(x))) + unit(2, "lines")
-      if (axes_row)
+      if (labRow)
         options$margins[[2]] <-
           max(stringWidth(rownames(x))) + unit(2, "lines")
       all_names <-
-        c(if (axes_col)
-          colnames(x), if (axes_row)
-            rownames(x), "")
+        c("", if (labCol)
+          colnames(x), if (labRow)
+            rownames(x))
       options$margins[[3]] <-
         max(stringWidth(all_names)) + unit(2, "lines")
     } else
@@ -320,7 +307,7 @@ hmap <- function(x,
       zlim = options$zlim)
 
     downViewport("image")
-    if (axes_col)
+    if (labCol)
       grid.text(
         colnames(x),
         y = unit(-1, "lines"),
@@ -328,7 +315,7 @@ hmap <- function(x,
         rot = 90,
         just = "right"
       ) # , gp=options$gp)
-    if (axes_row)
+    if (labRow)
       grid.text(
         rownames(x),
         x = unit(1, "npc") + unit(1, "lines"),
