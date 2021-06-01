@@ -4,6 +4,8 @@
 \alias{grays}
 \alias{greys}
 \alias{reds}
+\alias{blues}
+\alias{greens}
 \title{Different Useful Color Palettes}
 \description{
 Defines several color palettes for \code{pimage}, \code{dissplot}
@@ -13,6 +15,8 @@ and \code{hmap}.
 grays(n,  bias = 1, power = 1, ...)
 greys(n,  bias = 1, power = 1, ...)
 reds(n,  bias = 1, power = 1, ...)
+blues(n,  bias = 1, power = 1, ...)
+greens(n,  bias = 1, power = 1, ...)
 
 bluered(n, bias = 1, power = 1, ...)
 greenred(n,  bias = 1, power = 1, ...)

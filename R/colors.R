@@ -16,19 +16,74 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+# library(colorspace)
 
-bluered <- function(n = 100, bias = 1, power = 1, ...)
-  grDevices::colorRampPalette(colorspace::diverging_hcl(n, palette = "Blue-Red 2", power = power, ...), bias = bias)(n)
+bluered <- function(n = 100,
+  bias = 1,
+  power = 1,
+  ...)
+  grDevices::colorRampPalette(colorspace::diverging_hcl(n, palette = "Blue-Red", power = power, ...),
+    bias = bias)(n)
 
-greenred <- function(n = 100, bias = 1, power = 1,...)
-  grDevices::colorRampPalette(rev(colorspace::diverging_hcl(n, palette = "Red-Green", power = power, ...)), bias = bias)(n)
+#hclplot(bluered(10))
+#plot(1:20, col = bluered(20), pch = 19, cex = 4)
 
-reds <- function(n = 100, bias = 1, power = 1, ...)
-  grDevices::colorRampPalette(rev(colorspace::sequential_hcl(n, palette = "Reds", power = power, ...)), bias = bias)(n)
+greenred <- function(n = 100,
+  bias = 1,
+  power = 1,
+  ...)
+  grDevices::colorRampPalette(rev(
+    colorspace::diverging_hcl(n, palette = "Red-Green", power = power, ...)
+  ), bias = bias)(n)
 
-greys <- grays <- function(n = 100, bias = 1, power = 1, ...)
-  grDevices::colorRampPalette(rev(colorspace::sequential_hcl(n, palette = "Grays", power = power, ...)), bias = bias)(n)
+#hclplot(greenred(10))
+#plot(1:20, col = greenred(20), pch = 19, cex = 4)
+
+reds <- function(n = 100,
+  bias = 1,
+  power = 1,
+  ...)
+  grDevices::colorRampPalette(rev(
+    colorspace::sequential_hcl(n, palette = "Reds", power = power, ...)
+  ), bias = bias)(n)
+
+#hclplot(reds(10))
+#plot(1:20, col = reds(20), pch = 19, cex = 4)
+
+blues <- function(n = 100,
+  bias = 1,
+  power = 1,
+  ...)
+  grDevices::colorRampPalette(rev(
+    colorspace::sequential_hcl(n, palette = "Blues 2", power = power, ...)
+  ), bias = bias)(n)
+
+#hclplot(blues(10))
+#plot(1:20, col = blues(20), pch = 19, cex = 4)
+
+greens <- function(n = 100,
+  bias = 1,
+  power = 1,
+  ...)
+  grDevices::colorRampPalette(rev(
+    colorspace::sequential_hcl(n, palette = "Greens", power = power, ...)
+  ), bias = bias)(n)
+
+#hclplot(greens(10))
+#plot(1:20, col = greens(20), pch = 19, cex = 4)
+
+greys <- grays <- function(n = 100,
+  bias = 1,
+  power = 1,
+  ...)
+  grDevices::colorRampPalette(rev(
+    colorspace::sequential_hcl(n, palette = "Grays", power = power, ...)
+  ), bias = bias)(n)
+
+#hclplot(greys(10))
+#plot(1:20, col = greys(20), pch = 19, cex = 4)
 
 ## define default colors
-.sequential_pal <- grays
+#.sequential_pal <- grays
+.sequential_pal <- blues
 .diverge_pal <- bluered
