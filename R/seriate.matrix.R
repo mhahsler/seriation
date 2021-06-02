@@ -16,8 +16,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-
-
 ## seriate matrices
 
 seriate.matrix <- function(x,
@@ -36,24 +34,21 @@ seriate.matrix <- function(x,
 
 seriate_matrix_identity <- function(x, control) {
   control <- .get_parameters(control, NULL)
+  lapply(dim(x), seq)
+}
 
-  l <- lapply(dim(x), seq)
-  for (i in 1:length(dim(x)))
-    names(l[[i]]) <- labels(x)[[i]]
-  l
+seriate_matrix_reverse <- function(x, control) {
+  control <- .get_parameters(control, NULL)
+  lapply(dim(x), seq, to = 1)
 }
 
 seriate_matrix_random <- function(x, control) {
   control <- .get_parameters(control, NULL)
-
-  l <- lapply(
+  lapply(
     dim(x),
     FUN = function(l)
       sample(seq(l))
   )
-  for (i in 1:length(dim(x)))
-    names(l[[i]]) <- labels(x)[[i]][l[[i]]]
-  l
 }
 
 
@@ -61,16 +56,27 @@ set_seriation_method("matrix",
   "Identity",
   seriate_matrix_identity,
   "Identity permutation")
+
+set_seriation_method("matrix",
+  "Reverse",
+  seriate_matrix_reverse,
+  "Reversed identity permutation")
+
 set_seriation_method("matrix",
   "Random",
   seriate_matrix_random,
   "Random permutation")
-
 
 ## these also work for general arrays!
 set_seriation_method("array",
   "Identity",
   seriate_matrix_identity,
   "Identity permutation")
+
+set_seriation_method("array",
+  "Reverse",
+  seriate_matrix_reverse,
+  "Reversed identity permutation")
+
 set_seriation_method("array", "Random", seriate_matrix_random,
   "Random permutation")

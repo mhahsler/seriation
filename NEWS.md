@@ -7,12 +7,17 @@
 * show_seriation_methods and show_criterion_methods are deprecated
 * dependency dendextend is now only suggested.
 * hmap now uses heatmap from package stats.
+* get_order now returns also labels.
+* hclust-based seriations now default for linkage to complete instead of average.
+* improved layout (less white space) for grid-based plots.
 
 
 ## New Features
 * colors are now more consistent and all have bias and power.
-* added ggplot2-based plots, ggimage, gghmap, ggVAT, ggiVAT 
+* added ggplot2-based plots, ggimage, gghmap, ggVAT, ggiVAT, ggbertinplot.
 * seriate for matrix has now method "Heatmap".
+* Added seriation method "Reverse" for reverse identity order.
+* pimage gained parameter flip.
 
 # seriation 1.2-9 (09/29/2020)
 * removed dependency on methods.

@@ -19,7 +19,7 @@
 
 ## Hierarchical clustering related seriations
 .hc_control <- list(hclust = NULL,
-  method = "average")
+  method = "complete")
 
 .hclust_helper <- function(d, control = NULL) {
   control <- .get_parameters(control, .hc_control)
@@ -29,9 +29,8 @@
   return(hclust(d, method = control$method))
 }
 
-seriate_dist_hc <-
-  function(x, control = NULL)
-    .hclust_helper(x, control)
+seriate_dist_hc <- function(x, control = NULL)
+  .hclust_helper(x, control)
 seriate_dist_hc_single <- function(x, control = NULL)
   .hclust_helper(x, control = list(method = "single"))
 seriate_dist_hc_average <- function(x, control = NULL)
@@ -80,10 +79,12 @@ set_seriation_method(
   seriate_dist_hc_complete,
   paste(.hc_desc, "(complete link).")
 )
+
 set_seriation_method("dist",
   "HC_average",
   seriate_dist_hc_average,
   paste(.hc_desc, "(avg. link)."))
+
 set_seriation_method("dist",
   "HC_ward",
   seriate_dist_hc_ward,
@@ -91,20 +92,25 @@ set_seriation_method("dist",
 
 .gw_desc <-
   "Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by the Gruvaeus and Wainer (1972) heuristic"
+
 set_seriation_method("dist", "GW", seriate_dist_gw,
   .gw_desc, .hc_control)
+
 set_seriation_method("dist",
   "GW_single",
   seriate_dist_gw_single,
   paste(.gw_desc, "(single link)"))
+
 set_seriation_method("dist",
   "GW_average",
   seriate_dist_gw_average,
   paste(.gw_desc, "(avg.link)"))
+
 set_seriation_method("dist",
   "GW_complete",
   seriate_dist_gw_complete,
   paste(.gw_desc, "(complete link)"))
+
 set_seriation_method("dist",
   "GW_ward",
   seriate_dist_gw_ward,
@@ -112,22 +118,27 @@ set_seriation_method("dist",
 
 .olo_desc <-
   "Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001)"
+
 set_seriation_method("dist", "OLO", seriate_dist_olo,
   .olo_desc, .hc_control)
+
 set_seriation_method("dist",
   "OLO_single",
   seriate_dist_olo_single,
   paste(.olo_desc, "(single link)"))
+
 set_seriation_method("dist",
   "OLO_average",
   seriate_dist_olo_average,
   paste(.olo_desc, "(avg. link)"))
+
 set_seriation_method(
   "dist",
   "OLO_complete",
   seriate_dist_olo_complete,
   paste(.olo_desc, "(complete link)")
 )
+
 set_seriation_method("dist",
   "OLO_ward",
   seriate_dist_olo_ward,

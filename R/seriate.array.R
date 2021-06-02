@@ -45,6 +45,9 @@
 
   order <- method$fun(x, control)
 
+  for (i in seq(length(dim(x))))
+    if (!is.null(dimnames(x)[[i]]) && is.integer(order[[i]])) names(order[[i]]) <- dimnames(x)[[i]]
+
   perm <- do.call("ser_permutation",
     unname(lapply(
       order, "ser_permutation_vector", method$name

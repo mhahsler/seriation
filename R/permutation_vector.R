@@ -57,11 +57,9 @@ get_order.dendrogram <- function(x, ...)
 
 
 get_order.integer <- function(x, ...) {
-  o <- as.integer(x)
   if (.is_identity_permutation(x))
-    stop("Cannot get order from identity permutation.")
-  #names(o) <- names(x)[o]
-  o
+    stop("Cannot get order vector from symbolic identity permutation (undefined length).")
+  structure(as.integer(x), names = names(x))
 }
 
 ## returns the order of objects (index of first, second, etc. object)

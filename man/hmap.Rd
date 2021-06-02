@@ -81,6 +81,9 @@ The list may contain additional elements (dendrograms, colors, etc).
 \examples{
 data("Wood")
 
+# regular heatmap from package stats
+heatmap(Wood, main = "Wood (standard heatmap)")
+
 # Default heatmap does Euclidean distance, hierarchical clustering with
 # average-link and optimal leaf ordering
 hmap(Wood, main = "Wood (opt. leaf ordering)")
@@ -93,13 +96,13 @@ if (require("ggplot2")) {
   gghmap(Wood) + labs(title = "Wood (opt. leaf ordering)")
 }
 
-## Heatmap with correlation-based distance, green-red color (greenred is
-## predefined) and optimal leaf ordering and no row label
+# Heatmap with correlation-based distance, green-red color (greenred is
+# predefined) and optimal leaf ordering and no row label
 dist_cor <- function(x) as.dist(1 - cor(t(x)))
 hmap(Wood, distfun = dist_cor, col = greenred(100), labRow = FALSE,
   main = "Wood (reorded by corr. between obs.)")
 
-## Heatmap with order based on the angle in two-dimensional MDS space.
+# Heatmap with order based on the angle in two-dimensional MDS space.
 hmap(Wood, method = "MDS_angle", col = greenred(100), labRow = FALSE,
   main = "Wood (reorderd using ange in MDS space)")
 
@@ -107,9 +110,19 @@ hmap(Wood, method = "MDS_angle", col = greenred(100), labRow = FALSE,
 d <- dist(Wood)
 hmap(d, method = "OLO", main = "Wood (Euclidean distances)")
 
-## order-based with dissimilarity matrices
+# order-based with dissimilarity matrices
 hmap(Wood, method = "MDS_angle", showdist = "both",
   col = greenred(100), col_dist = greens(100),
   key.lab = "norm. Expression", main = "Wood (reporderd with distances)")
+
+# Manually seriate and plot as pimage.
+o <- seriate(Wood, method = "heatmap", control = list(distfun = dist, seriationMethod = "OLO"))
+o
+
+pimage(Wood, o)
+
+# Note: method heatmap calculates reorderd hclust objects which can be used for many heatmap
+# implementations.
+heatmap(Wood, Rowv = as.dendrogram(o[[1]]), Colv = as.dendrogram(o[[2]]))
 }
 \keyword{hplot}

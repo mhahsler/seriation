@@ -18,31 +18,24 @@
 
 
 ## generic
-permute <-
-  function(x, order, ...)
-    UseMethod("permute")
+permute <- function(x, order, ...)
+  UseMethod("permute")
 
 ## methods
 ##permute.default <- function(x, order)
 ##stop(paste("\npermute not implemented for class: ", class(x)))
-permute.default <-
-  function(x, order, ...)
-    .permute_kd(x, order, ...)
-permute.array <-
-  function(x, order, ...)
-    .permute_kd(x, order, ...)
-permute.matrix <-
-  function(x, order, ...)
-    .permute_kd(x, order, ...)
-permute.numeric <-
-  function(x, order, ...)
-    .permute_1d(x, order, ...)
-permute.character <-
-  function(x, order, ...)
-    .permute_1d(x, order, ...)
-permute.list <-
-  function(x, order, ...)
-    .permute_1d(x, order, ...)
+permute.default <- function(x, order, ...)
+  .permute_kd(x, order, ...)
+permute.array <- function(x, order, ...)
+  .permute_kd(x, order, ...)
+permute.matrix <- function(x, order, ...)
+  .permute_kd(x, order, ...)
+permute.numeric <- function(x, order, ...)
+  .permute_1d(x, order, ...)
+permute.character <- function(x, order, ...)
+  .permute_1d(x, order, ...)
+permute.list <- function(x, order, ...)
+  .permute_1d(x, order, ...)
 
 ## special cases
 permute.dist <- function(x, order, ...) {

@@ -1,5 +1,6 @@
 \name{bertinplot}
 \alias{bertinplot}
+\alias{ggbertinplot}
 \alias{bertin_cut_line}
 \alias{panel.bars}
 \alias{panel.circles}
@@ -11,10 +12,13 @@
 Plot a data matrix of cases and variables. Each value is represented by a
 symbol. Large values are highlighted. The matrix can be rearranged to make
 structure in the data visible (see Falguerolles et al 1997).
-\code{bertin_cut_line()} can be used to add cut lines (see Details).
 }
 \usage{
-bertinplot(x, order = NULL, highlight = TRUE,  options = NULL)
+# grid-based plot
+bertinplot(x, order = NULL, highlight = TRUE, options = NULL, ...)
+
+# ggplot2-based plot
+ggbertinplot(x, order = NULL, labRow = TRUE, labCol = TRUE, flip = TRUE, ...)
 }
 \arguments{
   \item{x}{ a data matrix. Note that following Bertin,
@@ -54,8 +58,15 @@ bertinplot(x, order = NULL, highlight = TRUE,  options = NULL)
       on a new page (see \code{grid.newpage}). }
   \item{\code{pop}}{a logical indicating whether to pop the created viewports
       (see \code{pop.viewport})?  }
+  }}
+  \item{labRow, labCol}{ display axis labels (see \code{\link{ggpimage}})?}
+  \item{flip}{ logical indicating whether to swap cases and variables in the plot.
+   Following Bertin, the default is to flip the axes to display variables as columns are
+   variables and cases as rows.}
+  \item{...}{ further parameters are added to \code{options} for \code{bertinplot} and passed on to
+    \code{\link{ggpimage}} for \code{ggbertinplot}.}
+
   }
-}}
 \details{
 The plot is organized as a matrix of symbols. The symbols are drawn
 by a panel function, where all symbols of a row are drawn
@@ -66,15 +77,15 @@ panel function is \code{panel.myfunction(value, spacing, hl)}.
 \code{hl} is a logical vector indicating which symbol should be highlighted.
 
 Cut lines can be added to an existing bertin plot
-using \code{bertin_cut_line(x=NULL, y=NULL)}.
+using \code{bertin_cut_line(x = NULL, y = NULL)}.
 \code{x}/\code{y} is can be a number indicating where to
 draw the cut line between two columns/rows. If both \code{x}
 and \code{y} is specified then one can select a row/column and the
 other can select a range to draw a line which does only span a part
 of the row/column. It is important to
-call \code{bertinplot()} with the option \code{pop=FALSE}.
+call \code{bertinplot()} with the option \code{pop = FALSE}.
 
-
+\code{ggbertinplot} calls \code{ggpimage} and all additional parameters are passed on.
 }
 %\value{
 %}
@@ -95,23 +106,23 @@ data("Irish")
 scale_by_rank <- function(x) apply(x, 2, rank)
 x <- scale_by_rank(Irish[,-6])
 
-## use the the sum of absolute rank differences
+# Use the the sum of absolute rank differences
 order <- c(
   seriate(dist(x, "minkowski", p = 1)),
   seriate(dist(t(x), "minkowski", p = 1))
 )
 
-## plot
+# Plot
 bertinplot(x, order)
 
-## some alternative displays
+# Some alternative displays
 bertinplot(x, order, options = list(shading = TRUE, panel = panel.blocks))
 bertinplot(x, order, options = list(panel = panel.lines))
 bertinplot(x, order, options = list(panel = panel.squares))
 bertinplot(x, order,
     options = list(panel = panel.circles, spacing = -0.5))
 
-## plot with cut lines (we manually set the order here)
+# Plot with cut lines (we manually set the order here)
 order <- ser_permutation(c(21, 16, 19, 18, 14, 12, 20, 15,
     17, 26, 13, 41,  7, 11, 5, 23, 28, 34, 31, 1, 38, 40,
     3, 39,  4, 27, 24,  8, 37, 36, 25, 30, 33, 35,  2,
@@ -122,6 +133,48 @@ bertinplot(x, order, options=list(pop=FALSE))
 bertin_cut_line(,4) ## horizontal line between rows 4 and 5
 bertin_cut_line(,7) ## separate "Right to Life" from the rest
 bertin_cut_line(14,c(0,4)) ## separate a block of large values (vertically)
+
+# ggplot2
+if (require("ggplot2")) {
+  library(ggplot2)
+  ggbertinplot(x, order)
+
+  # Put labels on the top and adjust, and use a diverging color scheme
+  # to highlight values above the mean.
+  ggbertinplot(x, order) +
+    scale_fill_gradient2(low = "darkblue", high = "darkred", midpoint = mean(x))
+
+  # Use fill limits to suppress values below the mean
+  ggbertinplot(x, order) +
+    scale_fill_gradient(limit = c(mean(x), max(x)), na.value = "white")
+
+  # Use different geoms. "none" lets the user specify their own geom.
+  # Variables set are row, col and x (for the value).
+
+  # Tiles
+  ggbertinplot(x, order, geom = "tile")
+
+  ggbertinplot(x, order, geom = "none") +
+    geom_tile(aes(x = col, y = row, height = x / max(x) * .8, fill = x > mean(x)),
+      width = .8, color = "black") +
+    scale_fill_manual(values = c("white", "black")) + guides(fill = FALSE)
+
+  # Circles
+  ggbertinplot(x, order, geom = "point") + scale_y_discrete(position = "left")
+
+  ggbertinplot(x, order, geom = "none") +
+    geom_point(aes(x = col, y = row, size = x, fill = x > mean(x)),
+      color = "black", pch = 21) +
+    scale_fill_manual(values = c("white", "black")) + guides(fill = FALSE, size = FALSE)
+
+  # Lines
+
+  # Use a ggplot2 theme with theme_set()
+  old_theme <- theme_set(theme_minimal() +
+      theme(panel.grid = element_blank()))
+  ggbertinplot(x, order, geom = "lines", prop = FALSE)
+  theme_set(old_theme)
+}
 }
 \keyword{hplot}
 \keyword{cluster}

@@ -36,7 +36,8 @@ pimage <-
     lower.tri = TRUE,
     labRow = NULL,
     labCol = NULL,
-    prop = NULL,
+    prop = TRUE,
+    flip = FALSE,
     ...,
     newpage = TRUE,
     pop = TRUE,
@@ -51,7 +52,7 @@ pimage.matrix <-
     main = "",
     xlab = "",
     ylab = "",
-    axes = NULL,
+    axes = NULL,  ### deprecated
     zlim = NULL,
     key = TRUE,
     key.lab = "",
@@ -60,7 +61,8 @@ pimage.matrix <-
     lower.tri = TRUE,
     labRow= NULL,
     labCol = NULL,
-    prop = NULL,
+    prop = TRUE,
+    flip = FALSE,
     ...,
     newpage = TRUE,
     pop = TRUE,
@@ -101,6 +103,12 @@ pimage.matrix <-
 
     if (is.null(zlim))
       zlim <- range(x, na.rm = TRUE)
+
+    # change x and y
+    if (flip) {
+      x <- t(x)
+      if (!is.null(order)) order <- rev(order)
+    }
 
     # reorder
     if (!is.null(order))
@@ -155,11 +163,12 @@ pimage.matrix <-
     bottom_mar <- if (labCol)
       max(stringWidth(colnames(x))) + unit(3, "lines")
     else
-      unit(4, "lines")
+      unit(1, "lines")
+
     left_mar <- if (labRow)
       max(stringWidth(rownames(x))) + unit(3, "lines")
     else
-      unit(4, "lines")
+      unit(1, "lines")
 
     if (newpage)
       grid.newpage()
@@ -168,6 +177,7 @@ pimage.matrix <-
       .grid_basic_layout_with_colorkey(
         main = main,
         left = left_mar,
+        right = unit(0, "lines"),
         bottom = bottom_mar,
         gp = gp
       )
@@ -182,6 +192,7 @@ pimage.matrix <-
       .grid_basic_layout(
         main = main,
         left = left_mar,
+        right = unit(0, "lines"),
         bottom = bottom_mar,
         gp = gp
       )
@@ -241,7 +252,7 @@ pimage.dist <-
     main = "",
     xlab = "",
     ylab = "",
-    axes = NULL,
+    axes = NULL, ### deprecated
     zlim = NULL,
     key = TRUE,
     key.lab = "",
@@ -251,6 +262,7 @@ pimage.dist <-
     labRow = NULL,
     labCol = NULL,
     prop = NULL,
+    flip = FALSE,
     ...,
     newpage = TRUE,
     pop = TRUE,
@@ -259,10 +271,14 @@ pimage.dist <-
       col <- rev(.sequential_pal(100))
     else
       col <- rev(col)
+
     if (is.null(prop))
       prop <- TRUE
+
     if (!is.null(order))
       x <- permute(x, order)
+
+    if (flip) warning("flipping axes has no effect for distance matrices.")
 
     pimage.matrix(
       x,
@@ -271,7 +287,7 @@ pimage.dist <-
       xlab = xlab,
       ylab = ylab,
       col = col,
-      axes = axes,
+      axes = axes, ### deprecated
       zlim = zlim,
       key = key,
       key.lab = key.lab,
@@ -281,6 +297,7 @@ pimage.dist <-
       labRow = labRow,
       labCol = labCol,
       prop = prop,
+      flip = FALSE,
       ...,
       newpage = newpage,
       pop = pop,

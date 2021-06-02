@@ -20,8 +20,8 @@
 ## calculate distances for rows and columns, perform hclust and reorder.
 .heatmap_contr <- list(
   distfun = dist,
-  method = "OLO",
-  control = NULL,
+  seriationMethod = "OLO",
+  seriationControl = NULL,
   scale = c("none"),
   verbose = FALSE
 )
@@ -40,13 +40,13 @@ seriate_matrix_heatmap <- function(x, control = NULL) {
 
   dist_row <- control$distfun(x)
   o_row <- seriate(dist_row,
-    method = control$method,
-    control = control$control)[[1]]
+    method = control$seriationMethod,
+    control = control$seriationControl)[[1]]
 
   dist_col <- control$distfun(t(x))
   o_col <- seriate(dist_col,
-    method = control$method,
-    control = control$control)[[1]]
+    method = control$seriationMethod,
+    control = control$seriationControl)[[1]]
 
   #names(row) <- rownames(x)[get_order(o_row)]
   #names(col) <- colnames(x)[get_order(o_col)]

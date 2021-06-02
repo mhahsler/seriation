@@ -24,22 +24,23 @@
 .grid_basic_layout <- function(main = "",
   left = unit(4, "lines"),
   right = unit(4, "lines"),
+  top = unit(3, "lines"),
   bottom = unit(4, "lines"),
   gp = gpar()) {
   pushViewport(viewport(
     layout = grid.layout(
-      4,
-      3,
+      nrow = 4,
+      ncol = 3,
       widths = unit.c(left,               # space
         unit(1, "npc") - left - right,    # plot
         right),
       # space
       heights = unit.c(
-        unit(3, "lines"),
+        top,
         # title
         unit(1, "lines"),
         # space
-        unit(1, "npc") - unit(4, "lines") - bottom,
+        unit(1, "npc") - unit(1, "lines") - top - bottom,
         # plot
         bottom                            # space
       )
@@ -69,13 +70,14 @@
 
 .grid_basic_layout_with_colorkey <- function(main = "",
   left = unit(4, "lines"),
-  right = unit(4, "lines"),
+  right = unit(0, "lines"),
+  top = unit(3, "lines"),
   bottom = unit(4, "lines"),
   gp = gpar()) {
   pushViewport(viewport(
     layout = grid.layout(
-      4,
-      3,
+      nrow = 4,
+      ncol = 3,
       widths = unit.c(# space
         left,
         # plot
@@ -85,11 +87,11 @@
 
       heights = unit.c(
         # title
-        unit(3, "lines"),
+        top,
         # space
         unit(1, "lines"),
         # plot
-        unit(1, "npc") - unit(4, "lines") - bottom,
+        unit(1, "npc") - unit(1, "lines") - top - bottom,
         # space
         bottom
       )

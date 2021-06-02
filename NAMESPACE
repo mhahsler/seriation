@@ -12,6 +12,7 @@ importFrom("stats", "reorder", "as.dist", "hclust", "runif", "rnorm",
 export(
     bertinplot,
     bertin_cut_line,
+    ggbertinplot,
     criterion,
     dissplot,
     get_method,
