@@ -171,7 +171,8 @@ if (require("ggplot2")) {
 
   # Use a ggplot2 theme with theme_set()
   old_theme <- theme_set(theme_minimal() +
-      theme(panel.grid = element_blank()))
+      theme(panel.grid = element_blank())
+    )
   ggbertinplot(x, order, geom = "lines", prop = FALSE)
   theme_set(old_theme)
 }
