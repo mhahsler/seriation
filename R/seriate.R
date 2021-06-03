@@ -33,7 +33,9 @@ get_seriation_method <- function(kind, name) {
 
   if (is.null(method))
     stop(
-      "Unknown seriation method for data type ",
+      "Unknown seriation method ", 
+      name,
+      " for data type ",
       kind,
       ". Check list_seriation_methods(\"",
       kind,

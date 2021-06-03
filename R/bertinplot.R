@@ -29,16 +29,11 @@ bertinplot <- function(x,
   # add ... to options
   options <- c(options, list(...))
 
-
   ## do labels
   if (!is.null(options$xlab))
     rownames(x) <- options$xlab
   if (!is.null(options$ylab))
     colnames(x) <- options$ylab
-
-  ## order
-  if (!is.null(order))
-    x <- permute(x, order)
 
   ## default plot options
   user_options <- options
@@ -79,7 +74,13 @@ bertinplot <- function(x,
   ## note: Bertin switched cols and rows for his display!
   if (options$reverse) {
     x <- t(x)
+    order <- rev(order)
   }
+
+  ## order
+  if (!is.null(order))
+    x <- permute(x, order)
+
 
 
   ## panel.blocks has no spacing!

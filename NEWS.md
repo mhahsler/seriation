@@ -14,7 +14,7 @@
 
 ## New Features
 * colors are now more consistent and all have bias and power.
-* added ggplot2-based plots, ggimage, gghmap, ggVAT, ggiVAT, ggbertinplot.
+* added ggplot2-based plots, ggimage, gghmap, ggVAT, ggiVAT, ggbertinplot, ggdissplot.
 * seriate for matrix has now method "Heatmap".
 * Added seriation method "Reverse" for reverse identity order.
 * pimage gained parameter flip.

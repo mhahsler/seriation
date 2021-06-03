@@ -18,7 +18,9 @@ structure in the data visible (see Falguerolles et al 1997).
 bertinplot(x, order = NULL, highlight = TRUE, options = NULL, ...)
 
 # ggplot2-based plot
-ggbertinplot(x, order = NULL, labRow = TRUE, labCol = TRUE, flip = TRUE, ...)
+ggbertinplot(x, order = NULL, highlight = TRUE,
+  labRow = TRUE, labCol = TRUE, reverse = FALSE,
+  prop = FALSE, geom = "bar")
 }
 \arguments{
   \item{x}{ a data matrix. Note that following Bertin,
@@ -60,11 +62,12 @@ ggbertinplot(x, order = NULL, labRow = TRUE, labCol = TRUE, flip = TRUE, ...)
       (see \code{pop.viewport})?  }
   }}
   \item{labRow, labCol}{ display axis labels (see \code{\link{ggpimage}})?}
-  \item{flip}{ logical indicating whether to swap cases and variables in the plot.
-   Following Bertin, the default is to flip the axes to display variables as columns are
-   variables and cases as rows.}
-  \item{...}{ further parameters are added to \code{options} for \code{bertinplot} and passed on to
-    \code{\link{ggpimage}} for \code{ggbertinplot}.}
+  \item{...}{ further parameters are added to \code{options} for \code{bertinplot}.}
+  \item{reverse}{logical indicating whether to swap cases and variables
+    in the plot. The default (\code{FALSE})
+    is to plot cases as columns and variables as rows.}
+  \item{prop}{logical; change the aspect ratio so cells in the image have a equal width and height.}
+  \item{geom}{ visulization type. Available geometries are: "raster", "block", "circle", "line", "bar", "none".}
 
   }
 \details{
@@ -134,46 +137,46 @@ bertin_cut_line(,4) ## horizontal line between rows 4 and 5
 bertin_cut_line(,7) ## separate "Right to Life" from the rest
 bertin_cut_line(14,c(0,4)) ## separate a block of large values (vertically)
 
-# ggplot2
+# ggplot2-based plots
 if (require("ggplot2")) {
   library(ggplot2)
+
+  # Default plot uses bars and highlighting values larger than the mean
   ggbertinplot(x, order)
 
-  # Put labels on the top and adjust, and use a diverging color scheme
-  # to highlight values above the mean.
-  ggbertinplot(x, order) +
-    scale_fill_gradient2(low = "darkblue", high = "darkred", midpoint = mean(x))
-
-  # Use fill limits to suppress values below the mean
-  ggbertinplot(x, order) +
-    scale_fill_gradient(limit = c(mean(x), max(x)), na.value = "white")
+  # highlight values in the 4th quartile
+  ggbertinplot(x, order, highlight = quantile(x, probs = .75))
 
   # Use different geoms. "none" lets the user specify their own geom.
   # Variables set are row, col and x (for the value).
 
-  # Tiles
-  ggbertinplot(x, order, geom = "tile")
-
-  ggbertinplot(x, order, geom = "none") +
-    geom_tile(aes(x = col, y = row, height = x / max(x) * .8, fill = x > mean(x)),
-      width = .8, color = "black") +
-    scale_fill_manual(values = c("white", "black")) + guides(fill = FALSE)
+  # Blocks
+  ggbertinplot(x, order, geom = "block")
 
   # Circles
-  ggbertinplot(x, order, geom = "point") + scale_y_discrete(position = "left")
-
-  ggbertinplot(x, order, geom = "none") +
-    geom_point(aes(x = col, y = row, size = x, fill = x > mean(x)),
-      color = "black", pch = 21) +
-    scale_fill_manual(values = c("white", "black")) + guides(fill = FALSE, size = FALSE)
+  ggbertinplot(x, order, geom = "circle")
+  ggbertinplot(x, order, geom = "circle", highlight = FALSE)
 
   # Lines
+  ggbertinplot(x, order, geom = "line")
+
+  # Raster
+  ggbertinplot(x, order, geom = "raster", prop = TRUE)
+
+  # Raster with diverging color scale
+  ggbertinplot(x, order, geom = "raster", prop = TRUE) +
+    scale_fill_gradient2(low = "darkblue", high = "darkred", midpoint = mean(x))
+
+  # Custom geom (geom = "none"). Defined variables are row, col, and x for the value
+  ggbertinplot(x, order, geom = "none", prop = TRUE) +
+    geom_point(aes(x = col, y = row, size = x, color = x > 30), pch = 15) +
+    scale_size(range = c(1, 12))
 
   # Use a ggplot2 theme with theme_set()
   old_theme <- theme_set(theme_minimal() +
       theme(panel.grid = element_blank())
     )
-  ggbertinplot(x, order, geom = "lines", prop = FALSE)
+  ggbertinplot(x, order, geom = "bar")
   theme_set(old_theme)
 }
 }

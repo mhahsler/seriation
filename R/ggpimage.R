@@ -27,8 +27,7 @@ ggpimage <- function(x,
   labRow = NULL,
   labCol = NULL,
   prop = TRUE,
-  flip = FALSE,
-  geom = "raster")
+  flip = FALSE)
   UseMethod("ggpimage")
 
 ### Note for matrix large values are dark, for dist large values are light!
@@ -39,8 +38,7 @@ ggpimage.matrix <- function(x,
   labRow = NULL,
   labCol = NULL,
   prop = TRUE,
-  flip = FALSE,
-  geom = "raster") {
+  flip = FALSE) {
   check_installed("ggplot2")
 
   x <- as.matrix(x)
@@ -50,18 +48,6 @@ ggpimage.matrix <- function(x,
     stop("all data missing in x.")
   if (any(is.infinite(x)))
     stop("x contains infinite entries.")
-
-  # check geom
-  geom <-
-    match.arg(tolower(geom),
-      choices = c("raster", "point", "tile", "lines", "none"))
-
-  # change x and y
-  if (flip) {
-    x <- t(x)
-    if (!is.null(order))
-      order <- rev(order)
-  }
 
   # reorder
   if (!is.null(order))
@@ -76,6 +62,57 @@ ggpimage.matrix <- function(x,
     x[upper.tri(x)] <- NA
   if (!lower.tri)
     x[lower.tri(x)] <- NA
+
+  # change x and y?
+  if (flip) {
+    x <- t(x)
+    tmp <- labRow
+    labRow <- labCol
+    labCol <- tmp
+  }
+
+
+  # plot
+  g <- .ggpimage_empty(x, labRow = labRow, labCol = labCol, prop = prop, expand = FALSE)
+  g <- g + ggplot2::geom_raster(ggplot2::aes(fill = x))
+
+  # colors scales
+  if (is.logical(x))
+    g <-
+    g + ggplot2::scale_fill_manual(values = c("gray", "black"))
+
+  # colors for diverging
+  if (any(x < 0, na.rm = TRUE) && any(x > 0, na.rm = TRUE))
+    g <-
+    g + ggplot2::scale_fill_gradient2(
+      low = "blue" ,
+      mid = "white",
+      high = "red",
+      midpoint = 0
+    )
+
+  g
+
+}
+
+
+### Note for matrix large values are dark, for dist large values are light!
+.ggpimage_empty <- function(x,
+  labRow = NULL,
+  labCol = NULL,
+  prop = TRUE,
+  expand = TRUE
+  ) {
+
+  check_installed("ggplot2")
+
+  x <- as.matrix(x)
+
+  # check data
+  if (all(is.na(x)))
+    stop("all data missing in x.")
+  if (any(is.infinite(x)))
+    stop("x contains infinite entries.")
 
   # deal with row/col labels
   if (!is.null(labRow) && !is.logical(labRow)) {
@@ -99,6 +136,7 @@ ggpimage.matrix <- function(x,
     } else{
       labRow <- FALSE
     }
+
   if (is.null(labCol))
     if (!is.null(colnames(x)) &&
         ncol(x) < 25) {
@@ -112,7 +150,7 @@ ggpimage.matrix <- function(x,
   if (is.null(colnames(x)))
     colnames(x) <- seq(ncol(x))
 
-  # convert to data.frame
+  # convert to data.frame with row, col and x
   x_df <- data.frame(
     row = factor(rep(seq(nrow(
       x
@@ -124,7 +162,7 @@ ggpimage.matrix <- function(x,
   )
 
   if (!is.null(rownames(x)))
-    levels(x_df[["row"]]) <- rownames(x)
+    levels(x_df[["row"]]) <- rev(rownames(x))
   if (!is.null(colnames(x)))
     levels(x_df[["col"]]) <- colnames(x)
 
@@ -133,10 +171,10 @@ ggpimage.matrix <- function(x,
     ggplot2::aes(y = row, x = col))
 
   # axes (row and col labels)
-  if (geom == "raster")
-    expand <- c(0, 0)
-  else
+  if (expand)
     expand <- ggplot2::waiver()
+  else
+    expand <- c(0, 0)
 
   if (labCol)
     breaksCol <- ggplot2::waiver()
@@ -165,49 +203,12 @@ ggpimage.matrix <- function(x,
       vjust = .5
     ))
 
-
-  if (geom == "raster")
-    g <- g + ggplot2::geom_raster(ggplot2::aes(fill = x))
-
-  ### FIXME: circles are clipped!
-  if (geom == "point")
-    g <- g + ggplot2::geom_point(ggplot2::aes(size = x))
-
-  if (geom == "tile")
-    g <- g +
-    ggplot2::geom_tile(ggplot2::aes(height = x / max(x) * .9), width = .8)
-
-  if (geom == "lines")
-    g <- g +
-    ggplot2::geom_line(ggplot2::aes(x = col, y = x, group = row)) +
-    ggplot2::facet_grid(rows = ggplot2::vars(row)) +
-    ggplot2::theme(
-      strip.text.y.right = ggplot2::element_text(angle = 0, color = "black"),
-      strip.background = ggplot2::element_blank(),
-    )
-
-
-  # colors for logical
-  if (is.logical(x))
-    g <-
-    g + ggplot2::scale_fill_manual(values = c("gray", "black"))
-
-  # colors for diverging
-  if (any(x < 0, na.rm = TRUE) && any(x > 0, na.rm = TRUE))
-    g <-
-    g + ggplot2::scale_fill_gradient2(
-      low = "blue" ,
-      mid = "white",
-      high = "red",
-      midpoint = 0
-    )
-
   if (prop)
     g <- g + ggplot2::theme(aspect.ratio = nrow(x) / ncol(x))
 
   g
-
 }
+
 
 ggpimage.default <- ggpimage.matrix
 
@@ -220,8 +221,7 @@ ggpimage.dist <-
     labRow = NULL,
     labCol = NULL,
     prop = TRUE,
-    flip = FALSE,
-    geom = "raster") {
+    flip = FALSE) {
     check_installed("ggplot2")
 
     # reorder specific for dist (we have only a single permutation)
@@ -239,10 +239,7 @@ ggpimage.dist <-
       labRow,
       labCol,
       prop = prop,
-      flip = FALSE,
-      geom = geom
+      flip = FALSE
     ) +
-      ggplot2::scale_fill_gradient(low = "black",
-        high = "white",
-        na.value = "white")
+    ggplot2::scale_fill_continuous(na.value = "white")
   }

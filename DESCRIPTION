@@ -35,7 +35,8 @@ Suggests: DendSer,
   GA, 
   testthat, 
   dendextend,
-  ggplot2
+  ggplot2,
+  scales
 License: GPL-3
 Copyright: The code in src/bea.f is Copyright (C) 1991 F. Murtagh;
     src/bbwrcg.f, src/arsa.f and src/bburcg.f are Copyright (C) 2005

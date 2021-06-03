@@ -12,13 +12,14 @@ hmap(x, distfun = dist, method = "OLO", control = NULL,
   scale = c("none", "row", "column"), showDend = TRUE, col = NULL, ...)
 
 gghmap(x, distfun = dist, method = "OLO", control = NULL,
-  scale = c("none", "row", "column"), ...)
+  scale = c("none", "row", "column"), prop = FALSE, ...)
 }
 \arguments{
   \item{x}{a matrix or a dissimilarity matrix of class dist. If a dissimilarity
     matrix is used, then the \code{distfun} is ignored. }
   \item{distfun}{function used to compute the distance (dissimilarity) between
-      both rows and columns (default: \code{dist}). }
+      both rows and columns (default: \code{dist}). For \code{gghmap}, this parameter is
+      passed on in \code{control}. }
   \item{method}{a character strings indicating the used seriation algorithm
       (see \code{seriate.dist}). If the method results in a dendrogram then
       \code{heatmap} in \pkg{stats} is used to show the dendrograms, otherwise
@@ -29,6 +30,7 @@ gghmap(x, distfun = dist, method = "OLO", control = NULL,
     the row direction or the column direction, or none. Default is none.}
   \item{showDend}{ Show dendrograms in the margin? }
   \item{col}{a list of colors used.}
+  \item{prop}{logical; change the aspect ratio so cells in the image have a equal width and height.}
   \item{\dots}{further arguments passed on to \code{\link{heatmap}} in package \pkg{stats}.}
 }
 \details{
@@ -91,11 +93,6 @@ hmap(Wood, main = "Wood (opt. leaf ordering)")
 # Heatmap shown without dendrograms
 hmap(Wood, main = "Wood (opt. leaf ordering)",  showDend = FALSE)
 
-# ggplot 2 version does not support dendrograms in the margin (for now)
-if (require("ggplot2")) {
-  gghmap(Wood) + labs(title = "Wood (opt. leaf ordering)")
-}
-
 # Heatmap with correlation-based distance, green-red color (greenred is
 # predefined) and optimal leaf ordering and no row label
 dist_cor <- function(x) as.dist(1 - cor(t(x)))
@@ -124,5 +121,19 @@ pimage(Wood, o)
 # Note: method heatmap calculates reorderd hclust objects which can be used for many heatmap
 # implementations.
 heatmap(Wood, Rowv = as.dendrogram(o[[1]]), Colv = as.dendrogram(o[[2]]))
+
+# ggplot 2 version does not support dendrograms in the margin (for now)
+if (require("ggplot2")) {
+  library("ggplot2")
+
+  gghmap(Wood) + labs(title = "Wood (opt. leaf ordering)")
+
+  gghmap(Wood, control = list( distfun = dist_cor)) +
+    labs(title = "Wood (reorded by corr. between obs.)") +
+    scale_fill_gradient2(low = "darkgreen", high = "red")
+
+  gghmap(d) + labs(title = "Wood (Euclidean distances, reordered)")
+}
+
 }
 \keyword{hplot}

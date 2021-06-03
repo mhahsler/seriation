@@ -241,7 +241,7 @@ dissplot <- function(x,
       labels_unique   <-  unique(labels)
 
       ## reorder silhouettes
-      sil <- sil[order, ]
+      sil <- sil[order,]
 
       ## calculate avg silhouettes
       avgSil <- sapply(labels_unique, function(x)
@@ -392,9 +392,8 @@ plot.reordered_cluster_dissimilarity_matrix <-
       }
     }
 
-    if (options$flip) {
+    if (options$flip)
       m <- m[, ncol(m):1]
-    }
 
     if (!options$silhouettes) {
       pushViewport(viewport(
@@ -430,7 +429,8 @@ plot.reordered_cluster_dissimilarity_matrix <-
         layout.pos.row = 1,
         name = "main"
       )
-      image_vp    <- viewport(layout.pos.col = 2, layout.pos.row = 3)
+      image_vp    <-
+        viewport(layout.pos.col = 2, layout.pos.row = 3)
       colorkey_vp <- viewport(
         layout.pos.col = 2,
         layout.pos.row = 5,
@@ -553,14 +553,12 @@ plot.reordered_cluster_dissimilarity_matrix <-
     if (!is.null(labels)) {
       labels_unique_y		<- labels_unique
       cluster_width_y		<- (tabulate(labels)[labels_unique])
-      #cluster_cuts_y		<- cumsum(cluster_width_y) + 0.5
       cluster_cuts_y		<- cumsum(cluster_width_y)
       cluster_center_y	<- cluster_cuts_y - cluster_width_y / 2
 
       if (options$flip) {
         labels_unique_x	<- rev(labels_unique)
         cluster_width_x <- (tabulate(labels)[labels_unique_x])
-        #	cluster_cuts_x  <- cumsum(cluster_width_x) + 0.5
         cluster_cuts_x  <- cumsum(cluster_width_x)
         cluster_center_x <- cluster_cuts_x - cluster_width_x / 2
       } else{

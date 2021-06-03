@@ -1,5 +1,6 @@
 \name{dissplot}
 \alias{dissplot}
+\alias{ggdissplot}
 \alias{plot.reordered_cluster_dissimilarity_matrix}
 \alias{print.reordered_cluster_dissimilarity_matrix}
 \title{Dissimilarity Plot}
@@ -10,8 +11,13 @@ Entries with lower dissimilarities (higher similarity) are plotted darker.
 Dissimilarity plots can be used to uncover hidden structure in the data and judge cluster quality.
 }
 \usage{
+# grid-based dissimilarity plot
 dissplot(x, labels = NULL, method = "Spectral",
-  control = NULL, options = NULL, \ldots)
+  control = NULL, options = NULL, ...)
+
+# ggplot2-based dissimilarity plot
+ggdissplot(x, labels = NULL, method = "Spectral",
+  control = NULL, options = NULL, ...)
 }
 \arguments{
   \item{x}{ an object of class \code{dist}.}
@@ -115,7 +121,7 @@ however, allows for using arbitrary seriating algorithms.
 
 
 \value{
-An invisible object of class \code{cluster_proximity_matrix} with the following
+\code{dissplot()} returns an invisible object of class \code{cluster_proximity_matrix} with the following
 elements:
 \item{order}{ \code{NULL} or integer vector giving the order used to plot
     \code{x}.}
@@ -132,6 +138,8 @@ elements:
 This object can be used for plotting via
 \code{plot(x, options = NULL, ...)}, where \code{x} is the
 object and \code{options} contains a list with plotting options (see above).
+
+\code{ggdissplot} returns a ggplot2 object representing the plot.
 }
 \references{
 Hahsler, M. and Hornik, K. (2011):
@@ -165,61 +173,122 @@ visualization for high-dimensional data mining.
 \author{Michael Hahsler}
 \examples{
 data("iris")
+
+# shuffle rows
+iris <- iris[sample(seq(nrow(iris))), ]
 d <- dist(iris[-5])
 
-## plot original matrix
+# Plot original matrix
 res <- dissplot(d, method = NA)
 
-## plot reordered matrix using the nearest insertion algorithm (from tsp)
+# Plot reordered matrix using the nearest insertion algorithm (from tsp)
 res <- dissplot(d, method = "TSP",
     options = list(main = "Seriation (TSP)"))
 
-## cluster with pam (we know iris has 3 clusters)
+# Cluster with partitioning around medoids (pam) with 3 clusters
 library("cluster")
 l <- pam(d, 3, cluster.only = TRUE)
 
-## we use a grid layout to place several plots on a page
+# Use a grid layout to place several plots on a page
 library("grid")
 grid.newpage()
 pushViewport(viewport(layout=grid.layout(nrow = 2, ncol = 2),
     gp = gpar(fontsize = 8)))
 pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
 
-## visualize the clustering (using Spectral between clusters and MDS within)
+# Visualize the clustering (using Spectral between clusters and MDS within)
 res <- dissplot(d, l, method = list(inter = "Spectral", intra = "MDS"),
-    options = list(main = "PAM + Seriation (standard)",
+    options = list(main = "PAM + Seriation",
     newpage = FALSE))
 
 popViewport()
 pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
 
-## more visualization options. Note that we reuse the reordered object res!
-## color: use 10 shades red-blue, biased towards small distances
+# More visualization options. Note that we reuse the reordered object res!
+# color: use 10 shades red-blue, biased towards small distances
 plot(res, options = list(main = "PAM + Seriation (red-blue + biased)",
     col= bluered(10, bias = .5), newpage = FALSE))
 
 popViewport()
 pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 1))
 
-## threshold (using zlim) and cubic scale to highlight differences
+# Threshold (using zlim) and cubic scale to highlight differences
 plot(res, options = list(main = "PAM + Seriation (cubic + threshold)",
-    zlim = c(0, 1.5), col = grays(100, power = 2), newpage = FALSE))
+    zlim = c(0, 2), col = grays(100, power = 3), newpage = FALSE))
 
 popViewport()
 pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
 
-## use custom logistic gray scale
+# Use gray scale with logistic transformation
 plot(res, options = list(main = "PAM + Seriation (logistic scale)",
   col = gray(
-    plogis(seq(10, 0, length.out = 100), location = 2, scale = 1/2, log = FALSE)
+    plogis(seq(max(res$x_reordered), min(res$x_reordered), length.out = 100),
+      location = 2, scale = 1/2, log = FALSE)
     ),
   newpage = FALSE))
 
 popViewport(2)
 
-## the reordered_cluster_dissimilarity_matrix object
+# The reordered_cluster_dissimilarity_matrix object
 res
 names(res)
+
+# ggplot-based dissplot
+if (require("ggplot2")) {
+  library("ggplot2")
+
+  # Plot original matrix
+  ggdissplot(d, method = NA)
+
+  # Plot seriated matrix
+  ggdissplot(d, method = "TSP") +
+    labs(title = "Seriation (TSP)")
+
+  # Cluster with partitioning around medoids (pam) with 3 clusters
+  library("cluster")
+  l <- pam(d, 3, cluster.only = TRUE)
+
+  # Visualize the clustering (using Spectral between clusters and MDS within)
+  ggdissplot(d, l, method = list(inter = "Spectral", intra = "MDS")) +
+    labs(title = "PAM + Seriation")
+
+  # Diverging color palette with manual set midpoint
+  ggdissplot(d, l, method = list(inter = "Spectral", intra = "MDS")) +
+    labs(title = "PAM + Seriation (red-blue + biased)") +
+    scale_fill_gradient2(low = "darkred", high = "darkblue", midpoint = 3)
+
+  # Use different scale manipulations
+
+  library("scales")
+
+  # Threshold (using limit and na.value) and cubic scale to highlight differences
+  cubic_dist_trans <- trans_new(
+    name = "cubic",
+    # note that we have to do the inverse transformation for distances
+    trans = function(x) x^(1/3),
+    inverse = function(x) x^3
+  )
+
+  ggdissplot(d, l, method = list(inter = "Spectral", intra = "MDS")) +
+    labs(title = "PAM + Seriation (cubic + biased)") +
+    scale_fill_gradient(low = "black", high = "white",
+      limit = c(0,2), na.value = "white",
+      trans = cubic_dist_trans)
+
+  # Use gray scale with logistic transformation
+  logis_2_.5_dist_trans <- trans_new(
+    name = "Logistic transform (location, scale)",
+    # note that we have to do the inverse transformation for distances
+    trans = function(x) plogis(x, location = 2, scale = .5, log = FALSE),
+    inverse = function(x) qlogis(x, location = 2, scale = .5, log = FALSE),
+  )
+
+  ggdissplot(d, l, method = list(inter = "Spectral", intra = "MDS")) +
+    labs(title = "PAM + Seriation (logistic scale)") +
+    scale_fill_gradient(low = "black", high = "white",
+      trans = logis_2_.5_dist_trans,
+      breaks = c(0, 1, 2, 3, 4))
+}
 }
 \keyword{hplot}
 \keyword{cluster}

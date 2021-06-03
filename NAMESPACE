@@ -15,6 +15,7 @@ export(
     ggbertinplot,
     criterion,
     dissplot,
+    ggdissplot,
     get_method,
     get_order,
     get_rank,

@@ -15,10 +15,12 @@ data array (k-way k-mode data).
 }
 \usage{
 \method{seriate}{dist}(x, method = "Spectral", control = NULL, \ldots)
+
 \method{seriate}{matrix}(x, method = "PCA", control = NULL,
-margin = c(1,2), \ldots)
+  margin = c(1,2), \ldots)
+
 \method{seriate}{array}(x, method = "PCA", control = NULL,
-margin = seq(length(dim(x))), \ldots)
+  margin = seq(length(dim(x))), \ldots)
 }
 \arguments{
 \item{x}{the data.}

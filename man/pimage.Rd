@@ -24,7 +24,7 @@ pimage(x, order = NULL, col = NULL, main ="", xlab = "", ylab = "",
 # ggplot2-based image plot
 ggpimage(x, order = NULL,
   upper.tri = TRUE, lower.tri = TRUE, labRow = NULL, labCol = NULL,
-  prop = TRUE, flip = FALSE, geom = "raster")
+  prop = TRUE, flip = FALSE)
 }
 
 \arguments{
@@ -55,8 +55,6 @@ ggpimage(x, order = NULL,
   \item{\dots}{further arguments passed on to \code{image} in \pkg{graphics}.}
   \item{newpage, pop}{two logical. Start plot on a new page and pop the viewports after plotting (see \pkg{grid}).}
   \item{gp}{a \code{gpar} object (see \pkg{grid}).}
-
-  \item{geom}{ ggplot2 geom used for visualization. Options are: "raster", "point", "tile", "lines", "none". }
 }
 \details{
   Plots a matrix in its original row and column orientation. This means, in a

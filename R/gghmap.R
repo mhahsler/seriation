@@ -16,26 +16,36 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-
-
 gghmap <- function(x,
   distfun = dist,
   method = "OLO",
   control = NULL,
   scale = c("none", "row", "column"),
+  prop = FALSE,
   ...) {
-  o <-
-    seriate(
-      x,
-      method = "heatmap",
-      control = list(
-        distfun = distfun,
-        method = method,
-        control = control,
-        scale = scale
-      )
-    )
 
-  ggpimage(x, o)
+
+  if (inherits(x, "dist")) {
+    # scale and distFun are ignored!
+    o <- seriate(x, method = method, control = control)
+  } else {
+    x <- as.matrix(x)
+
+    contr <- list(
+      distFun = distfun,
+      seriationMEthod = method,
+      seriationControl = control,
+      scale = scale
+      )
+
+    o <-
+      seriate(
+        x,
+        method = "heatmap",
+        control = contr
+      )
+  }
+
+  ggpimage(x, o, prop = prop, ...)
 
 }
