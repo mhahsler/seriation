@@ -316,7 +316,7 @@ bertin_cut_line <- function(x = NULL, y = NULL, col = "red") {
   ## find the bertin Viewport
   if (inherits(try(seekViewport("bertin"), silent = TRUE)
     , "try-error")) {
-    stop("bertinplot() needs to be called with options=list(pop=FALSE) first!")
+    stop("bertinplot() needs to be called with options = list(pop = FALSE) first!")
   }
 
   if (is.null(x))

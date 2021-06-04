@@ -23,7 +23,7 @@
 .seriate_array_helper <- function(x,
   method = "PCA",
   control = NULL,
-  margin = seq(length(dim(x))),
+  margin = seq(ndim(x)),
   datatype = "array",
   defmethod,
   ...) {
@@ -45,7 +45,7 @@
 
   order <- method$fun(x, control)
 
-  for (i in seq(length(dim(x))))
+  for (i in seq(ndim(x)))
     if (!is.null(dimnames(x)[[i]]) && is.integer(order[[i]])) names(order[[i]]) <- dimnames(x)[[i]]
 
   perm <- do.call("ser_permutation",

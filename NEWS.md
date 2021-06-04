@@ -11,13 +11,15 @@
 * hclust-based seriations now default for linkage to complete instead of average.
 * improved layout (less white space) for grid-based plots.
 
-
 ## New Features
 * colors are now more consistent and all have bias and power.
 * added ggplot2-based plots, ggimage, gghmap, ggVAT, ggiVAT, ggbertinplot, ggdissplot.
 * seriate for matrix has now method "Heatmap".
 * Added seriation method "Reverse" for reverse identity order.
 * pimage gained parameter flip.
+* permute for matrix-like objects gained parameter margin.
+* permute for data.frame works now identical to permute for matrix.
+
 
 # seriation 1.2-9 (09/29/2020)
 * removed dependency on methods.

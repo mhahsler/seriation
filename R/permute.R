@@ -17,27 +17,37 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-## generic
+# helper
+ndim <- function(x)
+  length(dim(x))
+
+# generic
 permute <- function(x, order, ...)
   UseMethod("permute")
 
-## methods
-##permute.default <- function(x, order)
-##stop(paste("\npermute not implemented for class: ", class(x)))
+# methods
+#permute.default <- function(x, order)
+#stop(paste("\npermute not implemented for class: ", class(x)))
 permute.default <- function(x, order, ...)
   .permute_kd(x, order, ...)
+
 permute.array <- function(x, order, ...)
   .permute_kd(x, order, ...)
 permute.matrix <- function(x, order, ...)
   .permute_kd(x, order, ...)
+permute.data.frame <- function(x, order, ...)
+  .permute_kd(x, order, ...)
+
 permute.numeric <- function(x, order, ...)
   .permute_1d(x, order, ...)
+
 permute.character <- function(x, order, ...)
   .permute_1d(x, order, ...)
+
 permute.list <- function(x, order, ...)
   .permute_1d(x, order, ...)
 
-## special cases
+# special cases
 permute.dist <- function(x, order, ...) {
   .nodots(...)
 
@@ -52,22 +62,6 @@ permute.dist <- function(x, order, ...) {
   .rearrange_dist(x, get_order(order, 1))
 }
 
-permute.data.frame <- function(x, order, ...) {
-  .nodots(...)
-
-  if (!inherits(order, "ser_permutation_vector"))
-    order <- ser_permutation(order)
-
-  if (length(order) != 1L)
-    stop("dimensions do not match")
-
-  perm <- get_order(order[[1L]])
-  if (nrow(x) != length(perm))
-    stop("some permutation vectors do not fit dimension of data")
-
-  x[perm,]
-}
-
 permute.dendrogram <- function(x, order, ...) {
   .nodots(...)
 
@@ -75,8 +69,8 @@ permute.dendrogram <- function(x, order, ...) {
     stop("Length of order and number of leaves in dendrogram do not agree!")
 
 
-  ## modeled after rotate in dendextend. Copied here to reduce the heavy dependency count of dendextend.
-  ##  x <- dendextend::rotate(x, order = match(get_order(order), get_order(x)))
+  # modeled after rotate in dendextend. Copied here to reduce the heavy dependency count of dendextend.
+  #  x <- dendextend::rotate(x, order = match(get_order(order), get_order(x)))
   rot <- function (x, order, ...)
   {
     if (missing(order)) {
@@ -118,7 +112,7 @@ permute.hclust <- function(x, order, ...) {
   x
 }
 
-## helper
+# helper
 .check_dist_perm <- function(x, order) {
   if (length(order) != 1L)
     stop("dimensions do not match")
@@ -126,33 +120,53 @@ permute.hclust <- function(x, order, ...) {
   if (attr(x, "Size") != length(get_order(order, 1)))
     stop("some permutation vectors do not fit dimension of data")
 
-  ## check dist
+  # check dist
   if (attr(x, "Diag") || attr(x, "Upper"))
     stop("'dist' with diagonal or upper triangle matrix not implemented")
 }
 
 .check_matrix_perm <- function(x, order) {
-  if (length(dim(x)) != length(order))
+  if (ndim(x) != length(order))
     stop("dimensions do not match")
   if (any(dim(x) != sapply(order, length)))
     stop("some permutation vectors do not fit dimension of data")
 }
 
-.permute_kd <- function(x, order, ...) {
+.permute_kd <- function(x, order, margin = NULL, ...) {
   .nodots(...)
 
   if (!inherits(order, "ser_permutation"))
     order <- ser_permutation(order)
 
-  ## deal with identity permutations
+  # create complete order object for margin
+  if (!is.null(margin)) {
+    if (length(margin) != 1 || !(margin %in% seq(ndim(x))))
+      stop("margin needs to be a single numeric index.")
+
+    margin <- as.integer(margin)
+
+    if (length(order) != 1 && length(order) != ndim(x))
+      stop("order needs to contain either orders for all dimensions or just a single order.")
+
+    if (length(order) == 1)
+      order[[margin]] <- order[[1]]
+
+    # set all other dimensions to identity.
+    for (i in seq(ndim(x))) {
+      if (i != margin)
+        order[[i]] <- ser_permutation_vector(NA)
+    }
+  }
+
+  # expand identity permutations
   todo <- which(sapply(order, .is_identity_permutation))
   for (i in todo)
     order[[i]] <- ser_permutation_vector(seq(dim(x)[i]))
 
   .check_matrix_perm(x, order)
-
   perm <- lapply(order, get_order)
   do.call("[", c(list(x), perm, drop = FALSE))
+
 }
 
 .permute_1d <- function(x, order, ...) {
@@ -175,13 +189,13 @@ permute.hclust <- function(x, order, ...) {
 }
 
 
-## if we used proxy we would say:
+# if we used proxy we would say:
 #.rearrange_dist <- function (x, order) x[[order]]
 
 .rearrange_dist <- function (x, order) {
-  ## make C call
+  # make C call
   mode(x) <- "double"
-  ## as.dist seems to make Size numeric and not integer!
+  # as.dist seems to make Size numeric and not integer!
   attr(x, "Size") <- as.integer(attr(x, "Size"))
   mode(order) <- "integer"
 
