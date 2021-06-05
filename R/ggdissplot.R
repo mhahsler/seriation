@@ -48,13 +48,11 @@ ggdissplot <- function(x,
     options,
     list(
       cluster_labels = TRUE,
-      lines       = TRUE,
-      averages	  = c(FALSE, TRUE),
-      labRow = NULL,
-      labCol = NULL,
-      flip		    = FALSE,
-      # silhouettes = FALSE, ???
-      threshold   = NULL
+      lines          = TRUE,
+      averages	     = c(FALSE, TRUE),
+      labRow         = NULL,
+      labCol         = NULL,
+      flip		       = FALSE
     )
   )
 
@@ -123,7 +121,11 @@ ggdissplot <- function(x,
   if (options$flip)
     m <- m[, ncol(m):1]
 
-  g <- ggpimage(m, labRow = options$labRow, labCol = options$labCol)
+  # So we can add cluster labels later
+  if (options$cluster_labels)
+    colnames(m) <- seq(ncol(m))
+
+    g <- ggpimage(m, labRow = options$labRow, labCol = options$labCol)
 
   # add cluster lines and labels
   if (!is.null(labels)) {
@@ -135,7 +137,7 @@ ggdissplot <- function(x,
       data.frame(
         center = cluster_center,
         cut = cluster_cuts,
-        with = cluster_width,
+        width = cluster_width,
         label = labels_unique
       )
 
@@ -143,21 +145,38 @@ ggdissplot <- function(x,
     center <- label <- cut <- NULL
 
     if (options$cluster_labels) {
-      ## TODO: above the plot
+      # Place cluster labels along diagonal
+      # if (!options$flip) {
+      #   g <- g + ggplot2::geom_label(data = clusters,
+      #     ggplot2::aes(
+      #       x = center,
+      #       y = nrow(m) - center,
+      #       label = label
+      #     ))
+      # } else{
+      #   g <- g + ggplot2::geom_label(data = clusters,
+      #     ggplot2::aes(
+      #       x = ncol(m) - center,
+      #       y = nrow(m) - center,
+      #       label = label
+      #     ))
+      # }
+
+      # Place cluster labels on top as x-axis (needs the colnames set as a sequence)
       if (!options$flip) {
-        g <- g + ggplot2::geom_text(data = clusters,
-          ggplot2::aes(
-            x = center,
-            y = nrow(m) - center,
-            label = label
-          ))
+        suppressMessages(
+          g <- g + ggplot2::scale_x_discrete(breaks = clusters$center,
+            label = clusters$label, expand = c(0,0), position = "top") +
+            ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 0, vjust = 0.5, hjust=.5)) +
+            ggplot2::labs(x = "Cluster")
+        )
       } else{
-        g <- g + ggplot2::geom_text(data = clusters,
-          ggplot2::aes(
-            x = ncol(m) - center,
-            y = nrow(m) - center,
-            label = label
-          ))
+        suppressMessages(
+          g <- g + ggplot2::scale_x_discrete(breaks = ncol(m) - clusters$center,
+            label = clusters$label, expand = c(0,0), position = "top") +
+            ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 0, vjust = 0.5, hjust=.5)) +
+            ggplot2::labs(x = "Cluster")
+        )
       }
 
       if (options$lines) {

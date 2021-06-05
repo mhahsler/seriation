@@ -191,10 +191,7 @@ ggpimage.matrix <- function(x,
 
   # no axis or legend labels
   g <- g +
-    ggplot2::theme(
-      legend.title = ggplot2::element_blank(),
-      axis.title = ggplot2::element_blank()
-    )
+    ggplot2::labs(x = NULL, y = NULL, fill = NULL)
 
   g <-
     g + ggplot2::theme(axis.text.x = ggplot2::element_text(

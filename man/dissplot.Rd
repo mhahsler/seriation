@@ -60,7 +60,7 @@ ggdissplot(x, labels = NULL, method = "Spectral",
       and \code{intra_cluster}) containing each a list with the control options
       for the respective algorithm.}
   \item{options}{a list with options for plotting the matrix. The
-      list can contain the following elements:
+      list can contain the following elements (not all are available for \code{ggdissplot()}):
 
   \describe{
     \item{\code{plot}}{a logical indicating  if a plot should be produced.  if
@@ -175,19 +175,18 @@ visualization for high-dimensional data mining.
 data("iris")
 
 # shuffle rows
-iris <- iris[sample(seq(nrow(iris))), ]
-d <- dist(iris[-5])
+x_iris <- iris[sample(seq(nrow(iris))), -5]
+d <- dist(x_iris)
 
 # Plot original matrix
-res <- dissplot(d, method = NA)
+dissplot(d, method = NA)
 
 # Plot reordered matrix using the nearest insertion algorithm (from tsp)
-res <- dissplot(d, method = "TSP",
-    options = list(main = "Seriation (TSP)"))
+dissplot(d, method = "TSP", main = "Seriation (TSP)")
 
-# Cluster with partitioning around medoids (pam) with 3 clusters
-library("cluster")
-l <- pam(d, 3, cluster.only = TRUE)
+# Cluster iris with k-means and 3 clusters
+l <- kmeans(x_iris, centers = 3)$cluster
+dissplot(d, labels = l, main = "k-means")
 
 # Use a grid layout to place several plots on a page
 library("grid")
@@ -198,34 +197,33 @@ pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 # Visualize the clustering (using Spectral between clusters and MDS within)
 res <- dissplot(d, l, method = list(inter = "Spectral", intra = "MDS"),
-    options = list(main = "PAM + Seriation",
-    newpage = FALSE))
+  main = "K-Means + Seriation", newpage = FALSE)
 
 popViewport()
 pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
 
 # More visualization options. Note that we reuse the reordered object res!
 # color: use 10 shades red-blue, biased towards small distances
-plot(res, options = list(main = "PAM + Seriation (red-blue + biased)",
-    col= bluered(10, bias = .5), newpage = FALSE))
+plot(res, main = "K-Means + Seriation (red-blue + biased)",
+    col= bluered(10, bias = .5), newpage = FALSE)
 
 popViewport()
 pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 1))
 
 # Threshold (using zlim) and cubic scale to highlight differences
-plot(res, options = list(main = "PAM + Seriation (cubic + threshold)",
-    zlim = c(0, 2), col = grays(100, power = 3), newpage = FALSE))
+plot(res, main = "K-Means + Seriation (cubic + threshold)",
+    zlim = c(0, 2), col = grays(100, power = 3), newpage = FALSE)
 
 popViewport()
 pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
 
 # Use gray scale with logistic transformation
-plot(res, options = list(main = "PAM + Seriation (logistic scale)",
+plot(res, main = "K-Means + Seriation (logistic scale)",
   col = gray(
     plogis(seq(max(res$x_reordered), min(res$x_reordered), length.out = 100),
       location = 2, scale = 1/2, log = FALSE)
     ),
-  newpage = FALSE))
+  newpage = FALSE)
 
 popViewport(2)
 
@@ -244,21 +242,22 @@ if (require("ggplot2")) {
   ggdissplot(d, method = "TSP") +
     labs(title = "Seriation (TSP)")
 
-  # Cluster with partitioning around medoids (pam) with 3 clusters
-  library("cluster")
-  l <- pam(d, 3, cluster.only = TRUE)
+  # Cluster iris with k-means and 3 clusters
+  l <- kmeans(x_iris, centers = 3)$cluster
 
-  # Visualize the clustering (using Spectral between clusters and MDS within)
-  ggdissplot(d, l, method = list(inter = "Spectral", intra = "MDS")) +
-    labs(title = "PAM + Seriation")
+  ggdissplot(d, labels = l) +
+    labs(title = "K-means + Seriation")
 
-  # Diverging color palette with manual set midpoint
+  # No lines or cluster labels and label for fill
+  ggdissplot(d, labels = l, lines = FALSE, cluster_labels = FALSE) +
+    labs(title = "K-means + Seriation", fill = "Distances\n(Euclidean)")
+
+  # Diverging color palette with manual set midpoint and different seriation methods
   ggdissplot(d, l, method = list(inter = "Spectral", intra = "MDS")) +
-    labs(title = "PAM + Seriation (red-blue + biased)") +
+    labs(title = "K-Means + Seriation", subtitle = "red-blue + biased color scale") +
     scale_fill_gradient2(low = "darkred", high = "darkblue", midpoint = 3)
 
-  # Use different scale manipulations
-
+  # Use manipulate scale using package scales
   library("scales")
 
   # Threshold (using limit and na.value) and cubic scale to highlight differences
@@ -270,7 +269,7 @@ if (require("ggplot2")) {
   )
 
   ggdissplot(d, l, method = list(inter = "Spectral", intra = "MDS")) +
-    labs(title = "PAM + Seriation (cubic + biased)") +
+    labs(title = "K-Means + Seriation", subtitle = "cubic + biased color scale") +
     scale_fill_gradient(low = "black", high = "white",
       limit = c(0,2), na.value = "white",
       trans = cubic_dist_trans)
@@ -284,7 +283,7 @@ if (require("ggplot2")) {
   )
 
   ggdissplot(d, l, method = list(inter = "Spectral", intra = "MDS")) +
-    labs(title = "PAM + Seriation (logistic scale)") +
+    labs(title = "K-Means + Seriation", subtitle = "logistic color scale") +
     scale_fill_gradient(low = "black", high = "white",
       trans = logis_2_.5_dist_trans,
       breaks = c(0, 1, 2, 3, 4))

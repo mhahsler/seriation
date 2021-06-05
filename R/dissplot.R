@@ -50,7 +50,7 @@ dissplot <- function(x,
   else
     is.null(options$plot)
   if (plot)
-    plot(res, options, gp = options$gp)
+    plot(res, options)
 
   invisible(res)
 }
@@ -285,6 +285,9 @@ dissplot <- function(x,
 ## plot for reordered_cluster_dissimilarity_matrix
 plot.reordered_cluster_dissimilarity_matrix <-
   function(x, options = NULL, ...) {
+    ## add ... to options
+    options <- c(options, list(...))
+
     m       <- as.matrix(x$x_reordered)
     k       <- x$k
     dim     <- attr(x$x_reordered, "Size")
