@@ -19,100 +19,132 @@
 
 ggbertinplot <- function(x,
   order = NULL,
+  geom = "bar",
   highlight = TRUE,
-  labRow = TRUE,
-  labCol = TRUE,
-  reverse = FALSE,
+  row_labels = TRUE,
+  col_labels = TRUE,
+  flip_axes = TRUE,
   prop = FALSE,
-  geom = "bar") {
+  ...) {
   check_installed("ggplot2")
 
   if (!is.matrix(x))
     stop("Argument 'x' must be a matrix.")
 
-  if (is.logical(highlight) && highlight)
-    highlight <- mean(x, na.rm = TRUE)
-
-  # TODO: rename to circle, box etc.
-  # Add square
   geom <-
     match.arg(tolower(geom),
-      choices = c("raster", "block", "circle", "line", "bar", "none"))
+      choices = c("tile", "rectangle", "circle", "line", "bar", "none"))
 
   # reorder
   if (!is.null(order))
     x <- permute(x, order)
 
   # change x and y?
-  if (!reverse) {
+  if (flip_axes) {
     x <- t(x)
-    tmp <- labRow
-    labRow <- labCol
-    labCol <- tmp
+    tmp <- row_labels
+    row_labels <- col_labels
+    col_labels <- tmp
   }
+
+  if (is.logical(highlight) && highlight)
+    highlight <- mean(x, na.rm = TRUE)
 
   g <-
     .ggpimage_empty(
       x,
-      labRow = labRow,
-      labCol = labCol,
+      row_labels = row_labels,
+      col_labels = col_labels,
       prop = prop,
       expand = geom != "raster"
     )
 
+  if (col_labels)
+    breaksCol <- ggplot2::waiver()
+  else
+    breaksCol <- NULL
+  if (row_labels)
+    breaksRow <- ggplot2::waiver()
+  else
+    breaksRow <- NULL
+
   # put col labels on top (message about replacing scale for x)
   suppressMessages(
     g <- g +
-      ggplot2::scale_x_discrete(position = "top", expand = if (geom != "raster") ggplot2::waiver() else c(0, 0)) +
-      ggplot2::scale_y_discrete(position = "right", expand = if (geom != "raster") ggplot2::waiver() else c(0, 0)) +
+      ggplot2::scale_x_discrete(
+        breaks = breaksRow,
+        position = "top",
+        expand = if (geom != "raster")
+          ggplot2::waiver()
+        else
+          c(0, 0)
+      ) +
+      ggplot2::scale_y_discrete(
+        breaks = breaksCol,
+        position = "right",
+        expand = if (geom != "raster")
+          ggplot2::waiver()
+        else
+          c(0, 0)
+      ) +
       ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 0, vjust = .5)) +
-      ggplot2::theme(legend.position="bottom")
+      ggplot2::theme(legend.position = "bottom")
   )
 
   # add geom
 
   # raster does not use highlight
-  if (geom == "raster")
+  if (geom == "tile")
     g <- g + ggplot2::geom_raster(ggplot2::aes(fill = x))
 
   if (geom == "circle")
     if (highlight) {
-      g <-
-        g + ggplot2::geom_point(ggplot2::aes(size = x,
-          fill = x > highlight),
-          color = "black",
-          pch = 21) + ggplot2::scale_fill_manual(values = c("white", "black")) +
-        ggplot2::guides(fill = FALSE, size = FALSE)
+      suppressMessages(
+        g <-
+          g + ggplot2::geom_point(
+            ggplot2::aes(size = x,
+              fill = x > highlight),
+            color = "black",
+            pch = 21
+          ) + ggplot2::scale_fill_manual(values = c("white", "black")) +
+          ggplot2::guides(fill = FALSE, size = FALSE)
+      )
     } else{
       g <- g + ggplot2::geom_point(ggplot2::aes(size = x))
     }
 
-  if (geom == "block")
+  if (geom == "rectangle")
     if (highlight) {
-      g <-
-        g + ggplot2::geom_tile(
-          ggplot2::aes(
-            x = col,
-            y = row,
-            height = x / max(x) * .8,
-            fill = x > highlight
-          ),
-          width = .8,
-          color = "black"
-        ) +
-        ggplot2::scale_fill_manual(values = c("white", "black")) +
-        ggplot2::guides(fill = FALSE)
+      suppressMessages(
+        g <-
+          g + ggplot2::geom_tile(
+            ggplot2::aes(
+              x = col,
+              y = row,
+              height = x / max(x, na.rm = TRUE) * .8,
+              width = x / max(x, na.rm = TRUE) * .8,
+              fill = x > highlight
+            ),
+            color = "black"
+          ) +
+          ggplot2::scale_fill_manual(values = c("white", "black")) +
+          ggplot2::guides(fill = FALSE)
+      )
     } else{
       g <- g +
         ggplot2::geom_tile(ggplot2::aes(height = x / max(x) * .9), width = .8)
     }
+
+  # TODO: do not display facet labels when row_labels == FALSE
 
   # no highlight for line
   if (geom == "line")
     g <- g +
     ggplot2::geom_line(ggplot2::aes(x = col, y = x, group = row)) +
     # Note: facets display the lowest level first so we need to reverse them
-    ggplot2::facet_grid(rows = ggplot2::vars(stats::reorder(row, rev(as.integer(row))))) +
+    ggplot2::facet_grid(rows = ggplot2::vars(stats::reorder(row, rev(as.integer(
+      row
+    ))))) +
     ggplot2::theme(
       strip.text.y.right = ggplot2::element_text(angle = 0, color = "black"),
       strip.background = ggplot2::element_blank()
@@ -120,30 +152,41 @@ ggbertinplot <- function(x,
 
   if (geom == "bar")
     if (highlight) {
-      g <- g +
-        ggplot2::geom_bar(ggplot2::aes(
-          x = col,
-          y = x,
-          group = row,
-          fill = x > highlight
-        ),
-          stat = "identity", color = "black", width = .8) +
-        # Note: facets display the lowest level first so we need to reverse them
-        ggplot2::facet_grid(rows = ggplot2::vars(stats::reorder(row, rev(as.integer(row))))) +
-        ggplot2::theme(
-          strip.text.y.right = ggplot2::element_text(angle = 0, color = "black"),
-          strip.background = ggplot2::element_blank()
-        ) +
-        ggplot2::scale_fill_manual(values = c("white", "black")) +
-        ggplot2::guides(fill = FALSE)
+      suppressMessages(
+        g <- g +
+          ggplot2::geom_bar(
+            ggplot2::aes(
+              x = col,
+              y = x,
+              group = row,
+              fill = x > highlight
+            ),
+            stat = "identity",
+            color = "black",
+            width = .8
+          ) +
+          # Note: facets display the lowest level first so we need to reverse them
+          ggplot2::facet_grid(rows = ggplot2::vars(stats::reorder(
+            row, rev(as.integer(row))
+          ))) +
+          ggplot2::theme(
+            strip.text.y.right = ggplot2::element_text(angle = 0, color = "black"),
+            strip.background = ggplot2::element_blank()
+          ) +
+          ggplot2::scale_fill_manual(values = c("white", "black")) +
+          ggplot2::guides(fill = FALSE)
+      )
     } else{
       g <- g +
         ggplot2::geom_bar(ggplot2::aes(x = col,
           y = x,
           group = row),
-          stat = "identity", width = .8) +
+          stat = "identity",
+          width = .8) +
         # Note: facets display the lowest level first so we need to reverse them
-        ggplot2::facet_grid(rows = ggplot2::vars(stats::reorder(row, rev(as.integer(row))))) +
+        ggplot2::facet_grid(rows = ggplot2::vars(stats::reorder(row, rev(
+          as.integer(row)
+        )))) +
         ggplot2::theme(
           strip.text.y.right = ggplot2::element_text(angle = 0, color = "black"),
           strip.background = ggplot2::element_blank()

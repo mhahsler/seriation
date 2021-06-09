@@ -903,7 +903,7 @@ Note that some methods implemented
 (e.g., the rank-two ellipse seriation) do not fall within the
 combinatorial optimization framework of this paper and thus are not
 dealt with here in detail.  They are included in the package since they
-can be useful for various applications.  
+can be useful for various applications.
 A detailed empirical comparison of seriation methods and crieria can be found
 in the study by \cite{hahsler:Hahsler2016d}.
 %Over time more methods will be
@@ -1104,12 +1104,12 @@ for displaying the reordered scaled data. The two plots are shown in
 Figure~\ref{fig:pimage2}.
 
 <<label=pimage2, fig=TRUE, include=FALSE, width=7.5>>=
-pimage(scale(x), main = "Random")
+pimage(scale(x), main = "Random", prop = FALSE)
 @
 
 <<label=pimage2-2, fig=TRUE, include=FALSE, width=7.5>>=
 o_2mode <- c(o, NA)
-pimage(scale(x), o_2mode, main = "Reordered")
+pimage(scale(x), o_2mode, main = "Reordered", prop = FALSE)
 @
 
 \begin{figure}
@@ -1302,21 +1302,18 @@ in \pkg{seriation}. Here we give a simple example of how to implement and
 register a new seriation method.
 
 In the registry we distinguish between methods for different types of
-input data.  With the following two commands we produce a short overview
-of the the first few available seriation methods for input data of class \code{dist}
+input data.  With the following two commands we produce a list
+of the available seriation methods for input data of class \code{dist}
 and \code{matrix}.
 
 <<>>=
-show_seriation_methods("dist")[1:3]
-show_seriation_methods("matrix")[1:3]
+list_seriation_methods("dist")
+list_seriation_methods("matrix")
 @
 
-The overview is intended to make it convenient for the user to choose an
-appropriate method.  It contains the name of the method used as the
-\code{method} argument for \func{seriate} and a short description.  To
-get just the names the following function is also available:
+To get detailed information on a seriation method use the following.
 <<>>=
-list_seriation_methods("dist")
+get_seriation_method("dist", name = "ARSA")
 @
 
 To add a new seriation method, we first have to implement the seriation code as
@@ -1344,19 +1341,19 @@ Since the function works for \code{matrix} and \code{array} we can register
 it for both data types under the short name `Reverse'.
 
 <<>>=
-set_seriation_method("matrix", "Reverse", seriation_method_reverse,
+set_seriation_method("matrix", "New_Reverse", seriation_method_reverse,
     "Reverse identity order")
 
-set_seriation_method("array", "Reverse", seriation_method_reverse,
+set_seriation_method("array", "New_Reverse", seriation_method_reverse,
     "Reverse identity order")
 @
 
 Now the new seriation method is registered and can be found by the user
 and applied to data.
 <<>>=
-show_seriation_methods("matrix")
+list_seriation_methods("matrix")
 
-o <- seriate(matrix(1, ncol=3, nrow=4), "reverse")
+o <- seriate(matrix(1, ncol=3, nrow=4), "New_Reverse")
 o
 
 get_order(o, 1)
@@ -1403,7 +1400,7 @@ by default Optimal Leaf Ordering), the function
 \func{hmap} can be used with its default settings.
 
 <<eval=FALSE>>=
-hmap(x, margin =c(7, 4), cexCol=1, labRow = FALSE)
+hmap(x, margin = c(7, 4), cexCol = 1, row_labels = FALSE)
 @
 
 With these settings, the
@@ -1428,7 +1425,7 @@ seriation methods.
 #bitmap(file = "seriation-heatmap1.png", type = "pnggray",
 #    height = 6, width = 6, res = 300, pointsize=14)
 pdf(file = "seriation-heatmap1.pdf")
-hmap(x, margin = c(7, 4), labRow = FALSE, cexCol=1)
+hmap(x, margin = c(7, 4), row_labels = FALSE, cexCol = 1)
 tmp <- dev.off()
 @
 <<echo=FALSE, fig=FALSE, include=FALSE>>=
@@ -1514,9 +1511,18 @@ plotted using \func{bertinplot}.
 
 <<>>=
 o <- c(
-    seriate(dist(orig_matrix, "minkowski", p = 1), method ="TSP"),
+    seriate(dist(orig_matrix, "minkowski", p = 1), method = "TSP"),
     seriate(dist(t(orig_matrix), "minkowski", p = 1), method = "TSP")
 )
+o
+@
+
+In a newer version of the package this can be also done with the new heatmap seriation method for matrices.
+<<>>=
+get_seriation_method("matrix", name = "heatmap")
+
+o <- seriate(orig_matrix, method = "heatmap", dist_fun = function(d) dist(d, "minkowski", p = 1),
+             seriation_method = "TSP")
 o
 @
 
@@ -1593,8 +1599,7 @@ to plot black squares.
 <<fig=TRUE, include=FALSE, label=binary1, width=9>>=
 data("Townships")
 
-bertinplot(Townships, options = list(panel=panel.squares, spacing = 0,
-    frame = TRUE))
+bertinplot(Townships, panel = panel.tiles)
 @
 
 The original data in Figure~\ref{fig:binary}(a) does not reveal structure in
@@ -1609,8 +1614,7 @@ set.seed(5)
 
 <<fig=TRUE, include=FALSE, label=binary2, width=9>>=
 o <- seriate(Townships, method = "BEA", control = list(rep = 10))
-bertinplot(Townships, o, options = list(panel=panel.squares, spacing = 0,
-    frame = TRUE))
+bertinplot(Townships, o, panel = panel.tiles)
 @
 
 The reordered matrix is displayed in Figure~\ref{fig:binary}(b).  A
@@ -1645,7 +1649,10 @@ next higher group.
 
 
 <<>>=
-rbind(original = criterion(Townships), reordered = criterion(Townships, o))
+rbind(
+  original = criterion(Townships),
+  reordered = criterion(Townships, o)
+)
 @
 
 BEA tries to maximize the measure of effectiveness which is
@@ -1714,8 +1721,9 @@ iris data set.
 
 <<>>=
 data("iris")
-iris <- iris[sample(seq_len(nrow(iris))),]
-d <- dist(as.matrix(iris[-5]), method = "euclidean")
+iris <- iris[sample(seq_len(nrow(iris))), ]
+x_iris <- iris[, -5]
+d_iris <- dist(x_iris, method = "euclidean")
 @
 
 First, we use \func{dissplot} without a clustering. We set \code{method} to
@@ -1729,12 +1737,12 @@ solution.
 
 <<eval=FALSE, label=dissplot1>>=
 ## plot original matrix
-dissplot(d, method = NA)
+dissplot(d_iris, method = NA)
 @
 
 <<eval=FALSE, label=dissplot2>>=
 ## plot reordered matrix
-dissplot(d, options = list(main = "Dissimilarity plot with seriation"))
+dissplot(d_iris, main = "Dissimilarity plot with seriation")
 @
 
 <<echo=FALSE, fig=FALSE, include=FALSE>>=
@@ -1774,7 +1782,7 @@ misspecification can be spotted using \func{dissplot}.
 set.seed(1234)
 @
 <<>>=
-l <- kmeans(d, 10)$cluster
+l <- kmeans(x_iris, 10)$cluster
 #$
 @
 
@@ -1785,8 +1793,8 @@ large matrices, the rearranged matrix and all
 information needed for plotting is returned as the result.
 
 <<eval=FALSE, label=dissplot3>>=
-res <- dissplot(d, labels = l,
-    options = list(main = "Dissimilarity plot - standard"))
+res <- dissplot(d_iris, labels = l,
+    main = "Dissimilarity plot - standard")
 @
 <<echo=FALSE, fig=FALSE, include=FALSE>>=
 pdf(file = "seriation-dissplot3.pdf")
@@ -1798,8 +1806,8 @@ tmp <- dev.off()
 
 pdf(file = "seriation-dissplot4.pdf")
 ## threshold
-plot(res, options = list(main = "Dissimilarity plot - threshold",
-    threshold = 1.5))
+plot(res, main = "Dissimilarity plot - threshold",
+    threshold = 3)
 
 tmp <- dev.off()
 @
@@ -1838,7 +1846,7 @@ values in the plot.
 
 <<eval=FALSE>>=
 plot(res, options = list(main = "Seriation - threshold",
-    threshold = 1.5))
+    threshold = 3))
 @
 
 In the resulting plot in Figure~\ref{fig:dissplot3}(b), we see that the
@@ -1872,9 +1880,9 @@ real number of groups is 4) and produce
 a dissimilarity plot.
 
 <<label=ruspini, fig=TRUE, include=FALSE>>=
-data("ruspini", package="cluster")
+data("ruspini", package = "cluster")
 d <- dist(ruspini)
-l <- kmeans(d, 3)$cluster
+l <- kmeans(ruspini, 3)$cluster
 dissplot(d, labels = l)
 @
 
@@ -1937,7 +1945,6 @@ The authors would like to thank Michael Brusco, Hans-Friedrich K{\"o}hn
 and Stephanie Stahl for their seriation code, Fionn Murtagh for his BEA
 implementation and the anonymous reviewers for their valuable comments
 and suggestions.
-
 
 %
 %\bibliographystyle{abbrvnat}

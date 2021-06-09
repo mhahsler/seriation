@@ -1,24 +1,31 @@
 # seriation 1.2-9.1 (00/00/0000)
 
 ## Changes
-* pimage: axes is not deprecated. Use labCol and labRow instead.
-* criterion returns now NA with a warning for ME for non-positive matrices (used to stop with an error).
-* list_seriation_methods and list_criterion_methods without kind return now a list.
-* show_seriation_methods and show_criterion_methods are deprecated
-* dependency dendextend is now only suggested.
-* hmap now uses heatmap from package stats.
-* get_order now returns also labels.
-* hclust-based seriations now default for linkage to complete instead of average.
-* improved layout (less white space) for grid-based plots.
+* Plotting
+  - Most plotting functions have now a common interface. This changed many parameters. 
+  - hmap now uses heatmap from package stats.
+  - dissplot shows now averages in the top triangles.
+  - improved layout (less white space) for grid-based plots.
+* Registry
+  - list_seriation_methods and list_criterion_methods without kind return now a list.
+  - show_seriation_methods and show_criterion_methods are deprecated
+* Other Changes
+  - criterion returns now NA with a warning for ME for non-positive matrices (used to stop with an error).
+  - dependency dendextend is now only suggested.
+  - get_order now returns also labels.
+  - hclust-based seriations now defaults for linkage to complete instead of average.
 
 ## New Features
-* colors are now more consistent and all have bias and power.
-* added ggplot2-based plots, ggimage, gghmap, ggVAT, ggiVAT, ggbertinplot, ggdissplot.
-* seriate for matrix has now method "Heatmap".
-* Added seriation method "Reverse" for reverse identity order.
-* pimage gained parameter flip.
-* permute for matrix-like objects gained parameter margin.
-* permute for data.frame works now identical to permute for matrix.
+* Plotting 
+  - Major refactoring of plotting functions to provide a more consistent interface.
+  - added ggplot2-based plots, ggimage, gghmap, ggVAT, ggiVAT, ggbertinplot, ggdissplot.
+  - colors are now more consistent and all have bias and power.
+* Seriation methods 
+  - seriate for matrix has now method "Heatmap".
+  - added seriation method "Reverse" for reverse identity order.
+* Permutation
+  - permute for matrix-like objects gained parameter margin.
+  - permute for data.frame works now identical to permute for matrix.
 
 
 # seriation 1.2-9 (09/29/2020)

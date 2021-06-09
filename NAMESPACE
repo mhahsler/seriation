@@ -22,8 +22,10 @@ export(
     get_permutation_matrix,
     panel.bars,
     panel.circles,
-    panel.squares,
-    panel.blocks,
+    panel.rectangles,
+    panel.tiles,
+    panel.squares, # deprecated
+    panel.blocks, # deprecated
     panel.lines,
     permute,
     ser_permutation,

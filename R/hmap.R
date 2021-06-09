@@ -25,6 +25,8 @@ hmap <- function(x,
   scale = c("none", "row", "column"),
   showDend = TRUE,
   col = NULL,
+  row_labels = NULL,
+  col_labels = NULL,
   ...) {
   scale <- match.arg(scale)
 
@@ -70,20 +72,21 @@ hmap <- function(x,
     # heatmap by default scales rows: we don't want that!
     # options are ignored for now: we use ...
 
-
     stats::heatmap(
       x,
       Rowv = as.dendrogram(o_row),
       Colv = as.dendrogram(o_col),
       scale = "none",
       col = col,
+      labRow = row_labels,
+      labCol = col_labels,
       ...
     )
 
   } else {
     ### we plot seriated distance matrices
-    .hmap_dist(x, method, dist_row, dist_col, o_row, o_col, col = col, ...)
-
+    .hmap_dist(x, method, dist_row, dist_col, o_row, o_col, col = col,
+      row_labels = row_labels, col_labels = col_labels, ...)
   }
 
   ## return permutation indices
@@ -104,6 +107,7 @@ hmap <- function(x,
     o_row,
     o_col,
     ...) {
+
     ## options
     options <- list(...)
     options <- .get_parameters(
@@ -117,9 +121,9 @@ hmap <- function(x,
         prop      = FALSE,
         main      = NULL,
         key       = TRUE,
-        key.lab   = "",
-        labRow    = NULL,
-        labCol    = NULL,
+        keylab   = "",
+        row_labels    = NULL,
+        col_labels    = NULL,
         showdist  = "none",
         symm      = FALSE,
         margins   = NULL,
@@ -154,8 +158,8 @@ hmap <- function(x,
         col = options$col,
         main = options$main,
         zlim = options$zlim,
-        labRow = options$labRow,
-        labCol = options$labCol,
+        row_labels = options$row_labels,
+        col_labels = options$col_labels,
         prop = options$prop,
         key = options$key,
         newpage = options$newpage,
@@ -168,35 +172,35 @@ hmap <- function(x,
     dist_col <- permute(dist_col, o_col)
 
     # deal with row/col labels
-    labRow <- options$labRow
-    labCol <- options$labCol
-    if (!is.null(labRow) && !is.logical(labRow)) {
-      if (length(labRow) != nrow(x))
-        stop("Length of labRow does not match the number of rows of x.")
-      rownames(x) <- labRow
-      labRow <- TRUE
+    row_labels <- options$row_labels
+    col_labels <- options$col_labels
+    if (!is.null(row_labels) && !is.logical(row_labels)) {
+      if (length(row_labels) != nrow(x))
+        stop("Length of row_labels does not match the number of rows of x.")
+      rownames(x) <- row_labels
+      row_labels <- TRUE
     }
 
-    if (!is.null(labCol) && !is.logical(labCol)) {
-      if (length(labCol) != ncol(x))
-        stop("Length of labCol does not match the number of columns of x.")
-      colnames(x) <- labCol
-      labCol <- TRUE
+    if (!is.null(col_labels) && !is.logical(col_labels)) {
+      if (length(col_labels) != ncol(x))
+        stop("Length of col_labels does not match the number of columns of x.")
+      colnames(x) <- col_labels
+      col_labels <- TRUE
     }
 
-    if (is.null(labRow))
+    if (is.null(row_labels))
       if (!is.null(rownames(x)) &&
           nrow(x) < 25) {
-        labRow <- TRUE
+        row_labels <- TRUE
       } else{
-        labRow <- FALSE
+        row_labels <- FALSE
       }
-    if (is.null(labCol))
+    if (is.null(col_labels))
       if (!is.null(colnames(x)) &&
           ncol(x) < 25) {
-        labCol <- TRUE
+        col_labels <- TRUE
       } else{
-        labCol <- FALSE
+        col_labels <- FALSE
       }
 
     if (is.null(rownames(x)))
@@ -207,15 +211,15 @@ hmap <- function(x,
     ## Note: we need a list to store units!
     if (is.null(options$margins)) {
       options$margins <- list(unit(1, "lines"), unit(1, "lines"))
-      if (labCol)
+      if (col_labels)
         options$margins[[1]] <-
           max(stringWidth(colnames(x))) + unit(2, "lines")
-      if (labRow)
+      if (row_labels)
         options$margins[[2]] <-
           max(stringWidth(rownames(x))) + unit(2, "lines")
       all_names <-
-        c("", if (labCol)
-          colnames(x), if (labRow)
+        c("", if (col_labels)
+          colnames(x), if (row_labels)
             rownames(x))
       options$margins[[3]] <-
         max(stringWidth(all_names)) + unit(2, "lines")
@@ -307,7 +311,7 @@ hmap <- function(x,
       zlim = options$zlim)
 
     downViewport("image")
-    if (labCol)
+    if (col_labels)
       grid.text(
         colnames(x),
         y = unit(-1, "lines"),
@@ -315,7 +319,7 @@ hmap <- function(x,
         rot = 90,
         just = "right"
       ) # , gp=options$gp)
-    if (labRow)
+    if (row_labels)
       grid.text(
         rownames(x),
         x = unit(1, "npc") + unit(1, "lines"),
@@ -355,7 +359,7 @@ hmap <- function(x,
       .grid_colorkey(
         options$zlim,
         col = options$col,
-        lab = options$key.lab,
+        lab = options$keylab,
         gp = options$gp
       )
       popViewport(2)

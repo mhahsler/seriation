@@ -12,12 +12,16 @@ Dissimilarity plots can be used to uncover hidden structure in the data and judg
 }
 \usage{
 # grid-based dissimilarity plot
-dissplot(x, labels = NULL, method = "Spectral",
-  control = NULL, options = NULL, ...)
+dissplot(x, labels = NULL, method = "Spectral", control = NULL,
+  lower_tri = TRUE, upper_tri = "average",
+  cluster_labels = TRUE, cluster_lines = TRUE,
+  reverse_columns = FALSE, options = NULL, ...)
 
 # ggplot2-based dissimilarity plot
-ggdissplot(x, labels = NULL, method = "Spectral",
-  control = NULL, options = NULL, ...)
+ggdissplot(x, labels = NULL, method = "Spectral", control = NULL,
+  lower_tri = TRUE, upper_tri = "average",
+  cluster_labels = TRUE, cluster_lines = TRUE,
+  reverse_columns = FALSE, ...)
 }
 \arguments{
   \item{x}{ an object of class \code{dist}.}
@@ -25,26 +29,24 @@ ggdissplot(x, labels = NULL, method = "Spectral",
       rows/columns in \code{x} indicating the cluster membership for each
       object in \code{x} as consecutive integers starting with one. The labels
       are used to reorder the matrix.}
-  \item{method}{ a list with up to three elements or a single character string.
-	  Use a single character string to apply the same algorithm to reorder
-	  the clusters (inter cluster seriation) as well as the objects within each
-	  cluster (intra cluster seriation).
-
-      If separate algorithms for inter and intra cluster seriation are
+  \item{method}{ A single character string indicating the seriation method used
+    to  reorder the clusters (inter cluster seriation) as well as the objects within each
+    cluster (intra cluster seriation).
+      If different algorithms for inter and intra cluster seriation are
       required, \code{method} can be a \code{list} of two named elements
       (\code{inter_cluster} and \code{intra_cluster} each containing the name
       of the respective seriation method. See \code{seriate.dist} for available
       algorithms.
 
-      Set method to \code{NA} to plot the matrix as is (no or only coarse
-	  seriation). For intra cluster reordering the special
-      method \code{"silhouette width"} is available. Objects in clusters are
+      Set method to \code{NA} to plot the matrix as is (no or, if cluster labels are supplied, only coarse
+	    seriation). For intra cluster reordering with the special
+      method \code{"silhouette width"} is available (for \code{dissplot only}). Objects in clusters are
       then ordered by silhouette width (from silhouette plots).
       If no \code{method} is given, the default method of \code{seriate.dist}
       is used.
 
-	  The third list element (named \code{aggregation})
-	  controls how inter cluster dissimilarities are computed from from
+	  A third list element (named \code{aggregation}) can be added to
+	  control how inter cluster dissimilarities are computed from from
 	  the given dissimilarity matrix. The choices are
 	   \code{"avg"} (average pairwise dissimilarities; average-link),
 	   \code{"min"} (minimal pairwise dissimilarities; single-link),
@@ -59,29 +61,23 @@ ggdissplot(x, labels = NULL, method = "Spectral",
       contain a list of two named elements (\code{inter_cluster}
       and \code{intra_cluster}) containing each a list with the control options
       for the respective algorithm.}
-  \item{options}{a list with options for plotting the matrix. The
-      list can contain the following elements (not all are available for \code{ggdissplot()}):
-
+   \item{upper_tri, lower_tri}{ a logical indicating whether to show the
+      upper or lower triangle of the distance matrix. The string "average"
+      can also be used to display within and between cluster averages.}
+  \item{cluster_labels}{ a logical indicating whether to display cluster
+      labels in the plot.}
+  \item{cluster_lines}{ a logical indicating  whether to draw lines to separate
+      clusters.}
+  \item{reverse_columns}{ a logical indicating if the clusters are displayed
+  on the diagonal from
+  north-west to south-east (\code{FALSE}; default) or from
+  north-east to south-west (\code{TRUE}).}
+  \item{options}{a list with options for plotting the matrix (\code{dissplot} only).
   \describe{
     \item{\code{plot}}{a logical indicating  if a plot should be produced.  if
       \code{FALSE}, the returned object can be plotted later using the function
       \code{plot} which takes as the second argument a list of plotting options
       (see \code{options} below).}
-    \item{\code{cluster_labels}}{ a logical indicating whether to display cluster
-      labels in the plot.}
-    \item{\code{averages}}{ a logical vector of length two.
-	The first element controls the upper triangle and the second element
-	the lower triangle of the plot. \code{FALSE} displays the original
-	dissimilarity between objects, \code{TRUE} displays cluster-wise
-	average dissimilarities, and \code{NA} leaves the triangle white
-	(default: \code{c(FALSE, TRUE)}, i.e., the lower triangle displays
-	averages)}
-    \item{\code{lines}}{ a logical indicating  whether to draw lines to separate
-      clusters.}
-    \item{\code{flip}}{ a logical indicating if the clusters are displayed
-  on the diagonal from
-  north-west to south-east (\code{FALSE}; default) or from
-  north-east to south-west (\code{TRUE}).}
     \item{\code{silhouettes}}{ a logical indicating  whether to include a
       silhouette plot (see Rousseeuw, 1987).}
     \item{\code{threshold}}{ a numeric. If used, only plot distances below the
@@ -103,7 +99,8 @@ ggdissplot(x, labels = NULL, method = "Spectral",
       parameters (see \code{gpar} in package \pkg{grid}). }
       }
   }
-  \item{\ldots}{further arguments are added to \code{options}.}
+  \item{\ldots}{\code{dissplot}: further arguments are added to \code{options}.
+    \code{ggdissplot} further arguments are passed on to \code{\link{ggpimage}}.}
 }
 \details{
 The plot can also be used to visualize cluster quality (see Ling 1973).
@@ -184,9 +181,12 @@ dissplot(d, method = NA)
 # Plot reordered matrix using the nearest insertion algorithm (from tsp)
 dissplot(d, method = "TSP", main = "Seriation (TSP)")
 
-# Cluster iris with k-means and 3 clusters
+# Cluster iris with k-means and 3 clusters and reorder the dissimality matrix
 l <- kmeans(x_iris, centers = 3)$cluster
 dissplot(d, labels = l, main = "k-means")
+
+# show only distances as lower triangle
+dissplot(d, labels = l, main = "k-means", lower_tri = TRUE, upper_tri = FALSE)
 
 # Use a grid layout to place several plots on a page
 library("grid")
@@ -248,14 +248,18 @@ if (require("ggplot2")) {
   ggdissplot(d, labels = l) +
     labs(title = "K-means + Seriation")
 
-  # No lines or cluster labels and label for fill
-  ggdissplot(d, labels = l, lines = FALSE, cluster_labels = FALSE) +
+  # show only lower triangle
+  ggdissplot(d, labels = l, lower_tri = TRUE, upper_tri = FALSE) +
+    labs(title = "K-means + Seriation")
+
+  # No lines or cluster labels and add a label for the color key (fill)
+  ggdissplot(d, labels = l, cluster_lines = FALSE, cluster_labels = FALSE) +
     labs(title = "K-means + Seriation", fill = "Distances\n(Euclidean)")
 
   # Diverging color palette with manual set midpoint and different seriation methods
   ggdissplot(d, l, method = list(inter = "Spectral", intra = "MDS")) +
     labs(title = "K-Means + Seriation", subtitle = "red-blue + biased color scale") +
-    scale_fill_gradient2(low = "darkred", high = "darkblue", midpoint = 3)
+    scale_fill_gradient2(low = "darkred", high = "darkblue", midpoint = median(d))
 
   # Use manipulate scale using package scales
   library("scales")

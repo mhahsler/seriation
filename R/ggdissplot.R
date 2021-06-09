@@ -24,12 +24,13 @@ ggdissplot <- function(x,
   labels = NULL,
   method = "Spectral",
   control = NULL,
-  options = NULL,
+  lower_tri = TRUE,
+  upper_tri = "average",
+  cluster_labels = TRUE,
+  cluster_lines = TRUE,
+  reverse_columns = FALSE,
   ...) {
   check_installed("ggplot2")
-
-  # add ... to options
-  options <- c(options, list(...))
 
   # make x dist
   if (!inherits(x, "dist")) {
@@ -44,88 +45,20 @@ ggdissplot <- function(x,
     method = method,
     control = control)
 
-  options <- .get_parameters(
-    options,
-    list(
-      cluster_labels = TRUE,
-      lines          = TRUE,
-      averages	     = c(FALSE, TRUE),
-      labRow         = NULL,
-      labCol         = NULL,
-      flip		       = FALSE
-    )
-  )
+  m  <- .average_tri(x,
+    lower_tri = lower_tri,
+    upper_tri = upper_tri)
 
-  m       <- as.matrix(x$x_reordered)
   k       <- x$k
   dim     <- attr(x$x_reordered, "Size")
   labels  <- x$labels
   labels_unique <- unique(labels)
 
-  if (is.na(options$averages[1]))
-    m[upper.tri(m)] <- NA
-  if (is.na(options$averages[2]))
-    m[lower.tri(m)] <- NA
-  options$averages[is.na(options$averages)] <- FALSE
-
-  if (!is.null(x$cluster_dissimilarities)
-    && !is.null(labels)
-    && any(options$averages)) {
-    for (i in 1:k) {
-      for (j in 1:k) {
-        ## check empty clusters
-        if (is.na(labels_unique[i]))
-          next
-        if (is.na(labels_unique[j]))
-          next
-
-        ## upper panels stay unchanged
-        if (i < j && options$averages[1]) {
-          m[labels == labels_unique[i], labels == labels_unique[j]] <-
-            x$cluster_dissimilarities[i, j]
-        }
-
-        ## do lower panels
-        if (i > j && options$averages[2]) {
-          m[labels == labels_unique[i], labels == labels_unique[j]] <-
-            x$cluster_dissimilarities[i, j]
-        }
-
-        ## do diagonal
-        if (i == j) {
-          block <- m[labels == labels_unique[i],
-            labels == labels_unique[j]]
-
-
-          if (options$averages[1]) {
-            block[upper.tri(block, diag = TRUE)] <-
-              x$cluster_dissimilarities[i, j]
-
-            m[labels == labels_unique[i],
-              labels == labels_unique[j]] <- block
-          }
-
-          if (options$averages[2]) {
-            block[lower.tri(block, diag = TRUE)] <-
-              x$cluster_dissimilarities[i, j]
-
-            m[labels == labels_unique[i],
-              labels == labels_unique[j]] <- block
-          }
-
-        }
-      }
-    }
-  }
-
-  if (options$flip)
-    m <- m[, ncol(m):1]
-
   # So we can add cluster labels later
-  if (options$cluster_labels)
+  if (cluster_labels)
     colnames(m) <- seq(ncol(m))
 
-    g <- ggpimage(m, labRow = options$labRow, labCol = options$labCol)
+  g <- ggpimage(m, reverse_columns = reverse_columns, ...)
 
   # add cluster lines and labels
   if (!is.null(labels)) {
@@ -144,9 +77,9 @@ ggdissplot <- function(x,
     ### NULLIFY for CRAN check
     center <- label <- cut <- NULL
 
-    if (options$cluster_labels) {
+    if (cluster_labels) {
       # Place cluster labels along diagonal
-      # if (!options$flip) {
+      # if (!flip) {
       #   g <- g + ggplot2::geom_label(data = clusters,
       #     ggplot2::aes(
       #       x = center,
@@ -163,37 +96,66 @@ ggdissplot <- function(x,
       # }
 
       # Place cluster labels on top as x-axis (needs the colnames set as a sequence)
-      if (!options$flip) {
+      if (reverse_columns) {
         suppressMessages(
-          g <- g + ggplot2::scale_x_discrete(breaks = clusters$center,
-            label = clusters$label, expand = c(0,0), position = "top") +
-            ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 0, vjust = 0.5, hjust=.5)) +
+          g <-
+            g + ggplot2::scale_x_discrete(
+              breaks = ncol(m) - clusters$center,
+              label = clusters$label,
+              expand = c(0, 0),
+              position = "top"
+            ) +
+            ggplot2::theme(
+              axis.text.x = ggplot2::element_text(
+                angle = 0,
+                vjust = 0.5,
+                hjust = .5
+              )
+            ) +
             ggplot2::labs(x = "Cluster")
         )
       } else{
         suppressMessages(
-          g <- g + ggplot2::scale_x_discrete(breaks = ncol(m) - clusters$center,
-            label = clusters$label, expand = c(0,0), position = "top") +
-            ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 0, vjust = 0.5, hjust=.5)) +
+          g <- g + ggplot2::scale_x_discrete(
+            breaks = clusters$center,
+            label = clusters$label,
+            expand = c(0, 0),
+            position = "top"
+          ) +
+            ggplot2::theme(
+              axis.text.x = ggplot2::element_text(
+                angle = 0,
+                vjust = 0.5,
+                hjust = .5
+              )
+            ) +
             ggplot2::labs(x = "Cluster")
         )
       }
 
-      if (options$lines) {
+      if (cluster_lines) {
         ## draw lines separating the clusters
 
-        if (!options$flip) {
-          g <-
-            g + ggplot2::geom_hline(data = clusters, ggplot2::aes(yintercept = nrow(m) - cut + .5)) +
-            ggplot2::geom_vline(data = clusters, ggplot2::aes(xintercept = cut + .5))
-        } else{
+        if (reverse_columns) {
           g <-
             g + ggplot2::geom_hline(data = clusters, ggplot2::aes(yintercept = nrow(m) - cut + .5)) +
             ggplot2::geom_vline(data = clusters, ggplot2::aes(xintercept = ncol(m) - cut + .5))
+        } else{
+          g <-
+            g + ggplot2::geom_hline(data = clusters, ggplot2::aes(yintercept = nrow(m) - cut + .5)) +
+            ggplot2::geom_vline(data = clusters, ggplot2::aes(xintercept = cut + .5))
         }
       }
     }
   }
-  g
 
+  # reverse color
+  suppressMessages(g <-
+      g + ggplot2::scale_fill_gradient(
+        low = .gg_col_high,
+        high = .gg_col_low,
+        na.value = "white"
+      ))
+
+  g
 }

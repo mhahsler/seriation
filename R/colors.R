@@ -18,6 +18,17 @@
 
 # library(colorspace)
 
+.map_color_01 <- function(x, col) {
+  x[] <- col[map_int(x, length(col), from.range= c(0, 1))]
+  x
+}
+
+# translate all data to a color
+.map_color <- function(x, col, from.range = NA) {
+  x[] <- col[map_int(x, length(col), from.range)]
+  x
+}
+
 bluered <- function(n = 100,
   bias = 1,
   power = 1,
@@ -87,3 +98,11 @@ greys <- grays <- function(n = 100,
 #.sequential_pal <- grays
 .sequential_pal <- blues
 .diverge_pal <- bluered
+
+## define default ggplot2 colors
+.gg_col_low <- "white"
+.gg_col_high <- "darkblue"
+
+.ggcol_low2 <- "darkblue"
+.gg_col_mid2 <- "white"
+.gg_col_high2 <- "darkred"

@@ -17,14 +17,15 @@
 \usage{
 # grid-based image plot
 pimage(x, order = NULL, col = NULL, main ="", xlab = "", ylab = "",
-  axes = NULL, zlim = NULL, key = TRUE, key.lab = "", symkey = TRUE,
-  upper.tri = TRUE, lower.tri = TRUE, labRow = NULL, labCol = NULL,
-  prop = TRUE, flip = FALSE, ..., newpage = TRUE, pop = TRUE, gp = NULL)
+  zlim = NULL, key = TRUE, keylab = "", symkey = TRUE,
+  upper_tri = TRUE, lower_tri = TRUE, row_labels = NULL, col_labels = NULL,
+  prop = TRUE, flip_axes = FALSE, reverse_columns = FALSE,
+  ..., newpage = TRUE, pop = TRUE, gp = NULL)
 
 # ggplot2-based image plot
 ggpimage(x, order = NULL,
-  upper.tri = TRUE, lower.tri = TRUE, labRow = NULL, labCol = NULL,
-  prop = TRUE, flip = FALSE)
+  upper_tri = TRUE, lower_tri = TRUE, row_labels = NULL, col_labels = NULL,
+  prop = TRUE, flip_axes = FALSE, reverse_columns = FALSE)
 }
 
 \arguments{
@@ -38,23 +39,23 @@ ggpimage(x, order = NULL,
       diverging color palette is used.}
   \item{main}{plot title.}
   \item{xlab, ylab}{labels for the x and y axes.}
-  \item{axes}{ derprecated. }
-  \item{labRow, labCol}{ a logical indicating if row and column labels in \code{x} should be displayed.
-    If \code{NULL} then labels are displayed if the \code{x} contains the appropriate dimname and the number of labels is 25 or less. A character vector of the appropriate length with labels can also be supplied. }
   \item{zlim}{ vector with two elements giving the range (min, max) for
       representing the values in the matrix. }
   \item{key}{ logical; add a color key? No key is available for logical
     matrices. }
-  \item{key.lab}{ string plotted next to the color key.}
+  \item{keylab}{ string plotted next to the color key.}
   \item{symkey}{ logical; if \code{x} contains negative values, should the
     color palate be symmetric (zero is in the middle)>}
-  \item{upper.tri, lower.tri}{ a logical indicating whether to show the
+  \item{upper_tri, lower_tri}{ a logical indicating whether to show the
       upper or lower triangle of the distance matrix. }
+  \item{row_labels, col_labels}{ a logical indicating if row and column labels in \code{x} should be displayed.
+    If \code{NULL} then labels are displayed if the \code{x} contains the appropriate dimname and the number of labels is 25 or less. A character vector of the appropriate length with labels can also be supplied. }
   \item{prop}{logical; change the aspect ratio so cells in the image have a equal width and height.}
-  \item{flip}{logical; exchange rows and columns for plotting.}
-  \item{\dots}{further arguments passed on to \code{image} in \pkg{graphics}.}
-  \item{newpage, pop}{two logical. Start plot on a new page and pop the viewports after plotting (see \pkg{grid}).}
-  \item{gp}{a \code{gpar} object (see \pkg{grid}).}
+  \item{flip_axes}{logical; exchange rows and columns for plotting.}
+  \item{reverse_columns}{logical; revers the order of how the columns are displayed.}
+  \item{\dots}{further arguments are ignored. }
+  \item{newpage, pop, gp}{Start plot on a new page, pop the viewports after plotting, and
+    use the supplied \code{gpar} object (see \pkg{grid}).}
 }
 \details{
   Plots a matrix in its original row and column orientation. This means, in a
@@ -89,24 +90,29 @@ x <- matrix(sample(c(FALSE, TRUE), 300, rep = TRUE), ncol = 10,
 # Row labels (>25) so they are suppressed.
 pimage(x)
 
-# Reorder matrix, use custom colors, show all labels, add a title,
-# and hide colorkey.
-pimage(x, order = seriate(x), labRow = TRUE, labCol = TRUE,
+# Show all labels and flip axes or reverse columns
+pimage(x, row_labels = TRUE, col_labels = TRUE, flip_axes = TRUE)
+pimage(x, row_labels = TRUE, col_labels = TRUE, reverse_columns = TRUE)
+
+# Reorder matrix, use custom colors, and add a title.
+pimage(x, order = seriate(x), row_labels = TRUE, col_labels = TRUE,
   col = c("white", "red"), main = "Random Data (Reordered)")
 
 # Show reordered correlation (between column vectors). For matrices with negative values,
-# a diverging color scheme is  used automatically. The aspect ratio is fixed to 1:1.
+# a diverging color scheme is  used automatically. The aspect ratio is fixed to 1:1 and only
+# the lower triangle is shown.
 corr <- cor(x)
-pimage(corr, order = seriate(corr))
+pimage(corr, order = seriate(corr), upper_tri = FALSE, main = "Random Data (Correlation)")
 
 # Show a reordered distance matrix (distances between rows).
 # Dark means low distance. The aspect ratio is automatically fixed to 1:1.
 # The upper triangle is suppressed triangle
 d <- dist(x, method = "binary")
-pimage(d,  order = seriate(d), upper.tri = FALSE, main = "Random Data (Distances)")
+pimage(d,  order = seriate(d),
+  main = "Random Data (Distances)")
 
 # Show only distances that are smaller than .5 using limits on z.
-pimage(d,  order = seriate(d), upper.tri = FALSE,
+pimage(d,  order = seriate(d),
   main = "Random Data (Distances + Theshold)", zlim = c(0, .5))
 
 # Add to the plot using functions in package grid
@@ -136,14 +142,15 @@ pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 ## seriate matrix
 o <- seriate(x)
-pimage(x, o, labCol = FALSE, main = "Random Data", newpage = FALSE)
+pimage(x, o, labCol = FALSE, main = "Random Data",
+  newpage = FALSE)
 
 upViewport(1)
 pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
 
 ## add the reordered dissimilarity matrix for rows
 d <- dist(x)
-pimage(d, o[[1]], upper.tri = FALSE, main = "Distances",
+pimage(d, o[[1]], main = "Distances",
   newpage = FALSE)
 
 upViewport(1)
@@ -158,42 +165,58 @@ if (require("ggplot2")) {
   # Row labels (>25) so they are suppressed.
   ggpimage(x)
 
-  # Reorder matrix, use custom colors, show all labels, add a title,
+  # Show all labels and flip axes or reverse columns
+  ggpimage(x, flip_axes = TRUE, row_labels = TRUE, col_labels = TRUE)
+  ggpimage(x, reverse_columns = TRUE, row_labels = TRUE, col_labels = TRUE)
+
+  # Add lines
+  ggpimage(x) +
+    geom_hline(yintercept = seq(0, nrow(x)) + .5) +
+    geom_vline(xintercept = seq(0, ncol(x)) + .5)
+
+  # Reorder matrix, use custom colors, add a title,
   # and hide colorkey.
-  ggpimage(x, order = seriate(x), labRow = TRUE, labCol = TRUE) +
+  ggpimage(x, order = seriate(x), row_labels = TRUE, col_labels = TRUE) +
     scale_fill_manual(values = c("white", "red")) +
     theme(legend.position = "none") +
     labs(title = "Random Data")
 
   # Show reordered correlation (between column vectors). For matrices with negative values,
-  # a diverging color scheme is  used automatically.
+  # a diverging color scheme is  used automatically. We show onlt the lower triangle.
   corr <- cor(x)
-  ggpimage(corr, order = seriate(corr)) +
-    labs(title = "Random Data (Correlation)")
+  ggpimage(corr, order = seriate(corr), upper_tri = FALSE) +
+    labs(title = "Random Data", subtitle = "Correlation")
 
   # Show a reordered distance matrix (distances between rows).
   # Dark means low distance.
-  # The upper triangle is suppressed triangle
   d <- dist(x, method = "binary")
-  ggpimage(d, order = seriate(d), upper.tri = FALSE) +
-    labs(title = "Random Data (Distances)")
+  ggpimage(d, order = seriate(d)) +
+    labs(title = "Random Data", subtitle = "Distances")
+
+  # Show also upper triangle
+  ggpimage(d, order = seriate(d), upper_tri = TRUE) +
+    labs(title = "Random Data", subtitle = "Distances")
+
 
   # Show only distances that are smaller than .5 using limits on fill.
-  ggpimage(d,  order = seriate(d), upper.tri = FALSE) +
+  ggpimage(d,  order = seriate(d)) +
     labs(title = "Random Data (Distances + Theshold)") +
-    scale_fill_continuous(limit = c(0, .5), na.value = "white")
+    scale_fill_gradient(low = "darkblue", high = "lightgray", limit = c(0, .5), na.value = "white")
 
   # Use ggplot2 themes with theme_set
   old_theme <- theme_set(theme_linedraw())
-  ggpimage(d, order = seriate(d), upper.tri = FALSE) +
+  ggpimage(d, order = seriate(d)) +
     labs(title = "Random Data (Distances)")
   theme_set(old_theme)
 
-  # Use custom color palettes: Colorbrewer (provided in ggplot2) and colorspace
-  ggpimage(d, order = seriate(d), upper.tri = FALSE) +
+  # Use custom color palettes: Gray scale, Colorbrewer (provided in ggplot2) and colorspace
+  ggpimage(d, order = seriate(d), upper_tri = FALSE) +
+    scale_fill_gradient(low = "black", high = "white", na.value = "white")
+
+  ggpimage(d, order = seriate(d), upper_tri = FALSE) +
     scale_fill_distiller(palette = "Spectral", direction = +1, na.value = "white")
 
-  ggpimage(d, order = seriate(d), upper.tri = FALSE) +
+  ggpimage(d, order = seriate(d), upper_tri = FALSE) +
     colorspace::scale_fill_continuous_sequential("Reds", rev = FALSE, na.value = "white")
 }
 }

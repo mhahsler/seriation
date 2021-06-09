@@ -21,6 +21,18 @@
 map <- function(x,
     range = c(0, 1),
     from.range = NA) {
+    ## deal with infinite values
+    infs <- is.infinite(x)
+    if (any(infs)) {
+        warning("x contains infinite values. +Inf will be mapped to be mapped to largest value + range and -Inf to smallest value - range.")
+        min_max <- range(x[!infs], na.rm = TRUE)
+        pos_inf_val <- min_max[2] + (min_max[2] - min_max[1])
+        neg_inf_val <- min_max[1] - (min_max[2] - min_max[1])
+
+        x[infs] <- ifelse(sign(x[infs] > 0), pos_inf_val, neg_inf_val)
+    }
+
+    ## set from range
     if (any(is.na(from.range)))
         from.range <- range(x, na.rm = TRUE)
 

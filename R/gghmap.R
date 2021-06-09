@@ -32,9 +32,9 @@ gghmap <- function(x,
     x <- as.matrix(x)
 
     contr <- list(
-      distFun = distfun,
-      seriationMEthod = method,
-      seriationControl = control,
+      dist_fun = distfun,
+      seriation_method = method,
+      seriation_control = control,
       scale = scale
       )
 

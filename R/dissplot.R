@@ -26,10 +26,18 @@ dissplot <- function(x,
   labels = NULL,
   method = "Spectral",
   control = NULL,
+  lower_tri = TRUE,
+  upper_tri = "average",
+  cluster_labels = TRUE,
+  cluster_lines = TRUE,
+  reverse_columns = FALSE,
   options = NULL,
   ...) {
   ## add ... to options
   options <- c(options, list(...))
+  options$cluster_labels <- cluster_labels
+  options$cluster_lines <- cluster_lines
+  options$reverse_columns <- reverse_columns
 
   ## make x dist
   if (!inherits(x, "dist")) {
@@ -39,20 +47,15 @@ dissplot <- function(x,
       stop("Argument 'x' cannot safely be coerced to class 'dist'.")
   }
 
-  res <- .arrange_dissimilarity_matrix(x,
+  a <- .arrange_dissimilarity_matrix(x,
     labels = labels,
     method = method,
     control = control)
 
-  ## suppress plot?
-  plot <- if (is.null(options$plot))
-    TRUE
-  else
-    is.null(options$plot)
-  if (plot)
-    plot(res, options)
+  if (is.null(options$plot) || options$plot)
+    plot(a, lower_tri, upper_tri, options)
 
-  invisible(res)
+  invisible(a)
 }
 
 
@@ -262,59 +265,144 @@ dissplot <- function(x,
     ## clean order from names, etc.
     attributes(order) <- NULL
 
-    result <- list(
-      x_reordered     = x_reordered,
-      labels          = labels,
-      seriation_methods          = method,
-      aggregation_method          = aggregation,
-      k               = k,
-      cluster_dissimilarities =  cluster_dissimilarities,
-      sil             = sil,
-      order           = order,
-      cluster_order   = labels_unique,
-      diss_measure    = diss_measure,
-      description     =  cluster_description
+    structure(
+      list(
+        x_reordered        = x_reordered,
+        labels             = labels,
+        seriation_methods  = method,
+        aggregation_method = aggregation,
+        k                  = k,
+        cluster_dissimilarities =  cluster_dissimilarities,
+        sil                = sil,
+        order              = order,
+        cluster_order      = labels_unique,
+        diss_measure       = diss_measure,
+        description        =  cluster_description
+      ),
+      class = "reordered_cluster_dissimilarity_matrix"
     )
-
-    class(result) <- "reordered_cluster_dissimilarity_matrix"
-    invisible(result)
   }
 
+
+## create panels with avg. dissimilarity
+## a is an arrangement
+.average_tri <- function(a,
+  lower_tri = "average",
+  upper_tri = TRUE) {
+  if (!inherits(a, "reordered_cluster_dissimilarity_matrix"))
+    stop("a needs to be a reordered_cluster_dissimilarity_matrix")
+
+  upper_avg <- !is.na(pmatch(tolower(upper_tri), "average"))
+  lower_avg <- !is.na(pmatch(tolower(lower_tri), "average"))
+
+  k <- a$k
+  labels <- a$labels
+  labels_unique <- a$cluster_order
+  cluster_dissimilarities <- a$cluster_dissimilarities
+  m <- as.matrix(a$x_reordered)
+
+  ## blank out if FALSE or NA
+  if (is.na(upper_tri) || (is.logical(upper_tri) && !upper_tri)) {
+    m[upper.tri(m)] <- NA
+    upper_tri <- FALSE
+  }
+  if (is.na(lower_tri) || (is.logical(lower_tri) && !lower_tri)) {
+    m[lower.tri(m)] <- NA
+    lower_tri <- FALSE
+  }
+
+  ## do off-diagonal averages by cluster
+  if (!is.null(cluster_dissimilarities) &&
+      !is.null(labels) && (upper_avg || lower_avg)) {
+    for (i in seq(2, k)) {
+      for (j in seq(i - 1)) {
+        ## check empty clusters
+        if (is.na(labels_unique[i]))
+          next
+        if (is.na(labels_unique[j]))
+          next
+
+        ## lower panels
+        if (lower_avg) {
+          m[labels == labels_unique[i], labels == labels_unique[j]] <-
+            cluster_dissimilarities[i, j]
+        }
+
+        ## upper panels
+        if (upper_avg) {
+          m[labels == labels_unique[j], labels == labels_unique[i]] <-
+            cluster_dissimilarities[i, j]
+        }
+      }
+    }
+
+
+    ## do diagonal
+    for (i in seq(1, k)) {
+      block <- m[labels == labels_unique[i],
+        labels == labels_unique[i]]
+
+      if (upper_avg) {
+        block[upper.tri(block, diag = TRUE)] <-
+          cluster_dissimilarities[i, i]
+
+        m[labels == labels_unique[i],
+          labels == labels_unique[i]] <- block
+      }
+
+      if (lower_avg) {
+        block[lower.tri(block, diag = TRUE)] <-
+          cluster_dissimilarities[i, i]
+
+        m[labels == labels_unique[i],
+          labels == labels_unique[i]] <- block
+      }
+    }
+  }
+
+  m
+}
 
 
 ## plot for reordered_cluster_dissimilarity_matrix
 plot.reordered_cluster_dissimilarity_matrix <-
-  function(x, options = NULL, ...) {
+  function(x,
+    lower_tri = TRUE,
+    upper_tri = "average",
+    options = NULL,
+    ...) {
     ## add ... to options
     options <- c(options, list(...))
 
-    m       <- as.matrix(x$x_reordered)
     k       <- x$k
     dim     <- attr(x$x_reordered, "Size")
     labels  <- x$labels
-    labels_unique <- unique(labels)
+    #labels_unique <- unique(labels)
+    labels_unique <- x$cluster_order
+
+    m  <- .average_tri(x,
+      lower_tri = lower_tri,
+      upper_tri = upper_tri)
 
     ## default plot options
     options <- .get_parameters(
       options,
       list(
         cluster_labels = TRUE,
-        lines       = TRUE,
-        averages	  = c(FALSE, TRUE),
-        ## (upper.tri, lower.tri); NA means white
-        flip		    = FALSE,
-        silhouettes = FALSE,
-        col         = NULL,
-        threshold   = NULL,
-        zlim        = NULL,
-        key         = TRUE,
-        main        = NULL,
-        axes        = "auto",
-        gp          = gpar(),
-        gp_lines    = gpar(),
-        gp_labels   = gpar(),
-        newpage     = TRUE,
-        pop         = TRUE
+        cluster_lines  = TRUE,
+        reverse_columns	= FALSE,
+        silhouettes    = FALSE,
+        col            = NULL,
+        threshold      = NULL,
+        zlim           = NULL,
+        key            = TRUE,
+        main           = NULL,
+        axes           = "auto",
+        gp             = gpar(),
+        gp_lines       = gpar(),
+        gp_labels      = gpar(),
+        newpage        = TRUE,
+        pop            = TRUE
       )
     )
 
@@ -336,66 +424,7 @@ plot.reordered_cluster_dissimilarity_matrix <-
     if (is.null(x$sil))
       options$silhouettes <- FALSE
 
-    ## create panels with avg. dissimilarity
-
-    ## blank out if NA
-    if (is.na(options$averages[1]))
-      m[upper.tri(m)] <- NA
-    if (is.na(options$averages[2]))
-      m[lower.tri(m)] <- NA
-    options$averages[is.na(options$averages)] <- FALSE
-
-    if (!is.null(x$cluster_dissimilarities)
-      && !is.null(labels)
-      && any(options$averages)) {
-      for (i in 1:k) {
-        for (j in 1:k) {
-          ## check empty clusters
-          if (is.na(labels_unique[i]))
-            next
-          if (is.na(labels_unique[j]))
-            next
-
-          ## upper panels stay unchanged
-          if (i < j && options$averages[1]) {
-            m[labels == labels_unique[i], labels == labels_unique[j]] <-
-              x$cluster_dissimilarities[i, j]
-          }
-
-          ## do lower panels
-          if (i > j && options$averages[2]) {
-            m[labels == labels_unique[i], labels == labels_unique[j]] <-
-              x$cluster_dissimilarities[i, j]
-          }
-
-          ## do diagonal
-          if (i == j) {
-            block <- m[labels == labels_unique[i],
-              labels == labels_unique[j]]
-
-
-            if (options$averages[1]) {
-              block[upper.tri(block, diag = TRUE)] <-
-                x$cluster_dissimilarities[i, j]
-
-              m[labels == labels_unique[i],
-                labels == labels_unique[j]] <- block
-            }
-
-            if (options$averages[2]) {
-              block[lower.tri(block, diag = TRUE)] <-
-                x$cluster_dissimilarities[i, j]
-
-              m[labels == labels_unique[i],
-                labels == labels_unique[j]] <- block
-            }
-
-          }
-        }
-      }
-    }
-
-    if (options$flip)
+    if (options$reverse_columns)
       m <- m[, ncol(m):1]
 
     if (!options$silhouettes) {
@@ -559,7 +588,7 @@ plot.reordered_cluster_dissimilarity_matrix <-
       cluster_cuts_y		<- cumsum(cluster_width_y)
       cluster_center_y	<- cluster_cuts_y - cluster_width_y / 2
 
-      if (options$flip) {
+      if (options$reverse_columns) {
         labels_unique_x	<- rev(labels_unique)
         cluster_width_x <- (tabulate(labels)[labels_unique_x])
         cluster_cuts_x  <- cumsum(cluster_width_x)
@@ -593,7 +622,7 @@ plot.reordered_cluster_dissimilarity_matrix <-
         upViewport(2)
       }
 
-      if (options$lines) {
+      if (options$cluster_lines) {
         ## draw lines separating the clusters
         #cluster_cuts <- cluster_cuts[-length(cluster_cuts)]
         ## remove last line

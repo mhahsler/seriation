@@ -16,158 +16,100 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-
+# TODO: let highlight be a threshold
 
 bertinplot <- function(x,
   order = NULL,
+  panel.function = panel.bars,
   highlight = TRUE,
-  options = NULL, ...)
-{
+  row_labels = TRUE,
+  col_labels = TRUE,
+  flip_axes = TRUE,
+  ...) {
   if (!is.matrix(x))
     stop("Argument 'x' must be a matrix.")
 
   # add ... to options
-  options <- c(options, list(...))
+  options <- list(...)
+  options$panel.function <- panel.function
 
-  ## do labels
-  if (!is.null(options$xlab))
-    rownames(x) <- options$xlab
-  if (!is.null(options$ylab))
-    colnames(x) <- options$ylab
-
-  ## default plot options
-  user_options <- options
-  options <- list(
-    panel.function     = panel.bars,
-    reverse     = FALSE,
-    xlab        = NULL,
-    ylab        = NULL,
-    frame       = FALSE,
-    spacing     = 0.2,
-    mar         = c(5, 4, 8, 8),
-    gp_labels   = gpar(),
-    gp_panels   = gpar(),
-    shading	    = FALSE,
-    shading.function = grDevices::gray,
-    newpage     = TRUE,
-    pop         = TRUE
+  options <- .get_parameters(
+    options,
+    list(
+      panel.function = panel.bars,
+      flip_axes   = TRUE,
+      frame       = FALSE,
+      spacing     = 0.2,
+      margins     = c(5, 4, 8, 8),
+      gp_labels   = gpar(),
+      gp_panels   = gpar(),
+      shading	    = NULL,
+      shading_col = .sequential_pal(100),
+      newpage     = TRUE,
+      pop         = TRUE
+    )
   )
 
-  ## check and add the plot options
-  if (!is.null(user_options) && length(user_options) != 0) {
-    o <- pmatch(names(user_options), names(options))
+  ## panel.blocks has no spacing!
+  if (identical(options$panel.function, panel.blocks))
+    options$spacing <- 0
 
-    if (any(is.na(o)))
-      stop(sprintf(
-        ngettext(
-          length(is.na(o)),
-          "Unknown plot option: %s",
-          "Unknown plot options: %s"
-        ),
-        paste(names(user_options)[is.na(o)],
-          collapse = " ")
-      ))
-
-    options[o] <- user_options
-  }
-
-  ## note: Bertin switched cols and rows for his display!
-  if (options$reverse) {
-    x <- t(x)
-    order <- rev(order)
-  }
+  if (is.null(options$shading))
+    if (identical(options$panel.function, panel.blocks)) {
+      options$shading <- TRUE
+    } else {
+      options$shading <- FALSE
+    }
 
   ## order
   if (!is.null(order))
     x <- permute(x, order)
 
-
-
-  ## panel.blocks has no spacing!
-  if (identical(options$panel.function, panel.blocks)) {
-    options$spacing <- 0
+  ## note: Bertin switched cols and rows for his display!
+  # change x and y?
+  if (flip_axes) {
+    x <- t(x)
+    tmp <- row_labels
+    row_labels <- col_labels
+    col_labels <- tmp
   }
-
-  ## scale each variable in x for plotting (between 0 and 1 or -1 and 1)
-  ## this can deal with 0s, na, nan, but plots inf as na
-  infs <- is.infinite(x)
-  infsign <- sign(x[is.infinite(x)])
-
-  scalem <- matrix(
-    apply(abs(x), 2, max, na.rm = TRUE),
-    byrow = TRUE,
-    ncol = ncol(x),
-    nrow = nrow(x)
-  )
-  scalem[scalem == 0] <- 1
-
-  x <- x / scalem
-
-  if (any(infs))
-    x[infs] <- infsign
-
-  # x <- x/ matrix(apply(abs(x), 2, max, na.rm = TRUE),
-  #    byrow= TRUE, ncol=ncol(x), nrow= nrow(x))
-  ## fix division by zero (if all entries in a row are 0)
-  #x[is.nan(x)] <- 0
-
 
   ## highlight
-  if (is.logical(highlight) &&
-      length(highlight) == 1 && highlight)
-    highlight <- x > matrix(
-      colMeans(x, na.rm = TRUE),
-      ncol = ncol(x),
-      nrow = nrow(x),
-      byrow = TRUE
-    )
-  else if (is.logical(highlight) &&
-      length(highlight) == 1 && !highlight)
-    highlight <- matrix(FALSE, ncol = ncol(x), nrow = nrow(x))
-  else if (any(dim(x) != dim(highlight)))
-    stop("Argument 'highlight' has incorrect dimensions.")
-
-  ## shading?
-  if (options$shading) {
-    highlight <- map(x, c(.8, .1))
-    highlight[!is.finite(highlight)] <- 1
-    highlight <- matrix(options$shading.function(highlight),
-      ncol = ncol(x),
-      nrow = nrow(x))
-  }
-
-  ## fill in gp_panels overwrites highlighting and shading
-  if (!is.null(options$gp_panels$fill)) {
-    if (options$shading)
-      warning("shading and fill in gp_panels cannot be used together!")
-    highlight <-
-      matrix(options$gp_panels$fill,
-        ncol = ncol(x),
-        nrow = nrow(x))
-  }
-
-  ncol_x  <- ncol(x)
+  if (is.logical(highlight) && highlight)
+    highlight <- mean(x, na.rm = TRUE)
 
   ## clear page
   if (options$newpage)
     grid.newpage()
 
   ## create outer viewport
-  xlim <- c(options$spacing, nrow(x) + 1 - options$spacing)
+  xlim <- c(options$spacing, ncol(x) + 1 - options$spacing)
   pushViewport(
     plotViewport(
       margins = options$mar,
-      layout = grid.layout(ncol_x, 1),
+      layout = grid.layout(nrow(x), 1),
       xscale = xlim,
-      yscale = c(0, ncol_x),
+      yscale = c(0, nrow(x)),
       default.units = "native",
       name = "bertin"
     )
   )
 
-  for (variable in 1:ncol_x) {
-    value <- x[, variable]
-    hl <- highlight[, variable]
+  # shading and highlighting
+  if (options$shading)
+    col <- .map_color(x, options$shading_col)
+  else
+    col <- matrix(1, nrow = nrow(x), ncol = ncol(x))
+
+  if (highlight)
+    col[x < highlight] <- NA
+
+  # map to [0, 1]
+  x <- map(x)
+
+  for (variable in seq(nrow(x))) {
+    value <- x[variable,]
+    hl <- col[variable,]
 
     ## handle neg. values
     if (identical(options$panel.function, panel.bars) ||
@@ -196,7 +138,7 @@ bertinplot <- function(x,
     ## do frame
     if (options$frame)
       grid.rect(
-        x = 1:length(value),
+        x = seq(length(value)),
         width = 1,
         default.units = "native",
         gp = gpar(fill = NA)
@@ -212,9 +154,9 @@ bertinplot <- function(x,
     0
 
   grid.text(
-    rownames(x),
-    x = 1:nrow(x),
-    y = ncol_x + spacing_corr,
+    colnames(x),
+    x = seq(ncol(x)),
+    y = nrow(x) + spacing_corr,
     rot = 90,
     just = "left",
     default.units = "native",
@@ -222,9 +164,9 @@ bertinplot <- function(x,
   )
 
   grid.text(
-    rev(colnames(x)),
-    x = 1 + spacing_corr / nrow(x) / 4,
-    y = 0.5:(ncol_x - 0.5) / ncol_x,
+    rev(rownames(x)),
+    x = 1 + spacing_corr / ncol(x) / 4,
+    y = 0.5:(nrow(x) - 0.5) / nrow(x),
     just = "left",
     default.units = "npc",
     gp = options$gp_labels
@@ -241,7 +183,7 @@ bertinplot <- function(x,
 ## panel functions
 panel.bars <- function(value, spacing, hl) {
   grid.rect(
-    x = 1:length(value),
+    x = seq(length(value)),
     y = spacing / 2,
     width = 1 - spacing,
     height = value * (1 - spacing),
@@ -258,18 +200,18 @@ panel.circles <- function(value, spacing, hl) {
 
   value <- abs(value)
 
-  value[value == 0] <- NA ### hide emply squares
+  value[value == 0] <- NA ### hide empty squares
 
   grid.circle(
-    x = 1:length(value),
-    y = .5,
+    x = seq(length(value)),
+    y = unit(.5, "npc"),
     r = value / 2 * (1 - spacing),
     default.units = "native",
     gp = gpar(fill = hl, lty = lty)
   )
 }
 
-panel.squares <- function(value, spacing, hl) {
+panel.rectangles <- function(value, spacing, hl) {
   ## neg. values are dashed
   lty <- as.integer(value < 0) + 1L
   lty[!is.finite(lty)] <- 0L
@@ -277,7 +219,7 @@ panel.squares <- function(value, spacing, hl) {
   value[value == 0] <- NA ### hide emply squares
 
   grid.rect(
-    x = 1:length(value),
+    x = seq(length(value)),
     width = value * (1 - spacing),
     height = value * (1 - spacing),
     default.units = "native",
@@ -286,9 +228,11 @@ panel.squares <- function(value, spacing, hl) {
   )
 }
 
-panel.blocks <- function(value, spacing, hl) {
+panel.squares <- panel.rectangles
+
+panel.tiles <- function(value, spacing, hl) {
   grid.rect(
-    x = 1:length(value),
+    x = seq(length(value)),
     width = 1,
     height = unit(1, "npc"),
     default.units = "native",
@@ -297,9 +241,12 @@ panel.blocks <- function(value, spacing, hl) {
   )
 }
 
+panel.blocks <- panel.tiles
+
+### hl is ignored
 panel.lines <- function(value, spacing, hl) {
   grid.lines(
-    x = c(1:length(value)),
+    x = seq(length(value)),
     y = value * (1 - spacing),
     default.units = "native"
   )
@@ -307,7 +254,9 @@ panel.lines <- function(value, spacing, hl) {
 
 
 ## add cut lines manually to a bertin plot
-bertin_cut_line <- function(x = NULL, y = NULL, col = "red") {
+bertin_cut_line <- function(x = NULL,
+  y = NULL,
+  col = "red") {
   if (length(x) < 2)
     x <- rep(x, 2)
   if (length(y) < 2)

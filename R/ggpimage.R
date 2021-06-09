@@ -22,23 +22,26 @@
 
 ggpimage <- function(x,
   order = NULL,
-  upper.tri = TRUE,
-  lower.tri = TRUE,
-  labRow = NULL,
-  labCol = NULL,
+  upper_tri = TRUE,
+  lower_tri = TRUE,
+  row_labels = NULL,
+  col_labels = NULL,
   prop = TRUE,
-  flip = FALSE)
+  flip_axes = FALSE,
+  reverse_columns = FALSE)
   UseMethod("ggpimage")
 
 ### Note for matrix large values are dark, for dist large values are light!
 ggpimage.matrix <- function(x,
   order = NULL,
-  upper.tri = TRUE,
-  lower.tri = TRUE,
-  labRow = NULL,
-  labCol = NULL,
+  upper_tri = TRUE,
+  lower_tri = TRUE,
+  row_labels = NULL,
+  col_labels = NULL,
   prop = TRUE,
-  flip = FALSE) {
+  flip_axes = FALSE,
+  reverse_columns = FALSE)
+{
   check_installed("ggplot2")
 
   x <- as.matrix(x)
@@ -54,42 +57,40 @@ ggpimage.matrix <- function(x,
     x <- permute(x, order)
 
   # mask triangles
-  if (any(!upper.tri ||
-      !lower.tri) &&
+  if (any(!upper_tri ||
+      !lower_tri) &&
       nrow(x) != ncol(x))
     stop("Upper or lower triangle can only be suppressed for square matrices!")
-  if (!upper.tri)
+  if (!upper_tri)
     x[upper.tri(x)] <- NA
-  if (!lower.tri)
+  if (!lower_tri)
     x[lower.tri(x)] <- NA
 
+
+  # reverse order of columns
+  if (reverse_columns)
+    x <- x[, seq(ncol(x), 1)]
+
   # change x and y?
-  if (flip) {
+  if (flip_axes) {
     x <- t(x)
-    tmp <- labRow
-    labRow <- labCol
-    labCol <- tmp
+    tmp <- row_labels
+    row_labels <- col_labels
+    col_labels <- tmp
   }
 
 
   # plot
-  g <- .ggpimage_empty(x, labRow = labRow, labCol = labCol, prop = prop, expand = FALSE)
-  g <- g + ggplot2::geom_raster(ggplot2::aes(fill = x))
-
-  # colors scales
-  if (is.logical(x))
-    g <-
-    g + ggplot2::scale_fill_manual(values = c("gray", "black"))
-
-  # colors for diverging
-  if (any(x < 0, na.rm = TRUE) && any(x > 0, na.rm = TRUE))
-    g <-
-    g + ggplot2::scale_fill_gradient2(
-      low = "blue" ,
-      mid = "white",
-      high = "red",
-      midpoint = 0
+  g <-
+    .ggpimage_empty(
+      x,
+      row_labels = row_labels,
+      col_labels = col_labels,
+      prop = prop,
+      expand = FALSE
     )
+
+  g <- g + ggplot2::geom_raster(ggplot2::aes(fill = x))
 
   g
 
@@ -98,12 +99,10 @@ ggpimage.matrix <- function(x,
 
 ### Note for matrix large values are dark, for dist large values are light!
 .ggpimage_empty <- function(x,
-  labRow = NULL,
-  labCol = NULL,
+  row_labels = NULL,
+  col_labels = NULL,
   prop = TRUE,
-  expand = TRUE
-  ) {
-
+  expand = TRUE) {
   check_installed("ggplot2")
 
   x <- as.matrix(x)
@@ -115,34 +114,34 @@ ggpimage.matrix <- function(x,
     stop("x contains infinite entries.")
 
   # deal with row/col labels
-  if (!is.null(labRow) && !is.logical(labRow)) {
-    if (length(labRow) != nrow(x))
-      stop("Length of labRow does not match the number of rows of x.")
-    rownames(x) <- labRow
-    labRow <- TRUE
+  if (!is.null(row_labels) && !is.logical(row_labels)) {
+    if (length(row_labels) != nrow(x))
+      stop("Length of row_labels does not match the number of rows of x.")
+    rownames(x) <- row_labels
+    row_labels <- TRUE
   }
 
-  if (!is.null(labCol) && !is.logical(labCol)) {
-    if (length(labCol) != ncol(x))
-      stop("Length of labCol does not match the number of columns of x.")
-    colnames(x) <- labCol
-    labCol <- TRUE
+  if (!is.null(col_labels) && !is.logical(col_labels)) {
+    if (length(col_labels) != ncol(x))
+      stop("Length of col_labels does not match the number of columns of x.")
+    colnames(x) <- col_labels
+    col_labels <- TRUE
   }
 
-  if (is.null(labRow))
+  if (is.null(row_labels))
     if (!is.null(rownames(x)) &&
         nrow(x) < 25) {
-      labRow <- TRUE
+      row_labels <- TRUE
     } else{
-      labRow <- FALSE
+      row_labels <- FALSE
     }
 
-  if (is.null(labCol))
+  if (is.null(col_labels))
     if (!is.null(colnames(x)) &&
         ncol(x) < 25) {
-      labCol <- TRUE
+      col_labels <- TRUE
     } else{
-      labCol <- FALSE
+      col_labels <- FALSE
     }
 
   if (is.null(rownames(x)))
@@ -176,11 +175,11 @@ ggpimage.matrix <- function(x,
   else
     expand <- c(0, 0)
 
-  if (labCol)
+  if (col_labels)
     breaksCol <- ggplot2::waiver()
   else
     breaksCol <- NULL
-  if (labRow)
+  if (row_labels)
     breaksRow <- ggplot2::waiver()
   else
     breaksRow <- NULL
@@ -203,6 +202,28 @@ ggpimage.matrix <- function(x,
   if (prop)
     g <- g + ggplot2::theme(aspect.ratio = nrow(x) / ncol(x))
 
+  # colors scales
+  if (is.logical(x)) {
+    g <-
+      g + ggplot2::scale_fill_manual(values = c("white", "black"), na.value = "white")
+
+    # colors for diverging
+  } else if (any(x < 0, na.rm = TRUE) && any(x > 0, na.rm = TRUE)) {
+    g <-
+      g + ggplot2::scale_fill_gradient2(
+        low = .ggcol_low2,
+        mid = .gg_col_mid2,
+        high = .gg_col_high2,
+        midpoint = 0,
+        na.value = "white"
+      )
+  } else {
+    g <-
+      g + ggplot2::scale_fill_gradient(low = .gg_col_low,
+        high = .gg_col_high,
+        na.value = "white")
+  }
+
   g
 }
 
@@ -213,30 +234,41 @@ ggpimage.default <- ggpimage.matrix
 ggpimage.dist <-
   function(x,
     order = NULL,
-    upper.tri = TRUE,
-    lower.tri = TRUE,
-    labRow = NULL,
-    labCol = NULL,
+    upper_tri = FALSE,
+    lower_tri = TRUE,
+    row_labels = NULL,
+    col_labels = NULL,
     prop = TRUE,
-    flip = FALSE) {
+    flip_axes = FALSE,
+    reverse_columns = FALSE) {
     check_installed("ggplot2")
 
     # reorder specific for dist (we have only a single permutation)
     if (!is.null(order))
       x <- permute(x, order)
 
-    if (flip)
+    if (flip_axes)
       warning("flipping axes has no effect for distance matrices.")
 
-    ggpimage.matrix(
+    g <- ggpimage.matrix(
       as.matrix(x),
       order = NULL,
-      upper.tri,
-      lower.tri,
-      labRow,
-      labCol,
+      upper_tri,
+      lower_tri,
+      row_labels,
+      col_labels,
       prop = prop,
-      flip = FALSE
-    ) +
-    ggplot2::scale_fill_continuous(na.value = "white")
+      flip_axes = FALSE,
+      reverse_columns = reverse_columns
+    )
+
+    # reverse color for dist
+    suppressMessages(g <-
+        g + ggplot2::scale_fill_gradient(
+          low = .gg_col_high,
+          high = .gg_col_low,
+          na.value = "white"
+        ))
+
+    g
   }

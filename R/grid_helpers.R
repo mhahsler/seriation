@@ -196,10 +196,8 @@
     pushViewport(vp)
   }
 
-  x[] <- col[map_int(x, length(col))]
-
   grid.raster(
-    x,
+    .map_color(x, col),
     interpolate = interpolate,
     default.units = "npc",
     width = 1,
@@ -213,9 +211,6 @@
 
   upViewport(1)
 }
-
-
-
 
 .grid_barplot_horiz <- function(height,
   name = "barplot",

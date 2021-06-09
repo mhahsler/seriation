@@ -27,17 +27,17 @@ pimage <-
     main = "",
     xlab = "",
     ylab = "",
-    axes = NULL,
     zlim = NULL,
     key = TRUE,
-    key.lab = "",
+    keylab = "",
     symkey = TRUE,
-    upper.tri = TRUE,
-    lower.tri = TRUE,
-    labRow = NULL,
-    labCol = NULL,
+    upper_tri = TRUE,
+    lower_tri = TRUE,
+    row_labels = NULL,
+    col_labels = NULL,
     prop = TRUE,
-    flip = FALSE,
+    flip_axes = FALSE,
+    reverse_columns = FALSE,
     ...,
     newpage = TRUE,
     pop = TRUE,
@@ -52,25 +52,22 @@ pimage.matrix <-
     main = "",
     xlab = "",
     ylab = "",
-    axes = NULL,  ### deprecated
     zlim = NULL,
     key = TRUE,
-    key.lab = "",
+    keylab = "",
     symkey = TRUE,
-    upper.tri = TRUE,
-    lower.tri = TRUE,
-    labRow= NULL,
-    labCol = NULL,
+    upper_tri = TRUE,
+    lower_tri = TRUE,
+    row_labels = NULL,
+    col_labels = NULL,
     prop = TRUE,
-    flip = FALSE,
+    flip_axes = FALSE,
+    reverse_columns = FALSE,
     ...,
     newpage = TRUE,
     pop = TRUE,
     gp = NULL) {
     x <- as.matrix(x)
-
-    # deprecated
-    if(!is.null(axes)) warning("Parameter axes is deprecated and ignored. Use labRow and labCol instead.")
 
     # check data
     if (all(is.na(x)))
@@ -104,54 +101,61 @@ pimage.matrix <-
     if (is.null(zlim))
       zlim <- range(x, na.rm = TRUE)
 
-    # change x and y
-    if (flip) {
-      x <- t(x)
-      if (!is.null(order)) order <- rev(order)
-    }
 
     # reorder
     if (!is.null(order))
       x <- permute(x, order)
 
     # mask triangles
-    if (any(!upper.tri ||
-        !lower.tri) &&
+    if (any(!upper_tri ||
+        !lower_tri) &&
         nrow(x) != ncol(x))
       stop("Upper or lower triangle can only be suppressed for square matrices!")
-    if (!upper.tri)
+    if (!upper_tri)
       x[upper.tri(x)] <- NA
-    if (!lower.tri)
+    if (!lower_tri)
       x[lower.tri(x)] <- NA
 
+    # change x and y
+    if (flip_axes) {
+      x <- t(x)
+      tmp <- row_labels
+      row_labels <- col_labels
+      col_labels <- tmp
+    }
+
+    # reverse order of columns
+    if (reverse_columns)
+      x <- x[, seq(ncol(x), 1)]
+
     # deal with row/col labels
-    if (!is.null(labRow) && !is.logical(labRow)) {
-      if (length(labRow) != nrow(x))
-        stop("Length of labRow does not match the number of rows of x.")
-      rownames(x) <- labRow
-      labRow <- TRUE
+    if (!is.null(row_labels) && !is.logical(row_labels)) {
+      if (length(row_labels) != nrow(x))
+        stop("Length of row_labels does not match the number of rows of x.")
+      rownames(x) <- row_labels
+      row_labels <- TRUE
     }
 
-    if (!is.null(labCol) && !is.logical(labCol)) {
-      if (length(labCol) != ncol(x))
-        stop("Length of labCol does not match the number of columns of x.")
-      colnames(x) <- labCol
-      labCol <- TRUE
+    if (!is.null(col_labels) && !is.logical(col_labels)) {
+      if (length(col_labels) != ncol(x))
+        stop("Length of col_labels does not match the number of columns of x.")
+      colnames(x) <- col_labels
+      col_labels <- TRUE
     }
 
-    if (is.null(labRow))
+    if (is.null(row_labels))
       if (!is.null(rownames(x)) &&
           nrow(x) < 25) {
-        labRow <- TRUE
+        row_labels <- TRUE
       } else{
-        labRow <- FALSE
+        row_labels <- FALSE
       }
-    if (is.null(labCol))
+    if (is.null(col_labels))
       if (!is.null(colnames(x)) &&
           ncol(x) < 25) {
-        labCol <- TRUE
+        col_labels <- TRUE
       } else{
-        labCol <- FALSE
+        col_labels <- FALSE
       }
 
     if (is.null(rownames(x)))
@@ -160,12 +164,12 @@ pimage.matrix <-
       colnames(x) <- seq(ncol(x))
 
     # create layout for plot
-    bottom_mar <- if (labCol)
+    bottom_mar <- if (col_labels)
       max(stringWidth(colnames(x))) + unit(3, "lines")
     else
       unit(1, "lines")
 
-    left_mar <- if (labRow)
+    left_mar <- if (row_labels)
       max(stringWidth(rownames(x))) + unit(3, "lines")
     else
       unit(1, "lines")
@@ -185,7 +189,7 @@ pimage.matrix <-
       .grid_colorkey(zlim,
         col = col,
         horizontal = FALSE,
-        lab = key.lab) #, gp=gp)
+        lab = keylab)
       upViewport(1)
 
     } else
@@ -207,7 +211,7 @@ pimage.matrix <-
 
     ## axes and labs
     downViewport("image")
-    if (labCol)
+    if (col_labels)
       grid.text(
         colnames(x),
         y = unit(-1, "lines"),
@@ -217,7 +221,7 @@ pimage.matrix <-
       ) #, gp=gp)
     #grid.xaxis(at=1:ncol(x),
     #	    label=colnames(x))
-    if (labRow)
+    if (row_labels)
       grid.text(
         rownames(x),
         x = unit(-1, "lines"),
@@ -252,17 +256,17 @@ pimage.dist <-
     main = "",
     xlab = "",
     ylab = "",
-    axes = NULL, ### deprecated
     zlim = NULL,
     key = TRUE,
-    key.lab = "",
+    keylab = "",
     symkey = TRUE,
-    upper.tri = TRUE,
-    lower.tri = TRUE,
-    labRow = NULL,
-    labCol = NULL,
-    prop = NULL,
-    flip = FALSE,
+    upper_tri = FALSE,
+    lower_tri = TRUE,
+    row_labels = NULL,
+    col_labels = NULL,
+    prop = TRUE,
+    flip_axes = FALSE,
+    reverse_columns = FALSE,
     ...,
     newpage = TRUE,
     pop = TRUE,
@@ -278,26 +282,26 @@ pimage.dist <-
     if (!is.null(order))
       x <- permute(x, order)
 
-    if (flip) warning("flipping axes has no effect for distance matrices.")
+    if (flip_axes) warning("flip_axes has no effect for distance matrices.")
 
     pimage.matrix(
       x,
-      order = NULL,
+      order = NULL,  # already reordered
       main = main,
       xlab = xlab,
       ylab = ylab,
       col = col,
-      axes = axes, ### deprecated
       zlim = zlim,
       key = key,
-      key.lab = key.lab,
+      keylab = keylab,
       symkey = symkey,
-      upper.tri = upper.tri,
-      lower.tri = lower.tri,
-      labRow = labRow,
-      labCol = labCol,
+      upper_tri = upper_tri,
+      lower_tri = lower_tri,
+      row_labels = row_labels,
+      col_labels = col_labels,
       prop = prop,
-      flip = FALSE,
+      flip_axes = FALSE,
+      reverse_columns = reverse_columns,
       ...,
       newpage = newpage,
       pop = pop,
