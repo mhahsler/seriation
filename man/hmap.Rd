@@ -113,10 +113,10 @@ hmap(d, method = "OLO", main = "Wood (Euclidean distances)")
 # order-based with dissimilarity matrices
 hmap(Wood, method = "MDS_angle", showdist = "both",
   col = greenred(100), col_dist = greens(100),
-  key.lab = "norm. Expression", main = "Wood (reporderd with distances)")
+  keylab = "norm. Expression", main = "Wood (reporderd with distances)")
 
 # Manually seriate and plot as pimage.
-o <- seriate(Wood, method = "heatmap", control = list(distfun = dist, seriationMethod = "OLO"))
+o <- seriate(Wood, method = "heatmap", control = list(dist_fun = dist, seriation_method = "OLO"))
 o
 
 pimage(Wood, o, prop = FALSE)
@@ -151,7 +151,8 @@ if (require("ggplot2")) {
   # Note: the ggplot2-based version cannot show distance matrices in the same plot.
 
   # Manually seriate and plot as pimage.
-  o <- seriate(Wood, method = "heatmap", control = list(distfun = dist, seriationMethod = "OLO"))
+  o <- seriate(Wood, method = "heatmap", control = list(dist_fun = dist,
+    seriation_method = "OLO"))
   o
 
   ggpimage(Wood, o, prop = FALSE)

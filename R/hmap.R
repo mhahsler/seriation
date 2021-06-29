@@ -61,9 +61,13 @@ hmap <- function(x,
     o_row <- seriate(dist_row,
       method = method, control = control)[[1]]
 
+    #o_row <- ser_align(list(ser_permutation_vector(order(rowMeans(x, na.rm = TRUE), decreasing = TRUE)), o_row))[[2]]
+
     dist_col <- distfun(t(x))
     o_col <- seriate(dist_col,
       method = method, control = control)[[1]]
+
+    #o_col <- ser_align(list(ser_permutation_vector(order(colMeans(x, na.rm = TRUE), decreasing = FALSE)), o_col))[[2]]
   }
 
 

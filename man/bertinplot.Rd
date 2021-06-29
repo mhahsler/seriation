@@ -43,7 +43,7 @@ ggbertinplot(x, order = NULL, geom = "bar", highlight = TRUE,
       \code{panel.lines}. For circles and squares neg. values are
       represented by a dashed border. For blocks all blocks are the same size
       (can be used with \code{shading=TRUE}).}
-  \item{geom}{ visulization type. Available geometries are: "tile", "rectangle", "circle", "line", "bar", "none".}
+  \item{geom}{ visualization type. Available geometries are: "tile", "rectangle", "circle", "line", "bar", "none".}
   \item{highlight}{ a logical scalar indicating whether to use highlighting.
       If \code{TRUE}, all variables with values greater than the variable-wise
       mean are  highlighted. To control highlighting, also a
@@ -163,9 +163,9 @@ if (require("ggplot2")) {
     scale_fill_gradient2(low = "darkblue", high = "darkred", midpoint = mean(x))
 
   # Custom geom (geom = "none"). Defined variables are row, col, and x for the value
-  ggbertinplot(x, order, geom = "none", prop = TRUE) +
+  ggbertinplot(x, order, geom = "none", prop = FALSE) +
     geom_point(aes(x = col, y = row, size = x, color = x > 30), pch = 15) +
-    scale_size(range = c(1, 12))
+    scale_size(range = c(1, 10))
 
   # Use a ggplot2 theme with theme_set()
   old_theme <- theme_set(theme_minimal() +

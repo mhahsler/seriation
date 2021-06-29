@@ -19,17 +19,28 @@
 
 ## calculate distances for rows and columns, perform hclust and reorder.
 .heatmap_contr <- list(
-  dist_fun = dist,
-  seriation_method = "OLO",
-  seriation_control = NULL,
-  scale = c("none"),
+  dist_fun = list(row = dist, col = dist),
+  seriation_method = list(row = "OLO", col = "OLO"),
+  seriation_control = list(row = NULL, col = NULL),
+  scale = "none",
   verbose = FALSE
 )
 
 seriate_matrix_heatmap <- function(x, control = NULL) {
   control <- .get_parameters(control, .heatmap_contr)
 
-  control$scale <- match.arg(control$scale, choices = c("none", "row", "column"))
+  if (length(control$dist_fun) == 1L)
+    control$dist_fun <-
+      list(row = control$dist_fun,
+        col = control$dist_fun)
+  if (length(control$seriation_method) == 1L)
+    control$seriation_method <-
+      list(row = control$seriation_method,
+        col = control$seriation_method)
+  if (length(control$seriation_control) == 1L)
+    control$seriation_control <-
+      list(row = control$seriation_control,
+        col = control$seriation_control)
 
   if (!is.null(control$scale)) {
     if (control$scale == "row")
@@ -38,15 +49,15 @@ seriate_matrix_heatmap <- function(x, control = NULL) {
       x <- scale(x)
   }
 
-  dist_row <- control$dist_fun(x)
-  o_row <- seriate(dist_row,
-    method = control$seriation_method,
-    control = control$seriation_control)[[1]]
+  d <- control$dist_fun$row(x)
+  o_row <- seriate(d,
+    method = control$seriation_method$row,
+    control = control$seriation_control$row)
 
-  dist_col <- control$dist_fun(t(x))
-  o_col <- seriate(dist_col,
-    method = control$seriation_method,
-    control = control$seriation_control)[[1]]
+  d <- control$dist_fun$col(t(x))
+  o_col <- seriate(d,
+    method = control$seriation_method$col,
+    control = control$seriation_control$col)
 
   #names(row) <- rownames(x)[get_order(o_row)]
   #names(col) <- colnames(x)[get_order(o_col)]
@@ -58,6 +69,6 @@ set_seriation_method(
   "matrix",
   "Heatmap",
   seriate_matrix_heatmap,
-  "Calculate distances for row and column vectors, perform hierarchical clustering and reorder the dentrograms.",
+  "Calculate distances for row and column vectors, and seriate. If only a single distance function or seriation method is specified, then it is used for rows and columns. The default seriation method is optimal leaf ordering (OLO) which  perform hierarchical clustering and reorder the dentrograms.",
   .heatmap_contr
 )

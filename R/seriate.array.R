@@ -30,9 +30,6 @@
   ## add ... to control
   control <- c(control, list(...))
 
-  ## margin 1...rows, 2...cols, ...
-  #if(is.null(method)) method <- "PCA"
-  #else
   if (!is.character(method) || (length(method) != 1L))
     stop("Argument 'method' must be a character string.")
 

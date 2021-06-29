@@ -24,6 +24,7 @@ gghmap <- function(x,
   prop = FALSE,
   ...) {
 
+  scale <- match.arg(scale)
 
   if (inherits(x, "dist")) {
     # scale and distFun are ignored!
