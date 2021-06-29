@@ -11,7 +11,7 @@
   - show_seriation_methods and show_criterion_methods are deprecated
 * Other Changes
   - criterion returns now NA with a warning for ME for non-positive matrices (used to stop with an error).
-  - dependency dendextend is now only suggested.
+  - dependency dendextend is now only suggested (used for testing).
   - get_order now returns also labels.
   - hclust-based seriations now defaults for linkage to complete instead of average.
 
@@ -91,7 +91,7 @@
 
 * Default for seriate (dist) and dissplot is now "Spectal" since it 
   gives a better tradeoff between quality and speed.
-* Seriaiton method ARSA's control argument nreps is now for consistency 
+* Seriation method ARSA's control argument nreps is now for consistency 
   called reps.
 * Criterion: dist objects are now automatically converted into a
   similarity matrix for ME, Moore\_stress and Neumann\_stress.
@@ -190,7 +190,7 @@
 * We use now package registry to manage methods.
 * reorder for hclust added.
 * iVAT with path distance added.
-* color palettes (bluered, greenred, greys) added.
+* color palettes (bluered, greenred, grays) added.
 * Improved speed of C code.
 * Fixed problem with testthat filenames fixed.
 * bburg.f/bbwrg.f: memory access problem fixed.

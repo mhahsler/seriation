@@ -36,7 +36,7 @@ due to the method that creates the order. This is a major difference to
 rankings.
 For ranking-based correlation measures (Spearman and Kendall)
 the absolute value of the correlation is returned for \code{reverse = TRUE}
-(in effect returning the correltation for the reversed order).
+(in effect returning the correlation for the reversed order).
 If \code{test = TRUE} then the appropriate test for association is performed
 and a matrix with p-values is returned as the attribute \code{"p-value"}. Note
 that no correction for multiple testing is performed.
@@ -59,7 +59,7 @@ where
 \eqn{R} and \eqn{S} are two seriation orders, \eqn{pi_R} and \eqn{pi_S}
 are the associated permutation vectors and
 \eqn{h} is a normalization factor.
-The associatied generalized correlation coefficient is defined as \eqn{1-d_{ppc}}.
+The associated generalized correlation coefficient is defined as \eqn{1-d_{ppc}}.
 For this precedence invariant measure \code{reverse} is ignored.
 
 The absolute pairwise rank difference (aprd) is also precedence invariant

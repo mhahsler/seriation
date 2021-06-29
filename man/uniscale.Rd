@@ -3,8 +3,8 @@
 \alias{orderplot}
 \title{Unidimensional Scaling from Seriation Results}
 \description{
-Performs (approximate) unidimensional scaling by first performin seriation
-to obtain a permutation and the using the permutation to calulate the
+Performs (approximate) unidimensional scaling by first performing seriation
+to obtain a permutation and the using the permutation to calculate the
 configuration.
 }
 \usage{

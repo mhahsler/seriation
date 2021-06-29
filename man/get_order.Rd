@@ -26,7 +26,7 @@ get_permutation_matrix(x, \ldots)
   \item{x}{ an object of class \code{ser_permutation} or
       \code{ser_permutation_vector}.}
   \item{dim}{ order information for which dimension should be returned?}
-  \item{\ldots}{further arguments are ignorred for \code{get_order}.
+  \item{\ldots}{further arguments are ignored for \code{get_order}.
     For \code{get_rank} and
     for \code{get_permutation_matrix} the additional arguments are passed on to
     \code{get_order} (e.g., as \code{dim}).}

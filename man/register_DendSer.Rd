@@ -26,7 +26,7 @@ Default: \code{"BAR"} (Banded anti-Robinson from with 20\% band width).}
 \item{\code{"DendSer_args"}}{additional arguments for \code{DendSer}.}
 }
 
-For convenience the following methods (for differnt cost functions)
+For convenience the following methods (for different cost functions)
 are also provided:
 \code{"DendSer_ARc"} (anti-robinson form),
 \code{"DendSer_BAR"} (banded anti-Robinson form),

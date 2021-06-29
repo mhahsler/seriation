@@ -46,7 +46,7 @@ liis with pemutations for all dimensions. In the latter case, all permutations b
 \code{margin} are ignored.
 
 For \code{dendrograms} and \code{hclust}, subtrees are rotated to
-represent the order best possible. If the order is not achived perfectly
+represent the order best possible. If the order is not achieved perfectly
 then the user is warned. This behavior can be changed with the extra
 parameter \code{incompatible} which can take the values
 \code{"warn"} (default), \code{"stop"} or \code{"ignore"}.

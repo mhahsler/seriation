@@ -33,7 +33,7 @@ The color palettes are created with
 \code{sequential_hcl} and \code{diverging_hcl}
 from package \pkg{colorspace}.
 
-The two sequental palettes are: \code{reds} and
+The two sequential palettes are: \code{reds} and
 \code{grays} (or \code{greys}).
 
 The two diverging palettes are:

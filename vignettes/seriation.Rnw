@@ -143,7 +143,7 @@ example, \cite{seriation:Hubert:2001} propose dynamic programming and
 \cite{seriation:Brusco:2005} use a branch-and-bound strategy.  For even
 larger problems only heuristics can be employed.
 
-It has to be noted that seriation has a rich history in archeology.
+It has to be noted that seriation has a rich history in archaeology.
 \cite{seriation:Petrie:1899} was the first to use seriation as a formal method.
 He applied it to find a chronological order for graves discovered in the Nile
 area given objects found there. He used a cross-tabulation of grave sites and
@@ -904,7 +904,7 @@ Note that some methods implemented
 combinatorial optimization framework of this paper and thus are not
 dealt with here in detail.  They are included in the package since they
 can be useful for various applications.
-A detailed empirical comparison of seriation methods and crieria can be found
+A detailed empirical comparison of seriation methods and criteria can be found
 in the study by \cite{hahsler:Hahsler2016d}.
 %Over time more methods will be
 %added to the package.
@@ -1090,7 +1090,7 @@ are loss and merit functions).
 To visually compare the original data matrix and the
 result of seriation, we can also use \func{pimage}.
 We standardize the data using scale such that the visualized value
-is the number of standard diviations an object differs from the
+is the number of standard deviations an object differs from the
 variable mean. For matrices containing negative values, \code{pimage}
 uses automatically a divergent palette.
 After using \func{pimage} for the original random data matrix,

@@ -71,7 +71,7 @@ ggpimage(x, order = NULL,
   \emph{Note:} Since \code{pimage} uses \pkg{grid}, it should not be mixed with base R primitive plotting
   functions, but the appropriate functions in \code{\link[grid]{grid-package}}.
 
-  \bold{ggplot2-based plot:} A ggplot2 object is returned. Colors, axis limites and other visual aspects
+  \bold{ggplot2-based plot:} A ggplot2 object is returned. Colors, axis limits and other visual aspects
   can be added using standard ggplot2 functions
   (\code{labs}, \code{scale_fill_continuous}, \code{labs}, etc.).
 }
