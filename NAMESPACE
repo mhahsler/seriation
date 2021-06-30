@@ -132,6 +132,7 @@ S3method(permute, dendrogram)
 S3method(seriate, dist)
 S3method(seriate, matrix)
 S3method(seriate, array)
+S3method(seriate, data.frame)
 
 S3method(reorder, hclust)
 

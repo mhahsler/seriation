@@ -138,18 +138,26 @@ permute.hclust <- function(x, order, ...) {
   if (!inherits(order, "ser_permutation"))
     order <- ser_permutation(order)
 
+  # DEPRECATED: Compatibility with old permutation for data.frame
+  if (is.data.frame(x) && is.null(margin) && length(order) == 1) {
+    message("permute for data.frames with a single seriation order is now deprecated. Specify the margin as follows: 'permute(x, order, margin = 1)'")
+    margin <- 1
+  }
+
   # create complete order object for margin
   if (!is.null(margin)) {
     if (length(margin) != 1 || !(margin %in% seq(ndim(x))))
-      stop("margin needs to be a single numeric index.")
+      stop("margin needs to be a single integer index indicating the dimension to permute.")
 
     margin <- as.integer(margin)
 
     if (length(order) != 1 && length(order) != ndim(x))
-      stop("order needs to contain either orders for all dimensions or just a single order.")
+      stop("order needs to contain either orders for all dimensions or just a single order for the selected margin.")
 
-    if (length(order) == 1)
+    if (length(order) == 1) {
+      length(order) <- ndim(x)
       order[[margin]] <- order[[1]]
+    }
 
     # set all other dimensions to identity.
     for (i in seq(ndim(x))) {

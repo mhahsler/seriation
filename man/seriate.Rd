@@ -3,6 +3,7 @@
 \alias{seriate.matrix}
 \alias{seriate.dist}
 \alias{seriate.array}
+\alias{seriate.data.frame}
 \alias{LS_insert}
 \alias{LS_swap}
 \alias{LS_reverse}
@@ -16,11 +17,14 @@ data array (k-way k-mode data).
 \usage{
 \method{seriate}{dist}(x, method = "Spectral", control = NULL, \ldots)
 
+\method{seriate}{array}(x, method = "PCA", control = NULL,
+  margin = seq(length(dim(x))), \ldots)
+
 \method{seriate}{matrix}(x, method = "PCA", control = NULL,
   margin = c(1,2), \ldots)
 
-\method{seriate}{array}(x, method = "PCA", control = NULL,
-  margin = seq(length(dim(x))), \ldots)
+\method{seriate}{data.frame}(x, method = "Heatmap", control = NULL,
+  margin = c(1,2), \ldots)
 }
 \arguments{
 \item{x}{the data.}
@@ -28,27 +32,31 @@ data array (k-way k-mode data).
 (default: varies by data type).}
 \item{control}{ a list of control options passed on to the seriation
 algorithm.}
-\item{margin}{ a vector giving the margins to be seriated. For matrix,
+\item{margin}{ a vector giving the margin indices (dimensions) to be seriated. For example, for a matrix,
 \code{1} indicates rows, \code{2} indicates columns, \code{c(1,2)}
-indicates rows and columns. For array, margin gets a vector with
-the dimensions to seriate.}
+indicates rows and columns.}
 \item{\ldots}{ further arguments are added to the \code{control} list.}
 }
 \details{
 Seriation methods are available via a registry.
-See \code{\link{list_seriation_methods}} for help.
+See \code{\link{list_seriation_methods}} for help. Data frames are just a different reprentation of a
+matrix and all seriation methods for matrix can be used for data frames. The default method for data frames is
+heatmap seriation which calculates distances between rows and between columns and then applies seriation on these using
+hierarchical clustering and optimal leaf ordering (OLO).
 
 Many seriation methods (heuristically) optimize (minimize or maximize)
 an objective function.
 The value of the function for a given seriation can be calculated using
-\code{\link{criterion}}. In this manual page we only state the measure
-which is optimized (using \bold{bold font}).
-A definition of the measures can be found in the
+\code{\link{criterion}}. In this manual page, we only include the measure
+which is optimized by each method using \bold{bold font}.
+A definition of these measures can be found in the
 \code{\link{criterion}} manual page.
 
-Two-way two-mode data has to be provided as a dist object (not as a symmetric
-matrix). Similarities have to be transformed in a suitable way into
-dissimilarities. Currently the following methods are implemented for dist
+\bold{Seriation methods by type of data:}
+
+\bold{dist:} One-mode two-way data has to be provided as a dist object (not as a symmetric
+matrix). Similarities have to be transformed into
+dissimilarities. Currently, the following methods are implemented
 (for a more detailed description and an experimental comparison see
 \href{https://michael.hahsler.net/research/misc/EJOR_seriation_2016.pdf}{Hahsler (2017)}):
 
@@ -270,7 +278,8 @@ The DendSer code has to be first registered. A detailed description can be found
 
 }
 
-Two-way two mode data are general positive matrices.
+\bold{matrix or data.frame:} Two-mode two-way data are general matrices.
+Some methods also require that the matrix is positive.
 Currently the following methods are implemented for matrix:
 \describe{
 \item{\code{"BEA"}}{Bond Energy Algorithm (BEA; McCormick 1972).
@@ -303,6 +312,8 @@ specified. The results of the best run will be returned.
 In \code{control} as element \code{"method"} a TSP solver method can be
 specified (see package \pkg{TSP}).
 }
+
+\item{\code{"Heatmap"}}{ Heatmap seriation calculates distances between rows and between columns and then applies seriation on these using hierarchical clustering and optimal leaf ordering (method \code{"OLO"} for \code{dist}). }
 
 \item{\code{"PCA"}, \code{"PCA_angle"}}{ Principal component analysis.
 
@@ -342,7 +353,7 @@ Fast Optimal Leaf Ordering for Hierarchical Clustering.
 Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for Envelope Reduction of Sparse Matrices.
 \emph{In Proceedings of the 1993
 ACM/IEEE Conference on Supercomputing,} 493--502. Supercomputing '93.
-New York, NY, USA: ACM. \doi{10.1109/SUPERC.1993.1263497}
+New York, NY, USA: ACM. \url{https://ieeexplore.ieee.org/document/1263497}
 
 Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual assessment of (cluster) tendency. \emph{Proceedings of the 2002 International Joint
 Conference on Neural Networks (IJCNN '02)}, Volume: 3, 2225--2230.
@@ -418,8 +429,7 @@ Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany, E. (
 \author{Michael Hahsler}
 \examples{
 # Show available seriation methods (for dist and matrix)
-show_seriation_methods("dist")
-show_seriation_methods("matrix")
+list_seriation_methods()
 
 # Seriate as distance matrix (for the iris dataset)
 data("iris")
@@ -448,20 +458,20 @@ x <- as.matrix(iris[-5])
 x <- scale(x, center = FALSE)
 
 # The iris flowers are ordered by species in the data set
-pimage(x, main = "original data")
+pimage(x, main = "original data", prop = FALSE)
 criterion(x)
 
 # Apply some methods
 order <- seriate(x, method = "BEA_TSP")
-pimage(x, order, main = "TSP to optimize ME")
+pimage(x, order, main = "TSP to optimize ME", prop = FALSE)
 criterion(x, order)
 
 order <- seriate(x, method = "PCA")
-pimage(x, order, main = "First principal component")
+pimage(x, order, main = "First principal component", prop = FALSE)
 criterion(x, order)
 
 order <- seriate(x, method = "heatmap")
-pimage(x, order, main = "Heatmap seriation")
+pimage(x, order, main = "Heatmap seriation", prop = FALSE)
 criterion(x, order)
 
 # create a heatmap seriation manually by calculating
@@ -470,7 +480,7 @@ order <- c(
     seriate(dist(x), method = "OLO"),
     seriate(dist(t(x)), method = "OLO")
 )
-pimage(x, order, main = "heatmap")
+pimage(x, order, main = "Heatmap seriation", prop = FALSE)
 criterion(x, order)
 }
 \keyword{optimize}

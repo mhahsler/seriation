@@ -25,7 +25,6 @@
   control = NULL,
   margin = seq(ndim(x)),
   datatype = "array",
-  defmethod,
   ...) {
   ## add ... to control
   control <- c(control, list(...))
@@ -63,7 +62,6 @@ seriate.array <- function(x,
     control,
     margin,
     datatype = "array",
-    defmethod = NA,
     ...)
 ## we currently have no method and therefore also no default method!
 

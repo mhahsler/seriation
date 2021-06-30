@@ -28,9 +28,7 @@ seriate.matrix <- function(x,
     control,
     margin,
     datatype = "matrix",
-    defmethod = "BEA_TSP",
     ...)
-
 
 seriate_matrix_identity <- function(x, control) {
   control <- .get_parameters(control, NULL)

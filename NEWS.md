@@ -1,4 +1,4 @@
-# seriation 1.2-9.1 (00/00/0000)
+# seriation 1.3-0 (06/29/2021)
 
 ## Changes
 * Plotting
@@ -22,6 +22,7 @@
   - colors are now more consistent and all have bias and power.
 * Seriation methods 
   - seriate for matrix has now method "Heatmap".
+  - seriate now accepts data.frames and used method "heatmap" as the default.
   - added seriation method "Reverse" for reverse identity order.
 * Permutation
   - permute for matrix-like objects gained parameter margin.
