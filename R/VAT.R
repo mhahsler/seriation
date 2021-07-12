@@ -46,15 +46,15 @@ path_dist <- function(x) {
   as.dist(m)
 }
 
-VAT <- function(x, ...) {
+VAT <- function(x, upper_tri = TRUE, lower_tri = TRUE,...) {
   if (!inherits(x, "dist"))
     stop("x needs to be of class 'dist'!")
-  pimage(x, seriate(x, "VAT"), ...)
+  pimage(x, seriate(x, "VAT"), upper_tri = upper_tri, lower_tri = lower_tri,...)
 }
 
-iVAT <- function(x, ...) {
+iVAT <- function(x, upper_tri = TRUE, lower_tri = TRUE,...) {
   if (!inherits(x, "dist"))
     stop("x needs to be of class 'dist'!")
   x <- path_dist(x)
-  pimage(x, seriate(x, "VAT"), ...)
+  pimage(x, seriate(x, "VAT"), upper_tri = upper_tri, lower_tri = lower_tri,...)
 }

@@ -13,15 +13,17 @@ Visual Analysis for Cluster Tendency Assessment (iVAT; Wang et al, 2010).
 \usage{
 path_dist(x)
 
-VAT(x, ...)
-iVAT(x, ...)
+VAT(x, upper_tri = TRUE, lower_tri = TRUE, ...)
+iVAT(x, upper_tri = TRUE, lower_tri = TRUE, ...)
 
-ggVAT(x, ...)
-ggiVAT(x, ...)
+ggVAT(x, upper_tri = TRUE, lower_tri = TRUE, ...)
+ggiVAT(x, upper_tri = TRUE, lower_tri = TRUE, ...)
 
 }
 \arguments{
   \item{x}{a \code{dist} object.}
+    \item{upper_tri, lower_tri}{ a logical indicating whether to show the
+      upper or lower triangle of the VAT matrix. }
   \item{...}{further arguments are passed on to \code{\link{pimage}} for the regular plots and \code{\link{ggpimage}} for
     the ggplot2 plots.}
 }
@@ -50,6 +52,7 @@ for Cluster Tendency Assessment,
 \emph{Proceedings of the PAKDD 2010, Part I, LNAI 6118,} 16--27.
 }
 \author{Michael Hahsler}
+%'
 \examples{
 ## lines data set from Havens and Bezdek (2011)
 x <- create_lines_data(250)

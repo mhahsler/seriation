@@ -1,3 +1,9 @@
+# seriation 1.3-0.1 (xx/xx/2021)
+
+* VAT plots now default to upper_tri = TRUE to show the whole matrix.
+
+# Changes
+
 # seriation 1.3-0 (06/29/2021)
 
 ## Changes

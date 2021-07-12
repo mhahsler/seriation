@@ -17,15 +17,15 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-ggVAT <- function(x, ...) {
+ggVAT <- function(x, upper_tri = TRUE, lower_tri = TRUE, ...) {
   if (!inherits(x, "dist"))
     stop("x needs to be of class 'dist'!")
-  ggpimage(x, seriate(x, "VAT"), ...)
+  ggpimage(x, seriate(x, "VAT"), upper_tri = upper_tri, lower_tri = lower_tri, ...)
 }
 
-ggiVAT <- function(x, ...) {
+ggiVAT <- function(x, upper_tri = TRUE, lower_tri = TRUE, ...) {
   if (!inherits(x, "dist"))
     stop("x needs to be of class 'dist'!")
   x <- path_dist(x)
-  ggpimage(x, seriate(x, "VAT"), ...)
+  ggpimage(x, seriate(x, "VAT"), upper_tri = upper_tri, lower_tri = lower_tri, ...)
 }
