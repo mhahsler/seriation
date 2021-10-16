@@ -67,22 +67,25 @@ reordered 356945979      76487641 402332.1     13593.32       5274.093 17810802 
 
 The following methods are available for dissimilarity data:
 
+ *  ARSA - Simulated annealing (linear seriation)   
  *  Branch-and-bound to minimize the unweighted/weighted column gradient 
  *  DendSer - Dendrogram seriation heuristic to optimize various criteria
  *  GA - Genetic algorithm with warm start to optimize various criteria
- *  HC - Hierarchical clustering (single link, avg. link, complete link) 
  *  GW - Hierarchical clustering reordered by Gruvaeus and Wainer heuristic 
- *  OLO - Hierarchical clustering with optimal leaf ordering 
+ *  HC - Hierarchical clustering (single link, avg. link, complete link) 
  *  Identity permutation 
  *  MDS - Multidimensional scaling (metric, non-metric, angle) 
- *  ARSA - Simulated annealing (linear seriation)   
- *  TSP - Traveling sales person solver to minimize Hamiltonian path length 
+ *  OLO - Hierarchical clustering with optimal leaf ordering 
+ *  OPTICS - Ordering points to identify the clustering structure.
+ *  QAP - Quadratic assignment problem heuristic (2-SUM, linear seriation, inertia, banded anti-Robinson form)
  *  R2E - Rank-two ellipse seriation 
  *  Random permutation
  *  Spectral seriation (unnormalized, normalized) 
- *  SPIN - Sorting points into neighborhoods (neighborhood algorithm, side-to-site algorithm) 
- *  VAT - Visual assessment of clustering tendency ordering 
- *  QAP - Quadratic assignment problem heuristic (2-SUM, linear seriation, inertia, banded anti-Robinson form)
+ *  SPIN - Sorting points into neighborhoods (neighborhood algorithm, side-to-site algorithm)
+ *  TSP - Traveling sales person solver to minimize the Hamiltonian path length 
+ *  TSNE - Order of the 1D t-distributed stochastic neighbor embedding (t-SNE)
+ *  UMAP - Order of the 1D embedding produced by uniform manifold approximation and projection
+ *  VAT - Order of the visual assessment of clustering tendency ordering 
   
 A detailed comparison of the methods is available in the paper 
 [An experimental comparison of seriation methods for one-mode two-way data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) (read [ preprint](https://michael.hahsler.net/research/misc/EJOR_seriation_2016.pdf)).

@@ -65,7 +65,7 @@ Michael Hahsler
 \examples{
 \dontrun{
 register_GA()
-list_seriation_methods("dist")
+get_seriation_method("dist", "GA")
 
 d <- dist(random.robinson(50, pre=TRUE, noise=.1))
 

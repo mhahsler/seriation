@@ -52,7 +52,7 @@ Michael Hahsler based on code by Catherine B. Hurley and Denise Earle
 \examples{
 \dontrun{
 register_DendSer()
-list_seriation_methods("dist")
+get_seriation_method("dist", "DendSer")
 
 d <- dist(random.robinson(20, pre=TRUE))
 

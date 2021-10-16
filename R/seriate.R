@@ -33,7 +33,7 @@ get_seriation_method <- function(kind, name) {
 
   if (is.null(method))
     stop(
-      "Unknown seriation method ", 
+      "Unknown seriation method ",
       name,
       " for data type ",
       kind,
@@ -59,13 +59,13 @@ set_seriation_method <- function(kind,
   ## check if entry already exists
   r <- registry_seriate$get_entry(kind = kind, name = name)
   if (!is.null(r) && r$name == name) {
-    warning(
-      "Entry with name \"",
-      name,
-      "\" for kind \"",
-      kind,
-      "\" already exists! Modifying entry."
-    )
+    # warning(
+    #   "Entry with name \"",
+    #   name,
+    #   "\" for kind \"",
+    #   kind,
+    #   "\" already exists! Modifying entry."
+    # )
     registry_seriate$modify_entry(
       kind = kind,
       name = name,

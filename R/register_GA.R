@@ -16,7 +16,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-## registers seriation methods and criteria from package DendSer
+## register GA for seriation
 
 # Generates a mutation function which mixes simMutation (simple insertion)
 # with ismMutation (inversion) given the probability.
@@ -37,7 +37,7 @@ register_GA <- function() {
     suggestions = c("TSP", "QAP_LS", "Spectral"),
     selection = GA::gaperm_nlrSelection,
     crossover = GA::gaperm_oxCrossover,
-    mutation = seriation::gaperm_mixedMutation(.8),
+    mutation = gaperm_mixedMutation(.8),
     pcrossover = .2,
     pmutation = .5,
     popSize = 100,
