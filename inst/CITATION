@@ -2,23 +2,34 @@
 citation(auto = meta)
 
 bibentry(bibtype = "article",
-	    title = paste("Getting things in order: ",
-		"An introduction to the R package seriation"),
-	    author = {
-	    personList(person("Michael", "Hahsler",
-			email = "michael@hahsler.net"),
-		    person("Kurt", "Hornik",
-			email = "Kurt.Hornik@R-project.org"),
-		    person("Christian", "Buchta",
-			email = "Christian.Buchta@wu.ac.at"))
-	    },
-	    year = 2008,
-	    journal = "Journal of Statistical Software",
-	    volume = 25,
-	    number = 3,
-	    pages = "1--34",
-	    url = "https://www.jstatsoft.org/v25/i03/",
-	    doi = "10.18637/jss.v025.i03",
-	    month = "March",
-	    issn = "1548-7660"
-         )
+  title = paste("Getting things in order: ",
+    "An introduction to the R package seriation"),
+  author = {
+    personList(person("Michael", "Hahsler",
+      email = "mhahsler@lyle.smu.edu"),
+      person("Kurt", "Hornik",
+        email = "Kurt.Hornik@R-project.org"),
+      person("Christian", "Buchta",
+        email = "Christian.Buchta@wu.ac.at"))
+  },
+  year = 2008,
+  journal = "Journal of Statistical Software",
+  volume = 25,
+  number = 3,
+  pages = "1--34",
+  doi = "10.18637/jss.v025.i03",
+  month = "March",
+  issn = "1548-7660"
+)
+
+bibentry(bibtype = "article",
+  title = "An experimental comparison of seriation methods for one-mode two-way data",
+  author = person("Michael", "Hahsler", email = "mhahsler@lyle.smu.edu"),
+  year = 2017,
+  journal = "European Journal of Operational Research",
+  volume = 257,
+  number = 1,
+  pages = "133--143",
+  doi = "10.1016/j.ejor.2016.08.066",
+  month = "February"
+)
