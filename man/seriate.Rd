@@ -12,7 +12,8 @@
 \description{
 Tries to find an linear order for objects using data in form of a dissimilarity
 matrix (two-way one mode data), a data matrix (two-way two-mode data) or a
-data array (k-way k-mode data).
+data array (k-way k-mode data). The order can then be used to rorder the dissimilarity matrix/data matrix
+using \code{\link{permute}}.
 }
 \usage{
 \method{seriate}{dist}(x, method = "Spectral", control = NULL, \ldots)
@@ -420,6 +421,7 @@ Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany, E. (
 }
 \seealso{
 \code{\link{list_seriation_methods}},
+\code{\link{permute}},
 \code{\link{criterion}},
 \code{\link{register_GA}},
 \code{\link{register_DendSer}},
@@ -431,18 +433,17 @@ Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany, E. (
 # Show available seriation methods (for dist and matrix)
 list_seriation_methods()
 
-# Seriate as distance matrix (for the iris dataset)
+### Seriate as distance matrix (for the iris dataset)
 data("iris")
 x <- as.matrix(iris[-5])
 x <- x[sample(1:nrow(x)), ]
 d <- dist(x)
 
-# Default seriation
 order <- seriate(d)
 order
 
-pimage(d, main = "Random")
-pimage(d, order, main = "Reordered")
+pimage(d, main = "Distances (Random Order)")
+pimage(d, order, main = "Distances (Reordered)")
 
 # Compare seriation quality
 rbind(
@@ -450,7 +451,12 @@ rbind(
         reordered = criterion(d, order)
      )
 
-# Seriate matrix
+# Reorder the distance matrix
+d_reordered <-  permute(d, order)
+pimage(d_reordered, main = "Distances (Reordered)")
+
+
+### Seriate matrix
 data("iris")
 x <- as.matrix(iris[-5])
 
@@ -474,6 +480,9 @@ order <- seriate(x, method = "heatmap")
 pimage(x, order, main = "Heatmap seriation", prop = FALSE)
 criterion(x, order)
 
+# reorder the matrix
+x_reordered <- permute(x, order)
+
 # create a heatmap seriation manually by calculating
 # distances between rows and between columns
 order <- c(
@@ -482,6 +491,16 @@ order <- c(
 )
 pimage(x, order, main = "Heatmap seriation", prop = FALSE)
 criterion(x, order)
+
+### Seriate a correlation matrix
+corr <- cor(x)
+pimage(corr, upper_tri = FALSE, main = "Correlation matrix")
+
+# we need to define a distance (we used d = sqrt(2(1 - r))) and then reorder the matrix (rows and columns).
+d <- as.dist(sqrt(2 * (1 - corr)))
+o <- seriate(d)
+corr_reordered <- permute(corr, order = c(o, o))
+pimage(corr_reordered, upper_tri = FALSE, main = "Correlation matrix (reordered)")
 }
 \keyword{optimize}
 \keyword{cluster}
