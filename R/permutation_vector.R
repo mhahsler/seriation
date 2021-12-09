@@ -16,24 +16,32 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+## ser_permutation_vector represents a single permutation represented as an
+## integer vector or a hclust object.
 
-
-## S3 permutation and permutations classes
-## permutations consists of instances of permutation
-
-## permutation_vector
-
-## constructor (NA is identity vector)
+## Constructor
+## x can be
+##  * an integer vector
+##  * a hclust object (leaf order)
+##  * NA represents the identity permutation
+##  * a ser_permutation (list) of length 1
 ser_permutation_vector <- function(x, method = NULL) {
   if (inherits(x, "ser_permutation_vector"))
     return(x)
 
-  ## make sure it's an integer vector
-  if (is.vector(x) && !is.integer(x))
-    x <- as.integer(x)
-
-  if (.is_identity_permutation(x))
+  if (inherits(x, "hclust")) {
+    # nothing to do
+  } else if (length(x) == 1 && is.na(x)) {
+    x <- NA_integer_
     attr(x, "method") <- "identity permutation"
+  } else if (is.numeric(x)) {
+    x <- as.integer(x)
+  } else if (inherits(x, "ser_permutation") && length(x) == 1) {
+    x <- x[[1]]
+  } else {
+    stop("x does not contain a supported permutation.")
+  }
+
   if (!is.null(method))
     attr(x, "method") <- method
 
@@ -153,18 +161,16 @@ summary.ser_permutation_vector <- function(object, ...) {
 
 
 ## helpers
-.is_identity_permutation <- function (x) {
-  if (is.integer(x) &&
-      length(as.vector(x)) == 1 && is.na(x[1]))
-    TRUE
-  else
-    FALSE
-}
 
+## an identity permutation is a single NA.
+.is_identity_permutation <- function(x) is.na(x[1])
+
+## calls stop if the vector is not valid
 .valid_permutation_vector <- function(x) {
-  ## identity vector
+
+  ## identity vector is always valid
   if (.is_identity_permutation(x))
-    return()
+    return(invisible(TRUE))
 
   perm <- get_order(x)
   valid <- TRUE
@@ -179,10 +185,14 @@ summary.ser_permutation_vector <- function(object, ...) {
   if (!valid)
     stop("Invalid permutation vector!\nVector: ",
       paste(perm, collapse = ", "))
+
+  invisible(valid)
 }
 
 .valid_permutation_matrix <- function(x) {
   if (any(rowSums(x) != 1) || any(colSums(x) != 1) ||
       any(x != 1 & x != 0))
     stop("Not a valid permutation matrix")
+
+  invisible(TRUE)
 }

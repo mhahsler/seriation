@@ -186,7 +186,6 @@ if (require("ggplot2")) {
   ggpimage(d, order = seriate(d), upper_tri = TRUE) +
     labs(title = "Random Data", subtitle = "Distances")
 
-
   # Show only distances that are smaller than .5 using limits on fill.
   ggpimage(d,  order = seriate(d)) +
     labs(title = "Random Data (Distances + Theshold)") +

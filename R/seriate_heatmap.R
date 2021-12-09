@@ -62,7 +62,7 @@ seriate_matrix_heatmap <- function(x, control = NULL) {
   #names(row) <- rownames(x)[get_order(o_row)]
   #names(col) <- colnames(x)[get_order(o_col)]
 
-  list(row = o_row, col = o_col)
+  list(row = o_row[[1]], col = o_col[[1]])
 }
 
 set_seriation_method(

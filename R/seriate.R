@@ -20,6 +20,7 @@
 ## Seriation generic and default method.
 seriate <- function(x, ...)
   UseMethod("seriate")
+
 seriate.default <- function(x, ...)
   stop(gettextf("seriate not implemented for class '%s'.",
     class(x)))

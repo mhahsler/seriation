@@ -496,7 +496,8 @@ criterion(x, order)
 corr <- cor(x)
 pimage(corr, upper_tri = FALSE, main = "Correlation matrix")
 
-# we need to define a distance (we used d = sqrt(2(1 - r))) and then reorder the matrix (rows and columns).
+# we need to define a distance (we used d = sqrt(2(1 - r))) and
+# then reorder the matrix (rows and columns).
 d <- as.dist(sqrt(2 * (1 - corr)))
 o <- seriate(d)
 corr_reordered <- permute(corr, order = c(o, o))
