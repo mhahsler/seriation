@@ -106,8 +106,8 @@ ggbertinplot <- function(x,
               fill = x > highlight),
             color = "black",
             pch = 21
-          ) + ggplot2::scale_fill_manual(values = c("white", "black")) +
-          ggplot2::guides(fill = FALSE, size = FALSE)
+          ) + .gg_logical_pal() +
+          ggplot2::guides(fill = "none", size = "none")
       )
     } else{
       g <- g + ggplot2::geom_point(ggplot2::aes(size = x))
@@ -127,8 +127,8 @@ ggbertinplot <- function(x,
             ),
             color = "black"
           ) +
-          ggplot2::scale_fill_manual(values = c("white", "black")) +
-          ggplot2::guides(fill = FALSE)
+          .gg_logical_pal() +
+          ggplot2::guides(fill = "none")
       )
     } else{
       g <- g +
@@ -173,8 +173,8 @@ ggbertinplot <- function(x,
             strip.text.y.right = ggplot2::element_text(angle = 0, color = "black"),
             strip.background = ggplot2::element_blank()
           ) +
-          ggplot2::scale_fill_manual(values = c("white", "black")) +
-          ggplot2::guides(fill = FALSE)
+          .gg_logical_pal() +
+          ggplot2::guides(fill = "none")
       )
     } else{
       g <- g +

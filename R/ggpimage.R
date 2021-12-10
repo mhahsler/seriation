@@ -205,23 +205,16 @@ ggpimage.matrix <- function(x,
   # colors scales
   if (is.logical(x)) {
     g <-
-      g + ggplot2::scale_fill_manual(values = c("white", "black"), na.value = "white")
+      g + .gg_logical_pal()
 
     # colors for diverging
   } else if (any(x < 0, na.rm = TRUE) && any(x > 0, na.rm = TRUE)) {
     g <-
-      g + ggplot2::scale_fill_gradient2(
-        low = .ggcol_low2,
-        mid = .gg_col_mid2,
-        high = .gg_col_high2,
-        midpoint = 0,
-        na.value = "white"
-      )
+      g + .gg_diverge_pal()
+
   } else {
     g <-
-      g + ggplot2::scale_fill_gradient(low = .gg_col_low,
-        high = .gg_col_high,
-        na.value = "white")
+      g + .gg_sequential_pal()
   }
 
   g
@@ -264,11 +257,8 @@ ggpimage.dist <-
 
     # reverse color for dist
     suppressMessages(g <-
-        g + ggplot2::scale_fill_gradient(
-          low = .gg_col_high,
-          high = .gg_col_low,
-          na.value = "white"
-        ))
+        g + .gg_sequential_pal(dist = TRUE)
+    )
 
     g
   }

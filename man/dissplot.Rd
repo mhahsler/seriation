@@ -258,8 +258,8 @@ if (require("ggplot2")) {
 
   # Diverging color palette with manual set midpoint and different seriation methods
   ggdissplot(d, l, method = list(inter = "Spectral", intra = "MDS")) +
-    labs(title = "K-Means + Seriation", subtitle = "red-blue + biased color scale") +
-    scale_fill_gradient2(low = "darkred", high = "darkblue", midpoint = median(d))
+    labs(title = "K-Means + Seriation", subtitle = "biased color scale") +
+    scale_fill_gradient2(midpoint = median(d))
 
   # Use manipulate scale using package scales
   library("scales")

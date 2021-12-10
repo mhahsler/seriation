@@ -19,7 +19,7 @@
 # library(colorspace)
 
 .map_color_01 <- function(x, col) {
-  x[] <- col[map_int(x, length(col), from.range= c(0, 1))]
+  x[] <- col[map_int(x, length(col), from.range = c(0, 1))]
   x
 }
 
@@ -100,9 +100,25 @@ greys <- grays <- function(n = 100,
 .diverge_pal <- bluered
 
 ## define default ggplot2 colors
-.gg_col_low <- "white"
-.gg_col_high <- "darkblue"
+.gg_logical_pal <- function()
+   ggplot2::scale_fill_manual(values = c("white", "black"), na.value = "white")
 
-.ggcol_low2 <- "darkblue"
-.gg_col_mid2 <- "white"
-.gg_col_high2 <- "darkred"
+.gg_sequential_pal <- function(dist = FALSE) {
+  if (dist)
+    ggplot2::scale_fill_gradient(low = scales::muted("blue"),
+      high = "white",
+      na.value = "white")
+  else
+    ggplot2::scale_fill_gradient(low = "white",
+      high = scales::muted("blue"),
+      na.value = "white")
+}
+
+.gg_diverge_pal <- function()
+  ggplot2::scale_fill_gradient2(
+    low = scales::muted("red"),
+    mid = "white",
+    high = scales::muted("blue"),
+    na.value = "white",
+    midpoint = 0
+  )

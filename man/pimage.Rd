@@ -171,7 +171,7 @@ if (require("ggplot2")) {
   # Reorder matrix, use custom colors, add a title,
   # and hide colorkey.
   ggpimage(x, order = seriate(x), row_labels = TRUE, col_labels = TRUE) +
-    scale_fill_manual(values = c("white", "red")) +
+    scale_fill_manual(values = c("grey90", "red")) +
     theme(legend.position = "none") +
     labs(title = "Random Data")
 
@@ -189,7 +189,8 @@ if (require("ggplot2")) {
   # Show only distances that are smaller than .5 using limits on fill.
   ggpimage(d,  order = seriate(d)) +
     labs(title = "Random Data (Distances + Theshold)") +
-    scale_fill_gradient(low = "darkblue", high = "lightgray", limit = c(0, .5), na.value = "white")
+    scale_fill_gradient(low = "darkblue", high = "lightgray",
+      limit = c(0, .5), na.value = "white")
 
   # Use ggplot2 themes with theme_set
   old_theme <- theme_set(theme_linedraw())

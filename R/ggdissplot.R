@@ -150,12 +150,10 @@ ggdissplot <- function(x,
   }
 
   # reverse color
-  suppressMessages(g <-
-      g + ggplot2::scale_fill_gradient(
-        low = .gg_col_high,
-        high = .gg_col_low,
-        na.value = "white"
-      ))
+  suppressMessages(
+    g <-
+      g + .gg_sequential_pal(dist = TRUE)
+  )
 
   g
 }

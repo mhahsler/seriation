@@ -22,14 +22,14 @@
 ## Constructor
 ## x can be
 ##  * an integer vector
-##  * a hclust object (leaf order)
+##  * a hclust or dendrogram object (leaf order)
 ##  * NA represents the identity permutation
 ##  * a ser_permutation (list) of length 1
 ser_permutation_vector <- function(x, method = NULL) {
   if (inherits(x, "ser_permutation_vector"))
     return(x)
 
-  if (inherits(x, "hclust")) {
+  if (inherits(x, "hclust") || inherits(x, "dendrogram")) {
     # nothing to do
   } else if (length(x) == 1 && is.na(x)) {
     x <- NA_integer_
@@ -51,8 +51,13 @@ ser_permutation_vector <- function(x, method = NULL) {
 }
 
 ## accessors
+## returns the order of objects (index of first, second, etc. object)
 get_order <- function(x, ...)
   UseMethod("get_order")
+
+get_order.default <- function(x, ...)
+  stop(gettextf("No permutation accessor implemented for class '%s'. ",
+    class(x)))
 
 get_order.ser_permutation_vector <- function(x, ...)
   NextMethod()
@@ -63,17 +68,12 @@ get_order.hclust <- function(x, ...)
 get_order.dendrogram <- function(x, ...)
   order.dendrogram(x)
 
-
 get_order.integer <- function(x, ...) {
   if (.is_identity_permutation(x))
     stop("Cannot get order vector from symbolic identity permutation (undefined length).")
   structure(as.integer(x), names = names(x))
 }
 
-## returns the order of objects (index of first, second, etc. object)
-get_order.default <- function(x, ...)
-  stop(gettextf("No permutation accessor implemented for class '%s'. ",
-    class(x)))
 
 ## returns for each object its rank (rank of first, second, etc. object)
 get_rank <- function(x, ...)
@@ -86,7 +86,7 @@ get_permutation_matrix <- function(x, ...)
 c.ser_permutation_vector <- function(..., recursive = FALSE)
   do.call("ser_permutation", list(...))
 
-## convert to permuation matrix
+## convert to permutation matrix
 permutation_vector2matrix <- function(x) {
   x <- get_order(x)
   .valid_permutation_vector(x)
@@ -172,6 +172,7 @@ summary.ser_permutation_vector <- function(object, ...) {
   if (.is_identity_permutation(x))
     return(invisible(TRUE))
 
+  ## valid permutations have a get_order function implemented
   perm <- get_order(x)
   valid <- TRUE
 

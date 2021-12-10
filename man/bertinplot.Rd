@@ -160,7 +160,7 @@ if (require("ggplot2")) {
 
   # Tiles with diverging color scale
   ggbertinplot(x, order, geom = "tile", prop = TRUE) +
-    scale_fill_gradient2(low = "darkblue", high = "darkred", midpoint = mean(x))
+    scale_fill_gradient2(midpoint = mean(x))
 
   # Custom geom (geom = "none"). Defined variables are row, col, and x for the value
   ggbertinplot(x, order, geom = "none", prop = FALSE) +
