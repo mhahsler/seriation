@@ -1,4 +1,4 @@
-# seriation 1.3-1-1 (xx/xx/2021)
+# seriation 1.3-2 (2/10/2022)
 
 ## Changes
 * Improved argument checking for ser_permutation_vector().
