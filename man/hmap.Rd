@@ -5,7 +5,7 @@
 \title{Plot Heat Map Reordered Using Seriation}
 \description{
 Provides heatmaps reordered using several different seriation methods.
-This includes dendrogram based reordering with optimal leaf order and matrix seriation based heat maps.
+This includes dendrogram based reordering with optimal leaf order and matrix seriation-based heat maps.
 }
 \usage{
 hmap(x, distfun = dist, method = "OLO", control = NULL,
@@ -37,37 +37,29 @@ gghmap(x, distfun = dist, method = "OLO", control = NULL,
   \item{\dots}{further arguments passed on to \code{\link{heatmap}} in package \pkg{stats}.}
 }
 \details{
+For dendrogram based heat maps, the arguments are passed on to \code{heatmap} in \pkg{stats}.
+The following arguments for \code{heatmap} cannot be used: \code{margins, Rowv, Colv, hclustfun, reorderfun}.
 
-  For dendrogram based heat maps, the
-      arguments are passed on to \code{heatmap} in
-      \pkg{stats}.
-      The following arguments for\code{heatmap} cannot be used:
-      \code{margins, Rowv, Colv, hclustfun, reorderfun}.
-
-  For seriation-based heat maps further arguments include:
-       \describe{
-          \item{\code{gp}}{an object of class \code{gpar} containing graphical
-                parameters (see \code{gpar} in package \pkg{grid}).}
-          \item{\code{newpage}}{a logical indicating  whether to start
-                plot on a new
-                page (see \code{gpar} in package \pkg{grid}).}
-          \item{\code{prop}}{a logical indicating whether the height and width of
-                \code{x} should be plotted proportional to its dimensions.}
-          \item{\code{showdist}}{Display seriated dissimilarity matrices?
-              Values are \code{"none"}, \code{"both"},
-                \code{"rows"} or \code{"columns"}. }
-         \item{\code{key}}{logical; show a colorkey?.}
-         \item{key.lab}{ string plotted next to the color key.}
-#         \item{\code{}}{ one of \code{"auto"} (default; show axis
-#                labels if there are
-#                less than 25 labels), \code{"x"}, \code{"y"},
-#                \code{"both"} and \code{"none"}.}
-         \item{\code{margins}}{ bottom and right-hand-side margins are
-                calculated automatically or can be specifies as a vector
-                of two numbers (in lines).}
-         \item{\code{zlim}}{ range of values displayed.}
-         \item{\code{col}, \code{col_dist}}{ color palettes used.}
-      }
+For seriation-based heat maps further arguments include:
+\describe{
+\item{\code{gp}}{an object of class \code{gpar} containing graphical
+parameters (see \code{gpar} in package \pkg{grid}).}
+\item{\code{newpage}}{a logical indicating  whether to start
+plot on a new
+page (see \code{gpar} in package \pkg{grid}).}
+\item{\code{prop}}{a logical indicating whether the height and width of
+\code{x} should be plotted proportional to its dimensions.}
+\item{\code{showdist}}{Display seriated dissimilarity matrices?
+Values are \code{"none"}, \code{"both"},
+\code{"rows"} or \code{"columns"}. }
+\item{\code{key}}{logical; show a colorkey?.}
+\item{key.lab}{ string plotted next to the color key.}
+\item{\code{margins}}{ bottom and right-hand-side margins are
+calculated automatically or can be specifies as a vector
+of two numbers (in lines).}
+\item{\code{zlim}}{ range of values displayed.}
+\item{\code{col}, \code{col_dist}}{ color palettes used.}
+}
 }
 \value{
 An invisible list with elements:
