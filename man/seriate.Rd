@@ -59,7 +59,7 @@ A definition of these measures can be found in the
 matrix). Similarities have to be transformed into
 dissimilarities. Currently, the following methods are implemented
 (for a more detailed description and an experimental comparison see
-\href{https://michael.hahsler.net/research/misc/EJOR_seriation_2016.pdf}{Hahsler (2017)}):
+\href{https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf}{Hahsler (2017)}):
 
 \describe{
 \item{\code{"ARSA"}}{Anti-Robinson seriation by simulated annealing to minimize

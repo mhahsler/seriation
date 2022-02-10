@@ -88,7 +88,7 @@ The following methods are available for dissimilarity data:
  *  VAT - Order of the visual assessment of clustering tendency ordering 
   
 A detailed comparison of the methods is available in the paper 
-[An experimental comparison of seriation methods for one-mode two-way data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) (read [ preprint](https://michael.hahsler.net/research/misc/EJOR_seriation_2016.pdf)).
+[An experimental comparison of seriation methods for one-mode two-way data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) (read the [preprint](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf)).
   
   
 The following methods are available for matrices:
@@ -104,6 +104,6 @@ The following methods are available for matrices:
 ## References
 * [Reference manual for package seriation](https://www.rdocumentation.org/packages/seriation/)
 * Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things in Order: An Introduction to the R Package seriation,](http://dx.doi.org/10.18637/jss.v025.i03) _Journal of Statistical Software,_ 25(3), 2008.
-* Michael Hahsler. [An experimental comparison of seriation methods for one-mode two-way data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) _European Journal of Operational Research,_ 257:133-143, 2017. (read [preprint](https://michael.hahsler.net/research/misc/EJOR_seriation_2016.pdf))
+* Michael Hahsler. [An experimental comparison of seriation methods for one-mode two-way data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) _European Journal of Operational Research,_ 257:133-143, 2017. (read the [preprint](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf))
 * [Seriation package vignette](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf) with complete examples.
 
