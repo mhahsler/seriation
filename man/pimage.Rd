@@ -18,13 +18,13 @@
 # grid-based image plot
 pimage(x, order = NULL, col = NULL, main ="", xlab = "", ylab = "",
   zlim = NULL, key = TRUE, keylab = "", symkey = TRUE,
-  upper_tri = TRUE, lower_tri = TRUE, row_labels = NULL, col_labels = NULL,
+  upper_tri = TRUE, lower_tri = TRUE, diag = TRUE, row_labels = NULL, col_labels = NULL,
   prop = TRUE, flip_axes = FALSE, reverse_columns = FALSE,
   ..., newpage = TRUE, pop = TRUE, gp = NULL)
 
 # ggplot2-based image plot
 ggpimage(x, order = NULL,
-  upper_tri = TRUE, lower_tri = TRUE, row_labels = NULL, col_labels = NULL,
+  upper_tri = TRUE, lower_tri = TRUE, diag = TRUE, row_labels = NULL, col_labels = NULL,
   prop = TRUE, flip_axes = FALSE, reverse_columns = FALSE)
 }
 
@@ -46,8 +46,8 @@ ggpimage(x, order = NULL,
   \item{keylab}{ string plotted next to the color key.}
   \item{symkey}{ logical; if \code{x} contains negative values, should the
     color palate be symmetric (zero is in the middle)>}
-  \item{upper_tri, lower_tri}{ a logical indicating whether to show the
-      upper or lower triangle of the distance matrix. }
+  \item{upper_tri, lower_tri, diag}{ a logical indicating whether to show the
+      upper triangel, the lower triangle or the diagonal of the (distance) matrix. }
   \item{row_labels, col_labels}{ a logical indicating if row and column labels in \code{x} should be displayed.
     If \code{NULL} then labels are displayed if the \code{x} contains the appropriate dimname and the number of labels is 25 or less. A character vector of the appropriate length with labels can also be supplied. }
   \item{prop}{logical; change the aspect ratio so cells in the image have a equal width and height.}

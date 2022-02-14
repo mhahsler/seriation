@@ -1,3 +1,7 @@
+# seriation 1.3-2-1 (xx/xx/2022)
+* pimage gained parameter diag. pimage for dist by default does not show the diagonal now.
+
+
 # seriation 1.3-2 (2/10/2022)
 
 ## Changes

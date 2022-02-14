@@ -24,6 +24,7 @@ ggpimage <- function(x,
   order = NULL,
   upper_tri = TRUE,
   lower_tri = TRUE,
+  diag = TRUE,
   row_labels = NULL,
   col_labels = NULL,
   prop = TRUE,
@@ -36,6 +37,7 @@ ggpimage.matrix <- function(x,
   order = NULL,
   upper_tri = TRUE,
   lower_tri = TRUE,
+  diag = TRUE,
   row_labels = NULL,
   col_labels = NULL,
   prop = TRUE,
@@ -58,13 +60,16 @@ ggpimage.matrix <- function(x,
 
   # mask triangles
   if (any(!upper_tri ||
-      !lower_tri) &&
+      !lower_tri ||
+      !diag) &&
       nrow(x) != ncol(x))
-    stop("Upper or lower triangle can only be suppressed for square matrices!")
+    stop("Upper triangle, lower triangle or diag can only be suppressed for square matrices!")
   if (!upper_tri)
     x[upper.tri(x)] <- NA
   if (!lower_tri)
     x[lower.tri(x)] <- NA
+  if (!diag)
+    diag(x) <- NA
 
 
   # reverse order of columns
@@ -229,6 +234,7 @@ ggpimage.dist <-
     order = NULL,
     upper_tri = FALSE,
     lower_tri = TRUE,
+    diag = FALSE,
     row_labels = NULL,
     col_labels = NULL,
     prop = TRUE,
@@ -248,6 +254,7 @@ ggpimage.dist <-
       order = NULL,
       upper_tri,
       lower_tri,
+      diag,
       row_labels,
       col_labels,
       prop = prop,

@@ -33,6 +33,7 @@ pimage <-
     symkey = TRUE,
     upper_tri = TRUE,
     lower_tri = TRUE,
+    diag = TRUE,
     row_labels = NULL,
     col_labels = NULL,
     prop = TRUE,
@@ -58,6 +59,7 @@ pimage.matrix <-
     symkey = TRUE,
     upper_tri = TRUE,
     lower_tri = TRUE,
+    diag = TRUE,
     row_labels = NULL,
     col_labels = NULL,
     prop = TRUE,
@@ -108,13 +110,16 @@ pimage.matrix <-
 
     # mask triangles
     if (any(!upper_tri ||
-        !lower_tri) &&
+        !lower_tri ||
+        !diag) &&
         nrow(x) != ncol(x))
-      stop("Upper or lower triangle can only be suppressed for square matrices!")
+      stop("Upper triange, lower triangle or diagonal can only be suppressed for square matrices!")
     if (!upper_tri)
       x[upper.tri(x)] <- NA
     if (!lower_tri)
       x[lower.tri(x)] <- NA
+    if (!diag)
+      diag(x) <- NA
 
     # change x and y
     if (flip_axes) {
@@ -262,6 +267,7 @@ pimage.dist <-
     symkey = TRUE,
     upper_tri = FALSE,
     lower_tri = TRUE,
+    diag = FALSE,
     row_labels = NULL,
     col_labels = NULL,
     prop = TRUE,
@@ -297,6 +303,7 @@ pimage.dist <-
       symkey = symkey,
       upper_tri = upper_tri,
       lower_tri = lower_tri,
+      diag = diag,
       row_labels = row_labels,
       col_labels = col_labels,
       prop = prop,
