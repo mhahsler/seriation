@@ -34,6 +34,8 @@ permutation vector.}
 
 \item{...}{further arguments.}
 
+\item{recursive}{ignored}
+
 \item{printable}{a logical; prints "unknown" instead of \code{NULL} for non-existing methods.}
 }
 \value{

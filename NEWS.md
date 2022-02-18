@@ -2,6 +2,7 @@
 
 ## New Features
 * pimage and dissplot gained parameter diag. pimage for dist by default does not show the diagonal now.
+* C code now supports long vectors for dist objects.
 
 ## New Changes
 * we now use roxygen for documentation.

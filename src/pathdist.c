@@ -28,14 +28,14 @@
 /* FIXME: INF and NA */
 SEXP pathdist_floyd(SEXP R_x) {
   int *dimX = INTEGER( GET_DIM(R_x) );
-  int i, j, k, n = dimX[0];
+  R_xlen_t i, j, k, n = dimX[0];
   SEXP R_y;
   double *x = REAL(R_x);
   double *y;
-  
+
   PROTECT(R_y = allocMatrix(REALSXP, dimX[0], dimX[1]));
   y = REAL(R_y);
-  
+
   /* initialize y with paths of length 1 */
   for(i=0; i<n*n; i++) y[i] = x[i];
 
@@ -43,8 +43,8 @@ SEXP pathdist_floyd(SEXP R_x) {
   for (k=0; k<n; k++)
 	  for (i=0; i<n; i++)
 	    for (j=0; j<n; j++)
-		    if (MAX(y[i+n*k], y[k+n*j]) < y[i+n*j]) 
-          y[i+n*j] = MAX(y[i+n*k], y[k+n*j]); 
+		    if (MAX(y[i+n*k], y[k+n*j]) < y[i+n*j])
+          y[i+n*j] = MAX(y[i+n*k], y[k+n*j]);
 
   UNPROTECT(1);
   return R_y;

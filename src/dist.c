@@ -30,27 +30,27 @@
 
 SEXP reorder_dist(SEXP R_dist, SEXP R_order) {
 
-    SEXP R_dist_out;
+  SEXP R_dist_out;
 
-    int n = INTEGER(getAttrib(R_dist, install("Size")))[0];
-    R_xlen_t n_out = LENGTH(R_order);
-    int *o = INTEGER(R_order);
+  int n = INTEGER(getAttrib(R_dist, install("Size")))[0];
+  R_xlen_t n_out = LENGTH(R_order);
+  int *o = INTEGER(R_order);
 
-    PROTECT(R_dist_out = allocVector(REALSXP, n_out*(n_out-1)/2));
+  PROTECT(R_dist_out = allocVector(REALSXP, n_out*(n_out-1)/2));
 
-    double *dist = REAL(R_dist);
-    double *dist_out = REAL(R_dist_out);
+  double *dist = REAL(R_dist);
+  double *dist_out = REAL(R_dist_out);
 
-    for (int i = 1; i <= n_out; i++) {
-        for (int j = (i+1); j <=n_out; j++) {
+  for (int i = 1; i <= n_out; i++) {
+    for (int j = (i+1); j <=n_out; j++) {
 
-            if(o[i-1] == o[j-1]) dist_out[LT_POS(n_out, i, j)] = 0.0;
-            else dist_out[LT_POS(n_out, i, j)] =
-                dist[LT_POS(n, o[i-1], o[j-1])];
-        }
+      if(o[i-1] == o[j-1]) dist_out[LT_POS(n_out, i, j)] = 0.0;
+      else dist_out[LT_POS(n_out, i, j)] =
+        dist[LT_POS(n, o[i-1], o[j-1])];
     }
+  }
 
-    UNPROTECT(1);
-    return R_dist_out;
+  UNPROTECT(1);
+  return R_dist_out;
 }
 
