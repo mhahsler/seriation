@@ -30,7 +30,7 @@ seriate_dist_chen <- function(x, control = NULL) {
   ## find the first correlation matrix of rank 2
   n <- 0
   while (rank > 2) {
-    x <- cor(x)
+    x <- stats::cor(x)
     n <- n + 1
     rank <- qr(x)$rank
   }

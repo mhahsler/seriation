@@ -52,6 +52,8 @@
   perm[margin]
 }
 
+#' @rdname seriate
+#' @export
 seriate.array <- function(x,
   method = "PCA",
   control = NULL,

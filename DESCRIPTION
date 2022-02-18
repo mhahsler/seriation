@@ -40,10 +40,77 @@ Suggests: DendSer,
   dendextend,
   ggplot2,
   scales
+Encoding: UTF-8
+RoxygenNote: 7.1.2.9000
+Roxygen: list(markdown = TRUE)
 License: GPL-3
 Copyright: The code in src/bea.f is Copyright (C) 1991 F. Murtagh;
     src/bbwrcg.f, src/arsa.f and src/bburcg.f are Copyright (C) 2005
     M. Brusco, H.F. Koehn, and S. Stahl.
     All other code is Copyright (C) Michael Hahsler, Christian Buchta,
     and Kurt Hornik.
-
+Collate: 
+    'AAA_check_installed.R'
+    'AAA_colors.R'
+    'AAA_map.R'
+    'AAA_parameters.R'
+    'AAA_registry.R'
+    'AAA_seriation-package.R'
+    'Chameleon.R'
+    'Irish.R'
+    'Munsingen.R'
+    'Psych24.R'
+    'SupremeCourt.R'
+    'Townships.R'
+    'VAT.R'
+    'Wood.R'
+    'Zoo.R'
+    'bea.R'
+    'bertinplot.R'
+    'criterion.R'
+    'criterion.array.R'
+    'criterion.dist.R'
+    'criterion.matrix.R'
+    'dissplot.R'
+    'get_order.R'
+    'ggVAT.R'
+    'ggbertinplot.R'
+    'ggdissplot.R'
+    'hmap.R'
+    'gghmap.R'
+    'pimage.R'
+    'ggpimage.R'
+    'grid_helpers.R'
+    'hclust_greedy.R'
+    'lines_and_ordered_data.R'
+    'permute.R'
+    'register_DendSer.R'
+    'register_GA.R'
+    'register_optics.R'
+    'register_tsne.R'
+    'register_umap.R'
+    'reorder.hclust.R'
+    'robinson.R'
+    'ser_dist.R'
+    'ser_permutation.R'
+    'ser_permutation_vector.R'
+    'ser_permutation_vector2matrix.R'
+    'seriate.R'
+    'seriate.array.R'
+    'seriate.data.frame.R'
+    'seriate.dist.R'
+    'seriate.matrix.R'
+    'seriate_ARSA_Branch-Bound.R'
+    'seriate_BEA.R'
+    'seriate_HC.R'
+    'seriate_MDS.R'
+    'seriate_PCA.R'
+    'seriate_QAP.R'
+    'seriate_R2E.R'
+    'seriate_SA.R'
+    'seriate_SPIN.R'
+    'seriate_TSP.R'
+    'seriate_VAT.R'
+    'seriate_heatmap.R'
+    'seriate_spectral.R'
+    'uniscale.R'

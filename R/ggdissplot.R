@@ -16,10 +16,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-
-
-## Cluster visualization by proximity matrix shading
-
+#' @rdname dissplot
+#' @export
 ggdissplot <- function(x,
   labels = NULL,
   method = "Spectral",
@@ -150,10 +148,8 @@ ggdissplot <- function(x,
   }
 
   # reverse color
-  suppressMessages(
-    g <-
-      g + .gg_sequential_pal(dist = TRUE)
-  )
+  suppressMessages(g <-
+      g + .gg_sequential_pal(dist = TRUE))
 
   g
 }

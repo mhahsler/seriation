@@ -16,8 +16,47 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-
-## constructor
+#' Class ser_permutation -- A Collection of Permutation Vectors for Seriation
+#'
+#' The class `ser_permutation` is a collection of permutation vectors
+#' (see class [ser_permutation_vector]), one for each dimension (mode)
+#' of the data to be permuted.
+#'
+#' @param x,object an object of class `ser_permutation_vector` or
+#'     any object which can be converted into
+#'     a object of class `ser_permutation` (e.g. an integer
+#'       vector).
+#' @param ... vectors for further dimensions.
+#'
+#' @returns An object of class `ser_permutation`.
+#'
+#' @seealso [get_order()], [get_permutation_matrix()]
+#' @author Michael Hahsler
+#' @examples
+#' o <- ser_permutation(1:5, 10:1)
+#' o
+#'
+#' ## length (number of dimensions)
+#' length(o)
+#'
+#' ## get permutation vector for 2nd dimension
+#' get_order(o, 2)
+#'
+#' ## reverse dimensions
+#' o[2:1]
+#'
+#' ## combine
+#' o <- c(o, ser_permutation(1:15))
+#' o
+#'
+#' ## get an individual permutation
+#' o[[2]]
+#'
+#' ## reverse the order of a permutation
+#' o[[2]] <- rev(o[[2]])
+#' get_order(o,2)
+#' @keywords classes
+#' @export
 ser_permutation <- function(x, ...) {
   x <- c(list(x), list(...))
 
@@ -37,12 +76,8 @@ ser_permutation <- function(x, ...) {
   x
 }
 
-## so we can say get_order to permutations
-get_order.ser_permutation <-
-  function(x, dim = 1, ...)
-    get_order(x[[dim]])
-
-## print et al
+#' @rdname ser_permutation
+#' @export
 print.ser_permutation <- function(x, ...) {
   writeLines(c(
     gettextf("object of class %s",
@@ -74,13 +109,21 @@ print.ser_permutation <- function(x, ...) {
 
 ## fake summary (we don't really provide a summary,
 ## but summary produces now a reasonable result --- same as print)
+#' @rdname ser_permutation
+#' @export
 summary.ser_permutation <- function(object, ...)
   object
 
+#' @rdname ser_permutation
+#' @param recursive ignored.
+#' @export
 c.ser_permutation <- function(..., recursive = FALSE)
   do.call("ser_permutation", list(...))
 
 ## fixme [[<- needs to check for ser_permutation_vector
 
+#' @rdname ser_permutation
+#' @param i index of the dimension(s) to extract.
+#' @export
 "[.ser_permutation" <- function(object, i, ...)
   do.call("ser_permutation", unclass(object)[i])

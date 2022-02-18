@@ -16,14 +16,16 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#' @rdname hmap
+#' @include hmap.R
+#' @export
 gghmap <- function(x,
-  distfun = dist,
+  distfun = stats::dist,
   method = "OLO",
   control = NULL,
   scale = c("none", "row", "column"),
   prop = FALSE,
   ...) {
-
   scale <- match.arg(scale)
 
   if (inherits(x, "dist")) {
@@ -37,14 +39,12 @@ gghmap <- function(x,
       seriation_method = method,
       seriation_control = control,
       scale = scale
-      )
+    )
 
     o <-
-      seriate(
-        x,
+      seriate(x,
         method = "heatmap",
-        control = contr
-      )
+        control = contr)
   }
 
   ggpimage(x, o, prop = prop, ...)

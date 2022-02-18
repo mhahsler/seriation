@@ -21,33 +21,119 @@
 ndim <- function(x)
   length(dim(x))
 
-# generic
+#' Permute the Order in Various Objects
+#'
+#' Provides the generic function and methods for permuting the order of various
+#' objects including vectors, lists, dendrograms (also \code{hclust} objects),
+#' the order of observations in a \code{dist} object, the rows and columns of a
+#' matrix or data.frame, and all dimensions of an array given a suitable
+#' [ser_permutation] object.
+#'
+#' The permutation vectors in [ser_permutation] are suitable if the number
+#' of permutation vectors matches the number of dimensions of \code{x} and if
+#' the length of each permutation vector has the same length as the
+#' corresponding dimension of \code{x}.
+#'
+#' For 1-dimensional/1-mode data (list, vector, \code{dist}), \code{order} can
+#' also be a single permutation vector of class [ser_permutation_vector]
+#' or data which can be automatically coerced to this class (e.g. a numeric
+#' vector).
+#'
+#' For matrix-like objects, the additional parameter \code{margin} can be
+#' specified to permute only a single dimension. In this case, \code{order} can
+#' be a single permutation vector or a complete liis with pemutations for all
+#' dimensions. In the latter case, all permutations but the one specified in
+#' \code{margin} are ignored.
+#'
+#' For \code{dendrogram} and \code{hclust}, subtrees are rotated to represent
+#' the order best possible. If the order is not achieved perfectly then the
+#' user is warned. This behavior can be changed with the extra parameter
+#' \code{incompatible} which can take the values \code{"warn"} (default),
+#' \code{"stop"} or \code{"ignore"}.
+#'
+#' @param x an object (a list, a vector, a \code{dist} object, a matrix, an
+#' array or any other object which provides \code{dim} and standard subsetting
+#' with \code{"["}).
+#' @param order an object of class [ser_permutation] which contains
+#' suitable permutation vectors for \code{x}.
+#' @param ...  additional arguments for the permutation function.
+#' @returns A permuted object of the same class as `x`.
+#' @author Michael Hahsler
+#' @keywords manip
+#' @examples
+#'
+#' # List data types for permute
+#' methods("permute")
+#'
+#' # Permute matrix
+#' m <- matrix(rnorm(10), 5, 2, dimnames = list(1:5, LETTERS[1:2]))
+#' m
+#'
+#' # Permute rows and columns
+#' o <- ser_permutation(5:1, 2:1)
+#' permute(m, o)
+#' ## permute only columns
+#' permute(m, o, margin = 2)
+#'
+#' df <- as.data.frame(m)
+#' permute(df, o)
+#'
+#' # Permute objects in a dist object
+#' d <- dist(m)
+#' d
+#'
+#' permute(d, ser_permutation(c(3,2,1,4,5)))
+#'
+#' # Permute a list
+#' l <- list(a=1:5, b=letters[1:3], c=0)
+#' l
+#'
+#' permute(l, c(2,3,1))
+#'
+#' # Permute a dendrogram
+#' hc <- hclust(d)
+#' plot(hc)
+#' plot(permute(hc, 5:1))
+#' @export
 permute <- function(x, order, ...)
   UseMethod("permute")
 
-# methods
-#permute.default <- function(x, order)
-#stop(paste("\npermute not implemented for class: ", class(x)))
 permute.default <- function(x, order, ...)
   .permute_kd(x, order, ...)
 
+#' @rdname permute
+#' @export
 permute.array <- function(x, order, ...)
   .permute_kd(x, order, ...)
+
+#' @rdname permute
+#' @export
 permute.matrix <- function(x, order, ...)
   .permute_kd(x, order, ...)
+
+#' @rdname permute
+#' @export
 permute.data.frame <- function(x, order, ...)
   .permute_kd(x, order, ...)
 
+#' @rdname permute
+#' @export
 permute.numeric <- function(x, order, ...)
   .permute_1d(x, order, ...)
 
+#' @rdname permute
+#' @export
 permute.character <- function(x, order, ...)
   .permute_1d(x, order, ...)
 
+#' @rdname permute
+#' @export
 permute.list <- function(x, order, ...)
   .permute_1d(x, order, ...)
 
 # special cases
+#' @rdname permute
+#' @export
 permute.dist <- function(x, order, ...) {
   .nodots(...)
 
@@ -62,10 +148,12 @@ permute.dist <- function(x, order, ...) {
   .rearrange_dist(x, get_order(order, 1))
 }
 
+#' @rdname permute
+#' @export
 permute.dendrogram <- function(x, order, ...) {
   .nodots(...)
 
-  if (length(get_order(order)) != nobs(x))
+  if (length(get_order(order)) != stats::nobs(x))
     stop("Length of order and number of leaves in dendrogram do not agree!")
 
 
@@ -103,8 +191,10 @@ permute.dendrogram <- function(x, order, ...) {
   x
 }
 
+#' @rdname permute
+#' @export
 permute.hclust <- function(x, order, ...) {
-  nd <- as.hclust(permute(as.dendrogram(x), order, ...))
+  nd <- stats::as.hclust(permute(stats::as.dendrogram(x), order, ...))
   x$merge <- nd$merge
   x$height <- nd$height
   x$order <- nd$order
@@ -140,7 +230,9 @@ permute.hclust <- function(x, order, ...) {
 
   # DEPRECATED: Compatibility with old permutation for data.frame
   if (is.data.frame(x) && is.null(margin) && length(order) == 1) {
-    message("permute for data.frames with a single seriation order is now deprecated. Specify the margin as follows: 'permute(x, order, margin = 1)'")
+    message(
+      "permute for data.frames with a single seriation order is now deprecated. Specify the margin as follows: 'permute(x, order, margin = 1)'"
+    )
     margin <- 1
   }
 
@@ -152,7 +244,9 @@ permute.hclust <- function(x, order, ...) {
     margin <- as.integer(margin)
 
     if (length(order) != 1 && length(order) != ndim(x))
-      stop("order needs to contain either orders for all dimensions or just a single order for the selected margin.")
+      stop(
+        "order needs to contain either orders for all dimensions or just a single order for the selected margin."
+      )
 
     if (length(order) == 1) {
       length(order) <- ndim(x)

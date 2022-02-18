@@ -34,7 +34,7 @@ seriate_matrix_fpc <- function(x, control = NULL) {
   tol     <- control$tol
   verbose <- control$verbose
 
-  pr <- prcomp(x,
+  pr <- stats::prcomp(x,
     center = center,
     scale. = scale.,
     tol = tol)

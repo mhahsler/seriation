@@ -16,8 +16,35 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-## register seriation based on umap
 
+#' Register Seriation Based on 1D UMAP
+#'
+#' Use uniform manifold approximation and projection (UMAP) to embed the data
+#' on the number line and create a order for [seriate()].
+#'
+#' Registers the method \code{"umap"} for [seriate()]. This method applies
+#' 1D UMAP to data represented by a distance matrix and extracts the order from
+#' the 1D embedding.
+#'
+#' \bold{Note:} Package \pkg{umap} needs to be installed.
+#'
+#' @aliases register_umap umap
+#' @seealso [umap::umap()] in \pkg{umap}.
+#' @references McInnes, L, Healy, J, UMAP: Uniform Manifold Approximation and
+#' Projection for Dimension Reduction, ArXiv e-prints 1802.03426, 2018
+#' @keywords optimize cluster
+#' @examples
+#'
+#' \dontrun{
+#' register_umap()
+#' get_seriation_method("dist", "umap")
+#'
+#' d <- dist(random.robinson(50, pre=TRUE, noise=.1))
+#'
+#' o <- seriate(d, method = "umap")
+#' pimage(d, o)
+#' }
+#'
 register_umap <- function() {
   check_installed("umap")
 

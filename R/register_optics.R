@@ -16,8 +16,36 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-## register seriation based on OPTICS
 
+#' Register Seriation Based on OPTICS
+#'
+#' Use ordering points to identify the clustering structure (OPTICS) for [seriate()].
+#'
+#' Registers the method \code{"optics"} for [seriate()]. This method applies
+#' the OPTICS ordering algorithm to create an ordering.
+#'
+#' \bold{Note:} Package \pkg{dbscan} needs to be installed.
+#'
+#' @aliases register_optics optics OPTICS
+#' @seealso [dbscan::optics()] in
+#' \pkg{dbscan}.
+#' @references Mihael Ankerst, Markus M. Breunig, Hans-Peter Kriegel, Joerg
+#' Sander (1999). OPTICS: Ordering Points To Identify the Clustering Structure.
+#' ACM SIGMOD international conference on Management of data. ACM Press. pp.
+#' 49-60. \doi{10.1145/304181.304187}
+#' @keywords optimize cluster
+#' @examples
+#'
+#' \dontrun{
+#' register_optics()
+#' get_seriation_method("dist", "optics")
+#'
+#' d <- dist(random.robinson(50, pre=TRUE, noise=.1))
+#'
+#' o <- seriate(d, method = "optics")
+#' pimage(d, o)
+#' }
+#'
 register_optics <- function() {
   check_installed("dbscan")
 

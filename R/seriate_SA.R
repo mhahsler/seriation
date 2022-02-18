@@ -20,8 +20,21 @@
 ## Simulated annealing reimplimentation folowing arsa.f by Brusco et al.
 ## can use any criterion function
 
+#' Neighborhood functions for Seriation Method SA
+#'
+#' Definition of different local neighborhood functions for the method `"SA"` for [seriate()].
+#'
+#' Local neighborhood functions are `LS_insert`, `LS_swap`, `LS_reverse`, and `LS_mix`
+#'  (1/3 insertion, 1/3 swap and 1/3 reverse). Any neighborhood function can be defined.
+#' @name LS
+#' @aliases LS
+#' @param o an interger vector with the order
+#' @param pos random positions used for the local move.
+#' @returns returns the new order vector representing the random neighbor.
+NULL
 
-### neighborhood functions
+#' @rdname LS
+#' @export
 LS_swap <- function(o, pos = sample.int(length(o), 2)) {
   tmp <- o[pos[1]]
   o[pos[1]] <- o[pos[2]]
@@ -30,15 +43,21 @@ LS_swap <- function(o, pos = sample.int(length(o), 2)) {
 }
 
 ### insert pos[1] in pos[2]
+#' @rdname LS
+#' @export
 LS_insert <- function(o, pos = sample.int(length(o), 2)) {
   append(o[-pos[1]], o[pos[1]], after = pos[2] - 1)
 }
 
+#' @rdname LS
+#' @export
 LS_reverse <- function(o, pos = sample.int(length(o), 2)) {
   o[pos[1]:pos[2]] <- o[pos[2]:pos[1]]
   o
 }
 
+#' @rdname LS
+#' @export
 LS_mixed <- function(o, pos = sample.int(length(o), 2)) {
   switch(sample.int(3, 1),
     LS_swap(o, pos),

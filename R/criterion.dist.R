@@ -16,9 +16,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-## Criterion for the quality of a permutation of a dissimilarity
-## matrix
-
+#' @rdname criterion
+#' @export
 criterion.dist <- function(x,
   order = NULL,
   method = NULL,
@@ -53,7 +52,7 @@ criterion.dist <- function(x,
       method,
       FUN =
         function(m)
-          ifelse(m$merit,-1, 1)
+          ifelse(m$merit, -1, 1)
     )
 
   crit

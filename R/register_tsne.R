@@ -16,8 +16,39 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-## register seriation based on t-SNE
-
+#' Register Seriation Based on 1D t-SNE
+#'
+#' Use t-distributed stochastic neighbor embedding (t-SNE) for [seriate()].
+#'
+#' Registers the method \code{"tsne"} for [seriate()]. This method applies
+#' 1D t-SNE to data represented by a distance matrix and extracts the order
+#' from the 1D embedding. To speed up the process, an initial embedding is
+#' created using multi-dimensional scaling (MDS) which is improved by t-SNE.
+#'
+#' The \code{control} parameter \code{mds} controls if MDS is used to create an
+#' initial embedding. See [Rtsne::Rtsne()] to learn about the other
+#' available \code{control} parameters.
+#'
+#' \bold{Note:} Package \pkg{Rtsne} needs to be installed.
+#'
+#' @aliases register_tsne tsne tSNE
+#' @seealso [Rtsne::Rtsne()] in \pkg{Rtsne}.
+#' @references van der Maaten, L.J.P. & Hinton, G.E., 2008. Visualizing
+#' High-Dimensional Data Using t-SNE. Journal of Machine Learning Research, 9,
+#' pp.2579-2605.
+#' @keywords optimize cluster
+#' @examples
+#'
+#' \dontrun{
+#' register_tsne()
+#' get_seriation_method("dist", "tsne")
+#'
+#' d <- dist(random.robinson(50, pre=TRUE, noise=.1))
+#'
+#' o <- seriate(d, method = "tsne")
+#' pimage(d, o)
+#' }
+#'
 register_tsne <- function() {
   check_installed("Rtsne")
 
@@ -33,7 +64,7 @@ register_tsne <- function() {
     control <- .get_parameters(control, .contr)
 
     # start with MDS
-    if(control$mds) Y_init <- cmdscale(x, k = 1)
+    if(control$mds) Y_init <- stats::cmdscale(x, k = 1)
     else Y_init <- NULL
 
     # calculate the maximal value for perplexity

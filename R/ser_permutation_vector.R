@@ -25,6 +25,63 @@
 ##  * a hclust or dendrogram object (leaf order)
 ##  * NA represents the identity permutation
 ##  * a ser_permutation (list) of length 1
+
+#' Class ser_permutation_vector -- A Single Permutation Vector for Seriation
+#'
+#' The class `ser_permutation_vector`
+#' represents a single permutation vector.
+#'
+#' A permutation vector
+#' maps a set of \eqn{n} objects \eqn{\{O_1, O_2, ..., O_n\}}{{O_1, O_2, ..., O_n}} onto itself.
+#' In \pkg{seriation} we represent a permutation \eqn{\pi}{\pi}
+#' as a vector which lists the objects in their permuted order.
+#' For example, the permutation vector \eqn{\langle3, 1, 2\rangle}{<3, 1, 2>} indicates that in first position is the object with index 3 then the object with index 1 and finally
+#' the object with index 2.
+#' A permutation vector can be extracted from a permutation vector object
+#' via [get_order()]. Such a permutation vector can be directly used
+#' to subset the list of original objects with `"["` to apply the permutation.
+#' __Note:__ An alternative way to specify a permutation is via a list of the ranks
+#' of the objects after permutation (see [get_rank()]).
+#'
+#' `ser_permutation_vector` objects are usually packed into
+#' a [ser_permutation] object
+#' which is a collection of \eqn{k} permutation vectors for \eqn{k}-mode data.
+#'
+#' The constructor `ser_permutation_vector()`
+#' checks if the permutation vector is valid
+#' (i.e. if all integers occur exactly once).
+#'
+#' @param x,object an object which contains a permutation vector (currently an
+#'     integer vector or an object of class [hclust]). The value `NA`
+#'     creates an identity permutation.
+#' @param method a string representing the method used to obtain the
+#'     permutation vector.
+#' @param ... further arguments.
+#'
+#' @returns  An object of class `ser_permutation_vector`.
+#' @author Michael Hahsler
+#'
+#' @examples
+#' p <- ser_permutation_vector(sample(10), "random")
+#' p
+#'
+#' ## some methods
+#' length(p)
+#' get_method(p)
+#' get_order(p)
+#' get_rank(p)
+#' get_permutation_matrix(p)
+#'
+#' r <- rev(p)
+#' r
+#' get_order(r)
+#'
+#' ## create a identity permutation vector (with unknown length)
+#' ip <- ser_permutation_vector(NA)
+#' ip
+#'
+#' @keywords classes
+#' @export
 ser_permutation_vector <- function(x, method = NULL) {
   if (inherits(x, "ser_permutation_vector"))
     return(x)
@@ -50,66 +107,18 @@ ser_permutation_vector <- function(x, method = NULL) {
   x
 }
 
-## accessors
-## returns the order of objects (index of first, second, etc. object)
-get_order <- function(x, ...)
-  UseMethod("get_order")
-
-get_order.default <- function(x, ...)
-  stop(gettextf("No permutation accessor implemented for class '%s'. ",
-    class(x)))
-
-get_order.ser_permutation_vector <- function(x, ...)
-  NextMethod()
-
-get_order.hclust <- function(x, ...)
-  x$order
-
-get_order.dendrogram <- function(x, ...)
-  order.dendrogram(x)
-
-get_order.integer <- function(x, ...) {
-  if (.is_identity_permutation(x))
-    stop("Cannot get order vector from symbolic identity permutation (undefined length).")
-  structure(as.integer(x), names = names(x))
-}
-
-
-## returns for each object its rank (rank of first, second, etc. object)
-get_rank <- function(x, ...)
-  order(get_order(x, ...))
-
-get_permutation_matrix <- function(x, ...)
-  permutation_vector2matrix(get_order(x, ...))
-
-## c will create a ser_permutation!
+#' @rdname ser_permutation_vector
+#' @param recursive ignored
+#' @export
 c.ser_permutation_vector <- function(..., recursive = FALSE)
   do.call("ser_permutation", list(...))
 
-## convert to permutation matrix
-permutation_vector2matrix <- function(x) {
-  x <- get_order(x)
-  .valid_permutation_vector(x)
 
-  n <- length(x)
-  pm <- matrix(0, nrow = n, ncol = n)
-  for (i in 1:n)
-    pm[i, x[i]] <- 1
-  pm
-}
 
-permutation_matrix2vector <- function(x) {
-  .valid_permutation_matrix(x)
-  o <- apply(
-    x,
-    MARGIN = 1,
-    FUN = function(r)
-      which(r == 1)
-  )
-  o
-}
 
 ## reverse
+#' @rdname ser_permutation_vector
+#' @export
 rev.ser_permutation_vector <- function(x) {
   if (inherits(x, "hclust")) {
     x$order <- rev(x$order)
@@ -121,6 +130,9 @@ rev.ser_permutation_vector <- function(x) {
 
 
 ## currently method is an attribute of permutation
+#' @rdname ser_permutation_vector
+#' @param printable a logical; prints "unknown" instead of `NULL` for non-existing methods.
+#' @export
 get_method <- function(x, printable = FALSE) {
   method <- attr(x, "method")
 
@@ -131,6 +143,8 @@ get_method <- function(x, printable = FALSE) {
 
 
 ## print et al
+#' @rdname ser_permutation_vector
+#' @export
 length.ser_permutation_vector <- function(x) {
   if (!.is_identity_permutation(x))
     length(get_order(x))
@@ -138,6 +152,8 @@ length.ser_permutation_vector <- function(x) {
     0L
 }
 
+#' @rdname ser_permutation_vector
+#' @export
 print.ser_permutation_vector <-
   function(x, ...)
   {
@@ -155,6 +171,8 @@ print.ser_permutation_vector <-
 
 ## fake summary (we dont really provide a summary,
 ## but summary produces now a reasonable result --- same as print)
+#' @rdname ser_permutation_vector
+#' @export
 summary.ser_permutation_vector <- function(object, ...) {
   object
 }

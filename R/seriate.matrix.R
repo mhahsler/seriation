@@ -18,6 +18,8 @@
 
 ## seriate matrices
 
+#' @rdname seriate
+#' @export
 seriate.matrix <- function(x,
   method = "PCA",
   control = NULL,

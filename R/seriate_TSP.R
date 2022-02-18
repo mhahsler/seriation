@@ -16,11 +16,11 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-## Bridge to package tsp
+#' @import "TSP"
+
 .tsp_control <- list(method = "arbitrary insertion",
   rep = 10,
   two_opt = TRUE)
-
 seriate_dist_tsp <- function(x, control = NULL) {
   ## add a dummy city for cutting
   tsp <- insert_dummy(TSP(x), n = 1, label = "cut_here")

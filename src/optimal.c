@@ -24,7 +24,7 @@
 /* compute the lenght of an order, i.e. the sum of
  * the edge weights along the path defined by the
  * order.
- * 
+ *
  * note that the order is a tour with the leg between
  * the first and the last city omitted.
  *
@@ -52,23 +52,23 @@ static double orderLength(double *x, int *o, int n) {
 	z += v;
 	i = j;
     }
-	    
-    return z; 
+
+    return z;
 }
 
-/* R wrapper 
+/* R wrapper
  */
 
 SEXP order_length(SEXP R_dist, SEXP R_order) {
 
     int n, k;
     int *o;
-	
+
     SEXP R_obj;
 
     n = 1 + (int) sqrt(2 * LENGTH(R_dist));
 
-    if (LENGTH(R_dist) < 1 || LENGTH(R_dist) != n*(n-1)/2)
+    if (LENGTH(R_dist) < 1 || LENGTH(R_dist) != n / 2 * (n-1))
        error("order_cost: invalid length");
 
     if (LENGTH(R_order) != n)
@@ -78,14 +78,14 @@ SEXP order_length(SEXP R_dist, SEXP R_order) {
 
     for (k = 0; k < n; k++)		/* offset to C indexing */
 	o[k] = INTEGER(R_order)[k]-1;
-    
+
     PROTECT(R_obj = NEW_NUMERIC(1));
-    
+
     REAL(R_obj)[0] = orderLength(REAL(R_dist), o, n);
     Free(o);
-    
+
     UNPROTECT(1);
-    
+
     return R_obj;
 }
 
@@ -113,65 +113,65 @@ int checkRmerge(int *x, int n) {
  * (2001) Fast Optimal Leaf Ordering for Hierarchical Clustering.
  * Bioinformatics, Vol. 17 Suppl. 1, pp. 22-29.
  *
- * this implementation builds on the improvements of a more recent paper 
+ * this implementation builds on the improvements of a more recent paper
  * available at the website of Bar-Joseph!
  *
- * as input we exepct a matrix with the distances in the lower triangle, 
- * a merge tree, i.e. two arrays holding n-1 indexes of the left and right 
- * subtrees (or leaves) merged at the kth step (for details see dist and 
+ * as input we exepct a matrix with the distances in the lower triangle,
+ * a merge tree, i.e. two arrays holding n-1 indexes of the left and right
+ * subtrees (or leaves) merged at the kth step (for details see dist and
  * hclust).
- * 
+ *
  * returns a list with a matrix (merge) and two vectors (order and length).
  *
  * The algorithm has the following stages:
- * 
+ *
  * 1) find a leaf ordering consistent with the supplied merge tree.
- *    the order of the leaves of a tree consists of the order of the 
- *    leaves in the left subtree followed by the order of the leaves 
+ *    the order of the leaves of a tree consists of the order of the
+ *    leaves in the left subtree followed by the order of the leaves
  *    in the right subtree.
  *
- * note that the tree (leaf) indexes must have an offset of one because 
- * the leaves are coded as negative numbers. subtrees are referenced by 
+ * note that the tree (leaf) indexes must have an offset of one because
+ * the leaves are coded as negative numbers. subtrees are referenced by
  * their position in the merge sequence (see hclust). this sucks!
  *
- * we compute for each left and right subtree the offset of the leftmost 
- * leaf in the total order of leaves, and the number of leaves in both 
- * trees, i.e. in the parent tree. 
+ * we compute for each left and right subtree the offset of the leftmost
+ * leaf in the total order of leaves, and the number of leaves in both
+ * trees, i.e. in the parent tree.
  *
- * 2) recursively compute for each pair of outer endpoints, i.e. a left 
- *    endpoint from the left subtree and a right endpoint from the right 
+ * 2) recursively compute for each pair of outer endpoints, i.e. a left
+ *    endpoint from the left subtree and a right endpoint from the right
  *    subtree the length of the optimal ordering of the leaves.
- * 
- * the temporary tables are stored in the lower triangle as well as the 
- * similarities. the lengths of the best linear orderings are stored in 
+ *
+ * the temporary tables are stored in the lower triangle as well as the
+ * similarities. the lengths of the best linear orderings are stored in
  * the upper triangle.
  *
  * for the improved computations at the root the diagonal is used as
  * storage for temporary results.
  *
- * the time complexity of finding all the partial optimal leaf orderings 
- * is O(n^3). 
+ * the time complexity of finding all the partial optimal leaf orderings
+ * is O(n^3).
  *
- * the suggested improvement based on early termination of the search is 
- * currently not implemented. however, ties are broken randomly. 
+ * the suggested improvement based on early termination of the search is
+ * currently not implemented. however, ties are broken randomly.
  *
- * 3) recursively find the total optimal leaf ordering. 
- * 
+ * 3) recursively find the total optimal leaf ordering.
+ *
  * 4) find the merge tree corresponding to the optimal ordering.
- * 
- * fixme: using similarities would allow a remapping of non-finite 
- *	  values to zero and thus sanitizing of overflows. also for 
+ *
+ * fixme: using similarities would allow a remapping of non-finite
+ *	  values to zero and thus sanitizing of overflows. also for
  *	  missing values this would be a more user friendly approach.
  *
  * (C) ceeboo 2005
  */
 
-static int calcAllOrder(double *x, int *e, int *oi, int *ok, int *oj, 
+static int calcAllOrder(double *x, int *e, int *oi, int *ok, int *oj,
 				           int  ci, int  ck, int  cj, int n) {
-	
+
     int i, ii, j, jj, k, kk, h = 0, l;
     double s, z;
-	
+
     for (i = 0; i < ci; i++) {
 	ii = oi[i];
 	for (j = 0; j < cj; j++) {
@@ -180,15 +180,15 @@ static int calcAllOrder(double *x, int *e, int *oi, int *ok, int *oj,
 	    z = R_PosInf;
 	    for (k = 0; k < ck; k++) {
 		kk = ok[k];
-		if (ii > kk) 
+		if (ii > kk)
 		   s  = x[kk+ii*n];
-		else       
+		else
 		   s  = x[ii+kk*n];
-		if (kk > jj) 
+		if (kk > jj)
 		   s += x[kk+jj*n];
-		else       
+		else
 		   s += x[jj+kk*n];
-		if (s < z) { 
+		if (s < z) {
 		   z = s;
 		   h = kk;
 		   l = 1;
@@ -201,7 +201,7 @@ static int calcAllOrder(double *x, int *e, int *oi, int *ok, int *oj,
 	    }
 	    if (!R_FINITE(z))
 	       return 0;		    /* error */
-	    
+
 	    if (ii > jj)
 	       x[jj+ii*n] = z;
 	    else
@@ -212,12 +212,12 @@ static int calcAllOrder(double *x, int *e, int *oi, int *ok, int *oj,
     return 1;
 }
 
-static int calcEndOrder(double *x, int *e, int *oi, int *ok, 
+static int calcEndOrder(double *x, int *e, int *oi, int *ok,
 				           int  ci, int  ck, int n) {
 
     int i, ii, k, kk, h = 0, l;
     double s, z;
-    
+
     for (i = 0; i < ci; i++) {
 	ii = oi[i];
 	l = 0;
@@ -232,7 +232,7 @@ static int calcEndOrder(double *x, int *e, int *oi, int *ok,
 		z = s;
 		h = kk;
 		l = 1;
-	    } 
+	    }
 	    else if (s == z) {
 		    if (unif_rand() > (double) l/(l+1))
 		       h = kk;
@@ -241,7 +241,7 @@ static int calcEndOrder(double *x, int *e, int *oi, int *ok,
 	}
 	if (!R_FINITE(z))
 	   return 0;
-	
+
 	x[ii+ii*n] = z;
 	e[ii+ii*n] = h;
     }
@@ -269,7 +269,7 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 
     if (LENGTH(GET_DIM(R_merge)) != 2)
        error("order_optimal: \"merge\" invalid");
-    
+
     if (INTEGER(GET_DIM(R_merge))[0] != n-1)
        error("order_optimal: \"dist\" and \"merge\" do not conform");
 
@@ -277,9 +277,9 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
        error("order_optimal: \"merge\" invalid");
 
     /* copy similarities into lower triangle */
-    
+
     x = Calloc(n*n, double);	    /* data + part order lengths + temporary */
-    
+
     k = 0;
     for (i = 0; i < n-1; i++)
 	for (j = i+1; j < n; j++) {
@@ -301,19 +301,19 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
     left  = INTEGER(VECTOR_ELT(R_obj, 0));
     right = INTEGER(VECTOR_ELT(R_obj, 0))+n-1;
     o	  = INTEGER(VECTOR_ELT(R_obj, 1));
-    
-    GetRNGstate();    
+
+    GetRNGstate();
 
     l = Calloc(n,   int);	/* offset of leftmost leaf of left tree */
     r = Calloc(n,   int);	/* offset of leftmost leaf of right tree;
 				 * reverse mapping of order */
     c = Calloc(n-1, int);	/* number of leaves in a tree */
-    
+
     e = Calloc(n*n, int);	/* inner endpoints */
-  
+
     /* for each tree count the number of leaves.
      */
-    
+
     for (k = 0; k < n-1; k++) {
 	if (left[k] > 0)
 	   c[k] += c[left[k]-1];
@@ -325,11 +325,11 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 	   c[k] += 1;
     }
 
-    /* backpropagate the counts to obtain the current 
+    /* backpropagate the counts to obtain the current
      * leaf order and the offset of the leftmost leaf
-     * of the left and right subtree. 
+     * of the left and right subtree.
      */
-  
+
     for (k = n-2; k >= 0; k--) {
 	if (left[k] > 0) {
 	   h = l[k] + c[left[k]-1];
@@ -349,13 +349,13 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 	}
 	r[k] = h;
     }
-    
-    /* determine for each subtree the optimal order 
-     * for each pair of left and right endpoints 
+
+    /* determine for each subtree the optimal order
+     * for each pair of left and right endpoints
      * (leaves). this is done in the order provided
-     * by the merge tree.  
+     * by the merge tree.
      */
-    
+
     for (k = 0; k < n-1; k++) {
 
 	ol = o + l[k];		/* order of left subtree */
@@ -363,10 +363,10 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 
 	cl = r[k] - l[k];	/* number of leaves in left subtree */
 	cr = c[k] - cl;		/* number of leaves in right subtree */
-	   
+
 	if (cl > 1) {		/* a left tree */
 	   h = left[k]-1;
-	   
+
 	   oll = o + l[h];
 	   olr = o + r[h];
 
@@ -393,22 +393,22 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 
 	if (k == n-2)		/* optimized search at the root */
 	   break;
-		
+
 	/* compute temporary sums for all endpoints */
-	
+
 	if (!calcAllOrder(x, e, oll, olr, or, cll, clr, cr, n)) {
 	   Free(x); Free(r); Free(l); Free(c); Free(e);
 	   error("order_optimal: non-finite values");
 	}
-	   
-	if (olr != oll) 
+
+	if (olr != oll)
 	   if (!calcAllOrder(x, e, olr, oll, or, clr, cll, cr, n)) {
 	      Free(x); Free(r); Free(l); Free(c); Free(e);
 	      error("order_optimal: non-finite values");
 	   }
 
 	/* copy temporary sums to lower triangle */
-	   
+
 	for (i = 0; i < cl; i++) {
 	    ii = ol[i];
 	    for (j = 0; j < cr; j++) {
@@ -419,15 +419,15 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 		   x[jj+ii*n] = x[ii+jj*n];
 	    }
 	}
-	   
+
 	/* compute best orders for all endpoints */
-	
+
 	if (!calcAllOrder(x, e, orl, orr, ol, crl, crr, cl, n)) {
 	   Free(x); Free(r); Free(l); Free(c); Free(e);
 	   error("order_optimal: non-finite values");
 	}
-	   
-	if (orr != orl)	
+
+	if (orr != orl)
 	   if (!calcAllOrder(x, e, orr, orl, ol, crr, crl, cl, n)) {
 	      Free(x); Free(r); Free(l); Free(c); Free(e);
 	      error("order_optimal: non-finite values");
@@ -435,9 +435,9 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 
 	/* now that we know both endpoints we can store
 	 * the inner endpoint from the left tree at the
-	 * correct addresse. 
+	 * correct addresse.
 	 */
-	
+
 	for (i = 0; i < cr; i++) {
 	    ii = or[i];
 	    for (j = 0; j < cl; j++) {
@@ -463,17 +463,17 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 	    }
 	}
     }
-    
-    /* find the best linear order for each endpoint 
-     * of the left and right subtree of the root 
+
+    /* find the best linear order for each endpoint
+     * of the left and right subtree of the root
      */
 
     if (!calcEndOrder(x, e, oll, olr, cll, clr, n)) {
        Free(x); Free(r); Free(l); Free(c); Free(e);
        error("order_optimal: non-finite values");
     }
-	   
-    if (olr != oll) 
+
+    if (olr != oll)
        if (!calcEndOrder(x, e, olr, oll, clr, cll, n)) {
 	  Free(x); Free(r); Free(l); Free(c); Free(e);
 	  error("order_optimal: non-finite values");
@@ -483,16 +483,16 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
        Free(x); Free(r); Free(l); Free(c); Free(e);
        error("order_optimal: non-finite values");
     }
-	   
-    if (orr != orl) 
+
+    if (orr != orl)
        if (!calcEndOrder(x, e, orr, orl, crr, crl, n)) {
 	  Free(x); Free(r); Free(l); Free(c); Free(e);
 	  error("order_optimal: non-finite values");
        }
-	   
+
     /* find the best linear order at the root */
 
-    k = 0;	   
+    k = 0;
     z = R_PosInf;
     for (i = 0; i < cl; i++) {
 	ii = ol[i];
@@ -524,15 +524,15 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 	}
     }
     REAL(VECTOR_ELT(R_obj, 2))[0] = z;	/* set length */
-    
+
     /* the order can be found by double recursion.
-     * for this we use a stack, one for the left 
-     * and one for the right endpoints. 
+     * for this we use a stack, one for the left
+     * and one for the right endpoints.
      */
-    
+
     l[0] = b;		    /* push endpoints of right tree on the stack*/
     r[0] = e[b+b*n];
-    
+
     i = e[a+a*n];	    /* start with endpoints of left tree */
     j = a;
 
@@ -543,7 +543,7 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 	   o[h++] = i;
 	   k--;
 	   if (k < 0)
-	      break; 
+	      break;
 	   i = l[k];	    /* pop endpoints */
 	   j = r[k];
 	}
@@ -556,12 +556,12 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
     }
 
     /* adjust the merge tree to the optimal order
-     * 
-     * 1) for each pair of leaves from a left and right 
+     *
+     * 1) for each pair of leaves from a left and right
      *    subtree the order relation is the same. thus,
      *    use the leftmost leaves as representatives.
      *
-     * 2) if the order is reversed we must swap the 
+     * 2) if the order is reversed we must swap the
      *    subtrees at the parent.
      */
 
@@ -571,32 +571,32 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
     for (k = 0; k < n-1; k++) {
 	if (left[k] > 0)	/* left leaf in left subtree */
 	   i = l[left[k]-1];
-	else 
+	else
 	   i = -left[k]-1;
 	if (right[k] > 0)	/* left leaf in right subtree */
 	   j = l[right[k]-1];
-	else 
+	else
 	   j = -right[k]-1;
 	if (r[i] > r[j]) {	/* swap the subtrees */
 	          h = right[k];
 	   right[k] = left[k];
 	    left[k] = h;
 	}
-	l[k] = i;		/* left leaf in parent tree */ 
+	l[k] = i;		/* left leaf in parent tree */
     }
 
     for (k = 0; k < n; k++)	/* offset to R indexing */
 	o[k]++;
-   
+
     if (debug) {
        i = e[a+a*n];
        j = e[b+b*n];
-    
+
        if (i > j)
           x[j+i*n] = z;
        else
           x[i+j*n] = z;
-       
+
        for (k = 0; k < n-1; k++) {
 	   if (left[k] > 0)
 	      l[k] = l[left[k]-1];
@@ -614,11 +614,11 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 	   else
 	      z = x[i+j*n];
 
-	   Rprintf(" %3i | %4i %4i | %3i %3i | %f\n", k+1, left[k], right[k], 
+	   Rprintf(" %3i | %4i %4i | %3i %3i | %f\n", k+1, left[k], right[k],
 						      i+1, j+1, z);
        }
     }
-   
+
     Free(x);
     Free(l);
     Free(r);
@@ -628,7 +628,7 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
     PutRNGstate();
 
     UNPROTECT(1);
-    
+
     return R_obj;
 }
 

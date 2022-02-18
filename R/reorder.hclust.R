@@ -16,6 +16,51 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+
+
+#' Reorder Dendrograms using Optimal Leaf Ordering
+#'
+#' Reorder method for dendrograms for optimal leaf ordering.
+#'
+#' Minimizes the distance between neighboring objects (leaf nodes) in the
+#' dendrogram by flipping the order of subtrees. The algorithm by Gruvaeus and
+#' Wainer is implemented in package \pkg{gclus} (Hurley 2004).
+#'
+#' @aliases reorder reorder.hclust
+#' @param x an object of class \code{hclust}.
+#' @param dist an object of class \code{dist} with dissimilarities between the
+#' objects in \code{x}.
+#' @param method a character string with the name of the used measure.
+#' Available are:
+#'   - \code{"OLO"} (optimal leaf ordering; Bar-Joseph et al., 2001) implemented in this package and
+#'   - \code{"GW"} (Gruvaeus and Wainer, 1972) from package \pkg{gclus}.
+#' @param ...  further arguments are currently ignored.
+#' @return A reordered \code{hclust} object.
+#' @author Michael Hahsler
+#' @seealso [gclus::reorder.hclust()]
+#' @references Bar-Joseph, Z., E. D. Demaine, D. K. Gifford, and T. Jaakkola.
+#' (2001): Fast Optimal Leaf Ordering for Hierarchical Clustering.
+#' \emph{Bioinformatics,} \bold{17}(1), 22--29.
+#'
+#' Gruvaeus, G. and Wainer, H. (1972): Two Additions to Hierarchical Cluster
+#' Analysis, \emph{British Journal of Mathematical and Statistical Psychology,}
+#' \bold{25}, 200--206.
+#'
+#' Hurley, Catherine B. (2004): Clustering Visualizations of Multidimensional
+#' Data. \emph{Journal of Computational and Graphical Statistics,}
+#' \bold{13}(4), 788--806.
+#' @keywords optimize cluster
+#' @examples
+#' ## cluster European cities by distance
+#' data("eurodist")
+#' d <- as.dist(eurodist)
+#' hc <- hclust(eurodist)
+#'
+#' ## plot original dendrogram and the reordered dendrograms
+#' plot(hc)
+#' plot(reorder(hc, d, method = "GW"))
+#' plot(reorder(hc, d, method = "OLO"))
+#' @export
 reorder.hclust <- function(x, dist, method = "OLO", ...) {
   method <- match.arg(tolower(method), choices = c("olo", "gw"))
 

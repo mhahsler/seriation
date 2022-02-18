@@ -18,17 +18,55 @@
 
 # library(colorspace)
 
-.map_color_01 <- function(x, col) {
-  x[] <- col[map_int(x, length(col), from.range = c(0, 1))]
-  x
-}
-
-# translate all data to a color
-.map_color <- function(x, col, from.range = NA) {
-  x[] <- col[map_int(x, length(col), from.range)]
-  x
-}
-
+#' Different Useful Color Palettes
+#'
+#' Defines several color palettes for [pimage()], [dissplot()] and
+#' [hmap()].
+#'
+#' The color palettes are created with [sequential_hcl()] and
+#' [diverging_hcl()] from package \pkg{colorspace}.
+#'
+#' The two sequential palettes are: `reds()` and `grays()` (or
+#' `greys()`).
+#'
+#' The two diverging palettes are: `bluered()` and `greenred()`.
+#'
+#' @name palette
+#' @aliases palette, colors
+#'
+#' @param n number of different colors produces.
+#' @param power used to control how chroma and luminance is increased (1 =
+#' linear, 2 = quadratic, etc.)
+#' @param bias a positive number. Higher values give more widely spaced colors
+#' at the high end.
+#' @param ...  further parameters are passed on to [sequential_hcl()]
+#' or [diverging_hcl()].
+#' @return A vector with `n` colors.
+#' @author Michael Hahsler
+#' @keywords hplot
+#' @examples
+#' m <- outer(1:10,1:10)
+#' m
+#'
+#' pimage(m)
+#' pimage(m, col = greys(100, power = 2))
+#' pimage(m, col = greys(100, bias = 2))
+#' pimage(m, col = bluered(100))
+#' pimage(m, col = bluered(100, power = .5))
+#' pimage(m, col = bluered(100, bias = 2))
+#' pimage(m - 25, col = greenred(20, bias = 2))
+#'
+#' ## choose your own color palettes
+#' library(colorspace)
+#' hcl_palettes(plot = TRUE)
+#'
+#' ## blues (with 20 shades)
+#' pimage(m,
+#'   col = colorspace::sequential_hcl(20, "Blues", rev = TRUE))
+#' ## blue to green (aka "Cork")
+#' pimage(m,
+#'   col = colorspace::diverging_hcl(100, "Cork"))
+#' @export
 bluered <- function(n = 100,
   bias = 1,
   power = 1,
@@ -39,6 +77,8 @@ bluered <- function(n = 100,
 #hclplot(bluered(10))
 #plot(1:20, col = bluered(20), pch = 19, cex = 4)
 
+#' @rdname palette
+#' @export
 greenred <- function(n = 100,
   bias = 1,
   power = 1,
@@ -50,6 +90,8 @@ greenred <- function(n = 100,
 #hclplot(greenred(10))
 #plot(1:20, col = greenred(20), pch = 19, cex = 4)
 
+#' @rdname palette
+#' @export
 reds <- function(n = 100,
   bias = 1,
   power = 1,
@@ -61,6 +103,8 @@ reds <- function(n = 100,
 #hclplot(reds(10))
 #plot(1:20, col = reds(20), pch = 19, cex = 4)
 
+#' @rdname palette
+#' @export
 blues <- function(n = 100,
   bias = 1,
   power = 1,
@@ -72,6 +116,8 @@ blues <- function(n = 100,
 #hclplot(blues(10))
 #plot(1:20, col = blues(20), pch = 19, cex = 4)
 
+#' @rdname palette
+#' @export
 greens <- function(n = 100,
   bias = 1,
   power = 1,
@@ -83,7 +129,9 @@ greens <- function(n = 100,
 #hclplot(greens(10))
 #plot(1:20, col = greens(20), pch = 19, cex = 4)
 
-greys <- grays <- function(n = 100,
+#' @rdname palette
+#' @export
+greys <- function(n = 100,
   bias = 1,
   power = 1,
   ...)
@@ -94,6 +142,22 @@ greys <- grays <- function(n = 100,
 #hclplot(greys(10))
 #plot(1:20, col = greys(20), pch = 19, cex = 4)
 
+#' @rdname palette
+#' @export
+grays <- greys
+
+
+.map_color_01 <- function(x, col) {
+  x[] <- col[map_int(x, length(col), from.range = c(0, 1))]
+  x
+}
+
+# translate all data to a color
+.map_color <- function(x, col, from.range = NA) {
+  x[] <- col[map_int(x, length(col), from.range)]
+  x
+}
+
 ## define default colors
 #.sequential_pal <- grays
 .sequential_pal <- blues
@@ -101,7 +165,7 @@ greys <- grays <- function(n = 100,
 
 ## define default ggplot2 colors
 .gg_logical_pal <- function()
-   ggplot2::scale_fill_manual(values = c("white", "black"), na.value = "white")
+  ggplot2::scale_fill_manual(values = c("white", "black"), na.value = "white")
 
 .gg_sequential_pal <- function(dist = FALSE) {
   if (dist)

@@ -24,7 +24,7 @@ seriate_dist_mds <- function(x, control = NULL) {
   control <- .get_parameters(control, .mds_control)
 
   if (control$method == "cmdscale") {
-    sc <- cmdscale(x, k = 1)
+    sc <- stats::cmdscale(x, k = 1)
     return(order(sc[, 1]))
 
   } else if (control$method == "isoMDS") {
@@ -50,7 +50,7 @@ seriate_dist_mds_nonmetric <- function(x, control = NULL)
 seriate_dist_angle <- function(x, control = NULL) {
   .get_parameters(control, NULL)
 
-  sc <- cmdscale(x, k = 2)
+  sc <- stats::cmdscale(x, k = 2)
   .order_angle(sc)
 }
 

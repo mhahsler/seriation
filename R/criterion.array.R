@@ -56,6 +56,8 @@
     crit
   }
 
+#' @rdname criterion
+#' @export
 criterion.array <-
   function(x,
     order = NULL,
@@ -63,7 +65,3 @@ criterion.array <-
     force_loss = FALSE,
     ...)
     .criterion_array_helper(x, order, method, "array", force_loss)
-
-## methods
-
-## register built-ins

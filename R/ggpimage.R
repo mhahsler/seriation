@@ -20,6 +20,9 @@
 ## the rows and columns are swapped and the order of the
 ## columns (original rows) is reversed.
 
+#' @rdname pimage
+#' @include pimage.R
+#' @export
 ggpimage <- function(x,
   order = NULL,
   upper_tri = TRUE,
@@ -33,6 +36,8 @@ ggpimage <- function(x,
   UseMethod("ggpimage")
 
 ### Note for matrix large values are dark, for dist large values are light!
+#' @rdname pimage
+#' @export
 ggpimage.matrix <- function(x,
   order = NULL,
   upper_tri = TRUE,
@@ -229,6 +234,8 @@ ggpimage.matrix <- function(x,
 ggpimage.default <- ggpimage.matrix
 
 ## small values are dark
+#' @rdname pimage
+#' @export
 ggpimage.dist <-
   function(x,
     order = NULL,
@@ -264,8 +271,7 @@ ggpimage.dist <-
 
     # reverse color for dist
     suppressMessages(g <-
-        g + .gg_sequential_pal(dist = TRUE)
-    )
+        g + .gg_sequential_pal(dist = TRUE))
 
     g
   }

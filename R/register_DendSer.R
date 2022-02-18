@@ -17,8 +17,58 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-## registers seriation methods and criteria from package DendSer
-
+#' Register Seriation Methods from Package DendSer
+#'
+#' Register the DendSer dendrogram seriation method and the ARc criterion
+#' (Earle and Hurley, 2015) for use with [seriate()].
+#'
+#' Registers the method \code{"DendSer"} for [seriate()]. DendSer is a fast
+#' heuristic for reordering dendrograms developed by Earle and Hurley (2015)
+#' able to use different criteria.
+#'
+#' \code{control} for \code{seriate} with
+#' method \code{"DendSer"} accepts the following parameters:
+#'
+#' - "h" or "method" A dendrogram or a method for hierarchical clustering
+#'   (see \code{hclust}). Default: complete-link.
+#' - "criterion" A seriation criterion to optimize (see
+#'   \code{list_criterion_methods("dist")}). Default: \code{"BAR"} (Banded
+#'   anti-Robinson from with 20\% band width).}
+#' - "verbose" a logical; print progress information?
+#' - "DendSer_args" additional arguments for \code{DendSer}.
+#'
+#' For convenience, the following methods (for different cost functions) are
+#' also provided: \code{"DendSer_ARc"} (anti-robinson form),
+#' \code{"DendSer_BAR"} (banded anti-Robinson form), \code{"DendSer_LS"} (leaf
+#' seriation), \code{"DendSer_PL"} (path length).
+#'
+#' Note: Package \pkg{DendSer} needs to be installed.
+#'
+#' @aliases register_DendSer DendSer dendser
+#' @author Michael Hahsler based on code by Catherine B. Hurley and Denise
+#' Earle
+#' @references D. Earle, C. B. Hurley (2015): Advances in dendrogram seriation
+#' for application to visualization. \emph{Journal of Computational and
+#' Graphical Statistics,} \bold{24}(1), 1--25.
+#' @keywords optimize cluster
+#' @examples
+#'
+#' \dontrun{
+#' register_DendSer()
+#' get_seriation_method("dist", "DendSer")
+#'
+#' d <- dist(random.robinson(20, pre=TRUE))
+#'
+#' ## use Banded AR form with default clustering (complete-link)
+#' o <- seriate(d, "DendSer_BAR")
+#' pimage(d, o)
+#'
+#' ## use different hclust method (Ward) and AR as the cost function for
+#' ## dendrogram reordering
+#' o <- seriate(d, "DendSer", control = list(method = "ward.D2", criterion = "AR"))
+#' pimage(d, o)
+#' }
+#'
 register_DendSer <- function() {
   check_installed("DendSer")
 

@@ -16,21 +16,18 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-
-
 ## wrapper to greedy ordering inspired by F. Murtagh
 ## actually a hierarchical cluster algorithm.
-
 ## ceeboo 2005
 
 hclust_greedy <- function(dist) {
-    if (!inherits(dist, "dist"))
-        stop("Argument 'dist' is not of class 'dist'.")
-    if (!is.double(dist))
-        mode(dist) <- "double"
-    obj <- .Call("order_greedy", dist)
-    names(obj) <- c("merge", "order", "height")
+  if (!inherits(dist, "dist"))
+    stop("Argument 'dist' is not of class 'dist'.")
+  if (!is.double(dist))
+    mode(dist) <- "double"
+  obj <- .Call("order_greedy", dist)
+  names(obj) <- c("merge", "order", "height")
 
-    class(obj) <- "hclust"
-    obj
+  class(obj) <- "hclust"
+  obj
 }
