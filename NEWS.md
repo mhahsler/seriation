@@ -1,7 +1,7 @@
 # seriation 1.3-2-1 (xx/xx/2022)
 
 ## New Features
-* pimage gained parameter diag. pimage for dist by default does not show the diagonal now.
+* pimage and dissplot gained parameter diag. pimage for dist by default does not show the diagonal now.
 
 ## New Changes
 * we now use roxygen for documentation.

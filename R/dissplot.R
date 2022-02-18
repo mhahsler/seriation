@@ -37,6 +37,8 @@
 #' **Note:** Since [pimage()] uses \pkg{grid}, it should not be mixed
 #' with base R primitive plotting functions.
 #'
+#' @family plots
+#'
 #' @param x an object of class [dist].
 #' @param labels `NULL` or an integer vector of the same length as
 #' rows/columns in `x` indicating the cluster membership for each object
@@ -70,9 +72,9 @@
 #' can contain a list of two named elements (`inter_cluster` and
 #' `intra_cluster`) containing each a list with the control options for
 #' the respective algorithm.
-#' @param upper_tri,lower_tri a logical indicating whether to show the upper or
-#' lower triangle of the distance matrix. The string "average" can also be used
-#' to display within and between cluster averages.
+#' @param upper_tri,lower_tri,diag a logical indicating whether to show the upper triangle, the
+#' lower triangle or the diagonal of the distance matrix. The string "average" can also be used
+#' to display within and between cluster averages in the two triangles.
 #' @param cluster_labels a logical indicating whether to display cluster labels
 #' in the plot.
 #' @param cluster_lines a logical indicating whether to draw lines to separate
@@ -273,6 +275,7 @@ dissplot <- function(x,
   control = NULL,
   lower_tri = TRUE,
   upper_tri = "average",
+  diag = TRUE,
   cluster_labels = TRUE,
   cluster_lines = TRUE,
   reverse_columns = FALSE,
@@ -298,7 +301,7 @@ dissplot <- function(x,
     control = control)
 
   if (is.null(options$plot) || options$plot)
-    plot(a, lower_tri, upper_tri, options)
+    plot(a, lower_tri, upper_tri, diag, options)
 
   invisible(a)
 }
@@ -533,7 +536,8 @@ dissplot <- function(x,
 ## a is an arrangement
 .average_tri <- function(a,
   lower_tri = "average",
-  upper_tri = TRUE) {
+  upper_tri = TRUE,
+  diag = TRUE) {
   if (!inherits(a, "reordered_cluster_dissimilarity_matrix"))
     stop("a needs to be a reordered_cluster_dissimilarity_matrix")
 
@@ -605,6 +609,9 @@ dissplot <- function(x,
     }
   }
 
+  if (!diag)
+    diag(m) <- NA
+
   m
 }
 
@@ -616,6 +623,7 @@ plot.reordered_cluster_dissimilarity_matrix <-
   function(x,
     lower_tri = TRUE,
     upper_tri = "average",
+    diag = TRUE,
     options = NULL,
     ...) {
     ## add ... to options
@@ -629,7 +637,8 @@ plot.reordered_cluster_dissimilarity_matrix <-
 
     m  <- .average_tri(x,
       lower_tri = lower_tri,
-      upper_tri = upper_tri)
+      upper_tri = upper_tri,
+      diag = diag)
 
     ## default plot options
     options <- .get_parameters(

@@ -24,6 +24,7 @@ ggdissplot <- function(x,
   control = NULL,
   lower_tri = TRUE,
   upper_tri = "average",
+  diag = TRUE,
   cluster_labels = TRUE,
   cluster_lines = TRUE,
   reverse_columns = FALSE,
@@ -45,7 +46,8 @@ ggdissplot <- function(x,
 
   m  <- .average_tri(x,
     lower_tri = lower_tri,
-    upper_tri = upper_tri)
+    upper_tri = upper_tri,
+    diag = diag)
 
   k       <- x$k
   dim     <- attr(x$x_reordered, "Size")
