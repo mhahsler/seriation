@@ -51,6 +51,8 @@ ndim <- function(x)
 #' \code{incompatible} which can take the values \code{"warn"} (default),
 #' \code{"stop"} or \code{"ignore"}.
 #'
+#' @family permutation
+#'
 #' @param x an object (a list, a vector, a \code{dist} object, a matrix, an
 #' array or any other object which provides \code{dim} and standard subsetting
 #' with \code{"["}).

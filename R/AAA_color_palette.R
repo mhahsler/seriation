@@ -33,6 +33,7 @@
 #'
 #' @name palette
 #' @aliases palette, colors
+#' @family plots
 #'
 #' @param n number of different colors produces.
 #' @param power used to control how chroma and luminance is increased (1 =

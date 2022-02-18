@@ -306,6 +306,8 @@
 #'
 #' For **general arrays** no built-in methods are currently available.
 #'
+#' @family seriation
+#'
 #' @param x the data.
 #' @param method a character string with the name of the seriation method
 #' (default: varies by data type).

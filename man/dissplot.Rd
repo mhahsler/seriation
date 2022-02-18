@@ -14,6 +14,7 @@ dissplot(
   control = NULL,
   lower_tri = TRUE,
   upper_tri = "average",
+  diag = TRUE,
   cluster_labels = TRUE,
   cluster_lines = TRUE,
   reverse_columns = FALSE,
@@ -21,7 +22,14 @@ dissplot(
   ...
 )
 
-\method{plot}{reordered_cluster_dissimilarity_matrix}(x, lower_tri = TRUE, upper_tri = "average", options = NULL, ...)
+\method{plot}{reordered_cluster_dissimilarity_matrix}(
+  x,
+  lower_tri = TRUE,
+  upper_tri = "average",
+  diag = TRUE,
+  options = NULL,
+  ...
+)
 
 \method{print}{reordered_cluster_dissimilarity_matrix}(x, ...)
 
@@ -32,6 +40,7 @@ ggdissplot(
   control = NULL,
   lower_tri = TRUE,
   upper_tri = "average",
+  diag = TRUE,
   cluster_labels = TRUE,
   cluster_lines = TRUE,
   reverse_columns = FALSE,
@@ -76,9 +85,9 @@ can contain a list of two named elements (\code{inter_cluster} and
 \code{intra_cluster}) containing each a list with the control options for
 the respective algorithm.}
 
-\item{upper_tri, lower_tri}{a logical indicating whether to show the upper or
-lower triangle of the distance matrix. The string "average" can also be used
-to display within and between cluster averages.}
+\item{upper_tri, lower_tri, diag}{a logical indicating whether to show the upper triangle, the
+lower triangle or the diagonal of the distance matrix. The string "average" can also be used
+to display within and between cluster averages in the two triangles.}
 
 \item{cluster_labels}{a logical indicating whether to display cluster labels
 in the plot.}
@@ -136,6 +145,8 @@ where \code{x} is the object and \code{options} contains a list with
 plotting options (see above).
 
 \code{ggdissplot()} returns a ggplot2 object representing the plot.
+
+The plot description as an object of class \code{reordered_cluster_dissimilarity_matrix}.
 }
 \description{
 Visualizes a dissimilarity matrix using seriation and matrix shading using
@@ -303,8 +314,17 @@ visualization for high-dimensional data mining. \emph{INFORMS Journal on
 Computing,} \bold{15}(2), 208--230.
 \doi{10.1287/ijoc.15.2.208.14448}
 }
+\seealso{
+Other plots: 
+\code{\link{VAT}()},
+\code{\link{bertinplot}()},
+\code{\link{hmap}()},
+\code{\link{palette}()},
+\code{\link{pimage}()}
+}
 \author{
 Michael Hahsler
 }
+\concept{plots}
 \keyword{cluster}
 \keyword{hplot}

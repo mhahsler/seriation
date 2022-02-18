@@ -22,6 +22,8 @@
 #' (see class [ser_permutation_vector]), one for each dimension (mode)
 #' of the data to be permuted.
 #'
+#' @family permutation
+#'
 #' @param x,object an object of class `ser_permutation_vector` or
 #'     any object which can be converted into
 #'     a object of class `ser_permutation` (e.g. an integer
@@ -30,7 +32,6 @@
 #'
 #' @returns An object of class `ser_permutation`.
 #'
-#' @seealso [get_order()], [get_permutation_matrix()]
 #' @author Michael Hahsler
 #' @examples
 #' o <- ser_permutation(1:5, 10:1)

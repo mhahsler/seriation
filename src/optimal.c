@@ -34,7 +34,7 @@
 static double orderLength(double *x, int *o, int n) {
 
     double v, z;
-    int i, j, k;
+    R_xlen_t i, j, k;
 
     z = 0;	/* path length */
     i = o[0];
@@ -61,12 +61,12 @@ static double orderLength(double *x, int *o, int n) {
 
 SEXP order_length(SEXP R_dist, SEXP R_order) {
 
-    int n, k;
+    R_xlen_t n, k;
     int *o;
 
     SEXP R_obj;
 
-    n = 1 + (int) sqrt(2 * LENGTH(R_dist));
+    n = 1 + (R_xlen_t) sqrt(2 * LENGTH(R_dist));
 
     if (LENGTH(R_dist) < 1 || LENGTH(R_dist) != n / 2 * (n-1))
        error("order_cost: invalid length");
@@ -93,7 +93,8 @@ SEXP order_length(SEXP R_dist, SEXP R_order) {
 
 int checkRmerge(int *x, int n) {
 
-    int k, v;
+    R_xlen_t k;
+    int v;
 
     if (x[0] > 0 || x[n-1] > 0)     /* initial merge */
        return 0;
@@ -169,7 +170,7 @@ int checkRmerge(int *x, int n) {
 static int calcAllOrder(double *x, int *e, int *oi, int *ok, int *oj,
 				           int  ci, int  ck, int  cj, int n) {
 
-    int i, ii, j, jj, k, kk, h = 0, l;
+    R_xlen_t i, ii, j, jj, k, kk, h = 0, l;
     double s, z;
 
     for (i = 0; i < ci; i++) {
@@ -215,7 +216,7 @@ static int calcAllOrder(double *x, int *e, int *oi, int *ok, int *oj,
 static int calcEndOrder(double *x, int *e, int *oi, int *ok,
 				           int  ci, int  ck, int n) {
 
-    int i, ii, k, kk, h = 0, l;
+    R_xlen_t i, ii, k, kk, h = 0, l;
     double s, z;
 
     for (i = 0; i < ci; i++) {
@@ -252,7 +253,7 @@ static int debug = FALSE;
 
 SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 
-    int n, i, ii, j, jj, k, kk, h, a = 0, b = 0;
+    R_xlen_t n, i, ii, j, jj, k, kk, h, a = 0, b = 0;
     int cl = 0, cll = 0, clr = 0, cr = 0, crl = 0, crr = 0;
     int *l, *r, *c, *e;
     int *left, *right, *o, *ol = 0, *oll = 0, *olr = 0, *or = 0, *orl = 0, *orr = 0;

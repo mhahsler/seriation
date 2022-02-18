@@ -78,6 +78,8 @@
 #' first added to the MST. Every time an order is added, its reverse is removed
 #' from the possible remaining orders.
 #'
+#' @family permutation
+#'
 #' @param x set of seriation orders as a list with elements which can be
 #' coerced into [ser_permutation_vector] objects.
 #' @param y if not `NULL` then a single seriation order can be specified.
@@ -93,9 +95,10 @@
 #' invariant measures (e.g., ppc, aprd).
 #' @param test a logical indicating if a correlation test should be performed.
 #' @param ... Further arguments passed on to the method.
-#' @return `ser_dist()` returns an object of class [dist].
-#' `ser_align()` returns a new list with elements of class
-#' [ser_permutation].
+#' @return
+#' - `ser_dist()` returns an object of class [dist].
+#' - `ser_align()` returns a new list with elements of class
+#'   [ser_permutation].
 #' @author Michael Hahsler
 #' @references P. Diaconis (1988): Group Representations in Probability and
 #' Statistics. Institute of Mathematical Statistics, Hayward, CA.

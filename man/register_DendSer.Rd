@@ -8,6 +8,9 @@
 \usage{
 register_DendSer()
 }
+\value{
+Nothing.
+}
 \description{
 Register the DendSer dendrogram seriation method and the ARc criterion
 (Earle and Hurley, 2015) for use with \code{\link[=seriate]{seriate()}}.
@@ -60,9 +63,19 @@ D. Earle, C. B. Hurley (2015): Advances in dendrogram seriation
 for application to visualization. \emph{Journal of Computational and
 Graphical Statistics,} \bold{24}(1), 1--25.
 }
+\seealso{
+Other seriation: 
+\code{\link{register_GA}()},
+\code{\link{register_optics}()},
+\code{\link{register_tsne}()},
+\code{\link{register_umap}()},
+\code{\link{registry_seriate}},
+\code{\link{seriate}()}
+}
 \author{
 Michael Hahsler based on code by Catherine B. Hurley and Denise
 Earle
 }
+\concept{seriation}
 \keyword{cluster}
 \keyword{optimize}

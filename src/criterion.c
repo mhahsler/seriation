@@ -43,7 +43,7 @@ SEXP least_squares_criterion(SEXP R_dist, SEXP R_order) {
   double x = 0.0;
   SEXP R_out;
 
-  /* since d ist symmetric we only need to sum up half the matrix */
+  /* since d is symmetric we only need to sum up half the matrix */
   for (int i = 1; i <= p; i++) {
     for (int j = 1; j < i; j++) {
       x = (dist[LT_POS(p, o[i-1], o[j-1])] - abs(i-j));

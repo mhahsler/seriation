@@ -8,6 +8,9 @@
 \usage{
 register_tsne()
 }
+\value{
+Nothing.
+}
 \description{
 Use t-distributed stochastic neighbor embedding (t-SNE) for \code{\link[=seriate]{seriate()}}.
 }
@@ -43,6 +46,15 @@ pp.2579-2605.
 }
 \seealso{
 \code{\link[Rtsne:Rtsne]{Rtsne::Rtsne()}} in \pkg{Rtsne}.
+
+Other seriation: 
+\code{\link{register_DendSer}()},
+\code{\link{register_GA}()},
+\code{\link{register_optics}()},
+\code{\link{register_umap}()},
+\code{\link{registry_seriate}},
+\code{\link{seriate}()}
 }
+\concept{seriation}
 \keyword{cluster}
 \keyword{optimize}

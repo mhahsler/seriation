@@ -111,6 +111,9 @@ the plot on a new page (see \code{\link[=grid.newpage]{grid.newpage()}}).
 \item{prop}{logical; change the aspect ratio so cells in the image have a
 equal width and height.}
 }
+\value{
+Nothing.
+}
 \description{
 Plot a data matrix of cases and variables. Each value is represented by a
 symbol. Large values are highlighted. Note that Bertin arranges the cases
@@ -211,8 +214,17 @@ de Falguerolles, A., Friedrich, F., Sawitzki, G. (1997): A
 Tribute to J. Bertin's Graphical Data Analysis. In: Proceedings of the
 SoftStat '97 (Advances in Statistical Software 6), 11--20.
 }
+\seealso{
+Other plots: 
+\code{\link{VAT}()},
+\code{\link{dissplot}()},
+\code{\link{hmap}()},
+\code{\link{palette}()},
+\code{\link{pimage}()}
+}
 \author{
 Michael Hahsler
 }
+\concept{plots}
 \keyword{cluster}
 \keyword{hplot}

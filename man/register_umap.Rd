@@ -7,6 +7,9 @@
 \usage{
 register_umap()
 }
+\value{
+Nothing.
+}
 \description{
 Use uniform manifold approximation and projection (UMAP) to embed the data
 on the number line and create a order for \code{\link[=seriate]{seriate()}}.
@@ -37,6 +40,15 @@ Projection for Dimension Reduction, ArXiv e-prints 1802.03426, 2018
 }
 \seealso{
 \code{\link[umap:umap]{umap::umap()}} in \pkg{umap}.
+
+Other seriation: 
+\code{\link{register_DendSer}()},
+\code{\link{register_GA}()},
+\code{\link{register_optics}()},
+\code{\link{register_tsne}()},
+\code{\link{registry_seriate}},
+\code{\link{seriate}()}
 }
+\concept{seriation}
 \keyword{cluster}
 \keyword{optimize}

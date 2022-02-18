@@ -14,6 +14,9 @@ gaperm_mixedMutation(ismProb = 0.8)
 \arguments{
 \item{ismProb}{probability to use \code{\link[GA:ga_Mutation]{GA::gaperm_ismMutation()}} (inversion) versus \code{\link[GA:ga_Mutation]{GA::gaperm_simMutation()}} (simple insertion).}
 }
+\value{
+Nothing.
+}
 \description{
 Register a GA-based seriation metaheuristic for use with \code{\link[=seriate]{seriate()}}.
 }
@@ -82,8 +85,18 @@ Luca Scrucca (2013): GA: A Package for Genetic Algorithms in R.
 \emph{Journal of Statistical Software,} \bold{53}(4), 1--37. URL
 \doi{10.18637/jss.v053.i04}.
 }
+\seealso{
+Other seriation: 
+\code{\link{register_DendSer}()},
+\code{\link{register_optics}()},
+\code{\link{register_tsne}()},
+\code{\link{register_umap}()},
+\code{\link{registry_seriate}},
+\code{\link{seriate}()}
+}
 \author{
 Michael Hahsler
 }
+\concept{seriation}
 \keyword{cluster}
 \keyword{optimize}

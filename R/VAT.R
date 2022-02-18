@@ -26,14 +26,16 @@
 #' over the largest distances in all possible paths between the objects as used
 #' for iVAT.
 #'
+#' @family plots
+#'
 #' @param x a \code{dist} object.
 #' @param upper_tri,lower_tri a logical indicating whether to show the upper or
 #' lower triangle of the VAT matrix.
 #' @param ... further arguments are passed on to \code{\link{pimage}} for the
 #' regular plots and \code{\link{ggpimage}} for the ggplot2 plots.
+#' @returns Nothing.
+#'
 #' @author Michael Hahsler
-#' @seealso \code{\link{seriate}}, \code{\link{pimage}},
-#' \code{\link{ggpimage}}, \code{\link{create_lines_data}}.
 #' @references Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual
 #' assessment of (cluster) tendency. \emph{Proceedings of the 2002
 #' International Joint Conference on Neural Networks (IJCNN '02)}, Volume: 3,

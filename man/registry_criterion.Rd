@@ -41,11 +41,12 @@ function \code{\link[=criterion]{criterion()}}.}
 registry.}
 }
 \value{
-\code{list_criterion_method()} results is a vector of character strings with the
+\itemize{
+\item \code{list_criterion_method()} results is a vector of character strings with the
 short names of the methods.
-
-\code{get_criterion_method()} returns a given method in form of an object of class
+-\code{get_criterion_method()} returns a given method in form of an object of class
 \code{"criterion_method"}.
+}
 }
 \description{
 A registry to manage methods used by \code{\link[=criterion]{criterion()}} to calculate a criterion value given data and a
@@ -101,7 +102,12 @@ get_criterion_method("matrix", "DiagSum")
 ## 3. use all criterion methods (including the new one)
 criterion(matrix(1:9, ncol = 3))
 }
+\seealso{
+Other criterion: 
+\code{\link{criterion}()}
+}
 \author{
 Michael Hahsler
 }
+\concept{criterion}
 \keyword{misc}

@@ -51,6 +51,8 @@
 #' than one means the components are mixing.
 #' @param sd2 variation perpendicular to the direction along the components.  A
 #' value greater than 0 will introduce anti-Robinson violation events.
+#' @results a data.frame with the created data.
+#'
 #' @author Michael Hahsler
 #' @seealso [seriate()], [criterion()], [iVAT()].
 #' @references
@@ -62,7 +64,7 @@
 #' Michael Hahsler, Christian Buchta and Kurt Hornik (2021). seriation: Infrastructure for
 #' Ordering Objects Using Seriation. R package version 1.3.2.
 #' \url{https://github.com/mhahsler/seriation}
-#' @keywords data
+#' @keywords datasets
 #' @examples
 #'
 #' ## lines data set from Havens and Bezdek (2011)

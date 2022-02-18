@@ -8,6 +8,9 @@
 \usage{
 register_optics()
 }
+\value{
+Nothing.
+}
 \description{
 Use ordering points to identify the clustering structure (OPTICS) for \code{\link[=seriate]{seriate()}}.
 }
@@ -37,8 +40,16 @@ ACM SIGMOD international conference on Management of data. ACM Press. pp.
 49-60. \doi{10.1145/304181.304187}
 }
 \seealso{
-\code{\link[dbscan:optics]{dbscan::optics()}} in
-\pkg{dbscan}.
+\code{\link[dbscan:optics]{dbscan::optics()}} in \pkg{dbscan}.
+
+Other seriation: 
+\code{\link{register_DendSer}()},
+\code{\link{register_GA}()},
+\code{\link{register_tsne}()},
+\code{\link{register_umap}()},
+\code{\link{registry_seriate}},
+\code{\link{seriate}()}
 }
+\concept{seriation}
 \keyword{cluster}
 \keyword{optimize}

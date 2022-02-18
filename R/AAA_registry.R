@@ -43,6 +43,8 @@
 #' corresponding order to the dimensions of \code{x}.
 #'
 #' @import registry
+#' @family seriation
+#'
 #' @param kind the data type the method works on. For example, \code{"dist"},
 #' \code{"matrix"} or \code{"array"}. If missing, then methods for any type are
 #' shown.
@@ -54,11 +56,10 @@
 #' @param ... further information that is stored for the method in the
 #' registry.
 #' @returns
-#' \code{list_seriation_method()} result is a vector of character strings with the
-#' short names of the methods.
-#'
-#' \code{get_seriation_method()} returns a given method in form of an object of class
-#' \code{"seriation_method"}.
+#' - \code{list_seriation_method()} result is a vector of character strings with the
+#'   short names of the methods.
+#' - \code{get_seriation_method()} returns a given method in form of an object of class
+#'   \code{"seriation_method"}.
 #'
 #' @author Michael Hahsler
 #' @keywords misc
@@ -257,7 +258,8 @@ show_seriation_methods <- function(kind) {
 #' additional information for the method passed on from [criterion()]. The
 #' implementation has to return the criterion value as a scalar.
 #'
-#' @name registry_criterion
+#' @family criterion
+#'
 #' @aliases registry_criterion registry
 #' @param kind the data type the method works on. For example, `"dist"`,
 #' `"matrix"` or `"array"`.
@@ -270,11 +272,10 @@ show_seriation_methods <- function(kind) {
 #' @param ... further information that is stored for the method in the
 #' registry.
 #' @returns
-#' `list_criterion_method()` results is a vector of character strings with the
-#' short names of the methods.
-#'
-#' `get_criterion_method()` returns a given method in form of an object of class
-#' `"criterion_method"`.
+#' - `list_criterion_method()` results is a vector of character strings with the
+#'   short names of the methods.
+#' -`get_criterion_method()` returns a given method in form of an object of class
+#'   `"criterion_method"`.
 #' @author Michael Hahsler
 #' @keywords misc
 #' @examples

@@ -42,6 +42,8 @@
 #' - `zlim` range of values displayed.
 #' - `col`, `col_dist` color palettes used.
 #'
+#' @family plots
+#'
 #' @param x a matrix or a dissimilarity matrix of class dist. If a
 #' dissimilarity matrix is used, then the `distfun` is ignored.
 #' @param distfun function used to compute the distance (dissimilarity) between

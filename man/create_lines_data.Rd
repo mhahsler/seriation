@@ -122,4 +122,4 @@ Ordering Objects Using Seriation. R package version 1.3.2.
 \author{
 Michael Hahsler
 }
-\keyword{data}
+\keyword{datasets}

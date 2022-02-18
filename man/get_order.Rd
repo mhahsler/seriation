@@ -78,7 +78,16 @@ get_order(o2, dim = 2)
 get_rank(o2, dim = 2)
 get_permutation_matrix(o2, dim = 2)
 }
+\seealso{
+Other permutation: 
+\code{\link{permutation_vector2matrix}()},
+\code{\link{permute}()},
+\code{\link{ser_dist}()},
+\code{\link{ser_permutation_vector}()},
+\code{\link{ser_permutation}()}
+}
 \author{
 Michael Hahsler
 }
+\concept{permutation}
 \keyword{manip}

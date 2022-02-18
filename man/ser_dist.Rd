@@ -35,9 +35,11 @@ invariant measures (e.g., ppc, aprd).}
 \item{test}{a logical indicating if a correlation test should be performed.}
 }
 \value{
-\code{ser_dist()} returns an object of class \link{dist}.
-\code{ser_align()} returns a new list with elements of class
+\itemize{
+\item \code{ser_dist()} returns an object of class \link{dist}.
+\item \code{ser_align()} returns a new list with elements of class
 \link{ser_permutation}.
+}
 }
 \description{
 Calculates dissimilarities/correlations between seriation orders in a list of type
@@ -150,7 +152,16 @@ Analyzing and Fusing Sequences of Objects. \emph{IEEE Transactions on
 Pattern Analysis and Machine Intelligence} \strong{38}(5):833-48.
 \doi{10.1109/TPAMI.2015.2470671}
 }
+\seealso{
+Other permutation: 
+\code{\link{get_order}()},
+\code{\link{permutation_vector2matrix}()},
+\code{\link{permute}()},
+\code{\link{ser_permutation_vector}()},
+\code{\link{ser_permutation}()}
+}
 \author{
 Michael Hahsler
 }
+\concept{permutation}
 \keyword{cluster}

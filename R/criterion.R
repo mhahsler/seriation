@@ -220,6 +220,8 @@
 #'   for the later the contribution of row and column permutations to stress are
 #'   independent and thus can be optimized independently.
 #'
+#' @family criterion
+#'
 #' @param x an object of class [dist] or a matrix (currently no functions
 #' are implemented for array).
 #' @param order an object of class [ser_permutation] suitable for
@@ -231,7 +233,7 @@
 #' @param force_loss logical; should merit function be converted into loss
 #' functions by multiplying with -1?
 #' @return A named vector of real values.
-#' @author Christian Buchta and Michael Hahsler
+#' @author Michael Hahsler
 #' @references Barnard, S.T., A. Pothen, and H. D. Simon (1993): A Spectral
 #' Algorithm for Envelope Reduction of Sparse Matrices. \emph{In Proceedings of
 #' the 1993 ACM/IEEE Conference on Supercomputing,} 493--502. Supercomputing

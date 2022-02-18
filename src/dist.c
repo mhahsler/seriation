@@ -33,7 +33,7 @@ SEXP reorder_dist(SEXP R_dist, SEXP R_order) {
     SEXP R_dist_out;
 
     int n = INTEGER(getAttrib(R_dist, install("Size")))[0];
-    int n_out = LENGTH(R_order);
+    R_xlen_t n_out = LENGTH(R_order);
     int *o = INTEGER(R_order);
 
     PROTECT(R_dist_out = allocVector(REALSXP, n_out*(n_out-1)/2));

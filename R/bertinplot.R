@@ -43,6 +43,7 @@
 #' `ggbertinplot()` calls [ggpimage()] and all additional parameters are
 #' passed on.
 #'
+#' @family plots
 #' @param x a data matrix. Note that following Bertin, columns are variables
 #' and rows are cases. This behavior can be reversed using `reverse = TRUE`
 #' in `options`.
@@ -89,6 +90,9 @@
 #'     the plot on a new page (see [grid.newpage()]).
 #'  -  `pop` a logical indicating whether to pop the created viewports
 #'     (see [pop.viewport()])?
+#'
+#' @returns Nothing.
+#'
 #' @author Michael Hahsler
 #' @references de Falguerolles, A., Friedrich, F., Sawitzki, G. (1997): A
 #' Tribute to J. Bertin's Graphical Data Analysis. In: Proceedings of the

@@ -172,6 +172,9 @@ displayed.}
 \item{newpage, pop, gp}{Start plot on a new page, pop the viewports after
 plotting, and use the supplied \code{gpar} object (see \pkg{grid}).}
 }
+\value{
+Nothing.
+}
 \description{
 Provides methods for matrix shading, i.e., displaying a color image for
 matrix (including correlation matrices) and \code{dist} objects given an
@@ -326,7 +329,16 @@ if (require("ggplot2")) {
     colorspace::scale_fill_continuous_sequential("Reds", rev = FALSE, na.value = "white")
 }
 }
+\seealso{
+Other plots: 
+\code{\link{VAT}()},
+\code{\link{bertinplot}()},
+\code{\link{dissplot}()},
+\code{\link{hmap}()},
+\code{\link{palette}()}
+}
 \author{
 Christian Buchta and Michael Hahsler
 }
+\concept{plots}
 \keyword{hplot}

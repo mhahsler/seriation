@@ -33,6 +33,9 @@
 #'
 #' @aliases register_tsne tsne tSNE
 #' @seealso [Rtsne::Rtsne()] in \pkg{Rtsne}.
+#' @family seriation
+#' @returns Nothing.
+#'
 #' @references van der Maaten, L.J.P. & Hinton, G.E., 2008. Visualizing
 #' High-Dimensional Data Using t-SNE. Journal of Machine Learning Research, 9,
 #' pp.2579-2605.

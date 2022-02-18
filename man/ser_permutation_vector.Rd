@@ -34,8 +34,6 @@ permutation vector.}
 
 \item{...}{further arguments.}
 
-\item{recursive}{ignored}
-
 \item{printable}{a logical; prints "unknown" instead of \code{NULL} for non-existing methods.}
 }
 \value{
@@ -86,7 +84,16 @@ ip <- ser_permutation_vector(NA)
 ip
 
 }
+\seealso{
+Other permutation: 
+\code{\link{get_order}()},
+\code{\link{permutation_vector2matrix}()},
+\code{\link{permute}()},
+\code{\link{ser_dist}()},
+\code{\link{ser_permutation}()}
+}
 \author{
 Michael Hahsler
 }
+\concept{permutation}
 \keyword{classes}

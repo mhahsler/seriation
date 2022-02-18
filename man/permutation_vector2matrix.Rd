@@ -14,11 +14,16 @@ permutation_matrix2vector(x)
 permutation vector, e.g., a integer vector or a \code{hclust} object) or a
 matrix representing a permutation. Arguments are checked.}
 }
+\value{
+\itemize{
+\item \code{permutation_vector2matrix()}: returns a permutation matrix.
+\item \code{permutation_matrix2vector()}: returns the permutation as a integer vector.
+}
+}
 \description{
 Converts between permutation vectors and matrices.
 }
 \examples{
-
 ## create a random permutation vector
 pv <- sample(1:5)
 pv
@@ -30,7 +35,16 @@ pm
 ## convert back
 permutation_matrix2vector(pm)
 }
+\seealso{
+Other permutation: 
+\code{\link{get_order}()},
+\code{\link{permute}()},
+\code{\link{ser_dist}()},
+\code{\link{ser_permutation_vector}()},
+\code{\link{ser_permutation}()}
+}
 \author{
 Michael Hahsler
 }
+\concept{permutation}
 \keyword{manip}

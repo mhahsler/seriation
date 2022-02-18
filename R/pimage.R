@@ -48,8 +48,8 @@
 #' and other visual aspects can be added using standard ggplot2 functions
 #' (\code{labs}, \code{scale_fill_continuous}, \code{labs}, etc.).
 #'
-#' @aliases pimage pimage.matrix pimage.dist ggpimage ggpimage.matrix
-#' ggpimage.dist
+#' @family plots
+#'
 #' @param x a matrix or an object of class \code{dist}.
 #' @param order an object of class \code{ser_permutation}. If \code{NULL} the
 #' order in \code{x} is plotted.
@@ -82,6 +82,8 @@
 #' @param \dots further arguments are ignored.
 #' @param newpage,pop,gp Start plot on a new page, pop the viewports after
 #' plotting, and use the supplied \code{gpar} object (see \pkg{grid}).
+#' @returns Nothing.
+#'
 #' @author Christian Buchta and Michael Hahsler
 #' @keywords hplot
 #' @examples

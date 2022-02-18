@@ -47,11 +47,12 @@ shown.}
 registry.}
 }
 \value{
-\code{list_seriation_method()} result is a vector of character strings with the
+\itemize{
+\item \code{list_seriation_method()} result is a vector of character strings with the
 short names of the methods.
-
-\code{get_seriation_method()} returns a given method in form of an object of class
+\item \code{get_seriation_method()} returns a given method in form of an object of class
 \code{"seriation_method"}.
+}
 }
 \description{
 A registry to manage methods used by \code{\link[=seriate]{seriate()}}.
@@ -109,7 +110,17 @@ get_seriation_method("matrix", "reverse")
 # 3. Use the new seriation methods
 seriate(matrix(1:12, ncol=3), "reverse")
 }
+\seealso{
+Other seriation: 
+\code{\link{register_DendSer}()},
+\code{\link{register_GA}()},
+\code{\link{register_optics}()},
+\code{\link{register_tsne}()},
+\code{\link{register_umap}()},
+\code{\link{seriate}()}
+}
 \author{
 Michael Hahsler
 }
+\concept{seriation}
 \keyword{misc}

@@ -51,6 +51,8 @@
 #' checks if the permutation vector is valid
 #' (i.e. if all integers occur exactly once).
 #'
+#' @family permutation
+#'
 #' @param x,object an object which contains a permutation vector (currently an
 #'     integer vector or an object of class [hclust]). The value `NA`
 #'     creates an identity permutation.

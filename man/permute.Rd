@@ -111,7 +111,16 @@ hc <- hclust(d)
 plot(hc)
 plot(permute(hc, 5:1))
 }
+\seealso{
+Other permutation: 
+\code{\link{get_order}()},
+\code{\link{permutation_vector2matrix}()},
+\code{\link{ser_dist}()},
+\code{\link{ser_permutation_vector}()},
+\code{\link{ser_permutation}()}
+}
 \author{
 Michael Hahsler
 }
+\concept{permutation}
 \keyword{manip}

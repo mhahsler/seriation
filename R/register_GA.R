@@ -61,6 +61,9 @@
 #' \bold{Note:} Package \pkg{GA} needs to be installed.
 #'
 #' @aliases register_GA GA ga gaperm_mixedMutation
+#' @family seriation
+#' @returns Nothing.
+#'
 #' @author Michael Hahsler
 #' @references Luca Scrucca (2013): GA: A Package for Genetic Algorithms in R.
 #' \emph{Journal of Statistical Software,} \bold{53}(4), 1--37. URL

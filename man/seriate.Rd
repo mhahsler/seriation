@@ -466,8 +466,18 @@ visualization by ordering distance matrices, \emph{Bioinformatics,}
 \bold{21}(10) 2301--8.
 \doi{10.1093/bioinformatics/bti329}
 }
+\seealso{
+Other seriation: 
+\code{\link{register_DendSer}()},
+\code{\link{register_GA}()},
+\code{\link{register_optics}()},
+\code{\link{register_tsne}()},
+\code{\link{register_umap}()},
+\code{\link{registry_seriate}}
+}
 \author{
 Michael Hahsler
 }
+\concept{seriation}
 \keyword{cluster}
 \keyword{optimize}

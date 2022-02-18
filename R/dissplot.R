@@ -123,6 +123,9 @@
 #' plotting options (see above).
 #'
 #' `ggdissplot()` returns a ggplot2 object representing the plot.
+#'
+#' @returns The plot description as an object of class `reordered_cluster_dissimilarity_matrix`.
+#'
 #' @author Michael Hahsler
 #' @references
 #' Hahsler, M. and Hornik, K. (2011): Dissimilarity plots: A visual

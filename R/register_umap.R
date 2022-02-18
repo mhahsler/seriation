@@ -30,6 +30,9 @@
 #'
 #' @aliases register_umap umap
 #' @seealso [umap::umap()] in \pkg{umap}.
+#' @family seriation
+#' @returns Nothing.
+#'
 #' @references McInnes, L, Healy, J, UMAP: Uniform Manifold Approximation and
 #' Projection for Dimension Reduction, ArXiv e-prints 1802.03426, 2018
 #' @keywords optimize cluster

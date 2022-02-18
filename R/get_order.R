@@ -19,6 +19,8 @@
 #' `get_permutation_matrix()` returns a \eqn{n \times n}{n x n} permutation
 #' matrix.
 #'
+#' @family permutation
+#'
 #' @param x an object of class [ser_permutation] or
 #' [ser_permutation_vector].
 #' @param dim order information for which dimension should be returned?
@@ -26,6 +28,7 @@
 #' `get_rank()` and for `get_permutation_matrix()` the additional
 #' arguments are passed on to `get_order()` (e.g., as `dim`).
 #' @return Returns an integer permutation vector/a permutation matrix.
+#'
 #' @author Michael Hahsler
 #' @keywords manip
 #' @examples

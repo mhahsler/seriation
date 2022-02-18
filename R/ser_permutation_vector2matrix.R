@@ -2,13 +2,18 @@
 #'
 #' Converts between permutation vectors and matrices.
 #'
+#' @family permutation
+#'
 #' @param x A permutation vector (any object that can be converted into a
 #' permutation vector, e.g., a integer vector or a `hclust` object) or a
 #' matrix representing a permutation. Arguments are checked.
+#' @returns
+#' - `permutation_vector2matrix()`: returns a permutation matrix.
+#' - `permutation_matrix2vector()`: returns the permutation as a integer vector.
+#'
 #' @author Michael Hahsler
 #' @keywords manip
 #' @examples
-#'
 #' ## create a random permutation vector
 #' pv <- sample(1:5)
 #' pv

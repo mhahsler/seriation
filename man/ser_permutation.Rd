@@ -63,9 +63,15 @@ o[[2]] <- rev(o[[2]])
 get_order(o,2)
 }
 \seealso{
-\code{\link[=get_order]{get_order()}}, \code{\link[=get_permutation_matrix]{get_permutation_matrix()}}
+Other permutation: 
+\code{\link{get_order}()},
+\code{\link{permutation_vector2matrix}()},
+\code{\link{permute}()},
+\code{\link{ser_dist}()},
+\code{\link{ser_permutation_vector}()}
 }
 \author{
 Michael Hahsler
 }
+\concept{permutation}
 \keyword{classes}

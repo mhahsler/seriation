@@ -310,7 +310,12 @@ patterns in gene expression profiles, \emph{BMC Bioinformatics,}
 \bold{9}(155), 1--16.
 \doi{10.1186/1471-2105-9-155}
 }
-\author{
-Christian Buchta and Michael Hahsler
+\seealso{
+Other criterion: 
+\code{\link{registry_criterion}}
 }
+\author{
+Michael Hahsler
+}
+\concept{criterion}
 \keyword{cluster}

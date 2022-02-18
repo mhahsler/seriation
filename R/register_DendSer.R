@@ -45,6 +45,9 @@
 #' Note: Package \pkg{DendSer} needs to be installed.
 #'
 #' @aliases register_DendSer DendSer dendser
+#' @family seriation
+#' @returns Nothing.
+#'
 #' @author Michael Hahsler based on code by Catherine B. Hurley and Denise
 #' Earle
 #' @references D. Earle, C. B. Hurley (2015): Advances in dendrogram seriation

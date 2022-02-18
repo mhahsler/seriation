@@ -27,8 +27,10 @@
 #' \bold{Note:} Package \pkg{dbscan} needs to be installed.
 #'
 #' @aliases register_optics optics OPTICS
-#' @seealso [dbscan::optics()] in
-#' \pkg{dbscan}.
+#' @seealso [dbscan::optics()] in \pkg{dbscan}.
+#' @family seriation
+#' @returns Nothing.
+#'
 #' @references Mihael Ankerst, Markus M. Breunig, Hans-Peter Kriegel, Joerg
 #' Sander (1999). OPTICS: Ordering Points To Identify the Clustering Structure.
 #' ACM SIGMOD international conference on Management of data. ACM Press. pp.

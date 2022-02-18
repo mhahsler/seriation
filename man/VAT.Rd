@@ -27,6 +27,9 @@ lower triangle of the VAT matrix.}
 \item{...}{further arguments are passed on to \code{\link{pimage}} for the
 regular plots and \code{\link{ggpimage}} for the ggplot2 plots.}
 }
+\value{
+Nothing.
+}
 \description{
 Implements Visual Analysis for Cluster Tendency Assessment (VAT; Bezdek and
 Hathaway, 2002) and Improved Visual Analysis for Cluster Tendency Assessment
@@ -86,11 +89,16 @@ Wang L., U.T.V. Nguyen, J.C. Bezdek, C.A. Leckie and K. Ramamohanarao
 Assessment, \emph{Proceedings of the PAKDD 2010, Part I, LNAI 6118,} 16--27.
 }
 \seealso{
-\code{\link{seriate}}, \code{\link{pimage}},
-\code{\link{ggpimage}}, \code{\link{create_lines_data}}.
+Other plots: 
+\code{\link{bertinplot}()},
+\code{\link{dissplot}()},
+\code{\link{hmap}()},
+\code{\link{palette}()},
+\code{\link{pimage}()}
 }
 \author{
 Michael Hahsler
 }
+\concept{plots}
 \keyword{cluster}
 \keyword{manip}

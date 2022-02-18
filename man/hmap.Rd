@@ -173,7 +173,16 @@ if (require("ggplot2")) {
   ggpimage(Wood, o, prop = FALSE)
 }
 }
+\seealso{
+Other plots: 
+\code{\link{VAT}()},
+\code{\link{bertinplot}()},
+\code{\link{dissplot}()},
+\code{\link{palette}()},
+\code{\link{pimage}()}
+}
 \author{
 Michael Hahsler
 }
+\concept{plots}
 \keyword{hplot}
