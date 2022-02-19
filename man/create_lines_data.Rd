@@ -38,6 +38,9 @@ than one means the components are mixing.}
 \item{sd2}{variation perpendicular to the direction along the components.  A
 value greater than 0 will introduce anti-Robinson violation events.}
 }
+\value{
+a data.frame with the created data.
+}
 \description{
 Several functions to create simulated data to evaluate different aspects of
 seriation algorithms and criterion functions.

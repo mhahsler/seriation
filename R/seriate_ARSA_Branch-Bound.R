@@ -38,6 +38,10 @@ seriate_dist_arsa <- function(x, control = NULL) {
   # SUBROUTINE arsa(N, A, COOL, TMIN, NREPS, IPERM, R1, R2, D, U,
   #      S, T, SB, ZBEST, verbose)
   N <- ncol(A)
+
+  if (N*N > .Machine$integer.max)
+    stop("Long vectors not supported! Algorithm needs n^2 space.")
+
   NREPS <- as.integer(param$reps)
   IPERM <- integer(N)
   #  R1 <- double(N*N/2)
@@ -94,6 +98,9 @@ seriate_dist_bburcg <- function(x, control = NULL) {
   A <- as.matrix(x)
   N <- ncol(A)
 
+  if (N*N*N > .Machine$integer.max)
+    stop("Long vectors not supported! Algorithm needs n^3 space.")
+
   # SUBROUTINE bburcg(N, A, EPS, X, Q, D, DD, S, UNSEL, IVERB)
   X <- integer(N)
   Q <- integer(N)
@@ -117,6 +124,9 @@ seriate_dist_bbwrcg <- function(x, control = NULL) {
 
   A <- as.matrix(x)
   N <- ncol(A)
+
+  if (N*N*N > .Machine$integer.max)
+    stop("Long vectors not supported! Algorithm needs n^3 space.")
 
   # SUBROUTINE bbwrcg(N, A, EPS, X, Q, D, DD, S, UNSEL, IVERB)
   X <- integer(N)

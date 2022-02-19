@@ -4,8 +4,9 @@
 * pimage and dissplot gained parameter diag. pimage for dist by default does not show the diagonal now.
 * C code now supports long vectors for dist objects.
 
-## New Changes
+## Changes
 * we now use roxygen for documentation.
+* added check for long vectors that Fortran cannot handle.
 
 # seriation 1.3-2 (2/10/2022)
 

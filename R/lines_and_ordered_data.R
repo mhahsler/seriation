@@ -51,7 +51,7 @@
 #' than one means the components are mixing.
 #' @param sd2 variation perpendicular to the direction along the components.  A
 #' value greater than 0 will introduce anti-Robinson violation events.
-#' @results a data.frame with the created data.
+#' @returns a data.frame with the created data.
 #'
 #' @author Michael Hahsler
 #' @seealso [seriate()], [criterion()], [iVAT()].

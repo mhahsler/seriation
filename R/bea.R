@@ -21,12 +21,16 @@
 
 bea <- function(a, istart = 0, jstart = 0)
 {
-  ## Permute rows and colums, using "bond energy algorithm".
+  ## Permute rows and column, using "bond energy algorithm".
   if (!is.matrix(a))
     stop("First input argument must be a matrix.\n")
 
   n <- nrow(a)
   m <- ncol(a)
+
+  if (n > .Machine$integer.max || m > .Machine$integer.max)
+    stop("Long vectors not supported.")
+
   b    <- matrix(0.0, n, m)
   mode(a) <- "single"
   mode(b) <- "single"
