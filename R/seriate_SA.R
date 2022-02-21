@@ -17,7 +17,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-## Simulated annealing reimplimentation folowing arsa.f by Brusco et al.
+## Simulated annealing reimplimentation following 'arsa.f' by Brusco et al.
 ## can use any criterion function
 
 #' Neighborhood functions for Seriation Method SA
@@ -28,7 +28,7 @@
 #'  (1/3 insertion, 1/3 swap and 1/3 reverse). Any neighborhood function can be defined.
 #' @name LS
 #' @aliases LS
-#' @param o an interger vector with the order
+#' @param o an integer vector with the order
 #' @param pos random positions used for the local move.
 #' @returns returns the new order vector representing the random neighbor.
 NULL

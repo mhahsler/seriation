@@ -6,12 +6,13 @@
 
 ## Changes
 * we now use roxygen for documentation.
-* added check for long vectors that Fortran cannot handle.
+* added check for long vectors that FORTRAN cannot handle.
+* removed deprecated show functions for the registries.
 
 # seriation 1.3-2 (2/10/2022)
 
 ## Changes
-* Improved argument checking for ser_permutation_vector().
+* improved argument checking for ser_permutation_vector().
 * ggplot uses now standard ggplot2 color palettes.
 
 # seriation 1.3-1 (10/15/2021)

@@ -24,24 +24,21 @@
 #' used to reorder the dissimilarity matrix/data matrix using
 #' [permute()].
 #'
-#' Seriation methods are available via a registry. See
-#' [list_seriation_methods()] for help. Data frames are just a
-#' different representation of a matrix and all seriation methods for matrix can
-#' be used for data frames. The default method for data frames is heatmap
-#' seriation which calculates distances between rows and between columns and
-#' then applies seriation on these using hierarchical clustering and optimal
-#' leaf ordering (OLO).
+#'
+#' Seriation methods are managed via a registry. See
+#' [list_seriation_methods()] for help. In the following, we discuss only the
+#' built-in methods that are registered automatically by the package \pkg{seriation}.
 #'
 #' Many seriation methods (heuristically) optimize (minimize or maximize) an
 #' objective function. The value of the function for a given seriation can be
-#' calculated using [criterion()]. In this manual page, we only
+#' calculated using [criterion()]. In this manual page, we
 #' include the measure which is optimized by each method using **bold font**.
-#' A definition of these measures can be found in the
-#' [criterion()] manual page.
+#' If no measure is mentioned, then the measure does not directly optimize a measure.
+#' A definition of the measures can be found in the [criterion()] manual page.
 #'
-#' \bold{Seriation methods by type of data:}
+#' \bold{Seriation methods for distance matrices (dist)}
 #'
-#' \bold{dist:} One-mode two-way data has to be provided as a dist object (not
+#' One-mode two-way data has to be provided as a dist object (not
 #' as a symmetric matrix). Similarities have to be transformed into
 #' dissimilarities. Currently, the following methods are implemented (for a
 #' more detailed description and an experimental comparison see
@@ -246,8 +243,17 @@
 #' - "Random"  Produces a random permutation.
 #'
 #'
-#' \bold{matrix or data.frame:} Two-mode two-way data are general matrices.
-#' Some methods also require that the matrix is positive. Currently the
+#' \bold{Seriation methods for matrices (matrix or data.frame)}
+#'
+#' Two-mode two-way data are general matrices.
+#' Some methods also require that the matrix is positive. Data frames are just a
+#' different representation of a matrix and all seriation methods for matrix can
+#' be also used for data frames. The default method for data frames is heatmap
+#' seriation which calculates distances between rows and between columns and
+#' then applies seriation on these using hierarchical clustering and optimal
+#' leaf ordering (OLO).
+#'
+#' Currently the
 #' following methods are implemented for matrix:
 #'
 #' - "BEA" Bond Energy Algorithm (BEA; McCormick 1972).
@@ -408,7 +414,6 @@
 #' \doi{10.1093/bioinformatics/bti329}
 #' @keywords optimize cluster
 #' @examples
-#'
 #' # Show available seriation methods (for dist and matrix)
 #' list_seriation_methods()
 #'

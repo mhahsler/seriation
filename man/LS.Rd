@@ -17,7 +17,7 @@ LS_reverse(o, pos = sample.int(length(o), 2))
 LS_mixed(o, pos = sample.int(length(o), 2))
 }
 \arguments{
-\item{o}{an interger vector with the order}
+\item{o}{an integer vector with the order}
 
 \item{pos}{random positions used for the local move.}
 }

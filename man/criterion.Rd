@@ -40,6 +40,8 @@ Compute the value for different loss functions \eqn{L} and merit function
 \eqn{M} for data given a permutation.
 }
 \details{
+\strong{Criteria for distance matrices (dist)}
+
 For a symmetric dissimilarity matrix \eqn{D} with elements \eqn{d(i,j)}
 where \eqn{i, j = 1 \ldots n}, the aim is generally to place low distance
 values close to the diagonal. The following criteria to judge the quality of
@@ -177,6 +179,8 @@ similarity matrix using \eqn{S = 1/(1+D)}. If a different transformation is
 required, then perform the transformation first and supply a matrix instead
 of a dist object.
 }
+
+\strong{Criteria for matrices (matrix)}
 
 For a general matrix \eqn{X = x_{ij}}, \eqn{i = 1 \ldots n} and
 \eqn{j = 1 \ldots m}, currently the following loss/merit functions are implemented:
