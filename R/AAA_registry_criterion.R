@@ -42,7 +42,6 @@
 #'
 #' @family criterion
 #'
-#' @aliases registry_criterion registry
 #' @param kind the data type the method works on. For example, `"dist"`,
 #' `"matrix"` or `"array"`.
 #' @param name a short name for the method used to refer to the method in the
@@ -51,14 +50,16 @@
 #' @param description a description of the method. For example, a long name.
 #' @param merit a boolean indicating if the criterion measure is a merit
 #' (`TRUE`) or a loss (`FALSE`) measure.
+#' @param x an object of class "criterion_method" to be printed.
 #' @param ... further information that is stored for the method in the
 #' registry.
 #' @returns
 #' - `list_criterion_method()` results is a vector of character strings with the
 #'   short names of the methods.
-#' -`get_criterion_method()` returns a given method in form of an object of class
+#' - `get_criterion_method()` returns a given method in form of an object of class
 #'   `"criterion_method"`.
 #' @author Michael Hahsler
+#' @seealso This registry uses [registry()] in package \pkg{registry}.
 #' @keywords misc
 #' @examples
 #' ## the registry
@@ -111,14 +112,35 @@ registry_criterion$set_field("merit", type = "logical",
 
 #' @rdname registry_criterion
 #' @export
-print.criterion_method <- function(x, ...) {
-  writeLines(c(
-    gettextf("name:        %s", x$name),
-    gettextf("kind:        %s", x$kind),
-    gettextf("description: %s", x$description),
-    gettextf("merit:       %s", x$merit)
-  ))
-  invisible(x)
+list_criterion_methods <- function(kind) {
+  if (missing(kind)) {
+    kinds <- unique(sort(as.vector(
+      sapply(registry_criterion$get_entries(), "[[", "kind")
+    )))
+
+    sapply(
+      kinds,
+      FUN = function(k)
+        list_criterion_methods(k)
+    )
+
+  } else{
+    sort(as.vector(sapply(
+      registry_criterion$get_entries(kind = kind), "[[", "name"
+    )))
+  }
+}
+
+#' @rdname registry_criterion
+#' @export
+get_criterion_method <- function(kind, name) {
+  method <- registry_criterion$get_entry(kind = kind, name = name)
+  if (is.null(method))
+    stop("Unknown criterion. Check list_criterion_methods(\"",
+      kind,
+      "\")")
+
+  method
 }
 
 ## <NOTE>
@@ -166,35 +188,14 @@ set_criterion_method <- function(kind,
 
 #' @rdname registry_criterion
 #' @export
-get_criterion_method <- function(kind, name) {
-  method <- registry_criterion$get_entry(kind = kind, name = name)
-  if (is.null(method))
-    stop("Unknown criterion. Check list_criterion_methods(\"",
-      kind,
-      "\")")
-
-  method
-}
-
-#' @rdname registry_criterion
-#' @export
-list_criterion_methods <- function(kind) {
-  if (missing(kind)) {
-    kinds <- unique(sort(as.vector(
-      sapply(registry_criterion$get_entries(), "[[", "kind")
-    )))
-
-    sapply(
-      kinds,
-      FUN = function(k)
-        list_criterion_methods(k)
-    )
-
-  } else{
-    sort(as.vector(sapply(
-      registry_criterion$get_entries(kind = kind), "[[", "name"
-    )))
-  }
+print.criterion_method <- function(x, ...) {
+  writeLines(c(
+    gettextf("name:        %s", x$name),
+    gettextf("kind:        %s", x$kind),
+    gettextf("description: %s", x$description),
+    gettextf("merit:       %s", x$merit)
+  ))
+  invisible(x)
 }
 
 

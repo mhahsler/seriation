@@ -1,4 +1,4 @@
-# seriation 1.3-2-1 (xx/xx/2022)
+# seriation 1.3-3 (3/3/2022)
 
 ## New Features
 * pimage and dissplot gained parameter diag. pimage for dist by default does not show the diagonal now.

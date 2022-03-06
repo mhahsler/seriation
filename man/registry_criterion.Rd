@@ -3,11 +3,10 @@
 \docType{data}
 \name{registry_criterion}
 \alias{registry_criterion}
-\alias{registry}
-\alias{print.criterion_method}
-\alias{set_criterion_method}
-\alias{get_criterion_method}
 \alias{list_criterion_methods}
+\alias{get_criterion_method}
+\alias{set_criterion_method}
+\alias{print.criterion_method}
 \title{Registry for Criterion Methods}
 \format{
 An object of class \code{criterion_registry} (inherits from \code{registry}) of length 20.
@@ -15,18 +14,15 @@ An object of class \code{criterion_registry} (inherits from \code{registry}) of 
 \usage{
 registry_criterion
 
-\method{print}{criterion_method}(x, ...)
-
-set_criterion_method(kind, name, fun, description = NULL, merit = NA, ...)
+list_criterion_methods(kind)
 
 get_criterion_method(kind, name)
 
-list_criterion_methods(kind)
+set_criterion_method(kind, name, fun, description = NULL, merit = NA, ...)
+
+\method{print}{criterion_method}(x, ...)
 }
 \arguments{
-\item{...}{further information that is stored for the method in the
-registry.}
-
 \item{kind}{the data type the method works on. For example, \code{"dist"},
 \code{"matrix"} or \code{"array"}.}
 
@@ -39,12 +35,17 @@ function \code{\link[=criterion]{criterion()}}.}
 
 \item{merit}{a boolean indicating if the criterion measure is a merit
 (\code{TRUE}) or a loss (\code{FALSE}) measure.}
+
+\item{...}{further information that is stored for the method in the
+registry.}
+
+\item{x}{an object of class "criterion_method" to be printed.}
 }
 \value{
 \itemize{
 \item \code{list_criterion_method()} results is a vector of character strings with the
 short names of the methods.
--\code{get_criterion_method()} returns a given method in form of an object of class
+\item \code{get_criterion_method()} returns a given method in form of an object of class
 \code{"criterion_method"}.
 }
 }
@@ -103,6 +104,8 @@ get_criterion_method("matrix", "DiagSum")
 criterion(matrix(1:9, ncol = 3))
 }
 \seealso{
+This registry uses \code{\link[=registry]{registry()}} in package \pkg{registry}.
+
 Other criterion: 
 \code{\link{criterion}()}
 }

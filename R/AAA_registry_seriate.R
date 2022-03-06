@@ -53,6 +53,7 @@
 #' @param definition a function containing the method's code.
 #' @param description a description of the method. For example, a long name.
 #' @param control a list with control arguments and default values.
+#' @param x an object of class  "seriation_method" to be printed.
 #' @param ... further information that is stored for the method in the
 #' registry.
 #' @returns
@@ -62,9 +63,9 @@
 #'   \code{"seriation_method"}.
 #'
 #' @author Michael Hahsler
+#' @seealso This registry uses [registry()] in package \pkg{registry}.
 #' @keywords misc
 #' @examples
-#'
 #' # Registry
 #' registry_seriate
 #'
@@ -114,28 +115,23 @@ registry_seriate$set_field("control", type = "list",
 
 #' @rdname registry_seriate
 #' @export
-print.seriation_method <- function(x, ...) {
-  writeLines(c(
-    gettextf("name:        %s", x$name),
-    gettextf("kind:        %s", x$kind),
-    gettextf("description: %s", x$description)
-  ))
+list_seriation_methods <- function(kind) {
+  if (missing(kind)) {
+    kinds <- unique(sort(as.vector(
+      sapply(registry_seriate$get_entries(), "[[", "kind")
+    )))
 
-  if (length(x$control) > 0) {
-    writeLines("control (default values):")
-
-    contr <- lapply(
-      x$control,
-      FUN =
-        function(p)
-          utils::capture.output(dput(p, control = list()))[1]
+    sapply(
+      kinds,
+      FUN = function(k)
+        list_seriation_methods(k)
     )
 
-    print(as.data.frame(contr))
-  } else
-    writeLines("control: no parameters registered.")
-
-  invisible(x)
+  } else{
+    sort(as.vector(sapply(
+      registry_seriate$get_entries(kind = kind), "[[", "name"
+    )))
+  }
 }
 
 #' @rdname registry_seriate
@@ -201,23 +197,29 @@ set_seriation_method <- function(kind,
   }
 }
 
+
 #' @rdname registry_seriate
 #' @export
-list_seriation_methods <- function(kind) {
-  if (missing(kind)) {
-    kinds <- unique(sort(as.vector(
-      sapply(registry_seriate$get_entries(), "[[", "kind")
-    )))
+print.seriation_method <- function(x, ...) {
+  writeLines(c(
+    gettextf("name:        %s", x$name),
+    gettextf("kind:        %s", x$kind),
+    gettextf("description: %s", x$description)
+  ))
 
-    sapply(
-      kinds,
-      FUN = function(k)
-        list_seriation_methods(k)
+  if (length(x$control) > 0) {
+    writeLines("control (default values):")
+
+    contr <- lapply(
+      x$control,
+      FUN =
+        function(p)
+          utils::capture.output(dput(p, control = list()))[1]
     )
 
-  } else{
-    sort(as.vector(sapply(
-      registry_seriate$get_entries(kind = kind), "[[", "name"
-    )))
-  }
+    print(as.data.frame(contr))
+  } else
+    writeLines("control: no parameters registered.")
+
+  invisible(x)
 }

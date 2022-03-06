@@ -3,10 +3,10 @@
 \docType{data}
 \name{registry_seriate}
 \alias{registry_seriate}
-\alias{print.seriation_method}
+\alias{list_seriation_methods}
 \alias{get_seriation_method}
 \alias{set_seriation_method}
-\alias{list_seriation_methods}
+\alias{print.seriation_method}
 \title{Registry for Seriation Methods}
 \format{
 An object of class \code{seriation_registry} (inherits from \code{registry}) of length 47.
@@ -14,7 +14,7 @@ An object of class \code{seriation_registry} (inherits from \code{registry}) of 
 \usage{
 registry_seriate
 
-\method{print}{seriation_method}(x, ...)
+list_seriation_methods(kind)
 
 get_seriation_method(kind, name)
 
@@ -27,12 +27,9 @@ set_seriation_method(
   ...
 )
 
-list_seriation_methods(kind)
+\method{print}{seriation_method}(x, ...)
 }
 \arguments{
-\item{...}{further information that is stored for the method in the
-registry.}
-
 \item{kind}{the data type the method works on. For example, \code{"dist"},
 \code{"matrix"} or \code{"array"}. If missing, then methods for any type are
 shown.}
@@ -45,6 +42,11 @@ shown.}
 \item{description}{a description of the method. For example, a long name.}
 
 \item{control}{a list with control arguments and default values.}
+
+\item{...}{further information that is stored for the method in the
+registry.}
+
+\item{x}{an object of class  "seriation_method" to be printed.}
 }
 \value{
 \itemize{
@@ -80,7 +82,6 @@ objects which can be coerced into \code{ser_permutation_vector} objects
 corresponding order to the dimensions of \code{x}.
 }
 \examples{
-
 # Registry
 registry_seriate
 
@@ -111,6 +112,8 @@ get_seriation_method("matrix", "reverse")
 seriate(matrix(1:12, ncol=3), "reverse")
 }
 \seealso{
+This registry uses \code{\link[=registry]{registry()}} in package \pkg{registry}.
+
 Other seriation: 
 \code{\link{register_DendSer}()},
 \code{\link{register_GA}()},
