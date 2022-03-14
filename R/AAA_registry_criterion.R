@@ -44,7 +44,7 @@
 #'
 #' @param kind the data type the method works on. For example, `"dist"`,
 #' `"matrix"` or `"array"`.
-#' @param name a short name for the method used to refer to the method in the
+#' @param name the name for the method used to refer to the method in the
 #' function [criterion()].
 #' @param fun a function containing the method's code.
 #' @param description a description of the method. For example, a long name.
@@ -55,7 +55,7 @@
 #' registry.
 #' @returns
 #' - `list_criterion_method()` results is a vector of character strings with the
-#'   short names of the methods.
+#'   names of the methods used for `criterion()`.
 #' - `get_criterion_method()` returns a given method in form of an object of class
 #'   `"criterion_method"`.
 #' @author Michael Hahsler

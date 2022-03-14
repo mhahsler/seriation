@@ -25,13 +25,16 @@
 #' \code{registry_seriate}.
 #'
 #' \code{list_seriation_method()} lists all available methods for a given data
-#' type (\code{kind}). The result is a vector of character strings with the
-#' short names of the methods. If \code{kind} is missing, then a list of
+#' type (\code{kind}) (e.g., "dist", "matrix").
+#' The result is a vector of character strings with the
+#' method names that can be used in function `seriate()`.
+#' If \code{kind} is missing, then a list of
 #' methods is returned.
 #'
-#' \code{get_seriation_method()} returns information (including the
-#' implementing function) about a given method in form of an object of class
-#' \code{"seriation_method"}.
+#' \code{get_seriation_method()} returns detailed information for a given method in
+#' form of an object of class \code{"seriation_method"}.
+#' The information includes a description, parameters and the
+#' implementing function.
 #'
 #' With \code{set_seriation_method()} new seriation methods can be added by the
 #' user. The implementing function (\code{definition}) needs to have the formal
@@ -48,7 +51,7 @@
 #' @param kind the data type the method works on. For example, \code{"dist"},
 #' \code{"matrix"} or \code{"array"}. If missing, then methods for any type are
 #' shown.
-#' @param name a short name for the method used to refer to the method in
+#' @param name the name for the method used to refer to the method in
 #' [seriate()].
 #' @param definition a function containing the method's code.
 #' @param description a description of the method. For example, a long name.
@@ -58,7 +61,7 @@
 #' registry.
 #' @returns
 #' - \code{list_seriation_method()} result is a vector of character strings with the
-#'   short names of the methods.
+#'   names of the methods. These names are used for methods in `seriate()`.
 #' - \code{get_seriation_method()} returns a given method in form of an object of class
 #'   \code{"seriation_method"}.
 #'

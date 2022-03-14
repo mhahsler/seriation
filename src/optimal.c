@@ -66,13 +66,10 @@ SEXP order_length(SEXP R_dist, SEXP R_order) {
 
     SEXP R_obj;
 
-    n = 1 + (R_xlen_t) sqrt(2 * LENGTH(R_dist));
+    n = LENGTH(R_order);
 
-    if (LENGTH(R_dist) < 1 || LENGTH(R_dist) != n / 2 * (n-1))
-       error("order_cost: invalid length");
-
-    if (LENGTH(R_order) != n)
-       error("order_length: \"dist\" and \"order\" do not match");
+    if (n != LENGTH(R_dist) * (LENGTH(R_dist) - 1)/2)
+       error("order_length: length of \"dist\" and \"order\" do not match");
 
     o = Calloc(n, int);
 
