@@ -34,7 +34,7 @@ set_seriation_method(
 \code{"matrix"} or \code{"array"}. If missing, then methods for any type are
 shown.}
 
-\item{name}{a short name for the method used to refer to the method in
+\item{name}{the name for the method used to refer to the method in
 \code{\link[=seriate]{seriate()}}.}
 
 \item{definition}{a function containing the method's code.}
@@ -51,7 +51,7 @@ registry.}
 \value{
 \itemize{
 \item \code{list_seriation_method()} result is a vector of character strings with the
-short names of the methods.
+names of the methods. These names are used for methods in \code{seriate()}.
 \item \code{get_seriation_method()} returns a given method in form of an object of class
 \code{"seriation_method"}.
 }
@@ -64,13 +64,16 @@ The functions below are convenience function for the registry
 \code{registry_seriate}.
 
 \code{list_seriation_method()} lists all available methods for a given data
-type (\code{kind}). The result is a vector of character strings with the
-short names of the methods. If \code{kind} is missing, then a list of
+type (\code{kind}) (e.g., "dist", "matrix").
+The result is a vector of character strings with the
+method names that can be used in function \code{seriate()}.
+If \code{kind} is missing, then a list of
 methods is returned.
 
-\code{get_seriation_method()} returns information (including the
-implementing function) about a given method in form of an object of class
-\code{"seriation_method"}.
+\code{get_seriation_method()} returns detailed information for a given method in
+form of an object of class \code{"seriation_method"}.
+The information includes a description, parameters and the
+implementing function.
 
 With \code{set_seriation_method()} new seriation methods can be added by the
 user. The implementing function (\code{definition}) needs to have the formal
