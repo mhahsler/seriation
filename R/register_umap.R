@@ -48,6 +48,7 @@
 #' pimage(d, o)
 #' }
 #'
+#' @export
 register_umap <- function() {
   check_installed("umap")
 

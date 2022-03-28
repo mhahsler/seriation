@@ -1,4 +1,10 @@
-# seriation 1.3.3-1 (x/x/2022)
+
+# seriation 1.3.4.1 (xx/xx/2022)
+
+## Bigfixes
+* added register functions back to export (reported by thomasp85).
+
+# seriation 1.3.4 (3/16/2022)
 
 ## Bigfixes
 * fixed length calculation in optimal.c

@@ -52,6 +52,7 @@
 #' pimage(d, o)
 #' }
 #'
+#' @export
 register_tsne <- function() {
   check_installed("Rtsne")
 

@@ -48,6 +48,7 @@
 #' pimage(d, o)
 #' }
 #'
+#' @export
 register_optics <- function() {
   check_installed("dbscan")
 

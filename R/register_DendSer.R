@@ -72,6 +72,7 @@
 #' pimage(d, o)
 #' }
 #'
+#' @export
 register_DendSer <- function() {
   check_installed("DendSer")
 
