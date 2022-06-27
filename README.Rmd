@@ -1,0 +1,96 @@
+---
+output: github_document
+---
+
+```{r echo=FALSE, results = 'asis'}
+pkg <- 'seriation'
+
+source("https://raw.githubusercontent.com/mhahsler/pkg_helpers/main/pkg_helpers.R")
+pkg_title(pkg)
+```
+
+
+This package provides the infrastructure for ordering objects 
+with an implementation of several
+[seriation](https://en.wikipedia.org/wiki/Seriation_(archaeology))/sequencing/[ordination](https://en.wikipedia.org/wiki/Ordination_(statistics)) techniques to reorder matrices, dissimilarity
+matrices, and dendrograms (see below for a full list). Also provides (optimally) reordered heatmaps, 
+color images and clustering visualizations like dissimilarity plots, and
+visual assessment of cluster tendency plots (VAT and iVAT).
+
+## Available Seriation Method
+
+The following methods are available for dissimilarity data:
+
+ *  **ARSA** - Simulated annealing (linear seriation)   
+ *  **Branch-and-bound** to minimize the unweighted/weighted column gradient 
+ *  **DendSer** - Dendrogram seriation heuristic to optimize various criteria
+ *  **GA** - Genetic algorithm with warm start to optimize various criteria
+ *  **GW** - Hierarchical clustering reordered by Gruvaeus and Wainer heuristic 
+ *  **HC** - Hierarchical clustering (single link, avg. link, complete link) 
+ *  **Identity** permutation 
+ *  **MDS** - Multidimensional scaling (metric, non-metric, angle) 
+ *  **OLO** - Hierarchical clustering with optimal leaf ordering 
+ *  **OPTICS** - Ordering points to identify the clustering structure.
+ *  **QAP** - Quadratic assignment problem heuristic (2-SUM, linear seriation, inertia, banded anti-Robinson form)
+ *  **R2E** - Rank-two ellipse seriation 
+ *  **Random** permutation
+ *  **Spectral** seriation (unnormalized, normalized) 
+ *  **SPIN** - Sorting points into neighborhoods (neighborhood algorithm, side-to-site algorithm)
+ *  **TSP** - Traveling sales person solver to minimize the Hamiltonian path length 
+ *  **TSNE** - Order of the 1D t-distributed stochastic neighbor embedding (t-SNE)
+ *  **UMAP** - Order of the 1D embedding produced by uniform manifold approximation and projection
+ *  **VAT** - Order of the visual assessment of clustering tendency ordering 
+  
+A detailed comparison of the methods is available in the paper 
+[An experimental comparison of seriation methods for one-mode two-way data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) (read the [preprint](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf)).
+  
+  
+The following methods are available for matrices:
+
+ *  **BEA** - Bond Energy Algorithm to maximize the measure of effectiveness (ME) 
+ *  **Identity** permutation 
+ *  **PCA** - First principal component or angle on the projection on the first two principal components 
+ *  **Random** permutation 
+ *  **TSP** - Traveling sales person solver to maximize ME 
+
+
+```{r echo=FALSE, results = 'asis'}
+pkg_install(pkg)
+```
+
+## Usage
+
+Load library, read data and calculate distances. Then use default seriation.
+```{r}
+library(seriation)
+data("iris")
+x <- as.matrix(iris[-5])
+x <- x[sample(1:nrow(x)),]
+
+d <- dist(x)
+order <- seriate(d)
+order
+```
+```{r seriation}
+pimage(d, main = "random")
+pimage(d, order, main = "reordered")
+```
+
+
+
+Compare quality.
+```{r}
+rbind(
+ random = criterion(d),
+ reordered = criterion(d, order)
+)
+```
+
+
+## References
+
+* Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things in Order: An Introduction to the R Package seriation,](http://dx.doi.org/10.18637/jss.v025.i03) _Journal of Statistical Software,_ 25(3), 2008.
+* Michael Hahsler. [An experimental comparison of seriation methods for one-mode two-way data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) _European Journal of Operational Research,_ 257:133-143, 2017. (read the [preprint](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf))
+* [Reference manual for package seriation.](https://www.rdocumentation.org/packages/seriation/)
+* [Seriation package vignette](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf) with complete examples.
+
