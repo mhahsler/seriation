@@ -88,11 +88,35 @@ seriation.
 
 ``` r
 library(seriation)
-data("iris")
-x <- as.matrix(iris[-5])
-x <- x[sample(1:nrow(x)), ]
+data("SupremeCourt")
 
-d <- dist(x)
+# joint probability of disagreement
+SupremeCourt
+```
+
+    ##           Breyer Ginsburg Kennedy OConnor Rehnquist Scalia Souter Stevens
+    ## Breyer      0.00    0.120    0.25    0.21      0.30  0.353  0.118    0.16
+    ## Ginsburg    0.12    0.000    0.27    0.25      0.31  0.370  0.096    0.15
+    ## Kennedy     0.25    0.267    0.00    0.16      0.12  0.188  0.248    0.33
+    ## OConnor     0.21    0.252    0.16    0.00      0.16  0.207  0.220    0.33
+    ## Rehnquist   0.30    0.308    0.12    0.16      0.00  0.143  0.293    0.40
+    ## Scalia      0.35    0.370    0.19    0.21      0.14  0.000  0.338    0.44
+    ## Souter      0.12    0.096    0.25    0.22      0.29  0.338  0.000    0.17
+    ## Stevens     0.16    0.145    0.33    0.33      0.40  0.438  0.169    0.00
+    ## Thomas      0.36    0.368    0.18    0.21      0.14  0.066  0.331    0.44
+    ##           Thomas
+    ## Breyer     0.359
+    ## Ginsburg   0.368
+    ## Kennedy    0.177
+    ## OConnor    0.205
+    ## Rehnquist  0.137
+    ## Scalia     0.066
+    ## Souter     0.331
+    ## Stevens    0.436
+    ## Thomas     0.000
+
+``` r
+d <- as.dist(SupremeCourt)
 order <- seriate(d)
 order
 ```
@@ -101,35 +125,30 @@ order
     ## contains permutation vectors for 1-mode data
     ## 
     ##   vector length seriation method
-    ## 1           150         Spectral
+    ## 1             9         Spectral
 
 ``` r
-pimage(d, main = "random")
+pimage(d, diag = TRUE, upper = TRUE, main = "judges in original alphabetical order")
+pimage(d, order, diag = TRUE, upper = TRUE, main = "judges reordered by seriation")
 ```
 
-![](inst/README_files/seriation-1.png)<!-- -->
-
-``` r
-pimage(d, order, main = "reordered")
-```
-
-![](inst/README_files/seriation-2.png)<!-- -->
+<img src="inst/README_files/seriation-1.png" width="50%" /><img src="inst/README_files/seriation-2.png" width="50%" />
 
 Compare quality.
 
 ``` r
-rbind(random = criterion(d), reordered = criterion(d, order))
+rbind(alphabetical = criterion(d), seriated = criterion(d, order))
 ```
 
-    ##              2SUM AR_deviations AR_events    BAR Cor_R Gradient_raw
-    ## random    3.0e+07        940286    547092 165667 0.012         7828
-    ## reordered 1.8e+07          9887     54924  56610 0.372       992058
-    ##           Gradient_weighted Inertia Lazy_path_length Least_squares      LS   ME
-    ## random                13138 2.2e+08            29897       7.9e+07 5659558 5741
-    ## reordered           1771427 3.6e+08             6706       7.6e+07 4487365 7254
-    ##           Moore_stress Neumann_stress Path_length RGAR
-    ## random           12184           6506         402 0.50
-    ## reordered         1112            539          91 0.05
+    ##              2SUM AR_deviations AR_events BAR Cor_R Gradient_raw
+    ## alphabetical  872        10.304        80 1.8 0.024            8
+    ## seriated      811         0.064         5 1.1 0.085          158
+    ##              Gradient_weighted Inertia Lazy_path_length Least_squares LS  ME
+    ## alphabetical              0.54     267              6.9           967 99  99
+    ## seriated                 19.76     364              4.6           942 86 101
+    ##              Moore_stress Neumann_stress Path_length RGAR
+    ## alphabetical          7.0            3.9         1.8 0.48
+    ## seriated              2.5            1.3         1.1 0.03
 
 ## References
 
@@ -144,6 +163,3 @@ rbind(random = criterion(d), reordered = criterion(d, order))
     [preprint](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf))
 -   [Reference manual for package
     seriation.](https://www.rdocumentation.org/packages/seriation/)
--   [Seriation package
-    vignette](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf)
-    with complete examples.

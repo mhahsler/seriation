@@ -23,8 +23,10 @@
 #' d <- as.dist(SupremeCourt)
 #' o <- seriate(d)
 #'
-#' pimage(d, o)
+#' # judges in original alphabetical order
+#' pimage(d, diag = TRUE, upper = TRUE)
 #'
-#' plot(hclust(as.dist(SupremeCourt)))
+#' # judges reordered by seriation based on similar decisions
+#' pimage(d, o, diag = TRUE, upper = TRUE)
 #' @keywords datasets
 NULL
