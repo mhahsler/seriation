@@ -45,6 +45,7 @@ seriate.dist <-
         method$description, "\n\n", sep = "")
 
     order <- method$fun(x, control = control)
+    names(order) <- attr(x, "Labels")
 
     ser_permutation(ser_permutation_vector(order, method = method$name))
   }

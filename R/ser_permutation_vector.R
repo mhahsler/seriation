@@ -94,7 +94,8 @@ ser_permutation_vector <- function(x, method = NULL) {
     x <- NA_integer_
     attr(x, "method") <- "identity permutation"
   } else if (is.numeric(x)) {
-    x <- as.integer(x)
+    #x <- as.integer(x)
+    storage.mode(x) <- "integer"
   } else if (inherits(x, "ser_permutation") && length(x) == 1) {
     x <- x[[1]]
   } else {

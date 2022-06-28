@@ -1,4 +1,4 @@
-# seriation 1.3.5 (03/28/2022)
+# seriation 1.3.5-1 (xx/xx/2022)
 
 ## Bigfixes
 * added register functions back to export (reported by thomasp85).

@@ -18,6 +18,7 @@
 #' @examples
 #' data("SupremeCourt")
 #'
+#' # joint probability of disagreement
 #' SupremeCourt
 #'
 #' d <- as.dist(SupremeCourt)
@@ -28,5 +29,7 @@
 #'
 #' # judges reordered by seriation based on similar decisions
 #' pimage(d, o, diag = TRUE, upper = TRUE)
+#'
+#' labels(o[[1]])
 #' @keywords datasets
 NULL
