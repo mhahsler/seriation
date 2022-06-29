@@ -23,6 +23,7 @@
 #'
 #' d <- as.dist(SupremeCourt)
 #' o <- seriate(d)
+#' o
 #'
 #' # judges in original alphabetical order
 #' pimage(d, diag = TRUE, upper = TRUE)
@@ -30,6 +31,11 @@
 #' # judges reordered by seriation based on similar decisions
 #' pimage(d, o, diag = TRUE, upper = TRUE)
 #'
-#' labels(o[[1]])
+#' # Use optimal leaf ordering (hierarchical clustering with reordering)
+#' # which uses a dendrogram
+#' o <- seriate(d, method = "OLO")
+#' o
+#'
+#' plot(o[[1]])
 #' @keywords datasets
 NULL
