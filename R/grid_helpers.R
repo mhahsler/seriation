@@ -272,7 +272,8 @@
       y = 0.5,
       default.units = "native"
     )
-    return(upViewport(1))
+    upViewport(1)
+    return()
   }
 
   if (horizontal)

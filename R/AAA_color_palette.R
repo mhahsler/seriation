@@ -181,9 +181,9 @@ grays <- greys
 
 .gg_diverge_pal <- function()
   ggplot2::scale_fill_gradient2(
-    low = scales::muted("red"),
+    low = scales::muted("blue"),
     mid = "white",
-    high = scales::muted("blue"),
+    high = scales::muted("red"),
     na.value = "white",
     midpoint = 0
   )
