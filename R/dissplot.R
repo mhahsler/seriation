@@ -330,19 +330,19 @@ dissplot <- function(x,
 
 
     ## set everything to NULL first
-    order               <- NULL
-    k                   <- NULL             # number of clusters
-    sil                 <- NULL
-    avgSil              <- NULL
-    labels_unique       <- NULL
+    order                   <- NULL
+    k                       <- NULL             # number of clusters
+    sil                     <- NULL
+    avgSil                  <- NULL
+    labels_unique           <- NULL
     cluster_dissimilarities <- NULL
     ## method$a means method$ aggregation (default is avg)
     aggregation	<- "avg"
-    if (class(method) == "list" &&
+    if (is.list(method) &&
         !is.null(method$a))
       aggregation <- method$a
 
-    if (class(method) != "list")
+    if (!is.list(method))
       method <-
       list(inter_cluster = m, intra_cluster = m)
     m <-
@@ -353,7 +353,7 @@ dissplot <- function(x,
     names(method) <-
       c("inter_cluster", "intra_cluster", "aggregation")[m]
 
-    if (class(control[[1]]) != "list") {
+    if (!is.list(control[[1]])) {
       control <- list(inter_cluster = control, intra_cluster = control)
     }
 
@@ -975,7 +975,7 @@ print.reordered_cluster_dissimilarity_matrix <-
     else
       stop("Unknown method.")
 
-    if (class(x) != "matrix")
+    if (!is.matrix(x))
       x <- as.matrix(x)
 
 
