@@ -21,16 +21,13 @@ data("Townships")
 pimage(Townships)
 criterion(Townships)
 
-
 ## seriated data
 order <- seriate(Townships, method = "BEA", control = list(rep = 5))
 pimage(Townships, order)
 criterion(Townships, order)
 }
 \references{
-\preformatted{Bertin, J. (1981): \\emph\{Graphics and Graphic Information Processing\}.
-  Berlin, Walter de Gruyter.
-}
+Bertin, J. (1981): \emph{Graphics and Graphic Information Processing}. Berlin, Walter de Gruyter.
 }
 \author{
 Michael Hahsler
