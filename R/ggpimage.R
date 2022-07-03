@@ -25,6 +25,7 @@
 #' @export
 ggpimage <- function(x,
   order = NULL,
+  zlim = NULL,
   upper_tri = TRUE,
   lower_tri = TRUE,
   diag = TRUE,
@@ -35,11 +36,13 @@ ggpimage <- function(x,
   reverse_columns = FALSE)
   UseMethod("ggpimage")
 
+
 ### Note for matrix large values are dark, for dist large values are light!
 #' @rdname pimage
 #' @export
 ggpimage.matrix <- function(x,
   order = NULL,
+  zlim = NULL,
   upper_tri = TRUE,
   lower_tri = TRUE,
   diag = TRUE,
@@ -94,6 +97,7 @@ ggpimage.matrix <- function(x,
   g <-
     .ggpimage_empty(
       x,
+      zlim = zlim,
       row_labels = row_labels,
       col_labels = col_labels,
       prop = prop,
@@ -101,14 +105,59 @@ ggpimage.matrix <- function(x,
     )
 
   g <- g + ggplot2::geom_raster(ggplot2::aes(fill = x))
-
   g
-
 }
 
+ggpimage.default <- ggpimage.matrix
+
+## small values are dark
+#' @rdname pimage
+#' @export
+ggpimage.dist <-
+  function(x,
+    order = NULL,
+    zlim = NULL,
+    upper_tri = FALSE,
+    lower_tri = TRUE,
+    diag = FALSE,
+    row_labels = NULL,
+    col_labels = NULL,
+    prop = TRUE,
+    flip_axes = FALSE,
+    reverse_columns = FALSE) {
+    check_installed("ggplot2")
+
+    # reorder specific for dist (we have only a single permutation)
+    if (!is.null(order))
+      x <- permute(x, order)
+
+    if (flip_axes)
+      warning("flipping axes has no effect for distance matrices.")
+
+    g <- ggpimage.matrix(
+      as.matrix(x),
+      order = NULL,
+      zlim = zlim,
+      upper_tri,
+      lower_tri,
+      diag,
+      row_labels,
+      col_labels,
+      prop = prop,
+      flip_axes = FALSE,
+      reverse_columns = reverse_columns
+    )
+
+    # reverse color for dist
+    suppressMessages(g <-
+        g + .gg_sequential_pal(dist = TRUE, limits = zlim))
+
+    g
+  }
 
 ### Note for matrix large values are dark, for dist large values are light!
 .ggpimage_empty <- function(x,
+  zlim = NULL,
   row_labels = NULL,
   col_labels = NULL,
   prop = TRUE,
@@ -212,7 +261,7 @@ ggpimage.matrix <- function(x,
   if (prop)
     g <- g + ggplot2::theme(aspect.ratio = nrow(x) / ncol(x))
 
-  # colors scales
+  # colors scalesi
   if (is.logical(x)) {
     g <-
       g + .gg_logical_pal()
@@ -220,58 +269,14 @@ ggpimage.matrix <- function(x,
     # colors for diverging
   } else if (any(x < 0, na.rm = TRUE) && any(x > 0, na.rm = TRUE)) {
     g <-
-      g + .gg_diverge_pal()
+      g + .gg_diverge_pal(limits = zlim)
 
   } else {
     g <-
-      g + .gg_sequential_pal()
+      g + .gg_sequential_pal(limits = zlim)
   }
 
   g
 }
 
 
-ggpimage.default <- ggpimage.matrix
-
-## small values are dark
-#' @rdname pimage
-#' @export
-ggpimage.dist <-
-  function(x,
-    order = NULL,
-    upper_tri = FALSE,
-    lower_tri = TRUE,
-    diag = FALSE,
-    row_labels = NULL,
-    col_labels = NULL,
-    prop = TRUE,
-    flip_axes = FALSE,
-    reverse_columns = FALSE) {
-    check_installed("ggplot2")
-
-    # reorder specific for dist (we have only a single permutation)
-    if (!is.null(order))
-      x <- permute(x, order)
-
-    if (flip_axes)
-      warning("flipping axes has no effect for distance matrices.")
-
-    g <- ggpimage.matrix(
-      as.matrix(x),
-      order = NULL,
-      upper_tri,
-      lower_tri,
-      diag,
-      row_labels,
-      col_labels,
-      prop = prop,
-      flip_axes = FALSE,
-      reverse_columns = reverse_columns
-    )
-
-    # reverse color for dist
-    suppressMessages(g <-
-        g + .gg_sequential_pal(dist = TRUE))
-
-    g
-  }

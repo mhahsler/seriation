@@ -128,12 +128,10 @@
 #'   main = "Random Data (Distances + Theshold)", zlim = c(0, 4))
 #'
 #' ## Example: Correlation Matrix
-#' # we calculate correlation between rows and hide the first row and last column
-#' # we hide the first row and last column
+#' # we calculate correlation between rows and seriate the matrix
 #' r <- cor(t(x))
 #' r <- permute(r, seriate(r))
-#' r <- r[-1, -ncol(r)]
-#' pimage(r, upper = FALSE, diag = TRUE, zlim = c(-1, 1),
+#' pimage(r, upper = FALSE, diag = FALSE, zlim = c(-1, 1), reverse_columns = TRUE,
 #'   main = "Random Data (Correlation)")
 #'
 #' # Add to the plot using functions in package grid
@@ -239,17 +237,15 @@
 #'   labs(title = "Random Data", subtitle = "Distances")
 #'
 #' # Show only distances that are smaller than 4 using limits on fill.
-#' ggpimage(d,  order = seriate(d)) +
-#'   labs(title = "Random Data (Distances + Theshold)") +
-#'   scale_fill_gradient(low = "darkblue", high = "lightgray",
-#'     limit = c(0, 4), na.value = "white")
+#' ggpimage(d,  order = seriate(d), zlim = c(0, 4)) +
+#'   labs(title = "Random Data (Distances + Theshold)")
 #'
 #' ## Example: Correlation Matrix
-#' # we calculate correlation between rows and hide the first row and last column
+#' # we calculate correlation between rows and seriate the matrix
 #' r <- cor(t(x))
 #' r <- permute(r, seriate(r))
-#' r <- r[-1, -ncol(r)]
-#' ggpimage(r,  upper = FALSE) +
+#' ggpimage(r,  zlim = c(-1, 1), upper = FALSE, diag = FALSE, reverse_columns = TRUE) +
+#'   geom_text(aes(x = col, y = row, label = round(x, 2)), color = "black", size = 4) +
 #'   labs(title = "Random Data", subtitle = "Correlation")
 #'
 #' ## Example: Custom themes and colors

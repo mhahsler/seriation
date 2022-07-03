@@ -3,7 +3,10 @@
 ## Bigfixes
 * added register functions back to export (reported by thomasp85).
 * fixed viewports for pimage with colorkey.
-* fixed ggplot diverging color pallete direction.
+* fixed ggplot diverging color palette direction.
+
+## New Features
+* ggpimage has now a zlim parameter.
 
 # seriation 1.3.4 (3/16/2022)
 

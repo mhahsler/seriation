@@ -16,20 +16,31 @@ the joint probability for disagreement between judges.
 \examples{
 data("SupremeCourt")
 
+# joint probability of disagreement
 SupremeCourt
 
 d <- as.dist(SupremeCourt)
 o <- seriate(d)
+o
 
-pimage(d, o)
+# judges in original alphabetical order
+pimage(d, diag = TRUE, upper = TRUE)
 
-plot(hclust(as.dist(SupremeCourt)))
+# judges reordered by seriation based on similar decisions
+pimage(d, o, diag = TRUE, upper = TRUE)
+
+# Use optimal leaf ordering (hierarchical clustering with reordering)
+# which uses a dendrogram
+o <- seriate(d, method = "OLO")
+o
+
+plot(o[[1]])
 }
 \references{
-\preformatted{Sirovich, L. (2003). A pattern analysis of the second Rehnquist
+\if{html}{\out{<div class="sourceCode">}}\preformatted{Sirovich, L. (2003). A pattern analysis of the second Rehnquist
 U.S. Supreme Court. \\emph\{Proceedings of the National Academy of Sciences of the United
 States of America,\} 100, 7432-7437. \doi{10.1073/pnas.1132164100}
-}
+}\if{html}{\out{</div>}}
 }
 \author{
 Michael Hahsler

@@ -16,8 +16,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# library(colorspace)
-
 #' Different Useful Color Palettes
 #'
 #' Defines several color palettes for [pimage()], [dissplot()] and
@@ -168,22 +166,25 @@ grays <- greys
 .gg_logical_pal <- function()
   ggplot2::scale_fill_manual(values = c("white", "black"), na.value = "white")
 
-.gg_sequential_pal <- function(dist = FALSE) {
+.gg_sequential_pal <- function(dist = FALSE, limits = NULL) {
   if (dist)
     ggplot2::scale_fill_gradient(low = scales::muted("blue"),
       high = "white",
-      na.value = "white")
+      na.value = "white",
+      limits = limits)
   else
     ggplot2::scale_fill_gradient(low = "white",
       high = scales::muted("blue"),
-      na.value = "white")
+      na.value = "white",
+      limits = limits)
 }
 
-.gg_diverge_pal <- function()
+.gg_diverge_pal <- function(limits = NULL)
   ggplot2::scale_fill_gradient2(
     low = scales::muted("blue"),
     mid = "white",
     high = scales::muted("red"),
     na.value = "white",
-    midpoint = 0
+    midpoint = 0,
+    limits = limits
   )

@@ -87,6 +87,7 @@ pimage(
 ggpimage(
   x,
   order = NULL,
+  zlim = NULL,
   upper_tri = TRUE,
   lower_tri = TRUE,
   diag = TRUE,
@@ -100,6 +101,7 @@ ggpimage(
 \method{ggpimage}{matrix}(
   x,
   order = NULL,
+  zlim = NULL,
   upper_tri = TRUE,
   lower_tri = TRUE,
   diag = TRUE,
@@ -113,6 +115,7 @@ ggpimage(
 \method{ggpimage}{dist}(
   x,
   order = NULL,
+  zlim = NULL,
   upper_tri = FALSE,
   lower_tri = TRUE,
   diag = FALSE,
@@ -202,7 +205,7 @@ and other visual aspects can be added using standard ggplot2 functions
 (\code{labs}, \code{scale_fill_continuous}, \code{labs}, etc.).
 }
 \examples{
-
+## Example: Logical Matrix
 x <- matrix(sample(c(FALSE, TRUE), 300, rep = TRUE), ncol = 10,
   dimnames = list(1:30, LETTERS[1:10]))
 
@@ -218,115 +221,167 @@ pimage(x, row_labels = TRUE, col_labels = TRUE, reverse_columns = TRUE)
 pimage(x, order = seriate(x), row_labels = TRUE, col_labels = TRUE,
   col = c("white", "red"), main = "Random Data (Reordered)")
 
+## Example: Positive Matrix
+x <- matrix(runif(100), ncol = 10,
+  dimnames = list(LETTERS[1:10], paste0("X", 1:10)))
+
+pimage(x)
+
+## Example: Pos/Neg. Matrix
+x <- matrix(rnorm(100), ncol = 10,
+  dimnames = list(LETTERS[1:10], paste0("X", 1:10)))
+
+pimage(x)
+
+## Example: Distance Matrix
 # Show a reordered distance matrix (distances between rows).
 # Dark means low distance. The aspect ratio is automatically fixed to 1:1.
 # The upper triangle is suppressed triangle
-d <- dist(x, method = "binary")
+d <- dist(x)
 pimage(d,  order = seriate(d),
   main = "Random Data (Distances)")
 
-# Show only distances that are smaller than .5 using limits on z.
-pimage(d,  order = seriate(d),
-  main = "Random Data (Distances + Theshold)", zlim = c(0, .5))
+# Show only distances that are smaller than 4 using limits on z.
+pimage(d, order = seriate(d),
+  main = "Random Data (Distances + Theshold)", zlim = c(0, 4))
+
+## Example: Correlation Matrix
+# we calculate correlation between rows and seriate the matrix
+r <- cor(t(x))
+r <- permute(r, seriate(r))
+pimage(r, upper = FALSE, diag = FALSE, zlim = c(-1, 1), reverse_columns = TRUE,
+  main = "Random Data (Correlation)")
 
 # Add to the plot using functions in package grid
+# Note: pop = FALSE allows us to manipulate viewports
 library("grid")
-pimage(x, pop = FALSE)           ### pop = FALSE allows us to manipulate viewports
-downViewport(name = "image")
+pimage(x, pop = FALSE)
+
+# available viewports are: "main", "colorkey", "plot", "image"
+current.vpTree()
 
 # Highlight cell column 7 (G) / row 5 (from top)/col with a red arrow starting at 5/2
 # Note: columns are x and rows are y.
+downViewport(name = "image")
 grid.lines(x = c(5, 7), y = c(2, 5), arrow = arrow(),
   default.units = "native", gp = gpar(col = "red", lwd = 3))
 
 # add a red box around rows 15 and 16
-grid.rect(x = 0.5, y = 15.5, width = ncol(x), height = 2,
+grid.rect(x = 0.5, y = 5.5, width = ncol(x), height = 2,
   just = "left",
   default.units = "native", gp = gpar(col = "red", lwd = 3, fill = NA))
 
 ## remove the viewports
 popViewport(0)
 
-## put several pimages on a page (uses viewports and newpage = FALSE)
+## put several pimages on a page (use grid viewports and newpage = FALSE)
+# set up grid layout
 library(grid)
 grid.newpage()
-pushViewport(viewport(layout = grid.layout(nrow = 1, ncol = 2,
-  widths = unit(c(.4, .6), unit = "npc"))))
-pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+top_vp <- viewport(layout = grid.layout(nrow = 1, ncol = 2,
+  widths = unit(c(.4, .6), unit = "npc")))
+col1_vp <- viewport(layout.pos.row = 1, layout.pos.col = 1, name = "col1_vp")
+col2_vp <- viewport(layout.pos.row = 1, layout.pos.col = 2, name = "col2_vp")
+splot <- vpTree(top_vp, vpList(col1_vp, col2_vp))
+pushViewport(splot)
 
-## seriate matrix
+seekViewport("col1_vp")
 o <- seriate(x)
 pimage(x, o, labCol = FALSE, main = "Random Data",
   newpage = FALSE)
 
-upViewport(1)
-pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
-
+seekViewport("col2_vp")
 ## add the reordered dissimilarity matrix for rows
 d <- dist(x)
-pimage(d, o[[1]], main = "Distances",
+pimage(d, o[[1]], labCol = FALSE, main = "Random Data",
   newpage = FALSE)
 
-upViewport(1)
 popViewport(0)
 
+##-------------------------------------------------------------
 ## ggplot2 Examples
 if (require("ggplot2")) {
-  x <- matrix(sample(c(FALSE, TRUE), 300, rep = TRUE), ncol = 10,
-    dimnames = list(1:30, LETTERS[1:10]))
 
-  # Matrix for logical values. TRUE values are dark. There are too many
-  # Row labels (>25) so they are suppressed.
-  ggpimage(x)
+library("ggplot2")
 
-  # Show all labels and flip axes or reverse columns
-  ggpimage(x, flip_axes = TRUE, row_labels = TRUE, col_labels = TRUE)
-  ggpimage(x, reverse_columns = TRUE, row_labels = TRUE, col_labels = TRUE)
+## Example: Logical Matrix
+x <- matrix(sample(c(FALSE, TRUE), 300, rep = TRUE), ncol = 10,
+  dimnames = list(1:30, LETTERS[1:10]))
 
-  # Add lines
-  ggpimage(x) +
-    geom_hline(yintercept = seq(0, nrow(x)) + .5) +
-    geom_vline(xintercept = seq(0, ncol(x)) + .5)
+# Matrix for logical values. TRUE values are dark. There are too many
+# Row labels (>25) so they are suppressed.
+ggpimage(x)
 
-  # Reorder matrix, use custom colors, add a title,
-  # and hide colorkey.
-  ggpimage(x, order = seriate(x), row_labels = TRUE, col_labels = TRUE) +
-    scale_fill_manual(values = c("grey90", "red")) +
-    theme(legend.position = "none") +
-    labs(title = "Random Data")
+# Show all labels and flip axes or reverse columns
+ggpimage(x, flip_axes = TRUE, row_labels = TRUE, col_labels = TRUE)
+ggpimage(x, reverse_columns = TRUE, row_labels = TRUE, col_labels = TRUE)
 
+# Add lines
+ggpimage(x) +
+  geom_hline(yintercept = seq(0, nrow(x)) + .5) +
+  geom_vline(xintercept = seq(0, ncol(x)) + .5)
 
-  # Show a reordered distance matrix (distances between rows).
-  # Dark means low distance.
-  d <- dist(x, method = "binary")
-  ggpimage(d, order = seriate(d)) +
-    labs(title = "Random Data", subtitle = "Distances")
+# Reorder matrix, use custom colors, add a title,
+# and hide colorkey.
+ggpimage(x, order = seriate(x), row_labels = TRUE, col_labels = TRUE) +
+  scale_fill_manual(values = c("grey90", "red")) +
+  theme(legend.position = "none") +
+  labs(title = "Random Data")
 
-  # Show also upper triangle
-  ggpimage(d, order = seriate(d), upper_tri = TRUE) +
-    labs(title = "Random Data", subtitle = "Distances")
+## Example: Positive Matrix
+x <- matrix(runif(100), ncol = 10,
+  dimnames = list(LETTERS[1:10], paste0("X", 1:10)))
 
-  # Show only distances that are smaller than .5 using limits on fill.
-  ggpimage(d,  order = seriate(d)) +
-    labs(title = "Random Data (Distances + Theshold)") +
-    scale_fill_gradient(low = "darkblue", high = "lightgray",
-      limit = c(0, .5), na.value = "white")
+ggpimage(x, order = seriate(x)) +
+  labs(title = "Random Data")
 
-  # Use ggplot2 themes with theme_set
-  old_theme <- theme_set(theme_linedraw())
-  ggpimage(d, order = seriate(d)) +
-    labs(title = "Random Data (Distances)")
-  theme_set(old_theme)
+#' ## Example: Pos/Neg. Matrix
+x <- matrix(rnorm(100), ncol = 10,
+  dimnames = list(LETTERS[1:10], paste0("X", 1:10)))
 
-  # Use custom color palettes: Gray scale, Colorbrewer (provided in ggplot2) and colorspace
-  ggpimage(d, order = seriate(d), upper_tri = FALSE) +
-    scale_fill_gradient(low = "black", high = "white", na.value = "white")
+ggpimage(x, order = seriate(x)) +
+  labs(title = "Random Data")
 
-  ggpimage(d, order = seriate(d), upper_tri = FALSE) +
-    scale_fill_distiller(palette = "Spectral", direction = +1, na.value = "white")
+## Example: Distance Matrix
+# Show a reordered distance matrix (distances between rows).
+# Dark means low distance. The aspect ratio is automatically fixed to 1:1.
+# The upper triangle is suppressed triangle
+d <- dist(x)
+ggpimage(d, order = seriate(d)) +
+  labs(title = "Random Data", subtitle = "Distances")
 
-  ggpimage(d, order = seriate(d), upper_tri = FALSE) +
-    colorspace::scale_fill_continuous_sequential("Reds", rev = FALSE, na.value = "white")
+# Show also upper triangle and diagonal
+ggpimage(d, order = seriate(d), upper_tri = TRUE, diag = TRUE) +
+  labs(title = "Random Data", subtitle = "Distances")
+
+# Show only distances that are smaller than 4 using limits on fill.
+ggpimage(d,  order = seriate(d), zlim = c(0, 4)) +
+  labs(title = "Random Data (Distances + Theshold)")
+
+## Example: Correlation Matrix
+# we calculate correlation between rows and seriate the matrix
+r <- cor(t(x))
+r <- permute(r, seriate(r))
+ggpimage(r,  zlim = c(-1, 1), upper = FALSE, diag = FALSE, reverse_columns = TRUE) +
+  geom_text(aes(x = col, y = row, label = round(x, 2)), color = "black", size = 4) +
+  labs(title = "Random Data", subtitle = "Correlation")
+
+## Example: Custom themes and colors
+# Use ggplot2 themes with theme_set
+old_theme <- theme_set(theme_linedraw())
+ggpimage(d, order = seriate(d)) +
+  labs(title = "Random Data (Distances)")
+theme_set(old_theme)
+
+# Use custom color palettes: Gray scale, Colorbrewer (provided in ggplot2) and colorspace
+ggpimage(d, order = seriate(d), upper_tri = FALSE) +
+  scale_fill_gradient(low = "black", high = "white", na.value = "white")
+
+ggpimage(d, order = seriate(d), upper_tri = FALSE) +
+  scale_fill_distiller(palette = "Spectral", direction = +1, na.value = "white")
+
+ggpimage(d, order = seriate(d), upper_tri = FALSE) +
+  colorspace::scale_fill_continuous_sequential("Reds", rev = FALSE, na.value = "white")
 }
 }
 \seealso{
