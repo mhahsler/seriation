@@ -1,5 +1,5 @@
 
-# R package seriation - Infrastructure for Ordering Objects Using Seriation
+# <img src="man/figures/logo.svg" align="right" height="139" /> R package seriation - Infrastructure for Ordering Objects Using Seriation
 
 [![CRAN
 version](http://www.r-pkg.org/badges/version/seriation)](https://CRAN.R-project.org/package=seriation)
