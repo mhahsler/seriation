@@ -23,17 +23,13 @@ seriate.dist <-
     method = "Spectral",
     control = NULL,
     ...) {
-    if (!all(x >= 0))
-      stop("Negative distances not supported!")
 
     ## add ... to control
     control <- c(control, list(...))
 
     ## check x
-    if (any(is.na(x)))
-      stop("NAs not allowed in x!")
-    if (any(x < 0))
-      stop("No negative values allowed in x!")
+    if (anyNA(x)) stop("NAs not allowed in distance matrix x!")
+    if (any(x < 0)) stop("Negative distances not supported!")
 
     if (!is.character(method) || (length(method) != 1L))
       stop("Argument 'method' must be a character string.")
