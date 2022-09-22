@@ -2,7 +2,7 @@
 
 ## Bug Fixes
 
--   seriate.dist now throws correct error upon encountering NAs
+-   seriate.dist now throws correct error upon encountering NAs (by david-barnett)
 
 # seriation 1.3.6 (07/14/2022)
 
