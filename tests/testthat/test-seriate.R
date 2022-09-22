@@ -27,6 +27,16 @@ expect_true(all(sapply(os, length) == nrow(x)))
 # TODO: check labels
 #get_order(os$Identity)
 
+# check seriate errors for bad dist objects
+test_that("negative distances and NAs prompt correct seriate.dist errors", {
+  dNeg <- d
+  dNeg[1] <- -1
+  expect_error(seriate(dNeg), "Negative distances not supported")
+
+  dNA <- d
+  dNA[1] <- NA
+  expect_error(seriate(dNA), "NAs not allowed in distance matrix x")
+})
 
 ### Stress test to find memory access problems with randomized algorithms
 #context("memory stress test")

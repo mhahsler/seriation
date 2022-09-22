@@ -1,3 +1,9 @@
+# seriation (development version)
+
+## Bug Fixes
+
+-   seriate.dist now throws correct error upon encountering NAs
+
 # seriation 1.3.6 (07/14/2022)
 
 ## New Features
