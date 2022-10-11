@@ -1,5 +1,9 @@
 # seriation (development version)
 
+## New Features
+-   added support for tables
+-   added new seriation method CA (correspondence analysis) contributed by Michael Friendly.
+
 ## Bug Fixes
 
 -   seriate.dist now throws correct error upon encountering NAs (by david-barnett)

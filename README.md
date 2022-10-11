@@ -18,7 +18,7 @@ plots, and visual assessment of cluster tendency plots (VAT and iVAT).
 
 ## Available Seriation Method
 
-The following methods are available for dissimilarity data:
+The following methods are available to reorder dissimilarity data:
 
 -   **ARSA** - Simulated annealing (linear seriation)  
 -   **Branch-and-bound** to minimize the unweighted/weighted column
@@ -56,13 +56,17 @@ experimental comparison of seriation methods for one-mode two-way
 data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) (read the
 [preprint](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf)).
 
-The following methods are available for matrices:
+The following methods are available to reorder rows and columns of
+matrices:
 
 -   **BEA** - Bond Energy Algorithm to maximize the measure of
     effectiveness (ME)
+-   **CA** - calculates a correspondence analysis of a matrix of
+    frequencies and reorders according to the scores on a correspondence
+    analysis dimension
 -   **Identity** permutation
--   **PCA** - First principal component or angle on the projection on
-    the first two principal components
+-   **PCA** - orders along the first principal component or angle on the
+    projection on the first two principal components
 -   **Random** permutation
 -   **TSP** - Traveling sales person solver to maximize ME
 

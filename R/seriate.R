@@ -285,6 +285,12 @@
 #'   In \code{control} as element \code{"method"} a TSP solver method can be
 #'   specified (see package \pkg{TSP}).
 #'
+#' - "CA" Correspondence analysis for matrix of frequencies.
+#'
+#'   This function is designed to help simplify a mosaic plot or other displays of a
+#'   matrix of frequencies.  It calculates a correspondence analysis of the matrix and
+#'   an order for rows and columns according to the scores on a correspondence analysis dimension.
+#'
 #' - "Heatmap" Heatmap seriation
 #'
 #'   Calculates distances between

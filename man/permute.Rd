@@ -5,6 +5,7 @@
 \alias{permute.array}
 \alias{permute.matrix}
 \alias{permute.data.frame}
+\alias{permute.table}
 \alias{permute.numeric}
 \alias{permute.character}
 \alias{permute.list}
@@ -20,6 +21,8 @@ permute(x, order, ...)
 \method{permute}{matrix}(x, order, ...)
 
 \method{permute}{data.frame}(x, order, ...)
+
+\method{permute}{table}(x, order, ...)
 
 \method{permute}{numeric}(x, order, ...)
 

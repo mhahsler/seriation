@@ -3,6 +3,7 @@
 \name{pimage}
 \alias{pimage}
 \alias{pimage.matrix}
+\alias{pimage.table}
 \alias{pimage.dist}
 \alias{ggpimage}
 \alias{ggpimage.matrix}
@@ -58,6 +59,8 @@ pimage(
   pop = TRUE,
   gp = NULL
 )
+
+\method{pimage}{table}(x, order = NULL, ...)
 
 \method{pimage}{dist}(
   x,

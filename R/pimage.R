@@ -506,6 +506,16 @@ pimage.matrix <-
 
 pimage.default <- pimage.matrix
 
+
+# as.matrix does not work for table!
+table2matrix <- function(M)
+  matrix(M, ncol = ncol(M), dimnames = dimnames(M))
+
+#' @rdname pimage
+#' @export
+pimage.table <- function(x, order = NULL, ...)
+  pimage.matrix(table2matrix(x), order = order, ...)
+
 ## small values are dark
 #' @rdname pimage
 #' @export

@@ -120,6 +120,11 @@ permute.data.frame <- function(x, order, ...)
 
 #' @rdname permute
 #' @export
+permute.table <- function(x, order, ...)
+  .permute_kd(x, order, ...)
+
+#' @rdname permute
+#' @export
 permute.numeric <- function(x, order, ...)
   .permute_1d(x, order, ...)
 

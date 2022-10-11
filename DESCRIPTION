@@ -10,6 +10,7 @@ Authors@R: c(
 	person("Christian", "Buchta", role = c("aut", "cph")),
 	person("Kurt", "Hornik", role = c("aut", "cph")),
 	person("Fionn", "Murtagh", role = c("ctb", "cph")),
+	person("Michael", "Friendly", role = c("ctb")),
 	person("Michael", "Brusco", role = c("ctb", "cph")),
 	person("Stephanie", "Stahl", role = c("ctb", "cph")),
 	person("Hans-Friedrich", "Koehn", role = c("ctb", "cph")))
@@ -31,6 +32,7 @@ Imports: stats,
   gclus, 
   colorspace, 
   MASS, 
+  ca,
   registry
 Suggests: DendSer, 
   GA,
@@ -42,7 +44,7 @@ Suggests: DendSer,
   ggplot2,
   scales
 Encoding: UTF-8
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
 License: GPL-3
 Copyright: The code in src/bea.f is Copyright (C) 1991 F. Murtagh;
@@ -102,8 +104,10 @@ Collate:
     'seriate.data.frame.R'
     'seriate.dist.R'
     'seriate.matrix.R'
+    'seriate.table.R'
     'seriate_ARSA_Branch-Bound.R'
     'seriate_BEA.R'
+    'seriate_CA.R'
     'seriate_HC.R'
     'seriate_MDS.R'
     'seriate_PCA.R'

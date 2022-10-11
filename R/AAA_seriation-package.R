@@ -14,6 +14,7 @@
 #' @name seriation-package
 #'
 #' @importFrom graphics plot text title
+#' @importFrom ca ca
 #' @importFrom stats reorder as.dist hclust runif rnorm dist order.dendrogram prcomp
 #' @useDynLib seriation, .registration=TRUE
 NULL
