@@ -3,6 +3,8 @@
 ## New Features
 -   added support for tables
 -   added new seriation method CA (correspondence analysis) contributed by Michael Friendly.
+-   permute now accepts more than one margins.
+-   permute now accepts a seriation method instead of order.
 
 ## Bug Fixes
 
