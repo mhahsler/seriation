@@ -21,7 +21,7 @@ seriate(x, ...)
 
 \method{seriate}{matrix}(x, method = "PCA", control = NULL, margin = c(1, 2), ...)
 
-\method{seriate}{table}(x, method = "PCA", control = NULL, margin = c(1, 2), ...)
+\method{seriate}{table}(x, method = "CA", control = NULL, margin = c(1, 2), ...)
 }
 \arguments{
 \item{x}{the data.}
@@ -36,7 +36,8 @@ algorithm.}
 
 \item{margin}{a vector giving the margin indices (dimensions) to be
 seriated. For example, for a matrix, \code{1} indicates rows, \code{2}
-indicates columns, \code{c(1,2)} indicates rows and columns.}
+indicates columns, \code{c(1,2)} indicates rows and columns. Unseriated margins return
+a identity seriation order.}
 }
 \value{
 Returns an object of class \link{ser_permutation}.
@@ -60,7 +61,7 @@ include the measure which is optimized by each method using \strong{bold font}.
 If no measure is mentioned, then the measure does not directly optimize a measure.
 A definition of the measures can be found in the \code{\link[=criterion]{criterion()}} manual page.
 
-\bold{Seriation methods for distance matrices (dist)}
+\strong{Seriation methods for distance matrices (dist)}
 
 One-mode two-way data has to be provided as a dist object (not
 as a symmetric matrix). Similarities have to be transformed into
@@ -69,17 +70,17 @@ more detailed description and an experimental comparison see
 \href{https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf}{Hahsler (2017)}:
 \itemize{
 \item "ARSA" Anti-Robinson seriation by simulated
-annealing to minimize the \bold{linear seriation criterion} (simulated
+annealing to minimize the \strong{linear seriation criterion} (simulated
 annealing initialization used in Brusco et al 2008).
 \item "BBURCG" Anti-Robinson seriation by branch-and-bound to
-minimize the \bold{unweighted gradient measure} (Brusco and Stahl 2005).
+minimize the \strong{unweighted gradient measure} (Brusco and Stahl 2005).
 This is only feasible for a relatively small number of objects.
 \item "BBWRCG" Anti-Robinson seriation by branch-and-bound to
-minimize the \bold{weighted gradient measure} (Brusco and Stahl 2005). This
+minimize the \strong{weighted gradient measure} (Brusco and Stahl 2005). This
 is only feasible for a relatively small number of objects.
 \item "TSP" Traveling salesperson problem solver to minimize the
-\bold{Hamiltonian path length}. The solvers in \pkg{TSP} are used (see
-\code{solve_TSP}). The solver method can be passed on via the \code{control}
+\strong{Hamiltonian path length}. The solvers in \pkg{TSP} are used (see
+\code{\link[TSP:solve_TSP]{TSP::solve_TSP()}}). The solver method can be passed on via the \code{control}
 argument, e.g. \code{control = list(method = "two_opt")}. Default is the est
 of 10 runs of arbitrary insertion heuristic with 2-opt improvement.
 
@@ -108,19 +109,24 @@ point is used.
 \item "MDS", "MDS_metric", "MDS_nonmetric", "MDS_angle" Multidimensional scaling (MDS).
 
 Use multidimensional scaling techniques to find an linear order by
-minimizing \bold{stress}. Note MDS algorithms used for a single dimension
+minimizing \strong{stress}. Note MDS algorithms used for a single dimension
 tend to end up in local optima and unidimensional scaling (see Maier and De
 Leeuw, 2015) would be more appropriate. However, generally, ordering along
 the first component of MDS provides good results.
 
-By default, metric MDS (\code{\link[=cmdscale]{cmdscale()}} in \pkg{stats}) is used. In case of
-of general dissimilarities, non-metric MDS can be used. The choices are
-\code{isoMDS} and \code{sammon} from \pkg{MASS}. The method can be specified
-as the element \code{method} (\code{"cmdscale"}, \code{"isoMDS"} or
-\code{"sammon"}) in \code{control}.
+\code{control} parameters:
+\itemize{
+\item \code{method}: One of \code{"cmdscale"}, \code{"isoMDS"} or \code{"sammon"}. \code{"cmdscale"} performs metric
+MDS using \code{\link[stats:cmdscale]{stats::cmdscale()}}. Non-metric MDS methods \code{"isoMDS"} and \code{"sammon"}
+are preformed using \code{\link[MASS:isoMDS]{MASS::isoMDS()}}.
+}
 
-For convenience, \code{"MDS_metric"} performs \code{\link[=cmdscale]{cmdscale()}} and
-\code{"MDS_nonmetric"} performs \code{\link[=isoMDS]{isoMDS()}}.
+By default, metric MDS is used (\code{\link[stats:cmdscale]{stats::cmdscale()}}). In case of
+of general dissimilarities, non-metric MDS can be used. The method can be specified
+as the element \code{method} (\code{"cmdscale"}, \code{"isoMDS"} or \code{"sammon"}) in \code{control}.
+
+For convenience, seriation methods \code{"MDS_metric"} performs \code{\link[=cmdscale]{cmdscale()}} and
+\code{"MDS_nonmetric"} performs \code{\link[MASS:isoMDS]{MASS::isoMDS()}}.
 
 \code{"MDS_angle"} projects the data on the first two components found by
 MDS and then orders by the angle in this space. The order is split by the
@@ -130,26 +136,26 @@ correlation matrices by Friendly (2002).
 
 Using the order of the leaf nodes in a dendrogram obtained by hierarchical
 clustering can be used as a very simple seriation technique. This method
-applies hierarchical clustering (\code{hclust}) to \code{x}. The clustering
+applies hierarchical clustering (\code{\link[=hclust]{hclust()}}) to \code{x}. The clustering
 method can be given using a \code{"method"} element in the \code{control}
 list. If omitted, the default \code{"average"} is used.
 
 For convenience the other methods are provided as shortcuts.
 \item "GW" Hierarchical clustering (Gruvaeus and Wainer, 1972).
 
-The methods start with a dendrogram created by \code{hclust}. As the
+The methods start with a dendrogram created by \code{\link[=hclust]{hclust()}}. As the
 \code{"method"} element in the \code{control} list a clustering method
-(default \code{"average"}) can be specified. Alternatively, a \code{hclust}
+(default \code{"average"}) can be specified. Alternatively, an \link{hclust}
 object can be supplied using an element named \code{"hclust"}.
 
 A dendrogram (binary tree) has \eqn{2^{n-1}} internal nodes (subtrees) and
 the same number of leaf orderings. That is, at each internal node the left
 and right subtree (or leaves) can be swapped, or, in terms of a dendrogram,
 be flipped. The leaf-node reordering to minimize
-\bold{Hamiltonian path length (restricted)}.
+\strong{Hamiltonian path length (restricted)}.
 
 Method \code{"GW"} uses an algorithm developed by Gruvaeus and Wainer (1972)
-and implemented in package \pkg{gclus} (Hurley 2004).  The clusters are
+as implemented \code{\link[gclus:hclust]{gclus::reorder.hclust()}} (Hurley 2004).  The clusters are
 ordered at each level so that the objects at the edge of each cluster are
 adjacent to that object outside the cluster to which it is nearest. The
 method produces an unique order.
@@ -187,7 +193,7 @@ Note that this is an R implementation repeatedly calling criterion, and
 therefore is relatively slow.
 \item "Spectral", "Spectral_norm" Spectral seriation (Ding and He 2004).
 
-Spectral seriation uses a relaxation to minimize the \bold{2-Sum Problem}
+Spectral seriation uses a relaxation to minimize the \strong{2-Sum Problem}
 (Barnard, Pothen, and Simon, 1993). It uses the order of the Fiedler vector
 of the similarity matrix's (normalized) Laplacian.
 
@@ -223,17 +229,17 @@ are \code{sigma} which can be a single value or a decreasing sequence
 (default: 20 to 1 in 10 steps) and \code{step} which defines how many update
 steps are performed before for each value of \code{alpha}. Via
 \code{W_function} a custom function to create \eqn{W} with the function
-signature \code{function(n, sigma, verbose)} can be specified. The parameter
+signature \verb{function(n, sigma, verbose)} can be specified. The parameter
 \code{verbose} can be used to display progress information.
 \item "QAP_LS", "QAP_2SUM", "QAP_BAR", "QAP_Inertia" Quadratic assignment problem
 formulations for seriation using a simulated annealing solver.
 
 These methods minimize the
-\bold{Linear Seriation Problem} (LS) formulation (Hubert and Schultz 1976),
-the \bold{2-Sum Problem} formulation (Barnard, Pothen, and Simon 1993), the
-\bold{banded anti-Robinson form} (BAR) or the \bold{inertia criterion.}
+\strong{Linear Seriation Problem} (LS) formulation (Hubert and Schultz 1976),
+the \strong{2-Sum Problem} formulation (Barnard, Pothen, and Simon 1993), the
+\strong{banded anti-Robinson form} (BAR) or the \strong{inertia criterion.}
 
-The parameters in \code{control} are passed on to \code{qap} in \pkg{qap}.
+\code{control} parameters are passed on to \code{\link[qap:qap]{qap::qap()}}.
 An important parameter is \code{rep} to return the best result out of the
 given number of repetitions with random restarts. Default is 1, but bigger
 numbers result in better and more stable results.
@@ -250,7 +256,7 @@ detailed description can be found in the manual page for
 \item "Random"  Produces a random permutation.
 }
 
-\bold{Seriation methods for matrices (matrix or data.frame)}
+\strong{Seriation methods for matrices (matrix or data.frame)}
 
 Two-mode two-way data are general matrices.
 Some methods also require that the matrix is positive. Data frames are just a
@@ -265,7 +271,7 @@ following methods are implemented for matrix:
 \itemize{
 \item "BEA" Bond Energy Algorithm (BEA; McCormick 1972).
 
-The algorithm tries to maximize the \bold{Measure of Effectiveness.} of a
+The algorithm tries to maximize the \strong{Measure of Effectiveness.} of a
 non-negative matrix. Due to the definition of this measure, the tasks of
 ordering rows and columns is separable and can be solved independently.
 
@@ -283,18 +289,28 @@ and columns.
 
 The BEA code used in this package was implemented by Fionn Murtagh.
 
-In \code{control} as element \code{"rep"} the number of runs can be
-specified. The results of the best run will be returned.
-\item "BEA_TSP" Use a TSP to optimize the \bold{Measure of
-Effectiveness} (Lenstra 1974).
+\code{control} parameter:
+\itemize{
+\item \code{"rep"}: the number of runs can be specified.
+The results of the best run will be returned.
+}
+\item "BEA_TSP" Use a TSP to optimize the \strong{Measure of Effectiveness} (Lenstra 1974).
 
-In \code{control} as element \code{"method"} a TSP solver method can be
-specified (see package \pkg{TSP}).
-\item "CA" Correspondence analysis for matrix of frequencies.
+\code{control} parameter:
+\itemize{
+\item \code{"method"}: a TSP solver method (see \code{\link[TSP:solve_TSP]{TSP::solve_TSP()}}).
+}
+\item "CA" Correspondence analysis for a table/matrix of frequencies.
 
 This function is designed to help simplify a mosaic plot or other displays of a
 matrix of frequencies.  It calculates a correspondence analysis of the matrix and
 an order for rows and columns according to the scores on a correspondence analysis dimension.
+
+\code{control} parameters:
+\itemize{
+\item \code{"dim"}: CA dimension used for reordering.
+\item \code{"ca_param"}: List with parameters for the call to \code{\link[ca:ca]{ca::ca()}}.
+}
 \item "Heatmap" Heatmap seriation
 
 Calculates distances between

@@ -107,7 +107,7 @@ d
 
 permute(d, ser_permutation(c(3,2,1,4,5)))
 
-permute(s, "Spectral")
+permute(d, "Spectral")
 
 # Permute a list
 l <- list(a=1:5, b=letters[1:3], c=0)

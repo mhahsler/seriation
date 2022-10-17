@@ -1,6 +1,9 @@
 # seriation (development version)
 
 ## New Features
+-   seriate for arrays (including matrices) now returns a complete ser_permutation for all
+    dimensions even if margins are specified. For not specified margins, identity permutations
+    are returned.
 -   added support for tables
 -   added new seriation method CA (correspondence analysis) contributed by Michael Friendly.
 -   permute now accepts more than one margins.

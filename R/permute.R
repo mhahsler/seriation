@@ -237,15 +237,6 @@ permute.hclust <- function(x, order, ...) {
     stop("some permutation vectors do not fit dimension of data")
 }
 
-.create_identity_permutation <- function(x)
-  do.call(ser_permutation,
-    lapply(
-      seq(ndim(x)),
-      FUN = function(i)
-        ser_permutation_vector(NA)
-    ))
-
-
 .permute_kd <- function(x, order, margin = NULL, ...) {
 
   # DEPRECATED: Compatibility with old permutation for data.frame
@@ -279,7 +270,7 @@ permute.hclust <- function(x, order, ...) {
     )
 
   # set margins not to be permuted to identity and copy the rest
-  o <- .create_identity_permutation(x)
+  o <- seriate(x, method = "identity")
   if (length(order) <  ndim(x)) ### we only have order for specified margins
     for(i in seq(length(order)))
       o[[margin[i]]] <- order[[i]]
@@ -287,7 +278,7 @@ permute.hclust <- function(x, order, ...) {
     for (i in margin)
       o[[i]] <- order[[i]]
 
-  # expand identity permutations
+  # expand identity manual permutations (if any)
   for (i in which(sapply(o, .is_identity_permutation)))
     o[[i]] <- ser_permutation_vector(seq(dim(x)[i]))
 

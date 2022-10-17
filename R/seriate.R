@@ -36,7 +36,7 @@
 #' If no measure is mentioned, then the measure does not directly optimize a measure.
 #' A definition of the measures can be found in the [criterion()] manual page.
 #'
-#' \bold{Seriation methods for distance matrices (dist)}
+#' **Seriation methods for distance matrices (dist)**
 #'
 #' One-mode two-way data has to be provided as a dist object (not
 #' as a symmetric matrix). Similarities have to be transformed into
@@ -45,21 +45,21 @@
 #' [Hahsler (2017)](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf):
 #'
 #' - "ARSA" Anti-Robinson seriation by simulated
-#'   annealing to minimize the \bold{linear seriation criterion} (simulated
+#'   annealing to minimize the **linear seriation criterion** (simulated
 #'   annealing initialization used in Brusco et al 2008).
 #'
 #' - "BBURCG" Anti-Robinson seriation by branch-and-bound to
-#'   minimize the \bold{unweighted gradient measure} (Brusco and Stahl 2005).
+#'   minimize the **unweighted gradient measure** (Brusco and Stahl 2005).
 #'   This is only feasible for a relatively small number of objects.
 #'
 #' - "BBWRCG" Anti-Robinson seriation by branch-and-bound to
-#'   minimize the \bold{weighted gradient measure} (Brusco and Stahl 2005). This
+#'   minimize the **weighted gradient measure** (Brusco and Stahl 2005). This
 #'   is only feasible for a relatively small number of objects.
 #'
 #' - "TSP" Traveling salesperson problem solver to minimize the
-#'   \bold{Hamiltonian path length}. The solvers in \pkg{TSP} are used (see
-#'   \code{solve_TSP}). The solver method can be passed on via the \code{control}
-#'   argument, e.g. \code{control = list(method = "two_opt")}. Default is the est
+#'   **Hamiltonian path length**. The solvers in \pkg{TSP} are used (see
+#'   [TSP::solve_TSP()]). The solver method can be passed on via the `control`
+#'   argument, e.g. `control = list(method = "two_opt")`. Default is the est
 #'   of 10 runs of arbitrary insertion heuristic with 2-opt improvement.
 #'
 #'   Since a tour returned by a TSP solver is a connected circle and we are
@@ -73,7 +73,7 @@
 #'
 #'   This method starts with generating a sequence of correlation matrices
 #'   \eqn{R^1, R^2, \ldots}. \eqn{R^1} is the correlation matrix of the original
-#'   distance matrix \eqn{D} (supplied to the function as \code{x}), and
+#'   distance matrix \eqn{D} (supplied to the function as `x`), and
 #'   \deqn{R^{n+1} = \phi R^n,} where \eqn{\phi} calculates the correlation
 #'   matrix.
 #'
@@ -89,21 +89,24 @@
 #' - "MDS", "MDS_metric", "MDS_nonmetric", "MDS_angle" Multidimensional scaling (MDS).
 #'
 #'   Use multidimensional scaling techniques to find an linear order by
-#'   minimizing \bold{stress}. Note MDS algorithms used for a single dimension
+#'   minimizing **stress**. Note MDS algorithms used for a single dimension
 #'   tend to end up in local optima and unidimensional scaling (see Maier and De
 #'   Leeuw, 2015) would be more appropriate. However, generally, ordering along
 #'   the first component of MDS provides good results.
 #'
-#'   By default, metric MDS ([cmdscale()] in \pkg{stats}) is used. In case of
-#'   of general dissimilarities, non-metric MDS can be used. The choices are
-#'   \code{isoMDS} and \code{sammon} from \pkg{MASS}. The method can be specified
-#'   as the element \code{method} (\code{"cmdscale"}, \code{"isoMDS"} or
-#'   \code{"sammon"}) in \code{control}.
+#'   `control` parameters:
+#'     - `method`: One of `"cmdscale"`, `"isoMDS"` or `"sammon"`. `"cmdscale"` performs metric
+#'        MDS using [stats::cmdscale()]. Non-metric MDS methods `"isoMDS"` and `"sammon"`
+#'        are preformed using [MASS::isoMDS()].
 #'
-#'   For convenience, \code{"MDS_metric"} performs [cmdscale()] and
-#'   \code{"MDS_nonmetric"} performs [isoMDS()].
+#'   By default, metric MDS is used ([stats::cmdscale()]). In case of
+#'   of general dissimilarities, non-metric MDS can be used. The method can be specified
+#'   as the element `method` (`"cmdscale"`, `"isoMDS"` or `"sammon"`) in `control`.
 #'
-#'   \code{"MDS_angle"} projects the data on the first two components found by
+#'   For convenience, seriation methods `"MDS_metric"` performs [cmdscale()] and
+#'   `"MDS_nonmetric"` performs [MASS::isoMDS()].
+#'
+#'   `"MDS_angle"` projects the data on the first two components found by
 #'   MDS and then orders by the angle in this space. The order is split by the
 #'   larges gap between adjacent angles. A similar method was used for ordering
 #'   correlation matrices by Friendly (2002).
@@ -112,33 +115,33 @@
 #'
 #'   Using the order of the leaf nodes in a dendrogram obtained by hierarchical
 #'   clustering can be used as a very simple seriation technique. This method
-#'   applies hierarchical clustering (\code{hclust}) to \code{x}. The clustering
-#'   method can be given using a \code{"method"} element in the \code{control}
-#'   list. If omitted, the default \code{"average"} is used.
+#'   applies hierarchical clustering ([hclust()]) to `x`. The clustering
+#'   method can be given using a `"method"` element in the `control`
+#'   list. If omitted, the default `"average"` is used.
 #'
 #'   For convenience the other methods are provided as shortcuts.
 #'
 #' - "GW" Hierarchical clustering (Gruvaeus and Wainer, 1972).
 #'
-#'   The methods start with a dendrogram created by \code{hclust}. As the
-#'   \code{"method"} element in the \code{control} list a clustering method
-#'   (default \code{"average"}) can be specified. Alternatively, a \code{hclust}
-#'   object can be supplied using an element named \code{"hclust"}.
+#'   The methods start with a dendrogram created by [hclust()]. As the
+#'   `"method"` element in the `control` list a clustering method
+#'   (default `"average"`) can be specified. Alternatively, an [hclust]
+#'   object can be supplied using an element named `"hclust"`.
 #'
 #'   A dendrogram (binary tree) has \eqn{2^{n-1}} internal nodes (subtrees) and
 #'   the same number of leaf orderings. That is, at each internal node the left
 #'   and right subtree (or leaves) can be swapped, or, in terms of a dendrogram,
 #'   be flipped. The leaf-node reordering to minimize
-#'   \bold{Hamiltonian path length (restricted)}.
+#'   **Hamiltonian path length (restricted)**.
 #'
-#'   Method \code{"GW"} uses an algorithm developed by Gruvaeus and Wainer (1972)
-#'   and implemented in package \pkg{gclus} (Hurley 2004).  The clusters are
+#'   Method `"GW"` uses an algorithm developed by Gruvaeus and Wainer (1972)
+#'   as implemented [gclus::reorder.hclust()] (Hurley 2004).  The clusters are
 #'   ordered at each level so that the objects at the edge of each cluster are
 #'   adjacent to that object outside the cluster to which it is nearest. The
 #'   method produces an unique order.
 #'
-#'   For convenience \code{"GW_single"}, \code{"GW_average"},
-#'   \code{"GW_complete"}, and \code{"GW_ward"} are provided.
+#'   For convenience `"GW_single"`, `"GW_average"`,
+#'   `"GW_complete"`, and `"GW_ward"` are provided.
 #'
 #' - "OLO" Optimal leaf ordering (Bar-Joseph et al., 2001).
 #'
@@ -148,8 +151,8 @@
 #'   given order. The time complexity of the algorithm is \eqn{O(n^3)}. Note that
 #'   non-finite distance values are not allowed.
 #'
-#'   For convenience \code{"OLO_single"},
-#'   \code{"OLO_average"}, \code{"OLO_complete"}, and \code{"OLO_ward"} are provided.
+#'   For convenience `"OLO_single"`,
+#'   `"OLO_average"`, `"OLO_complete"`, and `"OLO_ward"` are provided.
 #'
 #' - "VAT" Visual Assessment of (Clustering) Tendency (Bezdek and Hathaway (2002)).
 #'
@@ -174,7 +177,7 @@
 #'
 #' - "Spectral", "Spectral_norm" Spectral seriation (Ding and He 2004).
 #'
-#'   Spectral seriation uses a relaxation to minimize the \bold{2-Sum Problem}
+#'   Spectral seriation uses a relaxation to minimize the **2-Sum Problem**
 #'   (Barnard, Pothen, and Simon, 1993). It uses the order of the Fiedler vector
 #'   of the similarity matrix's (normalized) Laplacian.
 #'
@@ -187,15 +190,15 @@
 #'   minimize the energy for a permutation (matrix \eqn{P}) given by \deqn{F(P) =
 #'   tr(PDP^TW),} where \eqn{tr} denotes the matrix trace.
 #'
-#'   \code{"SPIN_STS"} implements the Side-to-Side algorithm which tries to push
+#'   `"SPIN_STS"` implements the Side-to-Side algorithm which tries to push
 #'   out large distance values. The default weight matrix suggested in the paper
 #'   with \eqn{W=XX^T} and \eqn{X_i=i-(n+1)/2} is used. We run the algorithm from
-#'   \code{step} (25) iteration and restart the algorithm \code{nstart} (10) with
+#'   `step` (25) iteration and restart the algorithm `nstart` (10) with
 #'   random initial permutations (default values in parentheses). Via
-#'   \code{control} the parameters \code{step}, \code{nstart}, \code{X} and
-#'   \code{verbose}.
+#'   `control` the parameters `step`, `nstart`, `X` and
+#'   `verbose`.
 #'
-#'   \code{"SPIN_NH"} implements the neighborhood algorithm (concentrate low
+#'   `"SPIN_NH"` implements the neighborhood algorithm (concentrate low
 #'   distance values around the diagonal) with a Gaussian weight matrix
 #'   \eqn{W_{ij} = exp(-(i-j)^2/n\sigma)}, where \eqn{n} is the size of the
 #'   dissimilarity matrix and \eqn{\sigma} is the variance around the diagonal
@@ -206,24 +209,24 @@
 #'   problem. We do not terminate as indicated in the algorithm, but run all the
 #'   iterations since the heuristic does not guarantee that the energy is
 #'   strictly decreasing. We also implement the heuristic "annealing" scheme
-#'   where \eqn{\sigma} is successively reduced. The parameters in \code{control}
-#'   are \code{sigma} which can be a single value or a decreasing sequence
-#'   (default: 20 to 1 in 10 steps) and \code{step} which defines how many update
-#'   steps are performed before for each value of \code{alpha}. Via
-#'   \code{W_function} a custom function to create \eqn{W} with the function
-#'   signature \code{function(n, sigma, verbose)} can be specified. The parameter
-#'   \code{verbose} can be used to display progress information.
+#'   where \eqn{\sigma} is successively reduced. The parameters in `control`
+#'   are `sigma` which can be a single value or a decreasing sequence
+#'   (default: 20 to 1 in 10 steps) and `step` which defines how many update
+#'   steps are performed before for each value of `alpha`. Via
+#'   `W_function` a custom function to create \eqn{W} with the function
+#'   signature `function(n, sigma, verbose)` can be specified. The parameter
+#'   `verbose` can be used to display progress information.
 #'
 #' - "QAP_LS", "QAP_2SUM", "QAP_BAR", "QAP_Inertia" Quadratic assignment problem
 #'   formulations for seriation using a simulated annealing solver.
 #'
 #'   These methods minimize the
-#'   \bold{Linear Seriation Problem} (LS) formulation (Hubert and Schultz 1976),
-#'   the \bold{2-Sum Problem} formulation (Barnard, Pothen, and Simon 1993), the
-#'   \bold{banded anti-Robinson form} (BAR) or the \bold{inertia criterion.}
+#'   **Linear Seriation Problem** (LS) formulation (Hubert and Schultz 1976),
+#'   the **2-Sum Problem** formulation (Barnard, Pothen, and Simon 1993), the
+#'   **banded anti-Robinson form** (BAR) or the **inertia criterion.**
 #'
-#'   The parameters in \code{control} are passed on to \code{qap} in \pkg{qap}.
-#'   An important parameter is \code{rep} to return the best result out of the
+#'   `control` parameters are passed on to [qap::qap()].
+#'   An important parameter is `rep` to return the best result out of the
 #'   given number of repetitions with random restarts. Default is 1, but bigger
 #'   numbers result in better and more stable results.
 #'
@@ -243,7 +246,7 @@
 #' - "Random"  Produces a random permutation.
 #'
 #'
-#' \bold{Seriation methods for matrices (matrix or data.frame)}
+#' **Seriation methods for matrices (matrix or data.frame)**
 #'
 #' Two-mode two-way data are general matrices.
 #' Some methods also require that the matrix is positive. Data frames are just a
@@ -258,7 +261,7 @@
 #'
 #' - "BEA" Bond Energy Algorithm (BEA; McCormick 1972).
 #'
-#'   The algorithm tries to maximize the \bold{Measure of Effectiveness.} of a
+#'   The algorithm tries to maximize the **Measure of Effectiveness.** of a
 #'   non-negative matrix. Due to the definition of this measure, the tasks of
 #'   ordering rows and columns is separable and can be solved independently.
 #'
@@ -276,33 +279,37 @@
 #'
 #'   The BEA code used in this package was implemented by Fionn Murtagh.
 #'
-#'   In \code{control} as element \code{"rep"} the number of runs can be
-#'   specified. The results of the best run will be returned.
+#'   `control` parameter:
+#'     - `"rep"`: the number of runs can be specified.
+#'        The results of the best run will be returned.
 #'
-#' - "BEA_TSP" Use a TSP to optimize the \bold{Measure of
-#'   Effectiveness} (Lenstra 1974).
+#' - "BEA_TSP" Use a TSP to optimize the **Measure of Effectiveness** (Lenstra 1974).
 #'
-#'   In \code{control} as element \code{"method"} a TSP solver method can be
-#'   specified (see package \pkg{TSP}).
+#'   `control` parameter:
+#'      - `"method"`: a TSP solver method (see [TSP::solve_TSP()]).
 #'
-#' - "CA" Correspondence analysis for matrix of frequencies.
+#' - "CA" Correspondence analysis for a table/matrix of frequencies.
 #'
 #'   This function is designed to help simplify a mosaic plot or other displays of a
 #'   matrix of frequencies.  It calculates a correspondence analysis of the matrix and
 #'   an order for rows and columns according to the scores on a correspondence analysis dimension.
 #'
+#'   `control` parameters:
+#'     - `"dim"`: CA dimension used for reordering.
+#'     - `"ca_param"`: List with parameters for the call to [ca::ca()].
+#'
 #' - "Heatmap" Heatmap seriation
 #'
 #'   Calculates distances between
 #'   rows and between columns and then applies seriation on these using
-#'   hierarchical clustering and optimal leaf ordering (method \code{"OLO"} for distance matrices).
+#'   hierarchical clustering and optimal leaf ordering (method `"OLO"` for distance matrices).
 #'
 #' - "PCA" Order by the first principal component.
 #'
 #'   Uses the projection of the data on its first principal component to
 #'   determine the order.
 #'
-#'   Note that for a distance matrix calculated from \code{x} with Euclidean
+#'   Note that for a distance matrix calculated from `x` with Euclidean
 #'   distance, this methods minimizes the least square criterion.
 #'
 #' - "PCA_angle" Order using the first two principal components.
@@ -326,9 +333,10 @@
 #' @param control a list of control options passed on to the seriation
 #' algorithm.
 #' @param margin a vector giving the margin indices (dimensions) to be
-#' seriated. For example, for a matrix, \code{1} indicates rows, \code{2}
-#' indicates columns, \code{c(1,2)} indicates rows and columns.
-#' @param ... further arguments are added to the \code{control} list.
+#' seriated. For example, for a matrix, `1` indicates rows, `2`
+#' indicates columns, `c(1,2)` indicates rows and columns. Unseriated margins return
+#' a identity seriation order.
+#' @param ... further arguments are added to the `control` list.
 #'
 #' @return Returns an object of class [ser_permutation].
 #'
@@ -446,7 +454,7 @@
 #' pimage(d_reordered, main = "Distances (Reordered)")
 #'
 #'
-#' ### Seriate matrix
+#' ### Seriate a matrix
 #' data("iris")
 #' x <- as.matrix(iris[-5])
 #'

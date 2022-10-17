@@ -171,7 +171,7 @@ print.ser_permutation_vector <-
     invisible(x)
   }
 
-## fake summary (we dont really provide a summary,
+## fake summary (we don't really provide a summary,
 ## but summary produces now a reasonable result --- same as print)
 #' @rdname ser_permutation_vector
 #' @export

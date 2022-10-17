@@ -128,3 +128,4 @@ c.ser_permutation <- function(..., recursive = FALSE)
 #' @export
 "[.ser_permutation" <- function(object, i, ...)
   do.call("ser_permutation", unclass(object)[i])
+

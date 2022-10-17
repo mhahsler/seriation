@@ -16,8 +16,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-
-
 ## seriate general arrays
 
 .seriate_array_helper <- function(x,
@@ -27,6 +25,9 @@
   datatype = "array",
   ...) {
   ## add ... to control
+  if (any(!margin %in% seq(ndim(x))))
+    stop("illegal margin specified.")
+
   control <- c(control, list(...))
 
   if (!is.character(method) || (length(method) != 1L))
@@ -42,14 +43,22 @@
   order <- method$fun(x, control)
 
   for (i in seq(ndim(x)))
-    if (!is.null(dimnames(x)[[i]]) && is.integer(order[[i]])) names(order[[i]]) <- dimnames(x)[[i]]
-
+    if (!is.null(dimnames(x)[[i]]) &&
+        is.integer(order[[i]]))
+      names(order[[i]]) <- dimnames(x)[[i]]
   perm <- do.call("ser_permutation",
     unname(lapply(
       order, "ser_permutation_vector", method$name
     )))
 
-  perm[margin]
+  ### make non seriated margins identity permutations
+  rem <- which(!seq(ndim(x)) %in% margin)
+  if (length(rem) > 0) {
+    perm_ident <- seriate(x, method = "Identity")
+    perm[[rem]] <- perm_ident[[rem]]
+  }
+
+  perm
 }
 
 #' @rdname seriate
