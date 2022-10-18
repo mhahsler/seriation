@@ -43,12 +43,13 @@ with \code{"["}).}
 
 \item{order}{an object of class \link{ser_permutation} which contains
 suitable permutation vectors for \code{x}. Alternatively, a character string with the
-name of a seriation method appropriate for \code{x}  can be specified (see \code{\link[=seriate]{seriate()}}).
+name of a seriation method appropriate for \code{x} can be specified (see \code{\link[=seriate]{seriate()}}).
 This will perform seriation and permute \code{x}.}
 
-\item{...}{additional arguments for the permutation function.}
+\item{...}{if \code{order} is the name of a seriation method, then additional arguments are
+passed on to \code{\link[=seriate]{seriate()}}.}
 
-\item{margin}{specifies the dimensions to be permuted as a vector with indices.
+\item{margin}{specifies the dimensions to be permuted as a vector with dimension indices.
 If \code{NULL}, \code{order} needs to contain a permutation for all dimensions.
 If a single margin is specified, then \code{order} can also contain
 a single permutation vector.
@@ -91,11 +92,18 @@ m
 
 # Permute rows and columns
 o <- ser_permutation(5:1, 2:1)
+o
+
 permute(m, o)
+
 ## permute only columns
 permute(m, o, margin = 2)
 
+## permute using PCA seriation
 permute(m, "PCA")
+
+## permute only rows using PCA
+permute(m, o, margin = 1)
 
 # Permute data.frames
 df <- as.data.frame(m)
@@ -105,15 +113,15 @@ permute(df, o)
 d <- dist(m)
 d
 
-permute(d, ser_permutation(c(3,2,1,4,5)))
+permute(d, c(3, 2, 1, 4, 5))
 
 permute(d, "Spectral")
 
 # Permute a list
-l <- list(a=1:5, b=letters[1:3], c=0)
+l <- list(a = 1:5, b = letters[1:3], c = 0)
 l
 
-permute(l, c(2,3,1))
+permute(l, c(2, 3, 1))
 
 # Permute a dendrogram
 hc <- hclust(d)

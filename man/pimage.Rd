@@ -132,8 +132,8 @@ ggpimage(
 \arguments{
 \item{x}{a matrix or an object of class \code{dist}.}
 
-\item{order}{an object of class \code{ser_permutation}. If \code{NULL} the
-order in \code{x} is plotted.}
+\item{order}{an object of class \code{ser_permutation} or the name of a seriation method.
+If \code{NULL} the order in \code{x} is plotted.}
 
 \item{col}{a list of colors used. If \code{NULL}, a gray scale is used (for
 matrix larger values are displayed darker and for \code{dist} smaller
@@ -208,6 +208,8 @@ and other visual aspects can be added using standard ggplot2 functions
 (\code{labs}, \code{scale_fill_continuous}, \code{labs}, etc.).
 }
 \examples{
+set.seed(1234)
+
 ## Example: Logical Matrix
 x <- matrix(sample(c(FALSE, TRUE), 300, rep = TRUE), ncol = 10,
   dimnames = list(1:30, LETTERS[1:10]))

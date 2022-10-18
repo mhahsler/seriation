@@ -362,7 +362,7 @@ d_reordered <-  permute(d, order)
 pimage(d_reordered, main = "Distances (Reordered)")
 
 
-### Seriate matrix
+### Seriate a matrix
 data("iris")
 x <- as.matrix(iris[-5])
 
