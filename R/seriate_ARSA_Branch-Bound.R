@@ -74,7 +74,6 @@ seriate_dist_arsa <- function(x, control = NULL) {
   )
 
   o <- ret[[6]]
-  names(o) <- labels(x)[o]
 
   ### ARSA returns all 0's in some cases
   if (all(o == 0)) {
@@ -113,7 +112,6 @@ seriate_dist_bburcg <- function(x, control = NULL) {
     param$verbose)
 
   o <- ret[[4]]
-  names(o) <- labels(x)[o]
   o
 }
 
@@ -140,7 +138,6 @@ seriate_dist_bbwrcg <- function(x, control = NULL) {
     param$verbose)
 
   o <- ret[[4]]
-  names(o) <- labels(x)[o]
   o
 }
 

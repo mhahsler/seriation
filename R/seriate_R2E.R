@@ -50,7 +50,6 @@ seriate_dist_chen <- function(x, control = NULL) {
   left <- left[order(e[left, 2])]
 
   o <- c(right, left)
-  names(o) <- labels(x)[o]
   o
 }
 

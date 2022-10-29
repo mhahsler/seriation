@@ -120,7 +120,6 @@ seriate_dist_SPIN <- function(x, control = NULL) {
   if (verbose)
     cat("Best Energy:", energy_best, "\n")
   o <- permutation_matrix2vector(P_best)
-  names(o) <- names(x)[o]
   o
 }
 
@@ -213,7 +212,6 @@ seriate_dist_SPIN_STS <- function(x, control = NULL) {
   if (verbose)
     cat("Overall best Energy:", min(energy), "\n")
   o <- res[[which.min(energy)]]
-  names(o) <- names(x)[o]
   o
 }
 
