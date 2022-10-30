@@ -44,7 +44,7 @@ test_that("seriate.dist returns expected results", {
 
   # check all orders are integers
   ORDERS <- sapply(X = os, FUN = get_order, dim = 1, simplify = FALSE)
-  for (n in names(ORDERS)) expect_type(ORDERS[[!!n]], "integer") # see ?testthat::quasi_label
+  for (n in names(ORDERS)) expect_type(ORDERS[[!!n]], "integer") # see ?testthat::quasi_label RE "!!"
 
   # check names - first sanity check before more comprehensive checks
   expect_equal(names(get_order(os$Identity)), letters[1:4])
@@ -60,11 +60,10 @@ test_that("seriate.dist returns expected results", {
     expect_equal(hclusts[[!!n]][["labels"]], expected = letters[1:4])
   }
 
-  # check names() of hclust seriation vectors are equal to ordered labels
+  # check names of get_order(<hclust seriation vector>) equal to ordered labels
   for (n in names(hclusts)) {
-    next # TODO run this test once names.ser_permutation_vector is registered
     expect_equal(
-      object = names(hclusts[[!!n]]),
+      object = names(ORDERS[[!!n]]),
       expected = hclusts[[n]][["labels"]][hclusts[[n]][["order"]]]
     )
   }
