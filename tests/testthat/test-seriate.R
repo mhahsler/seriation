@@ -17,9 +17,9 @@ test_that("seriate.dist returns expected results", {
   cat("\n") # for cleaner testthat output
   methods <- list_seriation_methods(kind = "dist")
   os <- sapply(methods, function(m) {
-    cat("Doing ", m, " ... ")
+    cat("Doing", format(m, width = 13), "... ")
     tm <- system.time(o <- seriate(d, method = m))
-    cat("took ", tm[3], "s.\n")
+    cat("took", formatC(tm[3], digits = 4), "s.\n")
     o
   })
   # make sure they are all the right length
@@ -104,9 +104,9 @@ test_that("seriate.matrix returns expected results", {
   cat("\n") # for cleaner testthat output
   methods <- list_seriation_methods(kind = "matrix")
   os <- sapply(methods, function(m) {
-    cat("Doing ", m, " ... ")
+    cat("Doing", format(m, width = 13), "... ")
     tm <- system.time(o <- seriate(x, method = m))
-    cat("took ", tm[3], "s.\n")
+    cat("took", formatC(tm[3], digits = 4), "s.\n")
     o
   }, simplify = FALSE)
 
@@ -114,7 +114,7 @@ test_that("seriate.matrix returns expected results", {
   expect_true(all(sapply(os, length) == 2L))
   expect_true(all(sapply(os, FUN = function(o2) sapply(o2, length)) == c(4L, 5L)))
 
-  x_p <- permute(x, os[[1]])
+  x_p <- permute(x, os[[1]]) # BEA method
   expect_equal(x_p, x[get_order(os[[1]], 1), get_order(os[[1]], 2)])
 
   # check labels
@@ -134,9 +134,9 @@ test_that("seriate.matrix with margin returns expected results", {
   cat("\n") # for cleaner testthat output
   methods <- list_seriation_methods(kind = "matrix")
   os <- sapply(methods, function(m) {
-    cat("Doing ", m, " ... ")
+    cat("Doing", format(m, width = 13), "... ")
     tm <- system.time(o <- seriate(x, method = m, margin = 2))
-    cat("took ", tm[3], "s.\n")
+    cat("took", formatC(tm[3], digits = 4), "s.\n")
     o
   }, simplify = FALSE)
 
@@ -153,17 +153,16 @@ test_that("data.frame seriation works as expected", {
 
   df <- as.data.frame(x)
   o <- seriate(df)
-  permute(df, o) # default olo is non-deterministic so no
+  expect_silent(permute(df, o)) # defaults work with no messages/warnings
 
-  seriate(df, method = "PCA")
+  expect_message(
+    permute(df, o[1]), # DEPRECATED: results in a message
+    "permute for data.frames with a single seriation order is now deprecated"
+  )
 
   o <- seriate(df, margin = 1)
-  ## DEPRECATED: results in a message
- expect_message(
-   permute(df, o[1]),
-   "permute for data.frames with a single seriation order is now deprecated"
- )
+  expect_equal(as.integer(o[[2]]), 1:5) # columns left in original order
 
- expect_snapshot(permute(df, o))
-
+  oPCA <- seriate(df, method = "PCA")
+  expect_snapshot(permute(df, oPCA))
 })

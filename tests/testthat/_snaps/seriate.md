@@ -175,11 +175,11 @@
 # data.frame seriation works as expected
 
     Code
-      permute(df, o)
+      permute(df, oPCA)
     Output
-        A B C D E
+        B A C D E
       a 1 1 0 0 0
       b 1 1 1 0 0
-      d 1 0 1 1 1
+      d 0 1 1 1 1
       c 0 0 1 1 1
 
