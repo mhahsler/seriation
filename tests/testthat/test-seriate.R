@@ -91,6 +91,18 @@ test_that("negative distances and NAs prompt correct seriate.dist errors", {
   expect_error(seriate(dNA), "NAs not allowed in distance matrix x")
 })
 
+test_that("dist objects without Diag or Upper attributes can be permuted", {
+  # eurodist is an object of class dist from built in R package "datasets"
+  expect_s3_class(eurodist, "dist")
+  expect_identical(attr(eurodist, "Diag"), NULL)
+  expect_identical(attr(eurodist, "Upper"), NULL)
+  s <- seriate(eurodist, method = "MDS")
+  expect_s3_class(p <- permute(eurodist, order = s), "dist")
+  expect_false(attr(p, "Diag")) # permutation adds Diag, is this desirable?
+  expect_false(attr(p, "Upper"))
+  expect_equal(labels(p), names(get_order(s)))
+})
+
 ### Stress test to find memory access problems with randomized algorithms
 #context("memory stress test")
 #replicate(1000, seriate(d, method="bburcg"))

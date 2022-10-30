@@ -234,7 +234,7 @@ permute.hclust <- function(x, order, ...) {
     stop("some permutation vectors do not fit dimension of data")
 
   # check dist
-  if (attr(x, "Diag") || attr(x, "Upper"))
+  if (isTRUE(attr(x, "Diag")) || isTRUE(attr(x, "Upper")))
     stop("'dist' with diagonal or upper triangle matrix not implemented")
 }
 
