@@ -71,7 +71,8 @@ get_order.ser_permutation <-
 #' @rdname get_order
 #' @export
 get_order.hclust <- function(x, ...)
-  x$order
+  structure(.Data = x$order, names = x$labels[x$order])
+
 
 #' @rdname get_order
 #' @export

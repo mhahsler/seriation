@@ -1,5 +1,7 @@
 # seriation (development version)
 
+# seriation 1.4.0
+
 ## New Features
 -   seriate for arrays (including matrices) now returns a complete ser_permutation for all
     dimensions even if margins are specified. For not specified margins, identity permutations

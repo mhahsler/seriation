@@ -32,7 +32,6 @@ seriate_dist_tsp <- function(x, control = NULL) {
     control = control)
 
   o <- cut_tour(tour, cut = "cut_here", exclude_cut = TRUE)
-  names(o) <- labels(x)[o]
   o
 }
 

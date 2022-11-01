@@ -44,7 +44,6 @@ seriate_dist_VAT <- function(x, control = NULL) {
     I[j] <- TRUE
   }
 
-  names(P) <- labels(x)[P]
   P
 }
 

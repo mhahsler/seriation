@@ -41,6 +41,7 @@ seriate.dist <-
         method$description, "\n\n", sep = "")
 
     order <- method$fun(x, control = control)
+    if (is.integer(order)) names(order) <- labels(x)[order]
 
     ser_permutation(ser_permutation_vector(order, method = method$name))
   }
@@ -50,7 +51,6 @@ seriate_dist_identity <- function(x, control = NULL) {
   .get_parameters(control, NULL)
 
   o <- 1:attr(x, "Size")
-  names(o) <- labels(x)
   o
 }
 
@@ -59,7 +59,6 @@ seriate_dist_random <- function(x, control = NULL) {
   .get_parameters(control, NULL)
 
   o <- 1:attr(x, "Size")
-  names(o) <- labels(x)
   sample(o)
 }
 
