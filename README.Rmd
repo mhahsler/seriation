@@ -62,17 +62,23 @@ pkg_install(pkg)
 
 ## Usage
 
-Load library, read data and calculate distances. Then use default seriation.
+Load library, read data and calculate distances. Then use default seriation. The used dataset 
+contains the joint probability of disagreement between Supreme Court Judges during the period
+from 1995 to 2002.
 ```{r}
 library(seriation)
 data("SupremeCourt")
 
-# joint probability of disagreement
 SupremeCourt
 
 d <- as.dist(SupremeCourt)
 order <- seriate(d)
 order
+```
+
+Get the resulting permutation vector.
+```{r}
+get_order(order)
 ```
 
 ```{r seriation,  fig.show="hold", out.width="50%"}
@@ -82,7 +88,7 @@ pimage(d, order, diag = TRUE, upper = TRUE, main = "judges reordered by seriatio
 
 
 
-Compare quality.
+Compare serveral available quality metrics.
 ```{r}
 rbind(
  alphabetical = criterion(d),

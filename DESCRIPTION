@@ -11,6 +11,7 @@ Authors@R: c(
 	person("Kurt", "Hornik", role = c("aut", "cph")),
 	person("Fionn", "Murtagh", role = c("ctb", "cph")),
 	person("Michael", "Friendly", role = c("ctb")),
+	person("David", "Barnett", role = c("ctb")),
 	person("Michael", "Brusco", role = c("ctb", "cph")),
 	person("Stephanie", "Stahl", role = c("ctb", "cph")),
 	person("Hans-Friedrich", "Koehn", role = c("ctb", "cph")))

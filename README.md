@@ -88,13 +88,14 @@ install.packages("seriation", repos = "https://mhahsler.r-universe.dev")
 ## Usage
 
 Load library, read data and calculate distances. Then use default
-seriation.
+seriation. The used dataset contains the joint probability of
+disagreement between Supreme Court Judges during the period from 1995 to
+2002.
 
 ``` r
 library(seriation)
 data("SupremeCourt")
 
-# joint probability of disagreement
 SupremeCourt
 ```
 
@@ -131,6 +132,17 @@ order
     ##   vector length seriation method
     ## 1             9         Spectral
 
+Get the resulting permutation vector.
+
+``` r
+get_order(order)
+```
+
+    ##    Scalia    Thomas Rehnquist   Kennedy   OConnor    Souter    Breyer  Ginsburg 
+    ##         6         9         5         3         4         7         1         2 
+    ##   Stevens 
+    ##         8
+
 ``` r
 pimage(d, diag = TRUE, upper = TRUE, main = "judges in original alphabetical order")
 pimage(d, order, diag = TRUE, upper = TRUE, main = "judges reordered by seriation")
@@ -138,7 +150,7 @@ pimage(d, order, diag = TRUE, upper = TRUE, main = "judges reordered by seriatio
 
 <img src="inst/README_files/seriation-1.png" width="50%" /><img src="inst/README_files/seriation-2.png" width="50%" />
 
-Compare quality.
+Compare serveral available quality metrics.
 
 ``` r
 rbind(alphabetical = criterion(d), seriated = criterion(d, order))

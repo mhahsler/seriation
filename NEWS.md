@@ -1,14 +1,17 @@
 # seriation (development version)
 
+## New Features
+-   get_order not consistently returns permutation vectors with names (by david-barnett).
+
 # seriation 1.4.0
 
 ## New Features
 -   seriate for arrays (including matrices) now returns a complete ser_permutation for all
     dimensions even if margins are specified. For not specified margins, identity permutations
     are returned.
--   added support for tables
+-   added support for tables.
 -   added new seriation method CA (correspondence analysis) contributed by Michael Friendly.
--   permute now accepts more than one margins.
+-   permute now accepts more than one margin.
 -   permute now accepts a seriation method instead of order.
 
 ## Bug Fixes
