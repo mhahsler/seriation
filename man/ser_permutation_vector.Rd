@@ -48,19 +48,32 @@ represents a single permutation vector.
 \details{
 A permutation vector
 maps a set of \eqn{n} objects \eqn{\{O_1, O_2, ..., O_n\}}{{O_1, O_2, ..., O_n}} onto itself.
+
+\strong{Ordering Representation:}
 In \pkg{seriation} we represent a permutation \eqn{\pi}{\pi}
-as a vector which lists the objects in their permuted order.
-For example, the permutation vector \eqn{\langle3, 1, 2\rangle}{<3, 1, 2>} indicates that in first position is the object with index 3 then the object with index 1 and finally
-the object with index 2.
-A permutation vector can be extracted from a permutation vector object
-via \code{\link[=get_order]{get_order()}}. Such a permutation vector can be directly used
+as a vector which lists the objects' indices in their permuted order. This can
+be seen as replacing the object in position \eqn{i} with the object
+in position \eqn{\pi(i)}.
+For example, the permutation vector \eqn{\langle3, 1, 2\rangle}{<3, 1, 2>} indicates that in
+first position is the object with index 3 then the object with index 1 and finally
+the object with index 2. This representation is often called a (re)arrangement or ordering.
+The ordering can be extracted from a permutation vector object
+via \code{\link[=get_order]{get_order()}}. Such an ordering can be directly used
 to subset the list of original objects with \code{"["} to apply the permutation.
-\strong{Note:} An alternative way to specify a permutation is via a list of the ranks
-of the objects after permutation (see \code{\link[=get_rank]{get_rank()}}).
+
+\strong{Rank Representation:}
+An alternative way to specify a permutation is via a list of the ranks
+of the objects after permutation. This representation is often called
+a map or substitution. Ranks can be extracted from a permutation vector using \code{\link[=get_rank]{get_rank()}}.
+
+\strong{Permutation Matrix:}
+Another popular representation is a permutation matrix which performs
+permutations using matrix multiplication. A permutation matrix can be obtained
+using \code{\link[=get_permutation_matrix]{get_permutation_matrix()}}.
 
 \code{ser_permutation_vector} objects are usually packed into
 a \link{ser_permutation} object
-which is a collection of \eqn{k} permutation vectors for \eqn{k}-mode data.
+which is a collection (a \code{list}) of \eqn{k} permutation vectors for \eqn{k}-mode data.
 
 The constructor \code{ser_permutation_vector()}
 checks if the permutation vector is valid

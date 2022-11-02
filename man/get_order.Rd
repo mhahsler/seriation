@@ -49,7 +49,7 @@ object ranks or a permutation matrix.
 \details{
 \code{get_order()} returns the seriation as an integer vector containing the
 order of the objects after permutation. That is, the index of the first,
-second, \eqn{..., n}-th object. These permuation vectors can directly be
+second, \eqn{..., n}-th object. These permutation vectors can directly be
 used to reorder objects using subsetting with \code{"["}.  \emph{Note:} In
 \pkg{seriation} we usually use these order-based permutation vectors.
 
@@ -62,7 +62,7 @@ first, second, \eqn{..., n}-th object after permutation.  Note: Use
 matrix.
 }
 \examples{
-## permutation_vector
+## ser_permutation_vector is a single permutation vector
 o <- ser_permutation_vector(sample(10))
 o
 
@@ -70,7 +70,7 @@ get_order(o)
 get_rank(o)
 get_permutation_matrix(o)
 
-## permutation
+## ser_permutation contains one permutation vector for each dimension
 o2 <- ser_permutation(o, sample(5))
 o2
 
