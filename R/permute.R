@@ -267,7 +267,7 @@ permute.hclust <- function(x, order, ...) {
   if (is.character(order))
     order <- seriate(x, method = order, margin = margin, ...)
 
-  .nodots(...)
+  #.nodots(...)
 
   if (!inherits(order, "ser_permutation"))
     order <- ser_permutation(order)
