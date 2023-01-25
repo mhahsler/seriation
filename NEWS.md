@@ -1,9 +1,18 @@
-# seriation (development version)
+# seriation 1.4.1-1 (xx/x/2023)
+
+## Bug Fixes
+- pimage: ... is now passed on to the seriation method.
+
+# seriation 1.4.1 (12/27/2022)
 
 ## New Features
 -   get_order not consistently returns permutation vectors with names (by david-barnett).
 
-# seriation 1.4.0
+## Bug Fixes
+-   criterion.c: replaced enum for bool with <stdbool.h>
+-   Additional contributors are not in alphabetical order.
+
+# seriation 1.4.0 (10/21/2022)
 
 ## New Features
 -   seriate for arrays (including matrices) now returns a complete ser_permutation for all
@@ -15,7 +24,6 @@
 -   permute now accepts a seriation method instead of order.
 
 ## Bug Fixes
-
 -   seriate.dist now throws correct error upon encountering NAs (by david-barnett)
 
 # seriation 1.3.6 (07/14/2022)
