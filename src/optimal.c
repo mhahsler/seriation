@@ -21,7 +21,7 @@
 #include <R.h>
 #include <Rdefines.h>
 
-/* compute the lenght of an order, i.e. the sum of
+/* compute the length of an order, i.e. the sum of
  * the edge weights along the path defined by the
  * order.
  *

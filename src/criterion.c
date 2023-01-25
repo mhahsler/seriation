@@ -1,6 +1,6 @@
 /*
  * seriation - Infrastructure for seriation
- * Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+ * Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,10 +21,10 @@
 #include <Rinternals.h>
 #include <Rdefines.h>
 #include <math.h>
+#include <stdbool.h>
 
 #include "lt.h"
 
-typedef enum {false = 0, true = 1} bool;
 
 /*
  * path length can be found in optimal.c

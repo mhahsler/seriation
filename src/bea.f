@@ -6,23 +6,23 @@ c     a(n,m)         input matrix, rows of which are to be permuted
 c     istart         1st row to be placed
 c     b(n,m)         permuted rows to be stored in this array
 c     ib(n)          integer list giving permutation carried out
-c     ifin(n)        book-keeping vector: is row still active, or has it been 
+c     ifin(n)        book-keeping vector: is row still active, or has it been
 c                    placed (resp. = 1, = 0).
 c------------------------------------------------------------------------------
 c     Bond energy algorithm -- see:
 c
-c     (1) W.T. McCormick, P.J. Schweitzer and T.W. White, 
-c         "Problem decomposition and data reorganization by a clustering 
+c     (1) W.T. McCormick, P.J. Schweitzer and T.W. White,
+c         "Problem decomposition and data reorganization by a clustering
 c         technique", Oper. Res., vol. 20, pp. 993-1009, Sept./Oct. 1972.
-c     (2) P. Arabie and L.J. Hubert, 
-c         "The bond energy algorithm revisited", IEEE Trans. Syst. Man 
+c     (2) P. Arabie and L.J. Hubert,
+c         "The bond energy algorithm revisited", IEEE Trans. Syst. Man
 c         Cybern., vol. 20, pp. 268-274, 1990.
-c     (3) P. Arabie, S. Schleutermann, J. Daws and L. Hubert, 
-c         "Marketing applications of sequencing and partitioning of 
-c         nonsymmetric and/or two-mode matrices", in W. Gaul and M. Schader, 
-c         Eds., Data Analysis, Decision Support, and Expert Knowledge 
+c     (3) P. Arabie, S. Schleutermann, J. Daws and L. Hubert,
+c         "Marketing applications of sequencing and partitioning of
+c         nonsymmetric and/or two-mode matrices", in W. Gaul and M. Schader,
+c         Eds., Data Analysis, Decision Support, and Expert Knowledge
 c         Representation in Marketing, Springer Verlag, 1988, pp. 215-224.
-c  
+c
 c     Implemented by F. Murtagh, Sept. 1991.
 c------------------------------------------------------------------------------
 c
@@ -44,6 +44,13 @@ c     Place 1st row
 c
  400  continue
       sim   = -100000.0
+
+c     declare variables used later on to prevent warnings about uninitialized variables (MFH)
+      sim1  = 0.0
+      sim2  = 0.0
+      iplrow = -1
+      jplcol = -1
+
       insrt = 0
 c     'nplace' rows have been placed.
 c     Now want next placement.  Have 'nrem' rows still to place.
@@ -154,7 +161,7 @@ c
 c
        return
        end
-                 
+
 c------------------------------------------------------------------------------
       subroutine cbea(n,m,a,jstart,b,jb,jfin)
 c     Reoder cols. using BEA, bond energy algorithm.
@@ -165,14 +172,14 @@ c     a(n,m)         input matrix, cols. of which are to be permuted
 c     jstart         1st col. to be placed
 c     b(n,m)         permuted cols. to be stored in this array
 c     jb(m)          integer list giving permutation carried out
-c     jfin(m)        book-keeping vector: is col. still active, or has it been 
+c     jfin(m)        book-keeping vector: is col. still active, or has it been
 c                    placed (resp. = 1, = 0).
 c------------------------------------------------------------------------------
 c
 c     Flags to indicate if col. already chosen
       do 200 j = 1, m
         jfin(j) = 1
- 200  continue   
+ 200  continue
 c
 c     'nplace' cols. placed (anticipating!); 'nrem' cols. still to be placed.
       nplace = 1
@@ -305,7 +312,7 @@ c      summed over all elts.
        ener = 0.0
 c      Corner elts.
        ener = ener + b(1,1)*(b(1,2)+b(2,1))
-       ener = ener + b(1,m)*(b(1,m-1)+b(2,m))                 
+       ener = ener + b(1,m)*(b(1,m-1)+b(2,m))
        ener = ener + b(n,1)*(b(n-1,1)+b(n,2))
        ener = ener + b(n,m)*(b(n-1,m)+b(n,m-1))
 c      Next non-corner border elts.
@@ -326,4 +333,4 @@ c      Finally, all non-border elts.
 c
        return
        end
-       
+
