@@ -157,7 +157,7 @@ matrices.}
 color palate be symmetric (zero is in the middle)>}
 
 \item{upper_tri, lower_tri, diag}{a logical indicating whether to show the
-upper triangel, the lower triangle or the diagonal of the (distance) matrix.}
+upper triangle, the lower triangle or the diagonal of the (distance) matrix.}
 
 \item{row_labels, col_labels}{a logical indicating if row and column labels
 in \code{x} should be displayed.  If \code{NULL} then labels are displayed
@@ -173,7 +173,8 @@ equal width and height.}
 \item{reverse_columns}{logical; revers the order of how the columns are
 displayed.}
 
-\item{\dots}{further arguments are ignored.}
+\item{\dots}{if \code{order} is the name of a seriation method then further arguments are  passed
+on to the seriatation method, otherwise they are ignored.}
 
 \item{newpage, pop, gp}{Start plot on a new page, pop the viewports after
 plotting, and use the supplied \code{gpar} object (see \pkg{grid}).}
