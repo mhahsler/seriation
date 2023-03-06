@@ -504,8 +504,7 @@
 seriate <- function(x, ...)
   UseMethod("seriate")
 
+#' @export
 seriate.default <- function(x, ...)
   stop(gettextf("seriate not implemented for class '%s'.",
     class(x)))
-
-

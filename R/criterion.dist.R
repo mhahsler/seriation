@@ -16,6 +16,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+
 #' @rdname criterion
 #' @export
 criterion.dist <- function(x,
@@ -58,6 +59,7 @@ criterion.dist <- function(x,
   crit
 }
 
+#' @export
 criterion.default <- criterion.dist
 
 ## Wrapper to computing the length of the order under a distance matrix,

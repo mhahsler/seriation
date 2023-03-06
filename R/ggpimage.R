@@ -108,6 +108,7 @@ ggpimage.matrix <- function(x,
   g
 }
 
+#' @export
 ggpimage.default <- ggpimage.matrix
 
 ## small values are dark

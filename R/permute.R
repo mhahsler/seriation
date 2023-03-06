@@ -113,6 +113,7 @@ ndim <- function(x)
 permute <- function(x, order, ...)
   UseMethod("permute")
 
+#' @export
 permute.default <- function(x, order, ...)
   .permute_kd(x, order, ...)
 

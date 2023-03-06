@@ -51,6 +51,7 @@
 get_order <- function(x, ...)
   UseMethod("get_order")
 
+#' @export
 get_order.default <- function(x, ...)
   stop(gettextf("No permutation accessor implemented for class '%s'. ",
     class(x)))

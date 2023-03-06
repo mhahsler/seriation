@@ -507,8 +507,8 @@ pimage.matrix <-
       upViewport(down)
   }
 
+#' @export
 pimage.default <- pimage.matrix
-
 
 # as.matrix does not work for table!
 table2matrix <- function(M)
