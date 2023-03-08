@@ -4,7 +4,7 @@
 [![CRAN
 version](http://www.r-pkg.org/badges/version/seriation)](https://CRAN.R-project.org/package=seriation)
 [![stream r-universe
-status](https://mhahsler.r-universe.dev/badges/seriation)](https://mhahsler.r-universe.dev/ui#package:seriation)
+status](https://mhahsler.r-universe.dev/badges/seriation)](https://mhahsler.r-universe.dev/seriation)
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/seriation)](https://CRAN.R-project.org/package=seriation)
 
@@ -20,36 +20,36 @@ plots, and visual assessment of cluster tendency plots (VAT and iVAT).
 
 The following methods are available to reorder dissimilarity data:
 
--   **ARSA** - Simulated annealing (linear seriation)  
--   **Branch-and-bound** to minimize the unweighted/weighted column
-    gradient
--   **DendSer** - Dendrogram seriation heuristic to optimize various
-    criteria
--   **GA** - Genetic algorithm with warm start to optimize various
-    criteria
--   **GW** - Hierarchical clustering reordered by Gruvaeus and Wainer
-    heuristic
--   **HC** - Hierarchical clustering (single link, avg. link, complete
-    link)
--   **Identity** permutation
--   **MDS** - Multidimensional scaling (metric, non-metric, angle)
--   **OLO** - Hierarchical clustering with optimal leaf ordering
--   **OPTICS** - Ordering points to identify the clustering structure.
--   **QAP** - Quadratic assignment problem heuristic (2-SUM, linear
-    seriation, inertia, banded anti-Robinson form)
--   **R2E** - Rank-two ellipse seriation
--   **Random** permutation
--   **Spectral** seriation (unnormalized, normalized)
--   **SPIN** - Sorting points into neighborhoods (neighborhood
-    algorithm, side-to-site algorithm)
--   **TSP** - Traveling sales person solver to minimize the Hamiltonian
-    path length
--   **TSNE** - Order of the 1D t-distributed stochastic neighbor
-    embedding (t-SNE)
--   **UMAP** - Order of the 1D embedding produced by uniform manifold
-    approximation and projection
--   **VAT** - Order of the visual assessment of clustering tendency
-    ordering
+- **ARSA** - Simulated annealing (linear seriation)  
+- **Branch-and-bound** to minimize the unweighted/weighted column
+  gradient
+- **DendSer** - Dendrogram seriation heuristic to optimize various
+  criteria
+- **GA** - Genetic algorithm with warm start to optimize various
+  criteria
+- **GW** - Hierarchical clustering reordered by Gruvaeus and Wainer
+  heuristic
+- **HC** - Hierarchical clustering (single link, avg. link, complete
+  link)
+- **Identity** permutation
+- **MDS** - Multidimensional scaling (metric, non-metric, angle)
+- **OLO** - Hierarchical clustering with optimal leaf ordering
+- **OPTICS** - Ordering points to identify the clustering structure.
+- **QAP** - Quadratic assignment problem heuristic (2-SUM, linear
+  seriation, inertia, banded anti-Robinson form)
+- **R2E** - Rank-two ellipse seriation
+- **Random** permutation
+- **Spectral** seriation (unnormalized, normalized)
+- **SPIN** - Sorting points into neighborhoods (neighborhood algorithm,
+  side-to-site algorithm)
+- **TSP** - Traveling sales person solver to minimize the Hamiltonian
+  path length
+- **TSNE** - Order of the 1D t-distributed stochastic neighbor embedding
+  (t-SNE)
+- **UMAP** - Order of the 1D embedding produced by uniform manifold
+  approximation and projection
+- **VAT** - Order of the visual assessment of clustering tendency
+  ordering
 
 A detailed comparison of the methods is available in the paper [An
 experimental comparison of seriation methods for one-mode two-way
@@ -59,16 +59,16 @@ data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) (read the
 The following methods are available to reorder rows and columns of
 matrices:
 
--   **BEA** - Bond Energy Algorithm to maximize the measure of
-    effectiveness (ME)
--   **CA** - calculates a correspondence analysis of a matrix of
-    frequencies and reorders according to the scores on a correspondence
-    analysis dimension
--   **Identity** permutation
--   **PCA** - orders along the first principal component or angle on the
-    projection on the first two principal components
--   **Random** permutation
--   **TSP** - Traveling sales person solver to maximize ME
+- **BEA** - Bond Energy Algorithm to maximize the measure of
+  effectiveness (ME)
+- **CA** - calculates a correspondence analysis of a matrix of
+  frequencies and reorders according to the scores on a correspondence
+  analysis dimension
+- **Identity** permutation
+- **PCA** - orders along the first principal component or angle on the
+  projection on the first two principal components
+- **Random** permutation
+- **TSP** - Traveling sales person solver to maximize ME
 
 ## Installation
 
@@ -79,7 +79,7 @@ install.packages("seriation")
 ```
 
 **Current development version:** Install from
-[r-universe.](https://mhahsler.r-universe.dev/ui#package:seriation)
+[r-universe.](https://mhahsler.r-universe.dev/seriation)
 
 ``` r
 install.packages("seriation", repos = "https://mhahsler.r-universe.dev")
@@ -168,14 +168,14 @@ rbind(alphabetical = criterion(d), seriated = criterion(d, order))
 
 ## References
 
--   Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things
-    in Order: An Introduction to the R Package
-    seriation,](http://dx.doi.org/10.18637/jss.v025.i03) *Journal of
-    Statistical Software,* 25(3), 2008.
--   Michael Hahsler. [An experimental comparison of seriation methods
-    for one-mode two-way
-    data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) *European
-    Journal of Operational Research,* 257:133-143, 2017. (read the
-    [preprint](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf))
--   [Reference manual for package
-    seriation.](https://www.rdocumentation.org/packages/seriation/)
+- Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things in
+  Order: An Introduction to the R Package
+  seriation,](http://dx.doi.org/10.18637/jss.v025.i03) *Journal of
+  Statistical Software,* 25(3), 2008.
+- Michael Hahsler. [An experimental comparison of seriation methods for
+  one-mode two-way data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066)
+  *European Journal of Operational Research,* 257:133-143, 2017. (read
+  the
+  [preprint](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf))
+- [Reference manual for package
+  seriation.](https://www.rdocumentation.org/packages/seriation/)

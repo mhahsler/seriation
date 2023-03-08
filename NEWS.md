@@ -1,4 +1,4 @@
-# seriation 1.4.1-1 (xx/x/2023)
+# seriation 1.4.2 (03/07/2023)
 
 ## Bug Fixes
 -   pimage: ... is now passed on to the seriation method.
