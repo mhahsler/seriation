@@ -39,16 +39,19 @@ set_seriation_method("dist",
                      "Random",
                      seriate_dist_random,
                      "Random permutation",
-                     randomized = TRUE)
+                     randomized = TRUE,
+                     optimized = "None")
 
 set_seriation_method("matrix",
                      "Random",
                      seriate_matrix_random,
                      "Random permutation",
-                     randomized = TRUE)
+                     randomized = TRUE,
+                     optimized = "None")
 
 set_seriation_method("array",
                      "Random",
                      seriate_matrix_random,
                      "Random permutation",
-                     randomized = TRUE)
+                     randomized = TRUE,
+                     optimized = "None")

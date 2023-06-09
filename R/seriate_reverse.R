@@ -32,14 +32,17 @@ seriate_matrix_reverse <- function(x, control, margin = seq_along(dim(x))) {
 set_seriation_method("dist",
                      "Reverse",
                      seriate_dist_reverse,
-                     "Reversed identity permutation")
+                     "Reversed identity permutation",
+                     optimized = "None")
 
 set_seriation_method("matrix",
                      "Reverse",
                      seriate_matrix_reverse,
-                     "Reversed identity permutation")
+                     "Reversed identity permutation",
+                     optimized = "None")
 
 set_seriation_method("array",
                      "Reverse",
                      seriate_matrix_reverse,
-                     "Reversed identity permutation")
+                     "Reversed identity permutation",
+                     optimized = "None")

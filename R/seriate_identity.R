@@ -37,14 +37,17 @@ seriate_matrix_identity <-
 set_seriation_method("matrix",
                      "Identity",
                      seriate_matrix_identity,
-                     "Identity permutation")
+                     "Identity permutation",
+                     optimized = "None")
 
 set_seriation_method("array",
                      "Identity",
                      seriate_matrix_identity,
-                     "Identity permutation")
+                     "Identity permutation",
+                     optimized = "None")
 
 set_seriation_method("dist",
                      "Identity",
                      seriate_dist_identity,
-                     "Identity permutation")
+                     "Identity permutation",
+                     optimized = "None")
