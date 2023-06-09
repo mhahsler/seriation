@@ -97,13 +97,15 @@ set_seriation_method(
   "dist",
   "QAP_2SUM",
   seriate_dist_2SUM,
-  "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the 2-Sum Problem criterion (Barnard, Pothen, and Simon 1993). Control arguments are passed to qap in package qap."
+  "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the 2-Sum Problem criterion (Barnard, Pothen, and Simon 1993). Control arguments are passed to qap in package qap.",
+  list()
 )
 set_seriation_method(
   "dist",
   "QAP_LS",
   seriate_dist_LS,
-  "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the Linear Seriation Problem (LS) criterion (Hubert and Schultz 1976).Control arguments are passed to qap in package qap."
+  "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the Linear Seriation Problem (LS) criterion (Hubert and Schultz 1976). Control arguments are passed to qap in package qap.",
+  list()
 )
 set_seriation_method(
   "dist",
@@ -116,5 +118,6 @@ set_seriation_method(
   "dist",
   "QAP_Inertia",
   seriate_dist_Inertia,
-  "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the Inertia criterion. Control arguments are passed to qap in package qap."
+  "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the Inertia criterion. Control arguments are passed to qap in package qap.",
+  list()
 )
