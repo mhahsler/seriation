@@ -15,13 +15,13 @@ seriate(x, ...)
 
 \method{seriate}{array}(x, method = "PCA", control = NULL, margin = seq(length(dim(x))), ...)
 
-\method{seriate}{data.frame}(x, method = "Heatmap", control = NULL, margin = c(1, 2), ...)
+\method{seriate}{data.frame}(x, method = "Heatmap", control = NULL, margin = c(1L, 2L), ...)
 
 \method{seriate}{dist}(x, method = "Spectral", control = NULL, ...)
 
-\method{seriate}{matrix}(x, method = "PCA", control = NULL, margin = c(1, 2), ...)
+\method{seriate}{matrix}(x, method = "PCA", control = NULL, margin = c(1L, 2L), ...)
 
-\method{seriate}{table}(x, method = "CA", control = NULL, margin = c(1, 2), ...)
+\method{seriate}{table}(x, method = "CA", control = NULL, margin = c(1L, 2L), ...)
 }
 \arguments{
 \item{x}{the data.}
@@ -34,10 +34,10 @@ seriate(x, ...)
 \item{control}{a list of control options passed on to the seriation
 algorithm.}
 
-\item{margin}{a vector giving the margin indices (dimensions) to be
+\item{margin}{a integer vector giving the margin indices (dimensions) to be
 seriated. For example, for a matrix, \code{1} indicates rows, \code{2}
-indicates columns, \code{c(1,2)} indicates rows and columns. Unseriated margins return
-a identity seriation order.}
+indicates columns, \code{c(1 ,2)} means rows and columns.
+Unseriated margins return the identity seriation order for that margin.}
 }
 \value{
 Returns an object of class \link{ser_permutation}.
@@ -502,7 +502,9 @@ Other seriation:
 \code{\link{register_optics}()},
 \code{\link{register_tsne}()},
 \code{\link{register_umap}()},
-\code{\link{registry_seriate}}
+\code{\link{register_vae}()},
+\code{\link{registry_for_seriaiton_methods}},
+\code{\link{seriate_best}()}
 }
 \author{
 Michael Hahsler

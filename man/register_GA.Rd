@@ -65,13 +65,14 @@ population.
 register_GA()
 get_seriation_method("dist", "GA")
 
-d <- dist(random.robinson(50, pre=TRUE, noise=.1))
+data(SupremeCourt)
+d <- as.dist(SupremeCourt)
 
 ## use default settings: Banded AR form
 o <- seriate(d, "GA")
 pimage(d, o)
 
-## optimize for linear sertiation criterion (LS)
+## optimize for linear seriation criterion (LS)
 o <- seriate(d, "GA", control = list(criterion = "LS"))
 pimage(d, o)
 
@@ -91,7 +92,9 @@ Other seriation:
 \code{\link{register_optics}()},
 \code{\link{register_tsne}()},
 \code{\link{register_umap}()},
-\code{\link{registry_seriate}},
+\code{\link{register_vae}()},
+\code{\link{registry_for_seriaiton_methods}},
+\code{\link{seriate_best}()},
 \code{\link{seriate}()}
 }
 \author{

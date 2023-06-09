@@ -1,8 +1,8 @@
 Package: seriation
 Type: Package
 Title: Infrastructure for Ordering Objects Using Seriation
-Version: 1.4.2
-Date: 2023-03-07
+Version: 1.4.2.1
+Date: 2023-xx-xx
 Authors@R: c(
 	person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
 	  email = "mhahsler@lyle.smu.edu",
@@ -41,6 +41,8 @@ Suggests: DendSer,
   Rtsne,
   dbscan,
   umap,
+  keras,
+  tensorflow,
   testthat, 
   dendextend,
   ggplot2,
@@ -95,6 +97,7 @@ Collate:
     'register_optics.R'
     'register_tsne.R'
     'register_umap.R'
+    'register_vae.R'
     'reorder.hclust.R'
     'robinson.R'
     'ser_dist.R'
@@ -119,6 +122,10 @@ Collate:
     'seriate_SPIN.R'
     'seriate_TSP.R'
     'seriate_VAT.R'
+    'seriate_best.R'
     'seriate_heatmap.R'
+    'seriate_identity.R'
+    'seriate_random.R'
+    'seriate_reverse.R'
     'seriate_spectral.R'
     'uniscale.R'

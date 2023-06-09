@@ -16,8 +16,13 @@ on the number line and create a order for \code{\link[=seriate]{seriate()}}.
 }
 \details{
 Registers the method \code{"umap"} for \code{\link[=seriate]{seriate()}}. This method applies
-1D UMAP to data represented by a distance matrix and extracts the order from
+1D UMAP to a data matrix or a distance matrix and extracts the order from
 the 1D embedding.
+
+Control parameter \code{n_epochs} can be increased to find a better embedding.
+
+The returned seriation permutation vector has an attribute named
+\code{embedding} containing the umap embedding.
 
 \bold{Note:} Package \pkg{umap} needs to be installed.
 }
@@ -25,14 +30,32 @@ the 1D embedding.
 
 \dontrun{
 register_umap()
+
+## distances
 get_seriation_method("dist", "umap")
 
-d <- dist(random.robinson(50, pre=TRUE, noise=.1))
+data(SupremeCourt)
+d <- as.dist(SupremeCourt)
 
 o <- seriate(d, method = "umap")
 pimage(d, o)
-}
 
+# look at the returned embedding and plot it
+attr(o[[1]], "embedding")
+configplot(o)
+
+## matrix
+get_seriation_method("matrix", "umap")
+
+data("Zoo")
+Zoo[,"legs"] <- (Zoo[,"legs"] > 0)
+x <- as.matrix(Zoo[,-17])
+label <- rownames(Zoo)
+class <- Zoo$class
+
+o <- seriate(x, method = "umap")
+pimage(x, o, prop = FALSE)
+}
 }
 \references{
 McInnes, L, Healy, J, UMAP: Uniform Manifold Approximation and
@@ -46,7 +69,9 @@ Other seriation:
 \code{\link{register_GA}()},
 \code{\link{register_optics}()},
 \code{\link{register_tsne}()},
-\code{\link{registry_seriate}},
+\code{\link{register_vae}()},
+\code{\link{registry_for_seriaiton_methods}},
+\code{\link{seriate_best}()},
 \code{\link{seriate}()}
 }
 \concept{seriation}

@@ -16,13 +16,19 @@ Use t-distributed stochastic neighbor embedding (t-SNE) for \code{\link[=seriate
 }
 \details{
 Registers the method \code{"tsne"} for \code{\link[=seriate]{seriate()}}. This method applies
-1D t-SNE to data represented by a distance matrix and extracts the order
+1D t-SNE to a data matrix or a distance matrix and extracts the order
 from the 1D embedding. To speed up the process, an initial embedding is
-created using multi-dimensional scaling (MDS) which is improved by t-SNE.
+created using 1D multi-dimensional scaling (MDS) or principal
+comonents analysis (PCA) which is improved by t-SNE.
 
-The \code{control} parameter \code{mds} controls if MDS is used to create an
+The \code{control} parameter \code{"mds"} or \code{"pca"} controls if MDS (for distances)
+or PCA (for data matrices) is used to create an
 initial embedding. See \code{\link[Rtsne:Rtsne]{Rtsne::Rtsne()}} to learn about the other
 available \code{control} parameters.
+
+Perplexity is automatically set as the minimum between 30 and the number of
+observations. It can be also specified using the control parameter
+\code{"preplexity"}.
 
 \bold{Note:} Package \pkg{Rtsne} needs to be installed.
 }
@@ -30,12 +36,36 @@ available \code{control} parameters.
 
 \dontrun{
 register_tsne()
+
+# distances
 get_seriation_method("dist", "tsne")
 
-d <- dist(random.robinson(50, pre=TRUE, noise=.1))
+data(SupremeCourt)
+d <- as.dist(SupremeCourt)
 
 o <- seriate(d, method = "tsne")
 pimage(d, o)
+
+# look at the returned embedding and plot it
+attr(o[[1]], "embedding")
+configplot(o)
+
+## matrix
+get_seriation_method("matrix", "tsne")
+
+data("Zoo")
+Zoo[,"legs"] <- (Zoo[,"legs"] > 0)
+x <- as.matrix(Zoo[,-17])
+label <- rownames(Zoo)
+class <- Zoo$class
+
+# tsne does not allow duplicates
+x <- x[!duplicated(x), , drop = FALSE]
+
+o <- seriate(x, method = "tsne")
+pimage(x, o, prop = FALSE)
+
+configplot(o[[1]], col = class)
 }
 
 }
@@ -52,7 +82,9 @@ Other seriation:
 \code{\link{register_GA}()},
 \code{\link{register_optics}()},
 \code{\link{register_umap}()},
-\code{\link{registry_seriate}},
+\code{\link{register_vae}()},
+\code{\link{registry_for_seriaiton_methods}},
+\code{\link{seriate_best}()},
 \code{\link{seriate}()}
 }
 \concept{seriation}

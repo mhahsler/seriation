@@ -1,8 +1,30 @@
+# seriation 1.4.2.1 (xx/xx/2023)
+
+## New Features
+- new function seriate_best and seriate_rep to easily find a good order.
+- seriation for arrays (including matrix) gained margin parameter.
+- added VAE method
+- tsne and umap can now be used on data matrices.
+- get_rank() returns now labels.
+- added method reverse for dist.
+- seriation method registry has new fields 'randomized' to indicate if an algorithm
+  is randomized and should be run several times and 'optimizes' to indicate
+  what criterion is optimized.
+
+## Changes
+- orderplot() is now called configplot().
+
+## Bug Fixes
+- fixed labels returned by uniscale()
+
 # seriation 1.4.2 (03/07/2023)
 
 ## Bug Fixes
 -   pimage: ... is now passed on to the seriation method.
 -   added missing S3 method registrations.
+
+## New Features
+-   methods umap and tsne can now return the embedding.
 
 # seriation 1.4.1 (12/27/2022)
 

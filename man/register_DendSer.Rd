@@ -34,8 +34,9 @@ anti-Robinson from with 20\\% band width).}
 
 For convenience, the following methods (for different cost functions) are
 also provided: \code{"DendSer_ARc"} (anti-robinson form),
-\code{"DendSer_BAR"} (banded anti-Robinson form), \code{"DendSer_LS"} (leaf
-seriation), \code{"DendSer_PL"} (path length).
+\code{"DendSer_BAR"} (banded anti-Robinson form),
+\code{"DendSer_LPL"} (lazy path length),
+\code{"DendSer_PL"} (path length).
 
 Note: Package \pkg{DendSer} needs to be installed.
 }
@@ -69,7 +70,9 @@ Other seriation:
 \code{\link{register_optics}()},
 \code{\link{register_tsne}()},
 \code{\link{register_umap}()},
-\code{\link{registry_seriate}},
+\code{\link{register_vae}()},
+\code{\link{registry_for_seriaiton_methods}},
+\code{\link{seriate_best}()},
 \code{\link{seriate}()}
 }
 \author{

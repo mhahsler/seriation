@@ -2,12 +2,12 @@
 % Please edit documentation in R/uniscale.R
 \name{uniscale}
 \alias{uniscale}
-\alias{orderplot}
+\alias{configplot}
 \title{Unidimensional Scaling from Seriation Results}
 \usage{
-uniscale(d, order = NULL, method = "QAP_LS", rep = 10, ...)
+uniscale(d, order = NULL, method = "MDS", rep = 10, warn = TRUE, ...)
 
-orderplot(x, main, pch = 19, ...)
+configplot(x, main, pch = 19, ...)
 }
 \arguments{
 \item{d}{a dissimilarity matrix.}
@@ -19,6 +19,9 @@ orderplot(x, main, pch = 19, ...)
 \item{method}{seriation method used if \code{o} is \code{NULL}.}
 
 \item{rep}{Number of repetitions of the seriation heuristic.}
+
+\item{warn}{logical; produce a warning if the 1D MDS fit does not preserve the
+given order.}
 
 \item{\dots}{additional arguments are passed on to the seriation method.}
 
@@ -32,33 +35,49 @@ orderplot(x, main, pch = 19, ...)
 A vector with the fitted configuration.
 }
 \description{
-Performs (approximate) unidimensional scaling by first performing seriation
-to obtain a permutation and the using the permutation to calculate the
-configuration.
+Calculates an (approximate) unidimensional scaling configuration given an order.
 }
 \details{
-Uses the method describes in Maier and De Leeuw (2015) to calculate the
-minimum stress configuration for either a given
-configuration/permutation/order or for a permutation computed via a
-seriation method.
+This implementation uses the method describes in Maier and De Leeuw (2015) to calculate the
+minimum stress configuration for a given (seriation) order by performing a 1D MDS fit.
+If the 1D MDS fit does not preserve the given order perfectly (i.e., because the
+order was not calculated using MDS), then a warning is produced indicating
+for how many positions order could not be preserved.
 
-The code is similar to \code{uniscale()} in \pkg{smacof}, but scales to larger
-datasets since it does not check all permutations.
+If no order is specified, then
+a seriation order is first found using the specified seriation method.
+
+The code is similar to \code{uniscale()} in \pkg{smacof} (de Leeuw, 2090), but scales to larger
+datasets since it only checks the permutation given by the seriation order.
 }
 \examples{
 data(SupremeCourt)
-
 d <- as.dist(SupremeCourt)
 
-sc <- uniscale(d)
+## create an order
+o <- seriate(d, method = "MDS")
+get_order(o)
+pimage(d, o)
+
+## find the minimum-stress configuration
+sc <- uniscale(d, o)
 sc
 
-orderplot(sc)
+configplot(sc)
+
+# seriation with MDS already computes a 1D embedding as attribute embedding
+str(o[[1]])
+# configplot can show it.
+configplot(o)
 }
 \references{
 Mair P., De Leeuw J. (2015). Unidimensional scaling. In
 \emph{Wiley StatsRef: Statistics Reference Online,} Wiley, New York.
 \doi{10.1002/9781118445112.stat06462.pub2}
+
+Jan de Leeuw, Patrick Mair (2009). Multidimensional Scaling Using Majorization:
+SMACOF in R. Journal of Statistical Software, 31(3), 1-30.
+\doi{10.18637/jss.v031.i03}
 }
 \author{
 Michael Hahsler with code from Patrick Mair (from \pkg{smacof}).

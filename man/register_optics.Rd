@@ -47,7 +47,9 @@ Other seriation:
 \code{\link{register_GA}()},
 \code{\link{register_tsne}()},
 \code{\link{register_umap}()},
-\code{\link{registry_seriate}},
+\code{\link{register_vae}()},
+\code{\link{registry_for_seriaiton_methods}},
+\code{\link{seriate_best}()},
 \code{\link{seriate}()}
 }
 \concept{seriation}

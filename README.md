@@ -48,6 +48,8 @@ The following methods are available to reorder dissimilarity data:
   (t-SNE)
 - **UMAP** - Order of the 1D embedding produced by uniform manifold
   approximation and projection
+- **VAE** - Order if the 1D embedding produced by a variational
+  autoencoder.
 - **VAT** - Order of the visual assessment of clustering tendency
   ordering
 
@@ -56,7 +58,7 @@ experimental comparison of seriation methods for one-mode two-way
 data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) (read the
 [preprint](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf)).
 
-The following methods are available to reorder rows and columns of
+The following methods are available to reorder rows and columns of data
 matrices:
 
 - **BEA** - Bond Energy Algorithm to maximize the measure of
@@ -69,6 +71,12 @@ matrices:
   projection on the first two principal components
 - **Random** permutation
 - **TSP** - Traveling sales person solver to maximize ME
+- **TSNE** - Order of the 1D t-distributed stochastic neighbor embedding
+  (t-SNE)
+- **UMAP** - Order of the 1D embedding produced by uniform manifold
+  approximation and projection
+- **VAE** - Order if the 1D embedding produced by a variational
+  autoencoder.
 
 ## Installation
 
@@ -150,7 +158,7 @@ pimage(d, order, diag = TRUE, upper = TRUE, main = "judges reordered by seriatio
 
 <img src="inst/README_files/seriation-1.png" width="50%" /><img src="inst/README_files/seriation-2.png" width="50%" />
 
-Compare serveral available quality metrics.
+Compare several available quality metrics.
 
 ``` r
 rbind(alphabetical = criterion(d), seriated = criterion(d, order))

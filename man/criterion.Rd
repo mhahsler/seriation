@@ -316,7 +316,7 @@ patterns in gene expression profiles, \emph{BMC Bioinformatics,}
 }
 \seealso{
 Other criterion: 
-\code{\link{registry_criterion}}
+\code{\link{registry_for_criterion_methods}}
 }
 \author{
 Michael Hahsler
