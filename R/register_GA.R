@@ -75,13 +75,14 @@
 #' register_GA()
 #' get_seriation_method("dist", "GA")
 #'
-#' d <- dist(random.robinson(50, pre=TRUE, noise=.1))
+#' data(SupremeCourt)
+#' d <- as.dist(SupremeCourt)
 #'
 #' ## use default settings: Banded AR form
 #' o <- seriate(d, "GA")
 #' pimage(d, o)
 #'
-#' ## optimize for linear sertiation criterion (LS)
+#' ## optimize for linear seriation criterion (LS)
 #' o <- seriate(d, "GA", control = list(criterion = "LS"))
 #' pimage(d, o)
 #'
