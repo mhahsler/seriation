@@ -26,44 +26,58 @@
   verbose = FALSE
 )
 
-seriate_matrix_heatmap <- function(x, control = NULL) {
-  control <- .get_parameters(control, .heatmap_contr)
+seriate_matrix_heatmap <-
+  function(x,
+           control = NULL,
+           margin = seq_along(dim(x))) {
+    control <- .get_parameters(control, .heatmap_contr)
 
-  if (length(control$dist_fun) == 1L)
-    control$dist_fun <-
-      list(row = control$dist_fun,
-        col = control$dist_fun)
-  if (length(control$seriation_method) == 1L)
-    control$seriation_method <-
-      list(row = control$seriation_method,
-        col = control$seriation_method)
-  if (length(control$seriation_control) == 1L)
-    control$seriation_control <-
-      list(row = control$seriation_control,
-        col = control$seriation_control)
+    if (length(control$dist_fun) == 1L)
+      control$dist_fun <-
+        list(row = control$dist_fun,
+             col = control$dist_fun)
+    if (length(control$seriation_method) == 1L)
+      control$seriation_method <-
+        list(row = control$seriation_method,
+             col = control$seriation_method)
+    if (length(control$seriation_control) == 1L)
+      control$seriation_control <-
+        list(row = control$seriation_control,
+             col = control$seriation_control)
 
-  if (!is.null(control$scale)) {
-    if (control$scale == "row")
-      x <- t(scale(t(x)))
-    if (control$scale == "col")
-      x <- scale(x)
+    if (!is.null(control$scale)) {
+      if (control$scale == "row")
+        x <- t(scale(t(x)))
+      if (control$scale == "col")
+        x <- scale(x)
+    }
+
+
+    if (1L %in% margin) {
+      d <- control$dist_fun$row(x)
+      o_row <- seriate(
+        d,
+        method = control$seriation_method$row,
+        control = control$seriation_control$row
+      )
+    } else
+      o_row <- NA
+
+    if (2L %in% margin) {
+      d <- control$dist_fun$col(t(x))
+      o_col <- seriate(
+        d,
+        method = control$seriation_method$col,
+        control = control$seriation_control$col
+      )
+    } else
+      o_col <- NA
+
+    #names(row) <- rownames(x)[get_order(o_row)]
+    #names(col) <- colnames(x)[get_order(o_col)]
+
+    list(row = o_row[[1]], col = o_col[[1]])
   }
-
-  d <- control$dist_fun$row(x)
-  o_row <- seriate(d,
-    method = control$seriation_method$row,
-    control = control$seriation_control$row)
-
-  d <- control$dist_fun$col(t(x))
-  o_col <- seriate(d,
-    method = control$seriation_method$col,
-    control = control$seriation_control$col)
-
-  #names(row) <- rownames(x)[get_order(o_row)]
-  #names(col) <- colnames(x)[get_order(o_col)]
-
-  list(row = o_row[[1]], col = o_col[[1]])
-}
 
 set_seriation_method(
   "matrix",
