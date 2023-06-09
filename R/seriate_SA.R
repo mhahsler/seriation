@@ -169,5 +169,6 @@ set_seriation_method(
     " - swap_to_inversion (proportion of swaps to inversions)\n",
     " - nlocal (number of objects times nlocal is the number of search tries per temperature\n"
   ),
-  .sa_contr
+  .sa_contr,
+  randomized = TRUE
 )

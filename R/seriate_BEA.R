@@ -98,11 +98,15 @@ set_seriation_method(
   "BEA",
   seriate_matrix_bea,
   "Bond Energy Algorithm (BEA; McCormick 1972) to maximize the Measure of Effectiveness of a non-negative matrix.",
-  .bea_contr
+  .bea_contr,
+  optimizes = "Measure of effectiveness (ME)"
 )
+
 set_seriation_method(
   "matrix",
   "BEA_TSP",
   seriate_matrix_bea_tsp,
-  "Use a TSP to optimize the Measure of Effectiveness (Lenstra 1974). Control is passed on to the seriation method TSP."
+  "Use a TSP to optimize the Measure of Effectiveness (Lenstra 1974). Control is passed on to the seriation method TSP.",
+  optimizes = "Measure of effectiveness (ME)",
+  randomized = TRUE
 )

@@ -16,14 +16,12 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-## seriate tables
-
 #' @rdname seriate
 #' @export
 
 seriate.table <- function(x,
   method = "CA",
   control = NULL,
-  margin = c(1, 2),
+  margin = c(1L, 2L),
   ...)
   seriate.matrix(x, method, control, margin, ...)

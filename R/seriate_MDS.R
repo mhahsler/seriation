@@ -66,19 +66,24 @@ set_seriation_method(
   "MDS",
   seriate_dist_mds,
   "Order using the first component found by multidimensional scaling. Element method in control can be \"cmdscale\", \"isoMDS\" or \"sammon\".",
-  .mds_control
+  .mds_control,
+  optimizes = "Stress (Moore stress)"
 )
+
 set_seriation_method(
   "dist",
   "MDS_metric",
   seriate_dist_mds_metric,
-  "Order using the first component found by metric multidimensional scaling (cmdscsale)."
+  "Order using the first component found by metric multidimensional scaling (cmdscsale).",
+  optimizes = "Stress (Moore stress)"
 )
+
 set_seriation_method(
   "dist",
   "MDS_nonmetric",
   seriate_dist_mds_nonmetric,
-  "Order using the first component found by non-metric multidimensional scaling (isoMDS)."
+  "Order using the first component found by non-metric multidimensional scaling (isoMDS).",
+  optimizes = "Stress (Moore stress)"
 )
 set_seriation_method(
   "dist",

@@ -40,6 +40,7 @@
 #' additional information for the method passed on from [criterion()]. The
 #' implementation has to return the criterion value as a scalar.
 #'
+#' @name registry_for_criterion_methods
 #' @family criterion
 #'
 #' @param kind the data type the method works on. For example, `"dist"`,
@@ -110,7 +111,7 @@ registry_criterion$set_field("description", type = "character",
 registry_criterion$set_field("merit", type = "logical",
   is_key = FALSE)
 
-#' @rdname registry_criterion
+#' @rdname registry_for_criterion_methods
 #' @export
 list_criterion_methods <- function(kind) {
   if (missing(kind)) {
@@ -131,7 +132,7 @@ list_criterion_methods <- function(kind) {
   }
 }
 
-#' @rdname registry_criterion
+#' @rdname registry_for_criterion_methods
 #' @export
 get_criterion_method <- function(kind, name) {
   method <- registry_criterion$get_entry(kind = kind, name = name)
@@ -150,7 +151,7 @@ get_criterion_method <- function(kind, name) {
 ## registry, and a setter for single methods.
 ## </NOTE>
 
-#' @rdname registry_criterion
+#' @rdname registry_for_criterion_methods
 #' @export
 set_criterion_method <- function(kind,
   name,
@@ -186,7 +187,7 @@ set_criterion_method <- function(kind,
 
 }
 
-#' @rdname registry_criterion
+#' @rdname registry_for_criterion_methods
 #' @export
 print.criterion_method <- function(x, ...) {
   writeLines(c(

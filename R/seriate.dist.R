@@ -37,35 +37,18 @@ seriate.dist <-
 
     if (!is.null(control$verbose) &&
         control$verbose)
-      cat(method$name, ": ",
+      cat("Using seriation method: ", method$name, "\n",
         method$description, "\n\n", sep = "")
 
-    order <- method$fun(x, control = control)
+    tm <- system.time(order <- method$fun(x, control = control))
     if (is.integer(order)) names(order) <- labels(x)[order]
+
+    if (!is.null(control$verbose) &&
+        control$verbose)
+      cat("Seriation took", tm[1] + tm[2], "sec\n\n")
 
     ser_permutation(ser_permutation_vector(order, method = method$name))
   }
 
-seriate_dist_identity <- function(x, control = NULL) {
-  #param <- .get_parameters(control, NULL)
-  .get_parameters(control, NULL)
-
-  o <- 1:attr(x, "Size")
-  o
-}
-
-seriate_dist_random <- function(x, control = NULL) {
-  #param <- .get_parameters(control, NULL)
-  .get_parameters(control, NULL)
-
-  o <- 1:attr(x, "Size")
-  sample(o)
-}
 
 
-set_seriation_method("dist",
-  "Identity",
-  seriate_dist_identity,
-  "Identity permutation")
-set_seriation_method("dist", "Random", seriate_dist_random,
-  "Random permutation")

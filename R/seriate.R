@@ -332,10 +332,10 @@
 #' (default: varies by data type).
 #' @param control a list of control options passed on to the seriation
 #' algorithm.
-#' @param margin a vector giving the margin indices (dimensions) to be
+#' @param margin a integer vector giving the margin indices (dimensions) to be
 #' seriated. For example, for a matrix, `1` indicates rows, `2`
-#' indicates columns, `c(1,2)` indicates rows and columns. Unseriated margins return
-#' a identity seriation order.
+#' indicates columns, `c(1 ,2)` means rows and columns.
+#' Unseriated margins return the identity seriation order for that margin.
 #' @param ... further arguments are added to the `control` list.
 #'
 #' @return Returns an object of class [ser_permutation].

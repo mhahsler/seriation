@@ -164,7 +164,9 @@ register_GA <- function() {
     "GA",
     GA_helper,
     "Use a genetic algorithm to optimize for various criteria.",
-    .ga_contr
+    .ga_contr,
+    randomized = TRUE,
+    optimizes = "Various (specified as parameter criterion)"
   )
 }
 

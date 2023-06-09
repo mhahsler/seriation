@@ -64,11 +64,14 @@ set_seriation_method(
   "dist",
   "Spectral",
   seriate_dist_spectral,
-  "Spectral seriation (Ding and He 2004)  uses a relaxation to minimize the 2-Sum Problem (Barnard, Pothen, and Simon 1993). It uses the order of the Fiedler vector of the similarity matrix's Laplacian."
+  "Spectral seriation (Ding and He 2004) uses a relaxation to minimize the 2-Sum Problem (Barnard, Pothen, and Simon 1993). It uses the order of the Fiedler vector of the similarity matrix's Laplacian.",
+  optimizes = "2-sum criterion"
 )
+
 set_seriation_method(
   "dist",
   "Spectral_norm",
   seriate_dist_spectral_norm,
-  "Spectral seriation (Ding and He 2004)  uses a relaxation to minimize the 2-Sum Problem (Barnard, Pothen, and Simon 1993). It uses the order of the Fiedler vector of the similarity matrix's normalized Laplacian."
+  "Spectral seriation (Ding and He 2004) uses a relaxation to minimize the 2-Sum Problem (Barnard, Pothen, and Simon 1993). It uses the order of the Fiedler vector of the similarity matrix's normalized Laplacian.",
+  optimizes = "2-sum criterion"
 )

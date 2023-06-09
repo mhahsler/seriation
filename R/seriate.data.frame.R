@@ -21,7 +21,7 @@
 seriate.data.frame <- function(x,
   method = "Heatmap",
   control = NULL,
-  margin = c(1, 2),
+  margin = c(1L, 2L),
   ...)
   .seriate_array_helper(as.matrix(x),
     method,

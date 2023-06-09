@@ -44,7 +44,7 @@ seriate_matrix_fpc <- function(x, control = NULL, margin = NULL) {
     attr(row, "embedding") <- scores
 
     if (verbose)
-      cat("row: first principal component explains",
+      cat("Rows: first PC explains",
           pr$sdev[1] / sum(pr$sdev) * 100,
           "%\n")
     names(row) <- rownames(x)[row]
@@ -53,7 +53,7 @@ seriate_matrix_fpc <- function(x, control = NULL, margin = NULL) {
 
 
   if (2L %in% margin) {
-    pr <- prcomp(t(x),
+    pr <- stats::prcomp(t(x),
                  center = center,
                  scale. = scale.,
                  tol = tol)
@@ -62,12 +62,15 @@ seriate_matrix_fpc <- function(x, control = NULL, margin = NULL) {
     attr(col, "embedding") <- scores
 
      if (verbose)
-      cat("col: first principal component explains",
+      cat("Cols: first PC explains",
           pr$sdev[1] / sum(pr$sdev) * 100,
           "%\n")
     names(col) <- colnames(x)[col]
   } else
     col <- NA
+
+  if (verbose)
+    cat("\n")
 
   list(row = row, col = col)
 }
@@ -128,8 +131,10 @@ set_seriation_method(
   "PCA",
   seriate_matrix_fpc,
   "Uses the projection of the data on its first principal component to determine the order. Note that for a distance matrix calculated from x with Euclidean distance, this methods minimizes the least square criterion.",
-  .pca_contr
+  .pca_contr,
+  optimizes = "Least squares for each dimension."
 )
+
 set_seriation_method(
   "matrix",
   "PCA_angle",

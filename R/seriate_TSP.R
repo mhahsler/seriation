@@ -21,6 +21,7 @@
 .tsp_control <- list(method = "arbitrary insertion",
   rep = 10,
   two_opt = TRUE)
+
 seriate_dist_tsp <- function(x, control = NULL) {
   ## add a dummy city for cutting
   tsp <- insert_dummy(TSP(x), n = 1, label = "cut_here")
@@ -40,5 +41,7 @@ set_seriation_method(
   "TSP",
   seriate_dist_tsp,
   "Minimize Hamiltonian path length with a TSP solver (see solve_TSP in package TSP for available methods).",
-  .tsp_control
+  .tsp_control,
+  randomized = TRUE,
+  optimizes = "Path length"
 )

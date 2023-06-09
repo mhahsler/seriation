@@ -37,10 +37,14 @@
 
   if (!is.null(control$verbose) &&
       control$verbose)
-    cat(method$name, ": ",
-      method$description, "\n\n", sep = "")
+    cat("Using seriation method: ", method$name, "\n",
+        method$description, "\n\n", sep = "")
 
-  order <- method$fun(x, control, margin)
+  tm <- system.time(order <- method$fun(x, control, margin))
+
+  if (!is.null(control$verbose) &&
+      control$verbose)
+    cat("Seriation took", tm[1] + tm[2], "sec\n\n")
 
   for (i in margin)
     if (!is.null(dimnames(x)[[i]]) &&
@@ -74,12 +78,3 @@ seriate.array <- function(x,
     margin,
     datatype = "array",
     ...)
-## we currently have no method and therefore also no default method!
-
-
-## methods
-## Identity is defined in seriate.matrix.R
-## no other methods available right now
-
-## register methods
-## no methods available right now

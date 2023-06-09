@@ -49,6 +49,7 @@
 #' corresponding order to the dimensions of \code{x}.
 #'
 #' @import registry
+#' @name registry_for_seriaiton_methods
 #' @family seriation
 #'
 #' @param kind the data type the method works on. For example, \code{"dist"},
@@ -59,6 +60,10 @@
 #' @param definition a function containing the method's code.
 #' @param description a description of the method. For example, a long name.
 #' @param control a list with control arguments and default values.
+#' @param randomized logical; does the algorithm use randomization and re-running
+#'   the algorithm several times will lead to different results (see: [seriate_rep()]).
+#' @param optimizes what criterion does the algorithm try to optimize
+#'   (see: [list_criterion_methods()]).
 #' @param x an object of class  "seriation_method" to be printed.
 #' @param ... further information that is stored for the method in the
 #' registry.
@@ -105,24 +110,28 @@
 #' seriate(matrix(1:12, ncol=3), "reverse")
 #' @export
 registry_seriate <- registry(registry_class = "seriation_registry",
-  entry_class = "seriation_method")
+                             entry_class = "seriation_method")
 
 registry_seriate$set_field("kind",
-  type = "character",
-  is_key = TRUE,
-  index_FUN = match_partial_ignorecase)
+                           type = "character",
+                           is_key = TRUE,
+                           index_FUN = match_partial_ignorecase)
 registry_seriate$set_field("name",
-  type = "character",
-  is_key = TRUE,
-  index_FUN = match_partial_ignorecase)
+                           type = "character",
+                           is_key = TRUE,
+                           index_FUN = match_partial_ignorecase)
 registry_seriate$set_field("fun", type = "function",
-  is_key = FALSE)
+                           is_key = FALSE)
 registry_seriate$set_field("description", type = "character",
-  is_key = FALSE)
+                           is_key = FALSE)
 registry_seriate$set_field("control", type = "list",
-  is_key = FALSE)
+                           is_key = FALSE)
+registry_seriate$set_field("randomized", type = "logical",
+                           is_key = FALSE)
+registry_seriate$set_field("optimizes", type = "character",
+                           is_key = FALSE)
 
-#' @rdname registry_seriate
+#' @rdname registry_for_seriaiton_methods
 #' @export
 list_seriation_methods <- function(kind) {
   if (missing(kind)) {
@@ -143,7 +152,7 @@ list_seriation_methods <- function(kind) {
   }
 }
 
-#' @rdname registry_seriate
+#' @rdname registry_for_seriaiton_methods
 #' @export
 get_seriation_method <- function(kind, name) {
   if (missing(kind))
@@ -166,20 +175,21 @@ get_seriation_method <- function(kind, name) {
   method
 }
 
-#' @rdname registry_seriate
+#' @rdname registry_for_seriaiton_methods
 #' @export
 set_seriation_method <- function(kind,
-  name,
-  definition,
-  description = NULL,
-  control = list(),
-  ...) {
+                                 name,
+                                 definition,
+                                 description = NULL,
+                                 control = list(),
+                                 randomized = FALSE,
+                                 optimizes = "Unspecified",
+                                 ...) {
   ## check formals
   if (!identical(names(formals(definition)),
                  c("x", "control")) &&
       !identical(names(formals(definition)),
-                 c("x", "control", "margin"))
-  )
+                 c("x", "control", "margin")))
     stop("Seriation methods must have formals 'x', 'control' and optionally 'margin'.")
 
   ## check if entry already exists
@@ -193,11 +203,13 @@ set_seriation_method <- function(kind,
     #   "\" already exists! Modifying entry."
     # )
     registry_seriate$modify_entry(
-      kind = kind,
       name = name,
+      kind = kind,
       fun = definition,
       description = description,
-      control = control
+      control = control,
+      randomized = randomized,
+      optimizes = optimizes
     )
   } else {
     registry_seriate$set_entry(
@@ -205,18 +217,22 @@ set_seriation_method <- function(kind,
       kind = kind,
       fun = definition,
       description = description,
-      control = control
+      control = control,
+      randomized = randomized,
+      optimizes = optimizes
     )
   }
 }
 
 
-#' @rdname registry_seriate
+#' @rdname registry_for_seriaiton_methods
 #' @export
 print.seriation_method <- function(x, ...) {
   writeLines(c(
     gettextf("name:        %s", x$name),
     gettextf("kind:        %s", x$kind),
+    gettextf("optimizes:   %s", x$optimizes),
+    gettextf("randomized:  %s", x$randomized),
     gettextf("description: %s", x$description)
   ))
 

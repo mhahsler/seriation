@@ -77,20 +77,21 @@ register_umap <- function() {
 
   .contr <- unclass(umap::umap.defaults)
   .contr$n_epochs <- 1000
-  .contr$n_neighbors <- NULL
+  .contr$n_neighbors <- NA
   .contr$n_components <- 1
-  .contr$input <- NULL
+  .contr$input <- NA
   .contr$random_state <- NA
 
   umap_order <- function(x, control) {
     control <- .get_parameters(control, .contr)
-    x <- as.matrix(x)
 
-    if (is.null(control$input))
+    if (is.na(control$input))
       control$input <- "dist"
 
+    x <- as.matrix(x)
+
     # we cannot have more neighbors than data points
-    if (is.null(control$n_neighbors))
+    if (is.na(control$n_neighbors))
       control$n_neighbors <- 15
     control$n_neighbors <- min(control$n_neighbors, nrow(x))
 
@@ -99,15 +100,14 @@ register_umap <- function() {
       control$random_state <-
       as.integer(runif(1, 0, .Machine$integer.max))
 
-
     # has to be 1
     control$n_components <- 1
 
-
     class(control) <- class(umap::umap.defaults)
-    embedding <- umap::umap(x, config = control)
-    o <- order(embedding$layout)
 
+    embedding <- umap::umap(x, config = control)
+
+    o <- order(embedding$layout)
     embedding <- drop(embedding$layout)
     names(embedding) <- rownames(x)
     attr(o, "embedding") <- embedding
@@ -137,7 +137,8 @@ register_umap <- function() {
     "umap",
     umap_order,
     "Use 1D Uniform manifold approximation and projection (UMAP) embedding of the distances to create an order",
-    .contr
+    .contr,
+    randomized = TRUE
   )
 
   set_seriation_method(
@@ -145,6 +146,7 @@ register_umap <- function() {
     "umap",
     umap_order_matrix_2,
     "Use 1D Uniform manifold approximation and projection (UMAP) embedding of the data to create an order",
-    .contr
+    .contr,
+    randomized = TRUE
   )
 }
