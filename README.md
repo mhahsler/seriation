@@ -39,6 +39,7 @@ The following methods are available to reorder dissimilarity data:
   seriation, inertia, banded anti-Robinson form)
 - **R2E** - Rank-two ellipse seriation
 - **Random** permutation
+- **Reverse** reverse order
 - **Spectral** seriation (unnormalized, normalized)
 - **SPIN** - Sorting points into neighborhoods (neighborhood algorithm,
   side-to-site algorithm)
@@ -64,12 +65,16 @@ matrices:
 - **BEA** - Bond Energy Algorithm to maximize the measure of
   effectiveness (ME)
 - **CA** - calculates a correspondence analysis of a matrix of
-  frequencies and reorders according to the scores on a correspondence
-  analysis dimension
+  frequencies (count table) and reorders according to the scores on a
+  correspondence analysis dimension
+- **Heatmap** - reorders rows and columns independently by calculation
+  row/column distances and applying a seriation method (default is
+  optimal leaf ordering)
 - **Identity** permutation
 - **PCA** - orders along the first principal component or angle on the
   projection on the first two principal components
 - **Random** permutation
+- **Reverse** reverse order
 - **TSP** - Traveling sales person solver to maximize ME
 - **TSNE** - Order of the 1D t-distributed stochastic neighbor embedding
   (t-SNE)
