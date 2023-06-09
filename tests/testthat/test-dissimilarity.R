@@ -1,4 +1,5 @@
 library(seriation)
+library(testthat)
 
 
 ## FIXME add tests for ser_align
