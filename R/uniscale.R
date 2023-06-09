@@ -70,7 +70,8 @@
 #' configplot(sc)
 #'
 #' # seriation with MDS already computes a 1D embedding as attribute embedding
-#' # (attr(o[[1]], "embedding")). configplot can show it.
+#' str(o[[1]])
+#' # configplot can show it.
 #' configplot(o)
 #' @export
 uniscale <-
