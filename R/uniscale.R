@@ -18,22 +18,21 @@
 
 # unidimensional scaling: Defrays Decomposition (1978)
 
-
-
-
 #' Unidimensional Scaling from Seriation Results
 #'
-#' Performs (approximate) unidimensional scaling by first performing seriation
-#' to obtain a permutation and the using the permutation to calculate the
-#' configuration.
+#' Calculates an (approximate) unidimensional scaling configuration given an order.
 #'
-#' Uses the method describes in Maier and De Leeuw (2015) to calculate the
-#' minimum stress configuration for either a given
-#' configuration/permutation/order or for a permutation computed via a
-#' seriation method.
+#' This implementation uses the method describes in Maier and De Leeuw (2015) to calculate the
+#' minimum stress configuration for a given (seriation) order by performing a 1D MDS fit.
+#' If the 1D MDS fit does not preserve the given order perfectly (i.e., because the
+#' order was not calculated using MDS), then a warning is produced indicating
+#' for how many positions order could not be preserved.
 #'
-#' The code is similar to `uniscale()` in \pkg{smacof}, but scales to larger
-#' datasets since it does not check all permutations.
+#' If no order is specified, then
+#' a seriation order is first found using the specified seriation method.
+#'
+#' The code is similar to `uniscale()` in \pkg{smacof} (de Leeuw, 2090), but scales to larger
+#' datasets since it only checks the permutation given by the seriation order.
 #'
 #' @param d a dissimilarity matrix.
 #' @param order a precomputed permutation (configuration) order.  If
@@ -41,34 +40,53 @@
 #' \code{method}.
 #' @param method seriation method used if \code{o} is \code{NULL}.
 #' @param rep Number of repetitions of the seriation heuristic.
+#' @param warn logical; produce a warning if the 1D MDS fit does not preserve the
+#'  given order.
 #' @param \dots additional arguments are passed on to the seriation method.
 #' @return A vector with the fitted configuration.
 #' @author Michael Hahsler with code from Patrick Mair (from \pkg{smacof}).
 #' @references Mair P., De Leeuw J. (2015). Unidimensional scaling. In
 #' \emph{Wiley StatsRef: Statistics Reference Online,} Wiley, New York.
 #' \doi{10.1002/9781118445112.stat06462.pub2}
+#'
+#' Jan de Leeuw, Patrick Mair (2009). Multidimensional Scaling Using Majorization:
+#' SMACOF in R. Journal of Statistical Software, 31(3), 1-30.
+#' \doi{10.18637/jss.v031.i03}
+#'
 #' @keywords optimize
 #' @examples
 #' data(SupremeCourt)
-#'
 #' d <- as.dist(SupremeCourt)
 #'
-#' sc <- uniscale(d)
+#' ## create an order
+#' o <- seriate(d, method = "MDS")
+#' get_order(o)
+#' pimage(d, o)
+#'
+#' ## find the minimum-stress configuration
+#' sc <- uniscale(d, o)
 #' sc
 #'
-#' orderplot(sc)
+#' configplot(sc)
+#'
+#' # seriation with MDS already computes a 1D embedding as attribute embedding
+#' # (attr(o[[1]], "embedding")). configplot can show it.
+#' configplot(o)
 #' @export
 uniscale <-
   function(d,
     order = NULL,
-    method = "QAP_LS",
+    method = "MDS",
     rep = 10,
+    warn = TRUE,
     ...) {
     if (is.null(order))
       order <- seriate(d, method = method, rep = rep, ...)
-    x <- get_rank(order)
-    n <- length(x)
 
+    o <- get_rank(order)
+    n <- length(o)
+
+    # we do not use weights
     w <- 1 - diag(n)
 
     normDissN <- function (diss, wghts, m) {
@@ -83,11 +101,16 @@ uniscale <-
     v <- as.matrix(solve((diag(rowSums(
       w
     )) - w) + (1 / n)) - (1 / n))
-    s <- sign(outer(x, x, "-"))
+    s <- sign(outer(o, o, "-"))
 
     t <- as.vector(v %*% rowSums(delta * w * s))
+    names(t) <- names(o)
 
-    names(t) <- attr(d, "Labels")
+    # does the configuration preserve the order in o?
+    mismatches <- sum(order(o) != order(t))
+    if (mismatches > 0 && warn)
+      warning("Configutation order does not preserve given order! Mismatches: ", mismatches, " of ", n)
+
     t
   }
 
@@ -96,9 +119,21 @@ uniscale <-
 #' @param main main plot label
 #' @param pch print character
 #' @export
-orderplot <- function (x, main, pch = 19, ...) {
+configplot <- function (x, main, pch = 19, ...) {
   if (missing(main))
     main <- "Configuration"
+
+  if(inherits(x, "ser_permutation"))
+    x <- x[[1]]
+
+  if (inherits(x, "ser_permutation_vector")) {
+    if(!is.null(attr(x, "configuration")))
+      x <- attr(x, "configuration")
+    else if(!is.null(attr(x, "embedding")))
+      x <- attr(x, "embedding")
+    else
+      stop("Permutation vector has no configuration attribute. Use uniscale() first to calcualte a configuration")
+  }
 
   n <- length(x)
   plot(
