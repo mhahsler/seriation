@@ -1317,7 +1317,8 @@ get_seriation_method("dist", name = "ARSA")
 @
 
 To add a new seriation method, we first have to implement the seriation code as
-a function with the two formal arguments \code{x} and \code{control}.
+a function with the two formal arguments \code{x} and \code{control}, and for
+arrays also an additional argument \code{margin}.
 \code{x} is the data
 object and \code{control} contains a list with additional information for the
 method passed on from \func{seriate}. The function has to return a list
@@ -1330,8 +1331,11 @@ which reverses the original order of the objects, i.e., which returns
 the reverse identity order.
 
 <<>>=
-seriation_method_reverse <- function(x, control = NULL) {
-           lapply(dim(x), function(n) rev(seq(n)))
+seriation_method_reverse <- function(x, control = NULL,
+                                     margin = seq_along(dim(x))) {
+          lapply(seq_along(dim(x)), function(i)
+            if (i %in% margin) rev(seq(dim(x)[i]))
+            else NA)
 }
 @
 
@@ -1353,7 +1357,7 @@ and applied to data.
 <<>>=
 list_seriation_methods("matrix")
 
-o <- seriate(matrix(1, ncol=3, nrow=4), "New_Reverse")
+o <- seriate(matrix(1, ncol = 3, nrow = 4), "New_Reverse")
 o
 
 get_order(o, 1)
