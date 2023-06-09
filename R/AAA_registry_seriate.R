@@ -38,9 +38,12 @@
 #'
 #' With \code{set_seriation_method()} new seriation methods can be added by the
 #' user. The implementing function (\code{definition}) needs to have the formal
-#' arguments \code{x, control}, where \code{x} is the data object and
+#' arguments \code{x, control} and, for arrays and matrices \code{margin},
+#' where \code{x} is the data object and
 #' \code{control} contains a list with additional information for the method
-#' passed on from \code{seriate()}.  The implementation has to return a list of
+#' passed on from \code{seriate()}, and \code{margin} is a vector specifying
+#' what dimensions should be seriated.
+#' The implementation has to return a list of
 #' objects which can be coerced into \code{ser_permutation_vector} objects
 #' (e.g., integer vectors). The elements in the list have to be in
 #' corresponding order to the dimensions of \code{x}.
@@ -83,10 +86,13 @@
 #' # Example for defining a new seriation method (reverse identity function for matrix)
 #'
 #' # 1. Create the seriation method
-#' seriation_method_reverse <- function(x, control) {
-#'    # return a list of order vectors, one for each dimension
-#'    list(seq(nrow(x), 1), seq(ncol(x), 1))
-#' }
+#' #    (with margin since it is for arrays; NA means no seriation is applied)
+#' seriation_method_reverse <- function(x, control = NULL,
+#'                                      margin = seq_along(dim(x))) {
+#'  lapply(seq_along(dim(x)), function(i)
+#'    if (i %in% margin) rev(seq(dim(x)[i]))
+#'    else NA)
+#'}
 #'
 #' # 2. Register new method
 #' set_seriation_method("matrix", "Reverse", seriation_method_reverse,
@@ -151,9 +157,10 @@ get_seriation_method <- function(kind, name) {
       name,
       " for data type ",
       kind,
-      ". Check list_seriation_methods(\"",
+      ". Maybe the method has not been registered yet. ",
+      "Check list_seriation_methods(\"",
       kind,
-      "\")"
+      "\")."
     )
 
   method
@@ -169,8 +176,11 @@ set_seriation_method <- function(kind,
   ...) {
   ## check formals
   if (!identical(names(formals(definition)),
-    c("x", "control")))
-    stop("Seriation methods must have formals 'x' and 'control'.")
+                 c("x", "control")) &&
+      !identical(names(formals(definition)),
+                 c("x", "control", "margin"))
+  )
+    stop("Seriation methods must have formals 'x', 'control' and optionally 'margin'.")
 
   ## check if entry already exists
   r <- registry_seriate$get_entry(kind = kind, name = name)

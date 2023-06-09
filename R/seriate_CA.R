@@ -27,7 +27,8 @@
   ca_param = NULL
 )
 
-seriate_matrix_ca <- function(x, control = NULL) {
+# CA ignores margin
+seriate_matrix_ca <- function(x, control = NULL, margin = seq_along(dim(x))) {
   control <- .get_parameters(control, .ca_contr)
 
   mat.ca <- do.call(ca::ca, c(list(obj = x), control$ca_param))

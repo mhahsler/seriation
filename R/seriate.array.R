@@ -40,9 +40,9 @@
     cat(method$name, ": ",
       method$description, "\n\n", sep = "")
 
-  order <- method$fun(x, control)
+  order <- method$fun(x, control, margin)
 
-  for (i in seq(ndim(x)))
+  for (i in margin)
     if (!is.null(dimnames(x)[[i]]) &&
         is.integer(order[[i]]))
       names(order[[i]]) <- dimnames(x)[[i]]
@@ -51,7 +51,7 @@
       order, "ser_permutation_vector", method$name
     )))
 
-  ### make non seriated margins identity permutations
+  ### make non-seriated margins identity permutations
   rem <- which(!seq(ndim(x)) %in% margin)
   if (length(rem) > 0) {
     perm_ident <- seriate(x, method = "Identity")

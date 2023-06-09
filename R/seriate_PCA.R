@@ -26,7 +26,7 @@
   verbose = FALSE
 )
 
-seriate_matrix_fpc <- function(x, control = NULL) {
+seriate_matrix_fpc <- function(x, control = NULL, margin = NULL) {
   control <- .get_parameters(control, .pca_contr)
 
   center  <- control$center
@@ -34,35 +34,47 @@ seriate_matrix_fpc <- function(x, control = NULL) {
   tol     <- control$tol
   verbose <- control$verbose
 
-  pr <- stats::prcomp(x,
-    center = center,
-    scale. = scale.,
-    tol = tol)
-  scores <- pr$x[, 1]
-  row <- order(scores)
-  if (verbose)
-    cat("row: first principal component explains",
-      pr$sdev[1] / sum(pr$sdev) * 100,
-      "%\n")
+  if (1L %in% margin) {
+    pr <- stats::prcomp(x,
+                        center = center,
+                        scale. = scale.,
+                        tol = tol)
+    scores <- pr$x[, 1]
+    row <- order(scores)
+    attr(row, "embedding") <- scores
 
-  pr <- prcomp(t(x),
-    center = center,
-    scale. = scale.,
-    tol = tol)
-  scores <- pr$x[, 1]
-  col <- order(scores)
-  if (verbose)
-    cat("col: first principal component explains",
-      pr$sdev[1] / sum(pr$sdev) * 100,
-      "%\n")
+    if (verbose)
+      cat("row: first principal component explains",
+          pr$sdev[1] / sum(pr$sdev) * 100,
+          "%\n")
+    names(row) <- rownames(x)[row]
+  } else
+    row <- NA
 
-  names(row) <- rownames(x)[row]
-  names(col) <- colnames(x)[col]
+
+  if (2L %in% margin) {
+    pr <- prcomp(t(x),
+                 center = center,
+                 scale. = scale.,
+                 tol = tol)
+    scores <- pr$x[, 1]
+    col <- order(scores)
+    attr(col, "embedding") <- scores
+
+     if (verbose)
+      cat("col: first principal component explains",
+          pr$sdev[1] / sum(pr$sdev) * 100,
+          "%\n")
+    names(col) <- colnames(x)[col]
+  } else
+    col <- NA
 
   list(row = row, col = col)
 }
 
-## Angle between the first 2 PCS. Fiendly (2002)
+## Angle between the first 2 PCs.
+# Friendly, M. (2002), "Corrgrams: Exploratory Displays for Correlation Matrices," The American Statistician,56, 316-324.
+# Friendly, M. and Kwan, E. (2003), "Eect ordering for data displays," Computational Statistics & Data Analysis, 43, 509-539.
 .order_angle <- function(x) {
   alpha <- atan2(x[, 1], x[, 2])
   o <- order(alpha)
@@ -77,30 +89,36 @@ seriate_matrix_fpc <- function(x, control = NULL) {
 }
 
 .angle_contr <- list(center = TRUE,
-  scale. = FALSE,
-  tol = NULL)
+                     scale. = FALSE,
+                     tol = NULL)
 
-seriate_matrix_angle <- function(x, control = NULL) {
+seriate_matrix_angle <- function(x, control = NULL, margin = seq_along(dim(x))) {
   control <- .get_parameters(control, .angle_contr)
 
   center  <- control$center
   scale.  <- control$scale.
   tol     <- control$tol
 
-  pr <- prcomp(x,
-    center = center,
-    scale. = scale.,
-    tol = tol)
-  row <- .order_angle(pr$x[, 1:2])
+  if (1L %in% margin) {
+    pr <- prcomp(x,
+                 center = center,
+                 scale. = scale.,
+                 tol = tol)
+    row <- .order_angle(pr$x[, 1:2])
+    names(row) <- rownames(x)[row]
+  } else
+    row <- NA
 
-  pr <- prcomp(t(x),
-    center = center,
-    scale. = scale.,
-    tol = tol)
-  col <- .order_angle(pr$x[, 1:2])
+  if (2L %in% margin) {
+    pr <- prcomp(t(x),
+                 center = center,
+                 scale. = scale.,
+                 tol = tol)
+    col <- .order_angle(pr$x[, 1:2])
+    names(col) <- colnames(x)[col]
+  } else
+    col <- NA
 
-  names(row) <- rownames(x)[row]
-  names(col) <- colnames(x)[col]
 
   list(row = row, col = col)
 }

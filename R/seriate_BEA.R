@@ -35,33 +35,40 @@
 #    list(row = row, col = col)
 #}
 
-seriate_matrix_bea_tsp <- function(x, control) {
-  if (any(x < 0))
-    stop("Requires a nonnegative matrix.")
+seriate_matrix_bea_tsp <-
+  function(x, control, margin = seq_along(dim(x))) {
+    if (any(x < 0))
+      stop("Requires a nonnegative matrix.")
 
-  criterion <- as.dist(tcrossprod(x))
-  row <- seriate(max(criterion) - criterion,
-    method = "TSP",
-    control = control)[[1]]
+    if (1L %in% margin) {
+      criterion <- as.dist(tcrossprod(x))
+      row <- seriate(max(criterion) - criterion,
+                     method = "TSP",
+                     control = control)[[1]]
+      attr(row, "method") <- "BEA_TSP"
+    } else
+      row <- NA
 
-  criterion <- as.dist(crossprod(x))
-  col <- seriate(max(criterion) - criterion,
-    method = "TSP",
-    control = control)[[1]]
+    if (2L %in% margin) {
+      criterion <- as.dist(crossprod(x))
+      col <- seriate(max(criterion) - criterion,
+                     method = "TSP",
+                     control = control)[[1]]
+      attr(col, "method") <- "BEA_TSP"
+    } else
+      col <- NA
 
-  attr(row, "method") <- "BEA_TSP"
-  attr(col, "method") <- "BEA_TSP"
-
-  list(row = row, col = col)
-}
+    list(row = row, col = col)
+  }
 
 
 ## Bond Energy Algorithm (McCormick 1972)
 .bea_contr <- list(istart = 0,
-  jstart = 0,
-  rep = 1)
+                   jstart = 0,
+                   rep = 1)
 
-seriate_matrix_bea <- function(x, control = NULL) {
+# BEA always does rows and columns so margin is ignored
+seriate_matrix_bea <- function(x, control = NULL, margin = NULL) {
   control <- .get_parameters(control, .bea_contr)
 
   if (any(x < 0))
@@ -71,7 +78,7 @@ seriate_matrix_bea <- function(x, control = NULL) {
   rep  <- control$rep
 
   res <- replicate(rep, bea(x, istart = istart, jstart = jstart),
-    simplify = FALSE)
+                   simplify = FALSE)
 
   best <- which.max(sapply(res, "[[", "e"))
   res <- res[[best]]

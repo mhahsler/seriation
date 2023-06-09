@@ -23,7 +23,7 @@
 seriate.matrix <- function(x,
   method = "PCA",
   control = NULL,
-  margin = c(1, 2),
+  margin = c(1L, 2L),
   ...)
   .seriate_array_helper(x,
     method,
@@ -32,22 +32,27 @@ seriate.matrix <- function(x,
     datatype = "matrix",
     ...)
 
-seriate_matrix_identity <- function(x, control) {
+seriate_matrix_identity <- function(x, control, margin = seq_along(dim(x))) {
   control <- .get_parameters(control, NULL)
-  lapply(dim(x), seq)
+  lapply(seq_along(dim(x)), function(i)
+    if (i %in% margin) seq(dim(x)[i])
+    else NA
+  )
 }
 
-seriate_matrix_reverse <- function(x, control) {
+seriate_matrix_reverse <- function(x, control, margin = seq_along(dim(x))) {
   control <- .get_parameters(control, NULL)
-  lapply(dim(x), seq, to = 1)
+  lapply(seq_along(dim(x)), function(i)
+    if (i %in% margin) rev(seq(dim(x)[i]))
+    else NA
+  )
 }
 
-seriate_matrix_random <- function(x, control) {
+seriate_matrix_random <- function(x, control, margin = seq_along(dim(x))) {
   control <- .get_parameters(control, NULL)
-  lapply(
-    dim(x),
-    FUN = function(l)
-      sample(seq(l))
+  lapply(seq_along(dim(x)), function(i)
+    if (i %in% margin) sample(seq(dim(x)[i]))
+    else NA
   )
 }
 
