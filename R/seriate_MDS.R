@@ -25,15 +25,21 @@ seriate_dist_mds <- function(x, control = NULL) {
 
   if (control$method == "cmdscale") {
     sc <- stats::cmdscale(x, k = 1)
-    return(order(sc[, 1]))
+    o <- order(sc[, 1])
+    attr(o, "embedding") <- sc[, 1]
+    return(o)
 
   } else if (control$method == "isoMDS") {
     sc <- MASS::isoMDS(x + 1e-6, trace = FALSE, k = 1)
-    return(order(sc$points[, 1]))
+    o <- order(sc$points[, 1])
+    attr(o, "embedding") <- sc$points[, 1]
+    return(o)
 
   } else if (control$method == "sammon") {
     sc <- MASS::sammon(x + 1e-6, trace = FALSE, k = 1)
-    return(order(sc$points[, 1]))
+    o <- order(sc$points[, 1])
+    attr(o, "embedding") <- sc$points[, 1]
+    return(o)
 
   } else
     stop("unknown method")
@@ -46,7 +52,7 @@ seriate_dist_mds_metric <- function(x, control = NULL)
 seriate_dist_mds_nonmetric <- function(x, control = NULL)
   seriate_dist_mds(x, control = list(method = "isoMDS"))
 
-## Angle between the first 2 PCS. Fiendly (2002)
+## Angle between the first 2 PCS. Friendly (2002)
 seriate_dist_angle <- function(x, control = NULL) {
   .get_parameters(control, NULL)
 
