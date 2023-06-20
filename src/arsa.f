@@ -26,7 +26,7 @@ C     Initialize R RNG
 
       DO I = 1,N-1
         DO J = I+1,N
-          D(I,J) = DFLOAT(J-I)
+          D(I,J) = DBLE(J-I)
           D(J,I) = D(I,J)
         END DO
       END DO
@@ -180,7 +180,7 @@ C 599        S1 = rand()
             K = S(I1)
             DELTA = 0.0D0
             IF(J1.GT.I1) THEN
-              SPAN = DFLOAT(J1-I1)
+              SPAN = DBLE(J1-I1)
               DO L = I1+1,J1
                 Q = S(L)
                 DO I = J1+1,N
@@ -207,7 +207,7 @@ C 599        S1 = rand()
                 DELTA = DELTA + SPAN2*A(K,M)
               END DO
             ELSE
-              SPAN = DFLOAT(I1-J1)
+              SPAN = DBLE(I1-J1)
               DO L = J1,I1-1
                 Q = S(L)
                 DO I = I1+1,N

@@ -13,6 +13,7 @@
 
 ## Changes
 - orderplot() is now called configplot().
+- FORTRAN: replaced old DFLOAT with DBLE (reported by Brian D. Ripley)
 
 ## Bug Fixes
 - fixed labels returned by uniscale()
