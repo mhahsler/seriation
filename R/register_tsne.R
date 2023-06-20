@@ -91,7 +91,8 @@ register_tsne <- function() {
     theta = 0,
     perplexity = NULL,
     eta = 200,
-    mds = TRUE
+    mds = TRUE,
+    verbose = FALSE
   )
 
   tsne_order <- function(x, control) {
@@ -118,7 +119,8 @@ register_tsne <- function() {
       theta = control$theta,
       eta = control$eta,
       perplexity = control$perplexity,
-      Y_init = Y_init
+      Y_init = Y_init,
+      verbose = control$verbose
     )
 
     o <- order(embedding$Y)
