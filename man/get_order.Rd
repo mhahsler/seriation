@@ -43,32 +43,43 @@ Returns an integer permutation vector/a permutation matrix.
 \description{
 Method to get the order information from an object of class
 \link{ser_permutation} or \link{ser_permutation_vector}. Order information
-can be extracted as an integer permutation vector, a vector containing the
-object ranks or a permutation matrix.
+can be extracted as a permutation vector, a vector containing each
+object's rank or a permutation matrix.
 }
 \details{
-\code{get_order()} returns the seriation as an integer vector containing the
-order of the objects after permutation. That is, the index of the first,
-second, \eqn{..., n}-th object. These permutation vectors can directly be
+\code{get_order()} returns the permutation as an integer vector which arranges the
+objects in the seriation order. That is, a vector with the index of the first,
+second, \eqn{..., n}-th object in the order defined by the permutation.
+These permutation vectors can directly be
 used to reorder objects using subsetting with \code{"["}.  \emph{Note:} In
 \pkg{seriation} we usually use these order-based permutation vectors.
 
 \code{get_rank()} returns the seriation as an integer vector containing the
-rank/position for each objects in the permutation. That is, position of the
-first, second, \eqn{..., n}-th object after permutation.  Note: Use
+rank/position for each objects after the permutation is applied.
+That is, a vector with the position of the first, second,
+\eqn{..., n}-th object after permutation.  Note: Use
 \code{order()} to convert ranks back to an order.
 
 \code{get_permutation_matrix()} returns a \eqn{n \times n}{n x n} permutation
 matrix.
 }
 \examples{
-## ser_permutation_vector is a single permutation vector
+x <- 1:10
+
+## create a random ser_permutation_vector
+## Note that ser_permutation_vector is a single permutation vector
 o <- ser_permutation_vector(sample(10))
 o
 
 get_order(o)
 get_rank(o)
 get_permutation_matrix(o)
+
+## reorder x using subsetting, the provided permute function or by
+## multiplying the with the permutation matrix
+x[get_order(o)]
+permute(x, o)
+drop(get_permutation_matrix(o) \%*\%  x)
 
 ## ser_permutation contains one permutation vector for each dimension
 o2 <- ser_permutation(o, sample(5))
