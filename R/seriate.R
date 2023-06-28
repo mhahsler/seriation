@@ -86,28 +86,26 @@
 #'   vertical axis with the ellipse. In this implementation the top most cutting
 #'   point is used.
 #'
-#' - "MDS", "MDS_metric", "MDS_nonmetric", "MDS_angle" Multidimensional scaling (MDS).
+#' - "MDS", "MDS_isoMDS", "MDS_sammon", "MDS_angle" Multidimensional scaling (MDS).
 #'
 #'   Use multidimensional scaling techniques to find an linear order by
-#'   minimizing **stress**. Note MDS algorithms used for a single dimension
+#'   minimizing **strain** or a version of **MDS stress**.
+#'   Note MDS algorithms used for a single dimension
 #'   tend to end up in local optima and unidimensional scaling (see Maier and De
 #'   Leeuw, 2015) would be more appropriate. However, generally, ordering along
-#'   the first component of MDS provides good results.
+#'   a single component of MDS provides good results.
 #'
-#'   `control` parameters:
-#'     - `method`: One of `"cmdscale"`, `"isoMDS"` or `"sammon"`. `"cmdscale"` performs metric
-#'        MDS using [stats::cmdscale()]. Non-metric MDS methods `"isoMDS"` and `"sammon"`
-#'        are preformed using [MASS::isoMDS()].
+#'   `"MDS"` orders along the 1D classical metric multidimensional scaling.
+#'   `control` parameters are passed on to [stats::cmdscale()].
 #'
-#'   By default, metric MDS is used ([stats::cmdscale()]). In case of
-#'   of general dissimilarities, non-metric MDS can be used. The method can be specified
-#'   as the element `method` (`"cmdscale"`, `"isoMDS"` or `"sammon"`) in `control`.
+#'   `"MDS_isoMDS"` orders along the 1D Kruskal's non-metric multidimensional scaling.
+#'   `control` parameters are passed on to [MASS::isoMDS()].
 #'
-#'   For convenience, seriation methods `"MDS_metric"` performs [cmdscale()] and
-#'   `"MDS_nonmetric"` performs [MASS::isoMDS()].
+#'   `"MDS_sammon"` orders along the 1D Sammon's non-linear mapping.
+#'   `control` parameters are passed on to [MASS::sammon()].
 #'
-#'   `"MDS_angle"` projects the data on the first two components found by
-#'   MDS and then orders by the angle in this space. The order is split by the
+#'   `"MDS_angle"` finds a 2D configuration using MDS (cmdscale)
+#'   and then orders by the angle in this space. The order is split by the
 #'   larges gap between adjacent angles. A similar method was used for ordering
 #'   correlation matrices by Friendly (2002).
 #'

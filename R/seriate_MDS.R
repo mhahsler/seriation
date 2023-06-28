@@ -107,7 +107,7 @@ set_seriation_method(
   "dist",
   "MDS",
   seriate_dist_mds,
-  "Order using the first component found by classical metric multidimensional scaling (see ? cmdscale)",
+  "Order along the 1D classical metric multidimensional scaling",
   control = .mds_control,
   optimizes = "Other (MDS strain)"
 )
@@ -116,7 +116,7 @@ set_seriation_method(
   "dist",
   "MDS_isoMDS",
   seriate_dist_mds_isoMDS,
-  "Order using the first component found by Kruskal's non-metric multidimensional scaling (see ? MASS::isoMDS).",
+  "Order along the 1D Kruskal's non-metric multidimensional scaling",
   control = .mds_isoMDS_control,
   optimizes = "Other (MDS stress with monotonic transformation)"
 )
@@ -125,7 +125,7 @@ set_seriation_method(
   "dist",
   "MDS_sammon",
   seriate_dist_mds_sammon,
-  "Order using the first component found by Sammon's non-linear mapping (see ? MASS::sammon).",
+  "Order along the 1D Sammon's non-linear mapping",
   control = .mds_sammon_control,
   optimizes = "Other (scale free, weighted MDS stress)"
 )
@@ -134,6 +134,6 @@ set_seriation_method(
   "dist",
   "MDS_angle",
   seriate_dist_angle,
-  "Order by the angle in this space given by the first two components found by metric MDS (Friendly, 2002).",
+  "Order by the angle in this space given by 2D metric MDS.",
   control = .mds_control
 )

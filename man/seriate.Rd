@@ -106,30 +106,26 @@ ellipse. The order of the points on this ellipse is the resulting order.
 The ellipse can be cut at the two interception points (top or bottom) of the
 vertical axis with the ellipse. In this implementation the top most cutting
 point is used.
-\item "MDS", "MDS_metric", "MDS_nonmetric", "MDS_angle" Multidimensional scaling (MDS).
+\item "MDS", "MDS_isoMDS", "MDS_sammon", "MDS_angle" Multidimensional scaling (MDS).
 
 Use multidimensional scaling techniques to find an linear order by
-minimizing \strong{stress}. Note MDS algorithms used for a single dimension
+minimizing \strong{strain} or a version of \strong{MDS stress}.
+Note MDS algorithms used for a single dimension
 tend to end up in local optima and unidimensional scaling (see Maier and De
 Leeuw, 2015) would be more appropriate. However, generally, ordering along
-the first component of MDS provides good results.
+a single component of MDS provides good results.
 
-\code{control} parameters:
-\itemize{
-\item \code{method}: One of \code{"cmdscale"}, \code{"isoMDS"} or \code{"sammon"}. \code{"cmdscale"} performs metric
-MDS using \code{\link[stats:cmdscale]{stats::cmdscale()}}. Non-metric MDS methods \code{"isoMDS"} and \code{"sammon"}
-are preformed using \code{\link[MASS:isoMDS]{MASS::isoMDS()}}.
-}
+\code{"MDS"} orders along the 1D classical metric multidimensional scaling.
+\code{control} parameters are passed on to \code{\link[stats:cmdscale]{stats::cmdscale()}}.
 
-By default, metric MDS is used (\code{\link[stats:cmdscale]{stats::cmdscale()}}). In case of
-of general dissimilarities, non-metric MDS can be used. The method can be specified
-as the element \code{method} (\code{"cmdscale"}, \code{"isoMDS"} or \code{"sammon"}) in \code{control}.
+\code{"MDS_isoMDS"} orders along the 1D Kruskal's non-metric multidimensional scaling.
+\code{control} parameters are passed on to \code{\link[MASS:isoMDS]{MASS::isoMDS()}}.
 
-For convenience, seriation methods \code{"MDS_metric"} performs \code{\link[=cmdscale]{cmdscale()}} and
-\code{"MDS_nonmetric"} performs \code{\link[MASS:isoMDS]{MASS::isoMDS()}}.
+\code{"MDS_sammon"} orders along the 1D Sammon's non-linear mapping.
+\code{control} parameters are passed on to \code{\link[MASS:sammon]{MASS::sammon()}}.
 
-\code{"MDS_angle"} projects the data on the first two components found by
-MDS and then orders by the angle in this space. The order is split by the
+\code{"MDS_angle"} finds a 2D configuration using MDS (cmdscale)
+and then orders by the angle in this space. The order is split by the
 larges gap between adjacent angles. A similar method was used for ordering
 correlation matrices by Friendly (2002).
 \item "HC", "HC_single", "HC_complete", "HC_average", "HC_ward" Hierarchical clustering.
