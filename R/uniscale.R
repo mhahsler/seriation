@@ -58,21 +58,31 @@
 #' data(SupremeCourt)
 #' d <- as.dist(SupremeCourt)
 #'
-#' ## create an order
-#' o <- seriate(d, method = "MDS")
+#' # embedding-based methods return a configuration as the attribute "embedding"
+#' # configplot visualizes the embedding
+#' o <- seriate(d, method = "MDS_sammon")
 #' get_order(o)
-#' pimage(d, o)
+#' attr(o[[1]], "embedding")
+#' configplot(o)
 #'
-#' ## find the minimum-stress configuration
+#' # angle methods return a 2D configuration
+#' o <- seriate(d, method = "MDS_angle")
+#' get_order(o)
+#' attr(o[[1]], "embedding")
+#' configplot(o)
+#'
+#' # calculate a configuration for a seriation method that does not
+#' # use an embedding
+#' o <- seriate(d, method = "spectral")
+#' get_order(o)
+#' attr(o[[1]], "embedding")
+#'
+#' # find the minimum-stress configuration
 #' sc <- uniscale(d, o)
 #' sc
 #'
 #' configplot(sc)
 #'
-#' # seriation with MDS already computes a 1D embedding as attribute embedding
-#' str(o[[1]])
-#' # configplot can show it.
-#' configplot(o)
 #' @export
 uniscale <-
   function(d,
@@ -116,7 +126,8 @@ uniscale <-
   }
 
 #' @rdname uniscale
-#' @param x a scaling returned by `uniscale()`.
+#' @param x a scaling returned by `uniscale()` or a
+#'   `ser_permutation` with an embedding attribute.
 #' @param main main plot label
 #' @param pch print character
 #' @export
@@ -128,6 +139,7 @@ configplot <- function (x, main, pch = 19, ...) {
     x <- x[[1]]
 
   if (inherits(x, "ser_permutation_vector")) {
+    o <- get_order(x)  # only used for 2D case
     if(!is.null(attr(x, "configuration")))
       x <- attr(x, "configuration")
     else if(!is.null(attr(x, "embedding")))
@@ -136,6 +148,16 @@ configplot <- function (x, main, pch = 19, ...) {
       stop("Permutation vector has no configuration attribute. Use uniscale() first to calcualte a configuration")
   }
 
+  # 2D
+  if (is.matrix(x)) {
+    graphics::plot(x, pch = pch, main = main, ...)
+    graphics::text(x = x, labels = rownames(x), pos = 1)
+    graphics::lines(x[o, , drop = FALSE], col = "grey")
+    return()
+  }
+
+  # 1D
+  x <- drop(x)
   n <- length(x)
   plot(
     x,

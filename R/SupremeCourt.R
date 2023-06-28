@@ -18,17 +18,17 @@
 #' @examples
 #' data("SupremeCourt")
 #'
-#' # joint probability of disagreement
+#' # a matrix with joint probability of disagreement
 #' SupremeCourt
 #'
+#' # show judges in original alphabetical order
 #' d <- as.dist(SupremeCourt)
+#' pimage(d, diag = TRUE, upper = TRUE)
+#'
+#' # reorder judges using seriation based on similar decisions
 #' o <- seriate(d)
 #' o
 #'
-#' # judges in original alphabetical order
-#' pimage(d, diag = TRUE, upper = TRUE)
-#'
-#' # judges reordered by seriation based on similar decisions
 #' pimage(d, o, diag = TRUE, upper = TRUE)
 #'
 #' # Use optimal leaf ordering (hierarchical clustering with reordering)
@@ -37,5 +37,12 @@
 #' o
 #'
 #' plot(o[[1]])
+#'
+#' # Use multi-dimensional scaling and show the configuration
+#' o <- seriate(d, method = "MDS_sammon")
+#' o
+#'
+#' pimage(d, o, diag = TRUE, upper = TRUE)
+#' configplot(o[[1]])
 #' @keywords datasets
 NULL

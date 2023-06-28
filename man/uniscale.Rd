@@ -25,7 +25,8 @@ given order.}
 
 \item{\dots}{additional arguments are passed on to the seriation method.}
 
-\item{x}{a scaling returned by \code{uniscale()}.}
+\item{x}{a scaling returned by \code{uniscale()} or a
+\code{ser_permutation} with an embedding attribute.}
 
 \item{main}{main plot label}
 
@@ -54,21 +55,31 @@ datasets since it only checks the permutation given by the seriation order.
 data(SupremeCourt)
 d <- as.dist(SupremeCourt)
 
-## create an order
-o <- seriate(d, method = "MDS")
+# embedding-based methods return a configuration as the attribute "embedding"
+# configplot visualizes the embedding
+o <- seriate(d, method = "MDS_sammon")
 get_order(o)
-pimage(d, o)
+attr(o[[1]], "embedding")
+configplot(o)
 
-## find the minimum-stress configuration
+# angle methods return a 2D configuration
+o <- seriate(d, method = "MDS_angle")
+get_order(o)
+attr(o[[1]], "embedding")
+configplot(o)
+
+# calculate a configuration for a seriation method that does not
+# use an embedding
+o <- seriate(d, method = "spectral")
+get_order(o)
+attr(o[[1]], "embedding")
+
+# find the minimum-stress configuration
 sc <- uniscale(d, o)
 sc
 
 configplot(sc)
 
-# seriation with MDS already computes a 1D embedding as attribute embedding
-str(o[[1]])
-# configplot can show it.
-configplot(o)
 }
 \references{
 Mair P., De Leeuw J. (2015). Unidimensional scaling. In
