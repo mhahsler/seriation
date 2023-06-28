@@ -34,7 +34,7 @@ The following methods are available to reorder dissimilarity data:
  *  **QAP** - Quadratic assignment problem heuristic (2-SUM, linear seriation, inertia, banded anti-Robinson form)
  *  **R2E** - Rank-two ellipse seriation 
  *  **Random** permutation
- *  **Reverse** reverse order
+ *  **Reverse** order
  *  **Spectral** seriation (unnormalized, normalized) 
  *  **SPIN** - Sorting points into neighborhoods (neighborhood algorithm, side-to-site algorithm)
  *  **TSP** - Traveling sales person solver to minimize the Hamiltonian path length 
@@ -57,11 +57,11 @@ The following methods are available to reorder rows and columns of data matrices
  *  **Identity** permutation 
  *  **PCA** - orders along the first principal component or angle on the projection on the first two principal components
  *  **Random** permutation 
- *  **Reverse** reverse order
- *  **TSP** - Traveling sales person solver to maximize ME 
+ *  **Reverse** order
  *  **TSNE** - Order of the 1D t-distributed stochastic neighbor embedding (t-SNE)
+ *  **TSP** - Traveling sales person solver to maximize ME 
  *  **UMAP** - Order of the 1D embedding produced by uniform manifold approximation and projection
- *  **VAE** - Order if the 1D embedding produced by a variational autoencoder.
+ *  **VAE** - Order of the 1D embedding produced by a variational autoencoder.
 
 ```{r echo=FALSE, results = 'asis'}
 pkg_install(pkg)

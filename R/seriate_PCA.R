@@ -77,7 +77,7 @@ seriate_matrix_fpc <- function(x, control = NULL, margin = NULL) {
 
 ## Angle between the first 2 PCs.
 # Friendly, M. (2002), "Corrgrams: Exploratory Displays for Correlation Matrices," The American Statistician,56, 316-324.
-# Friendly, M. and Kwan, E. (2003), "Eect ordering for data displays," Computational Statistics & Data Analysis, 43, 509-539.
+# Friendly, M. and Kwan, E. (2003), "Effect ordering for data displays," Computational Statistics & Data Analysis, 43, 509-539.
 .order_angle <- function(x) {
   alpha <- atan2(x[, 1], x[, 2])
   o <- order(alpha)
