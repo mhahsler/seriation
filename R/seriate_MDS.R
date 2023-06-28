@@ -109,7 +109,7 @@ set_seriation_method(
   seriate_dist_mds,
   "Order using the first component found by classical metric multidimensional scaling (see ? cmdscale)",
   control = .mds_control,
-  optimizes = "Other (MDS stress)"
+  optimizes = "Other (MDS strain)"
 )
 
 set_seriation_method(
