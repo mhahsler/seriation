@@ -44,19 +44,20 @@
 #' more detailed description and an experimental comparison see
 #' [Hahsler (2017)](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf):
 #'
-#' - "ARSA" Anti-Robinson seriation by simulated
-#'   annealing to minimize the **linear seriation criterion** (simulated
-#'   annealing initialization used in Brusco et al 2008).
+#' - **Anti-Robinson seriation by simulated annealing:** `"ARSA"` (Brusco et al 2008)
 #'
-#' - "BBURCG" Anti-Robinson seriation by branch-and-bound to
-#'   minimize the **unweighted gradient measure** (Brusco and Stahl 2005).
-#'   This is only feasible for a relatively small number of objects.
+#'    Directly minimizes the **linear seriation criterion.**
 #'
-#' - "BBWRCG" Anti-Robinson seriation by branch-and-bound to
-#'   minimize the **weighted gradient measure** (Brusco and Stahl 2005). This
-#'   is only feasible for a relatively small number of objects.
+#' - **Gradient measure seriation by branch-and-bound:** `"BBURCG"`, `"BBWRCG"` (Brusco and Stahl 2005)
 #'
-#' - "TSP" Traveling salesperson problem solver to minimize the
+#'    Uses branch-and-bound to minimize the
+#'    **unweighted gradient measure** (`"BBURCG"`) and the
+#'    **weighted gradient measure** (`"BBWRCG"`).
+#'    This is only feasible for a small number of objects.
+#'
+#' - **Traveling salesperson problem solver:** `"TSP"`
+#'
+#'   Uses a traveling salesperson problem solver to minimize the
 #'   **Hamiltonian path length**. The solvers in \pkg{TSP} are used (see
 #'   [TSP::solve_TSP()]). The solver method can be passed on via the `control`
 #'   argument, e.g. `control = list(method = "two_opt")`. Default is the est
@@ -69,9 +70,9 @@
 #'   this dummy city in an optimal tour with minimal length is the best cutting
 #'   point (it lies between the most distant cities).
 #'
-#' - "R2E" Rank-two ellipse seriation (Chen 2002).
+#' - **Rank-two ellipse seriation:** `"R2E"`  (Chen 2002)
 #'
-#'   This method starts with generating a sequence of correlation matrices
+#'   Rank-two ellipse seriation starts with generating a sequence of correlation matrices
 #'   \eqn{R^1, R^2, \ldots}. \eqn{R^1} is the correlation matrix of the original
 #'   distance matrix \eqn{D} (supplied to the function as `x`), and
 #'   \deqn{R^{n+1} = \phi R^n,} where \eqn{\phi} calculates the correlation
@@ -86,7 +87,7 @@
 #'   vertical axis with the ellipse. In this implementation the top most cutting
 #'   point is used.
 #'
-#' - "MDS", "MDS_isoMDS", "MDS_sammon", "MDS_angle" Multidimensional scaling (MDS).
+#' - **Multidimensional scaling:** `"MDS"`, `"MDS_isoMDS"`, `"MDS_sammon"`, `"MDS_angle"`
 #'
 #'   Use multidimensional scaling techniques to find an linear order by
 #'   minimizing **strain** or a version of **MDS stress**.
@@ -109,17 +110,19 @@
 #'   larges gap between adjacent angles. A similar method was used for ordering
 #'   correlation matrices by Friendly (2002).
 #'
-#' - "HC", "HC_single", "HC_complete", "HC_average", "HC_ward" Hierarchical clustering.
+#' - **Hierarchical clustering:** `"HC"`, `"HC_single"`, `"HC_complete"`,
+#'      `"HC_average"`, `"HC_ward"`
 #'
-#'   Using the order of the leaf nodes in a dendrogram obtained by hierarchical
-#'   clustering can be used as a very simple seriation technique. This method
+#'   Uses the order of the leaf nodes in a dendrogram obtained by hierarchical
+#'   clustering as a simple seriation technique. This method
 #'   applies hierarchical clustering ([hclust()]) to `x`. The clustering
 #'   method can be given using a `"method"` element in the `control`
 #'   list. If omitted, the default `"average"` is used.
 #'
 #'   For convenience the other methods are provided as shortcuts.
 #'
-#' - "GW" Hierarchical clustering (Gruvaeus and Wainer, 1972).
+#' - **Dendrogram leaf ordering:** `"GW"`, `"GW_single"`, `"GW_average"`,
+#'   `"GW_complete"`, `"GW_ward"`  (Gruvaeus and Wainer, 1972)
 #'
 #'   The methods start with a dendrogram created by [hclust()]. As the
 #'   `"method"` element in the `control` list a clustering method
@@ -130,7 +133,7 @@
 #'   the same number of leaf orderings. That is, at each internal node the left
 #'   and right subtree (or leaves) can be swapped, or, in terms of a dendrogram,
 #'   be flipped. The leaf-node reordering to minimize
-#'   **Hamiltonian path length (restricted)**.
+#'   **Hamiltonian path length (restricted by the dendrogram)**.
 #'
 #'   Method `"GW"` uses an algorithm developed by Gruvaeus and Wainer (1972)
 #'   as implemented [gclus::reorder.hclust()] (Hurley 2004).  The clusters are
@@ -138,10 +141,8 @@
 #'   adjacent to that object outside the cluster to which it is nearest. The
 #'   method produces an unique order.
 #'
-#'   For convenience `"GW_single"`, `"GW_average"`,
-#'   `"GW_complete"`, and `"GW_ward"` are provided.
-#'
-#' - "OLO" Optimal leaf ordering (Bar-Joseph et al., 2001).
+#' - **Optimal leaf ordering:** `"OLO"`, `"OLO_single"`,
+#'   `"OLO_average"`, `"OLO_complete"`, `"OLO_ward"`  (Bar-Joseph et al., 2001)
 #'
 #'   Also starts with a dendrogram and
 #'   produces an optimal leaf ordering with respect to the minimizing the sum of
@@ -149,21 +150,19 @@
 #'   given order. The time complexity of the algorithm is \eqn{O(n^3)}. Note that
 #'   non-finite distance values are not allowed.
 #'
-#'   For convenience `"OLO_single"`,
-#'   `"OLO_average"`, `"OLO_complete"`, and `"OLO_ward"` are provided.
-#'
-#' - "VAT" Visual Assessment of (Clustering) Tendency (Bezdek and Hathaway (2002)).
+#' - **Visual Assessment of (Clustering) Tendency:** `"VAT"` (Bezdek and Hathaway, 2002).
 #'
 #'   Creates an order based on Prim's algorithm for finding a minimum spanning
 #'   tree (MST) in a weighted connected graph representing the distance matrix.
 #'   The order is given by the order in which the nodes (objects) are added to
 #'   the MST.
 #'
-#' - "SA" Simulated Annealing for diverse criterion measures.
+#' - **Simulated Annealing:** `"SA"`
 #'
-#'   Implement simulated annealing similar to the ARSA method, however, it works
+#'   Implement simulated annealing similar to the ARSA method, however, it
+#'   can optimize
 #'   for any criterion measure defined in \pkg{seriation}. By default the
-#'   algorithm optimizes for raw gradient measure and is warm started with the
+#'   algorithm optimizes for the raw gradient measure and is warm started with the
 #'   result of spectral seriation (2-Sum problem) since Hahsler (2017) shows that
 #'   2-Sum solutions are similar to solutions for the gradient measure.
 #'
@@ -171,9 +170,9 @@
 #'   provided an new can be defined (see [LS]).
 #'
 #'   Note that this is an R implementation repeatedly calling criterion, and
-#'   therefore is relatively slow.
+#'   therefore is very slow.
 #'
-#' - "Spectral", "Spectral_norm" Spectral seriation (Ding and He 2004).
+#' - **Spectral seriation:** `"Spectral"`, `"Spectral_norm"`  (Ding and He, 2004)
 #'
 #'   Spectral seriation uses a relaxation to minimize the **2-Sum Problem**
 #'   (Barnard, Pothen, and Simon, 1993). It uses the order of the Fiedler vector
@@ -182,9 +181,9 @@
 #'   Spectral seriation gives a good trade-off between seriation quality, speed
 #'   and scalability (see Hahsler, 2017).
 #'
-#' - "SPIN_STS", "SPIN_NH" Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005).
+#' - **Sorting Points Into Neighborhoods:** `"SPIN_STS"`, `"SPIN_NH"` (Tsafrir, 2005)
 #'
-#'   Given a weight matrix \eqn{W}, the algorithms try to
+#'   Given a weight matrix \eqn{W}, the SPIN algorithms try to
 #'   minimize the energy for a permutation (matrix \eqn{P}) given by \deqn{F(P) =
 #'   tr(PDP^TW),} where \eqn{tr} denotes the matrix trace.
 #'
@@ -215,9 +214,11 @@
 #'   signature `function(n, sigma, verbose)` can be specified. The parameter
 #'   `verbose` can be used to display progress information.
 #'
-#' - "QAP_LS", "QAP_2SUM", "QAP_BAR", "QAP_Inertia" Quadratic assignment problem
-#'   formulations for seriation using a simulated annealing solver.
+#' - **Quadratic assignment problem seriation:**
+#'    `"QAP_LS"`, `"QAP_2SUM"`, `"QAP_BAR"`, `"QAP_Inertia"`
 #'
+#'   Formulates the seriation problem as a quadratic assignment problem and applies a
+#'   simulated annealing solver to find a good solution.
 #'   These methods minimize the
 #'   **Linear Seriation Problem** (LS) formulation (Hubert and Schultz 1976),
 #'   the **2-Sum Problem** formulation (Barnard, Pothen, and Simon 1993), the
@@ -228,20 +229,21 @@
 #'   given number of repetitions with random restarts. Default is 1, but bigger
 #'   numbers result in better and more stable results.
 #'
-#' - "GA" Use a genetic algorithm to optimize for various criteria.
+#' - **Genetic Algorithm:** `"GA"`
 #'
 #'   The GA code has to be first registered. A detailed description can
 #'   be found in the manual page for [register_GA()].
 #'
-#' - "DendSer" Use heuristic dendrogram seriation to optimize for various criteria.
+#' - **Dendrogram seriation:** `"DendSer"`
 #'
-#'   The DendSer code has to be first registered. A
-#'   detailed description can be found in the manual page for
-#'   [register_DendSer()].
+#'    Use heuristic dendrogram seriation to optimize for various criteria.
+#'    The DendSer code has to be first registered. A
+#'    detailed description can be found in the manual page for
+#'    [register_DendSer()].
 #'
-#' - "Identity" Produces an identity permutation.
+#' - **Identity permutation:** `"Identity"
 #'
-#' - "Random"  Produces a random permutation.
+#' - **Random permutation:** `"Random"`
 #'
 #'
 #' **Seriation methods for matrices (matrix or data.frame)**
@@ -257,7 +259,7 @@
 #' Currently the
 #' following methods are implemented for matrix:
 #'
-#' - "BEA" Bond Energy Algorithm (BEA; McCormick 1972).
+#' - **Bond Energy Algorithm:** `"BEA"`  (McCormick, 1972).
 #'
 #'   The algorithm tries to maximize the **Measure of Effectiveness.** of a
 #'   non-negative matrix. Due to the definition of this measure, the tasks of
@@ -281,12 +283,12 @@
 #'     - `"rep"`: the number of runs can be specified.
 #'        The results of the best run will be returned.
 #'
-#' - "BEA_TSP" Use a TSP to optimize the **Measure of Effectiveness** (Lenstra 1974).
+#' - **TSP to optimize the Measure of Effectiveness**: `"BEA_TSP"` (Lenstra 1974).
 #'
 #'   `control` parameter:
 #'      - `"method"`: a TSP solver method (see [TSP::solve_TSP()]).
 #'
-#' - "CA" Correspondence analysis for a table/matrix of frequencies.
+#' - **Correspondence analysis** `"CA"`
 #'
 #'   This function is designed to help simplify a mosaic plot or other displays of a
 #'   matrix of frequencies.  It calculates a correspondence analysis of the matrix and
@@ -296,13 +298,13 @@
 #'     - `"dim"`: CA dimension used for reordering.
 #'     - `"ca_param"`: List with parameters for the call to [ca::ca()].
 #'
-#' - "Heatmap" Heatmap seriation
+#' - **Heatmap seriation:** `"Heatmap"`
 #'
 #'   Calculates distances between
 #'   rows and between columns and then applies seriation on these using
 #'   hierarchical clustering and optimal leaf ordering (method `"OLO"` for distance matrices).
 #'
-#' - "PCA" Order by the first principal component.
+#' - **Order along the first principal component:** `"PCA"`
 #'
 #'   Uses the projection of the data on its first principal component to
 #'   determine the order.
@@ -310,16 +312,16 @@
 #'   Note that for a distance matrix calculated from `x` with Euclidean
 #'   distance, this methods minimizes the least square criterion.
 #'
-#' - "PCA_angle" Order using the first two principal components.
+#' - **Order using the angle in the space spanned by the first two principal components:** `"PCA_angle"`
 #'
 #'   Projects the data on the first two principal components
 #'   and then orders by the angle in this space. The order is split by the larges
 #'   gap between adjacent angles. A similar method was used for ordering
 #'   correlation matrices by Friendly (2002).
 #'
-#' - "Identity" Produces an identity permutation.
+#' - **Identity permutation:** `"Identity"`
 #'
-#' - "Random" Produces a random permutation.
+#' - **Random permutation:** `"Random"`
 #'
 #' For **general arrays** no built-in methods are currently available.
 #'
@@ -490,6 +492,8 @@
 #'
 #' ### Seriate a correlation matrix
 #' corr <- cor(x)
+#'
+#' # plot in original order
 #' pimage(corr, upper_tri = FALSE, main = "Correlation matrix")
 #'
 #' # we need to define a distance (we used d = sqrt(2(1 - r))) and

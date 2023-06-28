@@ -77,7 +77,7 @@ seriate_dist_mds_sammon <- function(x, control = NULL) {
 
   sc <- MASS::sammon(
     x + control$add,
-    y = jitter(cmdscale(x, k = 1)),
+    y = jitter(stats::cmdscale(x, k = 1)),
     ### fixes issue with duplicates
     k = 1,
     niter = control$niter,

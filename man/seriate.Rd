@@ -69,16 +69,18 @@ dissimilarities. Currently, the following methods are implemented (for a
 more detailed description and an experimental comparison see
 \href{https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf}{Hahsler (2017)}:
 \itemize{
-\item "ARSA" Anti-Robinson seriation by simulated
-annealing to minimize the \strong{linear seriation criterion} (simulated
-annealing initialization used in Brusco et al 2008).
-\item "BBURCG" Anti-Robinson seriation by branch-and-bound to
-minimize the \strong{unweighted gradient measure} (Brusco and Stahl 2005).
-This is only feasible for a relatively small number of objects.
-\item "BBWRCG" Anti-Robinson seriation by branch-and-bound to
-minimize the \strong{weighted gradient measure} (Brusco and Stahl 2005). This
-is only feasible for a relatively small number of objects.
-\item "TSP" Traveling salesperson problem solver to minimize the
+\item \strong{Anti-Robinson seriation by simulated annealing:} \code{"ARSA"} (Brusco et al 2008)
+
+Directly minimizes the \strong{linear seriation criterion.}
+\item \strong{Gradient measure seriation by branch-and-bound:} \code{"BBURCG"}, \code{"BBWRCG"} (Brusco and Stahl 2005)
+
+Uses branch-and-bound to minimize the
+\strong{unweighted gradient measure} (\code{"BBURCG"}) and the
+\strong{weighted gradient measure} (\code{"BBWRCG"}).
+This is only feasible for a small number of objects.
+\item \strong{Traveling salesperson problem solver:} \code{"TSP"}
+
+Uses a traveling salesperson problem solver to minimize the
 \strong{Hamiltonian path length}. The solvers in \pkg{TSP} are used (see
 \code{\link[TSP:solve_TSP]{TSP::solve_TSP()}}). The solver method can be passed on via the \code{control}
 argument, e.g. \code{control = list(method = "two_opt")}. Default is the est
@@ -90,9 +92,9 @@ cutting point.  Climer and Zhang (2006) suggest to add a dummy city with
 equal distance to each other city before generating the tour. The place of
 this dummy city in an optimal tour with minimal length is the best cutting
 point (it lies between the most distant cities).
-\item "R2E" Rank-two ellipse seriation (Chen 2002).
+\item \strong{Rank-two ellipse seriation:} \code{"R2E"}  (Chen 2002)
 
-This method starts with generating a sequence of correlation matrices
+Rank-two ellipse seriation starts with generating a sequence of correlation matrices
 \eqn{R^1, R^2, \ldots}. \eqn{R^1} is the correlation matrix of the original
 distance matrix \eqn{D} (supplied to the function as \code{x}), and
 \deqn{R^{n+1} = \phi R^n,} where \eqn{\phi} calculates the correlation
@@ -106,7 +108,7 @@ ellipse. The order of the points on this ellipse is the resulting order.
 The ellipse can be cut at the two interception points (top or bottom) of the
 vertical axis with the ellipse. In this implementation the top most cutting
 point is used.
-\item "MDS", "MDS_isoMDS", "MDS_sammon", "MDS_angle" Multidimensional scaling (MDS).
+\item \strong{Multidimensional scaling:} \code{"MDS"}, \code{"MDS_isoMDS"}, \code{"MDS_sammon"}, \code{"MDS_angle"}
 
 Use multidimensional scaling techniques to find an linear order by
 minimizing \strong{strain} or a version of \strong{MDS stress}.
@@ -128,16 +130,18 @@ a single component of MDS provides good results.
 and then orders by the angle in this space. The order is split by the
 larges gap between adjacent angles. A similar method was used for ordering
 correlation matrices by Friendly (2002).
-\item "HC", "HC_single", "HC_complete", "HC_average", "HC_ward" Hierarchical clustering.
+\item \strong{Hierarchical clustering:} \code{"HC"}, \code{"HC_single"}, \code{"HC_complete"},
+\code{"HC_average"}, \code{"HC_ward"}
 
-Using the order of the leaf nodes in a dendrogram obtained by hierarchical
-clustering can be used as a very simple seriation technique. This method
+Uses the order of the leaf nodes in a dendrogram obtained by hierarchical
+clustering as a simple seriation technique. This method
 applies hierarchical clustering (\code{\link[=hclust]{hclust()}}) to \code{x}. The clustering
 method can be given using a \code{"method"} element in the \code{control}
 list. If omitted, the default \code{"average"} is used.
 
 For convenience the other methods are provided as shortcuts.
-\item "GW" Hierarchical clustering (Gruvaeus and Wainer, 1972).
+\item \strong{Dendrogram leaf ordering:} \code{"GW"}, \code{"GW_single"}, \code{"GW_average"},
+\code{"GW_complete"}, \code{"GW_ward"}  (Gruvaeus and Wainer, 1972)
 
 The methods start with a dendrogram created by \code{\link[=hclust]{hclust()}}. As the
 \code{"method"} element in the \code{control} list a clustering method
@@ -148,37 +152,33 @@ A dendrogram (binary tree) has \eqn{2^{n-1}} internal nodes (subtrees) and
 the same number of leaf orderings. That is, at each internal node the left
 and right subtree (or leaves) can be swapped, or, in terms of a dendrogram,
 be flipped. The leaf-node reordering to minimize
-\strong{Hamiltonian path length (restricted)}.
+\strong{Hamiltonian path length (restricted by the dendrogram)}.
 
 Method \code{"GW"} uses an algorithm developed by Gruvaeus and Wainer (1972)
 as implemented \code{\link[gclus:hclust]{gclus::reorder.hclust()}} (Hurley 2004).  The clusters are
 ordered at each level so that the objects at the edge of each cluster are
 adjacent to that object outside the cluster to which it is nearest. The
 method produces an unique order.
-
-For convenience \code{"GW_single"}, \code{"GW_average"},
-\code{"GW_complete"}, and \code{"GW_ward"} are provided.
-\item "OLO" Optimal leaf ordering (Bar-Joseph et al., 2001).
+\item \strong{Optimal leaf ordering:} \code{"OLO"}, \code{"OLO_single"},
+\code{"OLO_average"}, \code{"OLO_complete"}, \code{"OLO_ward"}  (Bar-Joseph et al., 2001)
 
 Also starts with a dendrogram and
 produces an optimal leaf ordering with respect to the minimizing the sum of
 the distances along the (Hamiltonian) path connecting the leaves in the
 given order. The time complexity of the algorithm is \eqn{O(n^3)}. Note that
 non-finite distance values are not allowed.
-
-For convenience \code{"OLO_single"},
-\code{"OLO_average"}, \code{"OLO_complete"}, and \code{"OLO_ward"} are provided.
-\item "VAT" Visual Assessment of (Clustering) Tendency (Bezdek and Hathaway (2002)).
+\item \strong{Visual Assessment of (Clustering) Tendency:} \code{"VAT"} (Bezdek and Hathaway, 2002).
 
 Creates an order based on Prim's algorithm for finding a minimum spanning
 tree (MST) in a weighted connected graph representing the distance matrix.
 The order is given by the order in which the nodes (objects) are added to
 the MST.
-\item "SA" Simulated Annealing for diverse criterion measures.
+\item \strong{Simulated Annealing:} \code{"SA"}
 
-Implement simulated annealing similar to the ARSA method, however, it works
+Implement simulated annealing similar to the ARSA method, however, it
+can optimize
 for any criterion measure defined in \pkg{seriation}. By default the
-algorithm optimizes for raw gradient measure and is warm started with the
+algorithm optimizes for the raw gradient measure and is warm started with the
 result of spectral seriation (2-Sum problem) since Hahsler (2017) shows that
 2-Sum solutions are similar to solutions for the gradient measure.
 
@@ -186,8 +186,8 @@ Several popular local neighborhood functions are
 provided an new can be defined (see \link{LS}).
 
 Note that this is an R implementation repeatedly calling criterion, and
-therefore is relatively slow.
-\item "Spectral", "Spectral_norm" Spectral seriation (Ding and He 2004).
+therefore is very slow.
+\item \strong{Spectral seriation:} \code{"Spectral"}, \code{"Spectral_norm"}  (Ding and He, 2004)
 
 Spectral seriation uses a relaxation to minimize the \strong{2-Sum Problem}
 (Barnard, Pothen, and Simon, 1993). It uses the order of the Fiedler vector
@@ -195,9 +195,9 @@ of the similarity matrix's (normalized) Laplacian.
 
 Spectral seriation gives a good trade-off between seriation quality, speed
 and scalability (see Hahsler, 2017).
-\item "SPIN_STS", "SPIN_NH" Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005).
+\item \strong{Sorting Points Into Neighborhoods:} \code{"SPIN_STS"}, \code{"SPIN_NH"} (Tsafrir, 2005)
 
-Given a weight matrix \eqn{W}, the algorithms try to
+Given a weight matrix \eqn{W}, the SPIN algorithms try to
 minimize the energy for a permutation (matrix \eqn{P}) given by \deqn{F(P) =
   tr(PDP^TW),} where \eqn{tr} denotes the matrix trace.
 
@@ -227,9 +227,11 @@ steps are performed before for each value of \code{alpha}. Via
 \code{W_function} a custom function to create \eqn{W} with the function
 signature \verb{function(n, sigma, verbose)} can be specified. The parameter
 \code{verbose} can be used to display progress information.
-\item "QAP_LS", "QAP_2SUM", "QAP_BAR", "QAP_Inertia" Quadratic assignment problem
-formulations for seriation using a simulated annealing solver.
+\item \strong{Quadratic assignment problem seriation:}
+\code{"QAP_LS"}, \code{"QAP_2SUM"}, \code{"QAP_BAR"}, \code{"QAP_Inertia"}
 
+Formulates the seriation problem as a quadratic assignment problem and applies a
+simulated annealing solver to find a good solution.
 These methods minimize the
 \strong{Linear Seriation Problem} (LS) formulation (Hubert and Schultz 1976),
 the \strong{2-Sum Problem} formulation (Barnard, Pothen, and Simon 1993), the
@@ -239,17 +241,18 @@ the \strong{2-Sum Problem} formulation (Barnard, Pothen, and Simon 1993), the
 An important parameter is \code{rep} to return the best result out of the
 given number of repetitions with random restarts. Default is 1, but bigger
 numbers result in better and more stable results.
-\item "GA" Use a genetic algorithm to optimize for various criteria.
+\item \strong{Genetic Algorithm:} \code{"GA"}
 
 The GA code has to be first registered. A detailed description can
 be found in the manual page for \code{\link[=register_GA]{register_GA()}}.
-\item "DendSer" Use heuristic dendrogram seriation to optimize for various criteria.
+\item \strong{Dendrogram seriation:} \code{"DendSer"}
 
+Use heuristic dendrogram seriation to optimize for various criteria.
 The DendSer code has to be first registered. A
 detailed description can be found in the manual page for
 \code{\link[=register_DendSer]{register_DendSer()}}.
-\item "Identity" Produces an identity permutation.
-\item "Random"  Produces a random permutation.
+\item \strong{Identity permutation:} `"Identity"
+\item \strong{Random permutation:} \code{"Random"}
 }
 
 \strong{Seriation methods for matrices (matrix or data.frame)}
@@ -265,7 +268,7 @@ leaf ordering (OLO).
 Currently the
 following methods are implemented for matrix:
 \itemize{
-\item "BEA" Bond Energy Algorithm (BEA; McCormick 1972).
+\item \strong{Bond Energy Algorithm:} \code{"BEA"}  (McCormick, 1972).
 
 The algorithm tries to maximize the \strong{Measure of Effectiveness.} of a
 non-negative matrix. Due to the definition of this measure, the tasks of
@@ -290,13 +293,13 @@ The BEA code used in this package was implemented by Fionn Murtagh.
 \item \code{"rep"}: the number of runs can be specified.
 The results of the best run will be returned.
 }
-\item "BEA_TSP" Use a TSP to optimize the \strong{Measure of Effectiveness} (Lenstra 1974).
+\item \strong{TSP to optimize the Measure of Effectiveness}: \code{"BEA_TSP"} (Lenstra 1974).
 
 \code{control} parameter:
 \itemize{
 \item \code{"method"}: a TSP solver method (see \code{\link[TSP:solve_TSP]{TSP::solve_TSP()}}).
 }
-\item "CA" Correspondence analysis for a table/matrix of frequencies.
+\item \strong{Correspondence analysis} \code{"CA"}
 
 This function is designed to help simplify a mosaic plot or other displays of a
 matrix of frequencies.  It calculates a correspondence analysis of the matrix and
@@ -307,26 +310,26 @@ an order for rows and columns according to the scores on a correspondence analys
 \item \code{"dim"}: CA dimension used for reordering.
 \item \code{"ca_param"}: List with parameters for the call to \code{\link[ca:ca]{ca::ca()}}.
 }
-\item "Heatmap" Heatmap seriation
+\item \strong{Heatmap seriation:} \code{"Heatmap"}
 
 Calculates distances between
 rows and between columns and then applies seriation on these using
 hierarchical clustering and optimal leaf ordering (method \code{"OLO"} for distance matrices).
-\item "PCA" Order by the first principal component.
+\item \strong{Order along the first principal component:} \code{"PCA"}
 
 Uses the projection of the data on its first principal component to
 determine the order.
 
 Note that for a distance matrix calculated from \code{x} with Euclidean
 distance, this methods minimizes the least square criterion.
-\item "PCA_angle" Order using the first two principal components.
+\item \strong{Order using the angle in the space spanned by the first two principal components:} \code{"PCA_angle"}
 
 Projects the data on the first two principal components
 and then orders by the angle in this space. The order is split by the larges
 gap between adjacent angles. A similar method was used for ordering
 correlation matrices by Friendly (2002).
-\item "Identity" Produces an identity permutation.
-\item "Random" Produces a random permutation.
+\item \strong{Identity permutation:} \code{"Identity"}
+\item \strong{Random permutation:} \code{"Random"}
 }
 
 For \strong{general arrays} no built-in methods are currently available.
@@ -396,6 +399,8 @@ criterion(x, order)
 
 ### Seriate a correlation matrix
 corr <- cor(x)
+
+# plot in original order
 pimage(corr, upper_tri = FALSE, main = "Correlation matrix")
 
 # we need to define a distance (we used d = sqrt(2(1 - r))) and

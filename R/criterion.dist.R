@@ -129,7 +129,7 @@ criterion_rgar <-
   function(x,
     order,
     w = NULL,
-    pct = NULL,
+    pct = 100,
     relative = TRUE,
     ...) {
     if (is.null(order))
@@ -137,10 +137,7 @@ criterion_rgar <-
     else
       order <- get_order(order)
 
-    ### default is to take all
-    if (is.null(w) && is.null(pct))
-      w <- length(order) - 1L
-    else if (is.null(w)) {
+    if (is.null(w)) {
       w <- floor((length(order) - 3L) * pct / 100) + 2L
       if (w < 1)
         w <- 1
@@ -148,7 +145,7 @@ criterion_rgar <-
 
     if (w < 2 ||
         w >= length(order))
-      stop("Window w needs to be 2<=w<length(order)!")
+      stop("Window w needs to be 2 <= w < length(order) or pct needs to be 0 < pct <= 100!")
     .Call("rgar",
       x,
       order,

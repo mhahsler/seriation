@@ -30,8 +30,9 @@
 #' implemented (for a more detailed description and an experimental comparison
 #' see Hahsler (2017)):
 #'
-#' - "Gradient_raw", "Gradient_weighted" Gradient measures
-#'   (Hubert et al 2001).  A symmetric dissimilarity matrix where the values in
+#' - **Gradient measures:** `"Gradient_raw"`, `"Gradient_weighted"` (Hubert et al, 2001)
+#'
+#'   A symmetric dissimilarity matrix where the values in
 #'   all rows and columns only increase when moving away from the main diagonal
 #'   is called a perfect \emph{anti-Robinson matrix} (Robinson 1951). A suitable
 #'   merit measure which quantifies the divergence of a matrix from the
@@ -51,22 +52,26 @@
 #'   weights the each satisfaction or violation by the difference by its
 #'   magnitude given by the absolute difference between the values.
 #'
-#' - "AR_events", "AR_deviations" Anti-Robinson events (Chen
-#'   2002).  An even simpler loss function can be created in the same way as the
-#'   gradient measures above by concentrating on violations only.
+#' - **Anti-Robinson events:** `"AR_events"`, `"AR_deviations"` (Chen, 2002)
+#'
+#'   `"AR_events"` counts the number of violations of the anti-Robinson form.
 #'   \deqn{ L(D) = \sum_{i=1}^n \sum_{i<k<j} f(d_{ik}, d_{ij}) + \sum_{i<k<j} f(d_{kj}, d_{ij})}
 #'
-#'   To only count the violations we use
-#'   \deqn{ f(z, y) = I(z, y) = 1 if z < y and 0 otherwise.}
+#'   with
+#'   \deqn{ f(z, y) = I(z, y) = 1 if z < y and 0 otherwise,}
 #'
-#'   \eqn{I(.)} is an indicator function returning 1 only for violations.
+#'   where \eqn{I(.)} is an indicator function returning 1 only for violations.
 #'   Chen (2002) presented a formulation for an equivalent loss function and
-#'   called the violations \emph{anti-Robinson events} and also introduced a
-#'   weighted versions of the loss function resulting in
-#'   \deqn{ f(z, y) = |y-z|I(z, y) } using the absolute deviations as weights.
+#'   called the violations _anti-Robinson events._
 #'
-#' - "RGAR" Relative generalized Anti-Robinson events (Tien et
-#'   al 2008).  Counts Anti-Robinson events in a variable band (window specified
+#'   `"AR_deviations"`: Chen (2002) also introduced a
+#'   weighted versions of the loss function by using
+#'   \deqn{ f(z, y) = |y-z|I(z, y) } which weights each violation by
+#'   the deviation.
+#'
+#' - **Relative generalized Anti-Robinson events:** `"RGAR"`  (Tien et al, 2008)
+#'
+#'   Counts Anti-Robinson events in a variable band (window specified
 #'   by `w` defaults to the maximum of \eqn{n-1}) around the main diagonal
 #'   and normalizes by the maximum of possible events.
 #'
@@ -78,12 +83,16 @@
 #'   number of neighboring objects (number of entries from the diagonal of the
 #'   distance matrix) are considered. The window size is \eqn{2 \le w < n}, where
 #'   smaller values result in focusing on the local structure while larger values
-#'   look at the global structure. Alternatively, `pct` can be used instead
-#'   of `w` to specify the window as a percentage of \eqn{n}.
-#'   `relative = FALSE` can be to get the GAR, i.e., the absolute number of AR
+#'   look at the global structure.
+#'
+#'   `...` parameters are:
+#'
+#'   - `w` window size. Default is to use a `pct` of 100% of \eqn{n}.
+#'   - `pct` and alternative specification of w as a percentage of \eqn{n} in \eqn{(0, 100]}.
+#'   - `relative` logical; can be set to `FALSE` to get the GAR, i.e., the absolute number of AR
 #'   events in the window.
 #'
-#' - "BAR" Banded Anti-Robinson Form (Earle and Hurley 2015).
+#' - **Banded anti-Robinson form criterion:** `"BAR"`  (Earle and Hurley, 2015)
 #'
 #'   Simplified measure for closeness to the anti-Robinson form in a band of size
 #'   \eqn{b} with \eqn{1 <= b < n} around the diagonal.
@@ -95,9 +104,9 @@
 #'   2015). Note that ARc is equivalent to the Linear Seriation criterion (scaled
 #'   by 1/2).
 #'
-#'   \eqn{b} defaults to a band of 20% of \eqn{n}.
+#'   `...` parameter is: `b` band size defaults to a band of 20% of \eqn{n}.
 #'
-#' - "Path_length" Hamiltonian path length (Caraux and Pinloche 2005).
+#' - **Hamiltonian path length:** `"Path_length"`  (Caraux and Pinloche, 2005)
 #'
 #'   The order of the objects in a dissimilarity matrix corresponds to a path
 #'   through a graph where each node represents an object and is visited exactly
@@ -113,7 +122,7 @@
 #'   If `order` is not unique or there are non-finite distance values
 #'   `NA` is returned.
 #'
-#' - "Lazy_path_length" Lazy path length (Earl and Hurley 2015).
+#' - **Lazy path length:** `"Lazy_path_length"` (Earl and Hurley, 2015)
 #'
 #'   A weighted version of the Hamiltonian path criterion. This loss function
 #'   postpones larger distances to later in the order (i.e., a lazy traveling
@@ -124,7 +133,7 @@
 #'   Earl and Hurley (2015) proposed this criterion for reordering in
 #'   visualizations to concentrate on closer objects first.
 #'
-#' - "Inertia" Inertia criterion (Caraux and Pinloche 2005).
+#' - **Inertia criterion:** `"Inertia"`  (Caraux and Pinloche, 2005)
 #'
 #'   Measures the moment of the inertia of dissimilarity values around the
 #'   diagonal as
@@ -135,7 +144,7 @@
 #'   \eqn{d(i,j)} gives the weight. This criterion gives higher weight to values
 #'   farther away from the diagonal. It increases with quality.
 #'
-#' - "Least_squares" Least squares criterion (Caraux and Pinloche 2005).
+#' - ** Least squares criterion:** `"Least_squares"` (Caraux and Pinloche, 2005)
 #'
 #'   The sum of squares of deviations between the dissimilarities and rank
 #'   differences (in the matrix) between two elements: \deqn{L(D) = \sum_{i=1}^n
@@ -148,13 +157,13 @@
 #'   the first principal component of \eqn{X} minimizes this criterion.  The
 #'   least squares criterion is related to \emph{unidimensional scaling.}
 #'
-#' - "LS" Linear Seriation Criterion (Hubert and Schultz 1976).
+#' - **Linear Seriation Criterion:** `"LS"`  (Hubert and Schultz, 1976)
 #'
 #'   Weights the distances with the absolute rank differences.
 #'
 #'   \deqn{L(D) \sum_{i,j=1}^n d(i,j) (-|i-j|)}
 #'
-#' - "2SUM" 2-Sum Criterion (Barnard, Pothen, and Simon 1993).
+#' - **2-Sum Criterion:** `"2SUM"`  (Barnard, Pothen and Simon, 1993)
 #'
 #'   The 2-Sum loss criterion multiplies the similarity between objects with the
 #'   squared rank differences.
@@ -164,7 +173,9 @@
 #'   where \eqn{s(i,j) = 1/(1+d(i,j))} represents the similarity between objects
 #'   \eqn{i} and \eqn{j}.
 #'
-#' - "ME", "Moore_stress", "Neumann_stress", "Cor_R" These criteria are defined on general matrices (see
+#' - **Matrix measures:** `"ME"`, `"Moore_stress"`, `"Neumann_stress"`, `"Cor_R"`
+#'
+#'   These criteria are defined on general matrices (see
 #'   below for definitions).  The dissimilarity matrix is first converted into a
 #'   similarity matrix using \eqn{S = 1/(1+D)}. If a different transformation is
 #'   required, then perform the transformation first and supply a matrix instead
@@ -175,7 +186,7 @@
 #' For a general matrix \eqn{X = x_{ij}}, \eqn{i = 1 \ldots n} and
 #' \eqn{j = 1 \ldots m}, currently the following loss/merit functions are implemented:
 #'
-#' - "ME" Measure of Effectiveness (McCormick 1972).
+#' - **Measure of Effectiveness:** `"ME"`  (McCormick, 1972).
 #'
 #'   The measure of effectiveness (ME) for matrix \eqn{X}, is defined as
 #'
@@ -191,17 +202,17 @@
 #'   defined for matrices with negative values. `NA` is returned in this
 #'   case.
 #'
-#' - "Cor_R" Weighted correlation coefficient R developed as the
-#'   Measure of Effectiveness for the Moment Ordering Algorithm (Deutsch and
-#'   Martin 1971).
+#' - **Weighted correlation coefficient:** `"Cor_R"`  (Deutsch and Martin, 1971)
 #'
+#'   Developed as the Measure of Effectiveness for the Moment
+#'   Ordering Algorithm.
 #'   R is a merit measure normalized so that its value always lies in
 #'   \eqn{[-1,1]}.  For the special case of a square matrix \eqn{R=1} corresponds
 #'   to only the main diagonal being filled, \eqn{R=0} to a random distribution
 #'   of value throughout the array, and \eqn{R=-1} to the opposite diagonal only
 #'   being filled.
 #'
-#' - "Moore_stress" Stress (Niermann 2005).
+#' - **Matrix Stress:** `"Moore_stress"`, `"Neumann_stress"`  (Niermann, 2005)
 #'
 #'   Stress measures the conciseness of the presentation of a matrix/table and
 #'   can be seen as a purity function which compares the values in a matrix/table
