@@ -206,8 +206,11 @@ register_vae <- function() {
 
     # note that "output_shape" isn't necessary with the TensorFlow backend
     # add sampling layer
-    z <- keras::layer_concatenate(list(z_mean, z_log_var)) |>
-      keras::layer_lambda(sampling)
+
+    # pipes are only in R since 4.1.0
+    #z <- keras::layer_concatenate(list(z_mean, z_log_var)) |>
+    #  keras::layer_lambda(sampling)
+    z <- keras::layer_lambda(keras::layer_concatenate(list(z_mean, z_log_var)), sampling)
 
     # we instantiate these layers separately so as to reuse them later
     decoder_h <-
