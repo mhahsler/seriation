@@ -1,7 +1,8 @@
 # seriation 1.4.2.1 (xx/xx/2023)
 
 ## New Features
-- new function seriate_best and seriate_rep to easily find a good order.
+- new function seriate_best and seriate_rep to easily find a good order for
+  randomized algorithms.
 - seriation for arrays (including matrix) gained margin parameter.
 - added VAE method
 - tsne and umap can now be used on data matrices.
@@ -10,13 +11,13 @@
 - seriation method registry has new fields 'randomized' to indicate if an algorithm
   is randomized and should be run several times and 'optimizes' to indicate
   what criterion is optimized.
-- added MDS_sammon to the list of seriation methods.
+- Embedding-based methods now return the order with an attribute called embedding.
   
-
 ## Changes
+- seriation methods for MDS are now MDS, MDS_isoMDS and MDS_sammon and gained all
+  control parameters.
 - orderplot() is now called configplot().
 - FORTRAN: replaced old DFLOAT with DBLE (reported by Brian D. Ripley).
-- mds seriation control parameter was renamed from method to type.
 
 ## Bug Fixes
 - fixed labels returned by uniscale()
