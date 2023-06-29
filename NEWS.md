@@ -18,6 +18,8 @@
   control parameters.
 - orderplot() is now called configplot() and can also visualize 2D configurations.
 - FORTRAN: replaced old DFLOAT with DBLE (reported by Brian D. Ripley).
+- HC-based seriation: The control parameter method is now linkage so it can be used
+  in seriate() in the ...
 
 ## Bug Fixes
 - fixed labels returned by uniscale()

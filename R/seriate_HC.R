@@ -19,28 +19,35 @@
 
 ## Hierarchical clustering related seriations
 .hc_control <- list(hclust = NULL,
-                    method = "complete")
+                    linkage = "complete")
 
 .hclust_helper <- function(d, control = NULL) {
+
+  # Deprecated method control argument
+  if (!is.null(control$method)) {
+    warning("control parameter method is deprecated. Use linkage instead!")
+    control$linkage <- control$method
+    control$method <- NULL
+  }
+
   control <- .get_parameters(control, .hc_control)
 
   if (!is.null(control$hclust))
     return(control$hclust)
-  return(hclust(d, method = control$method))
+  return(hclust(d, method = control$linkage))
 }
 
 seriate_dist_hc <- function(x, control = NULL)
   .hclust_helper(x, control)
 seriate_dist_hc_single <- function(x, control = NULL)
-  .hclust_helper(x, control = list(method = "single"))
+  .hclust_helper(x, control = list(linkage = "single"))
 seriate_dist_hc_average <- function(x, control = NULL)
-  .hclust_helper(x, control = list(method = "average"))
+  .hclust_helper(x, control = list(linkage = "average"))
 seriate_dist_hc_complete <- function(x, control = NULL)
-  .hclust_helper(x, control = list(method = "complete"))
+  .hclust_helper(x, control = list(linkage = "complete"))
 seriate_dist_hc_ward <- function(x, control = NULL)
-  .hclust_helper(x, control = list(method = "ward.D2"))
+  .hclust_helper(x, control = list(linkage = "ward.D2"))
 
-## workhorses are in seriation.hclust
 seriate_dist_gw <- function(x, control = NULL)
   reorder(seriate_dist_hc(x, control), x, method = "GW")
 seriate_dist_gw_single <- function(x, control = NULL)
@@ -51,7 +58,6 @@ seriate_dist_gw_complete <- function(x, control = NULL)
   reorder(seriate_dist_hc_complete(x, control), x, method = "GW")
 seriate_dist_gw_ward <- function(x, control = NULL)
   reorder(seriate_dist_hc_ward(x, control), x, method = "GW")
-
 
 seriate_dist_olo <- function(x, control = NULL)
   reorder(seriate_dist_hc(x, control), x, method = "OLO")

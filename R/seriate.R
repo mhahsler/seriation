@@ -110,22 +110,21 @@
 #'   larges gap between adjacent angles. A similar method was used for ordering
 #'   correlation matrices by Friendly (2002).
 #'
-#' - **Hierarchical clustering:** `"HC"`, `"HC_single"`, `"HC_complete"`,
+#' - **Leaf order in hierarchical clustering:** `"HC"`, `"HC_single"`, `"HC_complete"`,
 #'      `"HC_average"`, `"HC_ward"`
 #'
 #'   Uses the order of the leaf nodes in a dendrogram obtained by hierarchical
 #'   clustering as a simple seriation technique. This method
 #'   applies hierarchical clustering ([hclust()]) to `x`. The clustering
-#'   method can be given using a `"method"` element in the `control`
-#'   list. If omitted, the default `"average"` is used.
-#'
+#'   method can be given using a `"linkage"` element in the `control`
+#'   list. If omitted, the default `"complete"` is used.
 #'   For convenience the other methods are provided as shortcuts.
 #'
 #' - **Dendrogram leaf ordering:** `"GW"`, `"GW_single"`, `"GW_average"`,
 #'   `"GW_complete"`, `"GW_ward"`  (Gruvaeus and Wainer, 1972)
 #'
 #'   The methods start with a dendrogram created by [hclust()]. As the
-#'   `"method"` element in the `control` list a clustering method
+#'   `"linkage"` element in the `control` list a clustering method
 #'   (default `"average"`) can be specified. Alternatively, an [hclust]
 #'   object can be supplied using an element named `"hclust"`.
 #'

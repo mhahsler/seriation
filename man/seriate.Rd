@@ -130,21 +130,20 @@ a single component of MDS provides good results.
 and then orders by the angle in this space. The order is split by the
 larges gap between adjacent angles. A similar method was used for ordering
 correlation matrices by Friendly (2002).
-\item \strong{Hierarchical clustering:} \code{"HC"}, \code{"HC_single"}, \code{"HC_complete"},
+\item \strong{Leaf order in hierarchical clustering:} \code{"HC"}, \code{"HC_single"}, \code{"HC_complete"},
 \code{"HC_average"}, \code{"HC_ward"}
 
 Uses the order of the leaf nodes in a dendrogram obtained by hierarchical
 clustering as a simple seriation technique. This method
 applies hierarchical clustering (\code{\link[=hclust]{hclust()}}) to \code{x}. The clustering
-method can be given using a \code{"method"} element in the \code{control}
-list. If omitted, the default \code{"average"} is used.
-
+method can be given using a \code{"linkage"} element in the \code{control}
+list. If omitted, the default \code{"complete"} is used.
 For convenience the other methods are provided as shortcuts.
 \item \strong{Dendrogram leaf ordering:} \code{"GW"}, \code{"GW_single"}, \code{"GW_average"},
 \code{"GW_complete"}, \code{"GW_ward"}  (Gruvaeus and Wainer, 1972)
 
 The methods start with a dendrogram created by \code{\link[=hclust]{hclust()}}. As the
-\code{"method"} element in the \code{control} list a clustering method
+\code{"linkage"} element in the \code{control} list a clustering method
 (default \code{"average"}) can be specified. Alternatively, an \link{hclust}
 object can be supplied using an element named \code{"hclust"}.
 
