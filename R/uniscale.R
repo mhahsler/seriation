@@ -73,7 +73,7 @@
 #'
 #' # calculate a configuration for a seriation method that does not
 #' # use an embedding
-#' o <- seriate(d, method = "spectral")
+#' o <- seriate(d, method = "ARSA")
 #' get_order(o)
 #' attr(o[[1]], "embedding")
 #'

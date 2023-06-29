@@ -38,6 +38,9 @@ seriate_dist_spectral <- function(x, control = NULL) {
   q <- eigen(L)
   fiedler <- q$vectors[, ncol(W) - 1L]
   o <- order(fiedler)
+
+  names(fiedler) <- attr(x, "Labels")
+  attr(o, "embedding") <- fiedler
   o
 }
 
@@ -56,6 +59,9 @@ seriate_dist_spectral_norm <- function(x, control = NULL) {
   ## look for the vector with the largest eigenvalue
   largest_ev <- q[, 2L]
   o <- order(largest_ev)
+
+  names(largest_ev) <- attr(x, "Labels")
+  attr(o, "embedding") <- largest_ev
   o
 }
 

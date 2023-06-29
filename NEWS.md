@@ -20,6 +20,7 @@
 - FORTRAN: replaced old DFLOAT with DBLE (reported by Brian D. Ripley).
 - HC-based seriation: The control parameter method is now linkage so it can be used
   in seriate() in the ...
+- seriation method spectral now also returns the embedding.
 
 ## Bug Fixes
 - fixed labels returned by uniscale()
