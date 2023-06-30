@@ -12,6 +12,8 @@
   is randomized and should be run several times and 'optimizes' to indicate
   what criterion is optimized.
 - Embedding-based methods now return the order with an attribute called embedding.
+- Added Spearman's rho as a seriation criterion.
+
   
 ## Changes
 - seriation methods for MDS are now MDS, MDS_isoMDS and MDS_sammon and gained all

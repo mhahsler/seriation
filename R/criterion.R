@@ -144,7 +144,7 @@
 #'   \eqn{d(i,j)} gives the weight. This criterion gives higher weight to values
 #'   farther away from the diagonal. It increases with quality.
 #'
-#' - ** Least squares criterion:** `"Least_squares"` (Caraux and Pinloche, 2005)
+#' - **Least squares criterion:** `"Least_squares"` (Caraux and Pinloche, 2005)
 #'
 #'   The sum of squares of deviations between the dissimilarities and rank
 #'   differences (in the matrix) between two elements: \deqn{L(D) = \sum_{i=1}^n
@@ -173,7 +173,12 @@
 #'   where \eqn{s(i,j) = 1/(1+d(i,j))} represents the similarity between objects
 #'   \eqn{i} and \eqn{j}.
 #'
-#' - **Matrix measures:** `"ME"`, `"Moore_stress"`, `"Neumann_stress"`, `"Cor_R"`
+#' - **Spearman Correlation** `"Rho"`
+#'
+#'   Spearman rank correlation between the original distances and the
+#'   rank differences in the order.
+#'
+#' - **Matrix measures:** `"ME"`, `"Moore_stress"`, `"Neumann_stress"`
 #'
 #'   These criteria are defined on general matrices (see
 #'   below for definitions).  The dissimilarity matrix is first converted into a

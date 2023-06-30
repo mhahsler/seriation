@@ -157,7 +157,7 @@ diagonal as
 \eqn{|i-j|} is used as a measure for the distance to the diagonal and
 \eqn{d(i,j)} gives the weight. This criterion gives higher weight to values
 farther away from the diagonal. It increases with quality.
-\item ** Least squares criterion:** \code{"Least_squares"} (Caraux and Pinloche, 2005)
+\item \strong{Least squares criterion:} \code{"Least_squares"} (Caraux and Pinloche, 2005)
 
 The sum of squares of deviations between the dissimilarities and rank
 differences (in the matrix) between two elements: \deqn{L(D) = \sum_{i=1}^n
@@ -183,7 +183,11 @@ squared rank differences.
 
 where \eqn{s(i,j) = 1/(1+d(i,j))} represents the similarity between objects
 \eqn{i} and \eqn{j}.
-\item \strong{Matrix measures:} \code{"ME"}, \code{"Moore_stress"}, \code{"Neumann_stress"}, \code{"Cor_R"}
+\item \strong{Spearman Correlation} \code{"Rho"}
+
+Spearman rank correlation between the original distances and the
+rank differences in the order.
+\item \strong{Matrix measures:} \code{"ME"}, \code{"Moore_stress"}, \code{"Neumann_stress"}
 
 These criteria are defined on general matrices (see
 below for definitions).  The dissimilarity matrix is first converted into a

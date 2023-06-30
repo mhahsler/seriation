@@ -222,6 +222,9 @@ criterion_LS <- function(x, order, ...) {
   qap::qap.obj(.A_LS(attr(x, "Size")), as.matrix(x), order)
 }
 
+# Spearman rank correlation between distances and rank differences of the order
+criterion_R_dist  <- function(x, order, ...)
+  stats::cor(x, stats::dist(get_rank(order), "manhattan"), method = "spearman")
 
 ### these measures are calculated on similarity matrices
 criterion_ME_dist <- function(x, order, ...)
@@ -232,8 +235,7 @@ criterion_Moore_stress_dist  <- function(x, order, ...)
 criterion_Neumann_stress_dist  <- function(x, order, ...)
   criterion(1 / (1 + as.matrix(x)), c(order, order),
     "Neumann_stress")
-criterion_R_dist  <- function(x, order, ...)
-  criterion(1 / (1 + as.matrix(x)), c(order, order), "Cor_R")
+
 
 
 ### register methods
@@ -294,7 +296,7 @@ set_criterion_method("dist",
   "Measure of effectiveness",
   TRUE)
 set_criterion_method("dist",
-  "Cor_R",
+  "Rho",
   criterion_R_dist,
   "Correlation coefficient R",
   TRUE)
