@@ -7,6 +7,7 @@
 \alias{get_order.hclust}
 \alias{get_order.dendrogram}
 \alias{get_order.integer}
+\alias{get_order.numeric}
 \alias{get_rank}
 \alias{get_permutation_matrix}
 \title{Extracting Order Information from a Permutation Object}
@@ -22,6 +23,8 @@ get_order(x, ...)
 \method{get_order}{dendrogram}(x, ...)
 
 \method{get_order}{integer}(x, ...)
+
+\method{get_order}{numeric}(x, ...)
 
 get_rank(x, ...)
 

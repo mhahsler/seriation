@@ -34,14 +34,14 @@ The following methods are available to reorder dissimilarity data:
 - **Identity** permutation
 - **MDS** - Multidimensional scaling (classical metric MDS, Krusakl’s
   isoMDS, Sammon’s non-linear mapping, angle in 2D principal coordinates
-  space)
+  space, stress minimization using majorization)
 - **OLO** - Hierarchical clustering with optimal leaf ordering
 - **OPTICS** - Ordering points to identify the clustering structure.
 - **QAP** - Quadratic assignment problem heuristic (2-SUM, linear
   seriation, inertia, banded anti-Robinson form)
 - **R2E** - Rank-two ellipse seriation
 - **Random** permutation
-- **Reverse** reverse order
+- **Reverse** order
 - **Spectral** seriation (unnormalized, normalized)
 - **SPIN** - Sorting points into neighborhoods (neighborhood algorithm,
   side-to-site algorithm)
@@ -76,13 +76,13 @@ matrices:
 - **PCA** - orders along the first principal component or angle on the
   projection on the first two principal components
 - **Random** permutation
-- **Reverse** reverse order
-- **TSP** - Traveling sales person solver to maximize ME
+- **Reverse** order
 - **TSNE** - Order of the 1D t-distributed stochastic neighbor embedding
   (t-SNE)
+- **TSP** - Traveling sales person solver to maximize ME
 - **UMAP** - Order of the 1D embedding produced by uniform manifold
   approximation and projection
-- **VAE** - Order if the 1D embedding produced by a variational
+- **VAE** - Order of the 1D embedding produced by a variational
   autoencoder.
 
 ## Installation
@@ -171,15 +171,15 @@ Compare several available quality metrics.
 rbind(alphabetical = criterion(d), seriated = criterion(d, order))
 ```
 
-    ##              2SUM AR_deviations AR_events BAR Cor_R Gradient_raw
-    ## alphabetical  872        10.304        80 1.8 0.024            8
-    ## seriated      811         0.064         5 1.1 0.085          158
-    ##              Gradient_weighted Inertia Lazy_path_length Least_squares LS  ME
-    ## alphabetical              0.54     267              6.9           967 99  99
-    ## seriated                 19.76     364              4.6           942 86 101
-    ##              Moore_stress Neumann_stress Path_length RGAR
-    ## alphabetical          7.0            3.9         1.8 0.48
-    ## seriated              2.5            1.3         1.1 0.03
+    ##              2SUM AR_deviations AR_events BAR Gradient_raw Gradient_weighted
+    ## alphabetical  872        10.304        80 1.8            8              0.54
+    ## seriated      811         0.064         5 1.1          158             19.76
+    ##              Inertia Lazy_path_length Least_squares LS  ME Moore_stress
+    ## alphabetical     267              6.9           967 99  99          7.0
+    ## seriated         364              4.6           942 86 101          2.5
+    ##              Neumann_stress Path_length RGAR   Rho
+    ## alphabetical            3.9         1.8 0.48 0.028
+    ## seriated                1.3         1.1 0.03 0.913
 
 ## References
 

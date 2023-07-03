@@ -19,25 +19,21 @@
 
 #' Register Seriation Methods from Package smacof
 #'
-#' Registers methods for [seriate()] based on multidemensional scaling using
-#' stress majorization implemented in package smacof (de Leeuw & Mair, 2009).
+#' Registers the `"smacof"` method for [seriate()] based on multidemensional
+#' scaling using stress majorization and the corresponding `"smacof_stress0"`
+#' criterion implemented in package smacof (de Leeuw & Mair, 2009).
 #'
-#' **Rewite**
-#' Registers the method \code{"DendSer"} for [seriate()]. DendSer is a fast
-#' heuristic for reordering dendrograms developed by Earle and Hurley (2015)
-#' able to use different criteria.
+#' Seriation method `"smacof"` implements stress majorization with several transformation functions.
+#' These functions are passed on as the type control parameter. We default
+#' to `"ratio"`, which together with `"interval"` performs metric MDS.
+#' `"ordinal"` can be used
+#' for non-metric MDS. See [smacof::smacofSym()] for details on the
+#' control parameters.
 #'
-#' \code{control} for \code{seriate} with
-#' method \code{"DendSer"} accepts the following parameters:
-#'
-#' - "h" or "method" A dendrogram or a method for hierarchical clustering
-#'   (see \code{hclust}). Default: complete-link.
-#' - "criterion" A seriation criterion to optimize (see
-#'   \code{list_criterion_methods("dist")}). Default: \code{"BAR"} (Banded
-#'   anti-Robinson from with 20\% band width).}
-#' - "verbose" a logical; print progress information?
-#' - "DendSer_args" additional arguments for \code{DendSer}.
-#'
+#' The corresponding criterion calles `"smacof_stress0"` is also registered.
+#' There additional parameter `type` is used to specify the used
+#' transformation function. It should agree with the function used for seriation.
+#' See [smacof::stress0()] for details on the stress calculation.
 #'
 #' Note: Package \pkg{smacof} needs to be installed.
 #'
@@ -53,16 +49,20 @@
 #' \dontrun{
 #' register_smacof()
 #'
-#' get_seriation_method("dist", "nMDS")
+#' get_seriation_method("dist", "MDS_smacof")
 #'
 #' d <- dist(random.robinson(20, pre = TRUE))
 #'
 #' ## use Banded AR form with default clustering (complete-link)
-#' o <- seriate(d, "nMDS", verbose = TRUE)
+#' o <- seriate(d, "MDS_smacof", verbose = TRUE)
 #' pimage(d, o)
 #'
 #' # recalculate stress for the order
 #' MDS_stress(d, o)
+#'
+#' # ordinal MDS. stress needs to be calculated using the correct type with stress0
+#' o <- seriate(d, "MDS_smacof", type = "ordinal", verbose = TRUE)
+#' criterion(d, o, method = "smacof_stress0", type = "ordinal")
 #' }
 #' @export
 register_smacof <- function() {
@@ -70,18 +70,17 @@ register_smacof <- function() {
 
   .smacof_control <- list(
     init = "torgerson",
-    type = "interval",
+    type = "ratio",
     relax = FALSE,
     modulus = 1,
     itmax = 1000,
     eps = 1e-06,
     verbose = FALSE
-    )
+  )
 
   seriate_dist_smacof <- function(x, control = NULL) {
     control <- .get_parameters(control, .smacof_control)
 
-    # this is nMDS
     r <- smacof::smacofSym(x, ndim = 1, type = control$type, verbose = control$verbose,
                            init = control$init, relax = control$relax,
                            modulus = control$modulus, itmax = control$itmax,
@@ -95,7 +94,7 @@ register_smacof <- function() {
 
     o <- order(config)
 
-    attr(o, "configuration")
+    attr(o, "configuration") <- config
     o
   }
 
@@ -104,9 +103,20 @@ register_smacof <- function() {
     "dist",
     "MDS_smacof",
     seriate_dist_smacof,
-    "Seriation based on multidemensional scaling using stress majorization using smacof::smacofSym() (de Leeuw & Mair, 2009).",
+    "Seriation based on multidemensional scaling using stress majorization (de Leeuw & Mair, 2009).",
     .smacof_control,
     optimizes = "Other (MDS stress)"
   )
+
+  smacof_crit_stress0 <- function(x, order, type = "ratio", ...) {
+    conf <- get_config(order)
+    if (is.null(conf))
+      conf <- uniscale(x)
+
+    smacof::stress0(x, cbind(conf), type = type, ...)$stress
+  }
+
+  seriation::set_criterion_method("dist", "smacof_stress0", smacof_crit_stress0,
+                                  "Stress0 calculated for different transformation types from package smacof.", FALSE)
 
 }

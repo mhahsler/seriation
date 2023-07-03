@@ -106,6 +106,12 @@ get_order.integer <- function(x, ...) {
   structure(as.integer(x), names = names(x))
 }
 
+#' @rdname get_order
+#' @export
+get_order.numeric <- function(x, ...) {
+  structure(order(x), names = names(x))
+}
+
 ## returns for each object its rank (rank of first, second, etc. object)
 #' @rdname get_order
 #' @export

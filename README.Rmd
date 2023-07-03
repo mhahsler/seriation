@@ -28,10 +28,13 @@ The following methods are available to reorder dissimilarity data:
  *  **GW** - Hierarchical clustering reordered by Gruvaeus and Wainer heuristic 
  *  **HC** - Hierarchical clustering (single link, avg. link, complete link) 
  *  **Identity** permutation 
- *  **MDS** - Multidimensional scaling (classical metric MDS, Krusakl's isoMDS, Sammon's non-linear mapping, angle in 2D principal coordinates space) 
+ *  **MDS** - Multidimensional scaling (classical metric MDS, Krusakl's isoMDS, 
+          Sammon's non-linear mapping, angle in 2D principal coordinates space, 
+          stress minimization using majorization) 
  *  **OLO** - Hierarchical clustering with optimal leaf ordering 
  *  **OPTICS** - Ordering points to identify the clustering structure.
- *  **QAP** - Quadratic assignment problem heuristic (2-SUM, linear seriation, inertia, banded anti-Robinson form)
+ *  **QAP** - Quadratic assignment problem heuristic (2-SUM, linear seriation, 
+          inertia, banded anti-Robinson form)
  *  **R2E** - Rank-two ellipse seriation 
  *  **Random** permutation
  *  **Reverse** order

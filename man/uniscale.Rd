@@ -67,6 +67,8 @@ datasets since it only checks the permutation given by the seriation order.
 If the order does not contain a configuration, then a minimum-stress configuration if calculates
 for the given order.
 
+All distances are normalized first by \eqn{\frac{d_{ij}}{ \sqrt{\sum{d_{ij}}^2}}}.
+
 Some seriation methods produce a MDS configuration (a 1D or 2D embedding). \code{get_config()}
 retrieved the configuration attribute from the \code{ser_permutation_vector}. \code{NULL}
 is returned if the seriation did not produce a configuration.

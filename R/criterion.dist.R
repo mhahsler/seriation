@@ -24,18 +24,21 @@ criterion.dist <- function(x,
   method = NULL,
   force_loss = FALSE,
   ...) {
-  ## check order and x
-  if (!is.null(order)) {
-    if (!inherits(order, "ser_permutation"))
-      order <- ser_permutation(order)
-    .check_dist_perm(x, order)
-  }
-
   ## check dist (most C code only works with lower-triangle version)
   if (attr(x, "Diag") || attr(x, "Upper"))
     x <- as.dist(x, diag = FALSE, upper = FALSE)
   if (!is.double(x))
     mode(x) <- "double"
+
+  ## check order
+  if (!is.null(order)) {
+    if (!inherits(order, "ser_permutation"))
+      order <- ser_permutation(order)
+    .check_dist_perm(x, order)
+  } else
+    order <- ser_permutation(seq(attr(x, "Size")))
+
+
 
   ## get methods
   if (is.null(method))

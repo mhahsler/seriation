@@ -12,26 +12,22 @@ register_smacof()
 Nothing.
 }
 \description{
-Registers methods for \code{\link[=seriate]{seriate()}} based on multidemensional scaling using
-stress majorization implemented in package smacof (de Leeuw & Mair, 2009).
+Registers the \code{"smacof"} method for \code{\link[=seriate]{seriate()}} based on multidemensional
+scaling using stress majorization and the corresponding \code{"smacof_stress0"}
+criterion implemented in package smacof (de Leeuw & Mair, 2009).
 }
 \details{
-\strong{Rewite}
-Registers the method \code{"DendSer"} for \code{\link[=seriate]{seriate()}}. DendSer is a fast
-heuristic for reordering dendrograms developed by Earle and Hurley (2015)
-able to use different criteria.
+Seriation method \code{"smacof"} implements stress majorization with several transformation functions.
+These functions are passed on as the type control parameter. We default
+to \code{"ratio"}, which together with \code{"interval"} performs metric MDS.
+\code{"ordinal"} can be used
+for non-metric MDS. See \code{\link[smacof:smacofSym]{smacof::smacofSym()}} for details on the
+control parameters.
 
-\code{control} for \code{seriate} with
-method \code{"DendSer"} accepts the following parameters:
-\itemize{
-\item "h" or "method" A dendrogram or a method for hierarchical clustering
-(see \code{hclust}). Default: complete-link.
-\item "criterion" A seriation criterion to optimize (see
-\code{list_criterion_methods("dist")}). Default: \code{"BAR"} (Banded
-anti-Robinson from with 20\\% band width).}
-\item "verbose" a logical; print progress information?
-\item "DendSer_args" additional arguments for \code{DendSer}.
-}
+The corresponding criterion calles \code{"smacof_stress0"} is also registered.
+There additional parameter \code{type} is used to specify the used
+transformation function. It should agree with the function used for seriation.
+See \code{\link[smacof:stress0]{smacof::stress0()}} for details on the stress calculation.
 
 Note: Package \pkg{smacof} needs to be installed.
 }
@@ -39,16 +35,20 @@ Note: Package \pkg{smacof} needs to be installed.
 \dontrun{
 register_smacof()
 
-get_seriation_method("dist", "nMDS")
+get_seriation_method("dist", "MDS_smacof")
 
 d <- dist(random.robinson(20, pre = TRUE))
 
 ## use Banded AR form with default clustering (complete-link)
-o <- seriate(d, "nMDS", verbose = TRUE)
+o <- seriate(d, "MDS_smacof", verbose = TRUE)
 pimage(d, o)
 
 # recalculate stress for the order
 MDS_stress(d, o)
+
+# ordinal MDS. stress needs to be calculated using the correct type with stress0
+o <- seriate(d, "MDS_smacof", type = "ordinal", verbose = TRUE)
+criterion(d, o, method = "smacof_stress0", type = "ordinal")
 }
 }
 \references{

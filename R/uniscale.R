@@ -16,8 +16,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# unidimensional scaling: Defrays Decomposition (1978)
-
 #' Unidimensional Scaling from Seriation Results
 #'
 #' Calculates an (approximate) unidimensional scaling configuration given an order.
@@ -36,6 +34,8 @@
 #' `MDS_stress` calculates the normalized stress of a configuration given by a seriation order.
 #' If the order does not contain a configuration, then a minimum-stress configuration if calculates
 #' for the given order.
+#'
+#' All distances are normalized first by \eqn{\frac{d_{ij}}{ \sqrt{\sum{d_{ij}}^2}}}.
 #'
 #' Some seriation methods produce a MDS configuration (a 1D or 2D embedding). `get_config()`
 #' retrieved the configuration attribute from the `ser_permutation_vector`. `NULL`
@@ -175,10 +175,13 @@ MDS_stress <- function(d, order, refit = TRUE) {
 #' @param dim The dimension if `x` is a `ser_permutation` object.
 #' @export
 get_config <- function(x, dim = 1L, ...) {
+  if (is.numeric(x))
+    return(x)
+
   if (inherits(x, "ser_permutation"))
     x <- x[[dim]]
 
-  attr(x, "configuration")
+  conf <- attr(x, "configuration")
 }
 
 
@@ -199,14 +202,14 @@ plot_config <- function (x,
   if (missing(main))
     main <- "Configuration"
 
-  if (!is.numeric(x)) {
-    x <- get_config(x)
+  o <- get_order(x)
+  x <- get_config(x)
 
-    if (is.null(x))
-      stop(
-        "Permutation vector has no configuration attribute. Use uniscale() first to calcualte a configuration"
-      )
-  }
+
+  if (is.null(x))
+    stop(
+      "Permutation vector has no configuration attribute. Use uniscale() first to calcualte a configuration"
+    )
 
   # 2D
   if (is.matrix(x)) {
