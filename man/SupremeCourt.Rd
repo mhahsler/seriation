@@ -41,7 +41,7 @@ o <- seriate(d, method = "MDS_sammon")
 o
 
 pimage(d, o, diag = TRUE, upper = TRUE)
-configplot(o[[1]])
+plot_config(o[[1]])
 }
 \references{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{Sirovich, L. (2003). A pattern analysis of the second Rehnquist

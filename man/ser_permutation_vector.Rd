@@ -25,9 +25,12 @@ get_method(x, printable = FALSE)
 \method{summary}{ser_permutation_vector}(object, ...)
 }
 \arguments{
-\item{x, object}{an object which contains a permutation vector (currently an
-integer vector or an object of class \link{hclust}). The value \code{NA}
-creates an identity permutation.}
+\item{x, object}{an object if class  \code{ser_permutation_vector}.
+Options for the constructor are:
+(1) an integer permutation vector,
+(2) an object of class \link{hclust},
+(3) a numeric vector with a MDS configuration, or
+(4) \code{NA} to indicate a identity permutation.}
 
 \item{method}{a string representing the method used to obtain the
 permutation vector.}
@@ -39,7 +42,8 @@ permutation vector.}
 \item{printable}{a logical; prints "unknown" instead of \code{NULL} for non-existing methods.}
 }
 \value{
-An object of class \code{ser_permutation_vector}.
+The constructor \code{ser_permutation_vector()} returns an
+object a \code{ser_permutation_vector}
 }
 \description{
 The class \code{ser_permutation_vector}
@@ -80,7 +84,10 @@ checks if the permutation vector is valid
 (i.e. if all integers occur exactly once).
 }
 \examples{
-p <- ser_permutation_vector(sample(10), "random")
+o <- structure(sample(10), names = paste0("X", 1:10))
+o
+
+p <- ser_permutation_vector(o, "random")
 p
 
 ## some methods
@@ -94,10 +101,11 @@ r <- rev(p)
 r
 get_order(r)
 
-## create a identity permutation vector (with unknown length)
+## create a symbolic identity permutation vector (with unknown length)
+## Note: This can be used to permute an object, but methods
+##       like length and get_order are not available.
 ip <- ser_permutation_vector(NA)
 ip
-
 }
 \seealso{
 Other permutation: 

@@ -25,7 +25,7 @@ Converts between permutation vectors and matrices.
 }
 \examples{
 ## create a random permutation vector
-pv <- sample(1:5)
+pv <- structure(sample(5), names = paste0("X", 1:5))
 pv
 
 ## convert into a permutation matrix

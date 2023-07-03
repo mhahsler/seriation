@@ -47,8 +47,8 @@ o <- seriate(d, method = "tsne")
 pimage(d, o)
 
 # look at the returned embedding and plot it
-attr(o[[1]], "embedding")
-configplot(o)
+attr(o[[1]], "configuration")
+plot_config(o)
 
 ## matrix
 get_seriation_method("matrix", "tsne")
@@ -65,7 +65,7 @@ x <- x[!duplicated(x), , drop = FALSE]
 o <- seriate(x, method = "tsne")
 pimage(x, o, prop = FALSE)
 
-configplot(o[[1]], col = class)
+plot_config(o[[1]], col = class)
 }
 
 }

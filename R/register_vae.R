@@ -308,7 +308,7 @@ register_vae <- function() {
 
     embedding <- as.vector(get_embedding())
     o <- order(embedding)
-    attr(o, "embedding") <- embedding
+    attr(o, "configuration") <- embedding
 
     if (control$return_model)
       attr(o, "model") <- model

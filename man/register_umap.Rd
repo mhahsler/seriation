@@ -41,8 +41,8 @@ o <- seriate(d, method = "umap")
 pimage(d, o)
 
 # look at the returned embedding and plot it
-attr(o[[1]], "embedding")
-configplot(o)
+attr(o[[1]], "configuration")
+plot_config(o)
 
 ## matrix
 get_seriation_method("matrix", "umap")

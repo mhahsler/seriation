@@ -32,7 +32,7 @@ seriate_dist_mds <- function(x, control = NULL) {
   sc <- stats::cmdscale(x, k = 1,  eig = TRUE, add = control$add)
   sc <- drop(sc$points)
   o <- order(sc)
-  attr(o, "embedding") <- sc
+  attr(o, "configuration") <- sc
   o
 }
 
@@ -59,7 +59,7 @@ seriate_dist_mds_isoMDS <- function(x, control = NULL) {
       p = control$p
     )
   o <- order(sc$points[, 1])
-  attr(o, "embedding") <- sc$points[, 1]
+  attr(o, "configuration") <- sc$points[, 1]
   o
 }
 
@@ -87,7 +87,7 @@ seriate_dist_mds_sammon <- function(x, control = NULL) {
   )
 
   o <- order(sc$points[, 1])
-  attr(o, "embedding") <- sc$points[, 1]
+  attr(o, "configuration") <- sc$points[, 1]
   o
 }
 
@@ -98,7 +98,7 @@ seriate_dist_angle <- function(x, control = NULL) {
   sc <- stats::cmdscale(x, k = 2, eig = TRUE, add = control$add)
   sc <- sc$points
   o <- .order_angle(sc)
-  attr(o, "embedding") <- sc
+  attr(o, "configuration") <- sc
   o
 }
 

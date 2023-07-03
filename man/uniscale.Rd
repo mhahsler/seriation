@@ -2,12 +2,18 @@
 % Please edit documentation in R/uniscale.R
 \name{uniscale}
 \alias{uniscale}
-\alias{configplot}
+\alias{MDS_stress}
+\alias{get_config}
+\alias{plot_config}
 \title{Unidimensional Scaling from Seriation Results}
 \usage{
-uniscale(d, order = NULL, method = "MDS", rep = 10, warn = TRUE, ...)
+uniscale(d, order = NULL, method = "MDS", warn = TRUE, ...)
 
-configplot(x, main, pch = 19, ...)
+MDS_stress(d, order, refit = FALSE)
+
+get_config(x, dim = 1L, ...)
+
+plot_config(x, main, pch = 19, labels = TRUE, pos = 1, ...)
 }
 \arguments{
 \item{d}{a dissimilarity matrix.}
@@ -18,19 +24,26 @@ configplot(x, main, pch = 19, ...)
 
 \item{method}{seriation method used if \code{o} is \code{NULL}.}
 
-\item{rep}{Number of repetitions of the seriation heuristic.}
-
 \item{warn}{logical; produce a warning if the 1D MDS fit does not preserve the
 given order.}
 
 \item{\dots}{additional arguments are passed on to the seriation method.}
 
+\item{refit}{logical; forces to refit a minimum-stress MDS configuration,
+even if \code{order} contains a configuration.}
+
 \item{x}{a scaling returned by \code{uniscale()} or a
-\code{ser_permutation} with an embedding attribute.}
+\code{ser_permutation} with a configuration attribute.}
+
+\item{dim}{The dimension if \code{x} is a \code{ser_permutation} object.}
 
 \item{main}{main plot label}
 
 \item{pch}{print character}
+
+\item{labels}{add the object names to the plot}
+
+\item{pos}{label position (see \code{\link[=text]{text()}}).}
 }
 \value{
 A vector with the fitted configuration.
@@ -47,38 +60,51 @@ for how many positions order could not be preserved.
 
 If no order is specified, then
 a seriation order is first found using the specified seriation method.
-
 The code is similar to \code{uniscale()} in \pkg{smacof} (de Leeuw, 2090), but scales to larger
 datasets since it only checks the permutation given by the seriation order.
+
+\code{MDS_stress} calculates the normalized stress of a configuration given by a seriation order.
+If the order does not contain a configuration, then a minimum-stress configuration if calculates
+for the given order.
+
+Some seriation methods produce a MDS configuration (a 1D or 2D embedding). \code{get_config()}
+retrieved the configuration attribute from the \code{ser_permutation_vector}. \code{NULL}
+is returned if the seriation did not produce a configuration.
+
+\code{plot_config()} plots 1D and 2D configurations.
 }
 \examples{
 data(SupremeCourt)
 d <- as.dist(SupremeCourt)
+d
 
-# embedding-based methods return a configuration as the attribute "embedding"
-# configplot visualizes the embedding
+# embedding-based methods return "configuration" attribute
+# plot_config visualizes the configuration
 o <- seriate(d, method = "MDS_sammon")
 get_order(o)
-attr(o[[1]], "embedding")
-configplot(o)
+plot_config(o)
+
+# the configuration (Note: objects are in the original order in d)
+get_config(o)
 
 # angle methods return a 2D configuration
 o <- seriate(d, method = "MDS_angle")
 get_order(o)
-attr(o[[1]], "embedding")
-configplot(o)
+get_config(o)
+plot_config(o, )
+
 
 # calculate a configuration for a seriation method that does not
-# use an embedding
+# create a configuration
 o <- seriate(d, method = "ARSA")
 get_order(o)
-attr(o[[1]], "embedding")
+get_config(o)
 
-# find the minimum-stress configuration
+# find the minimum-stress configuration for the ARSA order
 sc <- uniscale(d, o)
 sc
 
-configplot(sc)
+plot_config(sc)
 
 }
 \references{

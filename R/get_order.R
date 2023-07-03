@@ -11,6 +11,11 @@
 #' These permutation vectors can directly be
 #' used to reorder objects using subsetting with `"["`.  \emph{Note:} In
 #' \pkg{seriation} we usually use these order-based permutation vectors.
+#' **Note on names:** While R's [order()] returns an unnamed vector,
+#' `get_order()` returns names (if available). The names are the object label
+#' corresponding to the index at that position.
+#' Therefore, the names in the order are in the order after
+#' the permutation.
 #'
 #' `get_rank()` returns the seriation as an integer vector containing the
 #' rank/position for each objects after the permutation is applied.
@@ -34,30 +39,32 @@
 #' @author Michael Hahsler
 #' @keywords manip
 #' @examples
-#' x <- 1:10
-#'
 #' ## create a random ser_permutation_vector
 #' ## Note that ser_permutation_vector is a single permutation vector
-#' o <- ser_permutation_vector(sample(10))
+#' x <- structure(1:10, names = paste0("X", 1:10))
+#' o <- sample(x)
 #' o
 #'
-#' get_order(o)
-#' get_rank(o)
-#' get_permutation_matrix(o)
+#' p <- ser_permutation_vector(o)
+#' p
 #'
-#' ## reorder x using subsetting, the provided permute function or by
-#' ## multiplying the with the permutation matrix
-#' x[get_order(o)]
-#' permute(x, o)
-#' drop(get_permutation_matrix(o) %*%  x)
+#' get_order(p)
+#' get_rank(p)
+#' get_permutation_matrix(p)
+#'
+#' ## reorder objects using subsetting, the provided permute function or by
+#' ## multiplying the with the permutation matrix. We use here
+#' x[get_order(p)]
+#' permute(x, p)
+#' drop(get_permutation_matrix(p) %*%  x)
 #'
 #' ## ser_permutation contains one permutation vector for each dimension
-#' o2 <- ser_permutation(o, sample(5))
-#' o2
+#' p2 <- ser_permutation(p, sample(5))
+#' p2
 #'
-#' get_order(o2, dim = 2)
-#' get_rank(o2, dim = 2)
-#' get_permutation_matrix(o2, dim = 2)
+#' get_order(p2, dim = 2)
+#' get_rank(p2, dim = 2)
+#' get_permutation_matrix(p2, dim = 2)
 #' @export
 get_order <- function(x, ...)
   UseMethod("get_order")
@@ -109,6 +116,7 @@ get_rank <- function(x, ...) {
 
   r
 }
+
 
 #' @rdname get_order
 #' @export

@@ -4,21 +4,22 @@
 - new function seriate_best and seriate_rep to easily find a good order for
   randomized algorithms.
 - seriation for arrays (including matrix) gained margin parameter.
-- added VAE method
+- added VAE seriation method
 - tsne and umap can now be used on data matrices.
 - get_rank() returns now labels.
-- added method reverse for dist.
+- added seriation method reverse for dist.
 - seriation method registry has new fields 'randomized' to indicate if an algorithm
   is randomized and should be run several times and 'optimizes' to indicate
   what criterion is optimized.
-- Embedding-based methods now return the order with an attribute called embedding.
+- Embedding-based methods now return the order with an attribute called configuration.
 - Added Spearman's rho as a seriation criterion.
+- New MDS_stress() function.
 
   
 ## Changes
 - seriation methods for MDS are now MDS, MDS_isoMDS and MDS_sammon and gained all
   control parameters.
-- orderplot() is now called configplot() and can also visualize 2D configurations.
+- orderplot() is now called plot_config() and can also visualize 2D configurations.
 - FORTRAN: replaced old DFLOAT with DBLE (reported by Brian D. Ripley).
 - HC-based seriation: The control parameter method is now linkage so it can be used
   in seriate() in the ...

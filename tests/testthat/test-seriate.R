@@ -105,21 +105,16 @@ test_that("test if seriate.dist returns expected results", {
       dim = 1,
       simplify = FALSE
     )
-  for (n in names(ORDERS))
-    expect_type(ORDERS[[!!n]], "integer") # see ?testthat::quasi_label RE "!!"
 
-  # check names - first sanity check before more comprehensive checks
-  expect_equal(names(get_order(os$Identity)), letters[1:4])
-
-  # check names of integer seriation vectors correspond to correct integers
-  for (n in names(integers)) {
-    expect_type(names(ORDERS[[n]]), "character") # i.e. not NULL
-    expect_mapequal(ORDERS[[n]], expected = c(
+  for (o in ORDERS) {
+    expect_type(o, "integer")
+    expect_mapequal(o, expected = c(
       a = 1,
       b = 2,
       c = 3,
       d = 4
     ))
+    expect_type(names(o), "character")
   }
 
   # check $labels of hclust seriation vectors remain in original input order

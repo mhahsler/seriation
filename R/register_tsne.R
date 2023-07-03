@@ -61,8 +61,8 @@
 #' pimage(d, o)
 #'
 #' # look at the returned embedding and plot it
-#' attr(o[[1]], "embedding")
-#' configplot(o)
+#' attr(o[[1]], "configuration")
+#' plot_config(o)
 #'
 #' ## matrix
 #' get_seriation_method("matrix", "tsne")
@@ -79,7 +79,7 @@
 #' o <- seriate(x, method = "tsne")
 #' pimage(x, o, prop = FALSE)
 #'
-#' configplot(o[[1]], col = class)
+#' plot_config(o[[1]], col = class)
 #' }
 #'
 #' @export
@@ -127,7 +127,7 @@ register_tsne <- function() {
 
     embedding <- drop(embedding$Y)
     names(embedding) <- attr(x, "Labels")
-    attr(o, "embedding") <- embedding
+    attr(o, "configuration") <- embedding
 
     o
   }
@@ -166,7 +166,7 @@ register_tsne <- function() {
 
     embedding <- drop(embedding$Y)
     names(embedding) <- rownames(x)
-    attr(o, "embedding") <- embedding
+    attr(o, "configuration") <- embedding
 
     o
   }

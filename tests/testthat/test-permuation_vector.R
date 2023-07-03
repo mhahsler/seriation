@@ -6,12 +6,14 @@ set.seed(0)
 
 context("ser_permutation_vector")
 
-p <- sample(1:10)
+p <- sample(10)
+names(p) <- paste0("X", p)
 sp <- ser_permutation_vector(p, method="valid")
 
 expect_identical(length(sp), 10L)
 expect_identical(get_order(sp), p)
 expect_identical(get_order(rev(sp)), rev(p))
+expect_identical(get_rank(sp), structure(order(p), names = names(p)[order(p)]))
 
 
 expect_error(ser_permutation_vector(c(1:10, 12L), method="invalid"), "Invalid permutation vector!")

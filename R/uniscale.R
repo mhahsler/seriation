@@ -30,16 +30,24 @@
 #'
 #' If no order is specified, then
 #' a seriation order is first found using the specified seriation method.
-#'
 #' The code is similar to `uniscale()` in \pkg{smacof} (de Leeuw, 2090), but scales to larger
 #' datasets since it only checks the permutation given by the seriation order.
+#'
+#' `MDS_stress` calculates the normalized stress of a configuration given by a seriation order.
+#' If the order does not contain a configuration, then a minimum-stress configuration if calculates
+#' for the given order.
+#'
+#' Some seriation methods produce a MDS configuration (a 1D or 2D embedding). `get_config()`
+#' retrieved the configuration attribute from the `ser_permutation_vector`. `NULL`
+#' is returned if the seriation did not produce a configuration.
+#'
+#' `plot_config()` plots 1D and 2D configurations.
 #'
 #' @param d a dissimilarity matrix.
 #' @param order a precomputed permutation (configuration) order.  If
 #' \code{NULL}, then seriation is performed using the method specified in
 #' \code{method}.
 #' @param method seriation method used if \code{o} is \code{NULL}.
-#' @param rep Number of repetitions of the seriation heuristic.
 #' @param warn logical; produce a warning if the 1D MDS fit does not preserve the
 #'  given order.
 #' @param \dots additional arguments are passed on to the seriation method.
@@ -57,126 +65,183 @@
 #' @examples
 #' data(SupremeCourt)
 #' d <- as.dist(SupremeCourt)
+#' d
 #'
-#' # embedding-based methods return a configuration as the attribute "embedding"
-#' # configplot visualizes the embedding
+#' # embedding-based methods return "configuration" attribute
+#' # plot_config visualizes the configuration
 #' o <- seriate(d, method = "MDS_sammon")
 #' get_order(o)
-#' attr(o[[1]], "embedding")
-#' configplot(o)
+#' plot_config(o)
+#'
+#' # the configuration (Note: objects are in the original order in d)
+#' get_config(o)
 #'
 #' # angle methods return a 2D configuration
 #' o <- seriate(d, method = "MDS_angle")
 #' get_order(o)
-#' attr(o[[1]], "embedding")
-#' configplot(o)
+#' get_config(o)
+#' plot_config(o, )
+#'
 #'
 #' # calculate a configuration for a seriation method that does not
-#' # use an embedding
+#' # create a configuration
 #' o <- seriate(d, method = "ARSA")
 #' get_order(o)
-#' attr(o[[1]], "embedding")
+#' get_config(o)
 #'
-#' # find the minimum-stress configuration
+#' # find the minimum-stress configuration for the ARSA order
 #' sc <- uniscale(d, o)
 #' sc
 #'
-#' configplot(sc)
+#' plot_config(sc)
 #'
 #' @export
 uniscale <-
   function(d,
-    order = NULL,
-    method = "MDS",
-    rep = 10,
-    warn = TRUE,
-    ...) {
-    if (is.null(order))
-      order <- seriate(d, method = method, rep = rep, ...)
+           order = NULL,
+           method = "MDS",
+           warn = TRUE,
+           ...) {
+    d <- as.dist(d)
 
-    o <- get_rank(order)
-    n <- length(o)
+    if (is.null(order))
+      order <- seriate(d, method = method, ...)
+    else
+      order <- ser_permutation(order)
+
+    init_config <- get_rank(order)
+    n <- length(init_config)
+
+    if (attr(d, "Size") != n)
+      stop("size of d and length of order do not agree!")
 
     # we do not use weights
     w <- 1 - diag(n)
 
-    normDissN <- function (diss, wghts, m) {
-      N <- length(diss) * m
-      dissnorm <- diss / sqrt(sum(wghts * diss ^ 2, na.rm = TRUE)) *
-        sqrt(N)
-      return(dissnorm)
-    }
+    normDissN <- function (diss)
+      diss / sqrt(sum(diss ^ 2, na.rm = TRUE)) *
+        sqrt(length(diss))
 
-    delta <- as.matrix(normDissN(as.dist(d), as.dist(w),
-      1))
+    delta <- as.matrix(normDissN(d))
+
     v <- as.matrix(solve((diag(rowSums(
       w
     )) - w) + (1 / n)) - (1 / n))
-    s <- sign(outer(o, o, "-"))
+    s <- sign(outer(init_config, init_config, "-"))
 
     t <- as.vector(v %*% rowSums(delta * w * s))
-    names(t) <- names(o)
 
     # does the configuration preserve the order in o?
-    mismatches <- sum(order(o) != order(t))
+    mismatches <- sum(order(init_config) != order(t))
     if (mismatches > 0 && warn)
-      warning("Configutation order does not preserve given order! Mismatches: ", mismatches, " of ", n)
+      warning("Configutation order does not preserve given order! Mismatches: ",
+              mismatches,
+              " of ",
+              n)
 
+    #cat("init:\n")
+    #print(names(init_config))
+    #cat("d:\n")
+    #print(labels(d))
+
+    names(t) <- labels(d)
     t
   }
 
 #' @rdname uniscale
+#' @param refit logical; forces to refit a minimum-stress MDS configuration,
+#'  even if `order` contains a configuration.
+#' @export
+MDS_stress <- function(d, order, refit = FALSE) {
+  normDiss <- function (diss)
+    diss / sqrt(sum(diss ^ 2, na.rm = TRUE)) * sqrt(length(diss))
+
+  d <- as.dist(d)
+  o <- ser_permutation(order)
+
+  emb <- get_config(o)
+  if(is.null(emb) || refit)
+    emb <- uniscale(d, o)
+
+  d_emb <- dist(emb)
+
+  d_emb <- normDiss(d_emb)
+  d <- normDiss(d)
+
+  sqrt(sum((d - d_emb)^2) / sum(d_emb^2))
+}
+
+#' @rdname uniscale
+#' @param dim The dimension if `x` is a `ser_permutation` object.
+#' @export
+get_config <- function(x, dim = 1L, ...) {
+  if (inherits(x, "ser_permutation"))
+    x <- x[[dim]]
+
+  attr(x, "configuration")
+}
+
+
+#' @rdname uniscale
 #' @param x a scaling returned by `uniscale()` or a
-#'   `ser_permutation` with an embedding attribute.
+#'   `ser_permutation` with a configuration attribute.
 #' @param main main plot label
 #' @param pch print character
+#' @param labels add the object names to the plot
+#' @param pos label position (see [text()]).
 #' @export
-configplot <- function (x, main, pch = 19, ...) {
+plot_config <- function (x,
+                        main,
+                        pch = 19,
+                        labels = TRUE,
+                        pos = 1,
+                        ...) {
   if (missing(main))
     main <- "Configuration"
 
-  if(inherits(x, "ser_permutation"))
-    x <- x[[1]]
+  if (!is.numeric(x)) {
+    x <- get_config(x)
 
-  if (inherits(x, "ser_permutation_vector")) {
-    o <- get_order(x)  # only used for 2D case
-    if(!is.null(attr(x, "configuration")))
-      x <- attr(x, "configuration")
-    else if(!is.null(attr(x, "embedding")))
-      x <- attr(x, "embedding")
-    else
-      stop("Permutation vector has no configuration attribute. Use uniscale() first to calcualte a configuration")
+    if (is.null(x))
+      stop(
+        "Permutation vector has no configuration attribute. Use uniscale() first to calcualte a configuration"
+      )
   }
 
   # 2D
   if (is.matrix(x)) {
     graphics::plot(x, pch = pch, main = main, ...)
-    graphics::text(x = x, labels = rownames(x), pos = 1)
-    graphics::lines(x[o, , drop = FALSE], col = "grey")
-    return()
+    if (labels)
+      graphics::text(x = x,
+                     labels = rownames(x),
+                     pos = pos)
+    graphics::lines(x[get_order(o), , drop = FALSE], col = "grey")
+
+  } else{
+    # 1D
+    x <- drop(x)
+    n <- length(x)
+    plot(
+      x,
+      rep(0, n),
+      axes = FALSE,
+      ann = FALSE,
+      pch = pch,
+      type = "o",
+      ylim = c(-0.2, 0.8),
+      ...
+    )
+    title(main)
+
+    labs <- names(x)
+    if (is.null(labs))
+      labs <- 1:n
+
+    if (labels)
+      text(x,
+           rep(0, n) + 0.05,
+           labs,
+           srt = 90,
+           adj = c(0, 0.5))
   }
-
-  # 1D
-  x <- drop(x)
-  n <- length(x)
-  plot(
-    x,
-    rep(0, n),
-    axes = FALSE,
-    ann = FALSE,
-    pch = pch,
-    type = "o",
-    ylim = c(-0.2, 0.8),
-    ...
-  )
-  title(main)
-
-  labs <- names(x)
-  if (is.null(labs))
-    labs <- 1:n
-  text(x,
-    rep(0, n) + 0.05,
-    labs,
-    srt = 90,
-    adj = c(0, 0.5))
 }

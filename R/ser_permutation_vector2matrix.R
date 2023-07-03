@@ -15,7 +15,7 @@
 #' @keywords manip
 #' @examples
 #' ## create a random permutation vector
-#' pv <- sample(1:5)
+#' pv <- structure(sample(5), names = paste0("X", 1:5))
 #' pv
 #'
 #' ## convert into a permutation matrix
@@ -33,6 +33,8 @@ permutation_vector2matrix <- function(x) {
   pm <- matrix(0, nrow = n, ncol = n)
   for (i in 1:n)
     pm[i, x[i]] <- 1
+
+  dimnames(pm) <- list(names(x), names(x))
   pm
 }
 

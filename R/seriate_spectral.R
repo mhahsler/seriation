@@ -40,7 +40,7 @@ seriate_dist_spectral <- function(x, control = NULL) {
   o <- order(fiedler)
 
   names(fiedler) <- attr(x, "Labels")
-  attr(o, "embedding") <- fiedler
+  attr(o, "configuration") <- fiedler
   o
 }
 
@@ -61,7 +61,7 @@ seriate_dist_spectral_norm <- function(x, control = NULL) {
   o <- order(largest_ev)
 
   names(largest_ev) <- attr(x, "Labels")
-  attr(o, "embedding") <- largest_ev
+  attr(o, "configuration") <- largest_ev
   o
 }
 

@@ -43,6 +43,6 @@
 #' o
 #'
 #' pimage(d, o, diag = TRUE, upper = TRUE)
-#' configplot(o[[1]])
+#' plot_config(o[[1]])
 #' @keywords datasets
 NULL

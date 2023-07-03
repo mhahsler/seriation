@@ -41,7 +41,7 @@ seriate_matrix_fpc <- function(x, control = NULL, margin = NULL) {
                         tol = tol)
     scores <- pr$x[, 1]
     row <- order(scores)
-    attr(row, "embedding") <- scores
+    attr(row, "configuration") <- scores
 
     if (verbose)
       cat("Rows: first PC explains",
@@ -59,7 +59,7 @@ seriate_matrix_fpc <- function(x, control = NULL, margin = NULL) {
                  tol = tol)
     scores <- pr$x[, 1]
     col <- order(scores)
-    attr(col, "embedding") <- scores
+    attr(col, "configuration") <- scores
 
      if (verbose)
       cat("Cols: first PC explains",

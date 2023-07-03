@@ -66,18 +66,25 @@
 #'
 #' @family permutation
 #'
-#' @param x,object an object which contains a permutation vector (currently an
-#'     integer vector or an object of class [hclust]). The value `NA`
-#'     creates an identity permutation.
+#' @param x,object an object if class  `ser_permutation_vector`.
+#'    Options for the constructor are:
+#'      (1) an integer permutation vector,
+#'      (2) an object of class [hclust],
+#'      (3) a numeric vector with a MDS configuration, or
+#'      (4) `NA` to indicate a identity permutation.
 #' @param method a string representing the method used to obtain the
 #'     permutation vector.
 #' @param ... further arguments.
 #'
-#' @returns  An object of class `ser_permutation_vector`.
+#' @returns The constructor `ser_permutation_vector()` returns an
+#'  object a `ser_permutation_vector`
 #' @author Michael Hahsler
 #'
 #' @examples
-#' p <- ser_permutation_vector(sample(10), "random")
+#' o <- structure(sample(10), names = paste0("X", 1:10))
+#' o
+#'
+#' p <- ser_permutation_vector(o, "random")
 #' p
 #'
 #' ## some methods
@@ -91,25 +98,28 @@
 #' r
 #' get_order(r)
 #'
-#' ## create a identity permutation vector (with unknown length)
+#' ## create a symbolic identity permutation vector (with unknown length)
+#' ## Note: This can be used to permute an object, but methods
+#' ##       like length and get_order are not available.
 #' ip <- ser_permutation_vector(NA)
 #' ip
-#'
 #' @keywords classes
 #' @export
 ser_permutation_vector <- function(x, method = NULL) {
   if (inherits(x, "ser_permutation_vector"))
     return(x)
 
-  if (inherits(x, "hclust") || inherits(x, "dendrogram")) {
+  if  (inherits(x, "hclust") || inherits(x, "dendrogram")) {
     # nothing to do
   } else if (length(x) == 1 && is.na(x)) {
     x <- NA_integer_
     attr(x, "method") <- "identity permutation"
-  } else if (is.numeric(x)) {
+  } else if (is.integer(x)) { # permutation vector
+    # do nothing
+  } else if (is.numeric(x)) { # a configuration
     ats <- attributes(x) ### preserve attributes
     nm <- names(x)
-    x <- as.integer(x)
+    x <- order(x)
     attributes(x) <- ats
     names(x) <- nm
   } else if (inherits(x, "ser_permutation") && length(x) == 1) {
@@ -148,7 +158,6 @@ rev.ser_permutation_vector <- function(x) {
 }
 
 
-## currently method is an attribute of permutation
 #' @rdname ser_permutation_vector
 #' @param printable a logical; prints "unknown" instead of `NULL` for non-existing methods.
 #' @export
@@ -159,7 +168,6 @@ get_method <- function(x, printable = FALSE) {
     method <- "unknown"
   method
 }
-
 
 ## print et al
 #' @rdname ser_permutation_vector
