@@ -152,7 +152,7 @@ uniscale <-
 #' @param refit logical; forces to refit a minimum-stress MDS configuration,
 #'  even if `order` contains a configuration.
 #' @export
-MDS_stress <- function(d, order, refit = FALSE) {
+MDS_stress <- function(d, order, refit = TRUE) {
   normDiss <- function (diss)
     diss / sqrt(sum(diss ^ 2, na.rm = TRUE)) * sqrt(length(diss))
 

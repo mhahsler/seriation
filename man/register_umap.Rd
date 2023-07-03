@@ -68,6 +68,7 @@ Other seriation:
 \code{\link{register_DendSer}()},
 \code{\link{register_GA}()},
 \code{\link{register_optics}()},
+\code{\link{register_smacof}()},
 \code{\link{register_tsne}()},
 \code{\link{register_vae}()},
 \code{\link{registry_for_seriaiton_methods}},

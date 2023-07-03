@@ -90,6 +90,7 @@ Luca Scrucca (2013): GA: A Package for Genetic Algorithms in R.
 Other seriation: 
 \code{\link{register_DendSer}()},
 \code{\link{register_optics}()},
+\code{\link{register_smacof}()},
 \code{\link{register_tsne}()},
 \code{\link{register_umap}()},
 \code{\link{register_vae}()},

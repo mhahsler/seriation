@@ -9,7 +9,7 @@
 \usage{
 uniscale(d, order = NULL, method = "MDS", warn = TRUE, ...)
 
-MDS_stress(d, order, refit = FALSE)
+MDS_stress(d, order, refit = TRUE)
 
 get_config(x, dim = 1L, ...)
 

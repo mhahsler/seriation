@@ -14,6 +14,7 @@
 - Embedding-based methods now return the order with an attribute called configuration.
 - Added Spearman's rho as a seriation criterion.
 - New MDS_stress() function.
+- Added register_smacof().
 
   
 ## Changes

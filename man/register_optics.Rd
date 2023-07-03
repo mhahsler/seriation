@@ -45,6 +45,7 @@ ACM SIGMOD international conference on Management of data. ACM Press. pp.
 Other seriation: 
 \code{\link{register_DendSer}()},
 \code{\link{register_GA}()},
+\code{\link{register_smacof}()},
 \code{\link{register_tsne}()},
 \code{\link{register_umap}()},
 \code{\link{register_vae}()},

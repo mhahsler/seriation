@@ -37,16 +37,17 @@ Imports: stats,
   ca,
   registry
 Suggests: DendSer, 
-  GA,
-  Rtsne,
   dbscan,
-  umap,
+  dendextend,
+  GA,
+  ggplot2,
   keras,
+  Rtsne,
+  scales,
+  smacof,
   tensorflow,
   testthat, 
-  dendextend,
-  ggplot2,
-  scales
+  umap
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
@@ -95,6 +96,7 @@ Collate:
     'register_DendSer.R'
     'register_GA.R'
     'register_optics.R'
+    'register_smacof.R'
     'register_tsne.R'
     'register_umap.R'
     'register_vae.R'
