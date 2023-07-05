@@ -18,7 +18,7 @@
 
   
 ## Changes
-- seriation methods for MDS are now MDS, MDS_isoMDS and MDS_sammon and gained all
+- seriation methods for MDS are now MDS, isoMDS and Sammon_mapping and gained all
   control parameters.
 - orderplot() is now called plot_config() and can also visualize 2D configurations.
 - FORTRAN: replaced old DFLOAT with DBLE (reported by Brian D. Ripley).

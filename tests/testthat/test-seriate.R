@@ -76,8 +76,8 @@ test_that("test if seriate.dist returns expected results", {
       "Identity",
       "MDS",
       "MDS_angle",
-      "MDS_isoMDS",
-      "MDS_sammon",
+      "isoMDS",
+      "Sammon_mapping",
       "QAP_2SUM",
       "QAP_BAR",
       "QAP_Inertia",
@@ -144,8 +144,8 @@ test_that("test if seriate.dist returns expected results", {
     "HC_ward",
     "Identity",
     "MDS",
-    "MDS_isoMDS",
-    "MDS_sammon",
+    "isoMDS",
+    "Sammon_mapping",
     "MDS_angle",
     "R2E",
     "Spectral",
@@ -167,7 +167,7 @@ test_that("test if seriate.dist returns expected results", {
       c("BBURCG", "BBWRCG", "GW", "GW_average",
         "GW_complete", "GW_single", "GW_ward", "HC", "HC_average",
         "HC_complete", "HC_single", "HC_ward", "Identity", "MDS",
-        "MDS_isoMDS", "MDS_sammon", "MDS_angle", "R2E", "Spectral",
+        "isoMDS", "Sammon_mapping", "MDS_angle", "R2E", "Spectral",
         "Spectral_norm", "VAT")))
 
   expect_identical(correct, sapply(os[deterMethods], get_order))

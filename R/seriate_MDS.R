@@ -114,7 +114,15 @@ set_seriation_method(
 
 set_seriation_method(
   "dist",
-  "MDS_isoMDS",
+  "MDS_angle",
+  seriate_dist_angle,
+  "Order by the angle in this space given by 2D metric MDS.",
+  control = .mds_control
+)
+
+set_seriation_method(
+  "dist",
+  "isoMDS",
   seriate_dist_mds_isoMDS,
   "Order along the 1D Kruskal's non-metric multidimensional scaling",
   control = .mds_isoMDS_control,
@@ -123,17 +131,10 @@ set_seriation_method(
 
 set_seriation_method(
   "dist",
-  "MDS_sammon",
+  "Sammon_mapping",
   seriate_dist_mds_sammon,
   "Order along the 1D Sammon's non-linear mapping",
   control = .mds_sammon_control,
   optimizes = "Other (scale free, weighted MDS stress)"
 )
 
-set_seriation_method(
-  "dist",
-  "MDS_angle",
-  seriate_dist_angle,
-  "Order by the angle in this space given by 2D metric MDS.",
-  control = .mds_control
-)

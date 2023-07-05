@@ -87,7 +87,7 @@
 #'   vertical axis with the ellipse. In this implementation the top most cutting
 #'   point is used.
 #'
-#' - **Multidimensional scaling:** `"MDS"`, `"MDS_isoMDS"`, `"MDS_sammon"`, `"MDS_angle"`
+#' - **Multidimensional scaling:** `"MDS"`, `"isoMDS"`, `"Sammon_mapping"`, `"MDS_angle"`
 #'
 #'   Use multidimensional scaling techniques to find an linear order by
 #'   minimizing **strain** or a version of **MDS stress**.
@@ -99,10 +99,10 @@
 #'   `"MDS"` orders along the 1D classical metric multidimensional scaling.
 #'   `control` parameters are passed on to [stats::cmdscale()].
 #'
-#'   `"MDS_isoMDS"` orders along the 1D Kruskal's non-metric multidimensional scaling.
+#'   `"isoMDS"` orders along the 1D Kruskal's non-metric multidimensional scaling.
 #'   `control` parameters are passed on to [MASS::isoMDS()].
 #'
-#'   `"MDS_sammon"` orders along the 1D Sammon's non-linear mapping.
+#'   `"Sammon_mapping"` orders along the 1D Sammon's non-linear mapping.
 #'   `control` parameters are passed on to [MASS::sammon()].
 #'
 #'   `"MDS_angle"` finds a 2D configuration using MDS (cmdscale)
