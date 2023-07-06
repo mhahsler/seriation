@@ -79,6 +79,14 @@ heuristic approach.
 \item \strong{Anti-Robinson seriation by simulated annealing:} \code{"ARSA"} (Brusco et al 2008)
 
 Directly minimizes the \strong{linear seriation criterion.}
+\item \strong{Complete Enumeration:} \code{"Enumerate"}
+
+Finds the optimal permutation given a criterion measure by complete enumeration
+of all permutations.
+The criterion is specified as the \code{control} parameters \code{"criterion"}.
+Default is the weighted gradient measure.
+
+Note: This is only possible for tiny problems.
 \item \strong{Gradient measure seriation by branch-and-bound:} \code{"BBURCG"}, \code{"BBWRCG"} (Brusco and Stahl 2005)
 
 Uses branch-and-bound to minimize the

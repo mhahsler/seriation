@@ -75,6 +75,7 @@ test_that("test if seriate.dist returns expected results", {
     object = names(integers),
     expected = c(
       "ARSA",
+      "Enumerate",
       "BBURCG",
       "BBWRCG",
       "Identity",

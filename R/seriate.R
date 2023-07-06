@@ -55,6 +55,15 @@
 #'
 #'    Directly minimizes the **linear seriation criterion.**
 #'
+#' - **Complete Enumeration:** `"Enumerate"`
+#'
+#'    Finds the optimal permutation given a criterion measure by complete enumeration
+#'    of all permutations.
+#'    The criterion is specified as the `control` parameters `"criterion"`.
+#'    Default is the weighted gradient measure.
+#'
+#'    Note: This is only possible for tiny problems.
+#'
 #' - **Gradient measure seriation by branch-and-bound:** `"BBURCG"`, `"BBWRCG"` (Brusco and Stahl 2005)
 #'
 #'    Uses branch-and-bound to minimize the

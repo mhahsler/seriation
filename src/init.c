@@ -17,6 +17,9 @@ extern SEXP pathdist_floyd(SEXP);
 extern SEXP reorder_dist(SEXP, SEXP);
 extern SEXP rgar(SEXP, SEXP, SEXP, SEXP);
 extern SEXP stress(SEXP, SEXP, SEXP, SEXP);
+extern void isMon(void *, void *, void *, void *);
+extern void permNext(void *, void *);
+
 
 /* .Fortran calls */
 extern void F77_NAME(arsa)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
@@ -43,6 +46,13 @@ static const R_CallMethodDef CallEntries[] = {
     {NULL, NULL, 0}
 };
 
+static const R_CMethodDef CEntries[] = {
+  {"isMon",        (DL_FUNC) &isMon,        4},
+  {"permNext",     (DL_FUNC) &permNext,     2},
+  {NULL, NULL, 0}
+};
+
+
 static const R_FortranMethodDef FortranEntries[] = {
     {"arsa",   (DL_FUNC) &F77_NAME(arsa),   15},
     {"bburcg", (DL_FUNC) &F77_NAME(bburcg), 10},
@@ -55,6 +65,6 @@ static const R_FortranMethodDef FortranEntries[] = {
 
 void R_init_seriation(DllInfo *dll)
 {
-    R_registerRoutines(dll, NULL, CallEntries, FortranEntries, NULL);
+    R_registerRoutines(dll, CEntries, CallEntries, FortranEntries, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

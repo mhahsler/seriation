@@ -10,7 +10,7 @@
 \alias{print.criterion_method}
 \title{Registry for Criterion Methods}
 \format{
-An object of class \code{criterion_registry} (inherits from \code{registry}) of length 20.
+An object of class \code{criterion_registry} (inherits from \code{registry}) of length 21.
 }
 \usage{
 registry_criterion

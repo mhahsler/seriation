@@ -81,10 +81,18 @@ register_smacof <- function() {
   seriate_dist_smacof <- function(x, control = NULL) {
     control <- .get_parameters(control, .smacof_control)
 
-    r <- smacof::smacofSym(x, ndim = 1, type = control$type, verbose = control$verbose,
-                           init = control$init, relax = control$relax,
-                           modulus = control$modulus, itmax = control$itmax,
-                           eps = control$eps)
+    r <-
+      smacof::smacofSym(
+        x,
+        ndim = 1,
+        type = control$type,
+        verbose = control$verbose,
+        init = control$init,
+        relax = control$relax,
+        modulus = control$modulus,
+        itmax = control$itmax,
+        eps = control$eps
+      )
 
     if (control$verbose)
       print(r)
@@ -108,15 +116,25 @@ register_smacof <- function() {
     optimizes = "Other (MDS stress)"
   )
 
-  smacof_crit_stress0 <- function(x, order, type = "ratio", ...) {
-    conf <- get_config(order)
-    if (is.null(conf))
-      conf <- uniscale(x)
+  smacof_crit_stress0 <-
+    function(x,
+             order,
+             type = "ratio",
+             warn = FALSE,
+             ...) {
+      conf <- get_config(order)
+      if (is.null(conf))
+        conf <- uniscale(x, warn = warn)
 
-    smacof::stress0(x, cbind(conf), type = type, ...)$stress
-  }
+      smacof::stress0(x, cbind(conf), type = type, ...)$stress
+    }
 
-  seriation::set_criterion_method("dist", "smacof_stress0", smacof_crit_stress0,
-                                  "Stress0 calculated for different transformation types from package smacof.", FALSE)
+  seriation::set_criterion_method(
+    "dist",
+    "smacof_stress0",
+    smacof_crit_stress0,
+    "Stress0 calculated for different transformation types from package smacof.",
+    FALSE
+  )
 
 }

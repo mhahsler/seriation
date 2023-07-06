@@ -126,6 +126,7 @@ Collate:
     'seriate_TSP.R'
     'seriate_VAT.R'
     'seriate_best.R'
+    'seriate_enumerate.R'
     'seriate_heatmap.R'
     'seriate_identity.R'
     'seriate_random.R'

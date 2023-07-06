@@ -16,6 +16,7 @@
 - New MDS_stress() function.
 - Added register_smacof().
 - New seriation methods from vegan: isomap, monoMDS, metaMDS.
+- New seriation method: Enumerate for complete enumeration.
 
   
 ## Changes

@@ -135,11 +135,15 @@ uniscale <-
 
     # does the configuration preserve the order in o?
     mismatches <- sum(order(init_config) != order(t))
-    if (mismatches > 0 && warn)
+    if (mismatches > 0 && warn) {
       warning("Configutation order does not preserve given order! Mismatches: ",
               mismatches,
               " of ",
-              n)
+              n, " - returning initial configuration instead.")
+    }
+
+    if (mismatches > 0)
+      t <- init_config
 
     #cat("init:\n")
     #print(names(init_config))
@@ -154,7 +158,7 @@ uniscale <-
 #' @param refit logical; forces to refit a minimum-stress MDS configuration,
 #'  even if `order` contains a configuration.
 #' @export
-MDS_stress <- function(d, order, refit = TRUE) {
+MDS_stress <- function(d, order, refit = TRUE, warn = FALSE) {
   normDiss <- function (diss)
     diss / sqrt(sum(diss ^ 2, na.rm = TRUE)) * sqrt(length(diss))
 
@@ -163,7 +167,7 @@ MDS_stress <- function(d, order, refit = TRUE) {
 
   emb <- get_config(o)
   if(is.null(emb) || refit)
-    emb <- uniscale(d, o)
+    emb <- uniscale(d, o, warn = warn)
 
   d_emb <- dist(emb)
 
@@ -172,6 +176,14 @@ MDS_stress <- function(d, order, refit = TRUE) {
 
   sqrt(sum((d - d_emb)^2) / sum(d_emb^2))
 }
+
+set_criterion_method(
+  "dist",
+  "MDS_stress",
+  MDS_stress,
+  "Normalized stress of a configuration given by a seriation order",
+  FALSE
+)
 
 #' @rdname uniscale
 #' @param dim The dimension if `x` is a `ser_permutation` object.
