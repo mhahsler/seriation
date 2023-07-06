@@ -35,7 +35,8 @@
 #' If the order does not contain a configuration, then a minimum-stress configuration if calculates
 #' for the given order.
 #'
-#' All distances are normalized first by \eqn{\frac{d_{ij}}{ \sqrt{\sum{d_{ij}}^2}}}.
+#' All distances are first normalized to an average distance of close to 1 using
+#' \eqn{d_{ij} \frac{\sqrt{n(n-1)/2}}{\sqrt{\sum_{i<j}{d_{ij}}^2}}}.
 #'
 #' Some seriation methods produce a MDS configuration (a 1D or 2D embedding). `get_config()`
 #' retrieved the configuration attribute from the `ser_permutation_vector`. `NULL`
@@ -69,7 +70,7 @@
 #'
 #' # embedding-based methods return "configuration" attribute
 #' # plot_config visualizes the configuration
-#' o <- seriate(d, method = "MDS_sammon")
+#' o <- seriate(d, method = "sammon")
 #' get_order(o)
 #' plot_config(o)
 #'
@@ -94,7 +95,6 @@
 #' sc
 #'
 #' plot_config(sc)
-#'
 #' @export
 uniscale <-
   function(d,
@@ -118,6 +118,8 @@ uniscale <-
     # we do not use weights
     w <- 1 - diag(n)
 
+    # normalize the distances to roughly n*(n-1) / 2 so the average distance
+    # is close to 1
     normDissN <- function (diss)
       diss / sqrt(sum(diss ^ 2, na.rm = TRUE)) *
         sqrt(length(diss))
@@ -175,13 +177,16 @@ MDS_stress <- function(d, order, refit = TRUE) {
 #' @param dim The dimension if `x` is a `ser_permutation` object.
 #' @export
 get_config <- function(x, dim = 1L, ...) {
-  if (is.numeric(x))
-    return(x)
-
   if (inherits(x, "ser_permutation"))
     x <- x[[dim]]
 
-  conf <- attr(x, "configuration")
+  if (inherits(x, "ser_permutation_vector"))
+    x <- attr(x, "configuration")
+
+  if(!is.null(x) && !is.numeric(x))
+    stop("Unable to get configuration. Supply a ser_permutation.")
+
+  x
 }
 
 

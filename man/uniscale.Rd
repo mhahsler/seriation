@@ -67,7 +67,8 @@ datasets since it only checks the permutation given by the seriation order.
 If the order does not contain a configuration, then a minimum-stress configuration if calculates
 for the given order.
 
-All distances are normalized first by \eqn{\frac{d_{ij}}{ \sqrt{\sum{d_{ij}}^2}}}.
+All distances are first normalized to an average distance of close to 1 using
+\eqn{d_{ij} \frac{\sqrt{n(n-1)/2}}{\sqrt{\sum_{i<j}{d_{ij}}^2}}}.
 
 Some seriation methods produce a MDS configuration (a 1D or 2D embedding). \code{get_config()}
 retrieved the configuration attribute from the \code{ser_permutation_vector}. \code{NULL}
@@ -82,7 +83,7 @@ d
 
 # embedding-based methods return "configuration" attribute
 # plot_config visualizes the configuration
-o <- seriate(d, method = "MDS_sammon")
+o <- seriate(d, method = "sammon")
 get_order(o)
 plot_config(o)
 
@@ -107,7 +108,6 @@ sc <- uniscale(d, o)
 sc
 
 plot_config(sc)
-
 }
 \references{
 Mair P., De Leeuw J. (2015). Unidimensional scaling. In

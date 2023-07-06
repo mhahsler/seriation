@@ -135,6 +135,6 @@ set_seriation_method(
   seriate_dist_mds_sammon,
   "Order along the 1D Sammon's non-linear mapping",
   control = .mds_sammon_control,
-  optimizes = "Other (scale free, weighted MDS stress)"
+  optimizes = "Other (scale free, weighted MDS stress called Sammon's error)"
 )
 

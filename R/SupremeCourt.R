@@ -39,7 +39,7 @@
 #' plot(o[[1]])
 #'
 #' # Use multi-dimensional scaling and show the configuration
-#' o <- seriate(d, method = "MDS_sammon")
+#' o <- seriate(d, method = "sammon")
 #' o
 #'
 #' pimage(d, o, diag = TRUE, upper = TRUE)

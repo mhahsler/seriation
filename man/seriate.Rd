@@ -68,6 +68,8 @@ as a symmetric matrix). Similarities have to be transformed into
 dissimilarities. Currently, the following methods are implemented (for a
 more detailed description and an experimental comparison see
 \href{https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf}{Hahsler (2017)}:
+
+\strong{Optimization-based}
 \itemize{
 \item \strong{Anti-Robinson seriation by simulated annealing:} \code{"ARSA"} (Brusco et al 2008)
 
@@ -78,100 +80,24 @@ Uses branch-and-bound to minimize the
 \strong{unweighted gradient measure} (\code{"BBURCG"}) and the
 \strong{weighted gradient measure} (\code{"BBWRCG"}).
 This is only feasible for a small number of objects.
-\item \strong{Traveling salesperson problem solver:} \code{"TSP"}
+\item \strong{Genetic Algorithm:} \code{"GA"}
 
-Uses a traveling salesperson problem solver to minimize the
-\strong{Hamiltonian path length}. The solvers in \pkg{TSP} are used (see
-\code{\link[TSP:solve_TSP]{TSP::solve_TSP()}}). The solver method can be passed on via the \code{control}
-argument, e.g. \code{control = list(method = "two_opt")}. Default is the est
-of 10 runs of arbitrary insertion heuristic with 2-opt improvement.
+The GA code has to be first registered. A detailed description can
+be found in the manual page for \code{\link[=register_GA]{register_GA()}}.
+\item \strong{Quadratic assignment problem seriation:}
+\code{"QAP_LS"}, \code{"QAP_2SUM"}, \code{"QAP_BAR"}, \code{"QAP_Inertia"} (Hahsler, 2017)
 
-Since a tour returned by a TSP solver is a connected circle and we are
-looking for a path representing a linear order, we need to find the best
-cutting point.  Climer and Zhang (2006) suggest to add a dummy city with
-equal distance to each other city before generating the tour. The place of
-this dummy city in an optimal tour with minimal length is the best cutting
-point (it lies between the most distant cities).
-\item \strong{Rank-two ellipse seriation:} \code{"R2E"}  (Chen 2002)
+Formulates the seriation problem as a quadratic assignment problem and applies a
+simulated annealing solver to find a good solution.
+These methods minimize the
+\strong{Linear Seriation Problem} (LS) formulation (Hubert and Schultz 1976),
+the \strong{2-Sum Problem} formulation (Barnard, Pothen, and Simon 1993), the
+\strong{banded anti-Robinson form} (BAR) or the \strong{inertia criterion}.
 
-Rank-two ellipse seriation starts with generating a sequence of correlation matrices
-\eqn{R^1, R^2, \ldots}. \eqn{R^1} is the correlation matrix of the original
-distance matrix \eqn{D} (supplied to the function as \code{x}), and
-\deqn{R^{n+1} = \phi R^n,} where \eqn{\phi} calculates the correlation
-matrix.
-
-The rank of the matrix \eqn{R^n} falls with increasing \eqn{n}. The first
-\eqn{R^n} in the sequence which has a rank of 2 is found. Projecting all
-points in this matrix on the first two eigenvectors, all points fall on an
-ellipse. The order of the points on this ellipse is the resulting order.
-
-The ellipse can be cut at the two interception points (top or bottom) of the
-vertical axis with the ellipse. In this implementation the top most cutting
-point is used.
-\item \strong{Multidimensional scaling:} \code{"MDS"}, \code{"MDS_isoMDS"}, \code{"MDS_sammon"}, \code{"MDS_angle"}
-
-Use multidimensional scaling techniques to find an linear order by
-minimizing \strong{strain} or a version of \strong{MDS stress}.
-Note MDS algorithms used for a single dimension
-tend to end up in local optima and unidimensional scaling (see Maier and De
-Leeuw, 2015) would be more appropriate. However, generally, ordering along
-a single component of MDS provides good results.
-
-\code{"MDS"} orders along the 1D classical metric multidimensional scaling.
-\code{control} parameters are passed on to \code{\link[stats:cmdscale]{stats::cmdscale()}}.
-
-\code{"MDS_isoMDS"} orders along the 1D Kruskal's non-metric multidimensional scaling.
-\code{control} parameters are passed on to \code{\link[MASS:isoMDS]{MASS::isoMDS()}}.
-
-\code{"MDS_sammon"} orders along the 1D Sammon's non-linear mapping.
-\code{control} parameters are passed on to \code{\link[MASS:sammon]{MASS::sammon()}}.
-
-\code{"MDS_angle"} finds a 2D configuration using MDS (cmdscale)
-and then orders by the angle in this space. The order is split by the
-larges gap between adjacent angles. A similar method was used for ordering
-correlation matrices by Friendly (2002).
-\item \strong{Leaf order in hierarchical clustering:} \code{"HC"}, \code{"HC_single"}, \code{"HC_complete"},
-\code{"HC_average"}, \code{"HC_ward"}
-
-Uses the order of the leaf nodes in a dendrogram obtained by hierarchical
-clustering as a simple seriation technique. This method
-applies hierarchical clustering (\code{\link[=hclust]{hclust()}}) to \code{x}. The clustering
-method can be given using a \code{"linkage"} element in the \code{control}
-list. If omitted, the default \code{"complete"} is used.
-For convenience the other methods are provided as shortcuts.
-\item \strong{Dendrogram leaf ordering:} \code{"GW"}, \code{"GW_single"}, \code{"GW_average"},
-\code{"GW_complete"}, \code{"GW_ward"}  (Gruvaeus and Wainer, 1972)
-
-The methods start with a dendrogram created by \code{\link[=hclust]{hclust()}}. As the
-\code{"linkage"} element in the \code{control} list a clustering method
-(default \code{"average"}) can be specified. Alternatively, an \link{hclust}
-object can be supplied using an element named \code{"hclust"}.
-
-A dendrogram (binary tree) has \eqn{2^{n-1}} internal nodes (subtrees) and
-the same number of leaf orderings. That is, at each internal node the left
-and right subtree (or leaves) can be swapped, or, in terms of a dendrogram,
-be flipped. The leaf-node reordering to minimize
-\strong{Hamiltonian path length (restricted by the dendrogram)}.
-
-Method \code{"GW"} uses an algorithm developed by Gruvaeus and Wainer (1972)
-as implemented \code{\link[gclus:hclust]{gclus::reorder.hclust()}} (Hurley 2004).  The clusters are
-ordered at each level so that the objects at the edge of each cluster are
-adjacent to that object outside the cluster to which it is nearest. The
-method produces an unique order.
-\item \strong{Optimal leaf ordering:} \code{"OLO"}, \code{"OLO_single"},
-\code{"OLO_average"}, \code{"OLO_complete"}, \code{"OLO_ward"}  (Bar-Joseph et al., 2001)
-
-Also starts with a dendrogram and
-produces an optimal leaf ordering with respect to the minimizing the sum of
-the distances along the (Hamiltonian) path connecting the leaves in the
-given order. The time complexity of the algorithm is \eqn{O(n^3)}. Note that
-non-finite distance values are not allowed.
-\item \strong{Visual Assessment of (Clustering) Tendency:} \code{"VAT"} (Bezdek and Hathaway, 2002).
-
-Creates an order based on Prim's algorithm for finding a minimum spanning
-tree (MST) in a weighted connected graph representing the distance matrix.
-The order is given by the order in which the nodes (objects) are added to
-the MST.
+\code{control} parameters are passed on to \code{\link[qap:qap]{qap::qap()}}.
+An important parameter is \code{rep} to return the best result out of the
+given number of repetitions with random restarts. Default is 1, but bigger
+numbers result in better and more stable results.
 \item \strong{Simulated Annealing:} \code{"SA"}
 
 Implement simulated annealing similar to the ARSA method, however, it
@@ -194,6 +120,127 @@ of the similarity matrix's (normalized) Laplacian.
 
 Spectral seriation gives a good trade-off between seriation quality, speed
 and scalability (see Hahsler, 2017).
+\item \strong{Traveling salesperson problem solver:} \code{"TSP"}
+
+Uses a traveling salesperson problem solver to minimize the
+\strong{Hamiltonian path length}. The solvers in \pkg{TSP} are used (see
+\code{\link[TSP:solve_TSP]{TSP::solve_TSP()}}). The solver method can be passed on via the \code{control}
+argument, e.g. \code{control = list(method = "two_opt")}. Default is the est
+of 10 runs of arbitrary insertion heuristic with 2-opt improvement.
+
+Since a tour returned by a TSP solver is a connected circle and we are
+looking for a path representing a linear order, we need to find the best
+cutting point.  Climer and Zhang (2006) suggest to add a dummy city with
+equal distance to each other city before generating the tour. The place of
+this dummy city in an optimal tour with minimal length is the best cutting
+point (it lies between the most distant cities).
+}
+
+\strong{Multidimensional Scaling}
+
+Use multidimensional scaling techniques to find an linear order by
+minimizing \strong{strain} or a version of \strong{MDS stress}.
+Note MDS algorithms used for a single dimension
+tend to end up in local optima and unidimensional scaling (see Maier and De
+Leeuw, 2015) would be more appropriate. However, generally, ordering along
+a single component of MDS provides good results.
+\itemize{
+\item \strong{Classical metric multidimensional scaling:} \code{"MDS"}
+
+Orders along the 1D classical metric multidimensional scaling.
+\code{control} parameters are passed on to \code{\link[stats:cmdscale]{stats::cmdscale()}}.
+\item \strong{Isometric feature mapping:} \code{"isomap"} (Tenenbaum, 2000)
+
+Orders along the 1D isometric feature mapping.
+\code{control} parameters are passed on to \code{\link[vegan:isomap]{vegan::isomap()}}
+\item \strong{Kruskal's non-metric multidimensional scaling:} \code{"isoMDS"}, \code{"monoMDS"},
+\code{"metaMDS"} (Kruskal, 1964)
+
+Orders along the 1D Kruskal's non-metric multidimensional scaling.
+Package \code{vegan} implements an alternative implementation called \code{monoMDS}
+and version that uses random restarts for stability called \code{metaMDS}.
+\code{control} parameters are passed on to \code{\link[MASS:isoMDS]{MASS::isoMDS()}}, \code{\link[vegan:monoMDS]{vegan::monoMDS()}} or \code{\link[vegan:metaMDS]{vegan::metaMDS()}}.
+\item \strong{Sammon's non-linear mapping:} \code{"Sammon_mapping"} (Sammon, 1969)
+
+Orders along the 1D Sammon's non-linear mapping.
+\code{control} parameters are passed on to \code{\link[MASS:sammon]{MASS::sammon()}}.
+\item \strong{Angle in 2D principal coordinates space:} \code{"MDS_angle"} (Friendly, 2002)
+
+Finds a 2D configuration using MDS (\code{\link[=cmdscale]{cmdscale()}})
+and then orders by the angle in this space. The order is split by the
+larges gap between adjacent angles. A similar method was used for ordering
+correlation matrices by Friendly (2002).
+}
+
+\strong{Dendrogram-based}
+\itemize{
+\item \strong{Leaf order in hierarchical clustering:} \code{"HC"}, \code{"HC_single"}, \code{"HC_complete"},
+\code{"HC_average"}, \code{"HC_ward"}
+
+Uses the order of the leaf nodes in a dendrogram obtained by hierarchical
+clustering as a simple seriation technique. This method
+applies hierarchical clustering (\code{\link[=hclust]{hclust()}}) to \code{x}. The clustering
+method can be given using a \code{"linkage"} element in the \code{control}
+list. If omitted, the default \code{"complete"} is used.
+For convenience the other methods are provided as shortcuts.
+\item \strong{Hierarchical clustering reordered by Gruvaeus and Wainer heuristic:} \code{"GW"}, \code{"GW_single"}, \code{"GW_average"},
+\code{"GW_complete"}, \code{"GW_ward"}  (Gruvaeus and Wainer, 1972)
+
+Method \code{"GW"} uses an algorithm developed by Gruvaeus and Wainer (1972)
+as implemented \code{\link[gclus:hclust]{gclus::reorder.hclust()}} (Hurley 2004).  The clusters are
+ordered at each level so that the objects at the edge of each cluster are
+adjacent to that object outside the cluster to which it is nearest. The
+method produces an unique order.
+
+The methods start with a dendrogram created by \code{\link[=hclust]{hclust()}}. As the
+\code{"linkage"} element in the \code{control} list a clustering method
+(default \code{"average"}) can be specified. Alternatively, an \link{hclust}
+object can be supplied using an element named \code{"hclust"}.
+
+A dendrogram (binary tree) has \eqn{2^{n-1}} internal nodes (subtrees) and
+the same number of leaf orderings. That is, at each internal node the left
+and right subtree (or leaves) can be swapped, or, in terms of a dendrogram,
+be flipped. The leaf-node reordering to minimize
+
+Minimizes the \strong{Hamiltonian path length (restricted by the dendrogram)}.
+\item \strong{Optimal leaf ordering:} \code{"OLO"}, \code{"OLO_single"},
+\code{"OLO_average"}, \code{"OLO_complete"}, \code{"OLO_ward"}  (Bar-Joseph et al., 2001)
+
+Also starts with a dendrogram and
+produces an optimal leaf ordering with respect to the minimizing the sum of
+the distances along the (Hamiltonian) path connecting the leaves in the
+given order. The time complexity of the algorithm is \eqn{O(n^3)}. Note that
+non-finite distance values are not allowed.
+
+Minimizes the \strong{Hamiltonian path length (restricted by the dendrogram)}.
+\item \strong{Dendrogram seriation:} \code{"DendSer"} (Earle and Hurley, 2015)
+
+Use heuristic dendrogram seriation to optimize for various criteria.
+The DendSer code has to be first registered. A
+detailed description can be found in the manual page for
+\code{\link[=register_DendSer]{register_DendSer()}}.
+}
+
+\strong{Other}
+\itemize{
+\item \strong{Identity permutation:} `"Identity"
+\item \strong{Random permutation:} \code{"Random"}
+\item \strong{Rank-two ellipse seriation:} \code{"R2E"}  (Chen 2002)
+
+Rank-two ellipse seriation starts with generating a sequence of correlation matrices
+\eqn{R^1, R^2, \ldots}. \eqn{R^1} is the correlation matrix of the original
+distance matrix \eqn{D} (supplied to the function as \code{x}), and
+\deqn{R^{n+1} = \phi R^n,} where \eqn{\phi} calculates the correlation
+matrix.
+
+The rank of the matrix \eqn{R^n} falls with increasing \eqn{n}. The first
+\eqn{R^n} in the sequence which has a rank of 2 is found. Projecting all
+points in this matrix on the first two eigenvectors, all points fall on an
+ellipse. The order of the points on this ellipse is the resulting order.
+
+The ellipse can be cut at the two interception points (top or bottom) of the
+vertical axis with the ellipse. In this implementation the top most cutting
+point is used.
 \item \strong{Sorting Points Into Neighborhoods:} \code{"SPIN_STS"}, \code{"SPIN_NH"} (Tsafrir, 2005)
 
 Given a weight matrix \eqn{W}, the SPIN algorithms try to
@@ -226,32 +273,12 @@ steps are performed before for each value of \code{alpha}. Via
 \code{W_function} a custom function to create \eqn{W} with the function
 signature \verb{function(n, sigma, verbose)} can be specified. The parameter
 \code{verbose} can be used to display progress information.
-\item \strong{Quadratic assignment problem seriation:}
-\code{"QAP_LS"}, \code{"QAP_2SUM"}, \code{"QAP_BAR"}, \code{"QAP_Inertia"}
+\item \strong{Visual Assessment of (Clustering) Tendency:} \code{"VAT"} (Bezdek and Hathaway, 2002).
 
-Formulates the seriation problem as a quadratic assignment problem and applies a
-simulated annealing solver to find a good solution.
-These methods minimize the
-\strong{Linear Seriation Problem} (LS) formulation (Hubert and Schultz 1976),
-the \strong{2-Sum Problem} formulation (Barnard, Pothen, and Simon 1993), the
-\strong{banded anti-Robinson form} (BAR) or the \strong{inertia criterion.}
-
-\code{control} parameters are passed on to \code{\link[qap:qap]{qap::qap()}}.
-An important parameter is \code{rep} to return the best result out of the
-given number of repetitions with random restarts. Default is 1, but bigger
-numbers result in better and more stable results.
-\item \strong{Genetic Algorithm:} \code{"GA"}
-
-The GA code has to be first registered. A detailed description can
-be found in the manual page for \code{\link[=register_GA]{register_GA()}}.
-\item \strong{Dendrogram seriation:} \code{"DendSer"}
-
-Use heuristic dendrogram seriation to optimize for various criteria.
-The DendSer code has to be first registered. A
-detailed description can be found in the manual page for
-\code{\link[=register_DendSer]{register_DendSer()}}.
-\item \strong{Identity permutation:} `"Identity"
-\item \strong{Random permutation:} \code{"Random"}
+Creates an order based on Prim's algorithm for finding a minimum spanning
+tree (MST) in a weighted connected graph representing the distance matrix.
+The order is given by the order in which the nodes (objects) are added to
+the MST.
 }
 
 \strong{Seriation methods for matrices (matrix or data.frame)}
@@ -452,6 +479,10 @@ Climer, S. and Xiongnu Zhang (2006): Rearrangement Clustering: Pitfalls,
 Remedies, and Applications, \emph{Journal of Machine Learning Research,}
 \bold{7}(Jun), 919--943.
 
+D. Earle, C. B. Hurley (2015): Advances in dendrogram seriation
+for application to visualization.
+\emph{Journal of Computational and Graphical Statistics,} \strong{24}(1), 1--25.
+
 Friendly, M. (2002): Corrgrams: Exploratory Displays for Correlation
 Matrices. \emph{The American Statistician}, \bold{56}(4), 316--324.
 \doi{10.1198/000313002533}
@@ -476,6 +507,9 @@ Data. \emph{Journal of Computational and Graphical Statistics,}
 \bold{13}(4), 788--806.
 \doi{10.1198/106186004X12425}
 
+Kruskal, J.B. (1964). Nonmetric multidimensional scaling: a numerical method.
+\emph{Psychometrika} \strong{29}, 115--129.
+
 Lenstra, J.K (1974): Clustering a Data Array and the Traveling-Salesman
 Problem, \emph{Operations Research,} \bold{22}(2) 413--414.
 \doi{10.1287/opre.22.2.413}
@@ -489,11 +523,17 @@ decomposition and data reorganization by a clustering technique,
 \emph{Operations Research,} \bold{20}(5), 993--1009.
 \doi{10.1287/opre.20.5.993}
 
+Tenenbaum, J.B., de Silva, V. & Langford, J.C. (2000)
+A global network framework for nonlinear dimensionality reduction.
+\emph{Science} \strong{290}, 2319-2323.
+
 Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany,
 E. (2005): Sorting points into neighborhoods (SPIN): data analysis and
 visualization by ordering distance matrices, \emph{Bioinformatics,}
 \bold{21}(10) 2301--8.
 \doi{10.1093/bioinformatics/bti329}
+
+Sammon, J. W. (1969) A non-linear mapping for data structure analysis. \emph{IEEE Trans. Comput.}, \strong{C-18} 401--409.
 }
 \seealso{
 Other seriation: 

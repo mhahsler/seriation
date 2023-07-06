@@ -15,6 +15,7 @@
 - Added Spearman's rho as a seriation criterion.
 - New MDS_stress() function.
 - Added register_smacof().
+- New seriation methods from vegan: isomap, monoMDS, metaMDS.
 
   
 ## Changes

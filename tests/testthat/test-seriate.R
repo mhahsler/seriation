@@ -34,6 +34,10 @@ test_that("test if seriate.dist returns expected results", {
 
   cat("\n      dist\n") # for cleaner testthat output
   methods <- list_seriation_methods(kind = "dist")
+
+  ### insufficient data for metaMDS
+  methods <- setdiff(methods, "metaMDS")
+
   os <- sapply(methods, function(m) {
     cat("   -> testing", format(m, width = 13), "... ")
     tm <- system.time(o <- seriate(d, method = m))
@@ -76,6 +80,9 @@ test_that("test if seriate.dist returns expected results", {
       "Identity",
       "MDS",
       "MDS_angle",
+      # "metaMDS",
+      "monoMDS",
+      "isoMap",
       "isoMDS",
       "Sammon_mapping",
       "QAP_2SUM",

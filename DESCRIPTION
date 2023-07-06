@@ -35,6 +35,7 @@ Imports: stats,
   colorspace, 
   MASS, 
   ca,
+  vegan,
   registry
 Suggests: DendSer, 
   dbscan,
@@ -130,4 +131,5 @@ Collate:
     'seriate_random.R'
     'seriate_reverse.R'
     'seriate_spectral.R'
+    'seriate_vegan.R'
     'uniscale.R'

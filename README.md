@@ -20,41 +20,59 @@ plots, and visual assessment of cluster tendency plots (VAT and iVAT).
 
 The following methods are available to reorder dissimilarity data:
 
-- **ARSA** - Simulated annealing (linear seriation)  
+**Optimization-based**
+
+- **ARSA** - optimize the linear seriation critreion using simulated
+  annealing  
 - **Branch-and-bound** to minimize the unweighted/weighted column
   gradient
-- **DendSer** - Dendrogram seriation heuristic to optimize various
-  criteria
 - **GA** - Genetic algorithm with warm start to optimize various
   criteria
-- **GW** - Hierarchical clustering reordered by Gruvaeus and Wainer
-  heuristic
-- **HC** - Hierarchical clustering (single link, avg. link, complete
-  link)
-- **Identity** permutation
-- **MDS** - Multidimensional scaling (classical metric MDS, Krusakl’s
-  isoMDS, Sammon’s non-linear mapping, angle in 2D principal coordinates
-  space, stress minimization using majorization)
-- **OLO** - Hierarchical clustering with optimal leaf ordering
-- **OPTICS** - Ordering points to identify the clustering structure.
 - **QAP** - Quadratic assignment problem heuristic (2-SUM, linear
   seriation, inertia, banded anti-Robinson form)
-- **R2E** - Rank-two ellipse seriation
-- **Random** permutation
-- **Reverse** order
 - **Spectral** seriation (unnormalized, normalized)
-- **SPIN** - Sorting points into neighborhoods (neighborhood algorithm,
-  side-to-site algorithm)
 - **TSP** - Traveling sales person solver to minimize the Hamiltonian
   path length
+
+**Multidimensional Scaling**
+
+- **MDS** - classical metric multidimensional scaling
+- **Angle in 2D principal coordinates space**
+- **isoMDS** - Krusakl’s isoMDS
+- **isomap** - Isometric feature mapping ordination
+- **monoMDS** - Global and local non-metric multidimensional scaling
+  (NMDS).
+- **metaMDS** - Nonmetric multidimensional scaling with stable solution
+  from random starts
+- **Sammon’s non-linear mapping**
+- **smacof** - Stress minimization using majorization (metric/nonmetric)
 - **TSNE** - Order of the 1D t-distributed stochastic neighbor embedding
   (t-SNE)
 - **UMAP** - Order of the 1D embedding produced by uniform manifold
   approximation and projection
 - **VAE** - Order if the 1D embedding produced by a variational
   autoencoder.
+
+**Dendrogram-based**
+
+- **DendSer** - Dendrogram seriation heuristic to optimize various
+  criteria
+- **GW** - Hierarchical clustering reordered by Gruvaeus and Wainer
+  heuristic
+- **HC** - Hierarchical clustering (single link, avg. link, complete
+  link)
+- **OLO** - Hierarchical clustering with optimal leaf ordering
+
+**Other**
+
+- **Identity** permutation
+- **OPTICS** - Ordering points to identify the clustering structure.
+- **R2E** - Rank-two ellipse seriation
+- **Random** permutation
+- **Reverse** order
+- **SPIN** - Sorting points into neighborhoods (neighborhood algorithm,
+  side-to-site algorithm)
 - **VAT** - Order of the visual assessment of clustering tendency
-  ordering
 
 A detailed comparison of the methods is available in the paper [An
 experimental comparison of seriation methods for one-mode two-way
