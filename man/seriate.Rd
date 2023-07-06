@@ -65,11 +65,16 @@ A definition of the measures can be found in the \code{\link[=criterion]{criteri
 
 One-mode two-way data has to be provided as a dist object (not
 as a symmetric matrix). Similarities have to be transformed into
-dissimilarities. Currently, the following methods are implemented (for a
+dissimilarities.
+Seriation algorithms fall into different groups based on the approach.
+Currently, the following methods are implemented (for a
 more detailed description and an experimental comparison see
 \href{https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf}{Hahsler (2017)}:
 
 \strong{Optimization-based}
+
+These methods try to optimize a seriation criterion directly typically using a
+heuristic approach.
 \itemize{
 \item \strong{Anti-Robinson seriation by simulated annealing:} \code{"ARSA"} (Brusco et al 2008)
 
@@ -173,8 +178,12 @@ correlation matrices by Friendly (2002).
 }
 
 \strong{Dendrogram-based}
+
+These methods create a dendrogram using hierarchical clustering and then derive
+the seriation order from the leaf order in the dendrogram. Leaf reordering
+may be applied.
 \itemize{
-\item \strong{Leaf order in hierarchical clustering:} \code{"HC"}, \code{"HC_single"}, \code{"HC_complete"},
+\item \strong{Dendrogram leaf order:} \code{"HC"}, \code{"HC_single"}, \code{"HC_complete"},
 \code{"HC_average"}, \code{"HC_ward"}
 
 Uses the order of the leaf nodes in a dendrogram obtained by hierarchical
@@ -183,7 +192,7 @@ applies hierarchical clustering (\code{\link[=hclust]{hclust()}}) to \code{x}. T
 method can be given using a \code{"linkage"} element in the \code{control}
 list. If omitted, the default \code{"complete"} is used.
 For convenience the other methods are provided as shortcuts.
-\item \strong{Hierarchical clustering reordered by Gruvaeus and Wainer heuristic:} \code{"GW"}, \code{"GW_single"}, \code{"GW_average"},
+\item \strong{Reordered dendrogram leaf order (Gruvaeus and Wainer heuristic):} \code{"GW"}, \code{"GW_single"}, \code{"GW_average"},
 \code{"GW_complete"}, \code{"GW_ward"}  (Gruvaeus and Wainer, 1972)
 
 Method \code{"GW"} uses an algorithm developed by Gruvaeus and Wainer (1972)
@@ -203,7 +212,7 @@ and right subtree (or leaves) can be swapped, or, in terms of a dendrogram,
 be flipped. The leaf-node reordering to minimize
 
 Minimizes the \strong{Hamiltonian path length (restricted by the dendrogram)}.
-\item \strong{Optimal leaf ordering:} \code{"OLO"}, \code{"OLO_single"},
+\item \strong{Reordered dendrogram leaf order (optimal leaf ordering):} \code{"OLO"}, \code{"OLO_single"},
 \code{"OLO_average"}, \code{"OLO_complete"}, \code{"OLO_ward"}  (Bar-Joseph et al., 2001)
 
 Also starts with a dendrogram and
@@ -224,6 +233,7 @@ detailed description can be found in the manual page for
 \strong{Other}
 \itemize{
 \item \strong{Identity permutation:} `"Identity"
+\item \strong{Reverse Identity permutation:} `"Reverse"
 \item \strong{Random permutation:} \code{"Random"}
 \item \strong{Rank-two ellipse seriation:} \code{"R2E"}  (Chen 2002)
 
@@ -281,18 +291,20 @@ The order is given by the order in which the nodes (objects) are added to
 the MST.
 }
 
-\strong{Seriation methods for matrices (matrix or data.frame)}
+\strong{Seriation methods for matrices (matrix)}
 
 Two-mode two-way data are general matrices.
-Some methods also require that the matrix is positive. Data frames are just a
-different representation of a matrix and all seriation methods for matrix can
-be also used for data frames. The default method for data frames is heatmap
-seriation which calculates distances between rows and between columns and
-then applies seriation on these using hierarchical clustering and optimal
-leaf ordering (OLO).
+Some methods also require that the matrix is positive.
+Data frames and contingency tables (\link[base:table]{base::table})
+are converted into a matrix. However, the
+default method are different.
 
+Some methods find the row and column order simultaneously,
+while others calculate them independently.
 Currently the
 following methods are implemented for matrix:
+
+\strong{Seriating rows and columns simultaneously}
 \itemize{
 \item \strong{Bond Energy Algorithm:} \code{"BEA"}  (McCormick, 1972).
 
@@ -321,6 +333,13 @@ The results of the best run will be returned.
 }
 \item \strong{TSP to optimize the Measure of Effectiveness}: \code{"BEA_TSP"} (Lenstra 1974).
 
+Distances between rows are calculated for a \eqn{M \times N} data matrix as
+\eqn{d_{jk} = - \sum_{i=1}^{i=M} x_{ij}x_{ik}\ (j,k=0,1,...,N)}. Distances
+between columns are calculated the same way from the transposed data matrix.
+
+Solving the two TSP using these distances optimizes the measure of
+effectiveness. BEA can be seen as a simple, suboptimal TSP-method.
+
 \code{control} parameter:
 \itemize{
 \item \code{"method"}: a TSP solver method (see \code{\link[TSP:solve_TSP]{TSP::solve_TSP()}}).
@@ -331,30 +350,50 @@ This function is designed to help simplify a mosaic plot or other displays of a
 matrix of frequencies.  It calculates a correspondence analysis of the matrix and
 an order for rows and columns according to the scores on a correspondence analysis dimension.
 
+This is the default method for contingency tables.
+
 \code{control} parameters:
 \itemize{
 \item \code{"dim"}: CA dimension used for reordering.
 \item \code{"ca_param"}: List with parameters for the call to \code{\link[ca:ca]{ca::ca()}}.
 }
+}
+
+\strong{Seriating rows and columns separately}
+\itemize{
 \item \strong{Heatmap seriation:} \code{"Heatmap"}
 
 Calculates distances between
-rows and between columns and then applies seriation on these using
-hierarchical clustering and optimal leaf ordering (method \code{"OLO"} for distance matrices).
+rows and between columns and then applies seriation so each. This is
+the default method for data frames.
+
+\code{control} parameter:
+\itemize{
+\item \code{"seriation_method"}: a list with row and column seriation methods defaults to
+\code{"OLO"}.
+\item \code{"dist_fun"}: specify the distance calculation as a function.
+}
 \item \strong{Order along the first principal component:} \code{"PCA"}
 
 Uses the projection of the data on its first principal component to
-determine the order.
+determine the order of rows. Performs the same procedure on the transposed
+matrix to obtain the column order.
 
 Note that for a distance matrix calculated from \code{x} with Euclidean
 distance, this methods minimizes the least square criterion.
 \item \strong{Order using the angle in the space spanned by the first two principal components:} \code{"PCA_angle"}
 
-Projects the data on the first two principal components
+For rows, projects the data on the first two principal components
 and then orders by the angle in this space. The order is split by the larges
 gap between adjacent angles. A similar method was used for ordering
-correlation matrices by Friendly (2002).
+correlation matrices by Friendly (2002). Performs the same on the
+transposed matrix for the column order.
+}
+
+\strong{Other}
+\itemize{
 \item \strong{Identity permutation:} \code{"Identity"}
+\item \strong{Reverse Identity permutation:} \code{"Reverse"}
 \item \strong{Random permutation:} \code{"Random"}
 }
 

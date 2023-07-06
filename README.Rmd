@@ -69,6 +69,7 @@ A detailed comparison of the methods is available in the paper
 The following methods are available to reorder rows and columns of data matrices:
 
  *  **BEA** - Bond Energy Algorithm to maximize the measure of effectiveness (ME) 
+ *  **BEA_TSP** - TSP to optimize the Measure of Effectiveness
  *  **CA** - calculates a correspondence analysis of a matrix of frequencies (count table)
       and reorders according to the scores on a correspondence analysis dimension
  *  **Heatmap** - reorders rows and columns independently by calculation row/column distances 
@@ -78,7 +79,6 @@ The following methods are available to reorder rows and columns of data matrices
  *  **Random** permutation 
  *  **Reverse** order
  *  **TSNE** - Order of the 1D t-distributed stochastic neighbor embedding (t-SNE)
- *  **TSP** - Traveling sales person solver to maximize ME 
  *  **UMAP** - Order of the 1D embedding produced by uniform manifold approximation and projection
  *  **VAE** - Order of the 1D embedding produced by a variational autoencoder.
 

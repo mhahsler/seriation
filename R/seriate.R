@@ -40,11 +40,16 @@
 #'
 #' One-mode two-way data has to be provided as a dist object (not
 #' as a symmetric matrix). Similarities have to be transformed into
-#' dissimilarities. Currently, the following methods are implemented (for a
+#' dissimilarities.
+#' Seriation algorithms fall into different groups based on the approach.
+#' Currently, the following methods are implemented (for a
 #' more detailed description and an experimental comparison see
 #' [Hahsler (2017)](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf):
 #'
 #' **Optimization-based**
+#'
+#' These methods try to optimize a seriation criterion directly typically using a
+#' heuristic approach.
 #'
 #' - **Anti-Robinson seriation by simulated annealing:** `"ARSA"` (Brusco et al 2008)
 #'
@@ -159,7 +164,11 @@
 #'
 #' **Dendrogram-based**
 #'
-#'  - **Leaf order in hierarchical clustering:** `"HC"`, `"HC_single"`, `"HC_complete"`,
+#'  These methods create a dendrogram using hierarchical clustering and then derive
+#'  the seriation order from the leaf order in the dendrogram. Leaf reordering
+#'  may be applied.
+#'
+#'  - **Dendrogram leaf order:** `"HC"`, `"HC_single"`, `"HC_complete"`,
 #'      `"HC_average"`, `"HC_ward"`
 #'
 #'       Uses the order of the leaf nodes in a dendrogram obtained by hierarchical
@@ -169,7 +178,7 @@
 #'       list. If omitted, the default `"complete"` is used.
 #'       For convenience the other methods are provided as shortcuts.
 #'
-#' - **Hierarchical clustering reordered by Gruvaeus and Wainer heuristic:** `"GW"`, `"GW_single"`, `"GW_average"`,
+#' - **Reordered dendrogram leaf order (Gruvaeus and Wainer heuristic):** `"GW"`, `"GW_single"`, `"GW_average"`,
 #'   `"GW_complete"`, `"GW_ward"`  (Gruvaeus and Wainer, 1972)
 #'
 #'   Method `"GW"` uses an algorithm developed by Gruvaeus and Wainer (1972)
@@ -190,7 +199,7 @@
 #'
 #'     Minimizes the **Hamiltonian path length (restricted by the dendrogram)**.
 #'
-#' - **Optimal leaf ordering:** `"OLO"`, `"OLO_single"`,
+#' - **Reordered dendrogram leaf order (optimal leaf ordering):** `"OLO"`, `"OLO_single"`,
 #'   `"OLO_average"`, `"OLO_complete"`, `"OLO_ward"`  (Bar-Joseph et al., 2001)
 #'
 #'   Also starts with a dendrogram and
@@ -211,6 +220,8 @@
 #'  **Other**
 #'
 #' - **Identity permutation:** `"Identity"
+#'
+#' - **Reverse Identity permutation:** `"Reverse"
 #'
 #' - **Random permutation:** `"Random"`
 #'
@@ -274,18 +285,20 @@
 #'   the MST.
 #'
 #'
-#' **Seriation methods for matrices (matrix or data.frame)**
+#' **Seriation methods for matrices (matrix)**
 #'
 #' Two-mode two-way data are general matrices.
-#' Some methods also require that the matrix is positive. Data frames are just a
-#' different representation of a matrix and all seriation methods for matrix can
-#' be also used for data frames. The default method for data frames is heatmap
-#' seriation which calculates distances between rows and between columns and
-#' then applies seriation on these using hierarchical clustering and optimal
-#' leaf ordering (OLO).
+#' Some methods also require that the matrix is positive.
+#' Data frames and contingency tables ([base::table])
+#' are converted into a matrix. However, the
+#' default method are different.
 #'
+#' Some methods find the row and column order simultaneously,
+#' while others calculate them independently.
 #' Currently the
 #' following methods are implemented for matrix:
+#'
+#' **Seriating rows and columns simultaneously**
 #'
 #' - **Bond Energy Algorithm:** `"BEA"`  (McCormick, 1972).
 #'
@@ -313,8 +326,16 @@
 #'
 #' - **TSP to optimize the Measure of Effectiveness**: `"BEA_TSP"` (Lenstra 1974).
 #'
+#'   Distances between rows are calculated for a \eqn{M \times N} data matrix as
+#'   \eqn{d_{jk} = - \sum_{i=1}^{i=M} x_{ij}x_{ik}\ (j,k=0,1,...,N)}. Distances
+#'   between columns are calculated the same way from the transposed data matrix.
+#'
+#'   Solving the two TSP using these distances optimizes the measure of
+#'   effectiveness. BEA can be seen as a simple, suboptimal TSP-method.
+#'
 #'   `control` parameter:
 #'      - `"method"`: a TSP solver method (see [TSP::solve_TSP()]).
+#'
 #'
 #' - **Correspondence analysis** `"CA"`
 #'
@@ -322,32 +343,48 @@
 #'   matrix of frequencies.  It calculates a correspondence analysis of the matrix and
 #'   an order for rows and columns according to the scores on a correspondence analysis dimension.
 #'
+#'   This is the default method for contingency tables.
+#'
 #'   `control` parameters:
 #'     - `"dim"`: CA dimension used for reordering.
 #'     - `"ca_param"`: List with parameters for the call to [ca::ca()].
 #'
+#'
+#'  **Seriating rows and columns separately**
+#'
 #' - **Heatmap seriation:** `"Heatmap"`
 #'
 #'   Calculates distances between
-#'   rows and between columns and then applies seriation on these using
-#'   hierarchical clustering and optimal leaf ordering (method `"OLO"` for distance matrices).
+#'   rows and between columns and then applies seriation so each. This is
+#'   the default method for data frames.
+#'
+#'    `control` parameter:
+#'      - `"seriation_method"`: a list with row and column seriation methods defaults to
+#'        `"OLO"`.
+#'      - `"dist_fun"`: specify the distance calculation as a function.
 #'
 #' - **Order along the first principal component:** `"PCA"`
 #'
 #'   Uses the projection of the data on its first principal component to
-#'   determine the order.
+#'   determine the order of rows. Performs the same procedure on the transposed
+#'   matrix to obtain the column order.
 #'
 #'   Note that for a distance matrix calculated from `x` with Euclidean
 #'   distance, this methods minimizes the least square criterion.
 #'
 #' - **Order using the angle in the space spanned by the first two principal components:** `"PCA_angle"`
 #'
-#'   Projects the data on the first two principal components
+#'   For rows, projects the data on the first two principal components
 #'   and then orders by the angle in this space. The order is split by the larges
 #'   gap between adjacent angles. A similar method was used for ordering
-#'   correlation matrices by Friendly (2002).
+#'   correlation matrices by Friendly (2002). Performs the same on the
+#'   transposed matrix for the column order.
+#'
+#' **Other**
 #'
 #' - **Identity permutation:** `"Identity"`
+#'
+#' - **Reverse Identity permutation:** `"Reverse"`
 #'
 #' - **Random permutation:** `"Random"`
 #'

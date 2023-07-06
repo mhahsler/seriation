@@ -22,26 +22,28 @@
 #' Register the DendSer dendrogram seriation method and the ARc criterion
 #' (Earle and Hurley, 2015) for use with [seriate()].
 #'
-#' Registers the method \code{"DendSer"} for [seriate()]. DendSer is a fast
+#' Registers the method `"DendSer"` for seriate. DendSer is a fast
 #' heuristic for reordering dendrograms developed by Earle and Hurley (2015)
 #' able to use different criteria.
 #'
-#' \code{control} for \code{seriate} with
-#' method \code{"DendSer"} accepts the following parameters:
+#' `control` for [`seriate()`] with
+#' method `"DendSer"` accepts the following parameters:
 #'
-#' - "h" or "method" A dendrogram or a method for hierarchical clustering
-#'   (see \code{hclust}). Default: complete-link.
-#' - "criterion" A seriation criterion to optimize (see
-#'   \code{list_criterion_methods("dist")}). Default: \code{"BAR"} (Banded
-#'   anti-Robinson from with 20\% band width).}
-#' - "verbose" a logical; print progress information?
-#' - "DendSer_args" additional arguments for \code{DendSer}.
+#' - `"h"` or `"method"`: A dendrogram or a method for hierarchical clustering
+#'   (see [hclust]). Default: complete-link.
+#' - `"criterion"`: A seriation criterion to optimize (see
+#'   `list_criterion_methods("dist")`. Default: `"BAR"` (Banded
+#'   anti-Robinson from with 20% band width).
+#' - `"verbose"`: a logical; print progress information?
+#' - `"DendSer_args"`: additional arguments for [`DendSer::DendSer()`].
 #'
 #' For convenience, the following methods (for different cost functions) are
-#' also provided: \code{"DendSer_ARc"} (anti-robinson form),
-#' \code{"DendSer_BAR"} (banded anti-Robinson form),
-#' \code{"DendSer_LPL"} (lazy path length),
-#' \code{"DendSer_PL"} (path length).
+#' also provided:
+#'
+#' - `"DendSer_ARc"` (anti-robinson form),
+#' - `"DendSer_BAR"` (banded anti-Robinson form),
+#' - `"DendSer_LPL"` (lazy path length),
+#' - `"DendSer_PL"` (path length).
 #'
 #' Note: Package \pkg{DendSer} needs to be installed.
 #'

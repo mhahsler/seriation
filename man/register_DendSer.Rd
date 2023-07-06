@@ -16,27 +16,30 @@ Register the DendSer dendrogram seriation method and the ARc criterion
 (Earle and Hurley, 2015) for use with \code{\link[=seriate]{seriate()}}.
 }
 \details{
-Registers the method \code{"DendSer"} for \code{\link[=seriate]{seriate()}}. DendSer is a fast
+Registers the method \code{"DendSer"} for seriate. DendSer is a fast
 heuristic for reordering dendrograms developed by Earle and Hurley (2015)
 able to use different criteria.
 
-\code{control} for \code{seriate} with
+\code{control} for \code{\link[=seriate]{seriate()}} with
 method \code{"DendSer"} accepts the following parameters:
 \itemize{
-\item "h" or "method" A dendrogram or a method for hierarchical clustering
-(see \code{hclust}). Default: complete-link.
-\item "criterion" A seriation criterion to optimize (see
-\code{list_criterion_methods("dist")}). Default: \code{"BAR"} (Banded
-anti-Robinson from with 20\\% band width).}
-\item "verbose" a logical; print progress information?
-\item "DendSer_args" additional arguments for \code{DendSer}.
+\item \code{"h"} or \code{"method"}: A dendrogram or a method for hierarchical clustering
+(see \link{hclust}). Default: complete-link.
+\item \code{"criterion"}: A seriation criterion to optimize (see
+\code{list_criterion_methods("dist")}. Default: \code{"BAR"} (Banded
+anti-Robinson from with 20\% band width).
+\item \code{"verbose"}: a logical; print progress information?
+\item \code{"DendSer_args"}: additional arguments for \code{\link[DendSer:DendSer]{DendSer::DendSer()}}.
 }
 
 For convenience, the following methods (for different cost functions) are
-also provided: \code{"DendSer_ARc"} (anti-robinson form),
-\code{"DendSer_BAR"} (banded anti-Robinson form),
-\code{"DendSer_LPL"} (lazy path length),
-\code{"DendSer_PL"} (path length).
+also provided:
+\itemize{
+\item \code{"DendSer_ARc"} (anti-robinson form),
+\item \code{"DendSer_BAR"} (banded anti-Robinson form),
+\item \code{"DendSer_LPL"} (lazy path length),
+\item \code{"DendSer_PL"} (path length).
+}
 
 Note: Package \pkg{DendSer} needs to be installed.
 }
