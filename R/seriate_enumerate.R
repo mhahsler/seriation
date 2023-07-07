@@ -33,34 +33,46 @@ are.monotone <-
       PACKAGE = "seriation"
     )[[4]])
 
-.control_enumerate <- list(
-  criterion = "Gradient_weighted",
-  verbose = FALSE
-)
+.control_enumerate <- list(criterion = "Gradient_weighted",
+                           verbose = FALSE)
 
 seriate_dist_enumerate <- function(x, control = NULL) {
   control <- .get_parameters(control, .control_enumerate)
 
   n <- attr(x, "Size")
   perm <- seq(n)
+
   best_perm <- perm
   best_crit <- Inf
-  k <- 0
 
-  if (control$verbose) cat("Permutation - of", factorial(n))
+  suppressWarnings(m <- as.integer(factorial(n)))
+  if (is.na(m))
+    stop("Number of permutations is too large.")
+  k <- 0L
 
-  repeat{
-    k <- k+1
-    if (control$verbose)
-      cat("\rPermutation", k, "of", factorial(n))
+  if (control$verbose)
+    cat("Permutation - of", m)
 
-    crit <- criterion(x, perm, method = control$criterion, force_loss = TRUE)
+  repeat {
+    k <- k + 1L
+    if (control$verbose) {
+      cat("\rPermutation", k, "of", m)
+    }
+
+    crit <-
+      criterion(x,
+                perm,
+                method = control$criterion,
+                force_loss = TRUE)
+
     if (crit < best_crit) {
       best_crit <- crit
       best_perm <- perm
     }
 
-    if (prod(perm==(n:1))==1) break
+    #if (prod(perm==(n:1))==1) break
+    if (k >= m)
+      break
     perm <- next.perm(perm)
   }
 

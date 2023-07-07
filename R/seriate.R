@@ -60,9 +60,12 @@
 #'    Finds the optimal permutation given a criterion measure by complete enumeration
 #'    of all permutations.
 #'    The criterion is specified as the `control` parameters `"criterion"`.
-#'    Default is the weighted gradient measure.
+#'    Default is the weighted gradient measure. Use `"verbose = TRUE"` to see
+#'    the progress.
 #'
-#'    Note: This is only possible for tiny problems.
+#'    Note: The number of permutations for \eqn{n} objects is \eqn{n!}.
+#'    This is only possible for tiny problems and is limited on most systems
+#'    to a problem size of up to 12 objects.
 #'
 #' - **Gradient measure seriation by branch-and-bound:** `"BBURCG"`, `"BBWRCG"` (Brusco and Stahl 2005)
 #'
