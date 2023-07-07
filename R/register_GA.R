@@ -155,7 +155,9 @@ register_GA <- function() {
       maxFitness = Inf,
       popSize = control$popSize
     )
-    as.integer(drop(result@solution))
+
+    # solution may have multiple rows! Take the first solution.
+    as.integer(result@solution[1, , drop = TRUE])
   }
 
   set_seriation_method(
