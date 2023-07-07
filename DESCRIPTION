@@ -118,6 +118,7 @@ Collate:
     'seriate_CA.R'
     'seriate_HC.R'
     'seriate_MDS.R'
+    'seriate_Mean.R'
     'seriate_PCA.R'
     'seriate_QAP.R'
     'seriate_R2E.R'

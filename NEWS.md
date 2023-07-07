@@ -16,7 +16,9 @@
 - New MDS_stress() function.
 - Added register_smacof().
 - New seriation methods from vegan: isomap, monoMDS, metaMDS.
-- New seriation method: Enumerate for complete enumeration.
+- New seriation method "Enumerate" for complete enumeration.
+- New seriation method "mean" for matrix.
+- Heatmap seriation has now special seriation_method "mean".
 
   
 ## Changes

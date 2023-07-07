@@ -84,9 +84,12 @@ Directly minimizes the \strong{linear seriation criterion.}
 Finds the optimal permutation given a criterion measure by complete enumeration
 of all permutations.
 The criterion is specified as the \code{control} parameters \code{"criterion"}.
-Default is the weighted gradient measure.
+Default is the weighted gradient measure. Use \code{"verbose = TRUE"} to see
+the progress.
 
-Note: This is only possible for tiny problems.
+Note: The number of permutations for \eqn{n} objects is \eqn{n!}.
+This is only possible for tiny problems and is limited on most systems
+to a problem size of up to 12 objects.
 \item \strong{Gradient measure seriation by branch-and-bound:} \code{"BBURCG"}, \code{"BBWRCG"} (Brusco and Stahl 2005)
 
 Uses branch-and-bound to minimize the
@@ -377,9 +380,14 @@ the default method for data frames.
 
 \code{control} parameter:
 \itemize{
-\item \code{"seriation_method"}: a list with row and column seriation methods defaults to
-\code{"OLO"}.
+\item \code{"seriation_method"}: a list with row and column seriation methods.
+The special method \code{"mean"} is available to use hierarchical clustering
+with reordering the leafs by the row/column means (see \code{\link[stats:heatmap]{stats::heatmap()}}).
+Defaults to optimal leaf ordering \code{"OLO"}.
+\item \code{"seriation_control"}: a list with control parameters for row and column
+seriation methods.
 \item \code{"dist_fun"}: specify the distance calculation as a function.
+\item \code{"scale"}: \code{"none"}, \code{"row"}, or \code{"col"}.
 }
 \item \strong{Order along the first principal component:} \code{"PCA"}
 
@@ -403,6 +411,13 @@ transposed matrix for the column order.
 \item \strong{Identity permutation:} \code{"Identity"}
 \item \strong{Reverse Identity permutation:} \code{"Reverse"}
 \item \strong{Random permutation:} \code{"Random"}
+\item \strong{By row/column mean:} \code{"mean"}
+
+A transformation can be applied before calculating the means.
+The function is specified as control
+parameter \code{"transformation"}. Any function that takes as an input a
+matrix and returns the transformed matrix can be used. Examples
+are \code{scale} or \verb{\\(x) x^.5}.
 }
 
 For \strong{general arrays} no built-in methods are currently available.

@@ -371,9 +371,14 @@
 #'   the default method for data frames.
 #'
 #'    `control` parameter:
-#'      - `"seriation_method"`: a list with row and column seriation methods defaults to
-#'        `"OLO"`.
+#'      - `"seriation_method"`: a list with row and column seriation methods.
+#'          The special method `"mean"` is available to use hierarchical clustering
+#'          with reordering the leafs by the row/column means (see [stats::heatmap()]).
+#'          Defaults to optimal leaf ordering `"OLO"`.
+#'      -  `"seriation_control"`: a list with control parameters for row and column
+#'          seriation methods.
 #'      - `"dist_fun"`: specify the distance calculation as a function.
+#'      - `"scale"`: `"none"`, `"row"`, or `"col"`.
 #'
 #' - **Order along the first principal component:** `"PCA"`
 #'
@@ -399,6 +404,14 @@
 #' - **Reverse Identity permutation:** `"Reverse"`
 #'
 #' - **Random permutation:** `"Random"`
+#'
+#' - **By row/column mean:** `"mean"`
+#'
+#'    A transformation can be applied before calculating the means.
+#'    The function is specified as control
+#'    parameter `"transformation"`. Any function that takes as an input a
+#'    matrix and returns the transformed matrix can be used. Examples
+#'    are `scale` or `\(x) x^.5`.
 #'
 #' For **general arrays** no built-in methods are currently available.
 #'

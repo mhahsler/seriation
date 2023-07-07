@@ -52,32 +52,56 @@ seriate_matrix_heatmap <-
         x <- scale(x)
     }
 
-
     if (1L %in% margin) {
       d <- control$dist_fun$row(x)
-      o_row <- seriate(
-        d,
-        method = control$seriation_method$row,
-        control = control$seriation_control$row
-      )
+
+      if (tolower(control$seriation_method$row) == "mean")
+        o_row <- ser_permutation_vector(seriate_hc_mean(d, x, control$seriation_control$row))
+      else
+        o_row <- seriate(
+          d,
+          method = control$seriation_method$row,
+          control = control$seriation_control$row
+        )[[1]]
     } else
       o_row <- NA
 
     if (2L %in% margin) {
-      d <- control$dist_fun$col(t(x))
-      o_col <- seriate(
-        d,
-        method = control$seriation_method$col,
-        control = control$seriation_control$col
-      )
+      x <- t(x)
+      d <- control$dist_fun$col(x)
+
+      if (tolower(control$seriation_method$col) == "mean")
+        o_col <- ser_permutation_vector(seriate_hc_mean(d, x, control$seriation_control$col))
+      else
+        o_col <- seriate(
+          d,
+          method = control$seriation_method$col,
+          control = control$seriation_control$col
+        )[[1]]
     } else
       o_col <- NA
 
     #names(row) <- rownames(x)[get_order(o_row)]
     #names(col) <- colnames(x)[get_order(o_col)]
 
-    list(row = o_row[[1]], col = o_col[[1]])
+    list(row = o_row, col = o_col)
   }
+
+
+seriate_hc_mean <- function(d, x, control = NULL) {
+  if (missing(x))
+    stop("data matrix x needs to be specified for leaf order with mean reordering.")
+
+  hc <- stats::as.hclust(stats::reorder(
+    stats::as.dendrogram(seriate_dist_hc(d, control)),
+    wts = rowSums(x, na.rm = TRUE)
+  ))
+  hc$call <- "seriate_hc_means"
+  hc$method <- "hclust + mean reordering"
+  hc$dist.method <- attr(d, "method")
+
+  hc
+}
 
 set_seriation_method(
   "matrix",

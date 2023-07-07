@@ -75,6 +75,7 @@ The following methods are available to reorder rows and columns of data matrices
  *  **Heatmap** - reorders rows and columns independently by calculation row/column distances 
       and applying a seriation method (default is optimal leaf ordering) 
  *  **Identity** permutation 
+ *  **Row/Column means** - reorders using row and column means.
  *  **PCA** - orders along the first principal component or angle on the projection on the first two principal components
  *  **Random** permutation 
  *  **Reverse** order
