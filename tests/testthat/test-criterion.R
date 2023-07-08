@@ -79,3 +79,8 @@ set.seed(1234)
 r <- replicate(100, criterion(m[sample(nrow(m)),], method="Cor_R"))
 # hist(r)
 expect_true(abs(mean(r)) < 0.1)
+
+# test for data.frame and table
+
+expect_equal(criterion(as.data.frame(m)), criterion(m))
+expect_equal(criterion(as.table(m)), criterion(m))

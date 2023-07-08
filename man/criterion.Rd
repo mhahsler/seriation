@@ -6,6 +6,8 @@
 \alias{criterion.array}
 \alias{criterion.dist}
 \alias{criterion.matrix}
+\alias{criterion.data.frame}
+\alias{criterion.table}
 \title{Criterion for a Loss/Merit Function for Data Given a Permutation}
 \usage{
 criterion(x, order = NULL, method = NULL, force_loss = FALSE, ...)
@@ -15,6 +17,10 @@ criterion(x, order = NULL, method = NULL, force_loss = FALSE, ...)
 \method{criterion}{dist}(x, order = NULL, method = NULL, force_loss = FALSE, ...)
 
 \method{criterion}{matrix}(x, order = NULL, method = NULL, force_loss = FALSE, ...)
+
+\method{criterion}{data.frame}(x, order = NULL, method = NULL, force_loss = FALSE, ...)
+
+\method{criterion}{table}(x, order = NULL, method = NULL, force_loss = FALSE, ...)
 }
 \arguments{
 \item{x}{an object of class \link{dist} or a matrix (currently no functions

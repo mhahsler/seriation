@@ -24,7 +24,15 @@ criterion.matrix <-
     method = NULL,
     force_loss = FALSE,
     ...)
-    .criterion_array_helper(x, order, method, "matrix", force_loss)
+    .criterion_array_helper(as.matrix(x), order, method, "matrix", force_loss)
+
+#' @rdname criterion
+#' @export
+criterion.data.frame <- criterion.matrix
+
+#' @rdname criterion
+#' @export
+criterion.table <- criterion.matrix
 
 ## Bond energy (BEA)
 criterion_ME <- function(x, order = NULL, ...) {
