@@ -42,7 +42,7 @@ seriate_matrix_mean <- function(x, control = NULL, margin = NULL) {
 
 set_seriation_method(
   "matrix",
-  "mean",
+  "Mean",
   seriate_matrix_mean,
   "Reorders rows and columns by row and column means.",
   .seriate_mean_control,
