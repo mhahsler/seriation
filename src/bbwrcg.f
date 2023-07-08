@@ -89,10 +89,14 @@ C
  853      CONTINUE
  852    CONTINUE
  851  CONTINUE
-C
+C Run heuristic to find a good objective value
+      IF (IVERB == 1) THEN
+        CALL intpr('Run heuristic', -1, IVERB, 0)
+      ENDIF
+
       ZBEST = 0.0D0
 C      DO 3500 JJJ = 1,100
-      DO 3500 JJJ = 1,20
+      DO 3500 JJJ = 1,100
         DO I = 1,N
           UNSEL(I) = I
           Q(I) = 0
@@ -171,6 +175,7 @@ C
         END DO
         IF(ITRIG.EQ.1) GO TO 3502
         IF(Z.GT.ZBEST) ZBEST = Z
+
  3500 CONTINUE
 C      WRITE(2,3505) ZBEST
       IF (IVERB == 1) THEN

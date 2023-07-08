@@ -361,22 +361,7 @@ C
 C      WRITE(*,*) 'X',(X(J),J=1,N)
 C      WRITE(*,*) 'Q',(Q(J),J=1,N)
 C
-
       GO TO 2
-C   9  CALL GETTIM (IHR, IMIN, ISEC, I100)
-C      CALL GETDAT (IYR, IMON, IDAY)
-C      TIMEB=DBLE(86400*IDAY+3600*IHR+60*IMIN+ISEC)+DBLE(I100)/100.
-C      TIMTOT=TIMEB-TIMEA
-C      write(*,*) ism,ism2,ism3
-C      WRITE(*,69) Z,TIMTOT
-C  9   WRITE(*,69) Z
-C      WRITE(2,69) Z,TIMTOT
-C      WRITE(2,70) (X(I),I=1,N)
-C 69   FORMAT(' MAXIMUM UNWEIGHTED ROW GRADIENT INDEX ',I20)
-C 69   FORMAT(' MAXIMUM UNWEIGHTED ROW GRADIENT INDEX ',I7,' CPU TIME ',
-C     1        F8.2)
-C 70   FORMAT(30I3)
-C
   9    IF (IVERB == 1) THEN
 C          PRINT *, 'total number of checks: ', CHECKS
           CALL intpr('total number of checks', -1, CHECKS, 1)

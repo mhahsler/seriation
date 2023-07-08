@@ -88,8 +88,10 @@ seriate_dist_arsa <- function(x, control = NULL) {
 
 
 ## Brusco: branch-and-bound - unweighted row gradient
-.bb_control <- list(eps = 1e-7,
-  verbose = FALSE)
+.bb_rcgw_control <- list(verbose = FALSE)
+
+.bb_control <- list(eps = 0,
+                    verbose = FALSE)
 
 seriate_dist_bburcg <- function(x, control = NULL) {
   param <- .get_parameters(control, .bb_control)
@@ -118,7 +120,7 @@ seriate_dist_bburcg <- function(x, control = NULL) {
 
 ## Brusco: branch-and-bound - weighted row gradient
 seriate_dist_bbwrcg <- function(x, control = NULL) {
-  param <- .get_parameters(control, .bb_control)
+  param <- .get_parameters(control, .bb_rcgw_control)
 
   A <- as.matrix(x)
   N <- ncol(A)
@@ -134,7 +136,8 @@ seriate_dist_bbwrcg <- function(x, control = NULL) {
   S <- integer(N)
   UNSEL <- integer(N)
 
-  ret <- .Fortran("bbwrcg", N, A, param$eps, X, Q, D, DD, S, UNSEL,
+  ### eps is unused!
+  ret <- .Fortran("bbwrcg", N, A, 0.0, X, Q, D, DD, S, UNSEL,
     param$verbose)
 
   o <- ret[[4]]

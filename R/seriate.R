@@ -29,6 +29,13 @@
 #' [list_seriation_methods()] for help. In the following, we discuss only the
 #' built-in methods that are registered automatically by the package \pkg{seriation}.
 #'
+#' The available control options and default settings for each algorithm
+#' can be retrieved using `get_seriation_method(name = "<seriation method>")`.
+#' Some control parameters are described in more detail below.
+#'
+#' Some methods are very slow and progress can be printed by using the control
+#' parameter `verbose = TRUE`.
+#'
 #' Many seriation methods (heuristically) optimize (minimize or maximize) an
 #' objective function. The value of the function for a given seriation can be
 #' calculated using [criterion()]. In this manual page, we
@@ -53,6 +60,17 @@
 #'
 #' - **Anti-Robinson seriation by simulated annealing:** `"ARSA"` (Brusco et al 2008)
 #'
+#'   The algorithm automatically finds a suitable start temperature and calculates
+#'   the needed number of iterations. The algorithm gets slow for large number of
+#'   objects. The speed can be improved by lowering the cooling parameter or increasing the
+#'   minimum temperature. However, this will decrease the seriation quality.
+#'
+#'   `control` parameter:
+#'     - `"cool"`: cooling factor (smaller means faster cooling).
+#'     - `"tmin"`: minimum temperature when the algorithm stops.
+#'     - `"rep"`: the number of runs can be specified.
+#'
+#'
 #'    Directly minimizes the **linear seriation criterion.**
 #'
 #' - **Complete Enumeration:** `"Enumerate"`
@@ -64,7 +82,7 @@
 #'    the progress.
 #'
 #'    Note: The number of permutations for \eqn{n} objects is \eqn{n!}.
-#'    This is only possible for tiny problems and is limited on most systems
+#'    This is only possible for tiny problems (<10 objects) and is limited on most systems
 #'    to a problem size of up to 12 objects.
 #'
 #' - **Gradient measure seriation by branch-and-bound:** `"BBURCG"`, `"BBWRCG"` (Brusco and Stahl 2005)
@@ -72,7 +90,11 @@
 #'    Uses branch-and-bound to minimize the
 #'    **unweighted gradient measure** (`"BBURCG"`) and the
 #'    **weighted gradient measure** (`"BBWRCG"`).
-#'    This is only feasible for a small number of objects.
+#'    This is only feasible for a small number of objects (< 50 objects).
+#'
+#'    For BBURCG, the control parameter `"eps"` can be used to relax the problem, buy defining
+#'    that the distance needs to be eps larger to count as a violation. This will improve the speed,
+#'    but miss some Robinson events. Default is 0.
 #'
 #' - **Genetic Algorithm:** `"GA"`
 #'
@@ -533,6 +555,9 @@
 #' @examples
 #' # Show available seriation methods (for dist and matrix)
 #' list_seriation_methods()
+#'
+#' # show the description for ARSA
+#' get_seriation_method("dist", name = "ARSA")
 #'
 #' ### Seriate as distance matrix (for the iris dataset)
 #' data("iris")

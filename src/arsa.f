@@ -102,8 +102,8 @@ C        TMAX = Z
         ILOOP = INT(TRYMULT*N)
         NLOOP = INT((LOG(TMIN)-LOG(TMAX))/LOG(COOL))
         IF (IVERB == 1) THEN
+            CALL realpr('Found tmax', -1, TMAX, 1)
             CALL intpr('Steps needed', -1, NLOOP, 1)
-            CALL intpr('Temp', -1, NLOOP, 0)
         ENDIF
         TEMP = TMAX
         DO I = 1,N
@@ -112,7 +112,8 @@ C        TMAX = Z
 C
         DO 2000 IJK = 1,NLOOP
         IF (IVERB == 1) THEN
-            CALL dblepr('', -1, DBLE(TEMP), 1)
+            CALL intpr('Step', -1, IJK, 1)
+            CALL dblepr('TEMP', -1, DBLE(TEMP), 1)
         ENDIF
 
 C   R interrupt
@@ -277,6 +278,7 @@ C
             END IF
  2001     CONTINUE
           TEMP = TEMP*COOL
+
  2000   CONTINUE
 
         IF(ZBEST.LT.ZMIN) ZMIN = ZBEST
