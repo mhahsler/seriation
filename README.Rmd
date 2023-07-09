@@ -25,7 +25,8 @@ The following methods are available to reorder dissimilarity data:
  
  *  **ARSA** - optimize the linear seriation critreion using simulated annealing   
  *  **Branch-and-bound** to minimize the unweighted/weighted column gradient 
- *  **GA** - Genetic algorithm with warm start to optimize various criteria
+ *  **GA** - Genetic algorithm with warm start to optimize any seriation criteria
+ *  **GSA** - General simmulated annealing to optimize any seriation criteria
  *  **QAP** - Quadratic assignment problem heuristic (2-SUM, linear seriation, 
           inertia, banded anti-Robinson form)
  *  **Spectral** seriation (unnormalized, normalized) 

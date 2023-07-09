@@ -137,14 +137,18 @@ the \strong{2-Sum Problem} formulation (Barnard, Pothen, and Simon 1993), the
 An important parameter is \code{rep} to return the best result out of the
 given number of repetitions with random restarts. Default is 1, but bigger
 numbers result in better and more stable results.
-\item \strong{Simulated Annealing:} \code{"SA"}
+\item \strong{General Simulated Annealing:} \code{"GSA"}
 
 Implement simulated annealing similar to the ARSA method, however, it
 can optimize
 for any criterion measure defined in \pkg{seriation}. By default the
 algorithm optimizes for the raw gradient measure and is warm started with the
 result of spectral seriation (2-Sum problem) since Hahsler (2017) shows that
-2-Sum solutions are similar to solutions for the gradient measure.
+2-Sum solutions are similar to solutions for the gradient measure. Use \code{"random"}
+for no warmstart.
+
+The initial temperature and the number of iterations is estimated by finding the
+maximal delta for a single local move.
 
 Several popular local neighborhood functions are
 provided an new can be defined (see \link{LS}).

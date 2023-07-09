@@ -71,7 +71,7 @@ LS_mixed <- function(o, pos = sample.int(length(o), 2)) {
   ## use "Random" for random init.
   localsearch = LS_insert,
   cool = 0.5,
-  tmin = 0.0001,
+  tmin = 1e-7,
   nlocal = 10,
   ## try nlocal x n local search steps
   verbose = FALSE
@@ -85,7 +85,7 @@ seriate_sa <- function(x, control = NULL) {
     .check_dist_perm(x, order = param$init)
   } else{
     if (param$verbose)
-      cat("\nObtaining initial solution via:",
+      cat("Obtaining initial solution via:",
         param$init, "\n")
     o <- get_order(seriate(x, method = param$init))
   }
@@ -93,11 +93,11 @@ seriate_sa <- function(x, control = NULL) {
   z <- criterion(x, o, method = param$criterion, force_loss = TRUE)
   if (param$verbose)
     cat("Initial z =", z,
-      "(converted into loss if necessary)\n")
+      "(minimize)\n")
 
   iloop <- param$nlocal * n
 
-  # find tmax (largest change for a move)
+  # find the starting temperature tmax (largest bad change move has a .8 probability)
   znew <- replicate(iloop, expr = {
     criterion(x,
       param$localsearch(o),
@@ -105,14 +105,15 @@ seriate_sa <- function(x, control = NULL) {
       force_loss = TRUE)
   })
 
-  tmax <- max(z - znew)
-  if (tmax < 0)
+  delta_max <- max(z - znew)
+  tmax <- - delta_max / log(.8)
+  if (tmax <= 0)
     nloop <- 1L
   else
     nloop <- as.integer((log(param$tmin) - log(tmax)) / log(param$cool))
 
   if (param$verbose)
-    cat("Found tmax = ", tmax, "using", nloop, "iterations\n")
+    cat("Found tmax =", tmax, "using", nloop, "iterations with", iloop, "tries each\n\n")
 
   zbest <- z
   temp <- tmax
@@ -129,6 +130,7 @@ seriate_sa <- function(x, control = NULL) {
           force_loss = TRUE)
       delta <- z - znew
 
+      # we minimize, delta < 0 is a bad move
       if (delta > 0 || runif(1) < exp(delta / temp)) {
         o <- onew
         z <- znew
@@ -137,11 +139,11 @@ seriate_sa <- function(x, control = NULL) {
     }
 
     if (param$verbose) {
-      cat("temp = ",
-        round(temp, 4),
+      cat(i, "/", nloop, "\ttemp =",
+        signif(temp, 3),
         "\tz =",
         z,
-        "\t performed moves = ",
+        "\t accepted moves =",
         m,
         "/",
         iloop,
@@ -156,7 +158,7 @@ seriate_sa <- function(x, control = NULL) {
 
 set_seriation_method(
   "dist",
-  "SA",
+  "GSA",
   seriate_sa,
   paste0(
     "Minimize a specified seriation measure (criterion) using simulated annealing.\n",

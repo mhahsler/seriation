@@ -29,6 +29,7 @@
 - HC-based seriation: The control parameter method is now linkage so it can be used
   in seriate() in the ...
 - seriation method spectral now also returns the embedding.
+- Seriation method simmulated annealing is now called "GSA".
 
 ## Bug Fixes
 - fixed labels returned by uniscale()

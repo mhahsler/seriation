@@ -116,14 +116,18 @@
 #'   given number of repetitions with random restarts. Default is 1, but bigger
 #'   numbers result in better and more stable results.
 #'
-#' - **Simulated Annealing:** `"SA"`
+#' - **General Simulated Annealing:** `"GSA"`
 #'
 #'   Implement simulated annealing similar to the ARSA method, however, it
 #'   can optimize
 #'   for any criterion measure defined in \pkg{seriation}. By default the
 #'   algorithm optimizes for the raw gradient measure and is warm started with the
 #'   result of spectral seriation (2-Sum problem) since Hahsler (2017) shows that
-#'   2-Sum solutions are similar to solutions for the gradient measure.
+#'   2-Sum solutions are similar to solutions for the gradient measure. Use `"random"`
+#'   for no warmstart.
+#'
+#'   The initial temperature and the number of iterations is estimated by finding the
+#'   maximal delta for a single local move.
 #'
 #'   Several popular local neighborhood functions are
 #'   provided an new can be defined (see [LS]).
