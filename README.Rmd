@@ -40,11 +40,11 @@ The following methods are available to reorder dissimilarity data:
  *  **isomap** -  Isometric feature mapping ordination
  *  **monoMDS** - Global and local non-metric multidimensional scaling (NMDS).
  *  **metaMDS** - Nonmetric multidimensional scaling with stable solution from random starts
- *  **Sammon's non-linear mapping** 
+ *  **Sammon** - Order along the 1D Sammon's non-linear mapping
  *  **smacof** - Stress minimization using majorization (metric/nonmetric)
- *  **TSNE** - Order of the 1D t-distributed stochastic neighbor embedding (t-SNE)
- *  **UMAP** - Order of the 1D embedding produced by uniform manifold approximation and projection
- *  **VAE** - Order if the 1D embedding produced by a variational autoencoder.
+ *  **TSNE** - Order along the 1D t-distributed stochastic neighbor embedding (t-SNE)
+ *  **UMAP** - Order along the 1D embedding produced by uniform manifold approximation and projection
+ *  **VAE** - Order along the 1D embedding produced by a variational autoencoder.
  
  **Dendrogram-based**
  
@@ -76,13 +76,14 @@ The following methods are available to reorder rows and columns of data matrices
  *  **Heatmap** - reorders rows and columns independently by calculation row/column distances 
       and applying a seriation method (default is optimal leaf ordering) 
  *  **Identity** permutation 
- *  **Row/Column means** - reorders using row and column means.
+ *  **LLE** reorder along a 1D locally linear embedding. 
+ *  **Means** - reorders using row and column means.
  *  **PCA** - orders along the first principal component or angle on the projection on the first two principal components
  *  **Random** permutation 
  *  **Reverse** order
- *  **TSNE** - Order of the 1D t-distributed stochastic neighbor embedding (t-SNE)
- *  **UMAP** - Order of the 1D embedding produced by uniform manifold approximation and projection
- *  **VAE** - Order of the 1D embedding produced by a variational autoencoder.
+ *  **TSNE** - Order along the 1D t-distributed stochastic neighbor embedding (t-SNE)
+ *  **UMAP** - Order along the 1D embedding produced by uniform manifold approximation and projection
+ *  **VAE** - Order along the 1D embedding produced by a variational autoencoder.
 
 ```{r echo=FALSE, results = 'asis'}
 pkg_install(pkg)

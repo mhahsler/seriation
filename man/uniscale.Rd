@@ -7,7 +7,7 @@
 \alias{plot_config}
 \title{Unidimensional Scaling from Seriation Results}
 \usage{
-uniscale(d, order = NULL, method = "MDS", warn = TRUE, ...)
+uniscale(d, order, accept_reorder = FALSE, warn = TRUE, ...)
 
 MDS_stress(d, order, refit = TRUE, warn = FALSE)
 
@@ -18,11 +18,11 @@ plot_config(x, main, pch = 19, labels = TRUE, pos = 1, ...)
 \arguments{
 \item{d}{a dissimilarity matrix.}
 
-\item{order}{a precomputed permutation (configuration) order.  If
-\code{NULL}, then seriation is performed using the method specified in
-\code{method}.}
+\item{order}{a precomputed permutation (configuration) order.}
 
-\item{method}{seriation method used if \code{o} is \code{NULL}.}
+\item{accept_reorder}{logical; accept a configuration that does not preserve
+the requested order. If \code{FALSE}, the initial configuration stored in \code{order}
+or, an equally spaced configuration is returned.}
 
 \item{warn}{logical; produce a warning if the 1D MDS fit does not preserve the
 given order.}
@@ -54,14 +54,14 @@ Calculates an (approximate) unidimensional scaling configuration given an order.
 \details{
 This implementation uses the method describes in Maier and De Leeuw (2015) to calculate the
 minimum stress configuration for a given (seriation) order by performing a 1D MDS fit.
-If the 1D MDS fit does not preserve the given order perfectly (i.e., because the
-order was not calculated using MDS), then a warning is produced indicating
+If the 1D MDS fit does not preserve the given order perfectly, then a warning is
+produced indicating
 for how many positions order could not be preserved.
+The seriation method which is consistent to uniscale is \code{"MDS_smacof"}
+which needs to be registered with \code{\link[=register_smacof]{register_smacof()}}.
 
-If no order is specified, then
-a seriation order is first found using the specified seriation method.
 The code is similar to \code{uniscale()} in \pkg{smacof} (de Leeuw, 2090), but scales to larger
-datasets since it only checks the permutation given by the seriation order.
+datasets since it only uses the permutation given by  \code{order}.
 
 \code{MDS_stress} calculates the normalized stress of a configuration given by a seriation order.
 If the order does not contain a configuration, then a minimum-stress configuration if calculates
@@ -74,7 +74,8 @@ Some seriation methods produce a MDS configuration (a 1D or 2D embedding). \code
 retrieved the configuration attribute from the \code{ser_permutation_vector}. \code{NULL}
 is returned if the seriation did not produce a configuration.
 
-\code{plot_config()} plots 1D and 2D configurations.
+\code{plot_config()} plots 1D and 2D configurations. \code{...} is passed on
+to \code{\link{plot.default}} and accepts \code{col}, \code{labels}, etc.
 }
 \examples{
 data(SupremeCourt)
@@ -117,6 +118,9 @@ Mair P., De Leeuw J. (2015). Unidimensional scaling. In
 Jan de Leeuw, Patrick Mair (2009). Multidimensional Scaling Using Majorization:
 SMACOF in R. Journal of Statistical Software, 31(3), 1-30.
 \doi{10.18637/jss.v031.i03}
+}
+\seealso{
+\code{\link[=register_smacof]{register_smacof()}}
 }
 \author{
 Michael Hahsler with code from Patrick Mair (from \pkg{smacof}).

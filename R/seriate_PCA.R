@@ -26,7 +26,7 @@
   verbose = FALSE
 )
 
-seriate_matrix_fpc <- function(x, control = NULL, margin = NULL) {
+seriate_matrix_fpc <- function(x, control = NULL, margin) {
   control <- .get_parameters(control, .pca_contr)
 
   center  <- control$center
@@ -34,45 +34,43 @@ seriate_matrix_fpc <- function(x, control = NULL, margin = NULL) {
   tol     <- control$tol
   verbose <- control$verbose
 
+  o <- list(row = NA, col = NA)
+
   if (1L %in% margin) {
     pr <- stats::prcomp(x,
                         center = center,
                         scale. = scale.,
                         tol = tol)
     scores <- pr$x[, 1]
-    row <- order(scores)
-    attr(row, "configuration") <- scores
+    os <- order(scores)
+    o$row <- structure(os, names = rownames(x)[os], configuration = scores)
 
     if (verbose)
       cat("Rows: first PC explains",
           pr$sdev[1] / sum(pr$sdev) * 100,
           "%\n")
-    names(row) <- rownames(x)[row]
-  } else
-    row <- NA
-
+  }
 
   if (2L %in% margin) {
-    pr <- stats::prcomp(t(x),
+    x <- t(x)
+    pr <- stats::prcomp(x,
                  center = center,
                  scale. = scale.,
                  tol = tol)
     scores <- pr$x[, 1]
-    col <- order(scores)
-    attr(col, "configuration") <- scores
+    os <- order(scores)
+    o$col <- structure(os, names = rownames(x)[os], configuration = scores)
 
      if (verbose)
       cat("Cols: first PC explains",
           pr$sdev[1] / sum(pr$sdev) * 100,
           "%\n")
-    names(col) <- colnames(x)[col]
-  } else
-    col <- NA
+  }
 
   if (verbose)
     cat("\n")
 
-  list(row = row, col = col)
+  o
 }
 
 ## Angle between the first 2 PCs.
@@ -95,7 +93,7 @@ seriate_matrix_fpc <- function(x, control = NULL, margin = NULL) {
                      scale. = FALSE,
                      tol = NULL)
 
-seriate_matrix_angle <- function(x, control = NULL, margin = seq_along(dim(x))) {
+seriate_matrix_angle <- function(x, control = NULL, margin) {
   control <- .get_parameters(control, .angle_contr)
 
   center  <- control$center

@@ -22,14 +22,15 @@
 #'
 #' This implementation uses the method describes in Maier and De Leeuw (2015) to calculate the
 #' minimum stress configuration for a given (seriation) order by performing a 1D MDS fit.
-#' If the 1D MDS fit does not preserve the given order perfectly (i.e., because the
-#' order was not calculated using MDS), then a warning is produced indicating
+#' If the 1D MDS fit does not preserve the given order perfectly, then a warning is
+#' produced indicating
 #' for how many positions order could not be preserved.
+#' The seriation method which is consistent to uniscale is `"MDS_smacof"`
+#' which needs to be registered with [`register_smacof()`].
 #'
-#' If no order is specified, then
-#' a seriation order is first found using the specified seriation method.
+#'
 #' The code is similar to `uniscale()` in \pkg{smacof} (de Leeuw, 2090), but scales to larger
-#' datasets since it only checks the permutation given by the seriation order.
+#' datasets since it only uses the permutation given by  `order`.
 #'
 #' `MDS_stress` calculates the normalized stress of a configuration given by a seriation order.
 #' If the order does not contain a configuration, then a minimum-stress configuration if calculates
@@ -42,13 +43,14 @@
 #' retrieved the configuration attribute from the `ser_permutation_vector`. `NULL`
 #' is returned if the seriation did not produce a configuration.
 #'
-#' `plot_config()` plots 1D and 2D configurations.
+#' `plot_config()` plots 1D and 2D configurations. `...` is passed on
+#'   to [`plot.default`] and accepts `col`, `labels`, etc.
 #'
 #' @param d a dissimilarity matrix.
-#' @param order a precomputed permutation (configuration) order.  If
-#' \code{NULL}, then seriation is performed using the method specified in
-#' \code{method}.
-#' @param method seriation method used if \code{o} is \code{NULL}.
+#' @param order a precomputed permutation (configuration) order.
+#' @param accept_reorder logical; accept a configuration that does not preserve
+#'  the requested order. If `FALSE`, the initial configuration stored in `order`
+#'  or, an equally spaced configuration is returned.
 #' @param warn logical; produce a warning if the 1D MDS fit does not preserve the
 #'  given order.
 #' @param \dots additional arguments are passed on to the seriation method.
@@ -61,7 +63,7 @@
 #' Jan de Leeuw, Patrick Mair (2009). Multidimensional Scaling Using Majorization:
 #' SMACOF in R. Journal of Statistical Software, 31(3), 1-30.
 #' \doi{10.18637/jss.v031.i03}
-#'
+#' @seealso [register_smacof()]
 #' @keywords optimize
 #' @examples
 #' data(SupremeCourt)
@@ -98,8 +100,8 @@
 #' @export
 uniscale <-
   function(d,
-           order = NULL,
-           method = "MDS",
+           order,
+           accept_reorder = FALSE,
            warn = TRUE,
            ...) {
     d <- as.dist(d)
@@ -109,7 +111,9 @@ uniscale <-
     else
       order <- ser_permutation(order)
 
-    init_config <- get_rank(order)
+    init_config <- get_config(order)
+    if (is.null(init_config))
+      init_config <- get_rank(order)
     n <- length(init_config)
 
     if (attr(d, "Size") != n)
@@ -117,14 +121,7 @@ uniscale <-
 
     # we do not use weights
     w <- 1 - diag(n)
-
-    # normalize the distances to roughly n*(n-1) / 2 so the average distance
-    # is close to 1
-    normDissN <- function (diss)
-      diss / sqrt(sum(diss ^ 2, na.rm = TRUE)) *
-        sqrt(length(diss))
-
-    delta <- as.matrix(normDissN(d))
+    delta <- as.matrix(.normDiss(d))
 
     v <- as.matrix(solve((diag(rowSums(
       w
@@ -142,7 +139,7 @@ uniscale <-
               n, " - returning initial configuration instead.")
     }
 
-    if (mismatches > 0)
+    if (!accept_reorder && mismatches > 0)
       t <- init_config
 
     #cat("init:\n")
@@ -154,13 +151,17 @@ uniscale <-
     t
   }
 
+# normalize the distances to roughly n*(n-1) / 2 so the average distance
+# is close to 1
+.normDiss <- function (diss)
+  diss / sqrt(sum(diss ^ 2, na.rm = TRUE)) *
+  sqrt(length(diss))
+
 #' @rdname uniscale
 #' @param refit logical; forces to refit a minimum-stress MDS configuration,
 #'  even if `order` contains a configuration.
 #' @export
 MDS_stress <- function(d, order, refit = TRUE, warn = FALSE) {
-  normDiss <- function (diss)
-    diss / sqrt(sum(diss ^ 2, na.rm = TRUE)) * sqrt(length(diss))
 
   d <- as.dist(d)
   o <- ser_permutation(order)
@@ -171,8 +172,8 @@ MDS_stress <- function(d, order, refit = TRUE, warn = FALSE) {
 
   d_emb <- dist(emb)
 
-  d_emb <- normDiss(d_emb)
-  d <- normDiss(d)
+  d_emb <- .normDiss(d_emb)
+  d <- .normDiss(d)
 
   sqrt(sum((d - d_emb)^2) / sum(d_emb^2))
 }
@@ -195,7 +196,10 @@ get_config <- function(x, dim = 1L, ...) {
   if (inherits(x, "ser_permutation_vector"))
     x <- attr(x, "configuration")
 
-  if(!is.null(x) && !is.numeric(x))
+  if(is.null(x))
+    return(NULL)
+
+  if (!(is.numeric(x) && ((is.vector(x) || is.matrix(x)))))
     stop("Unable to get configuration. Supply a ser_permutation.")
 
   x

@@ -67,13 +67,14 @@ LS_mixed <- function(o, pos = sample.int(length(o), 2)) {
 
 .sa_contr <- list(
   criterion = "Gradient_raw",
-  init = "Spectral",
+  warmstart = "Spectral",
   ## use "Random" for random init.
   localsearch = LS_insert,
   cool = 0.5,
   tmin = 1e-7,
   nlocal = 10,
-  ptmax = .5,
+  t0 = NA,
+  pinitialaccept = .01,
   ## try nlocal x n local search steps
   verbose = FALSE
 )
@@ -87,8 +88,8 @@ seriate_sa <- function(x, control = NULL) {
   } else{
     if (param$verbose)
       cat("Obtaining initial solution via:",
-        param$init, "\n")
-    o <- get_order(seriate(x, method = param$init))
+        param$warmstart, "\n")
+    o <- get_order(seriate(x, method = param$warmstart))
   }
 
   z <- criterion(x, o, method = param$criterion, force_loss = TRUE)
@@ -98,29 +99,35 @@ seriate_sa <- function(x, control = NULL) {
 
   iloop <- param$nlocal * n
 
-  # find the starting temperature tmax such that the worst found move has
-  # a probability of ptmax to be accepted.
-  # set to 0 if no bad move can be found (possible with a good warm start solution)
-  znew <- replicate(iloop, expr = {
-    criterion(x,
-      param$localsearch(o),
-      method = param$criterion,
-      force_loss = TRUE)
-  })
+  t0 <- param$t0
+  if (is.na(t0)) {
+    # find the starting temperature. Set the probability of the average
+    # (we use median) uphill move to pinitaccept.
+    znew <- replicate(iloop, expr = {
+      criterion(x,
+                param$localsearch(o),
+                method = param$criterion,
+                force_loss = TRUE)
+    })
 
-  delta_max <- max(z - znew)
-  tmax <- - delta_max / log(param$ptmax)
-  if (tmax <= 0) {
-    tmax <- 0
+    deltas <- (z - znew)
+    deltas[deltas > 0] <- NA
+    avg_delta <- median(deltas, na.rm = TRUE)
+    t0 <- avg_delta / log(param$pinitialaccept)
+  }
+
+  nloop <- as.integer((log(param$tmin) - log(t0)) / log(param$cool))
+
+  if (t0 <= 0) {
+    t0 <- 0
     nloop <- 1L
-  } else
-    nloop <- as.integer((log(param$tmin) - log(tmax)) / log(param$cool))
+  }
 
   if (param$verbose)
-    cat("Found tmax =", tmax, "using", nloop, "iterations with", iloop, "tries each\n\n")
+    cat("Use t0 =", t0, "resulting in", nloop, "iterations with", iloop, "tries each\n\n")
 
   zbest <- z
-  temp <- tmax
+  temp <- t0
 
   for (i in 1:nloop) {
     m <- 0L
@@ -135,7 +142,7 @@ seriate_sa <- function(x, control = NULL) {
       delta <- z - znew
 
       # we minimize, delta < 0 is a bad move
-      if (delta > 0 || runif(1) < exp(delta / temp)) {
+      if (delta > 0 || temp > 0 && runif(1) < exp(delta / temp)) {
         o <- onew
         z <- znew
         m <- m + 1L

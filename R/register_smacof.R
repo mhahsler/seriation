@@ -19,7 +19,7 @@
 
 #' Register Seriation Methods from Package smacof
 #'
-#' Registers the `"smacof"` method for [seriate()] based on multidemensional
+#' Registers the `"MDS_smacof"` method for [seriate()] based on multidemensional
 #' scaling using stress majorization and the corresponding `"smacof_stress0"`
 #' criterion implemented in package smacof (de Leeuw & Mair, 2009).
 #'
@@ -124,7 +124,7 @@ register_smacof <- function() {
              ...) {
       conf <- get_config(order)
       if (is.null(conf))
-        conf <- uniscale(x, warn = warn)
+        conf <- uniscale(x, order, warn = warn)
 
       smacof::stress0(x, cbind(conf), type = type, ...)$stress
     }

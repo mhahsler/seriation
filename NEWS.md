@@ -17,7 +17,8 @@
 - Added register_smacof().
 - New seriation methods from vegan: isomap, monoMDS, metaMDS.
 - New seriation method "Enumerate" for complete enumeration.
-- New seriation method "mean" for matrix.
+- New seriation method "Mean" for matrix.
+- New seriation method "LLE" (locally linear embedding) for matrix.
 - Heatmap seriation has now special seriation_method "mean".
 
   

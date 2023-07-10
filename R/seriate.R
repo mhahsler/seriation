@@ -123,16 +123,18 @@
 #'   for any criterion measure defined in \pkg{seriation}. By default the
 #'   algorithm optimizes for the raw gradient measure and is warm started with the
 #'   result of spectral seriation (2-Sum problem) since Hahsler (2017) shows that
-#'   2-Sum solutions are similar to solutions for the gradient measure. Use `"random"`
-#'   for no warm start.
+#'   2-Sum solutions are similar to solutions for the gradient measure.
+#'   Use `warmstart = "random"` for no warm start.
 #'
-#'   The initial temperature and the number of iterations is estimated by sampling
-#'   local moves to find the delta for the worst move and then calculate the
-#'   temperature which would lead to accepting the move with probability set
-#'   via the control parameter `"ptmax"`.
+#'   The initial temperature `t0` and minimum temperature `tmin` can be set. If
+#'   `t0` is not set, then it is estimated by sampling uphill moves and setting
+#'   `t0` such that the median uphill move have a probability
+#'    of `tinitialaccept`. The number of iterations to go for `t0` to `tmin`
+#'    using the learning rate `cool` is calculated.
 #'
 #'   Several popular local neighborhood functions are
-#'   provided an new can be defined (see [LS]).
+#'   provided an new can be defined (see [LS]). Local moves are tried in each
+#'   iteration `nlocal` times the number of objects.
 #'
 #'   Note that this is an R implementation repeatedly calling criterion, and
 #'   therefore is very slow.
@@ -201,6 +203,11 @@
 #'       and then orders by the angle in this space. The order is split by the
 #'       larges gap between adjacent angles. A similar method was used for ordering
 #'       correlation matrices by Friendly (2002).
+#'
+#'   - **Smacof:** `"MDS_smacof"` (de Leeuw and Mair, 2009)
+#'
+#'      Perform seriation using stress majorization with several transformation functions.
+#'      This method has to be registered first using [`register_smacof()`].
 #'
 #' **Dendrogram-based**
 #'

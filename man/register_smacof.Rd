@@ -12,7 +12,7 @@ register_smacof()
 Nothing.
 }
 \description{
-Registers the \code{"smacof"} method for \code{\link[=seriate]{seriate()}} based on multidemensional
+Registers the \code{"MDS_smacof"} method for \code{\link[=seriate]{seriate()}} based on multidemensional
 scaling using stress majorization and the corresponding \code{"smacof_stress0"}
 criterion implemented in package smacof (de Leeuw & Mair, 2009).
 }
