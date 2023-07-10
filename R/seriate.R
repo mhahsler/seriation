@@ -124,10 +124,12 @@
 #'   algorithm optimizes for the raw gradient measure and is warm started with the
 #'   result of spectral seriation (2-Sum problem) since Hahsler (2017) shows that
 #'   2-Sum solutions are similar to solutions for the gradient measure. Use `"random"`
-#'   for no warmstart.
+#'   for no warm start.
 #'
-#'   The initial temperature and the number of iterations is estimated by finding the
-#'   maximal delta for a single local move.
+#'   The initial temperature and the number of iterations is estimated by sampling
+#'   local moves to find the delta for the worst move and then calculate the
+#'   temperature which would lead to accepting the move with probability set
+#'   via the control parameter `"ptmax"`.
 #'
 #'   Several popular local neighborhood functions are
 #'   provided an new can be defined (see [LS]).

@@ -73,6 +73,7 @@ LS_mixed <- function(o, pos = sample.int(length(o), 2)) {
   cool = 0.5,
   tmin = 1e-7,
   nlocal = 10,
+  ptmax = .5,
   ## try nlocal x n local search steps
   verbose = FALSE
 )
@@ -97,7 +98,9 @@ seriate_sa <- function(x, control = NULL) {
 
   iloop <- param$nlocal * n
 
-  # find the starting temperature tmax (largest bad change move has a .8 probability)
+  # find the starting temperature tmax such that the worst found move has
+  # a probability of ptmax to be accepted.
+  # set to 0 if no bad move can be found (possible with a good warm start solution)
   znew <- replicate(iloop, expr = {
     criterion(x,
       param$localsearch(o),
@@ -106,10 +109,11 @@ seriate_sa <- function(x, control = NULL) {
   })
 
   delta_max <- max(z - znew)
-  tmax <- - delta_max / log(.8)
-  if (tmax <= 0)
+  tmax <- - delta_max / log(param$ptmax)
+  if (tmax <= 0) {
+    tmax <- 0
     nloop <- 1L
-  else
+  } else
     nloop <- as.integer((log(param$tmin) - log(tmax)) / log(param$cool))
 
   if (param$verbose)
