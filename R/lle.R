@@ -6,8 +6,6 @@
 #' Performs the non linear dimensionality reduction method locally linear embedding
 #' proposed in Roweis and Saul (2000).
 #'
-#' @name lle
-#' @aliases lle LLE
 #'
 #' LLE tries to find a lower-dimensional projection which preserves distances
 #' within local neighborhoods. This is done by (1) find for each object the
@@ -24,6 +22,9 @@
 #' - `reg = 1`: standardized sum of eigenvalues of \eqn{G} (Roweis and Saul; 2000)
 #' - `reg = 2` (default): trace of Gram-matrix divided by \eqn{k} (Grilli, 2007)
 #' - `reg = 3`: constant value 3*10e-3
+#'
+#' @name lle
+#' @aliases lle LLE
 #'
 #' @param x a matrix.
 #' @param m dimensions of the desired embedding.

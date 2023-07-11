@@ -16,11 +16,12 @@ techniques to reorder matrices, dissimilarity matrices, and dendrograms
 heatmaps, color images and clustering visualizations like dissimilarity
 plots, and visual assessment of cluster tendency plots (VAT and iVAT).
 
-## Available Seriation Method
+## Available seriation methods to reorder dissimilarity data
 
-The following methods are available to reorder dissimilarity data:
+### Optimization
 
-**Optimization-based**
+These methods try to optimize a seriation criterion directly typically
+using a heuristic approach.
 
 - **ARSA** - optimize the linear seriation critreion using simulated
   annealing  
@@ -30,32 +31,42 @@ The following methods are available to reorder dissimilarity data:
   criteria
 - **GSA** - General simulated annealing to optimize any seriation
   criteria
-- **QAP** - Quadratic assignment problem heuristic (2-SUM, linear
-  seriation, inertia, banded anti-Robinson form)
-- **Spectral** seriation (unnormalized, normalized)
+- **QAP** - Quadratic assignment problem heuristic (optimizes 2-SUM,
+  linear seriation, inertia, banded anti-Robinson form)
+- **Spectral** seriation to optimize the 2-SUM criterion (unnormalized,
+  normalized)
 - **TSP** - Traveling sales person solver to minimize the Hamiltonian
   path length
 
-**Multidimensional Scaling**
+### Dimensionality reduction
+
+Find a seriation order by reducing the dimensionalty to 1 dimension.
+This is typically done by minimizing a stress measure or the
+reconstruction error.
 
 - **MDS** - classical metric multidimensional scaling
-- **Angle in 2D principal coordinates space**
-- **isoMDS** - Krusakl’s isoMDS
-- **isomap** - Isometric feature mapping ordination
-- **monoMDS** - Global and local non-metric multidimensional scaling
-  (NMDS).
-- **metaMDS** - Nonmetric multidimensional scaling with stable solution
-  from random starts
+- **MDS (angle)** - order by the angle in 2D principal coordinates space
+- **isoMDS** - 1D Krusakl’s non-metric multidimensional scaling
+- **isomap** - 1D isometric feature mapping ordination
+- **monoMDS** - order along 1D global and local non-metric
+  multidimensional scaling using monotone regression (NMDS)
+- **metaMDS** - 1D non-metric multidimensional scaling (NMDS) with
+  stable solution from random starts
 - **Sammon** - Order along the 1D Sammon’s non-linear mapping
-- **smacof** - Stress minimization using majorization (metric/nonmetric)
+- **smacof** - 1D MDS using majorization (ratio MDS, interval MDS,
+  ordinal MDS)
 - **TSNE** - Order along the 1D t-distributed stochastic neighbor
   embedding (t-SNE)
 - **UMAP** - Order along the 1D embedding produced by uniform manifold
   approximation and projection
 - **VAE** - Order along the 1D embedding produced by a variational
-  autoencoder.
+  autoencoder
 
-**Dendrogram-based**
+### Dendrogram leaf order
+
+These methods create a dendrogram using hierarchical clustering and then
+derive the seriation order from the leaf order in the dendrogram. Leaf
+reordering may be applied.
 
 - **DendSer** - Dendrogram seriation heuristic to optimize various
   criteria
@@ -65,11 +76,11 @@ The following methods are available to reorder dissimilarity data:
   link)
 - **OLO** - Hierarchical clustering with optimal leaf ordering
 
-**Other**
+### Other Methods
 
 - **Identity** permutation
 - **OPTICS** - Order of ordering points to identify the clustering
-  structure.
+  structure
 - **R2E** - Rank-two ellipse seriation
 - **Random** permutation
 - **Reverse** order
@@ -82,31 +93,47 @@ experimental comparison of seriation methods for one-mode two-way
 data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) (read the
 [preprint](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf)).
 
-The following methods are available to reorder rows and columns of data
-matrices:
+## Available seriation methods to reorder data matrices, count tables, and data.frames
+
+### Seriating rows and columns simultaneously
+
+Row and column order influence each other.
 
 - **BEA** - Bond Energy Algorithm to maximize the measure of
   effectiveness (ME)
-- **BEA_TSP** - TSP to optimize the Measure of Effectiveness
+- **BEA_TSP** - TSP to optimize the measure of effectiveness
 - **CA** - calculates a correspondence analysis of a matrix of
   frequencies (count table) and reorders according to the scores on a
   correspondence analysis dimension
+
+### Seriating rows and columns separately using dissimilarities
+
 - **Heatmap** - reorders rows and columns independently by calculation
-  row/column distances and applying a seriation method (default is
-  optimal leaf ordering)
-- **Identity** permutation
-- **LLE** reorder along a 1D locally linear embedding.
-- **Means** - reorders using row and column means.
-- **PCA** - orders along the first principal component or angle on the
-  projection on the first two principal components
-- **Random** permutation
-- **Reverse** order
+  row/column distances and then applying a seriation method for
+  dissimilarities (see above)
+
+### Seriate rows using the data matrix
+
+These methods need access to the data matrix instead of dissimilarities
+to reorder objects (rows).
+
+- **LLE** reorder along a 1D locally linear embedding
+- **Means** - reorders using row and column means
+- **PCA** - orders along the first principal component
+- **PCA (angle)** - orders by the angle on the projection on the first
+  two principal components
 - **TSNE** - Order along the 1D t-distributed stochastic neighbor
   embedding (t-SNE)
 - **UMAP** - Order along the 1D embedding produced by uniform manifold
   approximation and projection
 - **VAE** - Order along the 1D embedding produced by a variational
-  autoencoder.
+  autoencoder
+
+### Other methods
+
+- **Identity** permutation
+- **Random** permutation
+- **Reverse** order
 
 ## Installation
 
@@ -182,8 +209,8 @@ get_order(order)
     ##         8
 
 ``` r
-pimage(d, diag = TRUE, upper = TRUE, main = "judges in original alphabetical order")
-pimage(d, order, diag = TRUE, upper = TRUE, main = "judges reordered by seriation")
+pimage(d, main = "judges in original alphabetical order")
+pimage(d, order, main = "judges reordered by seriation")
 ```
 
 <img src="inst/README_files/seriation-1.png" width="50%" /><img src="inst/README_files/seriation-2.png" width="50%" />
@@ -203,6 +230,24 @@ rbind(alphabetical = criterion(d), seriated = criterion(d, order))
     ##              Moore_stress Neumann_stress Path_length RGAR   Rho
     ## alphabetical          7.0            3.9         1.8 0.48 0.028
     ## seriated              2.5            1.3         1.1 0.03 0.913
+
+Some seriation methods also return a configuration to judge how close
+objects are to each other.
+
+``` r
+get_config(order)
+```
+
+    ##    Breyer  Ginsburg   Kennedy   OConnor Rehnquist    Scalia    Souter   Stevens 
+    ##      0.24      0.28     -0.15     -0.11     -0.27     -0.42      0.21      0.61 
+    ##    Thomas 
+    ##     -0.41
+
+``` r
+plot_config(order)
+```
+
+![](inst/README_files/unnamed-chunk-6-1.png)<!-- -->
 
 ## References
 

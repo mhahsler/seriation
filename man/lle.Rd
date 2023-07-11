@@ -3,107 +3,6 @@
 \name{lle}
 \alias{lle}
 \alias{LLE}
-\alias{tries}
-\alias{to}
-\alias{find}
-\alias{a}
-\alias{lower-dimensional}
-\alias{projection}
-\alias{which}
-\alias{preserves}
-\alias{distances}
-\alias{within}
-\alias{local}
-\alias{neighborhoods.}
-\alias{This}
-\alias{is}
-\alias{done}
-\alias{by}
-\alias{(1)}
-\alias{for}
-\alias{each}
-\alias{object}
-\alias{the}
-\alias{k}
-\alias{nearest}
-\alias{neighbors,}
-\alias{(2)}
-\alias{construct}
-\alias{weight}
-\alias{matrix}
-\alias{represents}
-\alias{point}
-\alias{as}
-\alias{linear}
-\alias{combination}
-\alias{of}
-\alias{its}
-\alias{neighborhood,}
-\alias{and}
-\alias{perform}
-\alias{partial}
-\alias{eigenvalue}
-\alias{decomposition}
-\alias{embedding.}
-\alias{The}
-\alias{`reg`}
-\alias{parameter}
-\alias{allows}
-\alias{decision}
-\alias{between}
-\alias{different}
-\alias{regularization}
-\alias{methods.}
-\alias{As}
-\alias{one}
-\alias{step}
-\alias{algorithm,}
-\alias{inverse}
-\alias{Gram-matrix}
-\alias{\eqn{G\in}
-\alias{R^{kxk}}}
-\alias{has}
-\alias{be}
-\alias{calculated.}
-\alias{rank}
-\alias{\eqn{G}}
-\alias{equals}
-\alias{\eqn{m}}
-\alias{mostly}
-\alias{smaller}
-\alias{than}
-\alias{\eqn{k}}
-\alias{-}
-\alias{this}
-\alias{why}
-\alias{\eqn{G^{(i)}+r\cdot}
-\alias{I}}
-\alias{should}
-\alias{performed.}
-\alias{calculation}
-\alias{\eqn{r}}
-\alias{can}
-\alias{using}
-\alias{methods:}
-\alias{`reg}
-\alias{=}
-\alias{1`:}
-\alias{standardized}
-\alias{sum}
-\alias{eigenvalues}
-\alias{(Roweis}
-\alias{Saul;}
-\alias{2000)}
-\alias{2`}
-\alias{(default):}
-\alias{trace}
-\alias{divided}
-\alias{(Grilli,}
-\alias{2007)}
-\alias{3`:}
-\alias{constant}
-\alias{value}
-\alias{3*10e-3}
 \title{Locally Linear Embedding (LLE)}
 \usage{
 lle(x, m, k, reg = 2)
@@ -123,6 +22,24 @@ a matrix of vector with the embedding.
 \description{
 Performs the non linear dimensionality reduction method locally linear embedding
 proposed in Roweis and Saul (2000).
+}
+\details{
+LLE tries to find a lower-dimensional projection which preserves distances
+within local neighborhoods. This is done by (1) find for each object the
+k nearest neighbors, (2) construct the LLE weight matrix
+which represents each point as a linear combination of its neighborhood, and
+(2) perform partial eigenvalue decomposition to find the embedding.
+
+The \code{reg} parameter allows the decision between different regularization methods.
+As one step of the LLE algorithm, the inverse of the Gram-matrix \eqn{G\in R^{kxk}}
+has to be calculated. The rank of \eqn{G} equals \eqn{m} which is mostly smaller
+than \eqn{k} - this is why a regularization \eqn{G^{(i)}+r\cdot I} should be performed.
+The calculation of regularization parameter \eqn{r} can be done using different methods:
+\itemize{
+\item \code{reg = 1}: standardized sum of eigenvalues of \eqn{G} (Roweis and Saul; 2000)
+\item \code{reg = 2} (default): trace of Gram-matrix divided by \eqn{k} (Grilli, 2007)
+\item \code{reg = 3}: constant value 3*10e-3
+}
 }
 \examples{
 data(iris)

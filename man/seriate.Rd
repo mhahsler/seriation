@@ -78,7 +78,7 @@ Currently, the following methods are implemented (for a
 more detailed description and an experimental comparison see
 \href{https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf}{Hahsler (2017)}:
 
-\strong{Optimization-based}
+\strong{Optimization}
 
 These methods try to optimize a seriation criterion directly typically using a
 heuristic approach.
@@ -183,14 +183,16 @@ this dummy city in an optimal tour with minimal length is the best cutting
 point (it lies between the most distant cities).
 }
 
-\strong{Multidimensional Scaling}
+**Dimensionality reduction **
 
-Use multidimensional scaling techniques to find an linear order by
-minimizing \strong{strain} or a version of \strong{MDS stress}.
-Note MDS algorithms used for a single dimension
-tend to end up in local optima and unidimensional scaling (see Maier and De
-Leeuw, 2015) would be more appropriate. However, generally, ordering along
-a single component of MDS provides good results.
+Find a seriation order by reducing the dimensionalty to 1 dimension. This is typically
+done by minimizing a stress measure or the reconstruction error.
+Note that dimensionality reduction to a single dimension is a very
+difficult discrete optimization problem.
+For example, MDS algorithms used for a single dimension
+tend to end up in local optima (see Maier and De Leeuw, 2015).
+However, generally, ordering along a single component of MDS provides good results
+sufficient for applications like visualization.
 \itemize{
 \item \strong{Classical metric multidimensional scaling:} \code{"MDS"}
 
@@ -223,13 +225,13 @@ Perform seriation using stress majorization with several transformation function
 This method has to be registered first using \code{\link[=register_smacof]{register_smacof()}}.
 }
 
-\strong{Dendrogram-based}
+\strong{Dendrogram leaf order}
 
 These methods create a dendrogram using hierarchical clustering and then derive
 the seriation order from the leaf order in the dendrogram. Leaf reordering
 may be applied.
 \itemize{
-\item \strong{Dendrogram leaf order:} \code{"HC"}, \code{"HC_single"}, \code{"HC_complete"},
+\item \strong{Hierarchical clustering:} \code{"HC"}, \code{"HC_single"}, \code{"HC_complete"},
 \code{"HC_average"}, \code{"HC_ward"}
 
 Uses the order of the leaf nodes in a dendrogram obtained by hierarchical
@@ -238,7 +240,7 @@ applies hierarchical clustering (\code{\link[=hclust]{hclust()}}) to \code{x}. T
 method can be given using a \code{"linkage"} element in the \code{control}
 list. If omitted, the default \code{"complete"} is used.
 For convenience the other methods are provided as shortcuts.
-\item \strong{Reordered dendrogram leaf order (Gruvaeus and Wainer heuristic):} \code{"GW"}, \code{"GW_single"}, \code{"GW_average"},
+\item \strong{Reordered by the Gruvaeus and Wainer heuristic:} \code{"GW"}, \code{"GW_single"}, \code{"GW_average"},
 \code{"GW_complete"}, \code{"GW_ward"}  (Gruvaeus and Wainer, 1972)
 
 Method \code{"GW"} uses an algorithm developed by Gruvaeus and Wainer (1972)
@@ -258,7 +260,7 @@ and right subtree (or leaves) can be swapped, or, in terms of a dendrogram,
 be flipped. The leaf-node reordering to minimize
 
 Minimizes the \strong{Hamiltonian path length (restricted by the dendrogram)}.
-\item \strong{Reordered dendrogram leaf order (optimal leaf ordering):} \code{"OLO"}, \code{"OLO_single"},
+\item \strong{Reordered by optimal leaf ordering:} \code{"OLO"}, \code{"OLO_single"},
 \code{"OLO_average"}, \code{"OLO_complete"}, \code{"OLO_ward"}  (Bar-Joseph et al., 2001)
 
 Also starts with a dendrogram and
@@ -276,7 +278,7 @@ detailed description can be found in the manual page for
 \code{\link[=register_DendSer]{register_DendSer()}}.
 }
 
-\strong{Other}
+\strong{Other Methods}
 \itemize{
 \item \strong{Identity permutation:} `"Identity"
 \item \strong{Reverse Identity permutation:} `"Reverse"
@@ -351,6 +353,8 @@ Currently the
 following methods are implemented for matrix:
 
 \strong{Seriating rows and columns simultaneously}
+
+Row and column order influence each other.
 \itemize{
 \item \strong{Bond Energy Algorithm:} \code{"BEA"}  (McCormick, 1972).
 
@@ -405,7 +409,7 @@ This is the default method for contingency tables.
 }
 }
 
-\strong{Seriating rows and columns separately}
+\strong{Seriating rows and columns separately using dissimilarities}
 \itemize{
 \item \strong{Heatmap seriation:} \code{"Heatmap"}
 
@@ -424,6 +428,20 @@ seriation methods.
 \item \code{"dist_fun"}: specify the distance calculation as a function.
 \item \code{"scale"}: \code{"none"}, \code{"row"}, or \code{"col"}.
 }
+}
+
+\strong{Seriate rows using the data matrix}
+
+These methods need access to the data matrix instead of dissimilarities to
+reorder objects (rows). Columns can also be reorderd by appying the same technique
+to the transposed data matrix.
+\itemize{
+\item \strong{Order along the 1D locally linear embedding:} \code{"LLE"}
+}
+
+Performs 1D the non linear dimensionality reduction method locally linear embedding
+(see \code{\link[=lle]{lle()}}).
+\itemize{
 \item \strong{Order along the first principal component:} \code{"PCA"}
 
 Uses the projection of the data on its first principal component to
@@ -441,7 +459,7 @@ correlation matrices by Friendly (2002). Performs the same on the
 transposed matrix for the column order.
 }
 
-\strong{Other}
+\strong{Other methods}
 \itemize{
 \item \strong{Identity permutation:} \code{"Identity"}
 \item \strong{Reverse Identity permutation:} \code{"Reverse"}

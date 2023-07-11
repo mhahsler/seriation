@@ -53,7 +53,7 @@
 #' more detailed description and an experimental comparison see
 #' [Hahsler (2017)](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf):
 #'
-#' **Optimization-based**
+#' **Optimization**
 #'
 #' These methods try to optimize a seriation criterion directly typically using a
 #' heuristic approach.
@@ -164,14 +164,16 @@
 #'   point (it lies between the most distant cities).
 #'
 #'
-#' **Multidimensional Scaling**
+#' **Dimensionality reduction **
 #'
-#' Use multidimensional scaling techniques to find an linear order by
-#'   minimizing **strain** or a version of **MDS stress**.
-#'   Note MDS algorithms used for a single dimension
-#'   tend to end up in local optima and unidimensional scaling (see Maier and De
-#'   Leeuw, 2015) would be more appropriate. However, generally, ordering along
-#'   a single component of MDS provides good results.
+#' Find a seriation order by reducing the dimensionalty to 1 dimension. This is typically
+#' done by minimizing a stress measure or the reconstruction error.
+#' Note that dimensionality reduction to a single dimension is a very
+#' difficult discrete optimization problem.
+#' For example, MDS algorithms used for a single dimension
+#' tend to end up in local optima (see Maier and De Leeuw, 2015).
+#' However, generally, ordering along a single component of MDS provides good results
+#' sufficient for applications like visualization.
 #'
 #'   - **Classical metric multidimensional scaling:** `"MDS"`
 #'
@@ -209,13 +211,13 @@
 #'      Perform seriation using stress majorization with several transformation functions.
 #'      This method has to be registered first using [`register_smacof()`].
 #'
-#' **Dendrogram-based**
+#' **Dendrogram leaf order**
 #'
 #'  These methods create a dendrogram using hierarchical clustering and then derive
 #'  the seriation order from the leaf order in the dendrogram. Leaf reordering
 #'  may be applied.
 #'
-#'  - **Dendrogram leaf order:** `"HC"`, `"HC_single"`, `"HC_complete"`,
+#'  - **Hierarchical clustering:** `"HC"`, `"HC_single"`, `"HC_complete"`,
 #'      `"HC_average"`, `"HC_ward"`
 #'
 #'       Uses the order of the leaf nodes in a dendrogram obtained by hierarchical
@@ -225,7 +227,7 @@
 #'       list. If omitted, the default `"complete"` is used.
 #'       For convenience the other methods are provided as shortcuts.
 #'
-#' - **Reordered dendrogram leaf order (Gruvaeus and Wainer heuristic):** `"GW"`, `"GW_single"`, `"GW_average"`,
+#' - **Reordered by the Gruvaeus and Wainer heuristic:** `"GW"`, `"GW_single"`, `"GW_average"`,
 #'   `"GW_complete"`, `"GW_ward"`  (Gruvaeus and Wainer, 1972)
 #'
 #'   Method `"GW"` uses an algorithm developed by Gruvaeus and Wainer (1972)
@@ -246,7 +248,7 @@
 #'
 #'     Minimizes the **Hamiltonian path length (restricted by the dendrogram)**.
 #'
-#' - **Reordered dendrogram leaf order (optimal leaf ordering):** `"OLO"`, `"OLO_single"`,
+#' - **Reordered by optimal leaf ordering:** `"OLO"`, `"OLO_single"`,
 #'   `"OLO_average"`, `"OLO_complete"`, `"OLO_ward"`  (Bar-Joseph et al., 2001)
 #'
 #'   Also starts with a dendrogram and
@@ -264,7 +266,7 @@
 #'    detailed description can be found in the manual page for
 #'    [register_DendSer()].
 #'
-#'  **Other**
+#'  **Other Methods**
 #'
 #' - **Identity permutation:** `"Identity"
 #'
@@ -347,6 +349,8 @@
 #'
 #' **Seriating rows and columns simultaneously**
 #'
+#' Row and column order influence each other.
+#'
 #' - **Bond Energy Algorithm:** `"BEA"`  (McCormick, 1972).
 #'
 #'   The algorithm tries to maximize the **Measure of Effectiveness.** of a
@@ -397,7 +401,7 @@
 #'     - `"ca_param"`: List with parameters for the call to [ca::ca()].
 #'
 #'
-#'  **Seriating rows and columns separately**
+#'  **Seriating rows and columns separately using dissimilarities**
 #'
 #' - **Heatmap seriation:** `"Heatmap"`
 #'
@@ -414,6 +418,18 @@
 #'          seriation methods.
 #'      - `"dist_fun"`: specify the distance calculation as a function.
 #'      - `"scale"`: `"none"`, `"row"`, or `"col"`.
+#'
+#'
+#' **Seriate rows using the data matrix**
+#'
+#' These methods need access to the data matrix instead of dissimilarities to
+#' reorder objects (rows). Columns can also be reorderd by appying the same technique
+#' to the transposed data matrix.
+#'
+#' - **Order along the 1D locally linear embedding:** `"LLE"`
+#'
+#'  Performs 1D the non linear dimensionality reduction method locally linear embedding
+#'  (see [lle()]).
 #'
 #' - **Order along the first principal component:** `"PCA"`
 #'
@@ -432,7 +448,7 @@
 #'   correlation matrices by Friendly (2002). Performs the same on the
 #'   transposed matrix for the column order.
 #'
-#' **Other**
+#' **Other methods**
 #'
 #' - **Identity permutation:** `"Identity"`
 #'
