@@ -105,11 +105,7 @@ uniscale <-
            warn = TRUE,
            ...) {
     d <- as.dist(d)
-
-    if (is.null(order))
-      order <- seriate(d, method = method, ...)
-    else
-      order <- ser_permutation(order)
+    order <- ser_permutation(order)
 
     init_config <- get_config(order)
     if (is.null(init_config))
