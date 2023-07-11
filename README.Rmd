@@ -150,7 +150,7 @@ rbind(
 
 Some seriation methods also return a configuration to judge how close objects are 
 to each other.
-```{r fig.height= 3}
+```{r configuration, fig.show="hold", fig.height = 3}
 get_config(order)
 
 plot_config(order)

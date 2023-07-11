@@ -247,7 +247,7 @@ get_config(order)
 plot_config(order)
 ```
 
-![](inst/README_files/unnamed-chunk-6-1.png)<!-- -->
+![](inst/README_files/configuration-1.png)<!-- -->
 
 ## References
 
