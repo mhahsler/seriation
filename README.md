@@ -26,7 +26,9 @@ The following methods are available to reorder dissimilarity data:
   annealing  
 - **Branch-and-bound** to minimize the unweighted/weighted column
   gradient
-- **GA** - Genetic algorithm with warm start to optimize various
+- **GA** - Genetic algorithm with warm start to optimize any seriation
+  criteria
+- **GSA** - General simulated annealing to optimize any seriation
   criteria
 - **QAP** - Quadratic assignment problem heuristic (2-SUM, linear
   seriation, inertia, banded anti-Robinson form)
@@ -44,20 +46,20 @@ The following methods are available to reorder dissimilarity data:
   (NMDS).
 - **metaMDS** - Nonmetric multidimensional scaling with stable solution
   from random starts
-- **Sammon’s non-linear mapping**
+- **Sammon** - Order along the 1D Sammon’s non-linear mapping
 - **smacof** - Stress minimization using majorization (metric/nonmetric)
-- **TSNE** - Order of the 1D t-distributed stochastic neighbor embedding
-  (t-SNE)
-- **UMAP** - Order of the 1D embedding produced by uniform manifold
+- **TSNE** - Order along the 1D t-distributed stochastic neighbor
+  embedding (t-SNE)
+- **UMAP** - Order along the 1D embedding produced by uniform manifold
   approximation and projection
-- **VAE** - Order if the 1D embedding produced by a variational
+- **VAE** - Order along the 1D embedding produced by a variational
   autoencoder.
 
 **Dendrogram-based**
 
 - **DendSer** - Dendrogram seriation heuristic to optimize various
   criteria
-- **GW** - Hierarchical clustering reordered by Gruvaeus and Wainer
+- **GW** - Hierarchical clustering reordered by the Gruvaeus and Wainer
   heuristic
 - **HC** - Hierarchical clustering (single link, avg. link, complete
   link)
@@ -66,7 +68,8 @@ The following methods are available to reorder dissimilarity data:
 **Other**
 
 - **Identity** permutation
-- **OPTICS** - Ordering points to identify the clustering structure.
+- **OPTICS** - Order of ordering points to identify the clustering
+  structure.
 - **R2E** - Rank-two ellipse seriation
 - **Random** permutation
 - **Reverse** order
@@ -84,6 +87,7 @@ matrices:
 
 - **BEA** - Bond Energy Algorithm to maximize the measure of
   effectiveness (ME)
+- **BEA_TSP** - TSP to optimize the Measure of Effectiveness
 - **CA** - calculates a correspondence analysis of a matrix of
   frequencies (count table) and reorders according to the scores on a
   correspondence analysis dimension
@@ -91,16 +95,17 @@ matrices:
   row/column distances and applying a seriation method (default is
   optimal leaf ordering)
 - **Identity** permutation
+- **LLE** reorder along a 1D locally linear embedding.
+- **Means** - reorders using row and column means.
 - **PCA** - orders along the first principal component or angle on the
   projection on the first two principal components
 - **Random** permutation
 - **Reverse** order
-- **TSNE** - Order of the 1D t-distributed stochastic neighbor embedding
-  (t-SNE)
-- **TSP** - Traveling sales person solver to maximize ME
-- **UMAP** - Order of the 1D embedding produced by uniform manifold
+- **TSNE** - Order along the 1D t-distributed stochastic neighbor
+  embedding (t-SNE)
+- **UMAP** - Order along the 1D embedding produced by uniform manifold
   approximation and projection
-- **VAE** - Order of the 1D embedding produced by a variational
+- **VAE** - Order along the 1D embedding produced by a variational
   autoencoder.
 
 ## Installation
@@ -192,12 +197,12 @@ rbind(alphabetical = criterion(d), seriated = criterion(d, order))
     ##              2SUM AR_deviations AR_events BAR Gradient_raw Gradient_weighted
     ## alphabetical  872        10.304        80 1.8            8              0.54
     ## seriated      811         0.064         5 1.1          158             19.76
-    ##              Inertia Lazy_path_length Least_squares LS  ME Moore_stress
-    ## alphabetical     267              6.9           967 99  99          7.0
-    ## seriated         364              4.6           942 86 101          2.5
-    ##              Neumann_stress Path_length RGAR   Rho
-    ## alphabetical            3.9         1.8 0.48 0.028
-    ## seriated                1.3         1.1 0.03 0.913
+    ##              Inertia Lazy_path_length Least_squares LS MDS_stress  ME
+    ## alphabetical     267              6.9           967 99       0.62  99
+    ## seriated         364              4.6           942 86       0.17 101
+    ##              Moore_stress Neumann_stress Path_length RGAR   Rho
+    ## alphabetical          7.0            3.9         1.8 0.48 0.028
+    ## seriated              2.5            1.3         1.1 0.03 0.913
 
 ## References
 
