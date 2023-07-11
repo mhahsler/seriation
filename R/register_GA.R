@@ -105,7 +105,7 @@ register_GA <- function() {
     maxiter = 1000,
     run = 50,
     parallel = FALSE,
-    verbose = TRUE
+    verbose = FALSE
   )
 
   GA_helper <- function(x, control) {
