@@ -83,6 +83,9 @@ seriate_sa <- function(x, control = NULL) {
   param <- .get_parameters(control, .sa_contr)
   n <- attr(x, "Size")
 
+  if (is.na(param$warmstart))
+    param$warmstart <- "RANDOM"
+
   if (is.numeric(param$init)) {
     .check_dist_perm(x, order = param$init)
   } else{
