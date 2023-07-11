@@ -46,14 +46,14 @@ set_seriation_method(
 )
 
 
-.isoMap_control <- {
+.isomap_control <- {
   l <- as.list(args(vegan::isomapdist))
   l$k <- 30
   tail(head(l, -2L), -1L)
   }
 
-seriate_dist_isoMap <- function(x, control = NULL) {
-  control <- .get_parameters(control, .isoMap_control)
+seriate_dist_isomap <- function(x, control = NULL) {
+  control <- .get_parameters(control, .isomap_control)
   r <- do.call(vegan::isomap, c(list(x, ndim = 1), control))
   conf <- r$points
 
@@ -67,10 +67,10 @@ seriate_dist_isoMap <- function(x, control = NULL) {
 
 set_seriation_method(
   "dist",
-  "isoMap",
-  seriate_dist_isoMap,
+  "isomap",
+  seriate_dist_isomap,
   "Isometric feature mapping ordination",
-  control = .isoMap_control,
+  control = .isomap_control,
   optimizes = "Other (Stress on shortest path distances)"
 )
 
