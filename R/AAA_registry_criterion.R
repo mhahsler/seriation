@@ -52,6 +52,7 @@
 #' @param merit a boolean indicating if the criterion measure is a merit
 #' (`TRUE`) or a loss (`FALSE`) measure.
 #' @param x an object of class "criterion_method" to be printed.
+#' @param verbose logical; print a message when a new method is registered.
 #' @param ... further information that is stored for the method in the
 #' registry.
 #' @returns
@@ -158,6 +159,7 @@ set_criterion_method <- function(kind,
   fun,
   description = NULL,
   merit = NA,
+  verbose = FALSE,
   ...) {
   ## check formals
   ##if(!identical(names(formals(definition)),
@@ -184,6 +186,9 @@ set_criterion_method <- function(kind,
       merit = merit
     )
   }
+
+  if (verbose)
+    cat("Registered new seriation criteron", sQuote(name), "for", sQuote(kind),"\n")
 
 }
 

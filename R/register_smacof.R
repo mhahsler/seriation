@@ -113,7 +113,8 @@ register_smacof <- function() {
     seriate_dist_smacof,
     "Seriation based on multidemensional scaling using stress majorization (de Leeuw & Mair, 2009).",
     .smacof_control,
-    optimizes = "Other (MDS stress)"
+    optimizes = "Other (MDS stress)",
+    verbose = TRUE
   )
 
   smacof_crit_stress0 <-
@@ -134,7 +135,8 @@ register_smacof <- function() {
     "smacof_stress0",
     smacof_crit_stress0,
     "Stress0 calculated for different transformation types from package smacof.",
-    FALSE
+    FALSE,
+    verbose = TRUE
   )
 
 }

@@ -70,6 +70,7 @@ register_optics <- function() {
     "optics",
     optics_order,
     "Use ordering points to identify the clustering structure (OPTICS) to create an order",
-    .contr
+    .contr,
+    verbose = TRUE
   )
 }

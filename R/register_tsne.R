@@ -192,7 +192,8 @@ register_tsne <- function() {
     tsne_order,
     "Use 1D t-distributed stochastic neighbor embedding (t-SNE) a distance matrix to create an order.",
     .contr,
-    randomized = TRUE
+    randomized = TRUE,
+    verbose = TRUE
   )
 
   set_seriation_method(
@@ -201,6 +202,7 @@ register_tsne <- function() {
     tsne_order_matrix_2,
     "Use 1D t-distributed stochastic neighbor embedding (t-SNE) of the rows of a matrix to create an order.",
     .contr_matrix,
-    randomized = TRUE
+    randomized = TRUE,
+    verbose = TRUE
   )
 }

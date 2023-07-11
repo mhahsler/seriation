@@ -27,6 +27,7 @@ set_seriation_method(
   control = list(),
   randomized = FALSE,
   optimizes = "Unspecified",
+  verbose = FALSE,
   ...
 )
 
@@ -51,6 +52,8 @@ the algorithm several times will lead to different results (see: \code{\link[=se
 
 \item{optimizes}{what criterion does the algorithm try to optimize
 (see: \code{\link[=list_criterion_methods]{list_criterion_methods()}}).}
+
+\item{verbose}{logical; print a message when a new method is registered.}
 
 \item{...}{further information that is stored for the method in the
 registry.}

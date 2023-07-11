@@ -65,6 +65,7 @@
 #' @param optimizes what criterion does the algorithm try to optimize
 #'   (see: [list_criterion_methods()]).
 #' @param x an object of class  "seriation_method" to be printed.
+#' @param verbose logical; print a message when a new method is registered.
 #' @param ... further information that is stored for the method in the
 #' registry.
 #' @returns
@@ -184,6 +185,7 @@ set_seriation_method <- function(kind,
                                  control = list(),
                                  randomized = FALSE,
                                  optimizes = "Unspecified",
+                                 verbose = FALSE,
                                  ...) {
   ## check formals
   if (!identical(names(formals(definition)),
@@ -222,6 +224,9 @@ set_seriation_method <- function(kind,
       optimizes = optimizes
     )
   }
+
+  if (verbose)
+    cat("Registered new seriation method", sQuote(name), "for", sQuote(kind),"\n")
 }
 
 

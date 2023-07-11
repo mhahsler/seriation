@@ -138,7 +138,8 @@ register_umap <- function() {
     umap_order,
     "Use 1D Uniform manifold approximation and projection (UMAP) embedding of the distances to create an order",
     .contr,
-    randomized = TRUE
+    randomized = TRUE,
+    verbose = TRUE
   )
 
   set_seriation_method(
@@ -147,6 +148,7 @@ register_umap <- function() {
     umap_order_matrix_2,
     "Use 1D Uniform manifold approximation and projection (UMAP) embedding of the data to create an order",
     .contr,
-    randomized = TRUE
+    randomized = TRUE,
+    verbose = TRUE
   )
 }

@@ -337,7 +337,8 @@ register_vae <- function() {
     .seriate_vae_matrix,
     "Use 1D variational autoencoder embedding of rows in a data matrix to create an order",
     .contr,
-    randomized = TRUE
+    randomized = TRUE,
+    verbose = TRUE
   )
 
   set_seriation_method(
@@ -346,7 +347,8 @@ register_vae <- function() {
     .seriate_vae_rows,
     "Use 1D variational autoencoder embedding of a distance matrix to create an order",
     .contr,
-    randomized = TRUE
+    randomized = TRUE,
+    verbose = TRUE
   )
 
 }

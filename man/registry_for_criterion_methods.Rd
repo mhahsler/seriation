@@ -19,7 +19,15 @@ list_criterion_methods(kind)
 
 get_criterion_method(kind, name)
 
-set_criterion_method(kind, name, fun, description = NULL, merit = NA, ...)
+set_criterion_method(
+  kind,
+  name,
+  fun,
+  description = NULL,
+  merit = NA,
+  verbose = FALSE,
+  ...
+)
 
 \method{print}{criterion_method}(x, ...)
 }
@@ -36,6 +44,8 @@ function \code{\link[=criterion]{criterion()}}.}
 
 \item{merit}{a boolean indicating if the criterion measure is a merit
 (\code{TRUE}) or a loss (\code{FALSE}) measure.}
+
+\item{verbose}{logical; print a message when a new method is registered.}
 
 \item{...}{further information that is stored for the method in the
 registry.}

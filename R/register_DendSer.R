@@ -155,7 +155,8 @@ register_DendSer <- function() {
     DendSer_helper,
     "Dendrogram seriation (Earle and Hurley, 2015).",
     .DendSer_control,
-    optimizes = "Anti-robinson form (BAR) restricted by dendrogram"
+    optimizes = "Anti-robinson form (BAR) restricted by dendrogram",
+    verbose = TRUE
   )
 
   seriation::set_seriation_method(
@@ -164,7 +165,8 @@ register_DendSer <- function() {
     DendSer_BAR,
     "Dendrogram seriation with BAR (Earle and Hurley, 2015).",
     .DendSer_control,
-    optimizes = "Anti-robinson form (BAR) restricted by dendrogram"
+    optimizes = "Anti-robinson form (BAR) restricted by dendrogram",
+    verbose = TRUE
   )
 
   seriation::set_seriation_method(
@@ -173,7 +175,8 @@ register_DendSer <- function() {
     DendSer_PL,
     "Dendrogram seriation (Path length)",
     .DendSer_control,
-    optimizes = "Path length restricted by dendrogram"
+    optimizes = "Path length restricted by dendrogram",
+    verbose = TRUE
   )
 
   seriation::set_seriation_method(
@@ -182,13 +185,18 @@ register_DendSer <- function() {
     DendSer_PL,
     "Dendrogram seriation (Lazy path length)",
     .DendSer_control,
-    optimizes = "Path length restricted by dendrogram"
+    optimizes = "Path length restricted by dendrogram",
+    verbose = TRUE
   )
-  seriation::set_seriation_method("dist",
-                                  "DendSer_ARc",
-                                  DendSer_ARc,
-                                  "Dendrogram seriation (ARc)",
-                                  .DendSer_control)
+
+  seriation::set_seriation_method(
+    "dist",
+    "DendSer_ARc",
+    DendSer_ARc,
+    "Dendrogram seriation (ARc)",
+    .DendSer_control,
+    verbose = TRUE
+  )
 
   #  seriation::set_seriation_method("dist", "DendSer_LS",
   #    DendSer_LS, "Dendrogram seriation (Leaf sort)")
@@ -205,7 +213,7 @@ register_DendSer <- function() {
   }
 
   seriation::set_criterion_method("dist", "ARc", DendSer_crit_ARc,
-                                  "AR cost", FALSE)
+                                  "AR cost", FALSE, verbose = TRUE)
 
   ## Already in seriation
   #  DendSer_crit_BAR <- function(x, order, ...) {
