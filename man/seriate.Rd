@@ -183,7 +183,7 @@ this dummy city in an optimal tour with minimal length is the best cutting
 point (it lies between the most distant cities).
 }
 
-**Dimensionality reduction **
+\strong{Dimensionality reduction}
 
 Find a seriation order by reducing the dimensionalty to 1 dimension. This is typically
 done by minimizing a stress measure or the reconstruction error.
