@@ -108,6 +108,11 @@ uniscale <-
     order <- ser_permutation(order)
 
     init_config <- get_config(order)
+
+    # we cannot use more than 1D
+    if (is.matrix(init_config))
+      init_config <- NULL
+
     if (is.null(init_config))
       init_config <- get_rank(order)
     n <- length(init_config)
