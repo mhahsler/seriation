@@ -31,7 +31,7 @@
   in seriate() in the ...
 - seriation method spectral now also returns the embedding.
 - Seriation method simmulated annealing is now called "GSA".
-- Simplified generics for pimage and ggpimage.
+- Simplified generics for pimage and ggpimage. Defaults for pimage.dist have changed.
 
 ## Bug Fixes
 - fixed labels returned by uniscale()

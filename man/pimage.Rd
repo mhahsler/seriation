@@ -53,9 +53,9 @@ pimage(x, order = NULL, ...)
   key = TRUE,
   keylab = "",
   symkey = TRUE,
-  upper_tri = FALSE,
+  upper_tri = TRUE,
   lower_tri = TRUE,
-  diag = FALSE,
+  diag = TRUE,
   row_labels = NULL,
   col_labels = NULL,
   prop = TRUE,
@@ -88,9 +88,9 @@ ggpimage(x, order = NULL, ...)
   x,
   order = NULL,
   zlim = NULL,
-  upper_tri = FALSE,
+  upper_tri = TRUE,
   lower_tri = TRUE,
-  diag = FALSE,
+  diag = TRUE,
   row_labels = NULL,
   col_labels = NULL,
   prop = TRUE,
@@ -212,9 +212,12 @@ pimage(x, prop = TRUE)
 ## Example: Distance Matrix
 # Show a reordered distance matrix (distances between rows).
 # Dark means low distance. The aspect ratio is automatically fixed to 1:1.
-# The upper triangle is suppressed triangle
 d <- dist(x)
 pimage(d,  order = seriate(d),
+  main = "Random Data (Distances)")
+
+# Supress the upper triangle and diagonal
+pimage(d,  order = seriate(d), upper = FALSE, diag = FALSE,
   main = "Random Data (Distances)")
 
 # Show only distances that are smaller than 4 using limits on z.
@@ -263,13 +266,13 @@ pushViewport(splot)
 
 seekViewport("col1_vp")
 o <- seriate(x)
-pimage(x, o, labCol = FALSE, main = "Random Data",
+pimage(x, o, col_labels = FALSE, main = "Random Data",
   newpage = FALSE)
 
 seekViewport("col2_vp")
 ## add the reordered dissimilarity matrix for rows
 d <- dist(x)
-pimage(d, o[[1]], labCol = FALSE, main = "Random Data",
+pimage(d, o[[1]], main = "Random Data",
   newpage = FALSE)
 
 popViewport(0)
@@ -326,8 +329,8 @@ d <- dist(x)
 ggpimage(d, order = seriate(d)) +
   labs(title = "Random Data", subtitle = "Distances")
 
-# Show also upper triangle and diagonal
-ggpimage(d, order = seriate(d), upper_tri = TRUE, diag = TRUE) +
+# Hide upper triangle and diagonal
+ggpimage(d, order = seriate(d), upper_tri = FALSE, diag = FALSE) +
   labs(title = "Random Data", subtitle = "Distances")
 
 # Show only distances that are smaller than 4 using limits on fill.
