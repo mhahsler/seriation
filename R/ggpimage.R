@@ -25,15 +25,7 @@
 #' @export
 ggpimage <- function(x,
   order = NULL,
-  zlim = NULL,
-  upper_tri = TRUE,
-  lower_tri = TRUE,
-  diag = TRUE,
-  row_labels = NULL,
-  col_labels = NULL,
-  prop = TRUE,
-  flip_axes = FALSE,
-  reverse_columns = FALSE)
+  ...)
   UseMethod("ggpimage")
 
 
@@ -48,9 +40,10 @@ ggpimage.matrix <- function(x,
   diag = TRUE,
   row_labels = NULL,
   col_labels = NULL,
-  prop = TRUE,
+  prop = FALSE,
   flip_axes = FALSE,
-  reverse_columns = FALSE)
+  reverse_columns = FALSE,
+  ...)
 {
   check_installed("ggplot2")
 
@@ -125,7 +118,8 @@ ggpimage.dist <-
     col_labels = NULL,
     prop = TRUE,
     flip_axes = FALSE,
-    reverse_columns = FALSE) {
+    reverse_columns = FALSE,
+    ...) {
     check_installed("ggplot2")
 
     # reorder specific for dist (we have only a single permutation)
@@ -146,7 +140,8 @@ ggpimage.dist <-
       col_labels,
       prop = prop,
       flip_axes = FALSE,
-      reverse_columns = reverse_columns
+      reverse_columns = reverse_columns,
+      ...
     )
 
     # reverse color for dist
@@ -262,7 +257,7 @@ ggpimage.dist <-
   if (prop)
     g <- g + ggplot2::theme(aspect.ratio = nrow(x) / ncol(x))
 
-  # colors scalesi
+  # colors scales
   if (is.logical(x)) {
     g <-
       g + .gg_logical_pal()

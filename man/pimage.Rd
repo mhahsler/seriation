@@ -4,36 +4,14 @@
 \alias{pimage}
 \alias{pimage.matrix}
 \alias{pimage.table}
+\alias{pimage.data.frame}
 \alias{pimage.dist}
 \alias{ggpimage}
 \alias{ggpimage.matrix}
 \alias{ggpimage.dist}
 \title{Permutation Image Plot}
 \usage{
-pimage(
-  x,
-  order = NULL,
-  col = NULL,
-  main = "",
-  xlab = "",
-  ylab = "",
-  zlim = NULL,
-  key = TRUE,
-  keylab = "",
-  symkey = TRUE,
-  upper_tri = TRUE,
-  lower_tri = TRUE,
-  diag = TRUE,
-  row_labels = NULL,
-  col_labels = NULL,
-  prop = TRUE,
-  flip_axes = FALSE,
-  reverse_columns = FALSE,
-  ...,
-  newpage = TRUE,
-  pop = TRUE,
-  gp = NULL
-)
+pimage(x, order = NULL, ...)
 
 \method{pimage}{matrix}(
   x,
@@ -51,7 +29,7 @@ pimage(
   diag = TRUE,
   row_labels = NULL,
   col_labels = NULL,
-  prop = TRUE,
+  prop = FALSE,
   flip_axes = FALSE,
   reverse_columns = FALSE,
   ...,
@@ -61,6 +39,8 @@ pimage(
 )
 
 \method{pimage}{table}(x, order = NULL, ...)
+
+\method{pimage}{data.frame}(x, order = NULL, ...)
 
 \method{pimage}{dist}(
   x,
@@ -87,19 +67,7 @@ pimage(
   gp = NULL
 )
 
-ggpimage(
-  x,
-  order = NULL,
-  zlim = NULL,
-  upper_tri = TRUE,
-  lower_tri = TRUE,
-  diag = TRUE,
-  row_labels = NULL,
-  col_labels = NULL,
-  prop = TRUE,
-  flip_axes = FALSE,
-  reverse_columns = FALSE
-)
+ggpimage(x, order = NULL, ...)
 
 \method{ggpimage}{matrix}(
   x,
@@ -110,9 +78,10 @@ ggpimage(
   diag = TRUE,
   row_labels = NULL,
   col_labels = NULL,
-  prop = TRUE,
+  prop = FALSE,
   flip_axes = FALSE,
-  reverse_columns = FALSE
+  reverse_columns = FALSE,
+  ...
 )
 
 \method{ggpimage}{dist}(
@@ -126,7 +95,8 @@ ggpimage(
   col_labels = NULL,
   prop = TRUE,
   flip_axes = FALSE,
-  reverse_columns = FALSE
+  reverse_columns = FALSE,
+  ...
 )
 }
 \arguments{
@@ -134,6 +104,9 @@ ggpimage(
 
 \item{order}{an object of class \code{ser_permutation} or the name of a seriation method.
 If \code{NULL} the order in \code{x} is plotted.}
+
+\item{\dots}{if \code{order} is the name of a seriation method then further arguments are  passed
+on to the seriatation method, otherwise they are ignored.}
 
 \item{col}{a list of colors used. If \code{NULL}, a gray scale is used (for
 matrix larger values are displayed darker and for \code{dist} smaller
@@ -172,9 +145,6 @@ equal width and height.}
 
 \item{reverse_columns}{logical; revers the order of how the columns are
 displayed.}
-
-\item{\dots}{if \code{order} is the name of a seriation method then further arguments are  passed
-on to the seriatation method, otherwise they are ignored.}
 
 \item{newpage, pop, gp}{Start plot on a new page, pop the viewports after
 plotting, and use the supplied \code{gpar} object (see \pkg{grid}).}
@@ -231,13 +201,13 @@ pimage(x, order = seriate(x), row_labels = TRUE, col_labels = TRUE,
 x <- matrix(runif(100), ncol = 10,
   dimnames = list(LETTERS[1:10], paste0("X", 1:10)))
 
-pimage(x)
+pimage(x, prop = TRUE)
 
 ## Example: Pos/Neg. Matrix
 x <- matrix(rnorm(100), ncol = 10,
   dimnames = list(LETTERS[1:10], paste0("X", 1:10)))
 
-pimage(x)
+pimage(x, prop = TRUE)
 
 ## Example: Distance Matrix
 # Show a reordered distance matrix (distances between rows).

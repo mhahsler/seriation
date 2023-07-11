@@ -110,13 +110,13 @@
 #' x <- matrix(runif(100), ncol = 10,
 #'   dimnames = list(LETTERS[1:10], paste0("X", 1:10)))
 #'
-#' pimage(x)
+#' pimage(x, prop = TRUE)
 #'
 #' ## Example: Pos/Neg. Matrix
 #' x <- matrix(rnorm(100), ncol = 10,
 #'   dimnames = list(LETTERS[1:10], paste0("X", 1:10)))
 #'
-#' pimage(x)
+#' pimage(x, prop = TRUE)
 #'
 #' ## Example: Distance Matrix
 #' # Show a reordered distance matrix (distances between rows).
@@ -272,26 +272,7 @@
 pimage <-
   function(x,
     order = NULL,
-    col = NULL,
-    main = "",
-    xlab = "",
-    ylab = "",
-    zlim = NULL,
-    key = TRUE,
-    keylab = "",
-    symkey = TRUE,
-    upper_tri = TRUE,
-    lower_tri = TRUE,
-    diag = TRUE,
-    row_labels = NULL,
-    col_labels = NULL,
-    prop = TRUE,
-    flip_axes = FALSE,
-    reverse_columns = FALSE,
-    ...,
-    newpage = TRUE,
-    pop = TRUE,
-    gp = NULL)
+    ...)
 UseMethod("pimage")
 
 ### Note for matrix large values are dark, for dist large values are light!
@@ -313,7 +294,7 @@ pimage.matrix <-
     diag = TRUE,
     row_labels = NULL,
     col_labels = NULL,
-    prop = TRUE,
+    prop = FALSE,
     flip_axes = FALSE,
     reverse_columns = FALSE,
     ...,
@@ -518,6 +499,12 @@ table2matrix <- function(M)
 #' @export
 pimage.table <- function(x, order = NULL, ...)
   pimage.matrix(table2matrix(x), order = order, ...)
+
+#' @rdname pimage
+#' @export
+pimage.data.frame <- function(x, order = NULL, ...)
+  pimage.matrix(as.matrix(x), order = order, ...)
+
 
 ## small values are dark
 #' @rdname pimage

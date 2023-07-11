@@ -112,7 +112,7 @@ seriate_sa <- function(x, control = NULL) {
 
     deltas <- (z - znew)
     deltas[deltas > 0] <- NA
-    avg_delta <- median(deltas, na.rm = TRUE)
+    avg_delta <- stats::median(deltas, na.rm = TRUE)
     t0 <- avg_delta / log(param$pinitialaccept)
   }
 
