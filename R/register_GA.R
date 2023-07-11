@@ -16,10 +16,6 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-## register GA for seriation
-
-
-
 #' Register a Genetic Algorithm Seriation Method
 #'
 #' Register a GA-based seriation metaheuristic for use with [seriate()].
@@ -78,16 +74,19 @@
 #' data(SupremeCourt)
 #' d <- as.dist(SupremeCourt)
 #'
-#' ## use default settings: Banded AR form
-#' o <- seriate(d, "GA")
-#' pimage(d, o)
-#'
 #' ## optimize for linear seriation criterion (LS)
-#' o <- seriate(d, "GA", control = list(criterion = "LS"))
+#' o <- seriate(d, "GA", criterion = "LS", verbose = TRUE)
 #' pimage(d, o)
 #'
-#' ## no warm start
-#' o <- seriate(d, "GA", control = list(criterion = "LS", suggestions = NA))
+#' ## Note that by default the algorithm is already seeded with a LS heuristic.
+#' ## This run is no warm start (no suggestions) and increase run to 100
+#' o <- seriate(d, "GA", criterion = "LS", suggestions = NA, run = 100,
+#'   verbose = TRUE)
+#' pimage(d, o)
+#'
+#' o <- seriate(d, "GA", criterion = "LS", suggestions = NA, run = 100,
+#'   verbose = TRUE,  )
+#'
 #' pimage(d, o)
 #' }
 #' @export
@@ -115,7 +114,8 @@ register_GA <- function() {
     control <- .get_parameters(control, .ga_contr)
 
     if (control$verbose)
-      cat("\nPreparing suggestions\n")
+      cat("\nPreparing suggestions:",
+          paste0(control$suggestions, collapse = ", "), "\n")
 
     if (is.na(control$suggestions[1]))
       suggestions <- NULL
@@ -127,7 +127,6 @@ register_GA <- function() {
     if (control$verbose)
       cat("\nStarting GA\n")
 
-    ### FIXME: need to be able to set bandwidth for BAR
     # fitness function
     f <-
       function(o)
@@ -145,16 +144,17 @@ register_GA <- function() {
       pcrossover = control$pcrossover,
       suggestions = suggestions,
       names = as.character(1:n),
-      monitor = if (control$verbose)
-        GA::gaMonitor
-      else
-        NULL,
+      monitor = control$verbose,
       parallel = control$parallel,
       maxiter = control$maxiter,
       run = control$run,
       maxFitness = Inf,
       popSize = control$popSize
     )
+
+    if (control$verbose)
+      if (result@iter < control$maxiter)
+        cat("\nStopped early after", control$run, "iterations with no improvement! (control option 'run')\n")
 
     # solution may have multiple rows! Take the first solution.
     as.integer(result@solution[1, , drop = TRUE])

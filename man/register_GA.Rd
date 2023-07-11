@@ -68,16 +68,19 @@ get_seriation_method("dist", "GA")
 data(SupremeCourt)
 d <- as.dist(SupremeCourt)
 
-## use default settings: Banded AR form
-o <- seriate(d, "GA")
-pimage(d, o)
-
 ## optimize for linear seriation criterion (LS)
-o <- seriate(d, "GA", control = list(criterion = "LS"))
+o <- seriate(d, "GA", criterion = "LS", verbose = TRUE)
 pimage(d, o)
 
-## no warm start
-o <- seriate(d, "GA", control = list(criterion = "LS", suggestions = NA))
+## Note that by default the algorithm is already seeded with a LS heuristic.
+## This run is no warm start (no suggestions) and increase run to 100
+o <- seriate(d, "GA", criterion = "LS", suggestions = NA, run = 100,
+  verbose = TRUE)
+pimage(d, o)
+
+o <- seriate(d, "GA", criterion = "LS", suggestions = NA, run = 100,
+  verbose = TRUE,  )
+
 pimage(d, o)
 }
 }
