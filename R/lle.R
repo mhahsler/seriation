@@ -121,7 +121,7 @@ find_weights <-
       #choose regularisation method
       #see documentation
       if (reg == 1) {
-        r <- delta * sum(head(e, n - m)) / (n - m)
+        r <- delta * sum(utils::head(e, n - m)) / (n - m)
       } else if (reg == 2) {
         r <- delta ^ 2 / k * sum(diag(G))
       } else
