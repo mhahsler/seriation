@@ -8,5 +8,5 @@ proj$
 ^.*\.Rproj$
 ^LICENSE
 Work
-vignettes_real
 README.Rmd
+Tutorials

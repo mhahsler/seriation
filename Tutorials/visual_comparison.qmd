@@ -1,0 +1,112 @@
+---
+title: "A Comparison of Seriation Methods"
+author: "Michael Hahsler"
+format: markdown_github
+editor: visual
+---
+
+## Introduction
+
+This vignette compares the seriation methods available in package \pkg{seriation} using the popular Iris data set and randomize the order of the objects.
+
+```{r}
+library("seriation")
+
+data("iris")
+x <- as.matrix(iris[sample(nrow(iris)), -5])
+d <- dist(x)
+```
+
+## Distance Seriation
+
+```{r}
+register_DendSer()
+register_optics()
+register_smacof()
+
+methods <- sort(list_seriation_methods("dist"))
+
+# remove slow methods
+methods <- setdiff(methods, c("BBURCG", "BBWRCG", "Enumerate", "GSA"))
+methods 
+```
+
+```{r}
+orders <- list()
+criterion <- list()
+for (m in methods) {
+  cat(m)
+  tm <- system.time(orders[[m]] <- seriate(d, method = m))
+  criterion[[m]] <- data.frame(time = tm[1]+tm[2], rbind(criterion(d, orders[[m]]))) 
+  cat(" took", tm[1]+tm[2], "sec.\n")
+}
+
+criterion_mat <- do.call(rbind, criterion)
+```
+Align the seriation orders and sort from best to worst according to the 
+criterion measure `Gradient_weighted`.
+
+```{r}
+orders_aligned <- ser_align(orders)
+best_to_worse <- order(criterion_mat[["Gradient_weighted"]], decreasing = TRUE)
+
+orders_aligned <- orders_aligned[best_to_worse]
+criterion_mat <- criterion_mat[best_to_worse, ]
+```
+
+```{r}
+for (n in names(orders_aligned))
+  pimage(d, orders_aligned[[n]], main = n , key = FALSE)
+```
+
+```{r}
+dst <- ser_dist(orders) 
+hmap(dst)
+```
+
+```{r}
+knitr::kable(criterion_mat)
+```
+
+# Matrix Seriation
+
+
+```{r}
+methods <- sort(list_seriation_methods("matrix"))
+
+methods 
+```
+
+```{r, fig.height= 5}
+orders <- list()
+criterion <- list()
+for (m in methods) {
+  cat(m)
+  tm <- system.time(orders[[m]] <- seriate(x, method = m))
+  criterion[[m]] <- data.frame(time = tm[1]+tm[2], rbind(criterion(x, orders[[m]])))
+  cat("took", tm[1]+tm[2], "sec.\n")
+}
+
+
+criterion_mat <- do.call(rbind, criterion)
+```
+
+
+```{r}
+#orders_aligned <- ser_align(orders)
+orders_aligned <- orders
+best_to_worse <- order(criterion_mat[["ME"]], decreasing = TRUE)
+
+orders_aligned <- orders_aligned[best_to_worse]
+criterion_mat <- criterion_mat[best_to_worse, ]
+```
+
+```{r}
+for (n in names(orders_aligned))
+  pimage(x, orders_aligned[[n]], main = n , key = FALSE)
+```
+
+
+```{r}
+knitr::kable(criterion_mat)
+```
