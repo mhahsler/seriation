@@ -1,27 +1,106 @@
 ---
 title: "Heatmaps with Package Seriation"
 author: "Michael Hahsler"
-format: markdown_github
+format: 
+  html:
+    toc: true
 editor: visual
 ---
 
-The package seriation can be used for reordering heatmaps and displaying them
-using the functions
+# Introduction
 
+A [Heatmap](https://en.wikipedia.org/wiki/Heat_map) uses colored tiles to 
+represent the values in a data matrix.
+Patterns can be easily seen if the rows and columns 
+are appropriately reordered.
+The package `seriation` can be used for reordering heatmaps and displaying them
+using the functions:
+
+* `pimage()`
 * `hmap()`
 * `gghmap()`
 
-There functions can be used as a direct replacement of `heatmap()` in the 
-R package `stats`.
+How to cite the `seriation` package:
 
-## Standard Heatmaps
+>   Hahsler M, Hornik K, Buchta C (2008). "Getting things in order: An
+  introduction to the R package seriation." _Journal of Statistical
+  Software_, *25*(3), 1-34. ISSN 1548-7660, doi:10.18637/jss.v025.i03
+  <https://doi.org/10.18637/jss.v025.i03>.
+
+
+## Prepare the data
+
+As an example, we use the `Wood` dataset with the normalized gene 
+expression data (a sample of 136 genes) 
+for wood formation in poplar trees in 6 locations. 
+In case the data has alread some order, we randomly reorder
+rows and columns for this example.
+
+```{r}
+if (!require("seriation")) install.packages("seriation")
+
+library("seriation")
+data("Wood")
+Wood <-Wood[sample(nrow(Wood)), sample(ncol(Wood))]
+dim(Wood)
+
+DT::datatable(round(Wood, 2))
+```
+Here is a simple heatmap without reordering. No structure is visible.
+
+```{r}
+pimage(Wood)
+```
+
+
+## Reordering in seriation
+
+Many seriation methods are available. The  [manual page for seriate()](https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriate)
+describes the methods available in package `seriation`.
+
+Methods of interest for heatmaps are dendrogram leaf order-based methods applied
+to rows and columns. This is done using `method = "heatmap"`. The actual seriation
+method is passed as parameter `seriaton_method`. Here is an example:
+
+```{r}
+o <- seriate(Wood, method = "Heatmap", seriation_method = "OLO")
+o
+```
+
+This is the order for rows and columns. The method `heatmap` automatically
+performs hierarchical clustering with optimal reordering of dendrogram leafs.
+Here is the dendrogram and the resulting order for the columns.
+
+```{r}
+plot(o[[2]])
+
+get_order(o, 2)
+```
+
+The same can be done with rows by changing the index to 1. 
+
+
+# Built-in heatmap function
+
+Package `seriation` has several functions to display heatmaps. 
+
+
+## Without dendrograms: pimage
+
+The permutation image plot in `seriation` provides a simple heatmap.
+
+```{r}
+pimage(Wood, main = "Wood (original order)")
+pimage(Wood, order = "Heatmap", 
+       main = "Wood (optimal leaf ordering)")
+pimage(Wood, order = "Heatmap", seriation_method = "HC", 
+       main = "Wood (hierarichal clustering; no reordering)")
+```
+
+## With dendrograms: hmap
 
 Here are some typical reordering schemes.
 
-```{r}
-library("seriation")
-data("Wood")
-```
 
 ```{r}
 hmap(Wood, method = "HC", main = "Wood (hierarichal clustering; no reordering)")
@@ -40,24 +119,97 @@ register_DendSer()
 hmap(Wood, method = "DendSer_BAR", main = "Wood (banded anti-Robinson)")
 ```
 
-## Non-dendrogram-based seriation methods
-
-These methods reorder rows and columns. No dendrogram is produced.
+Also non-dendrogram-based reordering methods can be used.
+These methods reorder rows and columns, but no dendrogram is produced.
 
 ```{r}
 hmap(Wood, method = "MDS", main = "Wood (MDS)")
 hmap(Wood, method = "Spectral", main = "Wood (MDS)")
 ```
 
-## ggplot2 version
+## ggplot2
 
 All options are also available for `ggplot2` using `gghmap()`. 
 Currently there is no support to display dendrograms.
 
 ```{r}
+if (!require("ggplot2")) install.packages("ggplot2")
+
 library(ggplot2)
 gghmap(Wood, method = "OLO")
 ```
 
-Package `heatmaply` uses `seriation` to reorder interactive heatmaps.
+# Using seriation in other packages 
+
+The package `seriation` can be used to compute reordering for other heatmap
+packages.
+
+## heatmap in package stats
+
+This is R's standard heatmap function. `seriate()` can be used to supply 
+the reordered dendrogram. 
+
+```{r}
+o <- seriate(Wood, method = "Heatmap", seriation_method = "OLO")
+heatmap(Wood, Rowv = as.dendrogram(o[[1]]), Colv = as.dendrogram(o[[2]]))
+```
+
+We can also supply the rank order for any seriation method as weights and the
+dendrogram will be reordered as close as possible to the seriation order.
+
+```{r}
+o <- seriate(Wood, method = "Heatmap", seriation_method = "Spectral")
+heatmap(Wood, Rowv =  get_rank(o, 1), Colv =  get_rank(o, 2))
+```
+
+
+## Package superheat
+
+```{r}
+if (!require("superheat")) install.packages("superheat")
+
+library("superheat")
+superheat(Wood, 
+          row.dendrogram = TRUE, col.dendrogram = TRUE)
+```
+
+
+```{r}
+o <- seriate(Wood, method = "Heatmap", seriation_method = "OLO_ward")
+superheat(Wood, 
+          order.row = as.vector(get_order(o, 1)),  order.col = as.vector(get_order(o, 2)),
+          row.dendrogram = TRUE, col.dendrogram = TRUE)
+
+o <- seriate(Wood, method = "Heatmap", seriation_method = "Spectral")
+superheat(Wood, 
+          order.row = as.vector(get_order(o, 1)),  order.col = as.vector(get_order(o, 2)),
+          row.dendrogram = TRUE, col.dendrogram = TRUE)
+```
+
+
+## Package heatmaply
+
+
+The package creates interactive heatmaps. It already uses package `seriation` 
+for parameter `seriate` and supports the methods `OLO` and `GW`.
+
+```{r}
+if (!suppressMessages(require("heatmaply"))) install.packages("heatmaply")
+
+library("heatmaply")
+heatmaply(Wood, seriate = "none")
+heatmaply(Wood, seriate = "OLO")
+```
+
+Any dendrogram-based seriation method from `seriation` can be supplied.
+
+```{r}
+o <- seriate(Wood, method = "Heatmap", seriation_method = "OLO_ward")
+heatmaply(Wood, Rowv = o[[1]], Colv = o[[2]])
+```
+
+```{r}
+o <- seriate(Wood, method = "Heatmap", seriation_method = "Spectral")
+heatmaply(Wood, Rowv = get_rank(o, 1), Colv = get_rank(o, 2))
+```
 

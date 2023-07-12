@@ -1,14 +1,18 @@
 ---
 title: "A Comparison of Seriation Methods"
 author: "Michael Hahsler"
-format: markdown_github
+format: 
+  html:
+    toc: true
 editor: visual
 ---
 
-## Introduction
+# Introduction
 
-This vignette compares the seriation methods available in package \pkg{seriation} using the popular Iris data set and randomize the order of the objects.
+This document compares the seriation methods available in package \pkg{seriation} 
+using the popular Iris data set and randomize the order of the objects.
 
+# Preparing the data
 ```{r}
 library("seriation")
 
@@ -17,19 +21,36 @@ x <- as.matrix(iris[sample(nrow(iris)), -5])
 d <- dist(x)
 ```
 
-## Distance Seriation
+# Distance seriation
+
+## Methods
+
+We first register more seriation methods. Some of these methods require the 
+installation of more packages. 
 
 ```{r}
 register_DendSer()
 register_optics()
 register_smacof()
+```
 
+The following methods will be used (a few slow methods are skipped). 
+
+```{r}
 methods <- sort(list_seriation_methods("dist"))
 
-# remove slow methods
+# skip slow methods
 methods <- setdiff(methods, c("BBURCG", "BBWRCG", "Enumerate", "GSA"))
 methods 
 ```
+
+Details about the method can be found in the 
+[manual page for `seriate()`](https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriate).
+
+## Performing the seriation
+
+We use a loop to run the function `seriate()` with each method and calculate 
+criterion measures which indicate how good the order is.
 
 ```{r}
 orders <- list()
@@ -41,35 +62,53 @@ for (m in methods) {
   cat(" took", tm[1]+tm[2], "sec.\n")
 }
 
-criterion_mat <- do.call(rbind, criterion)
+criterion <- do.call(rbind, criterion)
 ```
-Align the seriation orders and sort from best to worst according to the 
-criterion measure `Gradient_weighted`.
+
+We align the seriation orders. The reason is that an order 1, 2, 3 and 3, 2, 1
+are equivalent and just an artifact of the algorithm. Aligning will reverse some 
+orders so they are in roughly the same order. Then we sort the orders 
+from best to worst according to a popular seriation criterion measure 
+called `Gradient_weighted`.
 
 ```{r}
-orders_aligned <- ser_align(orders)
-best_to_worse <- order(criterion_mat[["Gradient_weighted"]], decreasing = TRUE)
+orders <- ser_align(orders)
+best_to_worse <- order(criterion[["Gradient_weighted"]], decreasing = TRUE)
 
-orders_aligned <- orders_aligned[best_to_worse]
-criterion_mat <- criterion_mat[best_to_worse, ]
+orders <- orders[best_to_worse]
+criterion <- criterion[best_to_worse, ]
 ```
+
+Plot the reordered dissimilarity matrices. Dark blocks along the main 
+diagonal mean that the order reveals a "cluster" of similar objects.
+The Iris dataset contains three species, but two of them are very similar, so 
+we expect to see one smaller block and one larger block.
 
 ```{r}
-for (n in names(orders_aligned))
-  pimage(d, orders_aligned[[n]], main = n , key = FALSE)
+for (n in names(orders))
+  pimage(d, orders[[n]], main = n , key = FALSE)
 ```
+
+We can compare the seriation methods by how similar the orders are that 
+they produce. The following code calculates distances between orders and
+then performs hierarchical clustering.
 
 ```{r}
 dst <- ser_dist(orders) 
 hmap(dst)
 ```
 
+Here are the criterion measures. Some are maximized and some should be minimized. 
+Details about the measures can be found in the [manual page for `criterion()`](https://mhahsler.r-universe.dev/seriation/doc/manual.html#criterion).
+
 ```{r}
-knitr::kable(criterion_mat)
+DT::datatable(round(criterion, 2))
 ```
 
-# Matrix Seriation
+# Matrix seriation
 
+Matrix seriation reorders rows and columns of a data matrix. We perform the 
+same steps as for distances in the previous section.
 
 ```{r}
 methods <- sort(list_seriation_methods("matrix"))
@@ -84,29 +123,27 @@ for (m in methods) {
   cat(m)
   tm <- system.time(orders[[m]] <- seriate(x, method = m))
   criterion[[m]] <- data.frame(time = tm[1]+tm[2], rbind(criterion(x, orders[[m]])))
-  cat("took", tm[1]+tm[2], "sec.\n")
+  cat(" took", tm[1]+tm[2], "sec.\n")
 }
 
 
-criterion_mat <- do.call(rbind, criterion)
+criterion <- do.call(rbind, criterion)
 ```
 
 
 ```{r}
-#orders_aligned <- ser_align(orders)
-orders_aligned <- orders
-best_to_worse <- order(criterion_mat[["ME"]], decreasing = TRUE)
+best_to_worse <- order(criterion[["Moore_stress"]], decreasing = FALSE)
 
-orders_aligned <- orders_aligned[best_to_worse]
-criterion_mat <- criterion_mat[best_to_worse, ]
+orders <- orders[best_to_worse]
+criterion <- criterion[best_to_worse, ]
 ```
 
 ```{r}
-for (n in names(orders_aligned))
-  pimage(x, orders_aligned[[n]], main = n , key = FALSE)
+for (n in names(orders))
+  pimage(x, orders[[n]], main = n , key = FALSE)
 ```
 
 
 ```{r}
-knitr::kable(criterion_mat)
+DT::datatable(round(criterion, 2))
 ```

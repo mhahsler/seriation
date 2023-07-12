@@ -60,9 +60,9 @@ LS_reverse <- function(o, pos = sample.int(length(o), 2)) {
 #' @export
 LS_mixed <- function(o, pos = sample.int(length(o), 2)) {
   switch(sample.int(3, 1),
-    LS_swap(o, pos),
-    LS_insert(o, pos),
-    LS_reverse(o, pos))
+         LS_swap(o, pos),
+         LS_insert(o, pos),
+         LS_reverse(o, pos))
 }
 
 .sa_contr <- list(
@@ -72,7 +72,7 @@ LS_mixed <- function(o, pos = sample.int(length(o), 2)) {
   localsearch = LS_insert,
   cool = 0.5,
   tmin = 1e-7,
-  nlocal = 10,
+  nlocal = 5,
   t0 = NA,
   pinitialaccept = .01,
   ## try nlocal x n local search steps
@@ -91,14 +91,14 @@ seriate_sa <- function(x, control = NULL) {
   } else{
     if (param$verbose)
       cat("Obtaining initial solution via:",
-        param$warmstart, "\n")
+          param$warmstart, "\n")
     o <- get_order(seriate(x, method = param$warmstart))
   }
 
   z <- criterion(x, o, method = param$criterion, force_loss = TRUE)
   if (param$verbose)
     cat("Initial z =", z,
-      "(minimize)\n")
+        "(minimize)\n")
 
   iloop <- param$nlocal * n
 
@@ -106,14 +106,21 @@ seriate_sa <- function(x, control = NULL) {
   if (is.na(t0)) {
     # find the starting temperature. Set the probability of the average
     # (we use median) uphill move to pinitaccept.
-    znew <- replicate(iloop, expr = {
-      criterion(x,
-                param$localsearch(o),
-                method = param$criterion,
-                force_loss = TRUE)
+    o_rand <- sample(n)
+    z_rand <-  criterion(x,
+                         o_rand,
+                         method = param$criterion,
+                         force_loss = TRUE)
+    z_new <- replicate(iloop, expr = {
+      criterion(
+        x,
+        param$localsearch(o_rand),
+        method = param$criterion,
+        force_loss = TRUE
+      )
     })
 
-    deltas <- (z - znew)
+    deltas <- (z_rand - z_new)
     deltas[deltas > 0] <- NA
     avg_delta <- stats::median(deltas, na.rm = TRUE)
     t0 <- avg_delta / log(param$pinitialaccept)
@@ -127,7 +134,13 @@ seriate_sa <- function(x, control = NULL) {
   }
 
   if (param$verbose)
-    cat("Use t0 =", t0, "resulting in", nloop, "iterations with", iloop, "tries each\n\n")
+    cat("Use t0 =",
+        t0,
+        "resulting in",
+        nloop,
+        "iterations with",
+        iloop,
+        "tries each\n\n")
 
   zbest <- z
   temp <- t0
@@ -139,9 +152,9 @@ seriate_sa <- function(x, control = NULL) {
       onew <- param$localsearch(o)
       znew <-
         criterion(x,
-          onew,
-          method = param$criterion,
-          force_loss = TRUE)
+                  onew,
+                  method = param$criterion,
+                  force_loss = TRUE)
       delta <- z - znew
 
       # we minimize, delta < 0 is a bad move
@@ -153,7 +166,11 @@ seriate_sa <- function(x, control = NULL) {
     }
 
     if (param$verbose) {
-      cat(i, "/", nloop, "\ttemp =",
+      cat(
+        i,
+        "/",
+        nloop,
+        "\ttemp =",
         signif(temp, 3),
         "\tz =",
         z,
@@ -161,7 +178,8 @@ seriate_sa <- function(x, control = NULL) {
         m,
         "/",
         iloop,
-        "\n")
+        "\n"
+      )
     }
 
     temp <- temp * param$cool
