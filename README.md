@@ -16,6 +16,15 @@ techniques to reorder matrices, dissimilarity matrices, and dendrograms
 heatmaps, color images and clustering visualizations like dissimilarity
 plots, and visual assessment of cluster tendency plots (VAT and iVAT).
 
+Here are some quick guides for
+
+- [reordered
+  heatmaps.](https://mhahsler.github.io/seriation/heatmaps.html)
+- [reordered correlation matrices.](https://taiyun.github.io/corrplot/)
+  (package corrplot uses seriation)
+- [a comparison between seriation
+  methods.](https://mhahsler.github.io/seriation/visual_comparison.html)
+
 ## Available seriation methods to reorder dissimilarity data
 
 ### Optimization

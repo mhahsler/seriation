@@ -9,10 +9,10 @@ editor: visual
 
 # Introduction
 
-This document compares the seriation methods available in package \pkg{seriation} 
-using the popular Iris data set and randomize the order of the objects.
+This document compares the seriation methods available in package \pkg{seriation} using the popular Iris data set and randomize the order of the objects.
 
 # Preparing the data
+
 ```{r}
 library("seriation")
 
@@ -25,8 +25,7 @@ d <- dist(x)
 
 ## Methods
 
-We first register more seriation methods. Some of these methods require the 
-installation of more packages. 
+We first register more seriation methods. Some of these methods require the installation of more packages.
 
 ```{r}
 register_DendSer()
@@ -34,7 +33,7 @@ register_optics()
 register_smacof()
 ```
 
-The following methods will be used (a few slow methods are skipped). 
+The following methods will be used (a few slow methods are skipped).
 
 ```{r}
 methods <- sort(list_seriation_methods("dist"))
@@ -44,13 +43,11 @@ methods <- setdiff(methods, c("BBURCG", "BBWRCG", "Enumerate", "GSA"))
 methods 
 ```
 
-Details about the method can be found in the 
-[manual page for `seriate()`](https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriate).
+Details about the method can be found in the [manual page for `seriate()`](https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriate).
 
-## Performing the seriation
+## Performing seriation
 
-We use a loop to run the function `seriate()` with each method and calculate 
-criterion measures which indicate how good the order is.
+We use a loop to run the function `seriate()` with each method and calculate criterion measures which indicate how good the order is.
 
 ```{r}
 orders <- list()
@@ -65,11 +62,7 @@ for (m in methods) {
 criterion <- do.call(rbind, criterion)
 ```
 
-We align the seriation orders. The reason is that an order 1, 2, 3 and 3, 2, 1
-are equivalent and just an artifact of the algorithm. Aligning will reverse some 
-orders so they are in roughly the same order. Then we sort the orders 
-from best to worst according to a popular seriation criterion measure 
-called `Gradient_weighted`.
+We align the seriation orders. The reason is that an order 1, 2, 3 and 3, 2, 1 are equivalent and just an artifact of the algorithm. Aligning will reverse some orders so they are in roughly the same order. Then we sort the orders from best to worst according to a popular seriation criterion measure called `Gradient_weighted`.
 
 ```{r}
 orders <- ser_align(orders)
@@ -79,27 +72,23 @@ orders <- orders[best_to_worse]
 criterion <- criterion[best_to_worse, ]
 ```
 
-Plot the reordered dissimilarity matrices. Dark blocks along the main 
-diagonal mean that the order reveals a "cluster" of similar objects.
-The Iris dataset contains three species, but two of them are very similar, so 
-we expect to see one smaller block and one larger block.
+Plot the reordered dissimilarity matrices. Dark blocks along the main diagonal mean that the order reveals a "cluster" of similar objects. The Iris dataset contains three species, but two of them are very similar, so we expect to see one smaller block and one larger block.
 
 ```{r}
 for (n in names(orders))
   pimage(d, orders[[n]], main = n , key = FALSE)
 ```
 
-We can compare the seriation methods by how similar the orders are that 
-they produce. The following code calculates distances between orders and
-then performs hierarchical clustering.
+## Comparison beween methods
+
+We can compare the seriation methods by how similar the orders are that they produce. The following code calculates distances between orders and then performs hierarchical clustering.
 
 ```{r}
 dst <- ser_dist(orders) 
 hmap(dst)
 ```
 
-Here are the criterion measures. Some are maximized and some should be minimized. 
-Details about the measures can be found in the [manual page for `criterion()`](https://mhahsler.r-universe.dev/seriation/doc/manual.html#criterion).
+Here are the criterion measures. Some are maximized and some should be minimized. Details about the measures can be found in the [manual page for `criterion()`](https://mhahsler.r-universe.dev/seriation/doc/manual.html#criterion).
 
 ```{r}
 DT::datatable(round(criterion, 2))
@@ -107,14 +96,17 @@ DT::datatable(round(criterion, 2))
 
 # Matrix seriation
 
-Matrix seriation reorders rows and columns of a data matrix. We perform the 
-same steps as for distances in the previous section.
+Matrix seriation reorders rows and columns of a data matrix. We perform the same steps as for distances in the previous section.
+
+## Methods
 
 ```{r}
 methods <- sort(list_seriation_methods("matrix"))
 
 methods 
 ```
+
+## Performing seriation
 
 ```{r, fig.height= 5}
 orders <- list()
@@ -130,7 +122,6 @@ for (m in methods) {
 criterion <- do.call(rbind, criterion)
 ```
 
-
 ```{r}
 best_to_worse <- order(criterion[["Moore_stress"]], decreasing = FALSE)
 
@@ -143,6 +134,7 @@ for (n in names(orders))
   pimage(x, orders[[n]], main = n , key = FALSE)
 ```
 
+## Comparison beween methods
 
 ```{r}
 DT::datatable(round(criterion, 2))
