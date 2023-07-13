@@ -50,7 +50,8 @@
 #' both rows and columns. For `gghmap()`, this
 #' parameter is passed on in `control`.
 #' @param method a character strings indicating the used seriation algorithm
-#' (see [seriate.dist()]). If the method results in a dendrogram then
+#' (see [seriate.dist()]).
+#' If the method results in a dendrogram then
 #' [stats::heatmap()] is used to show the dendrograms, otherwise
 #' reordered distance matrices are shown instead.
 #' @param control a list of control options passed on to the seriation
@@ -139,7 +140,7 @@
 #'     scale_fill_gradient2(low = "darkgreen", high = "red")
 #'
 #'   gghmap(d, prop = TRUE) +
-#'     labs(title = "Wood", subtitle = "Euclidean distances, reordered)")
+#'     labs(title = "Wood", subtitle = "Euclidean distances, reordered")
 #'
 #'   # Note: the ggplot2-based version cannot show distance matrices in the same plot.
 #'
@@ -173,8 +174,9 @@ hmap <- function(x,
   # dist or matrix?
   if (inherits(x, "dist")) {
     dist_row <- dist_col <- x
-    o_col <- o_row <- seriate(x,
+    o <- seriate(x,
       method = method, control = control)[[1]]
+    o <- ser_permutation(o, o)
     x <- as.matrix(x)
 
     # dist uses reversed colors!
@@ -183,37 +185,21 @@ hmap <- function(x,
     if (!is.matrix(x))
       x <- as.matrix(x)
 
-    if (!is.null(scale)) {
-      if (scale == "row")
-        x <- t(scale(t(x)))
-      if (scale == "col")
-        x <- scale(x)
-    }
-
-    dist_row <- distfun(x)
-    o_row <- seriate(dist_row,
-      method = method, control = control)[[1]]
-
-    #o_row <- ser_align(list(ser_permutation_vector(order(rowMeans(x, na.rm = TRUE), decreasing = TRUE)), o_row))[[2]]
-
-    dist_col <- distfun(t(x))
-    o_col <- seriate(dist_col,
-      method = method, control = control)[[1]]
-
-    #o_col <- ser_align(list(ser_permutation_vector(order(colMeans(x, na.rm = TRUE), decreasing = FALSE)), o_col))[[2]]
+    o <- seriate(x, "Heatmap", seriation_method = method, dist_fun = distfun,
+                 seriation_control = control, scale = scale)
   }
 
 
   # is hierarchical? then let's do a heatmap from stats
-  if (inherits(o_col, "hclust") && showDend) {
+  if (inherits(o[[1]], "hclust") && showDend) {
     # heatmap by default scales rows: we don't want that!
     # options are ignored for now: we use ...
 
     stats::heatmap(
       x,
-      Rowv = stats::as.dendrogram(o_row),
-      Colv = stats::as.dendrogram(o_col),
-      scale = "none",
+      Rowv = stats::as.dendrogram(o[[1]]),
+      Colv = stats::as.dendrogram(o[[2]]),
+      scale = scale,
       col = col,
       labRow = row_labels,
       labCol = col_labels,
@@ -222,14 +208,15 @@ hmap <- function(x,
 
   } else {
     ### we plot seriated distance matrices
-    .hmap_dist(x, method, dist_row, dist_col, o_row, o_col, col = col,
+    #pimage(x, o, col = col, row_labels = row_labels, col_labels = col_labels, ...)
+    .hmap_dist(x, method, dist_row = distfun(x), dist_col = distfun(t(x)),
+               o, col = col,
       row_labels = row_labels, col_labels = col_labels, ...)
   }
 
   ## return permutation indices
   return(invisible(list(
-    rowInd = o_row,
-    colInd = o_col,
+    o = o,
     seriation_method = method
   )))
 
@@ -241,9 +228,10 @@ hmap <- function(x,
     method,
     dist_row,
     dist_col,
-    o_row,
-    o_col,
+    o,
     ...) {
+    o_row <- o[[1]]
+    o_col <- o[[2]]
 
     ## options
     options <- list(...)
@@ -261,7 +249,7 @@ hmap <- function(x,
         keylab   = "",
         row_labels    = NULL,
         col_labels    = NULL,
-        showdist  = "none",
+        showdist  = "both",
         symm      = FALSE,
         margins   = NULL,
         zlim      = if (any(x < 0, na.rm = TRUE))

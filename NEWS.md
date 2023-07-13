@@ -19,7 +19,7 @@
 - New seriation method "Enumerate" for complete enumeration.
 - New seriation method "Mean" for matrix.
 - New seriation method "LLE" (locally linear embedding) for matrix.
-- Heatmap seriation has now special seriation_method "mean".
+- Heatmap seriation has now special seriation_method "HC_Mean".
 
   
 ## Changes
@@ -30,8 +30,9 @@
 - HC-based seriation: The control parameter method is now linkage so it can be used
   in seriate() in the ...
 - seriation method spectral now also returns the embedding.
-- Seriation method simmulated annealing is now called "GSA".
+- Seriation method simulated annealing is now called "GSA".
 - Simplified generics for pimage and ggpimage. Defaults for pimage.dist have changed.
+- DendSer methods now return hclust objects.
 
 ## Bug Fixes
 - fixed labels returned by uniscale()

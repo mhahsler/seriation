@@ -411,7 +411,7 @@
 #'
 #'    `control` parameter:
 #'      - `"seriation_method"`: a list with row and column seriation methods.
-#'          The special method `"mean"` is available to use hierarchical clustering
+#'          The special method `"HC_Mean"` is available to use hierarchical clustering
 #'          with reordering the leafs by the row/column means (see [stats::heatmap()]).
 #'          Defaults to optimal leaf ordering `"OLO"`.
 #'      -  `"seriation_control"`: a list with control parameters for row and column

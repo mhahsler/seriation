@@ -226,7 +226,11 @@ set_seriation_method <- function(kind,
   }
 
   if (verbose)
-    cat("Registered new seriation method", sQuote(name), "for", sQuote(kind),"\n")
+    cat("Registered new seriation method",
+        sQuote(name),
+        "for",
+        sQuote(kind),
+        "\n")
 }
 
 
@@ -241,19 +245,29 @@ print.seriation_method <- function(x, ...) {
     gettextf("description: %s", x$description)
   ))
 
-  if (length(x$control) > 0) {
-    writeLines("control (default values):")
+  writeLines("control:")
+  .print_control(x$control)
 
+  invisible(x)
+}
+
+
+.print_control <- function(control, label = "default values") {
+  if (length(control) < 1L) {
+    writeLines("no parameters")
+  } else{
     contr <- lapply(
-      x$control,
+      control,
       FUN =
         function(p)
           utils::capture.output(dput(p, control = list()))[1]
     )
 
-    print(as.data.frame(contr))
-  } else
-    writeLines("control: no parameters registered.")
+    contr <- t(as.data.frame(contr))
+    colnames(contr) <- label
 
-  invisible(x)
+    print(contr, quote = FALSE)
+  }
+
+  cat("\n")
 }

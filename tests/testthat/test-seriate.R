@@ -5,10 +5,11 @@ library(seriation)
 library(testthat)
 
 extra_integer <- NULL
+extra_hclust <- NULL
 
 if(seriation:::check_installed("DendSer", "check")) {
   register_DendSer()
-  extra_integer <- append(extra_integer, c("DendSer", "DendSer_ARc",
+  extra_hclust <- append(extra_hclust, c("DendSer", "DendSer_ARc",
                                            "DendSer_BAR", "DendSer_LPL",
                                            "DendSer_PL"))
   }
@@ -67,7 +68,8 @@ test_that("test if seriate.dist returns expected results", {
       "OLO_average",
       "OLO_complete",
       "OLO_single",
-      "OLO_ward"
+      "OLO_ward",
+      extra_hclust
     )
   )
   integers <- os[sapply(os, is.integer)]
@@ -83,7 +85,7 @@ test_that("test if seriate.dist returns expected results", {
       "MDS_angle",
       # "metaMDS",
       "monoMDS",
-      "isoMap",
+      "isomap",
       "isoMDS",
       "Sammon_mapping",
       "QAP_2SUM",

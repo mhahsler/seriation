@@ -420,7 +420,7 @@ the default method for data frames.
 \code{control} parameter:
 \itemize{
 \item \code{"seriation_method"}: a list with row and column seriation methods.
-The special method \code{"mean"} is available to use hierarchical clustering
+The special method \code{"HC_Mean"} is available to use hierarchical clustering
 with reordering the leafs by the row/column means (see \code{\link[stats:heatmap]{stats::heatmap()}}).
 Defaults to optimal leaf ordering \code{"OLO"}.
 \item \code{"seriation_control"}: a list with control parameters for row and column

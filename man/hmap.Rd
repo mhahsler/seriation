@@ -37,7 +37,8 @@ both rows and columns. For \code{gghmap()}, this
 parameter is passed on in \code{control}.}
 
 \item{method}{a character strings indicating the used seriation algorithm
-(see \code{\link[=seriate.dist]{seriate.dist()}}). If the method results in a dendrogram then
+(see \code{\link[=seriate.dist]{seriate.dist()}}).
+If the method results in a dendrogram then
 \code{\link[stats:heatmap]{stats::heatmap()}} is used to show the dendrograms, otherwise
 reordered distance matrices are shown instead.}
 
@@ -161,7 +162,7 @@ if (require("ggplot2")) {
     scale_fill_gradient2(low = "darkgreen", high = "red")
 
   gghmap(d, prop = TRUE) +
-    labs(title = "Wood", subtitle = "Euclidean distances, reordered)")
+    labs(title = "Wood", subtitle = "Euclidean distances, reordered")
 
   # Note: the ggplot2-based version cannot show distance matrices in the same plot.
 

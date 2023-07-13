@@ -55,8 +55,8 @@ seriate_matrix_heatmap <-
     if (1L %in% margin) {
       d <- control$dist_fun$row(x)
 
-      if (tolower(control$seriation_method$row) == "mean")
-        o_row <- ser_permutation_vector(seriate_hc_mean(d, x, control$seriation_control$row))
+      if (tolower(control$seriation_method$row) == "hc_mean")
+        o_row <- ser_permutation_vector(seriate_hc_mean(d, x, control$seriation_control$row), method = "HC_Mean")
       else
         o_row <- seriate(
           d,
@@ -70,8 +70,8 @@ seriate_matrix_heatmap <-
       x <- t(x)
       d <- control$dist_fun$col(x)
 
-      if (tolower(control$seriation_method$col) == "mean")
-        o_col <- ser_permutation_vector(seriate_hc_mean(d, x, control$seriation_control$col))
+      if (tolower(control$seriation_method$col) == "hc_mean")
+        o_col <- ser_permutation_vector(seriate_hc_mean(d, x, control$seriation_control$col), method = "HC_Mean")
       else
         o_col <- seriate(
           d,
@@ -96,7 +96,7 @@ seriate_hc_mean <- function(d, x, control = NULL) {
     stats::as.dendrogram(seriate_dist_hc(d, control)),
     wts = rowSums(x, na.rm = TRUE)
   ))
-  hc$call <- "seriate_hc_means"
+  hc$call <- match.call()
   hc$method <- "hclust + mean reordering"
   hc$dist.method <- attr(d, "method")
 

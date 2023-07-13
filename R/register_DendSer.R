@@ -118,7 +118,7 @@ register_DendSer <- function() {
       control$DendSer_args <- NULL
     }
 
-    do.call(DendSer::DendSer, control)
+    permute(control$h, do.call(DendSer::DendSer, control))
   }
 
 
