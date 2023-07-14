@@ -27,16 +27,7 @@ Here are some quick guides for
 
 ```{r echo=FALSE, results = 'asis'}
 pkg_usage(pkg)
-```
-
-Please cite the use of this package as:
-
-```{r echo=FALSE, results = 'asis', warning = FALSE}
 pkg_citation(pkg, 2L)
-```
-
-
-```{r echo=FALSE, results = 'asis'}
 pkg_install(pkg)
 ```
 
