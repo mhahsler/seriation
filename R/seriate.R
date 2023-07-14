@@ -18,155 +18,101 @@
 
 #' Seriate Dissimilarity Matrices, Matrices or Arrays
 #'
-#' Tries to find an linear order for objects using data in form of a
-#' dissimilarity matrix (two-way one mode data), a data matrix (two-way
-#' two-mode data) or a data array (k-way k-mode data). The order can then be
+#' Tries to find a linear order for objects using data in the form of a
+#' dissimilarity matrix (two-way one-mode data), a data matrix (two-way
+#' two-mode data), or a data array (k-way k-mode data). The order can then be
 #' used to reorder the dissimilarity matrix/data matrix using
 #' [permute()].
 #'
-#'
 #' Seriation methods are managed via a registry. See
-#' [list_seriation_methods()] for help. In the following, we discuss only the
+#' [list_seriation_methods()] for help. In the following, we focus on
+#' discussing the
 #' built-in methods that are registered automatically by the package \pkg{seriation}.
 #'
 #' The available control options and default settings for each algorithm
 #' can be retrieved using `get_seriation_method(name = "<seriation method>")`.
 #' Some control parameters are described in more detail below.
 #'
-#' Some methods are very slow and progress can be printed by using the control
+#' Some methods are very slow, and progress can be printed using the control
 #' parameter `verbose = TRUE`.
 #'
 #' Many seriation methods (heuristically) optimize (minimize or maximize) an
-#' objective function. The value of the function for a given seriation can be
+#' objective function often called seriation criterion.
+#' The value of the seriation criterion for a given order can be
 #' calculated using [criterion()]. In this manual page, we
-#' include the measure which is optimized by each method using **bold font**.
-#' If no measure is mentioned, then the measure does not directly optimize a measure.
-#' A definition of the measures can be found in the [criterion()] manual page.
+#' include the criterion, which is optimized by each method using **bold font**.
+#' If no criterion is mentioned, then the method does not directly optimize a criterion.
+#' A definition of the different seriation criteria can be found on the [criterion()] manual page.
 #'
 #' **Seriation methods for distance matrices (dist)**
 #'
-#' One-mode two-way data has to be provided as a dist object (not
-#' as a symmetric matrix). Similarities have to be transformed into
+#' One-mode two-way data must be provided as a dist object (not
+#' a symmetric matrix). Similarities have to be transformed into
 #' dissimilarities.
 #' Seriation algorithms fall into different groups based on the approach.
 #' Currently, the following methods are implemented (for a
-#' more detailed description and an experimental comparison see
+#' more detailed description and an experimental comparison, see
 #' [Hahsler (2017)](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf):
 #'
-#' **Optimization**
 #'
-#' These methods try to optimize a seriation criterion directly typically using a
-#' heuristic approach.
+#' **Dendrogram leaf order**
 #'
-#' - **Anti-Robinson seriation by simulated annealing:** `"ARSA"` (Brusco et al 2008)
+#'  These methods create a dendrogram using hierarchical clustering and then derive
+#'  the seriation order from the leaf order in the dendrogram. Leaf reordering
+#'  may be applied.
 #'
-#'   The algorithm automatically finds a suitable start temperature and calculates
-#'   the needed number of iterations. The algorithm gets slow for large number of
-#'   objects. The speed can be improved by lowering the cooling parameter or increasing the
-#'   minimum temperature. However, this will decrease the seriation quality.
+#'  - **Hierarchical clustering:** `"HC"`, `"HC_single"`, `"HC_complete"`,
+#'      `"HC_average"`, `"HC_ward"`
 #'
-#'   `control` parameter:
-#'     - `"cool"`: cooling factor (smaller means faster cooling).
-#'     - `"tmin"`: minimum temperature when the algorithm stops.
-#'     - `"rep"`: the number of runs can be specified.
+#'       Uses the order of the leaf nodes in a dendrogram obtained by hierarchical
+#'       clustering as a simple seriation technique. This method
+#'       applies hierarchical clustering ([hclust()]) to `x`. The clustering
+#'       method can be given using a `"linkage"` element in the `control`
+#'       list. If omitted, the default `"complete"` is used.
+#'       For convenience, the other methods are provided as shortcuts.
 #'
+#' - **Reordered by the Gruvaeus and Wainer heuristic:** `"GW"`, `"GW_single"`, `"GW_average"`,
+#'   `"GW_complete"`, `"GW_ward"`  (Gruvaeus and Wainer, 1972)
 #'
-#'    Directly minimizes the **linear seriation criterion.**
+#'   Method `"GW"` uses an algorithm developed by Gruvaeus and Wainer (1972)
+#'   as implemented [gclus::reorder.hclust()] (Hurley 2004).  The clusters are
+#'   ordered at each level so that the objects at the edge of each cluster are
+#'   adjacent to the nearest object outside the cluster. The
+#'   method produces a unique order.
 #'
-#' - **Complete Enumeration:** `"Enumerate"`
+#'     The methods start with a dendrogram created by [hclust()]. As the
+#'     `"linkage"` element in the `control` list, a clustering method
+#'     (default `"average"`) can be specified. Alternatively, an [hclust]
+#'     object can be supplied using an element named `"hclust"`.
 #'
-#'    Finds the optimal permutation given a criterion measure by complete enumeration
-#'    of all permutations.
-#'    The criterion is specified as the `control` parameters `"criterion"`.
-#'    Default is the weighted gradient measure. Use `"verbose = TRUE"` to see
-#'    the progress.
+#'     A dendrogram (binary tree) has \eqn{2^{n-1}} internal nodes (subtrees) and
+#'     the same number of leaf orderings. That is, at each internal node, the left
+#'     and right subtree (or leaves) can be swapped or, in terms of a dendrogram,
+#'     be flipped. The leaf-node reordering to minimize
 #'
-#'    Note: The number of permutations for \eqn{n} objects is \eqn{n!}.
-#'    This is only possible for tiny problems (<10 objects) and is limited on most systems
-#'    to a problem size of up to 12 objects.
+#'     Minimizes the **Hamiltonian path length (restricted by the dendrogram)**.
 #'
-#' - **Gradient measure seriation by branch-and-bound:** `"BBURCG"`, `"BBWRCG"` (Brusco and Stahl 2005)
+#' - **Reordered by optimal leaf ordering:** `"OLO"`, `"OLO_single"`,
+#'   `"OLO_average"`, `"OLO_complete"`, `"OLO_ward"`  (Bar-Joseph et al., 2001)
 #'
-#'    Uses branch-and-bound to minimize the
-#'    **unweighted gradient measure** (`"BBURCG"`) and the
-#'    **weighted gradient measure** (`"BBWRCG"`).
-#'    This is only feasible for a small number of objects (< 50 objects).
+#'   Starts with a dendrogram and
+#'   produces an optimal leaf ordering that minimizes the sum of
+#'   the distances along the (Hamiltonian) path connecting the leaves in the
+#'   given order. The algorithm's time complexity is \eqn{O(n^3)}. Note that
+#'   non-finite distance values are not allowed.
 #'
-#'    For BBURCG, the control parameter `"eps"` can be used to relax the problem, buy defining
-#'    that the distance needs to be eps larger to count as a violation. This will improve the speed,
-#'    but miss some Robinson events. Default is 0.
+#'   Minimizes the **Hamiltonian path length (restricted by the dendrogram)**.
 #'
-#' - **Genetic Algorithm:** `"GA"`
+#' - **Dendrogram seriation:** `"DendSer"` (Earle and Hurley, 2015)
 #'
-#'   The GA code has to be first registered. A detailed description can
-#'   be found in the manual page for [register_GA()].
-#'
-#' - **Quadratic assignment problem seriation:**
-#'    `"QAP_LS"`, `"QAP_2SUM"`, `"QAP_BAR"`, `"QAP_Inertia"` (Hahsler, 2017)
-#'
-#'   Formulates the seriation problem as a quadratic assignment problem and applies a
-#'   simulated annealing solver to find a good solution.
-#'   These methods minimize the
-#'   **Linear Seriation Problem** (LS) formulation (Hubert and Schultz 1976),
-#'   the **2-Sum Problem** formulation (Barnard, Pothen, and Simon 1993), the
-#'   **banded anti-Robinson form** (BAR) or the **inertia criterion**.
-#'
-#'   `control` parameters are passed on to [qap::qap()].
-#'   An important parameter is `rep` to return the best result out of the
-#'   given number of repetitions with random restarts. Default is 1, but bigger
-#'   numbers result in better and more stable results.
-#'
-#' - **General Simulated Annealing:** `"GSA"`
-#'
-#'   Implement simulated annealing similar to the ARSA method, however, it
-#'   can optimize
-#'   for any criterion measure defined in \pkg{seriation}. By default the
-#'   algorithm optimizes for the raw gradient measure and is warm started with the
-#'   result of spectral seriation (2-Sum problem) since Hahsler (2017) shows that
-#'   2-Sum solutions are similar to solutions for the gradient measure.
-#'   Use `warmstart = "random"` for no warm start.
-#'
-#'   The initial temperature `t0` and minimum temperature `tmin` can be set. If
-#'   `t0` is not set, then it is estimated by sampling uphill moves and setting
-#'   `t0` such that the median uphill move have a probability
-#'    of `tinitialaccept`. The number of iterations to go for `t0` to `tmin`
-#'    using the learning rate `cool` is calculated.
-#'
-#'   Several popular local neighborhood functions are
-#'   provided an new can be defined (see [LS]). Local moves are tried in each
-#'   iteration `nlocal` times the number of objects.
-#'
-#'   Note that this is an R implementation repeatedly calling criterion, and
-#'   therefore is very slow.
-#'
-#' - **Spectral seriation:** `"Spectral"`, `"Spectral_norm"`  (Ding and He, 2004)
-#'
-#'   Spectral seriation uses a relaxation to minimize the **2-Sum Problem**
-#'   (Barnard, Pothen, and Simon, 1993). It uses the order of the Fiedler vector
-#'   of the similarity matrix's (normalized) Laplacian.
-#'
-#'   Spectral seriation gives a good trade-off between seriation quality, speed
-#'   and scalability (see Hahsler, 2017).
-#'
-#' - **Traveling salesperson problem solver:** `"TSP"`
-#'
-#'   Uses a traveling salesperson problem solver to minimize the
-#'   **Hamiltonian path length**. The solvers in \pkg{TSP} are used (see
-#'   [TSP::solve_TSP()]). The solver method can be passed on via the `control`
-#'   argument, e.g. `control = list(method = "two_opt")`. Default is the est
-#'   of 10 runs of arbitrary insertion heuristic with 2-opt improvement.
-#'
-#'   Since a tour returned by a TSP solver is a connected circle and we are
-#'   looking for a path representing a linear order, we need to find the best
-#'   cutting point.  Climer and Zhang (2006) suggest to add a dummy city with
-#'   equal distance to each other city before generating the tour. The place of
-#'   this dummy city in an optimal tour with minimal length is the best cutting
-#'   point (it lies between the most distant cities).
-#'
+#'    Use heuristic dendrogram seriation to optimize for various criteria.
+#'    The DendSer code has to be first registered. A
+#'    detailed description can be found on the manual page for
+#'    [register_DendSer()].
 #'
 #' **Dimensionality reduction**
 #'
-#' Find a seriation order by reducing the dimensionalty to 1 dimension. This is typically
+#' Find a seriation order by reducing the dimensionality to 1 dimension. This is typically
 #' done by minimizing a stress measure or the reconstruction error.
 #' Note that dimensionality reduction to a single dimension is a very
 #' difficult discrete optimization problem.
@@ -190,7 +136,7 @@
 #'
 #'      Orders along the 1D Kruskal's non-metric multidimensional scaling.
 #'      Package `vegan` implements an alternative implementation called `monoMDS`
-#'      and version that uses random restarts for stability called `metaMDS`.
+#'      and a version that uses random restarts for stability called `metaMDS`.
 #'      `control` parameters are passed on to [MASS::isoMDS()], [vegan::monoMDS()] or [vegan::metaMDS()].
 #'
 #'   - **Sammon's non-linear mapping:** `"Sammon_mapping"` (Sammon, 1969)
@@ -211,60 +157,117 @@
 #'      Perform seriation using stress majorization with several transformation functions.
 #'      This method has to be registered first using [`register_smacof()`].
 #'
-#' **Dendrogram leaf order**
+#' **Optimization**
 #'
-#'  These methods create a dendrogram using hierarchical clustering and then derive
-#'  the seriation order from the leaf order in the dendrogram. Leaf reordering
-#'  may be applied.
+#' These methods try to optimize a seriation criterion directly, typically using a
+#' heuristic approach.
 #'
-#'  - **Hierarchical clustering:** `"HC"`, `"HC_single"`, `"HC_complete"`,
-#'      `"HC_average"`, `"HC_ward"`
+#' - **Anti-Robinson seriation by simulated annealing:** `"ARSA"` (Brusco et al 2008)
 #'
-#'       Uses the order of the leaf nodes in a dendrogram obtained by hierarchical
-#'       clustering as a simple seriation technique. This method
-#'       applies hierarchical clustering ([hclust()]) to `x`. The clustering
-#'       method can be given using a `"linkage"` element in the `control`
-#'       list. If omitted, the default `"complete"` is used.
-#'       For convenience the other methods are provided as shortcuts.
+#'   The algorithm automatically finds a suitable start temperature and calculates
+#'   the needed number of iterations. The algorithm gets slow for a large number of
+#'   objects. The speed can be improved by lowering the cooling parameter or increasing the
+#'   minimum temperature. However, this will decrease the seriation quality.
 #'
-#' - **Reordered by the Gruvaeus and Wainer heuristic:** `"GW"`, `"GW_single"`, `"GW_average"`,
-#'   `"GW_complete"`, `"GW_ward"`  (Gruvaeus and Wainer, 1972)
+#'   `control` parameter:
+#'     - `"cool"`: cooling factor (smaller means faster cooling).
+#'     - `"tmin"`: minimum temperature when the algorithm stops.
+#'     - `"rep"`: the number of runs can be specified.
 #'
-#'   Method `"GW"` uses an algorithm developed by Gruvaeus and Wainer (1972)
-#'   as implemented [gclus::reorder.hclust()] (Hurley 2004).  The clusters are
-#'   ordered at each level so that the objects at the edge of each cluster are
-#'   adjacent to that object outside the cluster to which it is nearest. The
-#'   method produces an unique order.
 #'
-#'     The methods start with a dendrogram created by [hclust()]. As the
-#'     `"linkage"` element in the `control` list a clustering method
-#'     (default `"average"`) can be specified. Alternatively, an [hclust]
-#'     object can be supplied using an element named `"hclust"`.
+#'    Directly minimizes the **linear seriation criterion.**
 #'
-#'     A dendrogram (binary tree) has \eqn{2^{n-1}} internal nodes (subtrees) and
-#'     the same number of leaf orderings. That is, at each internal node the left
-#'     and right subtree (or leaves) can be swapped, or, in terms of a dendrogram,
-#'     be flipped. The leaf-node reordering to minimize
+#' - **Complete Enumeration:** `"Enumerate"`
 #'
-#'     Minimizes the **Hamiltonian path length (restricted by the dendrogram)**.
+#'    This method finds the optimal permutation given a seriation criterion by complete enumeration
+#'    of all permutations.
+#'    The criterion is specified as the `control` parameters `"criterion"`.
+#'    Default is the weighted gradient measure. Use `"verbose = TRUE"` to see
+#'    the progress.
 #'
-#' - **Reordered by optimal leaf ordering:** `"OLO"`, `"OLO_single"`,
-#'   `"OLO_average"`, `"OLO_complete"`, `"OLO_ward"`  (Bar-Joseph et al., 2001)
+#'    Note: The number of permutations for \eqn{n} objects is \eqn{n!}.
+#'    Complete enumeration is only possible for tiny problems (<10 objects) and is limited on most systems
+#'    to a problem size of up to 12 objects.
 #'
-#'   Also starts with a dendrogram and
-#'   produces an optimal leaf ordering with respect to the minimizing the sum of
-#'   the distances along the (Hamiltonian) path connecting the leaves in the
-#'   given order. The time complexity of the algorithm is \eqn{O(n^3)}. Note that
-#'   non-finite distance values are not allowed.
+#' - **Gradient measure seriation by branch-and-bound:** `"BBURCG"`, `"BBWRCG"` (Brusco and Stahl 2005)
 #'
-#'   Minimizes the **Hamiltonian path length (restricted by the dendrogram)**.
+#'    The method uses branch-and-bound to minimize the
+#'    **unweighted gradient measure** (`"BBURCG"`) and the
+#'    **weighted gradient measure** (`"BBWRCG"`).
+#'    This type of optimization is only feasible for a small number of objects (< 50 objects).
 #'
-#' - **Dendrogram seriation:** `"DendSer"` (Earle and Hurley, 2015)
+#'    For BBURCG, the control parameter `"eps"` can be used to relax the problem by defining
+#'    that the distance needs to be eps larger to count as a violation. This relaxation will improve the speed,
+#'    but miss some Robinson events. The default value is 0.
 #'
-#'    Use heuristic dendrogram seriation to optimize for various criteria.
-#'    The DendSer code has to be first registered. A
-#'    detailed description can be found in the manual page for
-#'    [register_DendSer()].
+#' - **Genetic Algorithm:** `"GA"`
+#'
+#'   The GA code has to be first registered. A detailed description can
+#'   be found on the manual page for [register_GA()].
+#'
+#' - **Quadratic assignment problem seriation:**
+#'    `"QAP_LS"`, `"QAP_2SUM"`, `"QAP_BAR"`, `"QAP_Inertia"` (Hahsler, 2017)
+#'
+#'   Formulates the seriation problem as a quadratic assignment problem and applies a
+#'   simulated annealing solver to find a good solution.
+#'   These methods minimize the
+#'   **Linear Seriation Problem** (LS) formulation (Hubert and Schultz 1976),
+#'   the **2-Sum Problem** formulation (Barnard, Pothen, and Simon 1993), the
+#'   **banded anti-Robinson form** (BAR), or the **inertia criterion**.
+#'
+#'   `control` parameters are passed on to [qap::qap()].
+#'   An important parameter is `rep` to return the best result from the
+#'   given number of repetitions with random restarts. The default is 1, but bigger
+#'   numbers result in better and more stable results.
+#'
+#' - **General Simulated Annealing:** `"GSA"`
+#'
+#'   Implement simulated annealing similar to the ARSA method. However, it
+#'   can optimize
+#'   for any criterion measure defined in \pkg{seriation}. By default, the
+#'   algorithm optimizes for the raw gradient measure, and is warm started with the
+#'   result of spectral seriation (2-Sum problem) since Hahsler (2017) shows that
+#'   2-Sum solutions are similar to solutions for the gradient measure.
+#'   Use `warmstart = "random"` for no warm start.
+#'
+#'   The initial temperature `t0` and minimum temperature `tmin` can be set. If
+#'   `t0` is not set, then it is estimated by sampling uphill moves and setting
+#'   `t0` such that the median uphill move have a probability
+#'    of `tinitialaccept`.
+#'    Using the learning rate `cool`, the number of iterations
+#'    to go for `t0` to `tmin` is calculated.
+#'
+#'   Several popular local neighborhood functions are
+#'   provided, and new ones can be defined (see [LS]). Local moves are tried in each
+#'   iteration `nlocal` times the number of objects.
+#'
+#'   Note that this is an R implementation repeatedly calling the criterion funciton
+#'   which is very slow.
+#'
+#' - **Spectral seriation:** `"Spectral"`, `"Spectral_norm"`  (Ding and He, 2004)
+#'
+#'   Spectral seriation uses a relaxation to minimize the **2-Sum Problem**
+#'   (Barnard, Pothen, and Simon, 1993). It uses the order of the Fiedler vector
+#'   of the similarity matrix's (normalized) Laplacian.
+#'
+#'   Spectral seriation gives a good trade-off between seriation quality,
+#'   and scalability (see Hahsler, 2017).
+#'
+#' - **Traveling salesperson problem solver:** `"TSP"`
+#'
+#'   Uses a traveling salesperson problem solver to minimize the
+#'   **Hamiltonian path length**. The solvers in \pkg{TSP} are used (see
+#'   [TSP::solve_TSP()]). The solver method can be passed on via the `control`
+#'   argument, e.g., `control = list(method = "two_opt")`. Default is the est
+#'   of 10 runs of arbitrary insertion heuristic with 2-opt improvement.
+#'
+#'   Since a tour returned by a TSP solver is a connected circle and we are
+#'   looking for a path representing a linear order, we need to find the best
+#'   cutting point.  Climer and Zhang (2006) suggest adding a dummy city with
+#'   equal distance to each other city before generating the tour. The place of
+#'   this dummy city in an optimal tour with minimal length is the best cutting
+#'   point (it lies between the most distant cities).
+#'
 #'
 #'  **Other Methods**
 #'
@@ -283,12 +286,12 @@
 #'   matrix.
 #'
 #'   The rank of the matrix \eqn{R^n} falls with increasing \eqn{n}. The first
-#'   \eqn{R^n} in the sequence which has a rank of 2 is found. Projecting all
+#'   \eqn{R^n} in the sequence, which has a rank of 2 is found. Projecting all
 #'   points in this matrix on the first two eigenvectors, all points fall on an
 #'   ellipse. The order of the points on this ellipse is the resulting order.
 #'
 #'   The ellipse can be cut at the two interception points (top or bottom) of the
-#'   vertical axis with the ellipse. In this implementation the top most cutting
+#'   vertical axis with the ellipse. In this implementation, the topmost cutting
 #'   point is used.
 #'
 #' - **Sorting Points Into Neighborhoods:** `"SPIN_STS"`, `"SPIN_NH"` (Tsafrir, 2005)
@@ -297,12 +300,12 @@
 #'   minimize the energy for a permutation (matrix \eqn{P}) given by \deqn{F(P) =
 #'   tr(PDP^TW),} where \eqn{tr} denotes the matrix trace.
 #'
-#'   `"SPIN_STS"` implements the Side-to-Side algorithm which tries to push
+#'   `"SPIN_STS"` implements the Side-to-Side algorithm, which tries to push
 #'   out large distance values. The default weight matrix suggested in the paper
 #'   with \eqn{W=XX^T} and \eqn{X_i=i-(n+1)/2} is used. We run the algorithm from
 #'   `step` (25) iteration and restart the algorithm `nstart` (10) with
 #'   random initial permutations (default values in parentheses). Via
-#'   `control` the parameters `step`, `nstart`, `X` and
+#'   `control` the parameters `step`, `nstart`, `X`, and
 #'   `verbose`.
 #'
 #'   `"SPIN_NH"` implements the neighborhood algorithm (concentrate low
@@ -313,12 +316,12 @@
 #'   \eqn{\sigma}) structure.
 #'
 #'   We use the heuristic suggested in the paper for the linear assignment
-#'   problem. We do not terminate as indicated in the algorithm, but run all the
+#'   problem. We do not terminate as indicated in the algorithm but run all the
 #'   iterations since the heuristic does not guarantee that the energy is
 #'   strictly decreasing. We also implement the heuristic "annealing" scheme
 #'   where \eqn{\sigma} is successively reduced. The parameters in `control`
 #'   are `sigma` which can be a single value or a decreasing sequence
-#'   (default: 20 to 1 in 10 steps) and `step` which defines how many update
+#'   (default: 20 to 1 in 10 steps), and `step`, which defines how many update
 #'   steps are performed before for each value of `alpha`. Via
 #'   `W_function` a custom function to create \eqn{W} with the function
 #'   signature `function(n, sigma, verbose)` can be specified. The parameter
@@ -340,12 +343,12 @@
 #' Some methods also require that the matrix is positive.
 #' Data frames and contingency tables ([base::table])
 #' are converted into a matrix. However, the
-#' default method are different.
+#' default methods are different.
 #'
 #' Some methods find the row and column order simultaneously,
 #' while others calculate them independently.
-#' Currently the
-#' following methods are implemented for matrix:
+#' Currently, the
+#' following methods are implemented for `matrix`:
 #'
 #' **Seriating rows and columns simultaneously**
 #'
@@ -353,11 +356,11 @@
 #'
 #' - **Bond Energy Algorithm:** `"BEA"`  (McCormick, 1972).
 #'
-#'   The algorithm tries to maximize the **Measure of Effectiveness.** of a
-#'   non-negative matrix. Due to the definition of this measure, the tasks of
-#'   ordering rows and columns is separable and can be solved independently.
+#'   The algorithm tries to maximize a non-negative matrix's **Measure of Effectiveness.**
+#'   Due to the definition of this measure, the tasks of
+#'   ordering rows and columns are separable and can be solved independently.
 #'
-#'   A row is arbitrarily placed; then rows are positioned one by one. When this
+#'   A row is arbitrarily placed; then, rows are positioned one by one. When this
 #'   is completed, the columns are treated similarly. The overall procedure
 #'   amounts to two approximate traveling salesperson problems (TSP), one on the
 #'   rows and one on the columns. The so-called `best insertion strategy' is
@@ -365,11 +368,11 @@
 #'   (or columns). Several consecutive runs of the algorithm might improve the
 #'   energy.
 #'
-#'   Note that Arabie and Hubert (1990) question its use with non-binary data if
+#'   Arabie and Hubert (1990) question its use with non-binary data if
 #'   the objective is to find a seriation or one-dimensional orderings of rows
 #'   and columns.
 #'
-#'   The BEA code used in this package was implemented by Fionn Murtagh.
+#'   Fionn Murtagh implemented the BEA code used in this package.
 #'
 #'   `control` parameter:
 #'     - `"rep"`: the number of runs can be specified.
@@ -382,7 +385,7 @@
 #'   between columns are calculated the same way from the transposed data matrix.
 #'
 #'   Solving the two TSP using these distances optimizes the measure of
-#'   effectiveness. BEA can be seen as a simple, suboptimal TSP-method.
+#'   effectiveness. BEA can be seen as a simple, suboptimal TSP method.
 #'
 #'   `control` parameter:
 #'      - `"method"`: a TSP solver method (see [TSP::solve_TSP()]).
@@ -412,7 +415,7 @@
 #'    `control` parameter:
 #'      - `"seriation_method"`: a list with row and column seriation methods.
 #'          The special method `"HC_Mean"` is available to use hierarchical clustering
-#'          with reordering the leafs by the row/column means (see [stats::heatmap()]).
+#'          with reordering the leaves by the row/column means (see [stats::heatmap()]).
 #'          Defaults to optimal leaf ordering `"OLO"`.
 #'      -  `"seriation_control"`: a list with control parameters for row and column
 #'          seriation methods.
@@ -423,12 +426,12 @@
 #' **Seriate rows using the data matrix**
 #'
 #' These methods need access to the data matrix instead of dissimilarities to
-#' reorder objects (rows). Columns can also be reorderd by appying the same technique
+#' reorder objects (rows). Columns can also be reorderd by applying the same technique
 #' to the transposed data matrix.
 #'
 #' - **Order along the 1D locally linear embedding:** `"LLE"`
 #'
-#'  Performs 1D the non linear dimensionality reduction method locally linear embedding
+#'  Performs 1D the non-linear dimensionality reduction method locally linear embedding
 #'  (see [lle()]).
 #'
 #' - **Order along the first principal component:** `"PCA"`
@@ -438,14 +441,14 @@
 #'   matrix to obtain the column order.
 #'
 #'   Note that for a distance matrix calculated from `x` with Euclidean
-#'   distance, this methods minimizes the least square criterion.
+#'   distance, this method minimizes the least square criterion.
 #'
 #' - **Order using the angle in the space spanned by the first two principal components:** `"PCA_angle"`
 #'
 #'   For rows, projects the data on the first two principal components
 #'   and then orders by the angle in this space. The order is split by the larges
 #'   gap between adjacent angles. A similar method was used for ordering
-#'   correlation matrices by Friendly (2002). Performs the same on the
+#'   correlation matrices by Friendly (2002). Performs the same process on the
 #'   transposed matrix for the column order.
 #'
 #' **Other methods**
@@ -473,7 +476,7 @@
 #' (default: varies by data type).
 #' @param control a list of control options passed on to the seriation
 #' algorithm.
-#' @param margin a integer vector giving the margin indices (dimensions) to be
+#' @param margin an integer vector giving the margin indices (dimensions) to be
 #' seriated. For example, for a matrix, `1` indicates rows, `2`
 #' indicates columns, `c(1 ,2)` means rows and columns.
 #' Unseriated margins return the identity seriation order for that margin.

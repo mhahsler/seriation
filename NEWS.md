@@ -1,10 +1,9 @@
-# seriation 1.4.2.1 (xx/xx/2023)
+# seriation 1.5.0 (07/13/2023)
 
 ## New Features
 - new function seriate_best and seriate_rep to easily find a good order for
   randomized algorithms.
 - seriation for arrays (including matrix) gained margin parameter.
-- added VAE seriation method
 - tsne and umap can now be used on data matrices.
 - get_rank() returns now labels.
 - added seriation method reverse for dist.

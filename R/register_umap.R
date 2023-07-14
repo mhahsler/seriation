@@ -52,7 +52,7 @@
 #' data(SupremeCourt)
 #' d <- as.dist(SupremeCourt)
 #'
-#' o <- seriate(d, method = "umap")
+#' o <- seriate(d, method = "umap", verbose = TRUE)
 #' pimage(d, o)
 #'
 #' # look at the returned embedding and plot it
@@ -68,8 +68,10 @@
 #' label <- rownames(Zoo)
 #' class <- Zoo$class
 #'
-#' o <- seriate(x, method = "umap")
-#' pimage(x, o, prop = FALSE)
+#' o <- seriate(x, method = "umap", verbose = TRUE)
+#' pimage(x, o)
+#'
+#' plot_config(o[[1]], col = class)
 #' }
 #' @export
 register_umap <- function() {
@@ -79,6 +81,7 @@ register_umap <- function() {
   .contr$n_epochs <- 1000
   .contr$n_neighbors <- NA
   .contr$n_components <- 1
+  .contr$alpha <- 0.001
   .contr$input <- NA
   .contr$random_state <- NA
 

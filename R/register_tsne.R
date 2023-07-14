@@ -57,28 +57,35 @@
 #' data(SupremeCourt)
 #' d <- as.dist(SupremeCourt)
 #'
-#' o <- seriate(d, method = "tsne")
+#' o <- seriate(d, method = "tsne", verbose = TRUE)
 #' pimage(d, o)
 #'
-#' # look at the returned embedding and plot it
+#' # look at the returned configuration and plot it
 #' attr(o[[1]], "configuration")
 #' plot_config(o)
+#'
+#' # the t-SNE results are also available as an attribute (see ? Rtsne::Rtsne)
+#' attr(o[[1]], "model")
 #'
 #' ## matrix
 #' get_seriation_method("matrix", "tsne")
 #'
 #' data("Zoo")
-#' Zoo[,"legs"] <- (Zoo[,"legs"] > 0)
-#' x <- as.matrix(Zoo[,-17])
-#' label <- rownames(Zoo)
-#' class <- Zoo$class
+#' x <- Zoo
 #'
-#' # tsne does not allow duplicates
+#' x[,"legs"] <- (x[,"legs"] > 0)
+#'
+#' # t-SNE does not allow duplicates
 #' x <- x[!duplicated(x), , drop = FALSE]
 #'
-#' o <- seriate(x, method = "tsne")
-#' pimage(x, o, prop = FALSE)
+#' class <- x$class
+#' label <- rownames(x)
+#' x <- as.matrix(x[,-17])
 #'
+#' o <- seriate(x, method = "tsne", eta = 10, verbose = TRUE)
+#' pimage(x, o, prop = FALSE, row_labels = TRUE, col_labels = TRUE)
+#'
+#' # look at the row embedding
 #' plot_config(o[[1]], col = class)
 #' }
 #'
@@ -88,9 +95,9 @@ register_tsne <- function() {
 
   .contr <- list(
     max_iter = 1000,
-    theta = 0,
+    theta = 0.5,
     perplexity = NULL,
-    eta = 200,
+    eta = 100,
     mds = TRUE,
     verbose = FALSE
   )
@@ -125,18 +132,18 @@ register_tsne <- function() {
 
     o <- order(embedding$Y)
 
-    embedding <- drop(embedding$Y)
-    names(embedding) <- attr(x, "Labels")
-    attr(o, "configuration") <- embedding
+    attr(o, "configuration") <-
+      structure(drop(embedding$Y), names = attr(x, "Labels"))
+    attr(o, "model") <-  embedding
 
     o
   }
 
   .contr_matrix <- list(
     max_iter = 1000,
-    theta = 0,
+    theta = 0.5,
     perplexity = NULL,
-    eta = 200,
+    eta = 100,
     pca = TRUE
   )
 
@@ -159,14 +166,15 @@ register_tsne <- function() {
         max_iter = control$max_iter,
         theta = control$theta,
         eta = control$eta,
-        perplexity = control$perplexity
+        perplexity = control$perplexity,
+        verbose = control$verbose
       )
 
     o <- order(embedding$Y)
 
-    embedding <- drop(embedding$Y)
-    names(embedding) <- rownames(x)
-    attr(o, "configuration") <- embedding
+    attr(o, "configuration") <-
+      structure(drop(embedding$Y), names = rownames(x))
+    attr(o, "model") <-  embedding
 
     o
   }
