@@ -60,10 +60,23 @@ The following R packages use `seriation`:
 
 Please cite the use of this package as:
 
-> Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things in
-> Order: An Introduction to the R Package
-> seriation](http://dx.doi.org/10.18637/jss.v025.i03), Journal of
-> Statistical Software, 25(3), 2008. DOI: 10.18637/jss.v025.i03
+> Hahsler M, Hornik K, Buchta C (2008). “Getting things in order: An
+> introduction to the R package seriation.” *Journal of Statistical
+> Software*, *25*(3), 1-34. ISSN 1548-7660, <doi:10.18637/jss.v025.i03>
+> <https://doi.org/10.18637/jss.v025.i03>.
+
+    @Article{,
+      title = {Getting things in order:  An introduction to the R package seriation},
+      author = {Michael Hahsler and Kurt Hornik and Christian Buchta},
+      year = {2008},
+      journal = {Journal of Statistical Software},
+      volume = {25},
+      number = {3},
+      pages = {1--34},
+      doi = {10.18637/jss.v025.i03},
+      month = {March},
+      issn = {1548-7660},
+    }
 
 ## Installation
 

@@ -25,21 +25,15 @@ Here are some quick guides for
 * [reordered correlation matrices](https://taiyun.github.io/corrplot/) (using seriation in package corrplot).
 * [a visual comparison between seriation methods.](https://mhahsler.github.io/seriation/visual_comparison.html)
 
-The following R packages use `seriation`: 
-```{r, echo = FALSE, results='asis'}
-rev_deps <- tools::package_dependencies("seriation", recursive = FALSE, reverse = TRUE, 
-                                                                    which = c("Depends", "Imports", "Suggests"))[[1L]]
-
-format_cran_links <- function(pkgs) {
-  paste0("[", pkgs,"]","(https://CRAN.R-project.org/package=", pkgs, ")")
-}
-                            
-cat(paste(format_cran_links(rev_deps), collapse = ", "))
+```{r echo=FALSE, results = 'asis'}
+pkg_usage(pkg)
 ```
 
 Please cite the use of this package as:
 
-> Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things in Order: An Introduction to the R Package seriation](http://dx.doi.org/10.18637/jss.v025.i03), Journal of Statistical Software, 25(3), 2008. DOI: 10.18637/jss.v025.i03
+```{r echo=FALSE, results = 'asis', warning = FALSE}
+pkg_citation(pkg, 2L)
+```
 
 
 ```{r echo=FALSE, results = 'asis'}
