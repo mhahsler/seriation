@@ -43,28 +43,35 @@ get_seriation_method("dist", "tsne")
 data(SupremeCourt)
 d <- as.dist(SupremeCourt)
 
-o <- seriate(d, method = "tsne")
+o <- seriate(d, method = "tsne", verbose = TRUE)
 pimage(d, o)
 
-# look at the returned embedding and plot it
+# look at the returned configuration and plot it
 attr(o[[1]], "configuration")
 plot_config(o)
+
+# the t-SNE results are also available as an attribute (see ? Rtsne::Rtsne)
+attr(o[[1]], "model")
 
 ## matrix
 get_seriation_method("matrix", "tsne")
 
 data("Zoo")
-Zoo[,"legs"] <- (Zoo[,"legs"] > 0)
-x <- as.matrix(Zoo[,-17])
-label <- rownames(Zoo)
-class <- Zoo$class
+x <- Zoo
 
-# tsne does not allow duplicates
+x[,"legs"] <- (x[,"legs"] > 0)
+
+# t-SNE does not allow duplicates
 x <- x[!duplicated(x), , drop = FALSE]
 
-o <- seriate(x, method = "tsne")
-pimage(x, o, prop = FALSE)
+class <- x$class
+label <- rownames(x)
+x <- as.matrix(x[,-17])
 
+o <- seriate(x, method = "tsne", eta = 10, verbose = TRUE)
+pimage(x, o, prop = FALSE, row_labels = TRUE, col_labels = TRUE)
+
+# look at the row embedding
 plot_config(o[[1]], col = class)
 }
 
@@ -83,7 +90,6 @@ Other seriation:
 \code{\link{register_optics}()},
 \code{\link{register_smacof}()},
 \code{\link{register_umap}()},
-\code{\link{register_vae}()},
 \code{\link{registry_for_seriaiton_methods}},
 \code{\link{seriate_best}()},
 \code{\link{seriate}()}

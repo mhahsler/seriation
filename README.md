@@ -11,16 +11,16 @@ downloads](http://cranlogs.r-pkg.org/badges/seriation)](https://CRAN.R-project.o
 ## Introduction
 
 Seriation arranges a set of objects into a linear order given available
-data with the goal to reveal structural information.  
-This package provides the infrastructure for ordering objects with an
-implementation of many
+data with the goal of revealing structural information. This package
+provides the infrastructure for ordering objects with an implementation
+of many
 [seriation](https://en.wikipedia.org/wiki/Seriation_(archaeology))/sequencing/[ordination](https://en.wikipedia.org/wiki/Ordination_(statistics))
 techniques to reorder data matrices, dissimilarity matrices, correlation
-matrices, and dendrograms (see below for a full list). To reveal
-structural information, the package provides several visualizations
-(grid and ggplot2) including permuted image plots, reordered heatmaps,
-Bertin plots, and clustering visualizations like dissimilarity plots,
-and visual assessment of cluster tendency plots (VAT and iVAT).
+matrices, and dendrograms (see below for a complete list). The package
+provides several visualizations (grid and ggplot2) to reveal structural
+information, including permuted image plots, reordered heatmaps, Bertin
+plots, clustering visualizations like dissimilarity plots, and visual
+assessment of cluster tendency plots (VAT and iVAT).
 
 Here are some quick guides for
 
@@ -83,10 +83,10 @@ install.packages("seriation", repos = "https://mhahsler.r-universe.dev")
 ## Usage
 
 The used example dataset contains the joint probability of disagreement
-between Supreme Court Judges during the period from 1995 to 2002. The
-goal is to reveal structural information in this data. We load the
-library, read the data, convert the data to distances, and then use the
-default seriation method to reorder the objects.
+between Supreme Court Judges from 1995 to 2002. The goal is to reveal
+structural information in this data. We load the library, read the data,
+convert the data to distances, and then use the default seriation method
+to reorder the objects.
 
 ``` r
 library(seriation)
@@ -130,7 +130,7 @@ order
 
 Get the resulting permutation vector and visualize the permuted distance
 matrix. Darker squares around the main diagonal show groups of similar
-objects. after seriation, two groups are visible.
+objects. After seriation, two groups are visible.
 
 ``` r
 get_order(order)
@@ -148,9 +148,9 @@ pimage(d, order, main = "judges reordered by seriation")
 
 <img src="inst/README_files/seriation-1.png" width="50%" /><img src="inst/README_files/seriation-2.png" width="50%" />
 
-Compare the available seriation criteria. Seriation clearly improved all
-(Note: some measures are merit measures while others represent cost. See
-the manual page for details).
+Compare the available seriation criteria. Seriation improved all (Note:
+some measures are merit measures while others represent cost. See the
+manual page for details).
 
 ``` r
 rbind(alphabetical = criterion(d), seriated = criterion(d, order))
@@ -189,8 +189,8 @@ plot_config(order)
 
 Seriation methods for dissimilarity data reorder the set of objects in
 the data. The methods fall into several groups based on the criteria
-they try to optimize, constraints (like dendrograms) and the algorithmic
-approach.
+they try to optimize, constraints (like dendrograms), and the
+algorithmic approach.
 
 ### Dendrogram leaf order
 
@@ -208,7 +208,7 @@ reordering may be applied.
 
 ### Dimensionality reduction
 
-Find a seriation order by reducing the dimensionalty to 1 dimension.
+Find a seriation order by reducing the dimensionality to 1 dimension.
 This is typically done by minimizing a stress measure or the
 reconstruction error.
 
@@ -227,12 +227,10 @@ reconstruction error.
   embedding (t-SNE)
 - **UMAP** - Order along the 1D embedding produced by uniform manifold
   approximation and projection
-- **VAE** - Order along the 1D embedding produced by a variational
-  autoencoder
 
 ### Optimization
 
-These methods try to optimize a seriation criterion directly typically
+These methods try to optimize a seriation criterion directly, typically
 using a heuristic approach.
 
 - **ARSA** - optimize the linear seriation critreion using simulated
@@ -247,7 +245,7 @@ using a heuristic approach.
   linear seriation, inertia, banded anti-Robinson form)
 - **Spectral** seriation to optimize the 2-SUM criterion (unnormalized,
   normalized)
-- **TSP** - Traveling sales person solver to minimize the Hamiltonian
+- **TSP** - Traveling salesperson solver to minimize the Hamiltonian
   path length
 
 ### Other Methods
@@ -284,14 +282,14 @@ Row and column order influence each other.
 
 ### Seriating rows and columns separately using dissimilarities
 
-- **Heatmap** - reorders rows and columns independently by calculation
+- **Heatmap** - reorders rows and columns independently by calculating
   row/column distances and then applying a seriation method for
   dissimilarities (see above)
 
-### Seriate rows using the data matrix
+### Seriate rows in a data matrix
 
 These methods need access to the data matrix instead of dissimilarities
-to reorder objects (rows).
+to reorder objects (rows). The same approach can be applied to columns.
 
 - **LLE** reorder along a 1D locally linear embedding
 - **Means** - reorders using row and column means
@@ -302,8 +300,6 @@ to reorder objects (rows).
   embedding (t-SNE)
 - **UMAP** - Order along the 1D embedding produced by uniform manifold
   approximation and projection
-- **VAE** - Order along the 1D embedding produced by a variational
-  autoencoder
 
 ### Other methods
 

@@ -37,7 +37,7 @@ get_seriation_method("dist", "umap")
 data(SupremeCourt)
 d <- as.dist(SupremeCourt)
 
-o <- seriate(d, method = "umap")
+o <- seriate(d, method = "umap", verbose = TRUE)
 pimage(d, o)
 
 # look at the returned embedding and plot it
@@ -53,8 +53,10 @@ x <- as.matrix(Zoo[,-17])
 label <- rownames(Zoo)
 class <- Zoo$class
 
-o <- seriate(x, method = "umap")
-pimage(x, o, prop = FALSE)
+o <- seriate(x, method = "umap", verbose = TRUE)
+pimage(x, o)
+
+plot_config(o[[1]], col = class)
 }
 }
 \references{
@@ -70,7 +72,6 @@ Other seriation:
 \code{\link{register_optics}()},
 \code{\link{register_smacof}()},
 \code{\link{register_tsne}()},
-\code{\link{register_vae}()},
 \code{\link{registry_for_seriaiton_methods}},
 \code{\link{seriate_best}()},
 \code{\link{seriate}()}
