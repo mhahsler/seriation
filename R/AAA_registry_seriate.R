@@ -57,6 +57,8 @@
 #' shown.
 #' @param name the name for the method used to refer to the method in
 #' [seriate()].
+#' @param names_only logical; return only the method name. `FALSE` returns
+#'    also the method descriptions.
 #' @param definition a function containing the method's code.
 #' @param description a description of the method. For example, a long name.
 #' @param control a list with control arguments and default values.
@@ -117,24 +119,30 @@ registry_seriate$set_field("kind",
                            type = "character",
                            is_key = TRUE,
                            index_FUN = match_partial_ignorecase)
+
 registry_seriate$set_field("name",
                            type = "character",
                            is_key = TRUE,
                            index_FUN = match_partial_ignorecase)
+
 registry_seriate$set_field("fun", type = "function",
                            is_key = FALSE)
+
 registry_seriate$set_field("description", type = "character",
                            is_key = FALSE)
+
 registry_seriate$set_field("control", type = "list",
                            is_key = FALSE)
+
 registry_seriate$set_field("randomized", type = "logical",
                            is_key = FALSE)
+
 registry_seriate$set_field("optimizes", type = "character",
-                           is_key = FALSE)
+                           is_key = TRUE)
 
 #' @rdname registry_for_seriaiton_methods
 #' @export
-list_seriation_methods <- function(kind) {
+list_seriation_methods <- function(kind, names_only = TRUE) {
   if (missing(kind)) {
     kinds <- unique(sort(as.vector(
       sapply(registry_seriate$get_entries(), "[[", "kind")
@@ -143,13 +151,19 @@ list_seriation_methods <- function(kind) {
     sapply(
       kinds,
       FUN = function(k)
-        list_seriation_methods(k)
+        list_seriation_methods(k, names_only = names_only)
     )
 
   } else{
-    sort(as.vector(sapply(
-      registry_seriate$get_entries(kind = kind), "[[", "name"
-    )))
+    if (names_only)
+
+      sort(as.vector(sapply(
+        registry_seriate$get_entries(kind = kind), "[[", "name"
+      )))
+    else {
+      l <- registry_seriate$get_entries(kind = kind)
+      l[order(names(l))]
+    }
   }
 }
 

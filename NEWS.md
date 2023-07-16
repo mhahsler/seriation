@@ -20,6 +20,7 @@
 - New seriation method "LLE" (locally linear embedding) for matrix.
 - Heatmap seriation has now special seriation_method "HC_Mean".
 - New  seriation criterion "Rho" calculates the absolute Spearman's rank correlation coefficient.
+- list_seriation_methods() and list_criterion_methods() gained parameter names_only. 
 
 ## Changes
 - Seriation methods for MDS are now MDS, isoMDS and Sammon_mapping and have now
