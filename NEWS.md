@@ -1,41 +1,40 @@
 # seriation 1.5.0 (xx/xx/2023)
 
 ## New Features
-- new function seriate_best and seriate_rep to easily find a good order for
-  randomized algorithms.
-- seriation for arrays (including matrix) gained margin parameter.
+- New function seriate_best and seriate_rep to easily find a good order for
+  randomized algorithms. Parallel execution is supported.
+- Seriation method registry has new fields 'randomized' to indicate if an algorithm
+  is randomized and can be run several times and 'optimizes' to indicate
+  what criterion is optimized. This information is used by seriate_rep.
+- Seriation for arrays (including matrix) gained margin parameter.
 - tsne and umap can now be used on data matrices.
 - get_rank() returns now labels.
-- added seriation method reverse for dist.
-- seriation method registry has new fields 'randomized' to indicate if an algorithm
-  is randomized and should be run several times and 'optimizes' to indicate
-  what criterion is optimized.
 - Embedding-based methods now return the order with an attribute called configuration.
-- Added Spearman's rho as a seriation criterion.
 - New MDS_stress() function.
 - Added register_smacof().
+- Added seriation method "Reverse" for dist.
 - New seriation methods from vegan: isomap, monoMDS, metaMDS.
 - New seriation method "Enumerate" for complete enumeration.
 - New seriation method "Mean" for matrix.
 - New seriation method "SGD" for distances to improve solutions using stochastic gradient descent.
 - New seriation method "LLE" (locally linear embedding) for matrix.
 - Heatmap seriation has now special seriation_method "HC_Mean".
+- New  seriation criterion "Rho" calculates the absolute Spearman's rank correlation coefficient.
 
-  
 ## Changes
-- seriation methods for MDS are now MDS, isoMDS and Sammon_mapping and gained all
-  control parameters.
+- Seriation methods for MDS are now MDS, isoMDS and Sammon_mapping and have now
+  individual control parameters.
 - orderplot() is now called plot_config() and can also visualize 2D configurations.
-- FORTRAN: replaced old DFLOAT with DBLE (reported by Brian D. Ripley).
 - HC-based seriation: The control parameter method is now linkage so it can be used
   in seriate() in the ...
-- seriation method spectral now also returns the embedding.
+- Seriation method spectral now also returns the embedding.
 - Seriation method simulated annealing is now called "GSA".
 - Simplified generics for pimage and ggpimage. Defaults for pimage.dist have changed.
 - DendSer methods now return hclust objects.
 
 ## Bug Fixes
 - fixed labels returned by uniscale()
+- FORTRAN: replaced old DFLOAT with DBLE (reported by Brian D. Ripley).
 
 # seriation 1.4.2 (03/07/2023)
 

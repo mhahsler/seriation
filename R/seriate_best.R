@@ -24,6 +24,13 @@
 #' rerun randomized methods several times to find the best and order
 #' given a criterion measure.
 #'
+#' Rerun different seriation methods to find the best solution given a criterion
+#' measure. Non-stochastic methods are automatically run only once.
+#'
+#' Support for parallel execution is provided using the [`foreach`] package. To
+#' use parallel execution, a suitable backend needs to be registered (eee
+#' the Examples section for using the `doParallel` package).
+#'
 #' @family seriation
 #'
 #' @param x the data.
@@ -34,6 +41,9 @@
 #' @param criterion a character string with the [criterion] to optimize.
 #' @param verbose logical; show progress and results for different methods
 #' @param rep number of times to repeat the randomized seriation algorithm.
+#' @param parallel logical; perform replications in parallel.
+#'      Uses `[foreach]` if a
+#'      DoPar backend (e.g., `doParallel`) is rgistered.
 #' @param ... further arguments are passed on (e.g., as `control`)
 #'
 #' @return Returns an object of class [ser_permutation].
@@ -75,11 +85,24 @@
 #' attr(o, "criterion")
 #' hist(attr(o, "criterion_distribution"))
 #' pimage(m_iris, o, prop = FALSE)
+#'
+#' \dontrun{
+#' # Using parallel execution
+#'
+#' library(doParallel)
+#' registerDoParallel(cores = detectCores() - 1L)
+#' o <- seriate_best(m_iris, verbose = TRUE, rep = 10)
+#' o
+#'
+#'
+#'
+#' }
 #' @export
 seriate_best <- function(x,
                          methods = NULL,
                          criterion = NULL,
                          rep = 1L,
+                         parallel = TRUE,
                          verbose = FALSE,
                          ...) {
   ### data.frame/table?
@@ -122,13 +145,28 @@ seriate_best <- function(x,
     cat("Performing: ")
   }
 
+
   os <- sapply(
     methods,
     FUN = function(m) {
-      if (verbose)
-        cat(m, " ")
+      if (verbose) {
+        cat("\n")
+        cat(m, " - ")
+      }
       #tm <- system.time(o <- seriate(x, m, ...))
-      tm <- system.time(o <- seriate_rep(x, m, verbose = verbose, criterion = criterion, rep = rep, ...))
+      tm <-
+        system.time(
+          o <-
+            seriate_rep(
+              x,
+              m,
+              verbose = verbose,
+              criterion = criterion,
+              rep = rep,
+              parallel = parallel,
+              ...
+            )
+        )
       attr(o, "time") <- tm[1] + tm[2]
       attr(o, "criterion") <- criterion(x, o, criterion,
                                         force_loss = TRUE)
@@ -144,7 +182,7 @@ seriate_best <- function(x,
       secs = sapply(os, attr, "time"),
       row.names = NULL
     )
-    df <- df[order(df$criterion),]
+    df <- df[order(df$criterion), ]
 
     cat("\nResults (first was chosen):\n")
     print(df)
@@ -155,11 +193,13 @@ seriate_best <- function(x,
 }
 
 #' @rdname seriate_best
+#' @importFrom foreach times `%dopar%` `%do%`
 #' @export
 seriate_rep <- function(x,
                         method,
                         criterion = NULL,
                         rep = 10L,
+                        parallel = TRUE,
                         verbose = TRUE,
                         ...) {
   type <- class(x)[[1]]
@@ -181,11 +221,24 @@ seriate_rep <- function(x,
   }
 
   if (verbose)
-    cat("Criterion:", criterion, "\nPerforming", rep, "tries: ")
+    cat("Criterion:", criterion, "\nTries", rep, " ")
 
   control <- list(...)
-  r <- replicate(rep, { if (verbose) cat("."); seriate(x, method, control) },
-                 simplify = FALSE)
+  #r <- replicate(rep, { if (verbose) cat("."); seriate(x, method, control) },
+  #               simplify = FALSE)
+
+  # r <- times(rep) %dopar% { list(seriate(x, method, control)) }
+
+  dopar <-
+    ifelse(foreach::getDoParRegistered() &&
+             parallel && rep > 1L, `%dopar%`, `%do%`)
+
+  r <-
+    dopar(times(rep), {
+      if (verbose)
+        cat(".")
+      list(seriate(x, method, control))
+    })
 
   cs <- sapply(
     r,
@@ -209,7 +262,6 @@ seriate_rep <- function(x,
       max(cs),
       "- returning best\n"
     )
-
 
   o
 }

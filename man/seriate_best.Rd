@@ -9,12 +9,21 @@ seriate_best(
   x,
   methods = NULL,
   criterion = NULL,
+  rep = 1L,
+  parallel = TRUE,
   verbose = FALSE,
-  fast_only = TRUE,
   ...
 )
 
-seriate_rep(x, method, criterion = NULL, rep = 10L, verbose = TRUE, ...)
+seriate_rep(
+  x,
+  method,
+  criterion = NULL,
+  rep = 10L,
+  parallel = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{the data.}
@@ -24,24 +33,36 @@ methods to try.}
 
 \item{criterion}{a character string with the \link{criterion} to optimize.}
 
-\item{verbose}{logical; show progress and results for different methods}
+\item{rep}{number of times to repeat the randomized seriation algorithm.}
 
-\item{fast_only}{logical; exclude slow default seriation methods.}
+\item{parallel}{logical; perform replications in parallel.
+Uses \verb{[foreach]} if a
+DoPar backend (e.g., \code{doParallel}) is rgistered.}
+
+\item{verbose}{logical; show progress and results for different methods}
 
 \item{...}{further arguments are passed on (e.g., as \code{control})}
 
 \item{method}{a character string with the name of the seriation method
 (default: varies by data type).}
-
-\item{rep}{number of times to repeat the randomized seriation algorithm.}
 }
 \value{
 Returns an object of class \link{ser_permutation}.
 }
 \description{
-Functions to automatically try different seriation methods or
-rerun randomized methods several times to find the best order
+It may not be know which seriation method produces the best result and
+heuristics may produce unstable results.
+\code{seriate_best()} and \code{seriate_rep()} automatically try different seriation methods or
+rerun randomized methods several times to find the best and order
 given a criterion measure.
+}
+\details{
+Rerun different seriation methods to find the best solution given a criterion
+measure. Non-stochastic methods are automatically run only once.
+
+Support for parallel execution is provided using the \code{\link{foreach}} package. To
+use parallel execution, a suitable backend needs to be registered (eee
+the Examples section for using the \code{doParallel} package).
 }
 \examples{
 # prepare some datasets (two distance matrices and a data matrix)
@@ -77,6 +98,18 @@ o <- seriate_rep(m_iris, "BEA_TSP", rep = 10, verbose = TRUE)
 attr(o, "criterion")
 hist(attr(o, "criterion_distribution"))
 pimage(m_iris, o, prop = FALSE)
+
+\dontrun{
+# Using parallel execution
+
+library(doParallel)
+registerDoParallel(cores = detectCores() - 1L)
+o <- seriate_best(m_iris, verbose = TRUE, rep = 10)
+o
+
+
+
+}
 }
 \seealso{
 Other seriation: 
