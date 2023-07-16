@@ -66,6 +66,7 @@
 }
 
 #' @rdname seriate
+#' @include seriate.matrix.R
 #' @export
 seriate.array <- function(x,
   method = "PCA",

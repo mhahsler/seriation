@@ -2,7 +2,7 @@ Package: seriation
 Type: Package
 Title: Infrastructure for Ordering Objects Using Seriation
 Version: 1.5.0
-Date: 2023-07-13
+Date: 2023-xx-xx
 Authors@R: c(
 	person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
 	  email = "mhahsler@lyle.smu.edu",
@@ -108,10 +108,10 @@ Collate:
     'ser_permutation_vector.R'
     'ser_permutation_vector2matrix.R'
     'seriate.R'
-    'seriate.array.R'
-    'seriate.data.frame.R'
     'seriate.dist.R'
     'seriate.matrix.R'
+    'seriate.array.R'
+    'seriate.data.frame.R'
     'seriate.table.R'
     'seriate_ARSA_Branch-Bound.R'
     'seriate_BEA.R'
@@ -124,6 +124,7 @@ Collate:
     'seriate_PCA.R'
     'seriate_QAP.R'
     'seriate_R2E.R'
+    'seriate_SGD.R'
     'seriate_SPIN.R'
     'seriate_TSP.R'
     'seriate_VAT.R'

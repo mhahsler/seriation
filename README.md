@@ -58,7 +58,7 @@ The following R packages use `seriation`:
 [treeheatr](https://CRAN.R-project.org/package=treeheatr),
 [vcdExtra](https://CRAN.R-project.org/package=vcdExtra)
 
-Please cite the use of this package as:
+To cite package ‘seriation’ in publications use:
 
 > Hahsler M, Hornik K, Buchta C (2008). “Getting things in order: An
 > introduction to the R package seriation.” *Journal of Statistical
@@ -254,6 +254,8 @@ using a heuristic approach.
   criteria
 - **GSA** - General simulated annealing to optimize any seriation
   criteria
+- **SGD** - stochastic gradient descent to find a local optimum given an
+  initial order and a seriation criterion.
 - **QAP** - Quadratic assignment problem heuristic (optimizes 2-SUM,
   linear seriation, inertia, banded anti-Robinson form)
 - **Spectral** seriation to optimize the 2-SUM criterion (unnormalized,

@@ -18,8 +18,10 @@
 
 #' Best Seriation
 #'
-#' Functions to automatically try different seriation methods or
-#' rerun randomized methods several times to find the best order
+#' It may not be know which seriation method produces the best result and
+#' heuristics may produce unstable results.
+#' `seriate_best()` and `seriate_rep()` automatically try different seriation methods or
+#' rerun randomized methods several times to find the best and order
 #' given a criterion measure.
 #'
 #' @family seriation
@@ -31,7 +33,6 @@
 #' methods to try.
 #' @param criterion a character string with the [criterion] to optimize.
 #' @param verbose logical; show progress and results for different methods
-#' @param fast_only logical; exclude slow default seriation methods.
 #' @param rep number of times to repeat the randomized seriation algorithm.
 #' @param ... further arguments are passed on (e.g., as `control`)
 #'
@@ -44,17 +45,21 @@
 #' # prepare some datasets (two distance matrices and a data matrix)
 #' data(SupremeCourt)
 #' d_supreme <- as.dist(SupremeCourt)
-#' d_robinson <- as.dist(random.robinson(50, noise = .2, pre = TRUE))
 #' m_iris <- as.matrix(iris[ sample(seq(nrow(iris))),-5])
 #'
-#' # find best seriation order
+#' # find best seriation order (tries by by default several fast methods)
 #' o <- seriate_best(d_supreme, verbose = TRUE)
+#' o
 #' pimage(d_supreme, o)
 #'
-#' o <- seriate_best(d_robinson, verbose = TRUE)
-#' pimage(d_robinson, o)
+#' # specify the criterion
+#' o <- seriate_best(d_supreme, criterion = "Path_length", verbose = TRUE)
+#' o
+#' pimage(d_supreme, o)
 #'
+#' # find best seriation for a matrix
 #' o <- seriate_best(m_iris, verbose = TRUE)
+#' o
 #' pimage(m_iris, o, prop = FALSE)
 #'
 #' # run randomized algorithms several times. Repetition information
@@ -74,8 +79,8 @@
 seriate_best <- function(x,
                          methods = NULL,
                          criterion = NULL,
+                         rep = 1L,
                          verbose = FALSE,
-                         fast_only = TRUE,
                          ...) {
   ### data.frame/table?
   type <- class(x)[[1]]
@@ -86,7 +91,6 @@ seriate_best <- function(x,
   if (is.null(methods)) {
     if (type == "dist") {
       methods <- c(
-        #"ARSA", ## LS
         "spectral",
         ## 2-Sum
         "MDS",
@@ -99,8 +103,6 @@ seriate_best <- function(x,
         ## path length
         "OLO_average" ## restricted path length
       )
-      if (!fast_only)
-        methods <- append("ARSA", methods)
     }
     else if (type == "matrix")
       methods <- c("BEA_TSP", "PCA", "Heatmap", "PCA_angle")
@@ -115,16 +117,18 @@ seriate_best <- function(x,
   }
   criterion <- get_criterion_method(type, criterion)$name
 
-  if (verbose)
+  if (verbose) {
     cat("Criterion:", criterion, "\n")
-  cat("Performing: ")
+    cat("Performing: ")
+  }
 
   os <- sapply(
     methods,
     FUN = function(m) {
       if (verbose)
         cat(m, " ")
-      tm <- system.time(o <- seriate(x, m, ...))
+      #tm <- system.time(o <- seriate(x, m, ...))
+      tm <- system.time(o <- seriate_rep(x, m, verbose = verbose, criterion = criterion, rep = rep, ...))
       attr(o, "time") <- tm[1] + tm[2]
       attr(o, "criterion") <- criterion(x, o, criterion,
                                         force_loss = TRUE)
@@ -134,15 +138,15 @@ seriate_best <- function(x,
   )
 
   if (verbose) {
-    cat("\n\nResults:\n")
     df <- data.frame(
       method = names(os),
       criterion = sapply(os, attr, "criterion"),
       secs = sapply(os, attr, "time"),
       row.names = NULL
     )
-
     df <- df[order(df$criterion),]
+
+    cat("\nResults (first was chosen):\n")
     print(df)
     cat("\n")
   }
@@ -172,15 +176,16 @@ seriate_rep <- function(x,
   m <- get_seriation_method(type, method)
   method <- m$name
   if (!m$randomized && rep > 1L) {
-    warning("Specified seriation method is not randomized. Running it only once!")
+    #message("Specified seriation method is not randomized. Running it only once!")
     rep <- 1L
   }
 
   if (verbose)
-    cat("Criterion:", criterion, "\nPerforming", rep, "tries\n")
+    cat("Criterion:", criterion, "\nPerforming", rep, "tries: ")
 
   control <- list(...)
-  r <- replicate(rep, seriate(x, method, control), simplify = FALSE)
+  r <- replicate(rep, { if (verbose) cat("."); seriate(x, method, control) },
+                 simplify = FALSE)
 
   cs <- sapply(
     r,
@@ -196,13 +201,13 @@ seriate_rep <- function(x,
 
   if (verbose)
     cat(
-      "Found orders with",
+      "\nFound orders with",
       criterion,
-      "in the range:" ,
+      "in the range" ,
       min(cs),
       "to",
       max(cs),
-      "\nReturning best."
+      "- returning best\n"
     )
 
 

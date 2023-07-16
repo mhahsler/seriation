@@ -227,7 +227,7 @@ criterion_LS <- function(x, order, ...) {
 
 # Spearman rank correlation between distances and rank differences of the order
 criterion_R_dist  <- function(x, order, ...)
-  stats::cor(x, stats::dist(get_rank(order), "manhattan"), method = "spearman")
+  abs(stats::cor(x, stats::dist(get_rank(order), "manhattan"), method = "spearman"))
 
 ### these measures are calculated on similarity matrices
 criterion_ME_dist <- function(x, order, ...)
@@ -259,6 +259,7 @@ set_criterion_method("dist",
   criterion_rgar,
   "Relative generalized anti-Robinson events",
   FALSE)
+
 set_criterion_method("dist", "BAR", criterion_bar,
   "Banded Anti-Robinson Form", FALSE)
 
@@ -267,6 +268,7 @@ set_criterion_method("dist",
   criterion_gradient_raw,
   "Gradient measure",
   TRUE)
+
 set_criterion_method(
   "dist",
   "Gradient_weighted",
@@ -280,6 +282,7 @@ set_criterion_method("dist",
   criterion_path_length,
   "Hamiltonian path length",
   FALSE)
+
 set_criterion_method("dist",
   "Lazy_path_length",
   criterion_lazy_path_length,
@@ -288,20 +291,23 @@ set_criterion_method("dist",
 
 set_criterion_method("dist", "Inertia", criterion_inertia,
   "Inertia criterion", TRUE)
+
 set_criterion_method("dist",
   "Least_squares",
   criterion_least_squares,
   "Least squares criterion",
   FALSE)
+
 set_criterion_method("dist",
   "ME",
   criterion_ME_dist,
   "Measure of effectiveness",
   TRUE)
+
 set_criterion_method("dist",
   "Rho",
   criterion_R_dist,
-  "Correlation coefficient R",
+  "Absolute value of the Spearman rank correlation between original distances and rank differences of the order",
   TRUE)
 
 set_criterion_method(
@@ -311,6 +317,7 @@ set_criterion_method(
   "Stress (Moore neighborhood)",
   FALSE
 )
+
 set_criterion_method(
   "dist",
   "Neumann_stress",
@@ -324,6 +331,7 @@ set_criterion_method("dist",
   criterion_2SUM,
   "2-SUM objective value (QAP)",
   FALSE)
+
 set_criterion_method("dist",
   "LS",
   criterion_LS,

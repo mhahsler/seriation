@@ -10,7 +10,7 @@
 \alias{print.seriation_method}
 \title{Registry for Seriation Methods}
 \format{
-An object of class \code{seriation_registry} (inherits from \code{registry}) of length 55.
+An object of class \code{seriation_registry} (inherits from \code{registry}) of length 56.
 }
 \usage{
 registry_seriate

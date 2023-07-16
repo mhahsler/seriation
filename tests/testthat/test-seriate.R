@@ -96,6 +96,7 @@ test_that("test if seriate.dist returns expected results", {
       "Random",
       "Reverse",
       "GSA",
+      "SGD",
       "Spectral",
       "Spectral_norm",
       "SPIN_NH",

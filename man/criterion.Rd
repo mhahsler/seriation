@@ -189,10 +189,10 @@ squared rank differences.
 
 where \eqn{s(i,j) = 1/(1+d(i,j))} represents the similarity between objects
 \eqn{i} and \eqn{j}.
-\item \strong{Spearman Correlation} \code{"Rho"}
+\item \strong{Absolute Spearman Correlation} \code{"Rho"}
 
-Spearman rank correlation between the original distances and the
-rank differences in the order.
+The absolute value of the Spearman rank correlation
+between the original distances and the rank differences in the order.
 \item \strong{Matrix measures:} \code{"ME"}, \code{"Moore_stress"}, \code{"Neumann_stress"}
 
 These criteria are defined on general matrices (see

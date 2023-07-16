@@ -1,4 +1,4 @@
-# seriation 1.5.0 (07/13/2023)
+# seriation 1.5.0 (xx/xx/2023)
 
 ## New Features
 - new function seriate_best and seriate_rep to easily find a good order for
@@ -17,6 +17,7 @@
 - New seriation methods from vegan: isomap, monoMDS, metaMDS.
 - New seriation method "Enumerate" for complete enumeration.
 - New seriation method "Mean" for matrix.
+- New seriation method "SGD" for distances to improve solutions using stochastic gradient descent.
 - New seriation method "LLE" (locally linear embedding) for matrix.
 - Heatmap seriation has now special seriation_method "HC_Mean".
 

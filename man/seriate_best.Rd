@@ -47,17 +47,21 @@ given a criterion measure.
 # prepare some datasets (two distance matrices and a data matrix)
 data(SupremeCourt)
 d_supreme <- as.dist(SupremeCourt)
-d_robinson <- as.dist(random.robinson(50, noise = .2, pre = TRUE))
 m_iris <- as.matrix(iris[ sample(seq(nrow(iris))),-5])
 
-# find best seriation order
+# find best seriation order (tries by by default several fast methods)
 o <- seriate_best(d_supreme, verbose = TRUE)
+o
 pimage(d_supreme, o)
 
-o <- seriate_best(d_robinson, verbose = TRUE)
-pimage(d_robinson, o)
+# specify the criterion
+o <- seriate_best(d_supreme, criterion = "Path_length", verbose = TRUE)
+o
+pimage(d_supreme, o)
 
+# find best seriation for a matrix
 o <- seriate_best(m_iris, verbose = TRUE)
+o
 pimage(m_iris, o, prop = FALSE)
 
 # run randomized algorithms several times. Repetition information

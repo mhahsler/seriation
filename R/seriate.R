@@ -145,12 +145,13 @@
 #'       `control` parameters are passed on to [MASS::sammon()].
 #'
 #'
-#'   - **Angle in 2D principal coordinates space:** `"MDS_angle"` (Friendly, 2002)
+#'   - **Angle in 2D principal coordinates space:** `"MDS_angle"`
 #'
 #'       Finds a 2D configuration using MDS ([cmdscale()])
 #'       and then orders by the angle in this space. The order is split by the
-#'       larges gap between adjacent angles. A similar method was used for ordering
-#'       correlation matrices by Friendly (2002).
+#'       larges gap between adjacent angles. A similar method was used by
+#'       Friendly (2002) to order variables in correlation matrices
+#'       by angles of first two eigenvectors.
 #'
 #'   - **Smacof:** `"MDS_smacof"` (de Leeuw and Mair, 2009)
 #'
@@ -169,7 +170,7 @@
 #'   objects. The speed can be improved by lowering the cooling parameter or increasing the
 #'   minimum temperature. However, this will decrease the seriation quality.
 #'
-#'   `control` parameter:
+#'   Important `control` parameters:
 #'     - `"cool"`: cooling factor (smaller means faster cooling).
 #'     - `"tmin"`: minimum temperature when the algorithm stops.
 #'     - `"rep"`: the number of runs can be specified.
@@ -243,6 +244,16 @@
 #'
 #'   Note that this is an R implementation repeatedly calling the criterion funciton
 #'   which is very slow.
+#'
+#' - **Stochastic gradient descent:** `"SGD"`
+#'
+#'   Starts with a solution and then performs stochastic gradient descent to find
+#'   a close-by local optimum given a specified criterion.
+#'
+#'   Important `control` parameters:
+#'     - `"criterion"`: the criterion to optimize
+#'     - `"init"`: initial seriation (an order or the name of a seriation method)
+#'     - `"max_iter"`: number of trials
 #'
 #' - **Spectral seriation:** `"Spectral"`, `"Spectral_norm"`  (Ding and He, 2004)
 #'
@@ -443,12 +454,13 @@
 #'   Note that for a distance matrix calculated from `x` with Euclidean
 #'   distance, this method minimizes the least square criterion.
 #'
-#' - **Order using the angle in the space spanned by the first two principal components:** `"PCA_angle"`
+#' - **Order using the angle in the space spanned by the first two principal components:** `"PCA_angle"` (Friendly, 2002)
 #'
 #'   For rows, projects the data on the first two principal components
 #'   and then orders by the angle in this space. The order is split by the larges
-#'   gap between adjacent angles. A similar method was used for ordering
-#'   correlation matrices by Friendly (2002). Performs the same process on the
+#'   gap between adjacent angles. This method was suggested by
+#'   Friendly (2002) to order variables in correlation matrices
+#'   by angles of first two eigenvectors. Performs the same process on the
 #'   transposed matrix for the column order.
 #'
 #' **Other methods**

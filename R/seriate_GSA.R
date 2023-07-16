@@ -67,14 +67,14 @@ LS_mixed <- function(o, pos = sample.int(length(o), 2)) {
 
 .sa_contr <- list(
   criterion = "Gradient_raw",
-  warmstart = "Spectral",
-  ## use "Random" for random init.
-  localsearch = LS_insert,
   cool = 0.5,
   tmin = 1e-7,
+  localsearch = LS_insert,
   nlocal = 5,
   t0 = NA,
   pinitialaccept = .01,
+  warmstart = "Random",
+  ## use "Random" for random init.
   ## try nlocal x n local search steps
   verbose = FALSE
 )
@@ -83,11 +83,9 @@ seriate_sa <- function(x, control = NULL) {
   param <- .get_parameters(control, .sa_contr)
   n <- attr(x, "Size")
 
-  if (is.na(param$warmstart))
-    param$warmstart <- "RANDOM"
-
-  if (is.numeric(param$init)) {
-    .check_dist_perm(x, order = param$init)
+  if (is.numeric(param$warmstart)) {
+    .check_dist_perm(x, order = param$warmstart)
+    o <- get_order(param$warmstart)
   } else{
     if (param$verbose)
       cat("Obtaining initial solution via:",

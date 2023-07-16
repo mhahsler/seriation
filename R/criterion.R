@@ -173,10 +173,11 @@
 #'   where \eqn{s(i,j) = 1/(1+d(i,j))} represents the similarity between objects
 #'   \eqn{i} and \eqn{j}.
 #'
-#' - **Spearman Correlation** `"Rho"`
+#' - **Absolute Spearman Correlation** `"Rho"`
 #'
-#'   Spearman rank correlation between the original distances and the
-#'   rank differences in the order.
+#'   The absolute value of the Spearman rank correlation
+#'   between the original distances and the rank differences in the order.
+#    The absolute value is taken because a reverse order is equivalent.
 #'
 #' - **Matrix measures:** `"ME"`, `"Moore_stress"`, `"Neumann_stress"`
 #'
