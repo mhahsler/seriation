@@ -24,12 +24,15 @@ assessment of cluster tendency plots (VAT and iVAT).
 
 Here are some quick guides for
 
-- [reordered
-  heatmaps.](https://mhahsler.github.io/seriation/heatmaps.html)
-- [reordered correlation matrices](https://taiyun.github.io/corrplot/)
-  (using seriation in package corrplot).
-- [a visual comparison between seriation
-  methods.](https://mhahsler.github.io/seriation/visual_comparison.html)
+- [How to reorder
+  heatmaps](https://mhahsler.github.io/seriation/heatmaps.html)
+- [How to reorder correlation
+  matrices](https://taiyun.github.io/corrplot/) (using seriation in
+  package corrplot).
+- [A list with all implemented seriation
+  methods](https://mhahsler.github.io/seriation/seriation_methods.html)
+- [A visual comparison between seriation
+  methods](https://mhahsler.github.io/seriation/visual_comparison.html)
 
 The following R packages use `seriation`:
 [adepro](https://CRAN.R-project.org/package=adepro),

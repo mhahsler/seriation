@@ -1,0 +1,88 @@
+---
+title: "List of Seriation Methods implemented in the R package seriation"
+author: "Michael Hahsler"
+format: 
+  html:
+    toc: true
+editor: visual
+---
+
+This document contains all seriation methods implemented in the R package 
+[`seriation`](https://github.com/mhahsler/seriation). The methods are organized 
+by methods for distance matrices and data matrices.
+
+Some methods need to be registered. 
+
+```{r, results="hide", warning=FALSE, message=FALSE}
+library("seriation")
+register_DendSer()
+register_optics()
+register_smacof()
+register_GA()
+register_tsne()
+register_umap()
+```
+
+```{r, echo = FALSE}
+print_seriation_method_md <- function(x, ...) {
+    cat("\n\n##", x$name, "\n")
+  
+    cat(x$description, "\n\n")
+    
+#    cat("* kind:", x$kind, "\n")
+    cat("* optimizes:", x$optimizes, "\n")
+    cat("* randomized:", x$randomized, "\n\n")
+
+  writeLines("control parameters:")
+  .print_control(x$control, trim_values = 100)
+
+  invisible(x)
+}
+
+
+.print_control <- function(control,
+                           label = "default values",
+                           help = TRUE,
+                           trim_values = 30L) {
+  if (length(control) < 1L) {
+    writeLines("no parameters")
+  } else{
+    contr <- lapply(
+      control,
+      FUN = function(x)
+        strtrim(paste(deparse(x), collapse = ""), trim_values)
+    )
+
+    contr <- as.data.frame(t(as.data.frame(contr)))
+    colnames(contr) <- c(label)
+
+    contr <- cbind(contr, help = "N/A")
+    if (!is.null(attr(control, "help")))
+      for (i in seq(nrow(contr))) {
+        hlp <- attr(control, "help")[[rownames(contr)[i]]]
+        if (!is.null(hlp))
+        contr[["help"]][i] <- hlp
+      }
+
+    print(knitr::kable(contr, format = "simple"))
+  }
+
+}
+```
+
+
+# Methods for seriating distances
+
+```{r, results='asis', echo = FALSE}
+l <- list_seriation_methods(kind = "dist", names_only = FALSE)
+for(i in seq_along(l))
+  print_seriation_method_md(l[[i]])
+```
+
+# Methods for seriating data matrices, tables and data.frames
+
+```{r, results='asis', echo = FALSE}
+l <- list_seriation_methods(kind = "matrix", names_only = FALSE)
+for(i in seq_along(l))
+  print_seriation_method_md(l[[i]])
+```
