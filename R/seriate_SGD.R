@@ -16,12 +16,20 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-.sgd_contr <- list(
-  criterion = "Gradient_raw",
-  init = "Spectral",
-  max_iter = NULL,
-  localsearch = LS_insert,
-  verbose = FALSE
+.sgd_contr <- structure(
+  list(
+    criterion = "Gradient_raw",
+    init = "Spectral",
+    max_iter = NULL,
+    localsearch = "LS_insert",
+    verbose = FALSE
+  ),
+  help = list(
+    criterion = "Criterion measure to optimize",
+    init = "Start permutation or name of a seriation method",
+    max_iter = "number of iterations",
+    localsearch = "used local search move function"
+  )
 )
 
 seriate_sgd <- function(x, control = NULL) {
@@ -38,11 +46,17 @@ seriate_sgd <- function(x, control = NULL) {
     o <- get_order(seriate(x, method = param$init))
   }
 
+  localsearch <- get(param$localsearch)
+  if (!is.function(localsearch))
+    localsearch <- get(localsearch)
+
+  crit <- param$criterion
+
   max_iter <- control$max_iter
   if (is.null(max_iter))
     max_iter <- 100 * n
 
-  z <- criterion(x, o, method = param$criterion, force_loss = TRUE)
+  z <- criterion(x, o, method = crit, force_loss = TRUE)
 
   if (param$verbose) {
     cat("Initial z =", z,
@@ -54,11 +68,11 @@ seriate_sgd <- function(x, control = NULL) {
   zbest <- z
 
   for (i in seq(max_iter)) {
-    o_new <- param$localsearch(o)
+    o_new <- localsearch(o)
     z_new <-
       criterion(x,
                 o_new,
-                method = param$criterion,
+                method = crit,
                 force_loss = TRUE)
     delta <- z - z_new
 
@@ -66,8 +80,8 @@ seriate_sgd <- function(x, control = NULL) {
     if (delta > 0) {
       o <- o_new
       z <- z_new
-  if (param$verbose)
-    cat(i, "/", max_iter,"\tz =", z, "\n")
+      if (param$verbose)
+        cat(i, "/", max_iter, "\tz =", z, "\n")
     }
   }
 

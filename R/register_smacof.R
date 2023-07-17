@@ -68,14 +68,24 @@
 register_smacof <- function() {
   check_installed("smacof")
 
-  .smacof_control <- list(
-    init = "torgerson",
-    type = "ratio",
-    relax = FALSE,
-    modulus = 1,
-    itmax = 1000,
-    eps = 1e-06,
-    verbose = FALSE
+  .smacof_control <- structure(
+    list(
+      type = "ratio",
+      init = "torgerson",
+      relax = FALSE,
+      modulus = 1,
+      itmax = 1000,
+      eps = 1e-06,
+      verbose = FALSE
+    ),
+    help = list(
+      type = 'MDS type: "interval", "ratio", "ordinal" (nonmetric MDS)',
+      init = 'start configuration method ("torgerson"/"random")',
+      relax = "use block relaxation for majorization?",
+      modulus = "number of smacof iterations per monotone regression call",
+      itmax = "maximum number of iterations",
+      eps = "convergence criterion"
+    )
   )
 
   seriate_dist_smacof <- function(x, control = NULL) {

@@ -1,6 +1,8 @@
 # seriation 1.5.0 (xx/xx/2023)
 
 ## New Features
+- The seriation registry now contains help information for the seriation method
+  parameters.
 - New function seriate_best and seriate_rep to easily find a good order for
   randomized algorithms. Parallel execution is supported.
 - Seriation method registry has new fields 'randomized' to indicate if an algorithm

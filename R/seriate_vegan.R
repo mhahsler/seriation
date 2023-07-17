@@ -16,12 +16,12 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-.monoMDS_control <- {
+.monoMDS_control <- structure({
   l <- as.list(args(vegan::monoMDS))
   l$k <- NULL
   l$model <- "global"
-  tail(head(l, -2L), -1L)
-  }
+  tail(head(l,-2L),-1L)
+}, help = list(y = "See ? monoMDS for help"))
 
 seriate_dist_monoMDS <- function(x, control = NULL) {
   control <- .get_parameters(control, .monoMDS_control)
@@ -46,11 +46,13 @@ set_seriation_method(
 )
 
 
-.isomap_control <- {
-  l <- as.list(args(vegan::isomapdist))
-  l$k <- 30
-  tail(head(l, -2L), -1L)
-  }
+
+.isomap_control <- structure(
+  list(k = 30,
+       path = "shortest"),
+  help = list(k = "number of shortest dissimilarities retained for a point",
+              path = "method used in to estimate the shortest path (\"shortest\"/\"extended\")")
+)
 
 seriate_dist_isomap <- function(x, control = NULL) {
   control <- .get_parameters(control, .isomap_control)
@@ -74,7 +76,7 @@ set_seriation_method(
   optimizes = "Other (Stress on shortest path distances)"
 )
 
-.metaMDS_control <- {
+.metaMDS_control <- structure({
   l <- as.list(args(vegan::metaMDS))
   l <- tail(head(l, -2L), -1L)
   l$k <- NULL
@@ -84,7 +86,8 @@ set_seriation_method(
   l$trace <- 0
   l$verbose <- FALSE
   l
-  }
+  }, help = list(distance = "see ? metaMDS for help")
+)
 
 seriate_dist_metaMDS <- function(x, control = NULL) {
   control <- .get_parameters(control, .metaMDS_control)
@@ -108,7 +111,7 @@ set_seriation_method(
   "dist",
   "metaMDS",
   seriate_dist_metaMDS,
-  "Nonmetric Multidimensional Scaling with Stable Solution from Random Starts (package vegan).",
+  "Nonmetric Multidimensional Scaling with Stable Solution from Random Starts.",
   control = .metaMDS_control,
   optimizes = "Other (MDS strain)"
 )

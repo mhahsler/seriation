@@ -55,9 +55,10 @@ Seriation methods are managed via a registry. See
 discussing the
 built-in methods that are registered automatically by the package \pkg{seriation}.
 
-The available control options and default settings for each algorithm
+The available control options, default settings, and
+a description for each algorithm
 can be retrieved using \code{get_seriation_method(name = "<seriation method>")}.
-Some control parameters are described in more detail below.
+Some control parameters are also described in more detail below.
 
 Some methods are very slow, and progress can be printed using the control
 parameter \code{verbose = TRUE}.
@@ -185,17 +186,11 @@ heuristic approach.
 
 The algorithm automatically finds a suitable start temperature and calculates
 the needed number of iterations. The algorithm gets slow for a large number of
-objects. The speed can be improved by lowering the cooling parameter or increasing the
-minimum temperature. However, this will decrease the seriation quality.
+objects. The speed can be improved by lowering the cooling parameter \code{"cool"}
+or increasing the minimum temperature \code{"tmin"}.
+However, this will decrease the seriation quality.
 
-Important \code{control} parameters:
-\itemize{
-\item \code{"cool"}: cooling factor (smaller means faster cooling).
-\item \code{"tmin"}: minimum temperature when the algorithm stops.
-\item \code{"rep"}: the number of runs can be specified.
-}
-
-Directly minimizes the \strong{linear seriation criterion.}
+Directly minimizes the \strong{linear seriation criterion (LS).}
 \item \strong{Complete Enumeration:} \code{"Enumerate"}
 
 This method finds the optimal permutation given a seriation criterion by complete enumeration
@@ -215,7 +210,7 @@ The method uses branch-and-bound to minimize the
 This type of optimization is only feasible for a small number of objects (< 50 objects).
 
 For BBURCG, the control parameter \code{"eps"} can be used to relax the problem by defining
-that the distance needs to be eps larger to count as a violation. This relaxation will improve the speed,
+that a distance needs to be eps larger to count as a violation. This relaxation will improve the speed,
 but miss some Robinson events. The default value is 0.
 \item \strong{Genetic Algorithm:} \code{"GA"}
 
@@ -249,7 +244,7 @@ The initial temperature \code{t0} and minimum temperature \code{tmin} can be set
 \code{t0} is not set, then it is estimated by sampling uphill moves and setting
 \code{t0} such that the median uphill move have a probability
 of \code{tinitialaccept}.
-Using the learning rate \code{cool}, the number of iterations
+Using the cooling rate \code{cool}, the number of iterations
 to go for \code{t0} to \code{tmin} is calculated.
 
 Several popular local neighborhood functions are
@@ -322,11 +317,9 @@ minimize the energy for a permutation (matrix \eqn{P}) given by \deqn{F(P) =
 
 \code{"SPIN_STS"} implements the Side-to-Side algorithm, which tries to push
 out large distance values. The default weight matrix suggested in the paper
-with \eqn{W=XX^T} and \eqn{X_i=i-(n+1)/2} is used. We run the algorithm from
+with \eqn{W=XX^T} and \eqn{X_i=i-(n+1)/2} is used. We run the algorithm form
 \code{step} (25) iteration and restart the algorithm \code{nstart} (10) with
-random initial permutations (default values in parentheses). Via
-\code{control} the parameters \code{step}, \code{nstart}, \code{X}, and
-\code{verbose}.
+random initial permutations (default values in parentheses).
 
 \code{"SPIN_NH"} implements the neighborhood algorithm (concentrate low
 distance values around the diagonal) with a Gaussian weight matrix
@@ -344,8 +337,7 @@ are \code{sigma} which can be a single value or a decreasing sequence
 (default: 20 to 1 in 10 steps), and \code{step}, which defines how many update
 steps are performed before for each value of \code{alpha}. Via
 \code{W_function} a custom function to create \eqn{W} with the function
-signature \verb{function(n, sigma, verbose)} can be specified. The parameter
-\code{verbose} can be used to display progress information.
+signature \verb{function(n, sigma, verbose)} can be specified.
 \item \strong{Visual Assessment of (Clustering) Tendency:} \code{"VAT"} (Bezdek and Hathaway, 2002).
 
 Creates an order based on Prim's algorithm for finding a minimum spanning
@@ -373,7 +365,8 @@ Row and column order influence each other.
 \itemize{
 \item \strong{Bond Energy Algorithm:} \code{"BEA"}  (McCormick, 1972).
 
-The algorithm tries to maximize a non-negative matrix's \strong{Measure of Effectiveness.}
+The algorithm tries to maximize a non-negative matrix's
+\strong{Measure of Effectiveness.}
 Due to the definition of this measure, the tasks of
 ordering rows and columns are separable and can be solved independently.
 
@@ -390,12 +383,6 @@ the objective is to find a seriation or one-dimensional orderings of rows
 and columns.
 
 Fionn Murtagh implemented the BEA code used in this package.
-
-\code{control} parameter:
-\itemize{
-\item \code{"rep"}: the number of runs can be specified.
-The results of the best run will be returned.
-}
 \item \strong{TSP to optimize the Measure of Effectiveness}: \code{"BEA_TSP"} (Lenstra 1974).
 
 Distances between rows are calculated for a \eqn{M \times N} data matrix as

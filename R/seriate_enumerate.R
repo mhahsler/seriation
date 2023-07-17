@@ -36,6 +36,9 @@ are.monotone <-
 .control_enumerate <- list(criterion = "Gradient_weighted",
                            verbose = FALSE)
 
+attr(.control_enumerate, "help") <-
+  list(criterion = "Criterion measure to optimize")
+
 seriate_dist_enumerate <- function(x, control = NULL) {
   control <- .get_parameters(control, .control_enumerate)
 

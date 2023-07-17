@@ -21,8 +21,12 @@
 ## order
 .pca_contr <- list(
   center = TRUE,
-  scale. = FALSE,
-  tol = NULL,
+  scale = FALSE,
+  verbose = FALSE
+)
+attr(.pca_contr, "help") <- list(
+  center = "center the data (mean = 0)?",
+  scale = "scale to unit variance?",
   verbose = FALSE
 )
 
@@ -30,8 +34,7 @@ seriate_matrix_fpc <- function(x, control = NULL, margin) {
   control <- .get_parameters(control, .pca_contr)
 
   center  <- control$center
-  scale.  <- control$scale.
-  tol     <- control$tol
+  scale  <- control$scale
   verbose <- control$verbose
 
   o <- list(row = NA, col = NA)
@@ -39,8 +42,8 @@ seriate_matrix_fpc <- function(x, control = NULL, margin) {
   if (1L %in% margin) {
     pr <- stats::prcomp(x,
                         center = center,
-                        scale. = scale.,
-                        tol = tol)
+                        scale. = scale,
+                        rank. = 1L)
     scores <- pr$x[, 1]
     os <- order(scores)
     o$row <- structure(os, names = rownames(x)[os], configuration = scores)
@@ -55,8 +58,8 @@ seriate_matrix_fpc <- function(x, control = NULL, margin) {
     x <- t(x)
     pr <- stats::prcomp(x,
                  center = center,
-                 scale. = scale.,
-                 tol = tol)
+                 scale. = scale,
+                 rank. = 1L)
     scores <- pr$x[, 1]
     os <- order(scores)
     o$col <- structure(os, names = rownames(x)[os], configuration = scores)
@@ -89,22 +92,18 @@ seriate_matrix_fpc <- function(x, control = NULL, margin) {
 
 }
 
-.angle_contr <- list(center = TRUE,
-                     scale. = FALSE,
-                     tol = NULL)
 
 seriate_matrix_angle <- function(x, control = NULL, margin) {
-  control <- .get_parameters(control, .angle_contr)
+  control <- .get_parameters(control, .pca_contr)
 
   center  <- control$center
-  scale.  <- control$scale.
-  tol     <- control$tol
+  scale  <- control$scale
 
   if (1L %in% margin) {
     pr <- prcomp(x,
                  center = center,
-                 scale. = scale.,
-                 tol = tol)
+                 scale. = scale,
+                rank = 2L)
     row <- .order_angle(pr$x[, 1:2])
     names(row) <- rownames(x)[row]
   } else
@@ -113,8 +112,8 @@ seriate_matrix_angle <- function(x, control = NULL, margin) {
   if (2L %in% margin) {
     pr <- prcomp(t(x),
                  center = center,
-                 scale. = scale.,
-                 tol = tol)
+                 scale. = scale,
+                 rank = 2L)
     col <- .order_angle(pr$x[, 1:2])
     names(col) <- colnames(x)[col]
   } else
@@ -128,9 +127,9 @@ set_seriation_method(
   "matrix",
   "PCA",
   seriate_matrix_fpc,
-  "Uses the projection of the data on its first principal component to determine the order. Note that for a distance matrix calculated from x with Euclidean distance, this methods minimizes the least square criterion.",
+  "Uses the projection of the data on its first principal component to determine the order.",
   .pca_contr,
-  optimizes = "Least squares for each dimension."
+  optimizes = "Least squares for each dimension (for Euclidean distances)."
 )
 
 set_seriation_method(
@@ -138,5 +137,5 @@ set_seriation_method(
   "PCA_angle",
   seriate_matrix_angle,
   "Projects the data on the first two principal components and then orders by the angle in this space. The order is split by the larges gap between adjacent angles.",
-  .angle_contr
+  .pca_contr
 )

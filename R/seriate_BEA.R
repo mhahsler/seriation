@@ -35,6 +35,10 @@
 #    list(row = row, col = col)
 #}
 
+
+#' @include seriate_TSP.R
+.bea_tsp_contr <- .tsp_control
+
 seriate_matrix_bea_tsp <-
   function(x, control, margin = seq_along(dim(x))) {
     if (any(x < 0))
@@ -61,11 +65,14 @@ seriate_matrix_bea_tsp <-
     list(row = row, col = col)
   }
 
-
 ## Bond Energy Algorithm (McCormick 1972)
 .bea_contr <- list(istart = 0,
-                   jstart = 0,
-                   rep = 1)
+                   jstart = 0
+)
+
+attr(.bea_contr, "help") <- list(istart = "index of 1st row to be placed (0 = random)",
+                                 jstart = "index of 1st column to be placed (0 = random)"
+)
 
 # BEA always does rows and columns so margin is ignored
 seriate_matrix_bea <- function(x, control = NULL, margin = NULL) {
@@ -75,7 +82,8 @@ seriate_matrix_bea <- function(x, control = NULL, margin = NULL) {
     stop("Requires a nonnegative matrix.")
   istart <- control$istart
   jstart <- control$jstart
-  rep  <- control$rep
+  #rep  <- control$rep
+  rep  <- 1L
 
   res <- replicate(rep, bea(x, istart = istart, jstart = jstart),
                    simplify = FALSE)
@@ -106,7 +114,8 @@ set_seriation_method(
   "matrix",
   "BEA_TSP",
   seriate_matrix_bea_tsp,
-  "Use a TSP to optimize the Measure of Effectiveness (Lenstra 1974). Control is passed on to the seriation method TSP.",
+  "Use a TSP to optimize the Measure of Effectiveness (Lenstra 1974).",
+  .bea_tsp_contr,
   optimizes = "Measure of effectiveness (ME)",
   randomized = TRUE
 )

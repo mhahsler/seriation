@@ -57,4 +57,4 @@ seriate_dist_chen <- function(x, control = NULL) {
 #  "Rank-two ellipse seriation")
 
 set_seriation_method("dist", "R2E", seriate_dist_chen,
-  "Rank-two ellipse seriation")
+  "Rank-two ellipse seriation (Chen 2002)")

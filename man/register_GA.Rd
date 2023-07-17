@@ -24,26 +24,6 @@ Register a GA-based seriation metaheuristic for use with \code{\link[=seriate]{s
 Registers the method \code{"GA"} for \code{\link[=seriate]{seriate()}}. This method can be used
 to optimize any criterion in package \pkg{seriation}.
 
-\code{control} for
-\code{seriate} with method \code{"GA"} accepts the following parameters:
-\itemize{
-\item "criterion" criterion to optimize. Default: BAR
-\item "suggestions" suggestions to warm start the GA.
-\code{NA} means no warm start. Default: TSP, QAP_LS and Spectral.
-\item "selection" Selection operator.
-\item "crossover" Crossover operator.
-\item "mutation" Mutation operator. Default: a
-mixture of the simple insertion (80\% chance) and simple inversion (20\%
-chance) operators.
-\item "pmutation" probability for permutations. Default: .5
-\item "pcrossover" probability for crossover. Default: .2
-\item "popsize" the population size. Default: 100
-\item "maxiter" maximum number of generations. Default: 1000
-\item "run" stop after \code{run} generations without improvement. Default: 50
-\item "parallel" use multiple cores? Default: TRUE
-\item "verbose" a logical; report progress? Default: TRUE
-}
-
 The GA uses by default the ordered cross-over (OX) operator. For mutation,
 the GA uses a mixture of simple insertion and simple inversion operators.
 This mixed operator is created using
@@ -56,6 +36,8 @@ mutation operators for permutations. The appropriate operator functions in
 We warm start the GA using \code{"suggestions"} given by several heuristics.
 Set \code{"suggestions"} to \code{NA} to start with a purely random initial
 population.
+
+See Example section for available control parameters.
 
 \bold{Note:} Package \pkg{GA} needs to be installed.
 }

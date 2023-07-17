@@ -75,7 +75,11 @@
 #' # List methods for matrix
 #' list_criterion_methods("matrix")
 #'
-#' get_criterion_method("dist", "AR_d")
+#' # get more description
+#' list_criterion_methods("matrix", names_only = FALSE)
+#'
+#' # get a specific method
+#' get_criterion_method(kind = "dist", name = "AR_d")
 #'
 #' # Define a new method (sum of the diagonal elements)
 #'
@@ -149,11 +153,13 @@ list_criterion_methods <- function(kind, names_only = TRUE) {
 #' @rdname registry_for_criterion_methods
 #' @export
 get_criterion_method <- function(kind, name) {
-  method <- registry_criterion$get_entry(kind = kind, name = name)
+  if (missing(kind))
+    method <- registry_criterion$get_entry(name = name)
+  else
+    method <- registry_criterion$get_entry(kind = kind, name = name)
+
   if (is.null(method))
-    stop("Unknown criterion. Check list_criterion_methods(\"",
-         kind,
-         "\")")
+    stop("Unknown criterion. Check list_criterion_methods()")
 
   method
 }
@@ -212,11 +218,21 @@ set_criterion_method <- function(kind,
 #' @rdname registry_for_criterion_methods
 #' @export
 print.criterion_method <- function(x, ...) {
+  extra_param <- setdiff(names(as.list(args(x$fun))), c("x", "order", "...", ""))
+
   writeLines(c(
     gettextf("name:        %s", x$name),
     gettextf("kind:        %s", x$kind),
-    gettextf("description: %s", x$description),
+    strwrap(
+      gettextf("description: %s", x$description),
+      prefix = "             ",
+      initial = ""
+    ),
     gettextf("merit:       %s", x$merit)
   ))
+
+  if (length(extra_param) > 0L)
+    cat("parameters: ", paste(extra_param, collapse = ", "), "\n")
+
   invisible(x)
 }

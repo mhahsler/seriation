@@ -26,9 +26,20 @@
   ## Brusco: .5
   try_multiplier = 100,
   ## Brusco: 100
-  reps = 1L,
+  ### we do rep now for all
+#  reps = 1L,
   ## Brusco: 20
   verbose = FALSE
+)
+
+attr(.arsa_control, "help") <-  list(
+  cool = "cooling factor (smaller means faster cooling)",
+  tmin = "stopping temperature",
+  swap_to_inversion = "probability for swap vs inversion local move",
+  try_multiplier = "number of local move tries per object"
+  ## Brusco: 100
+#  reps = "",
+  ## Brusco: 20
 )
 
 seriate_dist_arsa <- function(x, control = NULL) {
@@ -42,7 +53,8 @@ seriate_dist_arsa <- function(x, control = NULL) {
   if (N*N > .Machine$integer.max)
     stop("Long vectors not supported! Algorithm needs n^2 space.")
 
-  NREPS <- as.integer(param$reps)
+  #NREPS <- as.integer(param$reps)
+  NREPS <- 1L
   IPERM <- integer(N)
   #  R1 <- double(N*N/2)
   #  R2 <- double(N*N/2)
@@ -92,6 +104,10 @@ seriate_dist_arsa <- function(x, control = NULL) {
 
 .bb_control <- list(eps = 0,
                     verbose = FALSE)
+
+attr(.bb_control, "help") <-  list(
+  eps = "Distances need to be at least eps to count as violations"
+)
 
 seriate_dist_bburcg <- function(x, control = NULL) {
   param <- .get_parameters(control, .bb_control)
@@ -148,7 +164,7 @@ set_seriation_method(
   "dist",
   "ARSA",
   seriate_dist_arsa,
-  "Minimize the linear seriation criterion using simulated annealing (Brusco et al, 2008).\ncontrol parameters:\n - cool (cooling rate)\n - tmin (minimum temperature)\n - swap_to_inversion (proportion of swaps to inversions for local neighborhood search)\n - try_multiplier (local search tries per temperature; multiplied with the number of objects)\n - reps (repeat the algorithm with random initialization)\n",
+  "Minimize the linear seriation criterion using simulated annealing (Brusco et al, 2008).",
   control = .arsa_control,
   randomized = TRUE,
   optimizes = "Linear seriation criterion (LS)"
@@ -160,7 +176,7 @@ set_seriation_method(
   seriate_dist_bburcg,
   "Minimize the unweighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.",
   control  = .bb_control,
-  optimizes = "Unweighted gradient condition"
+  optimizes = "Unweighted gradient condition (Gradient_unweighted)"
 )
 
 set_seriation_method(
@@ -169,5 +185,5 @@ set_seriation_method(
   seriate_dist_bbwrcg,
   "Minimize the weighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.",
   control  = .bb_control,
-  optimizes = "Weighted gradient condition"
+  optimizes = "Weighted gradient condition (Gradient_weighted)"
 )

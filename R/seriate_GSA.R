@@ -68,20 +68,38 @@ LS_mixed <- function(o, pos = sample.int(length(o), 2)) {
 .sa_contr <- list(
   criterion = "Gradient_raw",
   cool = 0.5,
-  tmin = 1e-7,
-  localsearch = LS_insert,
-  nlocal = 5,
+  t_min = 1e-7,
+  localsearch = "LS_insert",
+  try_multiplier = 5,
   t0 = NA,
-  pinitialaccept = .01,
+  p_initial_accept = .01,
   warmstart = "Random",
   ## use "Random" for random init.
-  ## try nlocal x n local search steps
+  ## try try_multiplier x n local search steps
   verbose = FALSE
 )
+
+attr(.sa_contr, "help") <- list(
+  criterion = "Criterion measure to optimize",
+  cool = "cooling factor (smaller means faster cooling)",
+  t_min = "stopping temperature",
+  localsearch = "used local search move function",
+  try_multiplier = "number of local move tries per object",
+  t0 = "initial temperature (if NA then it is estimated)",
+  p_initial_accept = "Probability to accept a bad move at time 0 (used for t0 estimation)",
+  warmstart = "permutation or seriation method for warmstart"
+  )
+
 
 seriate_sa <- function(x, control = NULL) {
   param <- .get_parameters(control, .sa_contr)
   n <- attr(x, "Size")
+
+  localsearch <- get(param$localsearch)
+  if (!is.function(localsearch))
+    localsearch <- get(localsearch)
+
+  crit <- param$crit
 
   if (is.numeric(param$warmstart)) {
     .check_dist_perm(x, order = param$warmstart)
@@ -98,7 +116,7 @@ seriate_sa <- function(x, control = NULL) {
     cat("Initial z =", z,
         "(minimize)\n")
 
-  iloop <- param$nlocal * n
+  iloop <- param$try_multiplier * n
 
   t0 <- param$t0
   if (is.na(t0)) {
@@ -112,7 +130,7 @@ seriate_sa <- function(x, control = NULL) {
     z_new <- replicate(iloop, expr = {
       criterion(
         x,
-        param$localsearch(o_rand),
+        localsearch(o_rand),
         method = param$criterion,
         force_loss = TRUE
       )
@@ -121,10 +139,10 @@ seriate_sa <- function(x, control = NULL) {
     deltas <- (z_rand - z_new)
     deltas[deltas > 0] <- NA
     avg_delta <- stats::median(deltas, na.rm = TRUE)
-    t0 <- avg_delta / log(param$pinitialaccept)
+    t0 <- avg_delta / log(param$p_initial_accept)
   }
 
-  nloop <- as.integer((log(param$tmin) - log(t0)) / log(param$cool))
+  nloop <- as.integer((log(param$t_min) - log(t0)) / log(param$cool))
 
   if (t0 <= 0) {
     t0 <- 0
@@ -147,11 +165,11 @@ seriate_sa <- function(x, control = NULL) {
     m <- 0L
 
     for (j in 1:iloop) {
-      onew <- param$localsearch(o)
+      onew <- localsearch(o)
       znew <-
         criterion(x,
                   onew,
-                  method = param$criterion,
+                  method = crit,
                   force_loss = TRUE)
       delta <- z - znew
 
@@ -190,17 +208,7 @@ set_seriation_method(
   "dist",
   "GSA",
   seriate_sa,
-  paste0(
-    "Minimize a specified seriation measure (criterion) using simulated annealing.\n",
-    "Control parameters:\n",
-    " - criterion to optimize\n",
-    " - init (initial order; use \"Random\" for no warm start\n",
-    " - localsearch (neighborhood function; Built-in functions are LS_insert, LS_swap, LS_reverse, and LS_mix (1/3 insertion, 1/3 swap and 1/3 reverse)\n",
-    " - cool (cooling rate)\n",
-    " - tmin (minimum temperature)\n",
-    " - swap_to_inversion (proportion of swaps to inversions)\n",
-    " - nlocal (number of objects times nlocal is the number of search tries per temperature\n"
-  ),
+  "Minimize a specified seriation measure (criterion) using simulated annealing.",
   .sa_contr,
   randomized = TRUE
 )

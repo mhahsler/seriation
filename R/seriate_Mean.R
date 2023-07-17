@@ -19,6 +19,9 @@
 .seriate_mean_control <- list(
   transformation = NULL
   )
+attr(.seriate_mean_control, "help") <- list(
+  transformation = "transformation function applied before calculating means (e.g., scale)"
+)
 
 seriate_matrix_mean <- function(x, control = NULL, margin = NULL) {
   control <- .get_parameters(control, .seriate_mean_control)

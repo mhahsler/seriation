@@ -16,8 +16,9 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# controls are only used for isoMDS and sammon
+# MDS: cmdscale
 .mds_control <- list(add = FALSE)
+attr(.mds_control, "help") <- list(add = "make the distances Euclidean using an additive constant (see ? cmdscale)")
 
 seriate_dist_mds <- function(x, control = NULL) {
   ### accept deprecated method
@@ -36,7 +37,7 @@ seriate_dist_mds <- function(x, control = NULL) {
   o
 }
 
-
+# isoMDS: MASS::isoMDS
 .mds_isoMDS_control <- list(
   add = 1e-9,
   # to avoid 0 distances
@@ -44,6 +45,13 @@ seriate_dist_mds <- function(x, control = NULL) {
   trace = FALSE,
   tol = 1e-3,
   p = 2
+)
+attr(.mds_isoMDS_control, "help") <- list(
+  add = "small constant to avoid 0 distances",
+  maxit = "maximum number of iterations",
+  trace = "trace optimization",
+  tol = "convergence tolerance",
+  p = "power for Minkowski distance in the configuration space"
 )
 
 seriate_dist_mds_isoMDS <- function(x, control = NULL) {
@@ -63,6 +71,7 @@ seriate_dist_mds_isoMDS <- function(x, control = NULL) {
   o
 }
 
+# Sammon mapping: MDS::sammon
 .mds_sammon_control <- list(
   add = 1e-9,
   # to avoid 0 distances
@@ -70,6 +79,13 @@ seriate_dist_mds_isoMDS <- function(x, control = NULL) {
   trace = FALSE,
   magic = 0.2,
   tol = 1e-4
+)
+attr(.mds_sammon_control, "help") <- list(
+  add = "small constant to avoid 0 distances",
+  niter = "maximum number of iterations",
+  trace = "trace optimization",
+  magic = "initial value of the step size constant in diagonal Newton method",
+  tol = "tolerance for stopping in units of stress"
 )
 
 seriate_dist_mds_sammon <- function(x, control = NULL) {

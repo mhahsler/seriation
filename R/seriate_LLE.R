@@ -21,6 +21,11 @@
   reg = 2
 )
 
+attr(.lle_contr, "help") <- list(
+  k = "used number of neighbors",
+  reg = "regularization method (see ? lle)"
+)
+
 seriate_lle <- function(x, control = NULL, margin) {
   param <- .get_parameters(control, .lle_contr)
 

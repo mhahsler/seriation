@@ -26,6 +26,14 @@
   verbose = FALSE
 )
 
+ attr(.heatmap_contr, "help") <- list(
+  dist_fun = "A named list with functions to calulate row and column distances",
+  seriation_method = "A named list with row and column seriation methods",
+  seriation_control = "named list with control parameters for the seriation methods",
+  scale = 'Scale "rows", "cols", or "none"'
+)
+
+
 seriate_matrix_heatmap <-
   function(x,
            control = NULL,
@@ -46,9 +54,9 @@ seriate_matrix_heatmap <-
              col = control$seriation_control)
 
     if (!is.null(control$scale)) {
-      if (control$scale == "row")
+      if (control$scale == "rows")
         x <- t(scale(t(x)))
-      if (control$scale == "col")
+      if (control$scale == "cols")
         x <- scale(x)
     }
 
@@ -107,6 +115,6 @@ set_seriation_method(
   "matrix",
   "Heatmap",
   seriate_matrix_heatmap,
-  "Calculate distances for row and column vectors, and seriate. If only a single distance function or seriation method is specified, then it is used for rows and columns. The default seriation method is optimal leaf ordering (OLO) which  perform hierarchical clustering and reorder the dentrograms.",
-  .heatmap_contr
+  "Calculates distances for rows and columns and then independently applies the specified seriation method for distances.",
+  control = .heatmap_contr
 )

@@ -18,9 +18,18 @@
 
 #' @import "TSP"
 
-.tsp_control <- list(method = "arbitrary insertion",
-  rep = 10,
-  two_opt = TRUE)
+.tsp_control <- structure(
+  list(
+    method = "arbitrary insertion",
+    rep = 10,
+    two_opt = TRUE
+  ),
+  help = list(
+    method = "used TSP method (see ? solve_TSP)",
+    rep = "number of random restarts",
+    two_opt = "use the 2-opt improvement heuristic?"
+  )
+)
 
 seriate_dist_tsp <- function(x, control = NULL) {
   ## add a dummy city for cutting
@@ -40,7 +49,7 @@ set_seriation_method(
   "dist",
   "TSP",
   seriate_dist_tsp,
-  "Minimize Hamiltonian path length with a TSP solver (see solve_TSP in package TSP for available methods).",
+  "Minimize Hamiltonian path length with a TSP solver.",
   .tsp_control,
   randomized = TRUE,
   optimizes = "Path length"

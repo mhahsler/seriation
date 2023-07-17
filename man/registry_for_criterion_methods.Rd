@@ -15,7 +15,7 @@ An object of class \code{criterion_registry} (inherits from \code{registry}) of 
 \usage{
 registry_criterion
 
-list_criterion_methods(kind)
+list_criterion_methods(kind, names_only = TRUE)
 
 get_criterion_method(kind, name)
 
@@ -34,6 +34,9 @@ set_criterion_method(
 \arguments{
 \item{kind}{the data type the method works on. For example, \code{"dist"},
 \code{"matrix"} or \code{"array"}.}
+
+\item{names_only}{logical; return only the method name. \code{FALSE} returns
+also the method descriptions.}
 
 \item{name}{the name for the method used to refer to the method in the
 function \code{\link[=criterion]{criterion()}}.}
@@ -94,7 +97,11 @@ list_criterion_methods()
 # List methods for matrix
 list_criterion_methods("matrix")
 
-get_criterion_method("dist", "AR_d")
+# get more description
+list_criterion_methods("matrix", names_only = FALSE)
+
+# get a specific method
+get_criterion_method(kind = "dist", name = "AR_d")
 
 # Define a new method (sum of the diagonal elements)
 

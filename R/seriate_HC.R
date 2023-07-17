@@ -21,6 +21,9 @@
 .hc_control <- list(hclust = NULL,
                     linkage = "complete")
 
+attr(.hc_control, "help") <- list(hclust = "a precomputed hclust object (optional)",
+                    linkage = "hclust method")
+
 .hclust_helper <- function(d, control = NULL) {
 
   # Deprecated method control argument

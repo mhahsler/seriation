@@ -29,9 +29,10 @@
 #' discussing the
 #' built-in methods that are registered automatically by the package \pkg{seriation}.
 #'
-#' The available control options and default settings for each algorithm
+#' The available control options, default settings, and
+#' a description for each algorithm
 #' can be retrieved using `get_seriation_method(name = "<seriation method>")`.
-#' Some control parameters are described in more detail below.
+#' Some control parameters are also described in more detail below.
 #'
 #' Some methods are very slow, and progress can be printed using the control
 #' parameter `verbose = TRUE`.
@@ -167,16 +168,11 @@
 #'
 #'   The algorithm automatically finds a suitable start temperature and calculates
 #'   the needed number of iterations. The algorithm gets slow for a large number of
-#'   objects. The speed can be improved by lowering the cooling parameter or increasing the
-#'   minimum temperature. However, this will decrease the seriation quality.
+#'   objects. The speed can be improved by lowering the cooling parameter `"cool"`
+#'   or increasing the minimum temperature `"tmin"`.
+#'   However, this will decrease the seriation quality.
 #'
-#'   Important `control` parameters:
-#'     - `"cool"`: cooling factor (smaller means faster cooling).
-#'     - `"tmin"`: minimum temperature when the algorithm stops.
-#'     - `"rep"`: the number of runs can be specified.
-#'
-#'
-#'    Directly minimizes the **linear seriation criterion.**
+#'    Directly minimizes the **linear seriation criterion (LS).**
 #'
 #' - **Complete Enumeration:** `"Enumerate"`
 #'
@@ -198,7 +194,7 @@
 #'    This type of optimization is only feasible for a small number of objects (< 50 objects).
 #'
 #'    For BBURCG, the control parameter `"eps"` can be used to relax the problem by defining
-#'    that the distance needs to be eps larger to count as a violation. This relaxation will improve the speed,
+#'    that a distance needs to be eps larger to count as a violation. This relaxation will improve the speed,
 #'    but miss some Robinson events. The default value is 0.
 #'
 #' - **Genetic Algorithm:** `"GA"`
@@ -235,7 +231,7 @@
 #'   `t0` is not set, then it is estimated by sampling uphill moves and setting
 #'   `t0` such that the median uphill move have a probability
 #'    of `tinitialaccept`.
-#'    Using the learning rate `cool`, the number of iterations
+#'    Using the cooling rate `cool`, the number of iterations
 #'    to go for `t0` to `tmin` is calculated.
 #'
 #'   Several popular local neighborhood functions are
@@ -313,11 +309,9 @@
 #'
 #'   `"SPIN_STS"` implements the Side-to-Side algorithm, which tries to push
 #'   out large distance values. The default weight matrix suggested in the paper
-#'   with \eqn{W=XX^T} and \eqn{X_i=i-(n+1)/2} is used. We run the algorithm from
+#'   with \eqn{W=XX^T} and \eqn{X_i=i-(n+1)/2} is used. We run the algorithm form
 #'   `step` (25) iteration and restart the algorithm `nstart` (10) with
-#'   random initial permutations (default values in parentheses). Via
-#'   `control` the parameters `step`, `nstart`, `X`, and
-#'   `verbose`.
+#'   random initial permutations (default values in parentheses).
 #'
 #'   `"SPIN_NH"` implements the neighborhood algorithm (concentrate low
 #'   distance values around the diagonal) with a Gaussian weight matrix
@@ -335,10 +329,7 @@
 #'   (default: 20 to 1 in 10 steps), and `step`, which defines how many update
 #'   steps are performed before for each value of `alpha`. Via
 #'   `W_function` a custom function to create \eqn{W} with the function
-#'   signature `function(n, sigma, verbose)` can be specified. The parameter
-#'   `verbose` can be used to display progress information.
-#'
-#'
+#'   signature `function(n, sigma, verbose)` can be specified.
 #'
 #' - **Visual Assessment of (Clustering) Tendency:** `"VAT"` (Bezdek and Hathaway, 2002).
 #'
@@ -367,7 +358,8 @@
 #'
 #' - **Bond Energy Algorithm:** `"BEA"`  (McCormick, 1972).
 #'
-#'   The algorithm tries to maximize a non-negative matrix's **Measure of Effectiveness.**
+#'   The algorithm tries to maximize a non-negative matrix's
+#'   **Measure of Effectiveness.**
 #'   Due to the definition of this measure, the tasks of
 #'   ordering rows and columns are separable and can be solved independently.
 #'
@@ -384,10 +376,6 @@
 #'   and columns.
 #'
 #'   Fionn Murtagh implemented the BEA code used in this package.
-#'
-#'   `control` parameter:
-#'     - `"rep"`: the number of runs can be specified.
-#'        The results of the best run will be returned.
 #'
 #' - **TSP to optimize the Measure of Effectiveness**: `"BEA_TSP"` (Lenstra 1974).
 #'
@@ -413,7 +401,6 @@
 #'   `control` parameters:
 #'     - `"dim"`: CA dimension used for reordering.
 #'     - `"ca_param"`: List with parameters for the call to [ca::ca()].
-#'
 #'
 #'  **Seriating rows and columns separately using dissimilarities**
 #'

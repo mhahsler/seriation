@@ -47,11 +47,18 @@ create_W <- function(n, sigma, verbose = FALSE) {
   W
 }
 
-.spin_contr <- list(
-  sigma = seq(20, 1, length.out = 10),
-  step = 5,
-  W_function = NULL,
-  verbose = FALSE
+.spin_contr <- structure(
+  list(
+    sigma = floor(seq(20, 1, length.out = 10)),
+    step = 5,
+    W_function = NULL,
+    verbose = FALSE
+  ),
+  help = list(
+    sigma =  "emphasize local (small alpha) or global (large alpha) structure.",
+    step = "iterations to run for each sigma value.",
+    W_function = "custom function to create the weight matrix W"
+  )
 )
 
 ## SPIN: Neighborhood algorithms
@@ -82,7 +89,7 @@ seriate_dist_SPIN <- function(x, control = NULL) {
     M <- D %*% W
 
     ## heuristic for the linear assignment problem
-    ## (second argument to order breakes ties randomly)
+    ## (second argument to order breaks ties randomly)
     P <- permutation_vector2matrix(order(apply(M, MARGIN = 1, which.min), sample(1:n)))
     #if(verbose) print(table(apply(M, MARGIN = 1, which.min)))
 
@@ -126,12 +133,17 @@ seriate_dist_SPIN <- function(x, control = NULL) {
 ## SPIN: Side-to-Side algorithm
 
 ## this is the weight: pimage(tcrossprod(1:n - (n+1)/2))
-.spin_sts_contr <- list(
-  step = 25,
-  nstart = 10,
-  X = function(n)
-    1:n - (n + 1) / 2,
-  verbose = FALSE
+.spin_sts_contr <- structure(
+  list(
+    step = 25L,
+    nstart = 10L,
+    X = function(n)
+      seq(n) - (n + 1) / 2,
+    verbose = FALSE
+  ),
+  help = list(step = "iterations to run",
+              nstart = "number of random restarts",
+              X = "matrix to calculate the W matrix")
 )
 
 seriate_dist_SPIN_STS <- function(x, control = NULL) {
@@ -145,7 +157,7 @@ seriate_dist_SPIN_STS <- function(x, control = NULL) {
   D <- as.matrix(x)
   n <- nrow(D)
 
-  ## X for weights W = X %*% t(X) (colunm vector)
+  ## X for weights W = X %*% t(X) (column vector)
   if (is.function(X))
     X <- X(n)
   if (!is.numeric(X) ||
@@ -219,7 +231,7 @@ set_seriation_method(
   "dist",
   "SPIN_NH",
   seriate_dist_SPIN,
-  "Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Nighborhood algorithm to concentrate low distance values around the diagonal with a Gaussian weight matrix W_{ij} = exp(-(i-j)^2/(n*sigma)), where n is the size of the dissimilarity matrix and sigma is the variance around the diagonal that control the influence of global (large sigma) or local (small sigma) structure.",
+  "Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Neighborhood algorithm to concentrate low distance values around the diagonal.",
   .spin_contr,
   optimizes = "Energy"
 )

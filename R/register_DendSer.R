@@ -87,13 +87,21 @@ register_DendSer <- function() {
   # h (default is NULL -> complete)
 
 
-  .DendSer_control <- list(
-    h = NULL,
-    method = "complete",
-    criterion = NULL,
-    cost = DendSer::costBAR,
-    DendSer_args = NULL,
-    verbose = FALSE
+  .DendSer_control <- structure(
+    list(
+      h = NULL,
+      method = "complete",
+      criterion = NULL,
+      DendSer_args = NULL,
+      verbose = FALSE
+    ),
+    help = list(
+      h = "an hclust object (optional)",
+      method = "hclust linkage method",
+      criterion = "criterion to optimize the dendrogram for",
+      DendSer_args = "more arguments are passed on to DendSer (? DendSer)"
+    )
+
   )
 
   DendSer_helper <- function(x, control) {
@@ -101,16 +109,14 @@ register_DendSer <- function() {
 
     control <- .get_parameters(control, .DendSer_control)
 
-    ## fix cost if it is a criterion from seriation
-    if (!is.null(control$criterion))
-      control$cost <- DendSer::crit2cost(crit = control$criterion)
+    control$cost <- DendSer::crit2cost(crit = control$criterion)
+    control$criterion <- NULL
 
     ## produce hclust
     if (is.null(control$h))
       control$h <- hclust(x, control$method)
-
     control$method <- NULL
-    control$criterion <- NULL
+
     control$ser_weight <- x
 
     if (!is.null(control$DendSer_args)) {
@@ -122,22 +128,24 @@ register_DendSer <- function() {
   }
 
 
-  DendSer_BAR <- DendSer_helper
+  DendSer_BAR <-  function(x, control) {
+    control$criterion <- "BAR"
+    DendSer_helper(x, control)
+  }
+
 
   DendSer_PL <- function(x, control) {
-    #control$cost <- DendSer::costPL
     control$criterion <- "Path_length"
     DendSer_helper(x, control)
   }
 
   DendSer_LPL <- function(x, control) {
-    #control$cost <- DendSer::costLPL
     control$criterion <- "Lazy_path_length"
     DendSer_helper(x, control)
   }
 
   DendSer_ARc <- function(x, control) {
-    control$cost <- DendSer::costARc
+    control$criterion <- "Arc"
     DendSer_helper(x, control)
   }
 
@@ -152,7 +160,7 @@ register_DendSer <- function() {
   seriation::set_seriation_method(
     "dist",
     "DendSer",
-    DendSer_helper,
+    DendSer_BAR,
     "Dendrogram seriation (Earle and Hurley, 2015).",
     .DendSer_control,
     optimizes = "Anti-robinson form (BAR) restricted by dendrogram",
@@ -182,7 +190,7 @@ register_DendSer <- function() {
   seriation::set_seriation_method(
     "dist",
     "DendSer_LPL",
-    DendSer_PL,
+    DendSer_LPL,
     "Dendrogram seriation (Lazy path length)",
     .DendSer_control,
     optimizes = "Path length restricted by dendrogram",

@@ -85,6 +85,9 @@ register_umap <- function() {
   .contr$input <- NA
   .contr$random_state <- NA
 
+  attr(.contr, "help") <- list(n_neighbors = "see ? umap::umap for help")
+
+
   umap_order <- function(x, control) {
     control <- .get_parameters(control, .contr)
 

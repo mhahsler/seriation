@@ -23,24 +23,6 @@
 #' Registers the method \code{"GA"} for [seriate()]. This method can be used
 #' to optimize any criterion in package \pkg{seriation}.
 #'
-#' \code{control} for
-#' \code{seriate} with method \code{"GA"} accepts the following parameters:
-#' - "criterion" criterion to optimize. Default: BAR
-#' - "suggestions" suggestions to warm start the GA.
-#'   \code{NA} means no warm start. Default: TSP, QAP_LS and Spectral.
-#' - "selection" Selection operator.
-#' - "crossover" Crossover operator.
-#' - "mutation" Mutation operator. Default: a
-#'   mixture of the simple insertion (80% chance) and simple inversion (20%
-#'   chance) operators.
-#' - "pmutation" probability for permutations. Default: .5
-#' - "pcrossover" probability for crossover. Default: .2
-#' - "popsize" the population size. Default: 100
-#' - "maxiter" maximum number of generations. Default: 1000
-#' - "run" stop after \code{run} generations without improvement. Default: 50
-#' - "parallel" use multiple cores? Default: TRUE
-#' - "verbose" a logical; report progress? Default: TRUE
-#'
 #' The GA uses by default the ordered cross-over (OX) operator. For mutation,
 #' the GA uses a mixture of simple insertion and simple inversion operators.
 #' This mixed operator is created using
@@ -53,6 +35,8 @@
 #' We warm start the GA using \code{"suggestions"} given by several heuristics.
 #' Set \code{"suggestions"} to \code{NA} to start with a purely random initial
 #' population.
+#'
+#' See Example section for available control parameters.
 #'
 #' \bold{Note:} Package \pkg{GA} needs to be installed.
 #'
@@ -93,7 +77,7 @@
 register_GA <- function() {
   check_installed("GA")
 
-  .ga_contr <- list(
+  .ga_contr <- structure(list(
     criterion = "BAR",
     suggestions = c("TSP", "QAP_LS", "Spectral"),
     selection = GA::gaperm_lrSelection,
@@ -106,7 +90,19 @@ register_GA <- function() {
     run = 50,
     parallel = FALSE,
     verbose = FALSE
-  )
+  ), help = list(
+    criterion = "criterion to be optimized",
+    suggestions = "seed the population with these seriation methods",
+    selection = "selection operator function",
+    crossover = "crossover operator function",
+    mutation = "mutation operator function",
+    pcrossover = "probability for crossover",
+    pmutation = "ptobability of mutations",
+    popSize = "population size",
+    maxiter = "maximum number of generations",
+    run = "stop after run generations without improvement",
+    parallel = "use multiple cores?"
+  ))
 
   GA_helper <- function(x, control) {
     n <- attr(x, "Size")

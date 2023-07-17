@@ -138,7 +138,7 @@ registry_seriate$set_field("randomized", type = "logical",
                            is_key = FALSE)
 
 registry_seriate$set_field("optimizes", type = "character",
-                           is_key = TRUE)
+                           is_key = FALSE)
 
 #' @rdname registry_for_seriaiton_methods
 #' @export
@@ -182,9 +182,7 @@ get_seriation_method <- function(kind, name) {
       " for data type ",
       kind,
       ". Maybe the method has not been registered yet. ",
-      "Check list_seriation_methods(\"",
-      kind,
-      "\")."
+      "Check list_seriation_methods()."
     )
 
   method
@@ -197,6 +195,7 @@ set_seriation_method <- function(kind,
                                  definition,
                                  description = NULL,
                                  control = list(),
+                                 control_help = list(),
                                  randomized = FALSE,
                                  optimizes = "Unspecified",
                                  verbose = FALSE,
@@ -254,9 +253,13 @@ print.seriation_method <- function(x, ...) {
   writeLines(c(
     gettextf("name:        %s", x$name),
     gettextf("kind:        %s", x$kind),
+    strwrap(
+      gettextf("description: %s", x$description),
+      prefix = "             ",
+      initial = ""
+    ),
     gettextf("optimizes:   %s", x$optimizes),
-    gettextf("randomized:  %s", x$randomized),
-    gettextf("description: %s", x$description)
+    gettextf("randomized:  %s", x$randomized)
   ))
 
   writeLines("control:")
@@ -266,19 +269,29 @@ print.seriation_method <- function(x, ...) {
 }
 
 
-.print_control <- function(control, label = "default values") {
+.print_control <- function(control,
+                           label = "default values",
+                           help = TRUE,
+                           trim_values = 30L) {
   if (length(control) < 1L) {
     writeLines("no parameters")
   } else{
     contr <- lapply(
       control,
-      FUN =
-        function(p)
-          utils::capture.output(dput(p, control = list()))[1]
+      FUN = function(x)
+        strtrim(paste(deparse(x), collapse = ""), trim_values)
     )
 
-    contr <- t(as.data.frame(contr))
-    colnames(contr) <- label
+    contr <- as.data.frame(t(as.data.frame(contr)))
+    colnames(contr) <- c(label)
+
+    contr <- cbind(contr, help = "N/A")
+    if (!is.null(attr(control, "help")))
+      for (i in seq(nrow(contr))) {
+        hlp <- attr(control, "help")[[rownames(contr)[i]]]
+        if (!is.null(hlp))
+        contr[["help"]][i] <- hlp
+      }
 
     print(contr, quote = FALSE)
   }

@@ -15,7 +15,7 @@ An object of class \code{seriation_registry} (inherits from \code{registry}) of 
 \usage{
 registry_seriate
 
-list_seriation_methods(kind)
+list_seriation_methods(kind, names_only = TRUE)
 
 get_seriation_method(kind, name)
 
@@ -25,6 +25,7 @@ set_seriation_method(
   definition,
   description = NULL,
   control = list(),
+  control_help = list(),
   randomized = FALSE,
   optimizes = "Unspecified",
   verbose = FALSE,
@@ -37,6 +38,9 @@ set_seriation_method(
 \item{kind}{the data type the method works on. For example, \code{"dist"},
 \code{"matrix"} or \code{"array"}. If missing, then methods for any type are
 shown.}
+
+\item{names_only}{logical; return only the method name. \code{FALSE} returns
+also the method descriptions.}
 
 \item{name}{the name for the method used to refer to the method in
 \code{\link[=seriate]{seriate()}}.}
