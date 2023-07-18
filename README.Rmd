@@ -23,6 +23,7 @@ Here are some quick guides for
 
 * [How to reorder heatmaps](https://mhahsler.github.io/seriation/heatmaps.html)
 * [How to reorder correlation matrices](https://taiyun.github.io/corrplot/) (using seriation in package corrplot)
+* [How to Evaluate Clusters Using Dissimilarity Plots](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html)
 * [A list with all implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)
 * [A visual comparison between seriation methods](https://mhahsler.github.io/seriation/visual_comparison.html)
 
@@ -188,5 +189,8 @@ DOI: 10.18637/jss.v025.i03
 * Michael Hahsler. [An experimental comparison of seriation methods for one-mode two-way data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) _European Journal of Operational Research,_ 257:133-143, 2017. 
 DOI: 10.1016/j.ejor.2016.08.066
 (read the [preprint](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf))
+* Hahsler, M. and Hornik, K. (2011): Dissimilarity plots: A visual exploration tool for partitional clustering. _Journal of Computational and Graphical Statistics,_ **10**(2):335–354. 
+[doi:10.1198/jcgs.2010.09139](http://dx.doi.org/10.1198/jcgs.2010.09139) (read the
+[preprint](http://michael.hahsler.net/research/paper/dissplot_JCGS2011_preprint.pdf); [code examples](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html))
 * [Reference manual for package seriation.](https://www.rdocumentation.org/packages/seriation/)
 

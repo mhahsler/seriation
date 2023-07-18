@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Michael Hahsler">
+
+<title>How to Evaluate Clusters Using Dissimilarity Plots</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="seriation_cluster_evaluation_files/libs/clipboard/clipboard.min.js"></script>
+<script src="seriation_cluster_evaluation_files/libs/quarto-html/quarto.js"></script>
+<script src="seriation_cluster_evaluation_files/libs/quarto-html/popper.min.js"></script>
+<script src="seriation_cluster_evaluation_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="seriation_cluster_evaluation_files/libs/quarto-html/anchor.min.js"></script>
+<link href="seriation_cluster_evaluation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="seriation_cluster_evaluation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="seriation_cluster_evaluation_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="seriation_cluster_evaluation_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="seriation_cluster_evaluation_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
+  <ul class="collapse">
+  <li><a href="#ruspini-a-simple-dataset" id="toc-ruspini-a-simple-dataset" class="nav-link" data-scroll-target="#ruspini-a-simple-dataset">Ruspini: A simple dataset</a></li>
+  <li><a href="#votes-high-dimensional-data" id="toc-votes-high-dimensional-data" class="nav-link" data-scroll-target="#votes-high-dimensional-data">Votes: High dimensional data</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">How to Evaluate Clusters Using Dissimilarity Plots</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Michael Hahsler </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Dissimilarity plots (<a href="#references">Hahsler and Hornik, 2011</a>) can be used to visually inspect the quality of a clustering solution. The plot uses a image plots of the reordered dissimilarity matrix organized by the clusters to display the clustered data. This display allows the user to visually assess clustering quality. Dissimilarity plots are implemented in the R package <a href="https://github.com/mhahsler/seriation"><code>seriation</code></a>.</p>
+<p>The following examples show how to use dissimilarity plots. The examples are an updated version of the examples in the paper Hahsler and Hornik (2011) using <code>tidyverse</code>, <code>ggplot2</code>, and the latest version of the <code>seriation</code> package.</p>
+</section>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<p>We load the used packages and set a seed for the random number generator to make the examples reproducible.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"seriation"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="ruspini-a-simple-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="ruspini-a-simple-dataset">Ruspini: A simple dataset</h3>
+<p>The Ruspini dataset from package <code>cluster</code> is a popular dataset for illustrating clustering techniques. It consists of 75 points in two-dimensional space with four clearly distinguishable groups and thus is easy to cluster.</p>
+<p>The data points (rows) are called objects. We randomize the order of the objects to avoid the order of the data affecting the methods.</p>
+<div class="cell" data-layout-align="center" data-fig.asp="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ruspini)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ruspini <span class="ot">&lt;-</span> ruspini <span class="sc">|&gt;</span> <span class="fu">sample_frac</span>()</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ruspini)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    x   y
+28 38 143
+22 32 149
+9  18  61
+5  13  49
+38 53 144
+16 28  60</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ruspini)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="seriation_cluster_evaluation_files/figure-html/ruspini-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The scatter plot shows that the data points fall into four well defined groups.</p>
+<p>We cluster with k-means to find 4 groups and a produce dissimilarity plot. For comparison, we also add a cluster plot (<code>clusplot()</code> from package <code>cluster</code>). For the dissimilarity plot, we first calculate a distance matrix. We use the <code>ggplot2</code> version of the dissimilarity plot (a non-ggplot version is available using function <code>dissplot()</code> with the same parameters).</p>
+<div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cl_ruspini <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(ruspini, <span class="at">centers =</span> <span class="dv">4</span>, <span class="at">nstart =</span> <span class="dv">5</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>d_ruspini <span class="ot">&lt;-</span> ruspini <span class="sc">|&gt;</span> <span class="fu">dist</span>()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdissplot</span>(d_ruspini, cl_ruspini<span class="sc">$</span>cluster) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Dissimilarity Plot"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">clusplot</span>(ruspini, cl_ruspini<span class="sc">$</span>cluster, <span class="at">labels =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig.asp="1">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="seriation_cluster_evaluation_files/figure-html/ruspini4-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="seriation_cluster_evaluation_files/figure-html/ruspini4-2.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</div>
+<p>The cluster plot (to the right) shows that the clusters were easy to find.</p>
+<p>Dissimilarity plots visualize the distances between points in a <a href="https://en.wikipedia.org/wiki/Distance_matrix">distance matrix</a>. A distance matrix for <span class="math inline">\(n\)</span> objects is a <span class="math inline">\(n \times n\)</span> matrix with pairwise distances as values. The diagonal contains the distances between each object and itself and therefore is always zero. In this visualization, low distance values are shown using a darker color. The result of a “good” clustering should be a matrix with low dissimilarity values forming blocks around the main diagonal corresponding to the clusters.</p>
+<p>The dissimilarity plot shows a good clustering structure with the clusters forming four dark squares. The lower triangle shows the pairwise distances and the upper triangle shows cluster averages. The clusters are ordered by similarity indicating that cluster 1 and 3 are similar and clusters 1 and 2 are the most dissimilar.</p>
+<p>Deciding on the number of clusters is a difficult problem. Next, we look at what happens when we misspecify the number of clusters. First, we use too few clusters with <span class="math inline">\(k = 3\)</span>.</p>
+<div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cl_ruspini3 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(ruspini, <span class="at">center=</span><span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">5</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdissplot</span>(d_ruspini, cl_ruspini3<span class="sc">$</span>cluster) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Dissimilarity Plot"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">clusplot</span>(ruspini, cl_ruspini3<span class="sc">$</span>cluster, <span class="at">labels =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig.asp="1">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="seriation_cluster_evaluation_files/figure-html/ruspini3-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="seriation_cluster_evaluation_files/figure-html/ruspini3-2.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</div>
+<p>In the cluster plot to the right, we see that the cluster plot merges two clusters together.</p>
+<p>The dissimilarity plot shows that cluster 2 actually consists of two clusters. This can be seen by the two triangles separated by a lighter square inside the cluster.</p>
+<p>Next, we use too many clusters with <span class="math inline">\(k=7\)</span>.</p>
+<div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cl_ruspini7 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(ruspini, <span class="at">centers=</span><span class="dv">7</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdissplot</span>(d_ruspini, cl_ruspini7<span class="sc">$</span>cluster) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Dissimilarity Plot"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">clusplot</span>(ruspini, cl_ruspini7<span class="sc">$</span>cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig.asp="1">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="seriation_cluster_evaluation_files/figure-html/ruspini7-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="seriation_cluster_evaluation_files/figure-html/ruspini7-2.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</div>
+<p>The cluster plot to the right shows that 7 may be a reasonable number to identify smaller groups. However, the dissimilarity plot also rearranges the clusters and still clearly shows that there are actually four well-defined clusters in the data. Dissimilarity plots make detecting a misspecification of <span class="math inline">\(k\)</span> a lot easier.</p>
+<p>We can also use dissimilarity plots for exploring data without clustering.</p>
+<div class="cell" data-layout-align="center" data-fig.asp="1">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdissplot</span>(d_ruspini) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Dissimilarity Plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="seriation_cluster_evaluation_files/figure-html/ruspini0-1.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="votes-high-dimensional-data" class="level3">
+<h3 class="anchored" data-anchor-id="votes-high-dimensional-data">Votes: High dimensional data</h3>
+<p>The <a href="https://archive.ics.uci.edu/dataset/105/congressional+voting+records">Congressional Voting Records</a> data set is available via the UCI Repository of Machine Learning Databases. This data set includes votes (voted for, voted against, not voted) for each of the 435 congressmen of the U.S. House of Representatives on the 16 key votes during the second session of 1984.</p>
+<p>To preserve the information that some congressmen, possibly on purpose, did not vote on some topics, we encoded the 16 votes using 32 binary variables, two for each key vote. A 1 for the first variable codes for a vote in favor, a 1 for the second variable codes for a vote against, and a 0 for both indicates that the congressman did not vote on the topic. Then we used the <a href="https://en.wikipedia.org/wiki/Jaccard_index">Jaccard index</a> (called “binary” in <code>dist()</code>) to calculate a dissimilarity matrix between congressmen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Votes, <span class="at">package =</span> <span class="st">"cba"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> cba<span class="sc">::</span><span class="fu">as.dummy</span>(Votes[<span class="sc">-</span><span class="dv">17</span>])</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>d_votes <span class="ot">&lt;-</span> <span class="fu">dist</span>(x, <span class="at">method =</span> <span class="st">"binary"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Since our distances are not Euclidean now, we use PAM for clustering. <a href="https://en.wikipedia.org/wiki/K-medoids">PAM</a> is similar to k-means, but accepts as input a distance matrix. We cluster with <span class="math inline">\(k=2\)</span>, since we suspect two main political groups in the data.</p>
+<div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>labels_votes2 <span class="ot">&lt;-</span> <span class="fu">pam</span>(d_votes, <span class="at">k=</span><span class="dv">2</span>, <span class="at">cluster.only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdissplot</span>(d_votes, labels_votes2) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Dissimilarity Plot"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">clusplot</span>(d_votes, <span class="at">diss =</span> <span class="cn">TRUE</span>, labels_votes2, <span class="at">labels =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig.asp="1">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="seriation_cluster_evaluation_files/figure-html/votes2-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="seriation_cluster_evaluation_files/figure-html/votes2-2.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</div>
+<p>This clearly gives a good clustering result. The dissimilarity plot shows that the two groups are slightly different in size (number of representatives) and that the members of the smaller group vote slightly more similar with each other (a slightly darker color). We also see that the clusters are not completely clear inside with lighter streaks on one side.</p>
+<p>Maybe there are several sub-groups in each political party. We cluster again with <span class="math inline">\(k = 12\)</span>.</p>
+<div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>labels_votes12 <span class="ot">&lt;-</span> <span class="fu">pam</span>(d_votes, <span class="at">k=</span><span class="dv">12</span>, <span class="at">cluster.only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdissplot</span>(d_votes, labels_votes12) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Dissimilarity Plot"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">clusplot</span>(d_votes, <span class="at">diss =</span> <span class="cn">TRUE</span>, labels_votes12, <span class="at">labels =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig.asp="1">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="seriation_cluster_evaluation_files/figure-html/votes12-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="seriation_cluster_evaluation_files/figure-html/votes12-2.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+</div>
+<p>The cluster plot gets too complicated, but the dissimilarity plot shows that one group has a very compact core (a dark square) with a few more clusters more loosely connected. The other group is slightly larger, but consists of many more diverse clusters. There are two clusters (9 and 3) with similarity to both groups. Analyzing the party affiliation shows that the more compact group consists of representatives of the republican party, while the more diverse group contains democrats.</p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Dissimilarity plots scale well with the dimensionality of the data and by reordering clusters and objects within clusters can provide a very concise structural representation of the clustering. Dissimilarity plots are also helpful in spotting the mis-specification of the number of clusters used for partitioning.</p>
+<p>Dissimilarity plots are implemented in the package seriation and are easy to use. Details on the method can be found in Hahsler and Hornik (2011).</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>Hahsler, M. and Hornik, K. (2011): Dissimilarity plots: A visual exploration tool for partitional clustering. <em>Journal of Computational and Graphical Statistics,</em> <strong>10</strong>(2):335–354. <a href="http://dx.doi.org/10.1198/jcgs.2010.09139">doi:10.1198/jcgs.2010.09139</a> (read the <a href="http://michael.hahsler.net/research/paper/dissplot_JCGS2011_preprint.pdf">preprint</a>)</li>
+</ul>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
