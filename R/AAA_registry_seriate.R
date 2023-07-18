@@ -239,11 +239,10 @@ set_seriation_method <- function(kind,
   }
 
   if (verbose)
-    cat("Registered new seriation method",
+    message("Registering new seriation method ",
         sQuote(name),
-        "for",
-        sQuote(kind),
-        "\n")
+        " for ",
+        sQuote(kind))
 }
 
 

@@ -207,11 +207,10 @@ set_criterion_method <- function(kind,
   }
 
   if (verbose)
-    cat("Registered new seriation criteron",
+    message("Registering new seriation criteron ",
         sQuote(name),
-        "for",
-        sQuote(kind),
-        "\n")
+        " for ",
+        sQuote(kind))
 
 }
 
