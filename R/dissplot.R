@@ -276,7 +276,7 @@
 #' @export
 dissplot <- function(x,
   labels = NULL,
-  method = "Spectral",
+  method = "spectral",
   control = NULL,
   lower_tri = TRUE,
   upper_tri = "average",
@@ -657,7 +657,7 @@ plot.reordered_cluster_dissimilarity_matrix <-
         threshold      = NULL,
         zlim           = NULL,
         key            = TRUE,
-        main           = NULL,
+        main           = "Dissimilarity Plot",
         axes           = "auto",
         gp             = gpar(),
         gp_lines       = gpar(),

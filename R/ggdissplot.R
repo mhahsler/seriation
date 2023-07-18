@@ -19,16 +19,16 @@
 #' @rdname dissplot
 #' @export
 ggdissplot <- function(x,
-  labels = NULL,
-  method = "Spectral",
-  control = NULL,
-  lower_tri = TRUE,
-  upper_tri = "average",
-  diag = TRUE,
-  cluster_labels = TRUE,
-  cluster_lines = TRUE,
-  reverse_columns = FALSE,
-  ...) {
+                       labels = NULL,
+                       method = "spectral",
+                       control = NULL,
+                       lower_tri = TRUE,
+                       upper_tri = "average",
+                       diag = TRUE,
+                       cluster_labels = TRUE,
+                       cluster_lines = TRUE,
+                       reverse_columns = FALSE,
+                       ...) {
   check_installed("ggplot2")
 
   # make x dist
@@ -40,14 +40,14 @@ ggdissplot <- function(x,
   }
 
   x <- .arrange_dissimilarity_matrix(x,
-    labels = labels,
-    method = method,
-    control = control)
+                                     labels = labels,
+                                     method = method,
+                                     control = control)
 
   m  <- .average_tri(x,
-    lower_tri = lower_tri,
-    upper_tri = upper_tri,
-    diag = diag)
+                     lower_tri = lower_tri,
+                     upper_tri = upper_tri,
+                     diag = diag)
 
   k       <- x$k
   dim     <- attr(x$x_reordered, "Size")
@@ -58,7 +58,8 @@ ggdissplot <- function(x,
   if (cluster_labels)
     colnames(m) <- seq(ncol(m))
 
-  g <- ggpimage(m, reverse_columns = reverse_columns, ...)
+  g <-
+    ggpimage(m, reverse_columns = reverse_columns, prop = TRUE, ...)
 
   # add cluster lines and labels
   if (!is.null(labels)) {
@@ -96,42 +97,33 @@ ggdissplot <- function(x,
       # }
 
       # Place cluster labels on top as x-axis (needs the colnames set as a sequence)
-      if (reverse_columns) {
-        suppressMessages(
-          g <-
-            g + ggplot2::scale_x_discrete(
-              breaks = ncol(m) - clusters$center,
-              label = clusters$label,
-              expand = c(0, 0),
-              position = "top"
-            ) +
-            ggplot2::theme(
-              axis.text.x = ggplot2::element_text(
-                angle = 0,
-                vjust = 0.5,
-                hjust = .5
-              )
-            ) +
-            ggplot2::labs(x = "Cluster")
-        )
-      } else{
-        suppressMessages(
-          g <- g + ggplot2::scale_x_discrete(
-            breaks = clusters$center,
-            label = clusters$label,
+      # this uses the row name not the position so no reordering is necessary
+#      if (reverse_columns) {
+#        breaks <- floor(clusters$center)
+#        label_o <- order(breaks)
+#        labels <- clusters$label[label_o]
+#        breaks <- breaks[label_o]
+#      } else {
+        labels <- clusters$label
+        breaks <- floor(clusters$center)
+ #     }
+
+      # suppress redefinition message
+      suppressMessages(
+        g <-
+          g + ggplot2::scale_x_discrete(
+            breaks = breaks,
+            label = as.character(labels),
             expand = c(0, 0),
             position = "top"
           ) +
-            ggplot2::theme(
-              axis.text.x = ggplot2::element_text(
-                angle = 0,
-                vjust = 0.5,
-                hjust = .5
-              )
-            ) +
-            ggplot2::labs(x = "Cluster")
-        )
-      }
+          ggplot2::theme(axis.text.x = ggplot2::element_text(
+            angle = 0,
+            vjust = 0.5,
+            hjust = .5
+          )) +
+          ggplot2::labs(x = "Cluster")
+      )
 
       if (cluster_lines) {
         ## draw lines separating the clusters
@@ -151,7 +143,7 @@ ggdissplot <- function(x,
 
   # reverse color
   suppressMessages(g <-
-      g + .gg_sequential_pal(dist = TRUE))
+                     g + .gg_sequential_pal(dist = TRUE))
 
   g
 }
