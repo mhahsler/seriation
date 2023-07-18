@@ -63,6 +63,7 @@ Copyright: The code in src/bea.f is Copyright (C) 1991 F. Murtagh;
 Collate: 
     'AAA_check_installed.R'
     'AAA_color_palette.R'
+    'AAA_defaults.R'
     'AAA_map.R'
     'AAA_parameters.R'
     'AAA_registry_criterion.R'

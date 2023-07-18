@@ -101,7 +101,7 @@ seriate_sa <- function(x, control = NULL) {
 
   crit <- param$crit
 
-  if (is.numeric(param$warmstart)) {
+  if (is.ser_permutation(param$warmstart)) {
     .check_dist_perm(x, order = param$warmstart)
     o <- get_order(param$warmstart)
   } else{

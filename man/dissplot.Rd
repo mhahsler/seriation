@@ -10,7 +10,7 @@
 dissplot(
   x,
   labels = NULL,
-  method = "Spectral",
+  method = "spectral",
   control = NULL,
   lower_tri = TRUE,
   upper_tri = "average",
@@ -36,7 +36,7 @@ dissplot(
 ggdissplot(
   x,
   labels = NULL,
-  method = "Spectral",
+  method = "spectral",
   control = NULL,
   lower_tri = TRUE,
   upper_tri = "average",

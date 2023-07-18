@@ -129,3 +129,5 @@ c.ser_permutation <- function(..., recursive = FALSE)
 "[.ser_permutation" <- function(object, i, ...)
   do.call("ser_permutation", unclass(object)[i])
 
+is.ser_permutation <- function(x)
+  inherits(x, "ser_permutation") | inherits(x, "ser_permutation_vector")

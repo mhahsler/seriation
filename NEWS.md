@@ -3,7 +3,7 @@
 ## New Features
 - The seriation registry now contains help information for the seriation method
   parameters.
-- New function seriate_best and seriate_rep to easily find a good order for
+- New function seriate_best, seriate_rep, and seriate_improve() to easily find a good order for
   randomized algorithms. Parallel execution is supported.
 - Seriation method registry has new fields 'randomized' to indicate if an algorithm
   is randomized and can be run several times and 'optimizes' to indicate

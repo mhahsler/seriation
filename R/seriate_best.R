@@ -18,16 +18,24 @@
 
 #' Best Seriation
 #'
-#' It may not be know which seriation method produces the best result and
+#' Often the best seriation method for a particular dataset is not know and
 #' heuristics may produce unstable results.
 #' `seriate_best()` and `seriate_rep()` automatically try different seriation methods or
 #' rerun randomized methods several times to find the best and order
-#' given a criterion measure.
+#' given a criterion measure. `seriate_improve()` uses a local improvement strategy
+#' to imporve an existing solution.
 #'
-#' Rerun different seriation methods to find the best solution given a criterion
-#' measure. Non-stochastic methods are automatically run only once.
+#' `seriate_rep()` rerun different seriation methods to find the best solution given a criterion
+#' measure. Non-stochastic methods are automatically only run once.
 #'
-#' Support for parallel execution is provided using the [`foreach`] package. To
+#' `seriate_best()` runs a set of methods and returns the best result given a
+#' criterion. Stochastic methods are automatically randomly restarted several times.
+#'
+#' `seriate_improve()` improves a seriation order using simulated annealing using
+#' a specified criterion measure. It uses [seriate] with method "`GSA`",
+#' reduced probability to accept bad moves and a lower minimum temperature.
+#'
+#' Some methods support for parallel execution is provided using the [`foreach`] package. To
 #' use parallel execution, a suitable backend needs to be registered (eee
 #' the Examples section for using the `doParallel` package).
 #'
@@ -52,67 +60,60 @@
 #'
 #' @keywords optimize cluster
 #' @examples
-#' # prepare some datasets (two distance matrices and a data matrix)
 #' data(SupremeCourt)
 #' d_supreme <- as.dist(SupremeCourt)
-#' m_iris <- as.matrix(iris[ sample(seq(nrow(iris))),-5])
 #'
 #' # find best seriation order (tries by by default several fast methods)
-#' o <- seriate_best(d_supreme, verbose = TRUE)
+#' o <- seriate_best(d_supreme)
 #' o
 #' pimage(d_supreme, o)
 #'
 #' # specify the criterion
-#' o <- seriate_best(d_supreme, criterion = "Path_length", verbose = TRUE)
+#' o <- seriate_best(d_supreme, criterion = "Path_length")
 #' o
 #' pimage(d_supreme, o)
 #'
-#' # find best seriation for a matrix
-#' o <- seriate_best(m_iris, verbose = TRUE)
-#' o
-#' pimage(m_iris, o, prop = FALSE)
-#'
-#' # run randomized algorithms several times. Repetition information
+#' # run a randomized algorithms several times. Repetition information
 #' # is returned as attributes
-#' o <- seriate_rep(d_supreme, "QAP_2SUM", rep = 10, verbose = TRUE)
+#' o <- seriate_rep(d_supreme, "QAP_2SUM")
 #'
 #' attr(o, "criterion")
 #' hist(attr(o, "criterion_distribution"))
 #' pimage(d_supreme, o)
-#'
-#' o <- seriate_rep(m_iris, "BEA_TSP", rep = 10, verbose = TRUE)
-#'
-#' attr(o, "criterion")
-#' hist(attr(o, "criterion_distribution"))
-#' pimage(m_iris, o, prop = FALSE)
 #'
 #' \dontrun{
-#' # Using parallel execution
+#' # Using parallel execution on a larger dataset
+#' data(iris)
+#' m_iris <- as.matrix(iris[sample(seq(nrow(iris))),-5])
+#' d_iris <- dist(m_iris)
 #'
 #' library(doParallel)
 #' registerDoParallel(cores = detectCores() - 1L)
-#' o <- seriate_best(m_iris, verbose = TRUE, rep = 10)
+#'
+#' # seriate rows of the iris data set
+#' o <- seriate_best(d_iris)
 #' o
 #'
+#' pimage(d_iris, o)
 #'
-#'
+#' # improve the order to minimize RGAR
+#' o_improved <- seriate_improve(d_iris, o, criterion = "RGAR")
+#' pimage(d_iris, o_improved)
 #' }
 #' @export
 seriate_best <- function(x,
                          methods = NULL,
                          criterion = NULL,
-                         rep = 1L,
+                         rep = 10L,
                          parallel = TRUE,
-                         verbose = FALSE,
+                         verbose = TRUE,
                          ...) {
   ### data.frame/table?
-  type <- class(x)[[1]]
-  if (type %in% c("table", "data.frame"))
-    type <- "matrix"
+  kind <- get_seriation_kind(x)
 
   # set some default methods
   if (is.null(methods)) {
-    if (type == "dist") {
+    if (kind == "dist") {
       methods <- c(
         "spectral",
         ## 2-Sum
@@ -127,24 +128,20 @@ seriate_best <- function(x,
         "OLO_average" ## restricted path length
       )
     }
-    else if (type == "matrix")
+    else if (kind == "matrix")
       methods <- c("BEA_TSP", "PCA", "Heatmap", "PCA_angle")
     else
       stop("Currently only seriation for dist and matrix are supported.")
   }
-  if (is.null(criterion)) {
-    if (type == "dist")
-      criterion <- "Gradient_weighted"
-    else
-      criterion <- "Moore_stress"
-  }
-  criterion <- get_criterion_method(type, criterion)$name
+
+  if (is.null(criterion))
+      criterion <- get_default_criterion(x)
+  criterion <- get_criterion_method(kind, criterion)$name
 
   if (verbose) {
     cat("Criterion:", criterion, "\n")
     cat("Performing: ")
   }
-
 
   os <- sapply(
     methods,
@@ -182,7 +179,7 @@ seriate_best <- function(x,
       secs = sapply(os, attr, "time"),
       row.names = NULL
     )
-    df <- df[order(df$criterion), ]
+    df <- df[order(df$criterion),]
 
     cat("\nResults (first was chosen):\n")
     print(df)
@@ -196,25 +193,21 @@ seriate_best <- function(x,
 #' @importFrom foreach times `%dopar%` `%do%`
 #' @export
 seriate_rep <- function(x,
-                        method,
+                        method = NULL,
                         criterion = NULL,
                         rep = 10L,
                         parallel = TRUE,
                         verbose = TRUE,
                         ...) {
-  type <- class(x)[[1]]
-  if (type %in% c("table", "data.frame"))
-    type <- "matrix"
+  if (is.null(criterion))
+    criterion <- get_default_criterion(x)
 
-  if (is.null(criterion)) {
-    if (type == "dist")
-      criterion <- "Gradient_weighted"
-    else
-      criterion <- "Moore_stress"
-  }
+  if (is.null(method))
+    method <- get_default_method(x)
 
-  m <- get_seriation_method(type, method)
+  m <- get_seriation_method(get_seriation_kind(x), method)
   method <- m$name
+
   if (!m$randomized && rep > 1L) {
     #message("Specified seriation method is not randomized. Running it only once!")
     rep <- 1L
@@ -231,7 +224,9 @@ seriate_rep <- function(x,
 
   dopar <-
     ifelse(foreach::getDoParRegistered() &&
-             parallel && rep > 1L, `%dopar%`, `%do%`)
+             parallel && rep > 1L,
+           `%dopar%`,
+           `%do%`)
 
   r <-
     dopar(times(rep), {
@@ -264,4 +259,33 @@ seriate_rep <- function(x,
     )
 
   o
+}
+
+#' @rdname seriate_best
+#' @param order a `ser_permutation` object for `x` or the name of a seriation method to start with.
+#' @export
+seriate_improve <- function(x,
+                            order,
+                            criterion = NULL,
+                            control = NULL,
+                            verbose = TRUE,
+                            ...) {
+  if (is.null(criterion))
+    criterion <- get_default_criterion(x)
+
+  criterion <-
+    get_criterion_method(get_seriation_kind(x), criterion)$name
+
+  if (is.null(control))
+    control <- list()
+
+  if (is.null(control$p_initial))
+    control$p_initial <- 0.01 * 1e-6
+  if (is.null(control$t_min))
+    control$t_min <- 1e-12
+  control$warmstart <- order
+  control$criterion <- criterion
+  control$verbose <- verbose
+
+  seriate(x, "GSA", control = control, ...)
 }
