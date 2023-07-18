@@ -23,7 +23,7 @@ Here are some quick guides for
 
 * [How to reorder heatmaps](https://mhahsler.github.io/seriation/heatmaps.html)
 * [How to reorder correlation matrices](https://taiyun.github.io/corrplot/) (using seriation in package corrplot)
-* [How to Evaluate Clusters Using Dissimilarity Plots](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html)
+* [How to evaluate clusters using dissimilarity plots](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html)
 * [A list with all implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)
 * [A visual comparison between seriation methods](https://mhahsler.github.io/seriation/visual_comparison.html)
 
