@@ -103,39 +103,28 @@ install.packages("seriation", repos = "https://mhahsler.r-universe.dev")
 The used example dataset contains the joint probability of disagreement
 between Supreme Court Judges from 1995 to 2002. The goal is to reveal
 structural information in this data. We load the library, read the data,
-convert the data to distances, and then use the default seriation method
-to reorder the objects.
+convert the data to a distance matrix, and then use the default
+seriation method to reorder the objects.
 
 ``` r
 library(seriation)
 data("SupremeCourt")
 
-SupremeCourt
+d <- as.dist(SupremeCourt)
+d
 ```
 
     ##           Breyer Ginsburg Kennedy OConnor Rehnquist Scalia Souter Stevens
-    ## Breyer      0.00    0.120    0.25    0.21      0.30  0.353  0.118    0.16
-    ## Ginsburg    0.12    0.000    0.27    0.25      0.31  0.370  0.096    0.15
-    ## Kennedy     0.25    0.267    0.00    0.16      0.12  0.188  0.248    0.33
-    ## OConnor     0.21    0.252    0.16    0.00      0.16  0.207  0.220    0.33
-    ## Rehnquist   0.30    0.308    0.12    0.16      0.00  0.143  0.293    0.40
-    ## Scalia      0.35    0.370    0.19    0.21      0.14  0.000  0.338    0.44
-    ## Souter      0.12    0.096    0.25    0.22      0.29  0.338  0.000    0.17
-    ## Stevens     0.16    0.145    0.33    0.33      0.40  0.438  0.169    0.00
-    ## Thomas      0.36    0.368    0.18    0.21      0.14  0.066  0.331    0.44
-    ##           Thomas
-    ## Breyer     0.359
-    ## Ginsburg   0.368
-    ## Kennedy    0.177
-    ## OConnor    0.205
-    ## Rehnquist  0.137
-    ## Scalia     0.066
-    ## Souter     0.331
-    ## Stevens    0.436
-    ## Thomas     0.000
+    ## Ginsburg   0.120                                                         
+    ## Kennedy    0.250    0.267                                                
+    ## OConnor    0.209    0.252   0.156                                        
+    ## Rehnquist  0.299    0.308   0.122   0.162                                
+    ## Scalia     0.353    0.370   0.188   0.207     0.143                      
+    ## Souter     0.118    0.096   0.248   0.220     0.293  0.338               
+    ## Stevens    0.162    0.145   0.327   0.329     0.402  0.438  0.169        
+    ## Thomas     0.359    0.368   0.177   0.205     0.137  0.066  0.331   0.436
 
 ``` r
-d <- as.dist(SupremeCourt)
 order <- seriate(d)
 order
 ```
@@ -146,9 +135,7 @@ order
     ##   vector length seriation method
     ## 1             9         Spectral
 
-Get the resulting permutation vector and visualize the permuted distance
-matrix. Darker squares around the main diagonal show groups of similar
-objects. After seriation, two groups are visible.
+Here is the resulting permutation vector.
 
 ``` r
 get_order(order)
@@ -159,16 +146,21 @@ get_order(order)
     ##   Stevens 
     ##         8
 
+Next, we visualize the original and permuted distance matrix.
+
 ``` r
-pimage(d, main = "judges in original alphabetical order")
-pimage(d, order, main = "judges reordered by seriation")
+pimage(d, main = "Judges (original alphabetical order)")
+pimage(d, order, main = "Judges (reordered by seriation)")
 ```
 
 <img src="inst/README_files/seriation-1.png" width="50%" /><img src="inst/README_files/seriation-2.png" width="50%" />
 
-Compare the available seriation criteria. Seriation improved all (Note:
-some measures are merit measures while others represent cost. See the
-manual page for details).
+Darker squares around the main diagonal indicate groups of similar
+objects. After seriation, two groups are visible.
+
+We can compare the available seriation criteria. Seriation improves all
+measures. Note that some measures are merit measures while others
+represent cost. See the manual page for details.
 
 ``` r
 rbind(alphabetical = criterion(d), seriated = criterion(d, order))
@@ -185,8 +177,7 @@ rbind(alphabetical = criterion(d), seriated = criterion(d, order))
     ## seriated              2.5            1.3         1.1 0.03 0.913
 
 Some seriation methods also return a linear configuration where more
-similar objects are located closer to each other. We can see a clear
-divide between the two groups.
+similar objects are located closer to each other.
 
 ``` r
 get_config(order)
@@ -201,7 +192,9 @@ get_config(order)
 plot_config(order)
 ```
 
-![](inst/README_files/configuration-1.png)<!-- -->
+<img src="inst/README_files/configuration-1.png" style="display: block; margin: auto;" />
+
+We can see a clear divide between the two groups in the configuration.
 
 ## Available seriation methods to reorder dissimilarity data
 
@@ -338,13 +331,13 @@ to reorder objects (rows). The same approach can be applied to columns.
   *European Journal of Operational Research,* 257:133-143, 2017. DOI:
   10.1016/j.ejor.2016.08.066 (read the
   [preprint](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf))
-- Hahsler, M. and Hornik, K. (2011): Dissimilarity plots: A visual
-  exploration tool for partitional clustering. *Journal of Computational
-  and Graphical Statistics,* **10**(2):335–354.
-  [doi:10.1198/jcgs.2010.09139](http://dx.doi.org/10.1198/jcgs.2010.09139)
-  (read the
-  [preprint](http://michael.hahsler.net/research/paper/dissplot_JCGS2011_preprint.pdf);
+- Hahsler, M. and Hornik, K. (2011): [Dissimilarity plots: A visual
+  exploration tool for partitional
+  clustering.](http://dx.doi.org/10.1198/jcgs.2010.09139) *Journal of
+  Computational and Graphical Statistics,* **10**(2):335–354.
+  <doi:10.1198/jcgs.2010.09139> (read the
+  [preprint](https://michael.hahsler.net/research/paper/dissplot_JCGS2011_preprint.pdf);
   [code
   examples](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html))
 - [Reference manual for package
-  seriation.](https://www.rdocumentation.org/packages/seriation/)
+  seriation.](https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriation-package)

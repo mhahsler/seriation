@@ -38,35 +38,37 @@ pkg_install(pkg)
 The used example dataset contains the joint probability of disagreement 
 between Supreme Court Judges from 1995 to 2002. The goal
 is to reveal structural information in this data.
-We load the library, read the data, convert the data to distances, 
+We load the library, read the data, convert the data to a distance matrix, 
 and then use the default seriation method to reorder the objects. 
 ```{r}
 library(seriation)
 data("SupremeCourt")
 
-SupremeCourt
-
 d <- as.dist(SupremeCourt)
+d
+
 order <- seriate(d)
 order
 ```
 
-Get the resulting permutation vector and visualize the permuted distance matrix.
-Darker squares around the main diagonal show groups of similar objects.
-After seriation, two groups are visible.
+Here is the resulting permutation vector.
 ```{r}
 get_order(order)
 ```
 
-```{r seriation,  fig.show="hold", out.width="50%"}
-pimage(d, main = "judges in original alphabetical order")
-pimage(d, order, main = "judges reordered by seriation")
+Next, we visualize the original and permuted distance matrix.
+
+```{r seriation, fig.show="hold", out.width="50%"}
+pimage(d, main = "Judges (original alphabetical order)")
+pimage(d, order, main = "Judges (reordered by seriation)")
 ```
 
+Darker squares around the main diagonal indicate groups of similar objects.
+After seriation, two groups are visible.
 
-
-Compare the available seriation criteria. Seriation improved all (Note: some 
-measures are merit measures while others represent cost. See the manual page for details).
+We can compare the available seriation criteria. Seriation improves all measures. 
+Note that some measures are merit measures while others represent cost. 
+See the manual page for details.
 ```{r}
 rbind(
  alphabetical = criterion(d),
@@ -75,12 +77,14 @@ rbind(
 ```
 
 Some seriation methods also return a linear configuration where more similar objects are
-located closer to each other. We can see a clear divide between the two groups. 
-```{r configuration, fig.show="hold", fig.height = 3}
+located closer to each other. 
+```{r configuration, fig.align="center", fig.height = 3}
 get_config(order)
 
 plot_config(order)
 ```
+
+We can see a clear divide between the two groups in the configuration. 
 
 ## Available seriation methods to reorder dissimilarity data
 
@@ -189,8 +193,7 @@ DOI: 10.18637/jss.v025.i03
 * Michael Hahsler. [An experimental comparison of seriation methods for one-mode two-way data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) _European Journal of Operational Research,_ 257:133-143, 2017. 
 DOI: 10.1016/j.ejor.2016.08.066
 (read the [preprint](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf))
-* Hahsler, M. and Hornik, K. (2011): Dissimilarity plots: A visual exploration tool for partitional clustering. _Journal of Computational and Graphical Statistics,_ **10**(2):335–354. 
-[doi:10.1198/jcgs.2010.09139](http://dx.doi.org/10.1198/jcgs.2010.09139) (read the
-[preprint](http://michael.hahsler.net/research/paper/dissplot_JCGS2011_preprint.pdf); [code examples](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html))
-* [Reference manual for package seriation.](https://www.rdocumentation.org/packages/seriation/)
+* Hahsler, M. and Hornik, K. (2011): [Dissimilarity plots: A visual exploration tool for partitional clustering.](http://dx.doi.org/10.1198/jcgs.2010.09139) _Journal of Computational and Graphical Statistics,_ **10**(2):335–354. doi:10.1198/jcgs.2010.09139 (read the
+[preprint](https://michael.hahsler.net/research/paper/dissplot_JCGS2011_preprint.pdf); [code examples](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html))
+* [Reference manual for package seriation.](https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriation-package)
 
