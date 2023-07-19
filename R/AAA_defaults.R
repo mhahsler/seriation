@@ -23,4 +23,4 @@ get_default_criterion <- function(x) {
 }
 
 get_default_method <- function(x)
-  as.list(args(getS3method("seriate", class = class(x)[[1L]])))$method
+  as.list(args(utils::getS3method("seriate", class = class(x)[[1L]])))$method

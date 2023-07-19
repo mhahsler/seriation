@@ -213,13 +213,15 @@ get_config <- function(x, dim = 1L, ...) {
 #' @param main main plot label
 #' @param pch print character
 #' @param labels add the object names to the plot
-#' @param pos label position (see [text()]).
+#' @param pos label position for 2D plot (see [text()]).
+#' @param cex label expansion factor.
 #' @export
 plot_config <- function (x,
                         main,
                         pch = 19,
                         labels = TRUE,
                         pos = 1,
+                        cex = 1,
                         ...) {
   if (missing(main))
     main <- "Configuration"
@@ -236,10 +238,12 @@ plot_config <- function (x,
   # 2D
   if (is.matrix(x)) {
     graphics::plot(x, pch = pch, main = main, ...)
+
     if (labels)
       graphics::text(x = x,
                      labels = rownames(x),
-                     pos = pos)
+                     pos = pos,
+                     cex = cex)
     graphics::lines(x[get_order(o), , drop = FALSE], col = "grey")
 
   } else{
@@ -267,6 +271,7 @@ plot_config <- function (x,
            rep(0, n) + 0.05,
            labs,
            srt = 90,
+           cex = cex,
            adj = c(0, 0.5))
   }
 }

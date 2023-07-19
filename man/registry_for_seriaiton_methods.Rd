@@ -25,7 +25,6 @@ set_seriation_method(
   definition,
   description = NULL,
   control = list(),
-  control_help = list(),
   randomized = FALSE,
   optimizes = "Unspecified",
   verbose = FALSE,

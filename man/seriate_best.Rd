@@ -9,6 +9,7 @@
 seriate_best(
   x,
   methods = NULL,
+  control = NULL,
   criterion = NULL,
   rep = 10L,
   parallel = TRUE,
@@ -19,6 +20,7 @@ seriate_best(
 seriate_rep(
   x,
   method = NULL,
+  control = NULL,
   criterion = NULL,
   rep = 10L,
   parallel = TRUE,
@@ -41,6 +43,10 @@ seriate_improve(
 \item{methods}{a vector of character string with the name of the seriation
 methods to try.}
 
+\item{control}{a list of control options passed on to \code{\link[=seriate]{seriate()}}.
+For \code{seriate_best()} control needs to be a named list of control lists
+with the names matching the seriation methods.}
+
 \item{criterion}{a character string with the \link{criterion} to optimize.}
 
 \item{rep}{number of times to repeat the randomized seriation algorithm.}
@@ -51,7 +57,7 @@ DoPar backend (e.g., \code{doParallel}) is rgistered.}
 
 \item{verbose}{logical; show progress and results for different methods}
 
-\item{...}{further arguments are passed on (e.g., as \code{control})}
+\item{...}{further arguments are passed on to the \code{\link[=seriate]{seriate()}}.}
 
 \item{method}{a character string with the name of the seriation method
 (default: varies by data type).}
@@ -77,8 +83,9 @@ measure. Non-stochastic methods are automatically only run once.
 criterion. Stochastic methods are automatically randomly restarted several times.
 
 \code{seriate_improve()} improves a seriation order using simulated annealing using
-a specified criterion measure. It uses \link{seriate} with method "\code{GSA}",
-reduced probability to accept bad moves and a lower minimum temperature.
+a specified criterion measure. It uses \code{\link[=seriate]{seriate()}} with method "\code{GSA}",
+a reduced probability to accept bad moves, and a lower minimum temperature. Control
+parameters for this method are accepted.
 
 Some methods support for parallel execution is provided using the \code{\link{foreach}} package. To
 use parallel execution, a suitable backend needs to be registered (eee
@@ -89,18 +96,13 @@ data(SupremeCourt)
 d_supreme <- as.dist(SupremeCourt)
 
 # find best seriation order (tries by by default several fast methods)
-o <- seriate_best(d_supreme)
-o
-pimage(d_supreme, o)
-
-# specify the criterion
-o <- seriate_best(d_supreme, criterion = "Path_length")
+o <- seriate_best(d_supreme, criterion = "AR_events")
 o
 pimage(d_supreme, o)
 
 # run a randomized algorithms several times. Repetition information
 # is returned as attributes
-o <- seriate_rep(d_supreme, "QAP_2SUM")
+o <- seriate_rep(d_supreme, "QAP_2SUM", rep = 5)
 
 attr(o, "criterion")
 hist(attr(o, "criterion_distribution"))
@@ -124,6 +126,9 @@ pimage(d_iris, o)
 # improve the order to minimize RGAR
 o_improved <- seriate_improve(d_iris, o, criterion = "RGAR")
 pimage(d_iris, o_improved)
+
+# available control parameters for seriate_improve()
+get_seriation_method(name = "GSA")
 }
 }
 \seealso{

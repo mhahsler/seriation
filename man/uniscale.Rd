@@ -13,7 +13,7 @@ MDS_stress(d, order, refit = TRUE, warn = FALSE)
 
 get_config(x, dim = 1L, ...)
 
-plot_config(x, main, pch = 19, labels = TRUE, pos = 1, ...)
+plot_config(x, main, pch = 19, labels = TRUE, pos = 1, cex = 1, ...)
 }
 \arguments{
 \item{d}{a dissimilarity matrix.}
@@ -43,7 +43,9 @@ even if \code{order} contains a configuration.}
 
 \item{labels}{add the object names to the plot}
 
-\item{pos}{label position (see \code{\link[=text]{text()}}).}
+\item{pos}{label position for 2D plot (see \code{\link[=text]{text()}}).}
+
+\item{cex}{label expansion factor.}
 }
 \value{
 A vector with the fitted configuration.

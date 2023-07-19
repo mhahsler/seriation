@@ -32,8 +32,9 @@
 #' criterion. Stochastic methods are automatically randomly restarted several times.
 #'
 #' `seriate_improve()` improves a seriation order using simulated annealing using
-#' a specified criterion measure. It uses [seriate] with method "`GSA`",
-#' reduced probability to accept bad moves and a lower minimum temperature.
+#' a specified criterion measure. It uses [seriate()] with method "`GSA`",
+#' a reduced probability to accept bad moves, and a lower minimum temperature. Control
+#' parameters for this method are accepted.
 #'
 #' Some methods support for parallel execution is provided using the [`foreach`] package. To
 #' use parallel execution, a suitable backend needs to be registered (eee
@@ -46,13 +47,16 @@
 #' (default: varies by data type).
 #' @param methods a vector of character string with the name of the seriation
 #' methods to try.
+#' @param control a list of control options passed on to [seriate()].
+#'      For `seriate_best()` control needs to be a named list of control lists
+#'      with the names matching the seriation methods.
 #' @param criterion a character string with the [criterion] to optimize.
 #' @param verbose logical; show progress and results for different methods
 #' @param rep number of times to repeat the randomized seriation algorithm.
 #' @param parallel logical; perform replications in parallel.
 #'      Uses `[foreach]` if a
 #'      DoPar backend (e.g., `doParallel`) is rgistered.
-#' @param ... further arguments are passed on (e.g., as `control`)
+#' @param ... further arguments are passed on to the [seriate()].
 #'
 #' @return Returns an object of class [ser_permutation].
 #'
@@ -64,18 +68,13 @@
 #' d_supreme <- as.dist(SupremeCourt)
 #'
 #' # find best seriation order (tries by by default several fast methods)
-#' o <- seriate_best(d_supreme)
-#' o
-#' pimage(d_supreme, o)
-#'
-#' # specify the criterion
-#' o <- seriate_best(d_supreme, criterion = "Path_length")
+#' o <- seriate_best(d_supreme, criterion = "AR_events")
 #' o
 #' pimage(d_supreme, o)
 #'
 #' # run a randomized algorithms several times. Repetition information
 #' # is returned as attributes
-#' o <- seriate_rep(d_supreme, "QAP_2SUM")
+#' o <- seriate_rep(d_supreme, "QAP_2SUM", rep = 5)
 #'
 #' attr(o, "criterion")
 #' hist(attr(o, "criterion_distribution"))
@@ -99,10 +98,14 @@
 #' # improve the order to minimize RGAR
 #' o_improved <- seriate_improve(d_iris, o, criterion = "RGAR")
 #' pimage(d_iris, o_improved)
+#'
+#' # available control parameters for seriate_improve()
+#' get_seriation_method(name = "GSA")
 #' }
 #' @export
 seriate_best <- function(x,
                          methods = NULL,
+                         control = NULL,
                          criterion = NULL,
                          rep = 10L,
                          parallel = TRUE,
@@ -157,6 +160,7 @@ seriate_best <- function(x,
             seriate_rep(
               x,
               m,
+              control = control[[m]],
               verbose = verbose,
               criterion = criterion,
               rep = rep,
@@ -194,6 +198,7 @@ seriate_best <- function(x,
 #' @export
 seriate_rep <- function(x,
                         method = NULL,
+                        control = NULL,
                         criterion = NULL,
                         rep = 10L,
                         parallel = TRUE,
@@ -216,7 +221,6 @@ seriate_rep <- function(x,
   if (verbose)
     cat("Criterion:", criterion, "\nTries", rep, " ")
 
-  control <- list(...)
   #r <- replicate(rep, { if (verbose) cat("."); seriate(x, method, control) },
   #               simplify = FALSE)
 
@@ -232,7 +236,7 @@ seriate_rep <- function(x,
     dopar(times(rep), {
       if (verbose)
         cat(".")
-      list(seriate(x, method, control))
+      list(seriate(x, method, control, ...))
     })
 
   cs <- sapply(

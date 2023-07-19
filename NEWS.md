@@ -1,4 +1,4 @@
-# seriation 1.5.0 (xx/xx/2023)
+# seriation 1.5.0 (07/19/2023)
 
 ## New Features
 - The seriation registry now contains help information for the seriation method
