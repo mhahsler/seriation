@@ -1,8 +1,8 @@
 Package: seriation
 Type: Package
 Title: Infrastructure for Ordering Objects Using Seriation
-Version: 1.5.1
-Date: 2023-07-20
+Version: 1.5.1-1
+Date: 2023-xx-xx
 Authors@R: c(
 	person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
 	  email = "mhahsler@lyle.smu.edu",

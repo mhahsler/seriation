@@ -94,7 +94,7 @@ We can compare the seriation methods by how similar the orders are that they pro
 #| out-width: 100%
 #| fig-align: "center"
 dst <- ser_dist(orders) 
-hmap(dst)
+hmap(dst, col = blues(power = 2))
 ```
 
 Here are the criterion measures. Some are maximized and some should be minimized. Details about the measures can be found in the [manual page for `criterion()`](https://mhahsler.r-universe.dev/seriation/doc/manual.html#criterion).
