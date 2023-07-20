@@ -28,6 +28,7 @@ d <- dist(x)
 We first register more seriation methods. Some of these methods require the installation of more packages.
 
 ```{r}
+#| message: false
 register_DendSer()
 register_optics()
 register_smacof()
@@ -72,18 +73,26 @@ orders <- orders[best_to_worse]
 criterion <- criterion[best_to_worse, ]
 ```
 
+## Visualize the results
+
 Plot the reordered dissimilarity matrices. Dark blocks along the main diagonal mean that the order reveals a "cluster" of similar objects. The Iris dataset contains three species, but two of them are very similar, so we expect to see one smaller block and one larger block.
 
 ```{r}
+#| fig-asp: 1
+#| fig-show: hold
+#| out-width: 50%
+#| layout-ncol: 2 
 for (n in names(orders))
   pimage(d, orders[[n]], main = n , key = FALSE)
 ```
 
-## Comparison beween methods
+## Comparison between methods
 
 We can compare the seriation methods by how similar the orders are that they produce. The following code calculates distances between orders and then performs hierarchical clustering.
 
 ```{r}
+#| out-width: 100%
+#| fig-align: "center"
 dst <- ser_dist(orders) 
 hmap(dst)
 ```
@@ -118,9 +127,10 @@ for (m in methods) {
   cat(" took", tm[1]+tm[2], "sec.\n")
 }
 
-
 criterion <- do.call(rbind, criterion)
 ```
+
+## Visualize the results
 
 ```{r}
 best_to_worse <- order(criterion[["Moore_stress"]], decreasing = FALSE)
@@ -130,6 +140,10 @@ criterion <- criterion[best_to_worse, ]
 ```
 
 ```{r}
+#| fig-asp: 1
+#| fig-show: hold
+#| out-width: 50%
+#| layout-ncol: 2 
 for (n in names(orders))
   pimage(x, orders[[n]], main = n , key = FALSE)
 ```

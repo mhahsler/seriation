@@ -96,13 +96,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
   <li><a href="#performing-seriation" id="toc-performing-seriation" class="nav-link" data-scroll-target="#performing-seriation">Performing seriation</a></li>
-  <li><a href="#comparison-beween-methods" id="toc-comparison-beween-methods" class="nav-link" data-scroll-target="#comparison-beween-methods">Comparison beween methods</a></li>
+  <li><a href="#visualize-the-results" id="toc-visualize-the-results" class="nav-link" data-scroll-target="#visualize-the-results">Visualize the results</a></li>
+  <li><a href="#comparison-between-methods" id="toc-comparison-between-methods" class="nav-link" data-scroll-target="#comparison-between-methods">Comparison between methods</a></li>
   </ul></li>
   <li><a href="#matrix-seriation" id="toc-matrix-seriation" class="nav-link" data-scroll-target="#matrix-seriation">Matrix seriation</a>
   <ul class="collapse">
   <li><a href="#methods-1" id="toc-methods-1" class="nav-link" data-scroll-target="#methods-1">Methods</a></li>
   <li><a href="#performing-seriation-1" id="toc-performing-seriation-1" class="nav-link" data-scroll-target="#performing-seriation-1">Performing seriation</a></li>
-  <li><a href="#comparison-beween-methods-1" id="toc-comparison-beween-methods-1" class="nav-link" data-scroll-target="#comparison-beween-methods-1">Comparison beween methods</a></li>
+  <li><a href="#visualize-the-results-1" id="toc-visualize-the-results-1" class="nav-link" data-scroll-target="#visualize-the-results-1">Visualize the results</a></li>
+  <li><a href="#comparison-beween-methods" id="toc-comparison-beween-methods" class="nav-link" data-scroll-target="#comparison-beween-methods">Comparison beween methods</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -152,43 +154,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
 <p>We first register more seriation methods. Some of these methods require the installation of more packages.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_DendSer</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Registered S3 method overwritten by 'gclus':
-  method         from     
-  reorder.hclust seriation</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Registered new seriation method 'DendSer' for 'dist' 
-Registered new seriation method 'DendSer_BAR' for 'dist' 
-Registered new seriation method 'DendSer_PL' for 'dist' 
-Registered new seriation method 'DendSer_LPL' for 'dist' 
-Registered new seriation method 'DendSer_ARc' for 'dist' 
-Registered new seriation criteron 'ARc' for 'dist' </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_optics</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Registered new seriation method 'optics' for 'dist' </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_smacof</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Registered S3 methods overwritten by 'proxy':
-  method               from    
-  print.registry_field registry
-  print.registry_entry registry</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Registered new seriation method 'MDS_smacof' for 'dist' 
-Registered new seriation criteron 'smacof_stress0' for 'dist' </code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_DendSer</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">register_optics</span>()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">register_smacof</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The following methods will be used (a few slow methods are skipped).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>methods <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">list_seriation_methods</span>(<span class="st">"dist"</span>))</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># skip slow methods</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>methods <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(methods, <span class="fu">c</span>(<span class="st">"BBURCG"</span>, <span class="st">"BBWRCG"</span>, <span class="st">"Enumerate"</span>, <span class="st">"GSA"</span>))</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>methods </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>methods <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">list_seriation_methods</span>(<span class="st">"dist"</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># skip slow methods</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>methods <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(methods, <span class="fu">c</span>(<span class="st">"BBURCG"</span>, <span class="st">"BBWRCG"</span>, <span class="st">"Enumerate"</span>, <span class="st">"GSA"</span>))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>methods </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "ARSA"           "DendSer"        "DendSer_ARc"    "DendSer_BAR"   
  [5] "DendSer_LPL"    "DendSer_PL"     "GW"             "GW_average"    
@@ -199,8 +175,9 @@ Registered new seriation criteron 'smacof_stress0' for 'dist' </code></pre>
 [25] "OLO"            "OLO_average"    "OLO_complete"   "OLO_single"    
 [29] "OLO_ward"       "optics"         "QAP_2SUM"       "QAP_BAR"       
 [33] "QAP_Inertia"    "QAP_LS"         "R2E"            "Random"        
-[37] "Reverse"        "Sammon_mapping" "Spectral"       "Spectral_norm" 
-[41] "SPIN_NH"        "SPIN_STS"       "TSP"            "VAT"           </code></pre>
+[37] "Reverse"        "Sammon_mapping" "SGD"            "Spectral"      
+[41] "Spectral_norm"  "SPIN_NH"        "SPIN_STS"       "TSP"           
+[45] "VAT"           </code></pre>
 </div>
 </div>
 <p>Details about the method can be found in the <a href="https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriate">manual page for <code>seriate()</code></a>.</p>
@@ -209,32 +186,32 @@ Registered new seriation criteron 'smacof_stress0' for 'dist' </code></pre>
 <h2 class="anchored" data-anchor-id="performing-seriation">Performing seriation</h2>
 <p>We use a loop to run the function <code>seriate()</code> with each method and calculate criterion measures which indicate how good the order is.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (m <span class="cf">in</span> methods) {</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(m)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  tm <span class="ot">&lt;-</span> <span class="fu">system.time</span>(orders[[m]] <span class="ot">&lt;-</span> <span class="fu">seriate</span>(d, <span class="at">method =</span> m))</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  criterion[[m]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">time =</span> tm[<span class="dv">1</span>]<span class="sc">+</span>tm[<span class="dv">2</span>], <span class="fu">rbind</span>(<span class="fu">criterion</span>(d, orders[[m]]))) </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">" took"</span>, tm[<span class="dv">1</span>]<span class="sc">+</span>tm[<span class="dv">2</span>], <span class="st">"sec.</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (m <span class="cf">in</span> methods) {</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(m)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  tm <span class="ot">&lt;-</span> <span class="fu">system.time</span>(orders[[m]] <span class="ot">&lt;-</span> <span class="fu">seriate</span>(d, <span class="at">method =</span> m))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  criterion[[m]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">time =</span> tm[<span class="dv">1</span>]<span class="sc">+</span>tm[<span class="dv">2</span>], <span class="fu">rbind</span>(<span class="fu">criterion</span>(d, orders[[m]]))) </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">" took"</span>, tm[<span class="dv">1</span>]<span class="sc">+</span>tm[<span class="dv">2</span>], <span class="st">"sec.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ARSA took 0.742 sec.
-DendSer took 0.117 sec.
-DendSer_ARc took 0.125 sec.
-DendSer_BAR took 0.116 sec.
-DendSer_LPL took 0.642 sec.
-DendSer_PL took 0.64 sec.
-GW took 0.1 sec.
-GW_average took 0.102 sec.
+<pre><code>ARSA took 0.776 sec.
+DendSer took 0.728 sec.
+DendSer_ARc took 1.014 sec.
+DendSer_BAR took 0.816 sec.
+DendSer_LPL took 1.057 sec.
+DendSer_PL took 0.914 sec.
+GW took 0.107 sec.
+GW_average took 0.113 sec.
 GW_complete took 0.102 sec.
-GW_single took 0.103 sec.
-GW_ward took 0.102 sec.
-HC took 0.104 sec.
-HC_average took 0.103 sec.
-HC_complete took 0.103 sec.
-HC_single took 0.101 sec.
-HC_ward took 0.1 sec.
-Identity took 0.104 sec.
+GW_single took 0.108 sec.
+GW_ward took 0.113 sec.
+HC took 0.113 sec.
+HC_average took 0.114 sec.
+HC_complete took 0.113 sec.
+HC_single took 0.114 sec.
+HC_ward took 0.117 sec.
+Identity took 0.108 sec.
 isomap</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
@@ -243,199 +220,258 @@ isomap</code></pre>
   reorder.hclust gclus</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code> took 0.14 sec.
+<pre><code> took 0.144 sec.
 isoMDS took 0.14 sec.
-MDS took 0.104 sec.
-MDS_angle took 0.104 sec.
+MDS took 0.108 sec.
+MDS_angle took 0.117 sec.
 MDS_smacof took 0.12 sec.
-metaMDS took 0.405 sec.
-monoMDS took 0.121 sec.
-OLO took 0.102 sec.
+metaMDS took 0.428 sec.
+monoMDS took 0.116 sec.
+OLO took 0.103 sec.
 OLO_average took 0.104 sec.
-OLO_complete took 0.105 sec.
-OLO_single took 0.103 sec.
-OLO_ward took 0.103 sec.
-optics took 0.108 sec.
-QAP_2SUM took 0.122 sec.
-QAP_BAR took 0.125 sec.
+OLO_complete took 0.101 sec.
+OLO_single took 0.104 sec.
+OLO_ward took 0.105 sec.
+optics took 0.11 sec.
+QAP_2SUM took 0.139 sec.
+QAP_BAR took 0.119 sec.
 QAP_Inertia took 0.118 sec.
-QAP_LS took 0.122 sec.
-R2E took 0.119 sec.
-Random took 0.101 sec.
-Reverse took 0.102 sec.
-Sammon_mapping took 0.132 sec.
-Spectral took 0.123 sec.
-Spectral_norm took 0.109 sec.
-SPIN_NH took 0.395 sec.
-SPIN_STS took 0.519 sec.
-TSP took 0.105 sec.
-VAT took 0.107 sec.</code></pre>
+QAP_LS took 0.118 sec.
+R2E took 0.118 sec.
+Random took 0.103 sec.
+Reverse took 0.104 sec.
+Sammon_mapping took 0.111 sec.
+SGD took 48.63 sec.
+Spectral took 0.11 sec.
+Spectral_norm took 0.119 sec.
+SPIN_NH took 0.424 sec.
+SPIN_STS took 0.534 sec.
+TSP took 0.114 sec.
+VAT took 0.109 sec.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, criterion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, criterion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We align the seriation orders. The reason is that an order 1, 2, 3 and 3, 2, 1 are equivalent and just an artifact of the algorithm. Aligning will reverse some orders so they are in roughly the same order. Then we sort the orders from best to worst according to a popular seriation criterion measure called <code>Gradient_weighted</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> <span class="fu">ser_align</span>(orders)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>best_to_worse <span class="ot">&lt;-</span> <span class="fu">order</span>(criterion[[<span class="st">"Gradient_weighted"</span>]], <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> orders[best_to_worse]</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> criterion[best_to_worse, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> <span class="fu">ser_align</span>(orders)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>best_to_worse <span class="ot">&lt;-</span> <span class="fu">order</span>(criterion[[<span class="st">"Gradient_weighted"</span>]], <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> orders[best_to_worse]</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> criterion[best_to_worse, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="visualize-the-results" class="level2">
+<h2 class="anchored" data-anchor-id="visualize-the-results">Visualize the results</h2>
 <p>Plot the reordered dissimilarity matrices. Dark blocks along the main diagonal mean that the order reveals a “cluster” of similar objects. The Iris dataset contains three species, but two of them are very similar, so we expect to see one smaller block and one larger block.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="fu">names</span>(orders))</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pimage</span>(d, orders[[n]], <span class="at">main =</span> n , <span class="at">key =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="fu">names</span>(orders))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pimage</span>(d, orders[[n]], <span class="at">main =</span> n , <span class="at">key =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig.asp="1">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-4.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-5.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-4.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-6.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-7.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-5.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-8.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-6.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-9.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-10.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-7.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-11.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-8.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-12.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-13.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-9.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-14.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-10.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-15.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-16.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-11.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-17.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-12.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-18.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-19.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-13.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-20.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-14.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-21.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-22.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-15.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-23.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-16.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-24.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-25.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-17.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-26.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-18.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-27.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-28.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-19.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-29.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-20.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-30.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-31.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-21.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-32.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-22.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-33.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-34.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-23.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-35.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-24.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-36.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-37.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-25.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-38.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-26.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-39.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-40.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-27.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-41.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-28.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-42.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-43.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-29.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-44.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-30.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-31.png" class="img-fluid"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-32.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-33.png" class="img-fluid"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-34.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-35.png" class="img-fluid"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-36.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-37.png" class="img-fluid"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-38.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-39.png" class="img-fluid"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-40.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-41.png" class="img-fluid"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-42.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-43.png" class="img-fluid"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-44.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-6-45.png" class="img-fluid"></p>
+</div>
+</div>
 </div>
 </div>
 </section>
-<section id="comparison-beween-methods" class="level2">
-<h2 class="anchored" data-anchor-id="comparison-beween-methods">Comparison beween methods</h2>
+<section id="comparison-between-methods" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-between-methods">Comparison between methods</h2>
 <p>We can compare the seriation methods by how similar the orders are that they produce. The following code calculates distances between orders and then performs hierarchical clustering.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>dst <span class="ot">&lt;-</span> <span class="fu">ser_dist</span>(orders) </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hmap</span>(dst)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dst <span class="ot">&lt;-</span> <span class="fu">ser_dist</span>(orders) </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hmap</span>(dst)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Here are the criterion measures. Some are maximized and some should be minimized. Details about the measures can be found in the <a href="https://mhahsler.r-universe.dev/seriation/doc/manual.html#criterion">manual page for <code>criterion()</code></a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="fu">round</span>(criterion, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="fu">round</span>(criterion, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-16dd51ac910bf5f5f2f3" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-16dd51ac910bf5f5f2f3">{"x":{"filter":"none","vertical":false,"data":[["ARSA","QAP_LS","metaMDS","isoMDS","MDS_smacof","QAP_Inertia","Spectral","Sammon_mapping","QAP_2SUM","MDS","QAP_BAR","SPIN_STS","DendSer_ARc","isomap","DendSer","DendSer_BAR","SPIN_NH","R2E","HC","HC_complete","DendSer_LPL","DendSer_PL","OLO_average","OLO","OLO_complete","GW","GW_complete","GW_ward","OLO_ward","GW_average","OLO_single","GW_single","Spectral_norm","MDS_angle","VAT","HC_single","optics","TSP","HC_ward","HC_average","monoMDS","Identity","Reverse","Random"],[0.74,0.12,0.4,0.14,0.12,0.12,0.12,0.13,0.12,0.1,0.12,0.52,0.12,0.14,0.12,0.12,0.39,0.12,0.1,0.1,0.64,0.64,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.11,0.1,0.11,0.1,0.11,0.11,0.1,0.1,0.12,0.1,0.1,0.1],[17811232.65,17810755.38,17812025.88,17813778,17812731.39,17816899.66,17821593.29,17803289.91,17800661.64,17831638.49,17835207.24,17836380.67,17876078.28,17885505.49,17870180.66,17870180.66,17886795.56,17920401.23,18258971.3,18258971.3,18211539.09,18211539.09,18269341.73,18292979.96,18292979.96,18310214.4,18310214.4,18438406.93,18410342.17,18538499.83,18474433.08,18538346.4,18699746.46,19264911.14,19314720.88,19984478.57,20358398.55,21164770.69,21707860.8,21844486.31,26837450.55,29487479.99,29487479.99,30090909.25],[9438.610000000001,9434.27,9504.209999999999,9570.6,9471.18,9688.5,9887.389999999999,9704.719999999999,9739.91,10451.48,11750.13,12801.33,13412.91,15169.57,14610.43,14610.43,16054.62,18183.83,38528.7,38528.7,40118.5,40118.5,43484.13,45325.49,45325.49,44912.7,44912.7,50807.72,51902.86,53126.95,56881.78,62408.64,79141.36,108327.34,130256.3,194581.8,225392.92,235222.68,317315.55,329514.07,593768.9300000001,912236.24,912236.24,948170.55],[54823,54796,54604,54557,55069,54418,54924,61996,62338,58810,73841,74031,76417,80864,83284,83284,89043,90031,136340,136340,155614,155614,162486,168500,168500,173106,173106,177834,179586,184093,167560,181804,166378,221616,218439,267505,309665,323904,368307,387353,333190,536289,536289,548148],[2243448.63,2243449.16,2243469.42,2243484.26,2243518.16,2243567,2243682.33,2244220,2244236.15,2244348.59,2246439.79,2247212.79,2247775.23,2249203.1,2249395.67,2249395.67,2250871.37,2251902.63,2271807.47,2271807.47,2274666.35,2274666.35,2277556.24,2279320.21,2279320.21,2279352.61,2279352.61,2284200.51,2285630.63,2286001.29,2288159.89,2294055.52,2306285.9,2332072.92,2351013.65,2410173.57,2440097.08,2444778.64,2525736.5,2541533.76,2613680,2813396.3,2813396.3,2832426.71],[56363,56359.08,56418.65,56452.98,56310.21,56533.81,56609.97,55760.07,55824.27,56588.08,55226.82,56457.41,56474.23,56666.77,56056.88,56056.88,55950.67,56794.91,61875.84,61875.84,57949.44,57949.44,58055.28,58416.81,58416.81,59279.73,59279.73,60118.16,60393.42,64333.62,62274.58,62264.08,65816.92999999999,63869.44,73357.49000000001,79845.83,80665.99000000001,66876.33,81372.67,80328.36,95078.11,162301.97,162301.97,166081.83],[992260,992314,992695,992790,991764,993072,992058,977903,977221,984277,954219,953826,949063,940173,935331,935331,923806,921858,829216,829216,790664,790664,776925,764888,764888,755679,755679,746202,742715,733680,766779,738284,769117,658672,664980,566854,482547,454067,365222,327128,435596,29527,29527,5804],[1772128.25,1772126.66,1772065.89,1772021.36,1771919.66,1771773.13,1771427.16,1769814.16,1769765.7,1769428.38,1763154.78,1760835.76,1759148.46,1754864.85,1754287.14,1754287.14,1749860.02,1746766.24,1687051.72,1687051.72,1678475.1,1678475.1,1669805.42,1664513.52,1664513.52,1664416.32,1664416.32,1649872.61,1645582.24,1644470.27,1637994.46,1620307.6,1583616.45,1506255.38,1449433.2,1271953.44,1182182.91,1168138.24,925264.65,877872.87,661434.13,62285.25,62285.25,5194.01],[356949760.46,356949703.13,356960077.43,356967136.77,356954170.3,356979163.2,356910342.64,356624718.43,356637817.26,356821108.54,355903309.78,355900698.25,355838234.97,354956626.48,355254936.41,355254936.41,354751870.11,354057417.51,350356594.72,350356594.72,347283756.04,347283756.04,346780581.73,346350972.72,346350972.72,346562075.61,346562075.61,345375956.54,345352261.17,346817574.15,345736868.47,343564337.33,339396179.61,329715037.11,331577694.76,315769833.62,305880093.6,296848577.08,280873333.86,272025014.15,254401035.7,219906992.52,219906992.52,215670266.77],[6412.07,6462,6639.98,6804.02,6526.57,6950.77,6705.89,6477.68,6060.67,7155.17,4695.6,6854.14,4775.3,6502.89,4166.63,4166.63,4941.25,6185.45,5079.47,5079.47,3663.79,3663.79,3671.38,4101.96,4101.96,4521.2,4521.2,3797.78,3563.63,3916.32,4796.94,4988.28,7639.25,5877.18,5541.68,7376.39,6337.12,3695.34,5193.77,5235.71,7965.58,26920.85,28076.02,29527.54],[76487634.69,76487636.79000001,76487717.81999999,76487777.2,76487912.8,76488108.17,76488569.45999999,76490720.14,76490784.73999999,76491234.5,76499599.31,76502691.33,76504941.06,76510652.55,76511422.83,76511422.83,76517325.65000001,76521450.69,76601070.05,76601070.05,76612505.55,76612505.55,76624065.13,76631120.98999999,76631120.98999999,76631250.58,76631250.58,76650642.2,76656362.69,76657845.33,76666479.73,76690062.20999999,76738983.75,76842131.84999999,76917894.75,77154534.42,77274228.45999999,77292954.7,77616786.15000001,77679975.18000001,77968560.17,78767425.34999999,78767425.34999999,78843547],[4486897.27,4486898.32,4486938.84,4486968.52,4487036.32,4487134.01,4487364.66,4488439.99,4488472.29,4488697.18,4492879.58,4494425.59,4495550.46,4498406.2,4498791.34,4498791.34,4501742.75,4503805.27,4543614.95,4543614.95,4549332.7,4549332.7,4555112.49,4558640.42,4558640.42,4558705.21,4558705.21,4568401.03,4571261.27,4572002.59,4576319.79,4588111.03,4612571.8,4664145.85,4702027.3,4820347.13,4880194.16,4889557.27,5051473,5083067.52,5227360.01,5626792.6,5626792.6,5664853.42],[0.23,0.23,0.23,0.23,0.1,0.23,0.23,0.23,0.23,0.23,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.25,0.28,0.28,0.29,0.29,0.29,0.29,0.29,0.29,0.29,0.3,0.31,0.31,0.31,0.32,0.34,0.37,0.4,0.46,0.49,0.5,0.57,0.58,0.64,0.78,0.78,0.79],[7268.33,7267.82,7258.74,7263.03,7274.22,7260.67,7253.7,7292.58,7284.52,7250.23,7316.5,7277.39,7325.61,7270.77,7332.12,7332.12,7299.22,7269.95,7290.46,7290.46,7326.67,7326.67,7331.85,7337.56,7337.56,7329.35,7329.35,7324.39,7337.48,7325.7,7312.68,7309.87,7157.93,7165.29,7267.82,7244.63,7248.31,7310.02,7261.71,7278.65,7237.43,5963.31,5963.29,5872.57],[1039.11,1040.59,1083,1056.42,981.9400000000001,1078.64,1111.65,854.15,873.97,1167.73,669.99,938.6900000000001,631.79,1010.79,557.49,557.49,707.76,1004.54,908.17,908.17,529.8099999999999,529.8099999999999,519.9,501.42,501.42,595.6,595.6,606.45,506.27,629.9400000000001,779.87,770.23,1836.38,1945.32,1237.13,1373.58,1289.15,568.15,1041.41,1020,1484.41,11522.19,11522.19,11767.94],[480.34,482.39,518.48,501.38,456.71,510.87,538.78,396.54,415.56,552.6799999999999,300.94,444.03,264.48,479.84,238.34,238.34,325.82,467.02,359.02,359.02,217.33,217.33,213.03,205.91,205.91,244.01,244.01,244.59,206.2,255.6,313.92,316.57,822.24,855.6799999999999,495.69,553.9299999999999,528.85,227.9,410.54,401.4,630.8,5657.89,5657.89,5967.03],[86.14,86.75,89.34,89.39,85.18000000000001,89.06999999999999,91.29000000000001,81.31999999999999,84.40000000000001,91.92,68.81,84.81,60.24,86.69,59.44,59.44,73.64,85.43000000000001,64.36,64.36,52.49,52.49,52.02,51.31,51.31,56.37,56.37,54.28,50.55,56.9,63.75,66.56999999999999,114.98,106.57,83.54000000000001,90.3,90.67,51.02,71.02,70.69,104.62,366.65,366.65,382.54],[0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.06,0.06,0.05,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.08,0.08,0.08,0.08,0.12,0.12,0.14,0.14,0.15,0.15,0.15,0.16,0.16,0.16,0.16,0.17,0.15,0.16,0.15,0.2,0.2,0.24,0.28,0.29,0.33,0.35,0.3,0.49,0.49,0.5],[0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.9,0.9,0.9,0.9,0.9,0.9,0.86,0.86,0.87,0.87,0.87,0.86,0.86,0.86,0.86,0.85,0.85,0.83,0.84,0.84,0.83,0.8,0.76,0.6899999999999999,0.67,0.67,0.55,0.55,0.42,0.03,0.03,-0],[0.23,0.23,0.23,0.1,0.1,0.23,0.18,0.11,0.23,0.1,0.23,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.28,0.28,0.28,0.28,0.29,0.29,0.29,0.29,0.29,0.3,0.3,0.3,0.31,0.31,0.3,0.04,0.39,0.45,0.48,0.48,0.55,0.5600000000000001,0.61,0.71,0.71,0.72]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>time<\/th>\n      <th>X2SUM<\/th>\n      <th>AR_deviations<\/th>\n      <th>AR_events<\/th>\n      <th>ARc<\/th>\n      <th>BAR<\/th>\n      <th>Gradient_raw<\/th>\n      <th>Gradient_weighted<\/th>\n      <th>Inertia<\/th>\n      <th>Lazy_path_length<\/th>\n      <th>Least_squares<\/th>\n      <th>LS<\/th>\n      <th>MDS_stress<\/th>\n      <th>ME<\/th>\n      <th>Moore_stress<\/th>\n      <th>Neumann_stress<\/th>\n      <th>Path_length<\/th>\n      <th>RGAR<\/th>\n      <th>Rho<\/th>\n      <th>smacof_stress0<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-71b2212998715de67bad" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-71b2212998715de67bad">{"x":{"filter":"none","vertical":false,"data":[["ARSA","QAP_LS","metaMDS","isoMDS","MDS_smacof","QAP_Inertia","SGD","Spectral","Sammon_mapping","QAP_2SUM","MDS","QAP_BAR","DendSer_ARc","DendSer","DendSer_BAR","SPIN_STS","isomap","SPIN_NH","R2E","DendSer_PL","HC","HC_complete","OLO_average","OLO","OLO_complete","GW","GW_complete","DendSer_LPL","GW_ward","OLO_single","OLO_ward","GW_average","GW_single","Spectral_norm","VAT","MDS_angle","TSP","HC_single","optics","HC_ward","HC_average","monoMDS","Reverse","Identity","Random"],[0.78,0.12,0.43,0.14,0.12,0.12,48.63,0.11,0.11,0.14,0.11,0.12,1.01,0.73,0.82,0.53,0.14,0.42,0.12,0.91,0.11,0.11,0.1,0.1,0.1,0.11,0.1,1.06,0.11,0.1,0.11,0.11,0.11,0.12,0.11,0.12,0.11,0.11,0.11,0.12,0.11,0.12,0.1,0.11,0.1],[17811232.65,17811388.19,17812686.38,17813936.38,17812731.39,17816687.43,17816879.31,17821593.29,17803289.91,17800646.4,17831638.49,17826713.98,17876078.28,17887028.78,17887028.78,17868738.07,17885505.49,17891673.73,17920401.23,18123489.68,18261322.36,18261322.36,18269341.73,18292979.96,18292979.96,18311674.75,18311674.75,18320334.68,18438936.49,18456707.71,18410342.17,18539068.81,18539229.91,18699746.46,19213961.27,19264911.14,20796401.92,20011502.7,20438517.41,21708956.3,21844714.43,28599059.75,30242212.15,30242212.15,30297459.59],[9438.610000000001,9452.969999999999,9510.370000000001,9576.549999999999,9471.18,9682.540000000001,9702.889999999999,9887.389999999999,9704.719999999999,9742.030000000001,10451.48,10835.82,13412.91,14008.74,14008.74,14397.71,15169.57,16410.58,18183.83,34285.32,38665.52,38665.52,43484.13,45325.49,45325.49,44984.49,44984.49,47051.1,50834.17,53970.73,51902.86,53151.74,62474.04,79141.36,96969.39,108327.34,188862.96,196825.63,227769.1,317318.67,329511.45,852988.54,955040.04,955040.04,964858.4],[54823,54769,54565,54635,55069,54401,54026,54924,61996,62381,58810,69339,76417,80168,80168,77287,80864,89951,90031,144308,137152,137152,162486,168500,168500,173565,173565,172635,178095,159059,179586,184330,182003,166378,199911,221616,263460,273866,309943,368430,387625,502916,552264,552264,558178],[2243448.63,2243449.24,2243468.8,2243489.49,2243518.16,2243562.04,2243616.36,2243682.33,2244220,2244239.28,2244348.59,2245364.85,2247775.23,2248403.43,2248403.43,2248613.71,2249203.1,2251233.73,2251902.63,2268853.29,2271942.99,2271942.99,2277556.24,2279320.21,2279320.21,2279424.9,2279424.9,2280962.93,2284226.93,2284833.4,2285630.63,2286026.05,2294121.15,2306285.9,2321063.77,2332072.92,2395157.95,2412548.24,2441289.81,2525738.94,2541531.09,2771680.25,2837229.27,2837229.27,2846673.51],[56363,56374.63,56434.81,56456.44,56310.21,56526.39,56477.18,56609.97,55760.07,55820.94,56588.08,55356.95,56474.23,56159.74,56159.74,56921.11,56666.77,55903.39,56794.91,57760.12,61893.07,61893.07,58055.28,58416.81,58416.81,59303.16,59303.16,58754.12,60126.35,62925.29,60393.42,64339.93,62257.3,65816.92999999999,67306.67,63869.44,65868.39,80004.17,81739.21000000001,81386.27,80334.77,152311.47,165017.99,165017.99,165640.67],[992260,992368,992775,992635,991764,993106,993852,992058,977903,977136,984277,963217,949063,941567,941567,947325,940173,921993,921858,813271,827592,827592,776925,764888,764888,754760,754760,756620,745680,783791,742715,733206,737886,769117,702072,658672,574955,554124,481975,364976,326584,96184,-2444,-2444,-14320],[1772128.25,1772126.43,1772067.76,1772005.69,1771919.66,1771788.02,1771625.07,1771427.16,1769814.16,1769756.32,1769428.38,1766379.6,1759148.46,1757263.85,1757263.85,1756633.01,1754864.85,1748772.95,1746766.24,1695914.28,1686645.17,1686645.17,1669805.42,1664513.52,1664513.52,1664199.44,1664199.44,1659585.34,1649793.36,1647973.94,1645582.24,1644396,1620110.68,1583616.45,1539282.85,1506255.38,1317000.3,1264829.43,1178604.72,925257.33,877880.86,187433.4,-9213.66,-9213.66,-37546.39],[356949760.46,356955913.86,356963292.77,356965942.09,356954170.3,356979367.67,356957996.91,356910342.64,356624718.43,356636184.55,356821108.54,356200368.8,355838234.97,355580212.39,355580212.39,355592457.62,354956626.48,354608383.85,354057417.51,348962409.09,350316625.22,350316625.22,346780581.73,346350972.72,346350972.72,346549446.39,346549446.39,345988723.7,345371421.88,347019773.4,345352261.17,346812938.22,343536136.32,339396179.61,336361006.76,329715037.11,310853375.76,315027540.56,305986078.23,280876064.8,272025389.5,231993771.78,213926932.07,213926932.07,211189978.7],[6508.59,6506.04,6683.03,6589.63,6249.82,6941.63,6724.97,6987.1,5721.01,6079.52,6633.21,5647.16,4775.3,4164.57,4164.57,7643.86,6501.32,6050.47,6629.01,3651.03,5305.52,5305.52,3671.38,4101.96,4101.96,4532.43,4532.43,3674.68,3815.98,4795.85,3563.63,3922.21,5038.59,7639.25,4491.64,10109.02,4068.68,7392.16,6265.08,5215.94,5297.68,20149.24,29135.06,28444.16,27613.32],[76487634.69,76487637.11,76487715.33,76487798.09,76487912.8,76488088.31999999,76488305.59,76488569.45999999,76490720.14,76490797.26000001,76491234.5,76495299.54000001,76504941.06,76507453.89,76507453.89,76508295,76510652.55,76518775.06999999,76521450.69,76589253.3,76601612.11,76601612.11,76624065.13,76631120.98999999,76631120.98999999,76631539.76000001,76631539.76000001,76637691.89,76650747.87,76653173.75,76656362.69,76657944.34,76690324.77,76738983.75,76798095.22,76842131.84999999,77094471.95,77164033.09999999,77278999.39,77616795.90000001,77679964.53,78600561.15000001,78862757.23,78862757.23,78900534.2],[4486897.27,4486898.48,4486937.59,4486978.97,4487036.32,4487124.09,4487232.72,4487364.66,4488439.99,4488478.55,4488697.18,4490729.69,4495550.46,4496806.87,4496806.87,4497227.43,4498406.2,4502467.46,4503805.27,4537706.58,4543885.98,4543885.98,4555112.49,4558640.42,4558640.42,4558849.8,4558849.8,4561925.87,4568453.86,4569666.8,4571261.27,4572052.09,4588242.31,4612571.8,4642127.53,4664145.85,4790315.9,4825096.48,4882579.62,5051477.88,5083062.19,5543360.5,5674458.54,5674458.54,5693347.02],[0.23,0.1,0.23,0.1,0.1,0.23,0.23,0.18,0.11,0.23,0.1,0.23,0.24,0.24,0.24,0.24,0.24,0.24,0.25,0.28,0.28,0.28,0.29,0.29,0.29,0.3,0.3,0.3,0.3,0.3,0.31,0.31,0.32,0.3,0.36,0.37,0.45,0.46,0.49,0.57,0.58,0.75,0.79,0.79,0.8],[7268.31,7270.17,7261.42,7263.12,7274.22,7261.16,7263.1,7253.72,7292.6,7284.21,7250.22,7313.71,7325.61,7326.94,7326.94,7261.9,7270.79,7311.48,7269.98,7335.83,7285.32,7285.32,7331.85,7337.56,7337.56,7329.05,7329.05,7333.5,7323.99,7312.18,7337.48,7325.74,7309.72,7157.93,7262.76,7165.28,7326.3,7243.38,7237.74,7262.21,7277.72,6344.83,5866.77,5866.77,5786.63],[1039.11,1028.6,1068.91,1056.31,981.9400000000001,1074.39,1055.06,1111.65,854.15,874.85,1167.73,669.4,631.79,618.53,618.53,1074.95,1010.79,691.45,1004.54,519.27,949.49,949.49,519.9,501.42,501.42,598.3200000000001,598.3200000000001,544.29,610.1,784.62,506.27,629.08,770.08,1836.38,1229.9,1945.32,540.79,1396.64,1377.46,1038.05,1028.04,9250.57,11899.7,11899.7,12150.46],[480.34,472.88,508,501.13,456.71,508.9,501.25,538.78,396.54,416.82,552.6799999999999,303.64,264.48,259.07,259.07,505.88,479.84,318.68,467.02,212.75,377.03,377.03,213.03,205.91,205.91,245.17,245.17,222.16,246.17,315.9,206.2,255.42,317.18,822.24,500.22,855.6799999999999,218.35,561.15,560.2,408.98,405.24,4195.06,5991.05,5991.05,6309.2],[86.14,85.48999999999999,88.70999999999999,89.28,85.18000000000001,88.8,88.06999999999999,91.29000000000001,81.31999999999999,84.53,91.92,71.04000000000001,60.24,59.2,59.2,91.94,86.69,73.28,85.43000000000001,51.97,66.48,66.48,52.02,51.31,51.31,56.54,56.54,52.74,54.5,64,50.55,56.96,66.92,114.98,82.70999999999999,106.57,50.72,90.05,91.17,70.93000000000001,71.41,269.72,383.86,383.86,399.94],[0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.06,0.06,0.05,0.06,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.08,0.08,0.13,0.12,0.12,0.15,0.15,0.15,0.16,0.16,0.16,0.16,0.14,0.16,0.17,0.17,0.15,0.18,0.2,0.24,0.25,0.28,0.33,0.35,0.46,0.5,0.5,0.51],[0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.88,0.86,0.86,0.87,0.86,0.86,0.86,0.86,0.86,0.85,0.84,0.85,0.83,0.84,0.83,0.79,0.8,0.72,0.6899999999999999,0.66,0.55,0.55,0.08,0,0,0.02],[0.23,0.1,0.23,0.1,0.1,0.23,0.23,0.18,0.11,0.23,0.1,0.23,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.27,0.28,0.28,0.29,0.29,0.29,0.29,0.29,0.29,0.3,0.3,0.3,0.3,0.31,0.3,0.35,0.04,0.43,0.45,0.48,0.55,0.5600000000000001,0.6899999999999999,0.73,0.73,0.73]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>time<\/th>\n      <th>X2SUM<\/th>\n      <th>AR_deviations<\/th>\n      <th>AR_events<\/th>\n      <th>ARc<\/th>\n      <th>BAR<\/th>\n      <th>Gradient_raw<\/th>\n      <th>Gradient_weighted<\/th>\n      <th>Inertia<\/th>\n      <th>Lazy_path_length<\/th>\n      <th>Least_squares<\/th>\n      <th>LS<\/th>\n      <th>MDS_stress<\/th>\n      <th>ME<\/th>\n      <th>Moore_stress<\/th>\n      <th>Neumann_stress<\/th>\n      <th>Path_length<\/th>\n      <th>RGAR<\/th>\n      <th>Rho<\/th>\n      <th>smacof_stress0<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -446,9 +482,9 @@ VAT took 0.107 sec.</code></pre>
 <section id="methods-1" class="level2">
 <h2 class="anchored" data-anchor-id="methods-1">Methods</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>methods <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">list_seriation_methods</span>(<span class="st">"matrix"</span>))</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>methods </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>methods <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">list_seriation_methods</span>(<span class="st">"matrix"</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>methods </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "BEA"       "BEA_TSP"   "CA"        "Heatmap"   "Identity"  "LLE"      
  [7] "Mean"      "PCA"       "PCA_angle" "Random"    "Reverse"  </code></pre>
@@ -458,81 +494,98 @@ VAT took 0.107 sec.</code></pre>
 <section id="performing-seriation-1" class="level2">
 <h2 class="anchored" data-anchor-id="performing-seriation-1">Performing seriation</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (m <span class="cf">in</span> methods) {</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(m)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  tm <span class="ot">&lt;-</span> <span class="fu">system.time</span>(orders[[m]] <span class="ot">&lt;-</span> <span class="fu">seriate</span>(x, <span class="at">method =</span> m))</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  criterion[[m]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">time =</span> tm[<span class="dv">1</span>]<span class="sc">+</span>tm[<span class="dv">2</span>], <span class="fu">rbind</span>(<span class="fu">criterion</span>(x, orders[[m]])))</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">" took"</span>, tm[<span class="dv">1</span>]<span class="sc">+</span>tm[<span class="dv">2</span>], <span class="st">"sec.</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (m <span class="cf">in</span> methods) {</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(m)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  tm <span class="ot">&lt;-</span> <span class="fu">system.time</span>(orders[[m]] <span class="ot">&lt;-</span> <span class="fu">seriate</span>(x, <span class="at">method =</span> m))</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  criterion[[m]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">time =</span> tm[<span class="dv">1</span>]<span class="sc">+</span>tm[<span class="dv">2</span>], <span class="fu">rbind</span>(<span class="fu">criterion</span>(x, orders[[m]])))</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">" took"</span>, tm[<span class="dv">1</span>]<span class="sc">+</span>tm[<span class="dv">2</span>], <span class="st">"sec.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>BEA took 0.107 sec.
-BEA_TSP took 0.319 sec.
-CA took 0.114 sec.
-Heatmap took 0.333 sec.
-Identity took 0.119 sec.
-LLE took 0.161 sec.
-Mean took 0.132 sec.
-PCA took 0.112 sec.
-PCA_angle took 0.106 sec.
-Random took 0.104 sec.
-Reverse took 0.108 sec.</code></pre>
+<pre><code>BEA took 0.122 sec.
+BEA_TSP took 0.343 sec.
+CA took 0.117 sec.
+Heatmap took 0.339 sec.
+Identity took 0.113 sec.
+LLE took 0.142 sec.
+Mean took 0.113 sec.
+PCA took 0.113 sec.
+PCA_angle took 0.114 sec.
+Random took 0.114 sec.
+Reverse took 0.111 sec.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, criterion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, criterion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="visualize-the-results-1" class="level2">
+<h2 class="anchored" data-anchor-id="visualize-the-results-1">Visualize the results</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>best_to_worse <span class="ot">&lt;-</span> <span class="fu">order</span>(criterion[[<span class="st">"Moore_stress"</span>]], <span class="at">decreasing =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> orders[best_to_worse]</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> criterion[best_to_worse, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>best_to_worse <span class="ot">&lt;-</span> <span class="fu">order</span>(criterion[[<span class="st">"Moore_stress"</span>]], <span class="at">decreasing =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> orders[best_to_worse]</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> criterion[best_to_worse, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="fu">names</span>(orders))</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pimage</span>(x, orders[[n]], <span class="at">main =</span> n , <span class="at">key =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="fu">names</span>(orders))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pimage</span>(x, orders[[n]], <span class="at">main =</span> n , <span class="at">key =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig.asp="1">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-3.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-4.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-3.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-5.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-4.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-6.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-7.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-5.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-8.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-6.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-9.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-10.png" class="img-fluid" width="672"></p>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-7.png" class="img-fluid"></p>
 </div>
-<div class="cell-output-display">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-11.png" class="img-fluid" width="672"></p>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-8.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-9.png" class="img-fluid"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-10.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-11.png" class="img-fluid"></p>
+</div>
+</div>
 </div>
 </div>
 </section>
-<section id="comparison-beween-methods-1" class="level2">
-<h2 class="anchored" data-anchor-id="comparison-beween-methods-1">Comparison beween methods</h2>
+<section id="comparison-beween-methods" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-beween-methods">Comparison beween methods</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="fu">round</span>(criterion, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="fu">round</span>(criterion, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-caafecd1ee0e97b4e868" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-caafecd1ee0e97b4e868">{"x":{"filter":"none","vertical":false,"data":[["Heatmap","Mean","PCA","LLE","PCA_angle","BEA_TSP","CA","Identity","Reverse","Random","BEA"],[0.33,0.13,0.11,0.16,0.11,0.32,0.11,0.12,0.11,0.1,0.11],[-0.04,-0.05,0.05,-0.05,-0.04,0.07000000000000001,0.22,0.03,0.03,0,0.01],[15130.21,15107.2,15120.47,15111.45,14291.69,16523.81,16401.6,14009.92,14009.92,14192.64,13307.46],[12980.92,13002.14,13052.16,13074.14,16317.26,19772.14,20347.34,22175.76,22175.76,34326.76,40282.94],[4395.22,4531.6,4484.76,4486.04,5564,6641.52,6934.24,8868.940000000001,8868.940000000001,13475.04,14807.94]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>time<\/th>\n      <th>Cor_R<\/th>\n      <th>ME<\/th>\n      <th>Moore_stress<\/th>\n      <th>Neumann_stress<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-c14728a8214fc06b99df" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c14728a8214fc06b99df">{"x":{"filter":"none","vertical":false,"data":[["Heatmap","Mean","PCA","LLE","PCA_angle","BEA_TSP","CA","Identity","Reverse","Random","BEA"],[0.34,0.11,0.11,0.14,0.11,0.34,0.12,0.11,0.11,0.11,0.12],[-0.04,-0.05,0.05,-0.05,0.04,0.15,0.22,-0.01,-0.01,-0.01,-0.03],[15130.21,15107.8,15120.47,15111.45,14291.69,16523.62,16401.6,14016.03,14016.03,13460.41,13341.1],[12980.92,12986.22,13052.16,13074.14,16317.26,19775.94,20347.34,22479.74,22479.74,39039.04,40286.32],[4395.22,4529.2,4484.76,4486.04,5564,6642.32,6934.24,8980.26,8980.26,14180.98,14752.52]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>time<\/th>\n      <th>Cor_R<\/th>\n      <th>ME<\/th>\n      <th>Moore_stress<\/th>\n      <th>Neumann_stress<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
