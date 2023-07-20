@@ -139,9 +139,7 @@ test_that("test if seriate.dist returns expected results", {
       expected = hclusts[[n]][["labels"]][hclusts[[n]][["order"]]])
   }
 
-  # check str snapshot of some deterministic methods
-
-  # Note: Sammon is not stable on
+  # check snapshot of some deterministic methods
   deterMethods <- c(
     "BBURCG",
     "BBWRCG",
