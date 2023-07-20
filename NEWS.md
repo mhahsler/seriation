@@ -1,3 +1,5 @@
+# seriation 1.5.1-1 (xx/xx/2023)
+
 # seriation 1.5.1 (07/20/2023)
 
 ## New Fearures
@@ -8,10 +10,10 @@
 
 ## Bug Fixes
 - pimage/ggpimage now use zlim correctly to choose the color palette.
-- BEA for matrix is not correctly registered as randomized.
+- BEA for matrix is now correctly registered as randomized.
 - fixed col/row_labels parameter.
-- rev() for seriations based on hclust now also reverse the dendrogram.
-- tests now also accept reverse order for testing deterministic methods.
+- rev() for seriations based on hclust now reverses the dendrogram.
+- tests now also accept reverse orders for testing deterministic methods.
 
 # seriation 1.5.0 (07/19/2023)
 
