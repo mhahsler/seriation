@@ -42,6 +42,7 @@ set_seriation_method(
   seriate_dist_monoMDS,
   "Kruskal's (1964a,b) non-metric multidimensional scaling (NMDS) using monotone regression.",
   control = .monoMDS_control,
+  randomized = TRUE,
   optimizes = "Other (MDS strain)"
 )
 
@@ -113,5 +114,6 @@ set_seriation_method(
   seriate_dist_metaMDS,
   "Nonmetric Multidimensional Scaling with Stable Solution from Random Starts.",
   control = .metaMDS_control,
+  randomized = FALSE,          ### it is randomized, but internally does replication
   optimizes = "Other (MDS strain)"
 )
