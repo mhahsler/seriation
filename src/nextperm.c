@@ -17,7 +17,7 @@ swap(double *x, int i, int j)
 void
 permNext(double *x, int *nn)
 {
-  int             i, j, r, s, n = *nn;
+  int             i, j, n = *nn;
   i = n - 1;
   while (x[i - 1] >= x[i])
     i--;
