@@ -150,8 +150,7 @@ c.ser_permutation_vector <- function(..., recursive = FALSE)
 #' @export
 rev.ser_permutation_vector <- function(x) {
   if (inherits(x, "hclust")) {
-    x$order <- rev(x$order)
-    x
+    ser_permutation_vector(stats::as.hclust(rev(stats::as.dendrogram(x))), method = get_method(x))
   }
   else
     ser_permutation_vector(rev(get_order(x)), method = get_method(x))

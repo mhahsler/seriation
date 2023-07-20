@@ -170,6 +170,19 @@ list_seriation_methods <- function(kind, names_only = TRUE) {
 #' @rdname registry_for_seriaiton_methods
 #' @export
 get_seriation_method <- function(kind, name) {
+
+  ## catch deprecated methods
+  if (tolower(name) == "mds_nonmetric") {
+    name <- "isoMDS"
+    warning("seriation method 'MDS_nonmetric' is now deprecated and will be removed in future releases. Using `isoMDS`")
+  }
+
+  if (tolower(name) == "mds_metric") {
+    name <- "MDS"
+    warning("seriation method 'MDS_metric' is now deprecated and will be removed in future releases. Using `MDS`")
+  }
+
+
   if (missing(kind))
     method <- registry_seriate$get_entry(name = name)
   else

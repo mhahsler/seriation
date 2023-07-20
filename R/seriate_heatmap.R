@@ -20,7 +20,7 @@
 ## calculate distances for rows and columns, perform hclust and reorder.
 .heatmap_contr <- list(
   dist_fun = list(row = dist, col = dist),
-  seriation_method = list(row = "OLO", col = "OLO"),
+  seriation_method = list(row = "OLO_complete", col = "OLO_complete"),
   seriation_control = list(row = NULL, col = NULL),
   scale = "none",
   verbose = FALSE

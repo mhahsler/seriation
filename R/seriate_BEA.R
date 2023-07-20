@@ -107,7 +107,8 @@ set_seriation_method(
   seriate_matrix_bea,
   "Bond Energy Algorithm (BEA; McCormick 1972) to maximize the Measure of Effectiveness of a non-negative matrix.",
   .bea_contr,
-  optimizes = "Measure of effectiveness (ME)"
+  optimizes = "Measure of effectiveness (ME)",
+  randomized = TRUE
 )
 
 set_seriation_method(

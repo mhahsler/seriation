@@ -44,7 +44,8 @@ with \code{"["}).}
 \item{order}{an object of class \link{ser_permutation} which contains
 suitable permutation vectors for \code{x}. Alternatively, a character string with the
 name of a seriation method appropriate for \code{x} can be specified (see \code{\link[=seriate]{seriate()}}).
-This will perform seriation and permute \code{x}.}
+This will perform seriation and permute \code{x}. The value \code{TRUE} will permute using the
+default seriation method.}
 
 \item{...}{if \code{order} is the name of a seriation method, then additional arguments are
 passed on to \code{\link[=seriate]{seriate()}}.}
@@ -103,7 +104,7 @@ permute(m, o, margin = 2)
 permute(m, "PCA")
 
 ## permute only rows using PCA
-permute(m, o, margin = 1)
+permute(m, "PCA", margin = 1)
 
 # Permute data.frames
 df <- as.data.frame(m)

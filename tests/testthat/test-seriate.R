@@ -140,6 +140,8 @@ test_that("test if seriate.dist returns expected results", {
   }
 
   # check str snapshot of some deterministic methods
+
+  # Note: Sammon is not stable on
   deterMethods <- c(
     "BBURCG",
     "BBWRCG",
@@ -164,24 +166,107 @@ test_that("test if seriate.dist returns expected results", {
     "VAT"
   )
 
-  # recreate with dput(sapply(os[deterMethods], get_order))
-  correct <- structure(
-    c(1L, 2L, 4L, 3L, 1L, 2L, 4L, 3L, 1L, 2L, 4L, 3L, 1L,
-      2L, 4L, 3L, 1L, 2L, 4L, 3L, 1L, 2L, 4L, 3L, 1L, 2L, 4L, 3L, 1L,
-      2L, 3L, 4L, 1L, 2L, 3L, 4L, 1L, 2L, 3L, 4L, 1L, 2L, 3L, 4L, 1L,
-      2L, 3L, 4L, 1L, 2L, 3L, 4L, 1L, 2L, 4L, 3L, 1L, 2L, 4L, 3L, 1L,
-      2L, 4L, 3L, 1L, 2L, 4L, 3L, 3L, 4L, 2L, 1L, 3L, 4L, 2L, 1L, 3L,
-      4L, 2L, 1L, 3L, 4L, 2L, 1L),
-    dim = c(4L, 21L),
-    dimnames = list(
-      c("a", "b", "d", "c"),
-      c("BBURCG", "BBWRCG", "GW", "GW_average",
-        "GW_complete", "GW_single", "GW_ward", "HC", "HC_average",
-        "HC_complete", "HC_single", "HC_ward", "Identity", "MDS",
-        "isoMDS", "Sammon_mapping", "MDS_angle", "R2E", "Spectral",
-        "Spectral_norm", "VAT")))
+  # recreate with dput(lapply(os[deterMethods], get_order))
+  correct <-
+    list(
+      BBURCG = c(
+        a = 1L,
+        b = 2L,
+        d = 4L,
+        c = 3L
+      ),
+      BBWRCG = c(
+        a = 1L,
+        b = 2L,
+        d = 4L,
+        c = 3L
+      ),
+      GW = c(
+        a = 1L,
+        b = 2L,
+        d = 4L,
+        c = 3L
+      ),
+      GW_average = c(
+        a = 1L,
+        b = 2L,
+        d = 4L,
+        c = 3L
+      ),
+      GW_complete = c(
+        a = 1L,
+        b = 2L,
+        d = 4L,
+        c = 3L
+      ),
+      GW_single = c(
+        a = 1L,
+        b = 2L,
+        d = 4L,
+        c = 3L
+      ),
+      GW_ward = c(
+        a = 1L,
+        b = 2L,
+        d = 4L,
+        c = 3L
+      ),
+      HC = structure(1:4, names = c("a",
+                                    "b", "c", "d")),
+      HC_average = structure(1:4, names = c("a", "b",
+                                            "c", "d")),
+      HC_complete = structure(1:4, names = c("a", "b",
+                                             "c", "d")),
+      HC_single = structure(1:4, names = c("a", "b", "c",
+                                           "d")),
+      HC_ward = structure(1:4, names = c("a", "b", "c", "d")),
+      Identity = structure(1:4, names = c("a", "b", "c", "d")),
+      MDS = c(
+        a = 1L,
+        b = 2L,
+        d = 4L,
+        c = 3L
+      ),
+      isoMDS = c(
+        a = 1L,
+        b = 2L,
+        d = 4L,
+        c = 3L
+      ),
+      Sammon_mapping = c(
+        a = 1L,
+        b = 2L,
+        d = 4L,
+        c = 3L
+      ),
+      MDS_angle = c(
+        a = 1L,
+        b = 2L,
+        d = 4L,
+        c = 3L
+      ),
+      R2E = c(
+        c = 3L,
+        d = 4L,
+        b = 2L,
+        a = 1L
+      ),
+      Spectral = c(
+        c = 3L,
+        d = 4L,
+        b = 2L,
+        a = 1L
+      ),
+      Spectral_norm = c(c = 3L, d = 4L,
+                        b = 2L, a = 1L), VAT = c(c = 3L, d = 4L, b = 2L, a = 1L))
 
-  expect_identical(correct, sapply(os[deterMethods], get_order))
+  # some systems may produce the reverse order for some methods!
+  for (m in deterMethods)
+    expect_true(
+      identical(correct[[m]], get_order(os[[m]])) ||
+        identical(correct[[m]], rev(get_order(os[[m]]))),
+      label = paste("Seriation method", m, "does not return the correct order!\n")
+    )
 })
 
 # check seriate errors for bad dist objects
@@ -298,7 +383,7 @@ test_that("test if data.frame seriation works as expected", {
   o <- seriate(df)
   expect_silent(permute(df, o)) # defaults work with no messages/warnings
 
-  expect_message(
+  expect_warning(
     permute(df, o[1]),
     # DEPRECATED: results in a message
     "permute for data.frames with a single seriation order is now deprecated"

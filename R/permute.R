@@ -21,6 +21,26 @@
 ndim <- function(x)
   length(dim(x))
 
+find_order <- function(x, order, ...) {
+  if (is.logical(order)) {
+    if(order)
+      order <- seriate(x, ...)
+    else
+      order <- seriate(x, method = "identity", ...)
+  }
+
+  if (is.character(order))
+    order <- seriate(x, method = order, ...)
+
+  if (!inherits(order, "ser_permutation"))
+    order <- ser_permutation(order)
+
+  # for debugging
+  #print(order)
+
+  order
+}
+
 #' Permute the Order in Various Objects
 #'
 #' Provides the generic function and methods for permuting the order of various
@@ -53,7 +73,8 @@ ndim <- function(x)
 #' @param order an object of class [ser_permutation] which contains
 #' suitable permutation vectors for \code{x}. Alternatively, a character string with the
 #' name of a seriation method appropriate for `x` can be specified (see [seriate()]).
-#' This will perform seriation and permute `x`.
+#' This will perform seriation and permute `x`. The value `TRUE` will permute using the
+#' default seriation method.
 #' @param margin specifies the dimensions to be permuted as a vector with dimension indices.
 #' If `NULL`, \code{order} needs to contain a permutation for all dimensions.
 #' If a single margin is specified, then \code{order} can also contain
@@ -85,7 +106,7 @@ ndim <- function(x)
 #' permute(m, "PCA")
 #'
 #' ## permute only rows using PCA
-#' permute(m, o, margin = 1)
+#' permute(m, "PCA", margin = 1)
 #'
 #' # Permute data.frames
 #' df <- as.data.frame(m)
@@ -156,13 +177,7 @@ permute.list <- function(x, order, ...)
 #' @rdname permute
 #' @export
 permute.dist <- function(x, order, ...) {
-  if (is.character(order))
-    order <- seriate(x, method = order, ...)
-
-  .nodots(...)
-
-  if (!inherits(order, "ser_permutation"))
-    order <- ser_permutation(order)
+  order <- find_order(x, order, ...)
 
   if (.is_identity_permutation(order[[1]]))
     return(x)
@@ -175,16 +190,16 @@ permute.dist <- function(x, order, ...) {
 #' @rdname permute
 #' @export
 permute.dendrogram <- function(x, order, ...) {
-  .nodots(...)
-
-  if (length(get_order(order)) != stats::nobs(x))
-    stop("Length of order and number of leaves in dendrogram do not agree!")
-
+  order <- find_order(x, order, ...)
 
   # modeled after rotate in dendextend. Copied here to reduce the heavy dependency count of dendextend.
   #  x <- dendextend::rotate(x, order = match(get_order(order), get_order(x)))
   rot <- function (x, order, ...)
   {
+
+    if (length(get_order(order)) != stats::nobs(x))
+    stop("Length of order and number of leaves in dendrogram do not agree!")
+
     if (missing(order)) {
       warning("'order' parameter is missing, returning the tree as it was.")
       return(x)
@@ -228,7 +243,7 @@ permute.hclust <- function(x, order, ...) {
 
 # helper
 .check_dist_perm <- function(x, order) {
-  if (length(order) != 1L)
+  if (inherits(order, "ser_permutation") && length(order) != 1L)
     stop("dimensions do not match")
 
   if (attr(x, "Size") != length(get_order(order, 1)))
@@ -249,8 +264,16 @@ permute.hclust <- function(x, order, ...) {
 .permute_kd <- function(x, order, margin = NULL, ...) {
 
   # DEPRECATED: Compatibility with old permutation for data.frame
-  if (is.data.frame(x) && is.null(margin) && length(order) == 1 && !is.character(order)) {
-    message(
+  if (is.data.frame(x) &&
+      is.null(margin) &&
+      !is.character(order) &&
+      (
+        inherits(order, "ser_permutation") &&
+        length(order) == 1 ||
+        inherits(order, "ser_permutation_vector") || is.integer(order)
+      )) {
+
+    warning(
       "permute for data.frames with a single seriation order is now deprecated. Specify the margin as follows: 'permute(x, order, margin = 1)'"
     )
     margin <- 1
@@ -264,14 +287,7 @@ permute.hclust <- function(x, order, ...) {
       stop("all margins need to specify a valid dimension in x")
   }
 
-
-  if (is.character(order))
-    order <- seriate(x, method = order, margin = margin, ...)
-
-  #.nodots(...)
-
-  if (!inherits(order, "ser_permutation"))
-    order <- ser_permutation(order)
+  order <- find_order(x, order, margin = margin, ...)
 
   if (length(order) != ndim(x) && length(order) != length(margin))
     stop(
@@ -299,20 +315,21 @@ permute.hclust <- function(x, order, ...) {
 }
 
 .permute_1d <- function(x, order, ...) {
-  .nodots(...)
+  if (is.logical(order)) {
+    if(order)
+      stop("No default seritation method for vectors avaialble. Specify the order.")
+    else
+      return(x)
+  }
 
-  if (!inherits(order, "ser_permutation"))
-    order <- ser_permutation(order)
+  order <- ser_permutation(order)
 
   if (length(order) != 1)
     stop("dimensions do not match!")
 
-  if (.is_identity_permutation(order[[1]]))
-    return(x)
-
   perm <- get_order(order, 1)
   if (length(x) != length(perm))
-    stop("some permutation vectors do not fit dimension of data!")
+    stop("The permutation vectors do not fit the length of x!")
 
   x[perm]
 }
@@ -320,8 +337,11 @@ permute.hclust <- function(x, order, ...) {
 
 # if we used proxy we would say:
 #.rearrange_dist <- function (x, order) x[[order]]
+# Note: order can be a subset
 
 .rearrange_dist <- function (x, order) {
+
+
   # make C call
   mode(x) <- "double"
   # as.dist seems to make Size numeric and not integer!

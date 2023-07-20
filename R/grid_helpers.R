@@ -197,7 +197,7 @@
   }
 
   grid.raster(
-    .map_color(x, col),
+    .map_color(x, col, zlim),
     interpolate = interpolate,
     default.units = "npc",
     width = 1,

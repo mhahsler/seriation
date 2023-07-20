@@ -17,12 +17,6 @@ x <- matrix(
 
 d <- dist(x)
 
-# this is very slow see we only for 10 iterations
-if(seriation:::check_installed("GA", "check")) {
-  register_GA()
-  o <- seriate(d, "GA", maxiter = 10, parallel = FALSE, verb = F)
-  expect_equal(length(o[[1]]), 4L)
-}
 
 
 # Note: tsne does not work with duplicate entries, which is an issue.
@@ -40,11 +34,17 @@ if(seriation:::check_installed("dbscan", "check")) {
   expect_equal(length(o[[1]]), 4L)
 }
 
-
-# Python (keras) leaves some files in temp and that upsets CRAN
+# this is very slow see we only for 10 iterations
 skip_on_cran()
 
+if(seriation:::check_installed("GA", "check")) {
+  register_GA()
+  o <- seriate(d, "GA", maxiter = 10, parallel = FALSE, verb = F)
+  expect_equal(length(o[[1]]), 4L)
+}
+
 # This produces too many messages
+# Python (keras) leaves some files in temp and that upsets CRAN
 skip()
 
 # only do 10 epochs.

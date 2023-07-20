@@ -1,7 +1,7 @@
 ---
 title: "Heatmaps with Package Seriation"
 author: "Michael Hahsler"
-format: 
+format:
   html:
     toc: true
 editor: visual
@@ -9,7 +9,7 @@ editor: visual
 
 # Introduction
 
-A [Heatmap](https://en.wikipedia.org/wiki/Heat_map) uses colored tiles to represent the values in a data matrix. Patterns can be easily seen if the rows and columns are appropriately reordered. The package `seriation` can be used for reordering heatmaps and displaying them using the functions:
+A [Heatmap](https://en.wikipedia.org/wiki/Heat_map) uses colored tiles to represent the values in a data matrix. Patterns can be easily seen if the rows and columns are appropriately reordered. There are many ways to reorder a matrix and the order has a huge impact on how useful the visualization is. The package `seriation` implements a large number of reordering methods (see: the [list with all implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)). `seriation` also provides a set of functions to display reordered heatmaps:
 
 -   `pimage()`
 -   `hmap()`
@@ -37,6 +37,9 @@ DT::datatable(round(Wood, 2))
 Here is a simple heatmap without reordering. No structure is visible.
 
 ```{r}
+#| fig-asp: 1
+#| out-width: 50%
+#| fig-align: "center"
 pimage(Wood)
 ```
 
@@ -44,22 +47,27 @@ pimage(Wood)
 
 Many seriation methods are available. The [manual page for seriate()](https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriate) describes the methods available in package `seriation`.
 
-Methods of interest for heatmaps are dendrogram leaf order-based methods applied to rows and columns. This is done using `method = "heatmap"`. The actual seriation method is passed as parameter `seriaton_method`. Here is an example:
+Methods of interest for heatmaps are dendrogram leaf order-based methods applied to rows and columns. This is done using `method = "heatmap"`. The actual seriation method can be passed on as parameter `seriaton_method`, but it has a suitable default if it is omitted. Here is an example:
 
 ```{r}
 o <- seriate(Wood, method = "Heatmap", seriation_method = "HC_Mean")
 o
 ```
 
-This is the order for rows and columns. The method `heatmap` automatically performs hierarchical clustering and then applies the seriation method for reordering of dendrogram leafs. Here we use the row/column mean to reorder the dendrogram. The reordered dendrogram and the resulting order for the columns can be plotted.
+This is the order for rows and columns. The method `heatmap` automatically performs hierarchical clustering and then applies the seriation method for reordering of dendrogram leafs. Here we use the row/column mean to reorder the dendrogram. The resulting order (2 means second dimension, i.e., columns) can be shown, and the reordered dendrogram and a reorderd image can be plotted.
 
 ```{r}
-plot(o[[2]])
-
 get_order(o, 2)
 ```
 
-The same can be done with rows by changing the index to 1.
+```{r}
+#| fig-asp: 1
+#| fig-show: hold
+#| out-width: 50%
+#| layout-ncol: 2 
+plot(o[[2]])
+pimage(Wood, order = o)
+```
 
 # Built-in heatmap function
 
@@ -67,16 +75,21 @@ Package `seriation` has several functions to display heatmaps.
 
 ## Without dendrograms: pimage
 
-The permutation image plot in `seriation` provides a simple heatmap.
+The permutation image plot in `seriation` provides a simple heatmap. The order argument not only accepts a seriation order, but also a seriation method.
 
 ```{r}
-pimage(Wood, main = "Wood (original order)")
-pimage(Wood, order = "Heatmap", 
-       main = "Wood (default - optimal leaf ordering)")
-pimage(Wood, order = "Heatmap", seriation_method = "HC", 
-       main = "Wood (hierarichal clustering; no reordering)")
+#| fig-asp: 1
+#| fig-show: hold
+#| out-width: 50%
+#| layout-ncol: 2 
+pimage(Wood, order = "Heatmap", seriation_method = "HC_complete", 
+       main = "Wood (hierarichal clustering)")
 pimage(Wood, order = "Heatmap", seriation_method = "HC_Mean", 
        main = "Wood (reorder by row/col mean)")
+pimage(Wood, order = "Heatmap", seriation_method = "GW_complete", 
+       main = "Wood (reorder by Gruvaeus and Wainer heuristic)")
+pimage(Wood, order = "Heatmap", 
+       main = "Wood (default - optimal leaf ordering)")
 ```
 
 ## With dendrograms: hmap
@@ -84,10 +97,14 @@ pimage(Wood, order = "Heatmap", seriation_method = "HC_Mean",
 Here are some typical reordering schemes.
 
 ```{r}
-hmap(Wood, method = "HC", main = "Wood (hierarichal clustering; no reordering)")
+#| fig-asp: 1
+#| fig-show: hold
+#| out-width: 50%
+#| layout-ncol: 2 
+hmap(Wood, method = "HC_complete", main = "Wood (hierarichal clustering)")
 hmap(Wood, method = "HC_Mean", main = "Wood (reorder by row/col mean)")
-hmap(Wood, method = "GW", main = "Wood (reordered using the Gruvaeus and Wainer heuristic)")
-hmap(Wood, method = "OLO", main = "Wood (opt. leaf ordering)")
+hmap(Wood, method = "GW_complete", main = "Wood (reorder by Gruvaeus and Wainer heuristic)")
+hmap(Wood, method = "OLO_complete", main = "Wood (opt. leaf ordering)")
 ```
 
 Different linkage types can be added in the method name.
@@ -95,30 +112,73 @@ Different linkage types can be added in the method name.
 Package `DendSer` offers more dendrogram seriation methods. These methods can be registered using \`register_DendSer()\`\`
 
 ```{r}
+#| fig-asp: 1
+#| out-width: 50%
+#| fig-align: "center"
 register_DendSer()
 
 hmap(Wood, method = "DendSer_BAR", main = "Wood (banded anti-Robinson)")
 ```
 
+## With distance matrices instead of dendrograms: hmap
+
+Instead of dendrograms, also reordered distance matrices can be displayed. Dark block around the diagonal indicate the cluster structure.
+
+```{r}
+#| fig-asp: 1
+#| out-width: "50%"
+#| fig-align: "center"
+hmap(Wood, method = "HC_complete", 
+     plot_margins = "distances",
+     main = "Wood (hierarichal clustering)")
+```
+
 Also non-dendrogram-based reordering methods can be used. These methods reorder rows and columns. Instead of the dendrograms, reordered distance matrices are shown.
 
 ```{r}
+#| fig-asp: 1
+#| fig-show: hold
+#| out-width: 50%
+#| layout-ncol: 2 
 hmap(Wood, method = "MDS", main = "Wood (MDS)")
+hmap(Wood, method = "MDS_angle", main = "Wood (Angle in 2D MDS space)")
+hmap(Wood, method = "R2E", main = "Wood (Rank 2 ellipse seriation)")
 hmap(Wood, method = "TSP", main = "Wood (Traveling salesperson)")
 ```
+
+## colors with pimage and hmap
+
+```{r}
+#| fig-asp: 1
+#| fig-show: hold
+#| out-width: 50%
+#| layout-ncol: 2 
+hmap(Wood, col = grays())
+hmap(Wood, col = greenred())
+
+hmap(Wood, col = colorRampPalette(c("brown", "orange", "red"))( 100 ) )
+
+if (!require("viridis")) install.packages("viridis")
+hmap(Wood, col = viridis::viridis(100))
+```
+
+There are many other packages to create color palettes in R like `RColorBrewer` or `colorspaces`.
 
 ## ggplot2
 
 All options are also available for `ggplot2` using `gghmap()`. Currently there is no support to display dendrograms.
 
 ```{r}
+#| fig-asp: 1
+#| out-width: "50%"
+#| fig-align: "center"
 if (!require("ggplot2")) install.packages("ggplot2")
 
 library(ggplot2)
 gghmap(Wood, method = "OLO")
 ```
 
-# Using seriation in other packages
+# Using seriation with other packages
 
 The package `seriation` can be used to compute reordering for other heatmap packages.
 
@@ -127,6 +187,9 @@ The package `seriation` can be used to compute reordering for other heatmap pack
 This is R's standard heatmap function. `seriate()` can be used to supply the reordered dendrogram.
 
 ```{r}
+#| fig-asp: 1
+#| out-width: "50%"
+#| fig-align: "center"
 o <- seriate(Wood, method = "Heatmap", seriation_method = "OLO")
 heatmap(Wood, Rowv = as.dendrogram(o[[1]]), Colv = as.dendrogram(o[[2]]))
 ```
@@ -134,6 +197,9 @@ heatmap(Wood, Rowv = as.dendrogram(o[[1]]), Colv = as.dendrogram(o[[2]]))
 We can also supply the rank order for any seriation method as weights and the dendrogram will be reordered as close as possible to the seriation order.
 
 ```{r}
+#| fig-asp: 1
+#| out-width: "50%"
+#| fig-align: "center"
 o <- seriate(Wood, method = "Heatmap", seriation_method = "Spectral")
 heatmap(Wood, Rowv =  get_rank(o, 1), Colv =  get_rank(o, 2))
 ```
@@ -143,6 +209,9 @@ heatmap(Wood, Rowv =  get_rank(o, 1), Colv =  get_rank(o, 2))
 Default ordering using hierarchical clustering.
 
 ```{r}
+#| fig-asp: 1
+#| out-width: "50%"
+#| fig-align: "center"
 if (!require("superheat")) install.packages("superheat")
 
 library("superheat")
@@ -153,6 +222,10 @@ superheat(Wood,
 Order with \`seriation\`. Currently, the dendrograms are not reordered.
 
 ```{r}
+#| fig-asp: 1
+#| fig-show: hold
+#| out-width: 50%
+#| layout-ncol: 2 
 o <- seriate(Wood, method = "Heatmap", seriation_method = "OLO_ward")
 superheat(Wood, 
           order.row = as.vector(get_order(o, 1)),  order.col = as.vector(get_order(o, 2)),
@@ -166,24 +239,30 @@ superheat(Wood,
 
 ## Package heatmaply
 
-The package creates interactive heatmaps. It already uses package `seriation` for parameter `seriate` and supports the methods `OLO` and `GW`.
+The package creates interactive heatmaps. It already uses package `seriation` for parameter `seriate` and supports the methods `OLO` () and `GW`.
 
 ```{r}
+#| fig-asp: 1
+#| fig-show: hold
+#| out-width: 50%
+#| layout-ncol: 2 
 if (!suppressMessages(require("heatmaply"))) install.packages("heatmaply")
 
 library("heatmaply")
-heatmaply(Wood, seriate = "none")
-heatmaply(Wood, seriate = "OLO")
+heatmaply(Wood, seriate = "none", main = "HC")
+heatmaply(Wood, seriate = "OLO", main = "OLO")
 ```
 
 Any dendrogram-based seriation method from `seriation` can be supplied.
 
 ```{r}
+#| fig-asp: 1
+#| fig-show: hold
+#| out-width: 50%
+#| layout-ncol: 2 
 o <- seriate(Wood, method = "Heatmap", seriation_method = "OLO_ward")
-heatmaply(Wood, Rowv = o[[1]], Colv = o[[2]])
-```
+heatmaply(Wood, Rowv = o[[1]], Colv = o[[2]], main = "OLO (Ward)")
 
-```{r}
 o <- seriate(Wood, method = "Heatmap", seriation_method = "Spectral")
-heatmaply(Wood, Rowv = get_rank(o, 1), Colv = get_rank(o, 2))
+heatmaply(Wood, Rowv = get_rank(o, 1), Colv = get_rank(o, 2), main = "Spectral")
 ```

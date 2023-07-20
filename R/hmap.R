@@ -59,8 +59,10 @@
 #' @param scale character indicating if the values should be centered and
 #' scaled in either the row direction or the column direction, or none. Default
 #' is none.
-#' @param showDend Show dendrograms in the margin?
+#' @param plot_margins character indicating what to show in the margins. Options are:
+#'   `"auto"`, `"dendrogram"`, `"distances"`, or `"none"`.
 #' @param col a list of colors used.
+#' @param col_dist colors used for displaying distances.
 #' @param row_labels,col_labels a logical indicating if row and column labels
 #' in `x` should be displayed.  If `NULL` then labels are displayed
 #' if the `x` contains the appropriate dimname and the number of labels is
@@ -84,16 +86,16 @@
 #' heatmap(Wood, main = "Wood (standard heatmap)")
 #'
 #' # Default heatmap does Euclidean distance, hierarchical clustering with
-#' # average-link and optimal leaf ordering
+#' # complete-link and optimal leaf ordering. Note that the rows are
+#' # ordered top-down in the seriation order (stats::heatmap orders in reverse)
 #' hmap(Wood, main = "Wood (opt. leaf ordering)")
-#'
-#' # Heatmap shown without dendrograms (used pimage)
-#' hmap(Wood, main = "Wood (opt. leaf ordering)",  showDend = FALSE)
+#' hmap(Wood, plot_margins = "distances", main = "Wood (opt. leaf ordering)")
+#' hmap(Wood, plot_margins = "none", main = "Wood (opt. leaf ordering)")
 #'
 #' # Heatmap with correlation-based distance, green-red color (greenred is
 #' # predefined) and optimal leaf ordering and no row label
-#' dist_cor <- function(x) as.dist(1 - cor(t(x)))
-#' hmap(Wood, distfun = dist_cor, col = greenred(100), row_labels = FALSE,
+#' dist_cor <- function(x) as.dist(sqrt(1 - cor(t(x))))
+#' hmap(Wood, distfun = dist_cor, col = greenred(100),
 #'   main = "Wood (reorded by corr. between obs.)")
 #'
 #' # Heatmap with order based on the angle in two-dimensional MDS space.
@@ -102,21 +104,27 @@
 #'
 #' # Heatmap for distances
 #' d <- dist(Wood)
-#' hmap(d, method = "OLO", main = "Wood (Euclidean distances)")
+#' hmap(d, main = "Wood (Euclidean distances)")
 #'
 #' # order-based with dissimilarity matrices
-#' hmap(Wood, method = "MDS_angle", showdist = "both",
-#'   col = greenred(100), col_dist = greens(100),
-#'   keylab = "norm. Expression", main = "Wood (reporderd with distances)")
+#' hmap(Wood, method = "MDS_angle",
+#'   col = greenred(100), col_dist = greens(100, power = 2),
+#'   keylab = "norm. Expression", main = "Wood (reorderd with distances)")
 #'
-#' # Manually seriate and plot as pimage.
-#' o <- seriate(Wood, method = "heatmap", control = list(dist_fun = dist, seriation_method = "OLO"))
+#' # without the distance matrices
+#' hmap(Wood, method = "MDS_angle", plot_margins = "none",
+#'   col = greenred(100), main = "Wood (reorderd without distances)")
+#'
+#' # Manually create a simple heatmap with pimage.
+#' o <- seriate(Wood, method = "heatmap",
+#'    control = list(dist_fun = dist, seriation_method = "OLO_ward"))
 #' o
 #'
-#' pimage(Wood, o, prop = FALSE)
+#' pimage(Wood, o)
 #'
-#' # Note: method heatmap calculates reorderd hclust objects which can be used for many heatmap
-#' # implementations.
+#' # Note: method heatmap calculates reorderd hclust objects which can be used
+#' #       for many heatmap implementations like the standard implementation in
+#' #       package stats.
 #' heatmap(Wood, Rowv = as.dendrogram(o[[1]]), Colv = as.dendrogram(o[[2]]))
 #'
 #' # ggplot 2 version does not support dendrograms in the margin (for now)
@@ -135,6 +143,7 @@
 #'   gghmap(Wood, flip_axes = TRUE, prop = TRUE) +
 #'     labs(title = "Wood", subtitle = "Optimal leaf ordering")
 #'
+#'   dist_cor <- function(x) as.dist(sqrt(1 - cor(t(x))))
 #'   gghmap(Wood, distfun = dist_cor) +
 #'     labs(title = "Wood", subtitle = "Reorded by correlation between observations") +
 #'     scale_fill_gradient2(low = "darkgreen", high = "red")
@@ -142,27 +151,31 @@
 #'   gghmap(d, prop = TRUE) +
 #'     labs(title = "Wood", subtitle = "Euclidean distances, reordered")
 #'
-#'   # Note: the ggplot2-based version cannot show distance matrices in the same plot.
+#'   # Note: the ggplot2-based version currently cannot show distance matrices
+#'   #      in the same plot.
 #'
 #'   # Manually seriate and plot as pimage.
 #'   o <- seriate(Wood, method = "heatmap", control = list(dist_fun = dist,
-#'     seriation_method = "OLO"))
+#'     seriation_method = "OLO_ward"))
 #'   o
 #'
-#'   ggpimage(Wood, o, prop = FALSE)
+#'   ggpimage(Wood, o)
 #' }
 #' @export
 hmap <- function(x,
-  distfun = stats::dist,
-  method = "OLO",
-  control = NULL,
-  scale = c("none", "row", "column"),
-  showDend = TRUE,
-  col = NULL,
-  row_labels = NULL,
-  col_labels = NULL,
-  ...) {
+                 distfun = stats::dist,
+                 method = "OLO_complete",
+                 control = NULL,
+                 scale = c("none", "row", "column"),
+                 plot_margins = "auto",
+                 col = NULL,
+                 col_dist = grays(power = 2),
+                 row_labels = NULL,
+                 col_labels = NULL,
+                 ...) {
   scale <- match.arg(scale)
+  plot_margins <-
+    match.arg(plot_margins, c("auto", "dendrogram", "distances", "none"))
 
   if (is.null(col)) {
     if (any(x < 0, na.rm = TRUE))
@@ -175,7 +188,7 @@ hmap <- function(x,
   if (inherits(x, "dist")) {
     dist_row <- dist_col <- x
     o <- seriate(x,
-      method = method, control = control)[[1]]
+                 method = method, control = control)[[1]]
     o <- ser_permutation(o, o)
     x <- as.matrix(x)
 
@@ -185,19 +198,39 @@ hmap <- function(x,
     if (!is.matrix(x))
       x <- as.matrix(x)
 
-    o <- seriate(x, "Heatmap", seriation_method = method, dist_fun = distfun,
-                 seriation_control = control, scale = scale)
+    o <-
+      seriate(
+        x,
+        "Heatmap",
+        seriation_method = method,
+        dist_fun = distfun,
+        seriation_control = control,
+        scale = scale
+      )
   }
 
+  if (plot_margins == "auto") {
+    if (all(sapply(o, inherits, "hclust")))
+      plot_margins <- "dendrogram"
+    else
+      plot_margins <- "distances"
+  }
 
-  # is hierarchical? then let's do a heatmap from stats
-  if (inherits(o[[1]], "hclust") && showDend) {
+  if (plot_margins == "dendrogram" &&
+      !all(sapply(o, inherits, "hclust"))) {
+    warning(
+      "Dendrogramms not available for all dimensions! Plotting distance matrices instead."
+    )
+    plot_margins <- "distances"
+  }
+
+  if (plot_margins == "dendrogram") {
     # heatmap by default scales rows: we don't want that!
     # options are ignored for now: we use ...
 
     stats::heatmap(
       x,
-      Rowv = stats::as.dendrogram(o[[1]]),
+      Rowv = stats::as.dendrogram(rev(o[[1]])),
       Colv = stats::as.dendrogram(o[[2]]),
       scale = scale,
       col = col,
@@ -206,13 +239,28 @@ hmap <- function(x,
       ...
     )
 
-  } else {
+  } else if (plot_margins == "distances") {
     ### we plot seriated distance matrices
     #pimage(x, o, col = col, row_labels = row_labels, col_labels = col_labels, ...)
-    .hmap_dist(x, method, dist_row = distfun(x), dist_col = distfun(t(x)),
-               o, col = col,
-      row_labels = row_labels, col_labels = col_labels, ...)
-  }
+    .hmap_dist(
+      x,
+      method,
+      dist_row = distfun(x),
+      dist_col = distfun(t(x)),
+      o,
+      col = col,
+      col_dist = col_dist,
+      row_labels = row_labels,
+      col_labels = col_labels,
+      ...
+    )
+  } else
+    pimage(x,
+           o,
+           col = col,
+           row_labels = row_labels,
+           col_labels = col_labels,
+           ...)
 
   ## return permutation indices
   return(invisible(list(
@@ -225,11 +273,11 @@ hmap <- function(x,
 ## grid-based dissimilarity plot with seriation
 .hmap_dist <-
   function(x,
-    method,
-    dist_row,
-    dist_col,
-    o,
-    ...) {
+           method,
+           dist_row,
+           dist_col,
+           o,
+           ...) {
     o_row <- o[[1]]
     o_col <- o[[2]]
 
@@ -242,7 +290,7 @@ hmap <- function(x,
           .diverge_pal()
         else
           .sequential_pal(),
-        col_dist  = .sequential_pal(),
+        col_dist  = grays,
         prop      = FALSE,
         main      = NULL,
         key       = TRUE,
@@ -264,10 +312,10 @@ hmap <- function(x,
     options$col_dist <- rev(options$col_dist)
     .showdist_options <- c("none", "row", "column", "both")
     options$showdist <- .showdist_options[pmatch(options$showdist,
-      .showdist_options)]
+                                                 .showdist_options)]
     if (is.na(options$showdist))
       stop("Unknown value for showdist. Use one of: ",
-        paste(dQuote(.showdist_options), collapse = ", "))
+           paste(dQuote(.showdist_options), collapse = ", "))
 
     ## if symmetric then we only use o_row and dist_row
     if (length(o_row) == length(o_col) && options$symm == TRUE) {
@@ -408,8 +456,8 @@ hmap <- function(x,
       )
     } else{
       heights <- widths <- unit.c(unit(1, "null"),
-        unit(.5, "lines"),   # space
-        unit(1, "null"))
+                                  unit(.5, "lines"),   # space
+                                  unit(1, "null"))
     }
 
     pushViewport(
@@ -431,9 +479,9 @@ hmap <- function(x,
     pushViewport(viewport(layout.pos.row = 3, layout.pos.col = 3))
 
     .grid_image(x,
-      col = options$col,
-      gp = options$gp,
-      zlim = options$zlim)
+                col = options$col,
+                gp = options$gp,
+                zlim = options$zlim)
 
     downViewport("image")
     if (col_labels)
@@ -459,8 +507,8 @@ hmap <- function(x,
     if (options$showdist %in% c("row", "both")) {
       pushViewport(viewport(layout.pos.row = 3, layout.pos.col = 1))
       .grid_image(as.matrix(dist_row),
-        col = options$col_dist,
-        gp = options$gp)
+                  col = options$col_dist,
+                  gp = options$gp)
       popViewport(1)
     }
 
@@ -468,8 +516,8 @@ hmap <- function(x,
     if (options$showdist %in% c("column", "both")) {
       pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 3))
       .grid_image(as.matrix(dist_col),
-        col = options$col_dist,
-        gp = options$gp)
+                  col = options$col_dist,
+                  gp = options$gp)
       popViewport(1)
     }
 

@@ -162,16 +162,16 @@ bertinplot(x, order, panel = panel.rectangles)
 bertinplot(x, order, panel = panel.lines)
 
 # Plot with cut lines (we manually set the order here)
-order <- ser_permutation(c(21, 16, 19, 18, 14, 12, 20, 15,
-    17, 26, 13, 41,  7, 11, 5, 23, 28, 34, 31, 1, 38, 40,
-    3, 39,  4, 27, 24,  8, 37, 36, 25, 30, 33, 35,  2,
-    22, 32, 29, 10,  6,  9),
-    c(4, 2, 1, 6, 8, 7, 5, 3))
+order <- ser_permutation(c(6L, 9L, 29L, 10L, 32L, 22L, 2L, 35L,
+  24L, 30L, 33L, 25L, 37L, 36L, 8L, 27L, 4L, 39L, 3L, 40L, 38L,
+  1L, 31L, 34L, 28L, 23L, 5L, 11L, 7L, 41L, 13L, 26L, 17L, 15L,
+  12L, 20L, 14L, 18L, 19L, 16L, 21L),
+    c(4L, 2L, 1L, 6L, 7L, 8L, 5L, 3L))
 
 bertinplot(x, order, pop=FALSE)
 bertin_cut_line(, 4) ## horizontal line between rows 4 and 5
 bertin_cut_line(, 7) ## separate "Right to Life" from the rest
-bertin_cut_line(14, c(0, 4)) ## separate a block of large values (vertically)
+bertin_cut_line(18, c(0, 4)) ## separate a block of large values (vertically)
 
 # ggplot2-based plots
 if (require("ggplot2")) {

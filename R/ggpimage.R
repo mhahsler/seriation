@@ -259,18 +259,23 @@ ggpimage.dist <-
 
   # colors scales
   if (is.logical(x)) {
-    g <-
-      g + .gg_logical_pal()
+    col <- .gg_logical_pal()
 
     # colors for diverging
-  } else if (any(x < 0, na.rm = TRUE) && any(x > 0, na.rm = TRUE)) {
-    g <-
-      g + .gg_diverge_pal(limits = zlim)
-
+  } else if (!is.null(zlim)) {
+    if (min(zlim) < 0)
+      col <- .gg_diverge_pal(limits = zlim)
+    else
+      col <- .gg_sequential_pal(limits = zlim)
   } else {
-    g <-
-      g + .gg_sequential_pal(limits = zlim)
+    if (any(x < 0, na.rm = TRUE))  {
+      col <- .gg_diverge_pal(limits = zlim)
+      zlim <- max(abs(range(x, na.rm = TRUE))) * c(-1, 1)
+    } else
+      col <- .gg_sequential_pal(limits = zlim)
   }
+
+  g <- g + col
 
   g
 }
