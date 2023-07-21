@@ -32,9 +32,9 @@ permute(x, order, ...)
 
 \method{permute}{dist}(x, order, ...)
 
-\method{permute}{dendrogram}(x, order, ...)
+\method{permute}{dendrogram}(x, order, dist = NULL, ...)
 
-\method{permute}{hclust}(x, order, ...)
+\method{permute}{hclust}(x, order, dist = NULL, ...)
 }
 \arguments{
 \item{x}{an object (a list, a vector, a \code{dist} object, a matrix, an
@@ -55,6 +55,9 @@ If \code{NULL}, \code{order} needs to contain a permutation for all dimensions.
 If a single margin is specified, then \code{order} can also contain
 a single permutation vector.
 \code{margin} are ignored.}
+
+\item{dist}{the distance matrix used to create the dendrogram. Only needed if
+order is the name of a seriation method.}
 }
 \value{
 A permuted object of the same class as \code{x}.
@@ -106,9 +109,10 @@ permute(m, "PCA")
 ## permute only rows using PCA
 permute(m, "PCA", margin = 1)
 
-# Permute data.frames
+# Permute data.frames using heatmap seration (= hierarchical
+#  clustering + optimal leaf ordering)
 df <- as.data.frame(m)
-permute(df, o)
+permute(df, "Heatmap")
 
 # Permute objects in a dist object
 d <- dist(m)
@@ -124,10 +128,15 @@ l
 
 permute(l, c(2, 3, 1))
 
-# Permute a dendrogram
+# Permute to reorder dendrogram
 hc <- hclust(d)
 plot(hc)
+
 plot(permute(hc, 5:1))
+plot(permute(hc, "OLO", dist = d))
+plot(permute(hc, "GW", dist = d))
+plot(permute(hc, "MDS", dist = d))
+plot(permute(hc, "TSP", dist = d))
 }
 \seealso{
 Other permutation: 

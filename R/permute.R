@@ -61,9 +61,8 @@ find_order <- function(x, order, ...) {
 #'
 #' For \code{dendrogram} and \code{hclust}, subtrees are rotated to represent
 #' the order best possible. If the order is not achieved perfectly then the
-#' user is warned. This behavior can be changed with the extra parameter
-#' \code{incompatible} which can take the values \code{"warn"} (default),
-#' \code{"stop"} or \code{"ignore"}.
+#' user is warned. See also [reorder.hclust()] for
+#' reordering `hclust` objects.
 #'
 #' @family permutation
 #'
@@ -80,6 +79,8 @@ find_order <- function(x, order, ...) {
 #' If a single margin is specified, then \code{order} can also contain
 #' a single permutation vector.
 #' \code{margin} are ignored.
+#' @param dist the distance matrix used to create the dendrogram. Only needed if
+#'  order is the name of a seriation method.
 #' @param ...  if `order` is the name of a seriation method, then additional arguments are
 #' passed on to [seriate()].
 #' @returns A permuted object of the same class as `x`.
@@ -108,9 +109,10 @@ find_order <- function(x, order, ...) {
 #' ## permute only rows using PCA
 #' permute(m, "PCA", margin = 1)
 #'
-#' # Permute data.frames
+#' # Permute data.frames using heatmap seration (= hierarchical
+#' #  clustering + optimal leaf ordering)
 #' df <- as.data.frame(m)
-#' permute(df, o)
+#' permute(df, "Heatmap")
 #'
 #' # Permute objects in a dist object
 #' d <- dist(m)
@@ -126,10 +128,17 @@ find_order <- function(x, order, ...) {
 #'
 #' permute(l, c(2, 3, 1))
 #'
-#' # Permute a dendrogram
+#' # Permute to reorder dendrogram (see also reorder.hclust)
 #' hc <- hclust(d)
 #' plot(hc)
+#'
 #' plot(permute(hc, 5:1))
+#' plot(permute(hc, 5:1, incompartible = "stop"))
+#'
+#' plot(permute(hc, "OLO", dist = d))
+#' plot(permute(hc, "GW", dist = d))
+#' plot(permute(hc, "MDS", dist = d))
+#' plot(permute(hc, "TSP", dist = d))
 #' @export
 permute <- function(x, order, ...)
   UseMethod("permute")
@@ -189,8 +198,27 @@ permute.dist <- function(x, order, ...) {
 
 #' @rdname permute
 #' @export
-permute.dendrogram <- function(x, order, ...) {
-  order <- find_order(x, order, ...)
+permute.dendrogram <- function(x, order, dist = NULL,  ...) {
+  # order can be
+  #  * TRUE/FALSE
+  #  * a numeric vector
+  #  * a ser_permutation of length 1
+  #  * a ser_permutation vector
+  #  * a seriation method (requires dist)
+
+  if (is.logical(order)) {
+    if(!order)
+      return(x)
+    else
+      order <- "OLO"
+  }
+
+  if (is.character(order)) {
+    if (is.null(dist))
+      stop("dist need for seriation-based reordering.")
+
+    suppressWarnings(order <- seriate(dist, method = order, hclust = x, ...))
+  }
 
   # modeled after rotate in dendextend. Copied here to reduce the heavy dependency count of dendextend.
   #  x <- dendextend::rotate(x, order = match(get_order(order), get_order(x)))
@@ -232,8 +260,8 @@ permute.dendrogram <- function(x, order, ...) {
 
 #' @rdname permute
 #' @export
-permute.hclust <- function(x, order, ...) {
-  nd <- stats::as.hclust(permute(stats::as.dendrogram(x), order, ...))
+permute.hclust <- function(x, order, dist = NULL, ...) {
+  nd <- stats::as.hclust(permute(stats::as.dendrogram(x), order, dist = dist, ...))
   x$merge <- nd$merge
   x$height <- nd$height
   x$order <- nd$order

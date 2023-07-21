@@ -1,5 +1,9 @@
 # seriation 1.5.1-1 (xx/xx/2023)
 
+## New Features
+- permute for dendrograms gained parameter dist and accepts now seriation 
+  methods.
+
 # seriation 1.5.1 (07/20/2023)
 
 ## New Fearures
