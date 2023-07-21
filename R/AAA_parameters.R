@@ -40,19 +40,20 @@
     ## unknown parameter
     if (any(is.na(o))) {
       warning(sprintf(
-        "Unknown control parameter(s): %s",
-        paste(names(parameter)[is.na(o)],
+        "%s: Unknown control parameter(s) %s are ignored. Rerun with verbose = TRUE.",
+        deparse(sys.calls()[[sys.nframe()-3]]),
+        paste(sQuote(names(parameter)[is.na(o)]),
               collapse = ", ")
       ),
-        call. = FALSE,
-        immediate. = TRUE)
+        call. = FALSE)
+
     }
 
     ### defaults are now the actual parameters
     defaults[o[!is.na(o)]] <- parameter[!is.na(o)]
   }
 
-  if (defaults$verbose || any(is.na(o))) {
+  if (defaults$verbose) {
     cat("control:\n")
     .print_control(defaults, "used values")
   }
