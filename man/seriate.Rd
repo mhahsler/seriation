@@ -167,10 +167,12 @@ and a version that uses random restarts for stability called \code{metaMDS}.
 
 Orders along the 1D Sammon's non-linear mapping.
 \code{control} parameters are passed on to \code{\link[MASS:sammon]{MASS::sammon()}}.
-\item \strong{Angle in 2D principal coordinates space:} \code{"MDS_angle"}
+\item \strong{Angular order of the first two eigenvectors:} \code{"MDS_angle"}
 
 Finds a 2D configuration using MDS (\code{\link[=cmdscale]{cmdscale()}})
-and then orders by the angle in this space. The order is split by the
+to approximate the eigenvectors of the covariance matrix in the
+original data matrix.
+Orders by the angle in this space and splits the order by the
 larges gap between adjacent angles. A similar method was used by
 Friendly (2002) to order variables in correlation matrices
 by angles of first two eigenvectors.
@@ -455,28 +457,37 @@ matrix to obtain the column order.
 
 Note that for a distance matrix calculated from \code{x} with Euclidean
 distance, this method minimizes the least square criterion.
-\item \strong{Order using the angle in the space spanned by the first two principal components:} \code{"PCA_angle"} (Friendly, 2002)
+\item \strong{Angular order of the first two PCA components:} \code{"PCA_angle"}
 
 For rows, projects the data on the first two principal components
 and then orders by the angle in this space. The order is split by the larges
-gap between adjacent angles. This method was suggested by
+gap between adjacent angles. A similar method was suggested by
 Friendly (2002) to order variables in correlation matrices
-by angles of first two eigenvectors. Performs the same process on the
+by angles of first two eigenvectors. PCA also computes the eigenvectors
+of the covariance matrix of the data.
+
+Performs the same process on the
 transposed matrix for the column order.
 }
 
 \strong{Other methods}
 \itemize{
-\item \strong{Identity permutation:} \code{"Identity"}
-\item \strong{Reverse Identity permutation:} \code{"Reverse"}
-\item \strong{Random permutation:} \code{"Random"}
-\item \strong{By row/column mean:} \code{"mean"}
+\item \strong{Angular order of the first two eigenvectors:} \code{"AOE"} (Friendly 2002)
+
+This method reordered correlation matrices by the angle in the space
+spanned by the two largest eigenvectors of the matrix. The order is split
+by the largest angle gap. This is the original method proposed by
+Friendly (2002).
+\item \strong{By row/column mean:} \code{"Mean"}
 
 A transformation can be applied before calculating the means.
 The function is specified as control
 parameter \code{"transformation"}. Any function that takes as an input a
 matrix and returns the transformed matrix can be used. Examples
 are \code{scale} or \verb{\\(x) x^.5}.
+\item \strong{Identity permutation:} \code{"Identity"}
+\item \strong{Reverse Identity permutation:} \code{"Reverse"}
+\item \strong{Random permutation:} \code{"Random"}
 }
 
 For \strong{general arrays} no built-in methods are currently available.
@@ -551,14 +562,17 @@ criterion(x, order)
 corr <- cor(x)
 
 # plot in original order
-pimage(corr, upper_tri = FALSE, main = "Correlation matrix")
+pimage(corr, main = "Correlation matrix")
 
-# we need to define a distance (we used d = sqrt(2(1 - r))) and
-# then reorder the matrix (rows and columns).
-d <- as.dist(sqrt(2 * (1 - corr)))
-o <- seriate(d)
+# reorder the correlation matrix using the angle of eigenvectors
+pimage(corr, order = "AOE", main = "Correlation matrix (AOE)")
+
+# we can also define a distance (we used d = sqrt(1 - r)) and
+# then reorder the matrix (rows and columns) using any seriation method.
+d <- as.dist(sqrt(1 - corr))
+o <- seriate(d, method = "R2E")
 corr_reordered <- permute(corr, order = c(o, o))
-pimage(corr_reordered, upper_tri = FALSE, main = "Correlation matrix (reordered)")
+pimage(corr_reordered, main = "Correlation matrix (R2E)")
 }
 \references{
 Arabie, P. and L.J. Hubert (1990): The bond energy algorithm

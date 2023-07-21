@@ -1,0 +1,177 @@
+---
+title: "Correlation Matix Visualization with Package Seriation"
+author: "Michael Hahsler"
+format:
+  html:
+    toc: true
+editor: visual
+---
+
+# Introduction
+
+A correlation matrix is a square, symmetric matrix showing the pairwise 
+correlation coefficients between two sets of variables. Reordering 
+the variables and plotting the matrix can help to find hidden patterns among 
+the variables. The package `seriation` implements a large number of reordering methods (see: the [list with all implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)). `seriation` also provides a set of functions to display reordered matrices:
+
+-   `pimage()`
+
+How to cite the `seriation` package:
+
+> Hahsler M, Hornik K, Buchta C (2008). "Getting things in order: An introduction to the R package seriation." *Journal of Statistical Software*, *25*(3), 1-34. ISSN 1548-7660, doi:10.18637/jss.v025.i03 <https://doi.org/10.18637/jss.v025.i03>.
+
+## Prepare the data
+
+As an example, we use the `mtcars` dataset 
+which contains data about fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models).
+
+```{r}
+if (!require("seriation")) install.packages("seriation")
+
+library("seriation")
+data("mtcars")
+
+DT::datatable(mtcars)
+```
+
+We calcualte a correlation matrix.
+
+```{r}
+m <- cor(mtcars)
+round(m, 2)
+```
+
+We first visualize the matrix without reordering and then use the order method `"AOE"`.
+AOE stands for angle of eigenvalues and was proposed for correlation matrices by
+Friendly (2002).
+
+
+```{r}
+#| fig-asp: 1
+#| fig-show: hold
+#| out-width: 50%
+#| layout-ncol: 2 
+pimage(m)
+pimage(m, order = "AOE")
+```
+
+The reordering clearly shows that there is tow groups of highly correlated variables and these
+two groups have a strong negative correlation with each other.
+
+
+## Visualization options
+
+Here are some options.
+
+```{r}
+#| fig-asp: 1
+#| fig-show: hold
+#| out-width: 50%
+#| layout-ncol: 2 
+pimage(m, order = "AOE", diag = FALSE, upper_tri = FALSE)
+pimage(m, order = "AOE", col = colorRampPalette(c("red", "white", "darkgreen"))(100))
+```
+
+
+## Using other seriation methods
+
+We can apply any seriation method for distances to create an order.
+First, we convert the correlation matrix into a distance matrix using
+$d_{ij} = \sqrt{1 - m_{ij}}$. Then we can use the distances for seriation
+and use the resulting order to rearrange the rows and columns of the 
+correlation matrix.
+
+```{r}
+#| fig-asp: 1
+#| fig-show: hold
+#| out-width: 50%
+#| layout-ncol: 2 
+d <- as.dist(sqrt(1 - m))
+
+o <- seriate(d, "MDS")
+pimage(m , order = c(o, o), main = "MDS")
+
+o <- seriate(d, "ARSA")
+pimage(m , order = c(o, o), main = "ARSA")
+
+o <- seriate(d, "OLO")
+pimage(m , order = c(o, o), main = "OLO")
+
+o <- seriate(d, "R2E")
+pimage(m , order = c(o, o), main = "R2E")
+```
+
+
+## Other packages
+
+Several other packages can be used to visualize and explore correlation structure.
+Some of these packages support reordering with the seriation package.
+
+### Package corrgram
+
+
+The order argument in [corrgram](https://kwstat.github.io/corrgram/) accepts methods from package seriation.
+
+```{r}
+#| fig-asp: 1
+#| fig-show: hold
+#| out-width: 50%
+#| layout-ncol: 2 
+if (!require("corrgram")) install.packages("corrgram")
+library("corrgram")
+
+corrgram(m, order = "OLO")
+corrgram(m, order = "OLO", lower.panel=panel.shade, upper.panel=panel.pie)
+```
+
+### Package corrr
+
+The function `rearrange()` in package [corrr](https://corrr.tidymodels.org/) accepts some methods from seriation. Here is a 
+complete example that uses method `"R2E"`.
+
+```{r}
+#| fig-asp: 1
+#| out-width: 50%
+#| fig-align: "center"
+if (!require("corrr")) install.packages("corrr")
+library("corrr")
+
+x <- datasets::mtcars |>
+       correlate() |>   
+       focus(-cyl, -vs, mirror = TRUE) |>  # remove 'cyl' and 'vs'
+       rearrange(method = "R2E") |>  
+       shave()
+
+rplot(x)
+```
+
+
+### Package corrplot
+
+Package [corrplot](https://github.com/taiyun/corrplot) offers many visualization 
+methods. Orders from package seriation can be used by permuting 
+the correlation matrix before it is passed to `corrplot()`.
+
+```{r}
+#| fig-asp: 1
+#| out-width: 50%
+#| fig-align: "center"
+if (!require("corrplot")) install.packages("corrplot")
+library("corrplot")
+
+d <- as.dist(sqrt(1 - m))
+o <- seriate(d, "R2E")
+m_R2E <- permute(m, c(o,o))
+
+corrplot(m_R2E , order = "original")
+```
+
+## References
+
+* Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things in Order: An Introduction to the R Package seriation,](http://dx.doi.org/10.18637/jss.v025.i03) _Journal of Statistical Software,_ 25(3), 2008.
+DOI: 10.18637/jss.v025.i03
+
+* Friendly, M. (2002): Corrgrams: Exploratory Displays for Correlation
+Matrices. \emph{The American Statistician}, \bold{56}(4), 316--324.
+DOI: 10.1198/000313002533
+

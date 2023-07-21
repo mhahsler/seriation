@@ -132,7 +132,7 @@ set_seriation_method(
   "dist",
   "MDS_angle",
   seriate_dist_angle,
-  "Order by the angle in this space given by 2D metric MDS.",
+  "Order by the angular order in the 2D MDS projection space split by the larges gap",
   control = .mds_control
 )
 

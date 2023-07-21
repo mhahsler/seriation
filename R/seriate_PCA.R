@@ -76,22 +76,6 @@ seriate_matrix_fpc <- function(x, control = NULL, margin) {
   o
 }
 
-## Angle between the first 2 PCs.
-# Friendly, M. (2002), "Corrgrams: Exploratory Displays for Correlation Matrices," The American Statistician,56, 316-324.
-# Friendly, M. and Kwan, E. (2003), "Effect ordering for data displays," Computational Statistics & Data Analysis, 43, 509-539.
-.order_angle <- function(x) {
-  alpha <- atan2(x[, 1], x[, 2])
-  o <- order(alpha)
-  cut <- which.max(abs(diff(c(
-    alpha[o], alpha[o[1]] + 2 * pi
-  ))))
-  if (cut == length(o))
-    o
-  else
-    o[c((cut + 1):length(o), 1:(cut))]
-
-}
-
 
 seriate_matrix_angle <- function(x, control = NULL, margin) {
   control <- .get_parameters(control, .pca_contr)
@@ -136,6 +120,6 @@ set_seriation_method(
   "matrix",
   "PCA_angle",
   seriate_matrix_angle,
-  "Projects the data on the first two principal components and then orders by the angle in this space. The order is split by the larges gap between adjacent angles.",
+  "Uses the angular order in the 2D PCA projection space split by the larges gap.",
   .pca_contr
 )

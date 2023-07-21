@@ -82,9 +82,8 @@ vector).
 
 For \code{dendrogram} and \code{hclust}, subtrees are rotated to represent
 the order best possible. If the order is not achieved perfectly then the
-user is warned. This behavior can be changed with the extra parameter
-\code{incompatible} which can take the values \code{"warn"} (default),
-\code{"stop"} or \code{"ignore"}.
+user is warned. See also \code{\link[=reorder.hclust]{reorder.hclust()}} for
+reordering \code{hclust} objects.
 }
 \examples{
 # List data types for permute
@@ -128,11 +127,13 @@ l
 
 permute(l, c(2, 3, 1))
 
-# Permute to reorder dendrogram
+# Permute to reorder dendrogram (see also reorder.hclust)
 hc <- hclust(d)
 plot(hc)
 
 plot(permute(hc, 5:1))
+plot(permute(hc, 5:1, incompartible = "stop"))
+
 plot(permute(hc, "OLO", dist = d))
 plot(permute(hc, "GW", dist = d))
 plot(permute(hc, "MDS", dist = d))

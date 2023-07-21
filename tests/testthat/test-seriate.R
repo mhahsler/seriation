@@ -301,6 +301,10 @@ test_that("test if seriate.matrix returns expected results", {
 
   cat("\n      matrix\n") # for cleaner testthat output
   methods <- list_seriation_methods(kind = "matrix")
+
+  ### AOE is for symmetric correlation matrices
+  methods <- setdiff(methods, "AOE")
+
   os <- sapply(methods, function(m) {
     cat("   -> testing", format(m, width = 13), "... ")
     tm <- system.time(o <- seriate(x, method = m))
@@ -351,6 +355,10 @@ test_that("test if seriate.matrix with margin returns expected results", {
 
   cat("\n     matrix with margin\n") # for cleaner testthat output
   methods <- list_seriation_methods(kind = "matrix")
+
+  ### AOE is for symmetric correlation matrices
+  methods <- setdiff(methods, "AOE")
+
   os <- sapply(methods, function(m) {
     cat("   -> testing", format(m, width = 13), "... ")
     tm <- system.time(o <- seriate(x, method = m, margin = 2))

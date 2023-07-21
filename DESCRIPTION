@@ -116,6 +116,7 @@ Collate:
     'seriate.array.R'
     'seriate.data.frame.R'
     'seriate.table.R'
+    'seriate_AOE.R'
     'seriate_ARSA_Branch-Bound.R'
     'seriate_TSP.R'
     'seriate_BEA.R'

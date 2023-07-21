@@ -27,8 +27,7 @@ Here are some quick guides for
 - [How to reorder
   heatmaps](https://mhahsler.github.io/seriation/heatmaps.html)
 - [How to reorder correlation
-  matrices](https://taiyun.github.io/corrplot/) (using seriation in
-  package corrplot)
+  matrices](https://mhahsler.github.io/seriation/heatmaps.html)
 - [How to evaluate clusters using dissimilarity
   plots](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html)
 - [A list with all implemented seriation
@@ -224,7 +223,8 @@ This is typically done by minimizing a stress measure or the
 reconstruction error.
 
 - **MDS** - classical metric multidimensional scaling
-- **MDS (angle)** - order by the angle in 2D principal coordinates space
+- **MDS_angle** - order by the angular order in the 2D MDS projection
+  space split by the larges gap
 - **isoMDS** - 1D Krusakl’s non-metric multidimensional scaling
 - **isomap** - 1D isometric feature mapping ordination
 - **monoMDS** - order along 1D global and local non-metric
@@ -304,11 +304,11 @@ Row and column order influence each other.
 These methods need access to the data matrix instead of dissimilarities
 to reorder objects (rows). The same approach can be applied to columns.
 
+- **PCA_angle** - order by the angular order in the 2D PCA projection
+  space split by the larges gap
 - **LLE** reorder along a 1D locally linear embedding
 - **Means** - reorders using row and column means
 - **PCA** - orders along the first principal component
-- **PCA (angle)** - orders by the angle on the projection on the first
-  two principal components
 - **TSNE** - Order along the 1D t-distributed stochastic neighbor
   embedding (t-SNE)
 - **UMAP** - Order along the 1D embedding produced by uniform manifold
@@ -316,6 +316,8 @@ to reorder objects (rows). The same approach can be applied to columns.
 
 ### Other methods
 
+- **AOE** - order by the angular order of the first two eigenvectors for
+  correlation matrices.
 - **Identity** permutation
 - **Random** permutation
 - **Reverse** order

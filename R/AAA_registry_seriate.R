@@ -183,9 +183,10 @@ get_seriation_method <- function(kind, name) {
   }
 
 
-  if (missing(kind))
+  if (missing(kind)) {
     method <- registry_seriate$get_entry(name = name)
-  else
+    kind <- NA
+  }  else
     method <- registry_seriate$get_entry(kind = kind, name = name)
 
   if (is.null(method))
