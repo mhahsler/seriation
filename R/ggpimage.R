@@ -40,13 +40,14 @@ ggpimage.matrix <- function(x,
   diag = TRUE,
   row_labels = NULL,
   col_labels = NULL,
-  prop = FALSE,
+  prop = isSymmetric(x),
   flip_axes = FALSE,
   reverse_columns = FALSE,
   ...)
 {
   check_installed("ggplot2")
 
+  force(prop)
   x <- as.matrix(x)
 
   # check data

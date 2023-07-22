@@ -286,6 +286,8 @@ pimage.matrix <-
     newpage = TRUE,
     pop = TRUE,
     gp = NULL) {
+    force(prop)
+
     x <- as.matrix(x)
 
     # check data
