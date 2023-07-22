@@ -73,6 +73,21 @@ pimage(m, order = "AOE", col = colorRampPalette(c("red", "white", "darkgreen"))(
 ```
 
 
+The plots are also available in `ggplot2` versions.
+
+```{r}
+#| fig-asp: 1
+#| fig-show: hold
+#| out-width: 50%
+#| layout-ncol: 2 
+library("ggplot2")
+
+ggpimage(m, order = "AOE", diag = FALSE, upper_tri = FALSE)
+ggpimage(m, order = "AOE") + scale_fill_gradient2(low = "red", high = "darkgreen")
+```
+
+
+
 ## Using other seriation methods
 
 We can apply any seriation method for distances to create an order.
@@ -170,7 +185,6 @@ corrplot(m_R2E , order = "original")
 
 * Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things in Order: An Introduction to the R Package seriation,](http://dx.doi.org/10.18637/jss.v025.i03) _Journal of Statistical Software,_ 25(3), 2008.
 DOI: 10.18637/jss.v025.i03
-
 * Friendly, M. (2002): Corrgrams: Exploratory Displays for Correlation
 Matrices. \emph{The American Statistician}, \bold{56}(4), 316--324.
 DOI: 10.1198/000313002533
