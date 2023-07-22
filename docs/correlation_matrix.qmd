@@ -15,6 +15,7 @@ the variables and plotting the matrix can help to find hidden patterns among
 the variables. The package `seriation` implements a large number of reordering methods (see: the [list with all implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)). `seriation` also provides a set of functions to display reordered matrices:
 
 -   `pimage()`
+-   `ggpimage()`
 
 How to cite the `seriation` package:
 
