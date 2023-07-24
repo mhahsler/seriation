@@ -48,6 +48,5 @@ set_seriation_method(
   "Mean",
   seriate_matrix_mean,
   "Reorders rows and columns by row and column means.",
-  .seriate_mean_control,
-  optimizes = "Other"
+  .seriate_mean_control
 )

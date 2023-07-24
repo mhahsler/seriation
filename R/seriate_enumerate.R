@@ -93,5 +93,5 @@ set_seriation_method(
   seriate_dist_enumerate,
   "Enumerate all permutations",
   control = .control_enumerate,
-  optimizes = "Various (set via control criterion)"
+  optimizes = .opt (NA, "set via control criterion)")
 )

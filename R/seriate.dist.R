@@ -22,7 +22,10 @@ seriate.dist <-
   function(x,
     method = "Spectral",
     control = NULL,
+    rep = 1L,
     ...) {
+    if (rep > 1L)
+      return(seriate_rep(x, method, control, rep =  rep, ...))
 
     ## add ... to control
     control <- c(control, list(...))

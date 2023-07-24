@@ -122,8 +122,10 @@ criterion_inertia <- function(x, order = NULL, ...) {
 
 criterion_ar_events <- function(x, order, ...)
   .ar(x, order, 1L)
+
 criterion_ar_deviations <- function(x, order, ...)
   .ar(x, order, 2L)
+
 #criterion_ar_weighted <- function(x, order, ...) .ar(x, order, 3L)
 
 ## w \in [2,n-1]
@@ -206,7 +208,7 @@ criterion_2SUM <- function(x, order, ...) {
   qap::qap.obj(.A_2SUM(attr(x, "Size")), 1 / (1 + as.matrix(x)), order)
 }
 
-### Note: We use n-abs(1-j) since QAP needs positive entires in A!
+### Note: We use n-abs(1-j) since QAP needs positive entries in A!
 .A_LS <- function(n)
   outer(
     1:n,
@@ -247,6 +249,7 @@ set_criterion_method("dist",
   criterion_ar_events,
   "Anti-Robinson events",
   FALSE)
+
 set_criterion_method("dist",
   "AR_deviations",
   criterion_ar_deviations,

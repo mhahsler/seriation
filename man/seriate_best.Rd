@@ -47,7 +47,9 @@ methods to try.}
 For \code{seriate_best()} control needs to be a named list of control lists
 with the names matching the seriation methods.}
 
-\item{criterion}{a character string with the \link{criterion} to optimize.}
+\item{criterion}{\code{seriate_rep()} chooses the criterion specified for the
+method in the registry. A character string with the \link{criterion} to optimize
+can be specified.}
 
 \item{rep}{number of times to repeat the randomized seriation algorithm.}
 
@@ -76,8 +78,10 @@ given a criterion measure. \code{seriate_improve()} uses a local improvement str
 to imporve an existing solution.
 }
 \details{
-\code{seriate_rep()} rerun different seriation methods to find the best solution given a criterion
-measure. Non-stochastic methods are automatically only run once.
+\code{seriate_rep()} rerun a randomized seriation methods to find the best solution
+given the criterion specified for the method in the registry.
+A specific criterion can also be specified.
+Non-stochastic methods are automatically only run once.
 
 \code{seriate_best()} runs a set of methods and returns the best result given a
 criterion. Stochastic methods are automatically randomly restarted several times.
@@ -86,6 +90,20 @@ criterion. Stochastic methods are automatically randomly restarted several times
 a specified criterion measure. It uses \code{\link[=seriate]{seriate()}} with method "\code{GSA}",
 a reduced probability to accept bad moves, and a lower minimum temperature. Control
 parameters for this method are accepted.
+
+\strong{Criterion}
+
+If no criterion is specified, ten the criterion specified for the method in
+the registry (see \verb{[get_seriation_method()]}) is used. For methods with no
+criterion in the registry (marked as "other"), a default method is used.
+The defaults are:
+\itemize{
+\item \code{dist}: \code{"AR_deviations"} - the study in Hahsler (2007) has shown that this
+criterion has high similarity with most other criteria.
+\item \code{matrix}: "Moore_stress"
+}
+
+\strong{Parallel Execution}
 
 Some methods support for parallel execution is provided using the \code{\link{foreach}} package. To
 use parallel execution, a suitable backend needs to be registered (eee
@@ -100,9 +118,9 @@ o <- seriate_best(d_supreme, criterion = "AR_events")
 o
 pimage(d_supreme, o)
 
-# run a randomized algorithms several times. Repetition information
-# is returned as attributes
-o <- seriate_rep(d_supreme, "QAP_2SUM", rep = 5)
+# run a randomized algorithms several times. It automatically chooses the
+# LS criterion. Repetition information is returned as attributes
+o <- seriate_rep(d_supreme, "QAP_LS", rep = 5)
 
 attr(o, "criterion")
 hist(attr(o, "criterion_distribution"))
@@ -118,18 +136,24 @@ library(doParallel)
 registerDoParallel(cores = detectCores() - 1L)
 
 # seriate rows of the iris data set
-o <- seriate_best(d_iris)
+o <- seriate_best(d_iris, criterion = "LS")
 o
 
 pimage(d_iris, o)
 
-# improve the order to minimize RGAR
+# improve the order to minimize RGAR instead of LS
 o_improved <- seriate_improve(d_iris, o, criterion = "RGAR")
 pimage(d_iris, o_improved)
 
 # available control parameters for seriate_improve()
 get_seriation_method(name = "GSA")
 }
+}
+\references{
+Hahsler, M. (2017): An experimental comparison of seriation methods for
+one-mode two-way data. \emph{European Journal of Operational Research,}
+\bold{257}, 133--143.
+\doi{10.1016/j.ejor.2016.08.066}
 }
 \seealso{
 Other seriation: 

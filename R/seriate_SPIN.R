@@ -233,7 +233,7 @@ set_seriation_method(
   seriate_dist_SPIN,
   "Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Neighborhood algorithm to concentrate low distance values around the diagonal.",
   .spin_contr,
-  optimizes = "Energy"
+  optimizes = .opt(NA, "Energy")
 )
 set_seriation_method(
   "dist",
@@ -241,5 +241,5 @@ set_seriation_method(
   seriate_dist_SPIN_STS,
   "Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Side-to-Side algorithm which tries to push out large distance values.",
   .spin_sts_contr,
-  optimizes = "Energy"
+  optimizes = .opt(NA, "Energy")
 )

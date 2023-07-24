@@ -125,7 +125,7 @@ set_seriation_method(
   seriate_dist_mds,
   "Order along the 1D classical metric multidimensional scaling",
   control = .mds_control,
-  optimizes = "Other (MDS strain)"
+  optimizes = .opt("MDS_stress", "Euclidean distances")
 )
 
 set_seriation_method(
@@ -142,7 +142,7 @@ set_seriation_method(
   seriate_dist_mds_isoMDS,
   "Order along the 1D Kruskal's non-metric multidimensional scaling",
   control = .mds_isoMDS_control,
-  optimizes = "Other (MDS stress with monotonic transformation)"
+  optimizes = .opt("MDS_stress", "with monotonic transformation")
 )
 
 set_seriation_method(
@@ -151,6 +151,6 @@ set_seriation_method(
   seriate_dist_mds_sammon,
   "Order along the 1D Sammon's non-linear mapping",
   control = .mds_sammon_control,
-  optimizes = "Other (scale free, weighted MDS stress called Sammon's error)"
-)
+  optimizes = .opt("MDS_stress", "scale free, weighted stress called Sammon's error")
+  )
 

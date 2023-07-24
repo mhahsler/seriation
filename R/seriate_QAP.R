@@ -104,7 +104,7 @@ set_seriation_method(
   seriate_dist_2SUM,
   "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the 2-Sum Problem criterion (Barnard, Pothen, and Simon 1993).",
   randomized = TRUE,
-  optimizes = "2-sum criterion"
+  optimizes = .opt("2SUM", "2-sum criterion")
 )
 
 set_seriation_method(
@@ -113,7 +113,7 @@ set_seriation_method(
   seriate_dist_LS,
   "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the Linear Seriation Problem (LS) criterion (Hubert and Schultz 1976).",
   randomized = TRUE,
-  optimizes = "Linear seriation criterion"
+  optimizes = .opt("LS", "Linear seriation criterion")
 )
 
 set_seriation_method(
@@ -123,7 +123,7 @@ set_seriation_method(
   "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the banded anti-Robinson form (BAR).",
   .qap_bar_contr,
   randomized = TRUE,
-  optimizes = "Banded anti-robinson form"
+  optimizes = .opt("BAR", "Banded anti-robinson form")
 )
 
 set_seriation_method(
@@ -132,5 +132,5 @@ set_seriation_method(
   seriate_dist_Inertia,
   "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the Inertia criterion.",
   randomized = TRUE,
-  optimizes = "Inertia"
+  optimizes = .opt("Inertia")
 )

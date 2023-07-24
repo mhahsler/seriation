@@ -13,13 +13,27 @@
 \usage{
 seriate(x, ...)
 
-\method{seriate}{dist}(x, method = "Spectral", control = NULL, ...)
+\method{seriate}{dist}(x, method = "Spectral", control = NULL, rep = 1L, ...)
 
-\method{seriate}{matrix}(x, method = "PCA", control = NULL, margin = c(1L, 2L), ...)
+\method{seriate}{matrix}(x, method = "PCA", control = NULL, margin = c(1L, 2L), rep = 1L, ...)
 
-\method{seriate}{array}(x, method = "PCA", control = NULL, margin = seq(length(dim(x))), ...)
+\method{seriate}{array}(
+  x,
+  method = "PCA",
+  control = NULL,
+  margin = seq(length(dim(x))),
+  rep = 1L,
+  ...
+)
 
-\method{seriate}{data.frame}(x, method = "Heatmap", control = NULL, margin = c(1L, 2L), ...)
+\method{seriate}{data.frame}(
+  x,
+  method = "Heatmap",
+  control = NULL,
+  margin = c(1L, 2L),
+  rep = 1L,
+  ...
+)
 
 \method{seriate}{table}(x, method = "CA", control = NULL, margin = c(1L, 2L), ...)
 }
@@ -33,6 +47,9 @@ seriate(x, ...)
 
 \item{control}{a list of control options passed on to the seriation
 algorithm.}
+
+\item{rep}{number of random restarts for randomized methods.
+Uses \code{\link[=seriate_rep]{seriate_rep()}}.}
 
 \item{margin}{an integer vector giving the margin indices (dimensions) to be
 seriated. For example, for a matrix, \code{1} indicates rows, \code{2}

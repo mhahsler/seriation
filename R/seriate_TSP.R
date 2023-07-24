@@ -52,5 +52,5 @@ set_seriation_method(
   "Minimize Hamiltonian path length with a TSP solver.",
   .tsp_control,
   randomized = TRUE,
-  optimizes = "Path length"
+  optimizes = "Path_length"
 )

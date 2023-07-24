@@ -26,7 +26,7 @@ set_seriation_method(
   description = NULL,
   control = list(),
   randomized = FALSE,
-  optimizes = "Unspecified",
+  optimizes = NA_character_,
   verbose = FALSE,
   ...
 )

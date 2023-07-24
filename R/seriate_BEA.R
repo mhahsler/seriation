@@ -17,25 +17,6 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-## Algorithm B
-##  F. Murtagh (1985). Multidimensional Cluster Algorithms. Lectures
-##  in Computational Statistics, Physica Verlag, pp. 15.
-#
-# this is actually just the same as BEA
-#
-#.seriate_matrix_murtagh <- function(x, control) {
-#
-#    if(any(x < 0)) stop("Requires a nonnegative matrix.")
-#
-#    criterion <- as.dist(tcrossprod(x))
-#    row <- hclust_greedy(-criterion)$order
-#    criterion <- as.dist(crossprod(x))
-#    col <- hclust_greedy(-criterion)$order
-#
-#    list(row = row, col = col)
-#}
-
-
 #' @include seriate_TSP.R
 .bea_tsp_contr <- .tsp_control
 
@@ -107,7 +88,7 @@ set_seriation_method(
   seriate_matrix_bea,
   "Bond Energy Algorithm (BEA; McCormick 1972) to maximize the Measure of Effectiveness of a non-negative matrix.",
   .bea_contr,
-  optimizes = "Measure of effectiveness (ME)",
+  optimizes = .opt("ME", "Measure of effectiveness"),
   randomized = TRUE
 )
 
@@ -117,6 +98,6 @@ set_seriation_method(
   seriate_matrix_bea_tsp,
   "Use a TSP to optimize the Measure of Effectiveness (Lenstra 1974).",
   .bea_tsp_contr,
-  optimizes = "Measure of effectiveness (ME)",
+  optimizes = .opt("ME", "Measure of effectiveness"),
   randomized = TRUE
 )

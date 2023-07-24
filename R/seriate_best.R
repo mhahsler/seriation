@@ -25,8 +25,10 @@
 #' given a criterion measure. `seriate_improve()` uses a local improvement strategy
 #' to imporve an existing solution.
 #'
-#' `seriate_rep()` rerun different seriation methods to find the best solution given a criterion
-#' measure. Non-stochastic methods are automatically only run once.
+#' `seriate_rep()` rerun a randomized seriation methods to find the best solution
+#' given the criterion specified for the method in the registry.
+#' A specific criterion can also be specified.
+#' Non-stochastic methods are automatically only run once.
 #'
 #' `seriate_best()` runs a set of methods and returns the best result given a
 #' criterion. Stochastic methods are automatically randomly restarted several times.
@@ -35,6 +37,19 @@
 #' a specified criterion measure. It uses [seriate()] with method "`GSA`",
 #' a reduced probability to accept bad moves, and a lower minimum temperature. Control
 #' parameters for this method are accepted.
+#'
+#' **Criterion**
+#'
+#' If no criterion is specified, ten the criterion specified for the method in
+#' the registry (see `[get_seriation_method()]`) is used. For methods with no
+#' criterion in the registry (marked as "other"), a default method is used.
+#' The defaults are:
+#'
+#' * `dist`: `"AR_deviations"` - the study in Hahsler (2007) has shown that this
+#'  criterion has high similarity with most other criteria.
+#'  * `matrix`: "Moore_stress"
+#'
+#' **Parallel Execution**
 #'
 #' Some methods support for parallel execution is provided using the [`foreach`] package. To
 #' use parallel execution, a suitable backend needs to be registered (eee
@@ -50,7 +65,9 @@
 #' @param control a list of control options passed on to [seriate()].
 #'      For `seriate_best()` control needs to be a named list of control lists
 #'      with the names matching the seriation methods.
-#' @param criterion a character string with the [criterion] to optimize.
+#' @param criterion `seriate_rep()` chooses the criterion specified for the
+#'    method in the registry. A character string with the [criterion] to optimize
+#'    can be specified.
 #' @param verbose logical; show progress and results for different methods
 #' @param rep number of times to repeat the randomized seriation algorithm.
 #' @param parallel logical; perform replications in parallel.
@@ -63,6 +80,12 @@
 #' @author Michael Hahsler
 #'
 #' @keywords optimize cluster
+#' @references
+#' Hahsler, M. (2017): An experimental comparison of seriation methods for
+#' one-mode two-way data. \emph{European Journal of Operational Research,}
+#' \bold{257}, 133--143.
+#' \doi{10.1016/j.ejor.2016.08.066}
+#'
 #' @examples
 #' data(SupremeCourt)
 #' d_supreme <- as.dist(SupremeCourt)
@@ -72,9 +95,9 @@
 #' o
 #' pimage(d_supreme, o)
 #'
-#' # run a randomized algorithms several times. Repetition information
-#' # is returned as attributes
-#' o <- seriate_rep(d_supreme, "QAP_2SUM", rep = 5)
+#' # run a randomized algorithms several times. It automatically chooses the
+#' # LS criterion. Repetition information is returned as attributes
+#' o <- seriate_rep(d_supreme, "QAP_LS", rep = 5)
 #'
 #' attr(o, "criterion")
 #' hist(attr(o, "criterion_distribution"))
@@ -90,12 +113,12 @@
 #' registerDoParallel(cores = detectCores() - 1L)
 #'
 #' # seriate rows of the iris data set
-#' o <- seriate_best(d_iris)
+#' o <- seriate_best(d_iris, criterion = "LS")
 #' o
 #'
 #' pimage(d_iris, o)
 #'
-#' # improve the order to minimize RGAR
+#' # improve the order to minimize RGAR instead of LS
 #' o_improved <- seriate_improve(d_iris, o, criterion = "RGAR")
 #' pimage(d_iris, o_improved)
 #'
@@ -204,22 +227,28 @@ seriate_rep <- function(x,
                         parallel = TRUE,
                         verbose = TRUE,
                         ...) {
-  if (is.null(criterion))
-    criterion <- get_default_criterion(x)
-
   if (is.null(method))
     method <- get_default_method(x)
 
   m <- get_seriation_method(get_seriation_kind(x), method)
   method <- m$name
 
+  if (is.null(criterion))
+    criterion <- m$optimizes
+
+  if (is.na(criterion))
+    criterion <- get_default_criterion(x)
+
+
   if (!m$randomized && rep > 1L) {
-    #message("Specified seriation method is not randomized. Running it only once!")
     rep <- 1L
+    if (verbose)
+      cat("Method not randomized. Running once")
   }
 
-  if (verbose)
-    cat("Criterion:", criterion, "\nTries", rep, " ")
+  if (verbose && rep > 1L) {
+    cat("Tries", rep, " ")
+  }
 
   #r <- replicate(rep, { if (verbose) cat("."); seriate(x, method, control) },
   #               simplify = FALSE)
@@ -239,6 +268,9 @@ seriate_rep <- function(x,
       list(seriate(x, method, control, ...))
     })
 
+  if (verbose)
+    cat("\n")
+
   cs <- sapply(
     r,
     FUN = function(o)
@@ -251,10 +283,11 @@ seriate_rep <- function(x,
   attr(o, "criterion_method") <- criterion
   attr(o, "criterion_distribution") <- as.vector(cs)
 
-  if (verbose)
+
+  if (verbose && rep > 1L)
     cat(
-      "\nFound orders with",
-      criterion,
+      "Found orders with",
+      sQuote(criterion),
       "in the range" ,
       min(cs),
       "to",

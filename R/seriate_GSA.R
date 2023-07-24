@@ -210,5 +210,6 @@ set_seriation_method(
   seriate_sa,
   "Minimize a specified seriation measure (criterion) using simulated annealing.",
   .sa_contr,
+  optimizes = .opt (NA, "set via control criterion"),
   randomized = TRUE
 )

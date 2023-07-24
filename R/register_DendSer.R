@@ -157,56 +157,57 @@ register_DendSer <- function() {
   #    DendSer_helper(as.matrix(x)[,1], control)
   #  }
 
-  seriation::set_seriation_method(
+  set_seriation_method(
     "dist",
     "DendSer",
     DendSer_BAR,
     "Dendrogram seriation (Earle and Hurley, 2015).",
     .DendSer_control,
-    optimizes = "Anti-robinson form (BAR) restricted by dendrogram",
+    optimizes = .opt(NA, "specified criterion restricted by dendrogram"),
     verbose = TRUE
   )
 
-  seriation::set_seriation_method(
+  set_seriation_method(
     "dist",
     "DendSer_BAR",
     DendSer_BAR,
     "Dendrogram seriation with BAR (Earle and Hurley, 2015).",
     .DendSer_control,
-    optimizes = "Anti-robinson form (BAR) restricted by dendrogram",
+    optimizes = .opt("BAR", "banded anti-Robinson form restricted by dendrogram"),
     verbose = TRUE
   )
 
-  seriation::set_seriation_method(
+  set_seriation_method(
     "dist",
     "DendSer_PL",
     DendSer_PL,
     "Dendrogram seriation (Path length)",
     .DendSer_control,
-    optimizes = "Path length restricted by dendrogram",
+    optimizes = .opt("Path_length", "restricted by dendrogram"),
     verbose = TRUE
   )
 
-  seriation::set_seriation_method(
+  set_seriation_method(
     "dist",
     "DendSer_LPL",
     DendSer_LPL,
     "Dendrogram seriation (Lazy path length)",
     .DendSer_control,
-    optimizes = "Path length restricted by dendrogram",
+    optimizes = .opt("Path_length", "restricted by dendrogram"),
     verbose = TRUE
   )
 
-  seriation::set_seriation_method(
+  set_seriation_method(
     "dist",
     "DendSer_ARc",
     DendSer_ARc,
-    "Dendrogram seriation (ARc)",
+    "Dendrogram seriation (Anti-Robinson form cost)",
+    optimizes = .opt("ARc", "Anti-Robinson form cost restricted by dendrogram"),
     .DendSer_control,
     verbose = TRUE
   )
 
-  #  seriation::set_seriation_method("dist", "DendSer_LS",
+  #  set_seriation_method("dist", "DendSer_LS",
   #    DendSer_LS, "Dendrogram seriation (Leaf sort)")
 
   ## criteria
@@ -220,8 +221,8 @@ register_DendSer <- function() {
     DendSer::costARc(x, order, ...)
   }
 
-  seriation::set_criterion_method("dist", "ARc", DendSer_crit_ARc,
-                                  "AR cost", FALSE, verbose = TRUE)
+  set_criterion_method("dist", "ARc", DendSer_crit_ARc,
+                                  "Anti-Robinson form cost", FALSE, verbose = TRUE)
 
   ## Already in seriation
   #  DendSer_crit_BAR <- function(x, order, ...) {
@@ -231,7 +232,7 @@ register_DendSer <- function() {
   #    DendSer::costBAR(x,order,...)
   #  }
   #
-  #  seriation::set_criterion_method("dist", "BAR", DendSer_crit_BAR,
+  #  set_criterion_method("dist", "BAR", DendSer_crit_BAR,
   #    "Banded AR cost", FALSE)
 
 
@@ -242,7 +243,7 @@ register_DendSer <- function() {
   #    DendSer::costLPL(x,order,...)
   #  }
   #
-  #  seriation::set_criterion_method("dist", "LPL", criterion_method_dist_LPL,
+  #  set_criterion_method("dist", "LPL", criterion_method_dist_LPL,
   #    "Lazy path cost", FALSE)
   #}
 }

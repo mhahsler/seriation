@@ -94,5 +94,6 @@ set_seriation_method(
   seriate_sgd,
   "Improve an existing solution using stochastic gradient descent.",
   .sgd_contr,
+  optimizes = .opt (NA, "set via control criterion"),
   randomized = TRUE
 )

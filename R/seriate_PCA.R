@@ -113,7 +113,7 @@ set_seriation_method(
   seriate_matrix_fpc,
   "Uses the projection of the data on its first principal component to determine the order.",
   .pca_contr,
-  optimizes = "Least squares for each dimension (for Euclidean distances)."
+  optimizes = .opt(NA, "Least squares for each dimension (for Euclidean distances).")
 )
 
 set_seriation_method(

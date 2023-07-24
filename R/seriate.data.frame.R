@@ -22,10 +22,15 @@ seriate.data.frame <- function(x,
   method = "Heatmap",
   control = NULL,
   margin = c(1L, 2L),
-  ...)
+  rep = 1L,
+  ...) {
+  if (rep > 1L)
+    return(seriate_rep(x, method, control, rep = rep, margin = margin, ...))
+
   .seriate_array_helper(as.matrix(x),
     method,
     control,
     margin,
     datatype = "matrix",
     ...)
+}

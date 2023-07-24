@@ -117,13 +117,13 @@ register_smacof <- function() {
   }
 
 
-  seriation::set_seriation_method(
+  set_seriation_method(
     "dist",
     "MDS_smacof",
     seriate_dist_smacof,
     "Seriation based on multidemensional scaling using stress majorization (de Leeuw & Mair, 2009).",
     .smacof_control,
-    optimizes = "Other (MDS stress)",
+    optimizes = .opt("smacof_stress0", "MDS stress"),
     verbose = TRUE
   )
 
@@ -140,7 +140,7 @@ register_smacof <- function() {
       smacof::stress0(x, cbind(conf), type = type, ...)$stress
     }
 
-  seriation::set_criterion_method(
+  set_criterion_method(
     "dist",
     "smacof_stress0",
     smacof_crit_stress0,

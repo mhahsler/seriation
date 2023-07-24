@@ -402,3 +402,14 @@ test_that("test if data.frame seriation works as expected", {
   #expect_snapshot(permute(df, oPCA))
 })
 
+
+test_that("test if optimizes in registry is a valid criterion", {
+  methods <- list_seriation_methods(names_only = FALSE)
+  expect_no_error({
+    for (kind in names(methods))
+      for (m in methods[[kind]])
+        if (!is.na(m$optimizes))
+          get_criterion_method(kind, name = m$optimizes)
+  })
+})
+

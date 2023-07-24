@@ -78,7 +78,7 @@ ggpimage(x, order = NULL, ...)
   diag = TRUE,
   row_labels = NULL,
   col_labels = NULL,
-  prop = FALSE,
+  prop = isSymmetric(x),
   flip_axes = FALSE,
   reverse_columns = FALSE,
   ...

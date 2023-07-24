@@ -167,7 +167,7 @@ set_seriation_method(
   "Minimize the linear seriation criterion using simulated annealing (Brusco et al, 2008).",
   control = .arsa_control,
   randomized = TRUE,
-  optimizes = "Linear seriation criterion (LS)"
+  optimizes = .opt("LS", "Linear seriation criterion")
 )
 
 set_seriation_method(
@@ -176,7 +176,7 @@ set_seriation_method(
   seriate_dist_bburcg,
   "Minimize the unweighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.",
   control  = .bb_control,
-  optimizes = "Unweighted gradient condition (Gradient_unweighted)"
+  optimizes = .opt("Gradient_raw", "Unweighted gradient condition")
 )
 
 set_seriation_method(
@@ -185,5 +185,5 @@ set_seriation_method(
   seriate_dist_bbwrcg,
   "Minimize the weighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.",
   control  = .bb_control,
-  optimizes = "Weighted gradient condition (Gradient_weighted)"
+  optimizes = .opt("Gradient_weighted", "Weighted gradient condition")
 )

@@ -210,7 +210,7 @@ set_seriation_method <- function(kind,
                                  description = NULL,
                                  control = list(),
                                  randomized = FALSE,
-                                 optimizes = "Unspecified",
+                                 optimizes = NA_character_,
                                  verbose = FALSE,
                                  ...) {
   ## check formals
@@ -262,6 +262,14 @@ set_seriation_method <- function(kind,
 #' @rdname registry_for_seriaiton_methods
 #' @export
 print.seriation_method <- function(x, ...) {
+  if (is.na(x$optimizes))
+    opt <- "Other"
+  else
+    opt <- x$optimizes
+
+  if (!is.null(attr(x$optimizes, "description")))
+      opt <- paste0(opt, " (", attr(x$optimizes, "description"), ")")
+
   writeLines(c(
     gettextf("name:        %s", x$name),
     gettextf("kind:        %s", x$kind),
@@ -270,7 +278,7 @@ print.seriation_method <- function(x, ...) {
       prefix = "             ",
       initial = ""
     ),
-    gettextf("optimizes:   %s", x$optimizes),
+    gettextf("optimizes:   %s", opt),
     gettextf("randomized:  %s", x$randomized)
   ))
 
@@ -310,3 +318,6 @@ print.seriation_method <- function(x, ...) {
 
   cat("\n")
 }
+
+.opt <- function(criterion, description = NULL)
+  structure(criterion, description = description)

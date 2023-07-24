@@ -159,7 +159,7 @@ get_criterion_method <- function(kind, name) {
     method <- registry_criterion$get_entry(kind = kind, name = name)
 
   if (is.null(method))
-    stop("Unknown criterion. Check list_criterion_methods()")
+    stop(sQuote(name), " is an unknown criterion. Check list_criterion_methods()")
 
   method
 }
@@ -188,7 +188,7 @@ set_criterion_method <- function(kind,
   ## check if criterion is already in registry
   r <- registry_criterion$get_entry(kind = kind, name = name)
   if (!is.null(r) && r$name == name) {
-    warning("Entry with name ", name, " already exists! Modifying entry.")
+    warning("Entry with name ", sQuote(name), " already exists! Modifying entry.")
     registry_criterion$modify_entry(
       kind = kind,
       name = name,

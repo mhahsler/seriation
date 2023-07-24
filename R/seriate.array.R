@@ -72,10 +72,15 @@ seriate.array <- function(x,
   method = "PCA",
   control = NULL,
   margin = seq(length(dim(x))),
-  ...)
+  rep = 1L,
+  ...) {
+  if (rep > 1L)
+    return(seriate_rep(x, method, control, rep = rep, margin = margin, ...))
+
   .seriate_array_helper(x,
     method,
     control,
     margin,
     datatype = "array",
     ...)
+}

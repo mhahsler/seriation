@@ -4,6 +4,10 @@
 - permute for dendrograms gained parameter dist and accepts now seriation 
   methods.
 - Added method "AOE" for correlation matrices.
+- registry for seriation methods now contains the name of the seriation criterion
+  and a description. seriate_rep now automatically uses the criterion from 
+  the registry.
+- all seriation methods gained parameter rep.
 
 # seriation 1.5.1 (07/20/2023)
 

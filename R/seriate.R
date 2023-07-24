@@ -495,6 +495,8 @@
 #' seriated. For example, for a matrix, `1` indicates rows, `2`
 #' indicates columns, `c(1 ,2)` means rows and columns.
 #' Unseriated margins return the identity seriation order for that margin.
+#' @param rep number of random restarts for randomized methods.
+#'  Uses [seriate_rep()].
 #' @param ... further arguments are added to the `control` list.
 #'
 #' @return Returns an object of class [ser_permutation].
