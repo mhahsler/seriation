@@ -10,7 +10,7 @@ extern SEXP gradient(SEXP, SEXP, SEXP);
 extern SEXP inertia_criterion(SEXP, SEXP);
 extern SEXP lazy_path_length(SEXP, SEXP);
 extern SEXP least_squares_criterion(SEXP, SEXP);
-extern SEXP order_greedy(SEXP);
+//extern SEXP order_greedy(SEXP);
 extern SEXP order_length(SEXP, SEXP);
 extern SEXP order_optimal(SEXP, SEXP);
 extern SEXP pathdist_floyd(SEXP);
@@ -36,7 +36,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"inertia_criterion",       (DL_FUNC) &inertia_criterion,       2},
     {"lazy_path_length",        (DL_FUNC) &lazy_path_length,        2},
     {"least_squares_criterion", (DL_FUNC) &least_squares_criterion, 2},
-    {"order_greedy",            (DL_FUNC) &order_greedy,            1},
+//    {"order_greedy",            (DL_FUNC) &order_greedy,            1},
     {"order_length",            (DL_FUNC) &order_length,            2},
     {"order_optimal",           (DL_FUNC) &order_optimal,           2},
     {"pathdist_floyd",          (DL_FUNC) &pathdist_floyd,          1},

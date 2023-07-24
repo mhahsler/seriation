@@ -94,7 +94,6 @@ Collate:
     'pimage.R'
     'ggpimage.R'
     'grid_helpers.R'
-    'hclust_greedy.R'
     'lines_and_ordered_data.R'
     'lle.R'
     'permute.R'
