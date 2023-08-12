@@ -43,7 +43,7 @@ round(m, 2)
 ```
 
 We first visualize the matrix without reordering and then use the order method `"AOE"`.
-AOE stands for angle of eigenvalues and was proposed for correlation matrices by
+AOE stands for angle of eigenvectors and was proposed for correlation matrices by
 Friendly (2002).
 
 
