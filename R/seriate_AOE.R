@@ -16,11 +16,23 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# AOE for correlation matrices
+is_correlation_matrix <- function(x) {
+  if(!isSymmetric(x))
+    return (FALSE)
+  if(any(diag(x) != 1))
+    return (FALSE)
+  if(any(x > 1))
+    return (FALSE)
+  if(any(x < -1))
+    return (FALSE)
 
+  return(TRUE)
+}
+
+# AOE for correlation matrices
 seriate_corr_matrix_AOE <- function(x, control = NULL, margin) {
-  if(!isSymmetric(x)) {
-    warning("x is not a symmetric correlation matrix. Using method 'PCA_angle' instead.")
+  if(!is_correlation_matrix(x)) {
+    warning("x is not a correlation matrix. Using method 'PCA_angle' instead.")
     return(seriate_matrix_angle(x, control, margin))
   }
 
