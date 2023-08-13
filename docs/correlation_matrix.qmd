@@ -63,13 +63,16 @@ two groups have a strong negative correlation with each other.
 ## Visualization options
 
 Here are some options.
+Many packages represent high correlations as blue and low correlations as red. 
+We can set the colors that way or used other colors.
+
 
 ```{r}
 #| fig-asp: 1
 #| fig-show: hold
 #| out-width: 50%
 #| layout-ncol: 2 
-pimage(m, order = "AOE", diag = FALSE, upper_tri = FALSE)
+pimage(m, order = "AOE", col = rev(bluered()), diag = FALSE, upper_tri = FALSE)
 pimage(m, order = "AOE", col = colorRampPalette(c("red", "white", "darkgreen"))(100))
 ```
 
@@ -83,7 +86,15 @@ The plots are also available in `ggplot2` versions.
 #| layout-ncol: 2 
 library("ggplot2")
 
-ggpimage(m, order = "AOE", diag = FALSE, upper_tri = FALSE)
+red_blue <- scale_fill_gradient2(
+    low = scales::muted("red"),
+    mid = "white",
+    high = scales::muted("blue"),
+    na.value = "white",
+    midpoint = 0)
+
+ggpimage(m, order = "AOE", diag = FALSE, upper_tri = FALSE) + red_blue
+  
 ggpimage(m, order = "AOE") + scale_fill_gradient2(low = "red", high = "darkgreen")
 ```
 
@@ -105,16 +116,16 @@ correlation matrix.
 d <- as.dist(sqrt(1 - m))
 
 o <- seriate(d, "MDS")
-pimage(m , order = c(o, o), main = "MDS")
+pimage(m , order = c(o, o), main = "MDS", col = rev(bluered()))
 
 o <- seriate(d, "ARSA")
-pimage(m , order = c(o, o), main = "ARSA")
+pimage(m , order = c(o, o), main = "ARSA", col = rev(bluered()))
 
 o <- seriate(d, "OLO")
-pimage(m , order = c(o, o), main = "OLO")
+pimage(m , order = c(o, o), main = "OLO", col = rev(bluered()))
 
 o <- seriate(d, "R2E")
-pimage(m , order = c(o, o), main = "R2E")
+pimage(m , order = c(o, o), main = "R2E", col = rev(bluered()))
 ```
 
 
