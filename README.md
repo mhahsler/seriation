@@ -94,7 +94,8 @@ install.packages("seriation")
 [r-universe.](https://mhahsler.r-universe.dev/seriation)
 
 ``` r
-install.packages("seriation", repos = "https://mhahsler.r-universe.dev")
+install.packages("seriation",
+    repos = c("https://mhahsler.r-universe.dev". "https://cloud.r-project.org/"))
 ```
 
 ## Usage
@@ -307,7 +308,7 @@ to reorder objects (rows). The same approach can be applied to columns.
 - **PCA_angle** - order by the angular order in the 2D PCA projection
   space split by the larges gap
 - **LLE** reorder along a 1D locally linear embedding
-- **Means** - reorders using row and column means
+- **Means** - reorders using row means
 - **PCA** - orders along the first principal component
 - **TSNE** - Order along the 1D t-distributed stochastic neighbor
   embedding (t-SNE)
