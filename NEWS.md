@@ -1,4 +1,4 @@
-# seriation 1.5.1-1 (xx/xx/2023)
+# seriation 1.5.3 (11/28/2023)
 
 ## New Features
 - permute for dendrograms gained parameter dist and accepts now seriation 
@@ -8,6 +8,10 @@
   and a description. seriate_rep now automatically uses the criterion from 
   the registry.
 - all seriation methods gained parameter rep.
+
+## Bug Fixes
+- optimal.c: use now the correct data type for Rprintf
+- Skip deterministic tests on Mac M1 becasue of numerical differences. 
 
 # seriation 1.5.1 (07/20/2023)
 
