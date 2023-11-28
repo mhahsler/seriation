@@ -95,7 +95,7 @@ install.packages("seriation")
 
 ``` r
 install.packages("seriation",
-    repos = c("https://mhahsler.r-universe.dev". "https://cloud.r-project.org/"))
+    repos = c("https://mhahsler.r-universe.dev", "https://cloud.r-project.org/"))
 ```
 
 ## Usage
