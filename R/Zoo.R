@@ -28,10 +28,11 @@
 #'   \item{\code{catsize}}{a numeric vector}
 #'   \item{\code{class}}{a factor with levels \code{amphibian} \code{bird} \code{fish} \code{insect} \code{invertebrate} \code{mammal} \code{reptile}}
 #' }
-#' @source D.J. Newman, S. Hettich, C.L. Blake and C.J. Merz (1998): UCI
-#' Repository of machine learning databases,
-#' \url{https://www.ics.uci.edu/~mlearn/MLRepository.html}, University of
-#' California, Irvine, Dept. of Information and Computer Sciences.
+#' @source David Aha, Patrick Murphy, Christopher Merz, Eamonn Keogh,
+#' Cathy Blake, Seth Hettich, David Newman, Arthur Asuncion, Moshe Lichman,
+#' Dheeru Dua, Casey Graff (2023): UCI Machine Learning Repository,
+#' \url{https://archive.ics.uci.edu/}, University of
+#' California, Irvine.
 #' @keywords datasets
 #' @examples
 #'

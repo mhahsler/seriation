@@ -27,10 +27,11 @@ A data frame with 101 observations on the following 17 variables.
 }
 }
 \source{
-D.J. Newman, S. Hettich, C.L. Blake and C.J. Merz (1998): UCI
-Repository of machine learning databases,
-\url{https://www.ics.uci.edu/~mlearn/MLRepository.html}, University of
-California, Irvine, Dept. of Information and Computer Sciences.
+David Aha, Patrick Murphy, Christopher Merz, Eamonn Keogh,
+Cathy Blake, Seth Hettich, David Newman, Arthur Asuncion, Moshe Lichman,
+Dheeru Dua, Casey Graff (2023): UCI Machine Learning Repository,
+\url{https://archive.ics.uci.edu/}, University of
+California, Irvine.
 }
 \description{
 A database containing characteristics of different animals. The database was
