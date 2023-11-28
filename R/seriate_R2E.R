@@ -39,7 +39,7 @@ seriate_dist_chen <- function(x, control = NULL) {
   e <- eigen(x)$vectors[, 1:2]
 
   ## extract the order
-  ## chen says that he uses the one of the two possible cuts
+  ## Chen says that he uses the one of the two possible cuts
   ## that separate the points at rank 1. Since the points just
   ## separate further towards right and left, cutting on the vertical
   ## axis of the ellipse yields the same result.

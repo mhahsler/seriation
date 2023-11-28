@@ -194,6 +194,8 @@ c     Place 1st col.
 c
  400  continue
       sim   = -100000.0
+      sim1  = 0.0
+      sim2  = 0.0
       insrt = 0
 c     'nplace' cols. have been placed.
 c     Now want next placement.  Have 'nrem' cols. still to place.

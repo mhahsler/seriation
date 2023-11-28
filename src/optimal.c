@@ -612,8 +612,11 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 	   else
 	      z = x[i+j*n];
 
-	   Rprintf(" %3i | %4i %4i | %3i %3i | %f\n", k+1, left[k], right[k],
-						      i+1, j+1, z);
+
+	   // left and right are int
+	   // k, i and j are R_xlen_t which is typedefed to ptrdiff_t so we cast to int
+	   Rprintf(" %3i | %4i %4i | %3i %3i | %f\n", (int) k+1, left[k], right[k],
+						      (int) i+1, (int) j+1, z);
        }
     }
 
