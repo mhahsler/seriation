@@ -26,6 +26,11 @@ c
 c     Implemented by F. Murtagh, Sept. 1991.
 c------------------------------------------------------------------------------
 c
+c     declare variables used later on to prevent warnings about uninitialized variables (MFH)
+      sim1  = 0.0
+      sim2  = 0.0
+      iplrow = -1
+c
 c     Flags to indicate if row already chosen; 1 = not yet chosen/placed.
       do 200 i = 1, n
         ifin(i) = 1
@@ -44,13 +49,7 @@ c     Place 1st row
 c
  400  continue
       sim   = -100000.0
-
-c     declare variables used later on to prevent warnings about uninitialized variables (MFH)
-      sim1  = 0.0
-      sim2  = 0.0
-      iplrow = -1
-      jplcol = -1
-
+c
       insrt = 0
 c     'nplace' rows have been placed.
 c     Now want next placement.  Have 'nrem' rows still to place.
@@ -176,6 +175,9 @@ c     jfin(m)        book-keeping vector: is col. still active, or has it been
 c                    placed (resp. = 1, = 0).
 c------------------------------------------------------------------------------
 c
+c     declare variables used later on to prevent warnings about uninitialized variables (MFH)
+      jplcol = -1
+C
 c     Flags to indicate if col. already chosen
       do 200 j = 1, m
         jfin(j) = 1
