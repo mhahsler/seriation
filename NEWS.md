@@ -1,3 +1,9 @@
+# seriation 1.5.4 (12/11/2023)
+
+## Bug Fixes
+- Fixed MDS_angle order for different BLAS implementation giving different
+  results for eigen().
+
 # seriation 1.5.3 (11/28/2023)
 
 ## New Features
@@ -11,7 +17,7 @@
 
 ## Bug Fixes
 - optimal.c: use now the correct data type for Rprintf
-- Skip deterministic tests on Mac M1 becasue of numerical differences. 
+- Skip deterministic tests on Mac M1 because of numerical differences. 
 
 # seriation 1.5.1 (07/20/2023)
 

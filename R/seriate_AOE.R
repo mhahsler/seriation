@@ -49,15 +49,14 @@ seriate_corr_matrix_AOE <- function(x, control = NULL, margin) {
   alpha <- atan2(x[, 1], x[, 2])
   o <- order(alpha)
 
-  # cut at largest gap. Gap is before!
-  cut <- which.max(abs(diff(c(
-    alpha[o], alpha[o[1]] + 2 * pi, lag = 1
-  ))))
+  # cut at largest gap
+  alpha_diff <- diff(c(alpha[o], alpha[o[1]] + 2 * pi))
+  cut <- which.max(abs(alpha_diff))
 
-  if (cut != 1L && cut != length(o) + 1L)
-    o <- o[c((cut):length(o), 1:(cut - 1L))]
+  if (cut <  length(o))
+    o <- o[c((cut + 1L):length(o), 1:cut)]
+
   o
-
 }
 
 set_seriation_method(

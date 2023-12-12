@@ -31,6 +31,7 @@ x <- matrix(
 
 d <- dist(x)
 
+
 test_that("test if seriate.dist returns expected results", {
 
   cat("\n      dist\n") # for cleaner testthat output
@@ -157,8 +158,9 @@ test_that("test if seriate.dist returns expected results", {
     "MDS",
     "isoMDS",
     "Sammon_mapping",
+    # this use eigen() which gives slightly different results for OpenBLAS and M1 architecture
     "MDS_angle",
-    "R2E",
+    #"R2E",
     "Spectral",
     "Spectral_norm",
     "VAT"
@@ -237,32 +239,33 @@ test_that("test if seriate.dist returns expected results", {
         d = 4L,
         c = 3L
       ),
-      MDS_angle = c(
-        a = 1L,
-        b = 2L,
-        d = 4L,
-        c = 3L
-      ),
-      R2E = c(
-        c = 3L,
-        d = 4L,
-        b = 2L,
-        a = 1L
-      ),
-      Spectral = c(
-        c = 3L,
-        d = 4L,
-        b = 2L,
-        a = 1L
-      ),
-      Spectral_norm = c(c = 3L, d = 4L,
-                        b = 2L, a = 1L), VAT = c(c = 3L, d = 4L, b = 2L, a = 1L))
+       MDS_angle = c(
+         a = 1L,
+         b = 2L,
+         d = 4L,
+         c = 3L
+       ),
+       R2E = c(
+         c = 3L,
+         d = 4L,
+         b = 2L,
+         a = 1L
+       ),
+       Spectral = c(
+         c = 3L,
+         d = 4L,
+         b = 2L,
+         a = 1L
+       ),
+       Spectral_norm = c(c = 3L, d = 4L,
+                         b = 2L, a = 1L),
+      VAT = c(c = 3L, d = 4L, b = 2L, a = 1L))
 
   # Notes:
   # * some systems may produce the reverse order for some methods!
   # * ARM-based M1 systems produce different results for eigenvalues.
   #   This is not an error, just a numerical difference. We skip that test for now.
-  skip_on_os("mac", arch = "aarch64")
+  #skip_on_os("mac", arch = "aarch64")
 
   for (m in deterMethods)
     expect_true(
