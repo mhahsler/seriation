@@ -51,9 +51,10 @@
 #'
 #' **Parallel Execution**
 #'
-#' Some methods support for parallel execution is provided using the [`foreach`] package. To
-#' use parallel execution, a suitable backend needs to be registered (eee
-#' the Examples section for using the `doParallel` package).
+#' Some methods support for parallel execution is provided using the
+#' [foreach][foreach::foreach] package. To
+#' use parallel execution, a suitable backend needs to be registered (see
+#' the Examples section for using the [doParallel][doParallel::doParallel] backend).
 #'
 #' @family seriation
 #'
@@ -71,8 +72,8 @@
 #' @param verbose logical; show progress and results for different methods
 #' @param rep number of times to repeat the randomized seriation algorithm.
 #' @param parallel logical; perform replications in parallel.
-#'      Uses `[foreach]` if a
-#'      DoPar backend (e.g., `doParallel`) is rgistered.
+#'      Uses [foreach::foreach()] if a
+#'      `%dopar%` backend (e.g., [doParallel::doParallel]) is registered.
 #' @param ... further arguments are passed on to the [seriate()].
 #'
 #' @return Returns an object of class [ser_permutation].

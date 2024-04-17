@@ -6,6 +6,7 @@
 #'
 #'
 #' @name Zoo
+#' @family data
 #' @docType data
 #' @format
 #'   A data frame with 101 observations on the following 17 variables.
@@ -35,7 +36,6 @@
 #' California, Irvine.
 #' @keywords datasets
 #' @examples
-#'
 #' data("Zoo")
 #' x <- scale(Zoo[, -17])
 #'
@@ -45,5 +45,4 @@
 #'
 #' order <- seriate(d, method = "tsp")
 #' pimage(d, order)
-#'
 NULL

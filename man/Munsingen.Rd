@@ -14,7 +14,6 @@ Celtic Münsingen-Rain cemetery in Switzerland as provided by Hodson (1968)
 and published by Kendall 1971.
 }
 \examples{
-
 data("Munsingen")
 
 ## Seriation method after Kendall (1971)
@@ -65,15 +64,26 @@ rbind(
     reordered = criterion(x, order),
     Hodson = criterion(Munsingen)
    )
-
 }
 \references{
-Hodson, F.R. (1968): \emph{The La Tene Cemetery at
-Münsingen-Rain}. Stämpfli, Bern.
+Hodson, F.R. (1968).
+\emph{The La Tene Cemetery at Münsingen-Rain,} Stämpfli, Bern.
 
 Kendall, D.G. (1971): Seriation from abundance matrices. In: Hodson, F.R.,
-Kendall, D.G. and Tautu, P., (Editors). \emph{Mathematics in the
+Kendall, D.G. and Tautu, P., (Editors), \emph{Mathematics in the
 Archaeological and Historical Sciences,} Edinburgh University Press,
 Edinburgh, 215--232.
 }
+\seealso{
+Other data: 
+\code{\link{Chameleon}},
+\code{\link{Irish}},
+\code{\link{SupremeCourt}},
+\code{\link{Townships}},
+\code{\link{Wood}},
+\code{\link{Zoo}},
+\code{\link{create_lines_data}()},
+\code{\link{is.robinson}()}
+}
+\concept{data}
 \keyword{datasets}

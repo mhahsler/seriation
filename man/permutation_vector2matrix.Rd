@@ -40,8 +40,8 @@ Other permutation:
 \code{\link{get_order}()},
 \code{\link{permute}()},
 \code{\link{ser_dist}()},
-\code{\link{ser_permutation_vector}()},
-\code{\link{ser_permutation}()}
+\code{\link{ser_permutation}()},
+\code{\link{ser_permutation_vector}()}
 }
 \author{
 Michael Hahsler

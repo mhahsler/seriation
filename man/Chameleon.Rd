@@ -36,4 +36,16 @@ Clustering Algorithm Using Dynamic Modeling, \emph{IEEE Computer,}
 \strong{32}(8): 68--75.
 \doi{10.1109/2.781637}
 }
+\seealso{
+Other data: 
+\code{\link{Irish}},
+\code{\link{Munsingen}},
+\code{\link{SupremeCourt}},
+\code{\link{Townships}},
+\code{\link{Wood}},
+\code{\link{Zoo}},
+\code{\link{create_lines_data}()},
+\code{\link{is.robinson}()}
+}
+\concept{data}
 \keyword{datasets}

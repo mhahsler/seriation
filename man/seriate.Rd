@@ -112,7 +112,7 @@ may be applied.
 
 Uses the order of the leaf nodes in a dendrogram obtained by hierarchical
 clustering as a simple seriation technique. This method
-applies hierarchical clustering (\code{\link[=hclust]{hclust()}}) to \code{x}. The clustering
+applies hierarchical clustering (\code{\link[stats:hclust]{stats::hclust()}}) to \code{x}. The clustering
 method can be given using a \code{"linkage"} element in the \code{control}
 list. If omitted, the default \code{"complete"} is used.
 For convenience, the other methods are provided as shortcuts.
@@ -127,7 +127,7 @@ method produces a unique order.
 
 The methods start with a dendrogram created by \code{\link[=hclust]{hclust()}}. As the
 \code{"linkage"} element in the \code{control} list, a clustering method
-(default \code{"average"}) can be specified. Alternatively, an \link{hclust}
+(default \code{"average"}) can be specified. Alternatively, an \link[stats:hclust]{stats::hclust}
 object can be supplied using an element named \code{"hclust"}.
 
 A dendrogram (binary tree) has \eqn{2^{n-1}} internal nodes (subtrees) and
@@ -177,7 +177,7 @@ Orders along the 1D isometric feature mapping.
 \code{"metaMDS"} (Kruskal, 1964)
 
 Orders along the 1D Kruskal's non-metric multidimensional scaling.
-Package \code{vegan} implements an alternative implementation called \code{monoMDS}
+Package \pkg{vegan} provides an alternative implementation called \code{monoMDS}
 and a version that uses random restarts for stability called \code{metaMDS}.
 \code{control} parameters are passed on to \code{\link[MASS:isoMDS]{MASS::isoMDS()}}, \code{\link[vegan:monoMDS]{vegan::monoMDS()}} or \code{\link[vegan:metaMDS]{vegan::metaMDS()}}.
 \item \strong{Sammon's non-linear mapping:} \code{"Sammon_mapping"} (Sammon, 1969)
@@ -186,7 +186,7 @@ Orders along the 1D Sammon's non-linear mapping.
 \code{control} parameters are passed on to \code{\link[MASS:sammon]{MASS::sammon()}}.
 \item \strong{Angular order of the first two eigenvectors:} \code{"MDS_angle"}
 
-Finds a 2D configuration using MDS (\code{\link[=cmdscale]{cmdscale()}})
+Finds a 2D configuration using MDS (\code{\link[stats:cmdscale]{stats::cmdscale()}})
 to approximate the eigenvectors of the covariance matrix in the
 original data matrix.
 Orders by the angle in this space and splits the order by the
@@ -468,7 +468,8 @@ Performs 1D the non-linear dimensionality reduction method locally linear embedd
 \itemize{
 \item \strong{Order along the first principal component:} \code{"PCA"}
 
-Uses the projection of the data on its first principal component to
+Uses the projection of the data on its first principal component (using
+\code{stats::princomp()}) to
 determine the order of rows. Performs the same procedure on the transposed
 matrix to obtain the column order.
 
@@ -516,10 +517,10 @@ list_seriation_methods()
 # show the description for ARSA
 get_seriation_method("dist", name = "ARSA")
 
-### Seriate as distance matrix (for the iris dataset)
+### Seriate as distance matrix (for 50 flowers from the iris dataset)
 data("iris")
 x <- as.matrix(iris[-5])
-x <- x[sample(1:nrow(x)), ]
+x <- x[sample(nrow(x), size = 50), ]
 d <- dist(x)
 
 order <- seriate(d)
@@ -539,9 +540,7 @@ d_reordered <-  permute(d, order)
 pimage(d_reordered, main = "Distances (Reordered)")
 
 
-### Seriate a matrix
-data("iris")
-x <- as.matrix(iris[-5])
+### Seriate a matrix (50 flowers from iris)
 
 # To make the variables comparable, we scale the data
 x <- scale(x, center = FALSE)
@@ -594,12 +593,12 @@ pimage(corr_reordered, main = "Correlation matrix (R2E)")
 \references{
 Arabie, P. and L.J. Hubert (1990): The bond energy algorithm
 revisited, \emph{IEEE Transactions on Systems, Man, and Cybernetics,}
-\bold{20}(1), 268--274.
+\strong{20}(1), 268--274.
 \doi{10.1109/21.47829}
 
 Bar-Joseph, Z., E. D. Demaine, D. K. Gifford, and T. Jaakkola. (2001): Fast
 Optimal Leaf Ordering for Hierarchical Clustering. \emph{Bioinformatics,}
-\bold{17}(1), 22--29.
+\strong{17}(1), 22--29.
 \doi{10.1093/bioinformatics/17.suppl_1.S22}
 
 Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for
@@ -609,12 +608,12 @@ York, NY, USA: ACM. \url{https://ieeexplore.ieee.org/document/1263497}
 
 Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual assessment of
 (cluster) tendency. \emph{Proceedings of the 2002 International Joint
-Conference on Neural Networks (IJCNN '02)}, Volume: 3, 2225--2230.
+Conference on Neural Networks (IJCNN '02),} Volume: 3, 2225--2230.
 \doi{10.1109/IJCNN.2002.1007487}
 
 Brusco, M., Koehn, H.F., and Stahl, S. (2008): Heuristic Implementation of
 Dynamic Programming for Matrix Permutation Problems in Combinatorial Data
-Analysis. \emph{Psychometrika,} \bold{73}(3), 503--522.
+Analysis. \emph{Psychometrika,} \strong{73}(3), 503--522.
 \doi{10.1007/s11336-007-9049-5}
 
 Brusco, M., and Stahl, S. (2005): \emph{Branch-and-Bound Applications in
@@ -623,7 +622,7 @@ Combinatorial Data Analysis.} New York: Springer.
 
 Chen, C. H. (2002): Generalized Association Plots: Information Visualization
 via Iteratively Generated Correlation Matrices. \emph{Statistica Sinica,}
-\bold{12}(1), 7--29.
+\strong{12}(1), 7--29.
 
 Ding, C. and Xiaofeng He (2004): Linearized cluster assignment via spectral
 ordering. \emph{Proceedings of the Twenty-first International Conference on
@@ -632,41 +631,41 @@ Machine learning (ICML '04)}.
 
 Climer, S. and Xiongnu Zhang (2006): Rearrangement Clustering: Pitfalls,
 Remedies, and Applications, \emph{Journal of Machine Learning Research,}
-\bold{7}(Jun), 919--943.
+\strong{7}(Jun), 919--943.
 
 D. Earle, C. B. Hurley (2015): Advances in dendrogram seriation
 for application to visualization.
 \emph{Journal of Computational and Graphical Statistics,} \strong{24}(1), 1--25.
 
 Friendly, M. (2002): Corrgrams: Exploratory Displays for Correlation
-Matrices. \emph{The American Statistician}, \bold{56}(4), 316--324.
+Matrices. \emph{The American Statistician,} \strong{56}(4), 316--324.
 \doi{10.1198/000313002533}
 
 Gruvaeus, G. and Wainer, H. (1972): Two Additions to Hierarchical Cluster
 Analysis, \emph{British Journal of Mathematical and Statistical Psychology,}
-\bold{25}, 200--206.
+\strong{25}, 200--206.
 \doi{10.1111/j.2044-8317.1972.tb00491.x}
 
 Hahsler, M. (2017): An experimental comparison of seriation methods for
 one-mode two-way data. \emph{European Journal of Operational Research,}
-\bold{257}, 133--143.
+\strong{257}, 133--143.
 \doi{10.1016/j.ejor.2016.08.066}
 
 Hubert, Lawrence, and James Schultz (1976): Quadratic Assignment as a
 General Data Analysis Strategy. \emph{British Journal of Mathematical and
-Statistical Psychology} \bold{29}(2). Blackwell Publishing Ltd. 190--241.
+Statistical Psychology,} \strong{29}(2). Blackwell Publishing Ltd. 190--241.
 \doi{10.1111/j.2044-8317.1976.tb00714.x}
 
 Hurley, Catherine B. (2004): Clustering Visualizations of Multidimensional
 Data. \emph{Journal of Computational and Graphical Statistics,}
-\bold{13}(4), 788--806.
+\strong{13}(4), 788--806.
 \doi{10.1198/106186004X12425}
 
 Kruskal, J.B. (1964). Nonmetric multidimensional scaling: a numerical method.
-\emph{Psychometrika} \strong{29}, 115--129.
+\emph{Psychometrika,} \strong{29}, 115--129.
 
 Lenstra, J.K (1974): Clustering a Data Array and the Traveling-Salesman
-Problem, \emph{Operations Research,} \bold{22}(2) 413--414.
+Problem, \emph{Operations Research,} \strong{22}(2) 413--414.
 \doi{10.1287/opre.22.2.413}
 
 Mair P., De Leeuw J. (2015). Unidimensional scaling. In \emph{Wiley
@@ -675,7 +674,7 @@ StatsRef: Statistics Reference Online,} Wiley, New York.
 
 McCormick, W.T., P.J. Schweitzer and T.W. White (1972): Problem
 decomposition and data reorganization by a clustering technique,
-\emph{Operations Research,} \bold{20}(5), 993--1009.
+\emph{Operations Research,} \strong{20}(5), 993--1009.
 \doi{10.1287/opre.20.5.993}
 
 Tenenbaum, J.B., de Silva, V. & Langford, J.C. (2000)
@@ -685,10 +684,11 @@ A global network framework for nonlinear dimensionality reduction.
 Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany,
 E. (2005): Sorting points into neighborhoods (SPIN): data analysis and
 visualization by ordering distance matrices, \emph{Bioinformatics,}
-\bold{21}(10) 2301--8.
+\strong{21}(10) 2301--8.
 \doi{10.1093/bioinformatics/bti329}
 
-Sammon, J. W. (1969) A non-linear mapping for data structure analysis. \emph{IEEE Trans. Comput.}, \strong{C-18} 401--409.
+Sammon, J. W. (1969) A non-linear mapping for data structure analysis.
+\emph{IEEE Trans. Comput.}, \strong{C-18} 401--409.
 }
 \seealso{
 Other seriation: 

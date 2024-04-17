@@ -54,8 +54,8 @@ can be specified.}
 \item{rep}{number of times to repeat the randomized seriation algorithm.}
 
 \item{parallel}{logical; perform replications in parallel.
-Uses \verb{[foreach]} if a
-DoPar backend (e.g., \code{doParallel}) is rgistered.}
+Uses \code{\link[foreach:foreach]{foreach::foreach()}} if a
+\verb{\%dopar\%} backend (e.g., \link[doParallel:doParallel-package]{doParallel::doParallel}) is registered.}
 
 \item{verbose}{logical; show progress and results for different methods}
 
@@ -105,9 +105,10 @@ criterion has high similarity with most other criteria.
 
 \strong{Parallel Execution}
 
-Some methods support for parallel execution is provided using the \code{\link{foreach}} package. To
-use parallel execution, a suitable backend needs to be registered (eee
-the Examples section for using the \code{doParallel} package).
+Some methods support for parallel execution is provided using the
+\link[foreach:foreach]{foreach} package. To
+use parallel execution, a suitable backend needs to be registered (see
+the Examples section for using the \link[doParallel:doParallel-package]{doParallel} backend).
 }
 \examples{
 data(SupremeCourt)

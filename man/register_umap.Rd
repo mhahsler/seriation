@@ -73,8 +73,8 @@ Other seriation:
 \code{\link{register_smacof}()},
 \code{\link{register_tsne}()},
 \code{\link{registry_for_seriaiton_methods}},
-\code{\link{seriate_best}()},
-\code{\link{seriate}()}
+\code{\link{seriate}()},
+\code{\link{seriate_best}()}
 }
 \concept{seriation}
 \keyword{cluster}

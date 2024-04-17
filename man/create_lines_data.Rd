@@ -46,10 +46,11 @@ Several functions to create simulated data to evaluate different aspects of
 seriation algorithms and criterion functions.
 }
 \details{
-\code{create_lines_data()} creates the lines data set used in for \code{\link[=iVAT]{iVAT()}} in
+\code{create_lines_data()} recreates the lines data set used in for \code{\link[=iVAT]{iVAT()}} in
 Havens and Bezdeck (2012).
 
-\code{create_ordered_data()} is a versatile function which creates "orderable"
+\code{create_ordered_data()} (Hahsler et al, 2021) is a versatile
+function which creates "orderable"
 2D data using Gaussian components along a linear or circular path. The
 components are equally spaced (\code{spacing}) along the path. The default
 spacing of 6 ensures that 2 adjacent components with a standard deviation of
@@ -60,13 +61,11 @@ will result in the data not being perfectly orderable (i.e., the resulting
 distance matrix will not be a perfect pre-anti-Robinson matrix and contain
 anti-Robinson violation events after seriation). Note that a circular path
 always creates anti-Robinson violation since the circle has to be broken at
-some point to create a linear order. This function was created for this package
-(Hahsler et al, 2021).
+some point to create a linear order.
 }
 \examples{
-
 ## lines data set from Havens and Bezdek (2011)
-x <- create_lines_data(250)
+x <- create_lines_data(100)
 plot(x, xlim = c(-5, 5), ylim = c(-3, 3), cex = .2, col = attr(x, "id"))
 d <- dist(x)
 pimage(d, seriate(d, "OLO_single"), col = bluered(100, bias = .5), key = TRUE)
@@ -74,37 +73,37 @@ pimage(d, seriate(d, "OLO_single"), col = bluered(100, bias = .5), key = TRUE)
 ## create_ordered_data can produce many types of "orderable" data
 
 ## perfect pre-Anti-Robinson matrix (with a single components)
-x <- create_ordered_data(250, k = 1)
+x <- create_ordered_data(100, k = 1)
 plot(x, cex = .2, col = attr(x, "id"))
 d <- dist(x)
 pimage(d, seriate(d, "MDS"), col = bluered(100, bias=.5), key = TRUE)
 
 ## separated components
-x <- create_ordered_data(250, k = 5)
+x <- create_ordered_data(100, k = 5)
 plot(x, cex =.2, col = attr(x, "id"))
 d <- dist(x)
 pimage(d, seriate(d, "MDS"), col = bluered(100, bias = .5), key = TRUE)
 
 ## overlapping components
-x <- create_ordered_data(250, k = 5, sd1 = 2)
+x <- create_ordered_data(100, k = 5, sd1 = 2)
 plot(x, cex = .2, col = attr(x, "id"))
 d <- dist(x)
 pimage(d, seriate(d, "MDS"), col = bluered(100, bias = .5), key = TRUE)
 
 ## introduce anti-Robinson violations (a non-zero y value)
-x <- create_ordered_data(250, k = 5, sd1 = 2, sd2 = 5)
+x <- create_ordered_data(100, k = 5, sd1 = 2, sd2 = 5)
 plot(x, cex = .2, col = attr(x, "id"))
 d <- dist(x)
 pimage(d, seriate(d, "MDS"), col = bluered(100, bias = .5), key = TRUE)
 
 ## circular path (has always violations)
-x <- create_ordered_data(250, k = 5, path = "circular", sd1 = 2)
+x <- create_ordered_data(100, k = 5, path = "circular", sd1 = 2)
 plot(x, cex = .2, col = attr(x, "id"))
 d <- dist(x)
 pimage(d, seriate(d, "OLO"), col = bluered(100, bias = .5), key = TRUE)
 
 ## circular path (with more violations violations)
-x <- create_ordered_data(250, k = 5, path = "circular", sd1 = 2, sd2 = 1)
+x <- create_ordered_data(100, k = 5, path = "circular", sd1 = 2, sd2 = 1)
 plot(x, cex=.2, col = attr(x, "id"))
 d <- dist(x)
 pimage(d, seriate(d, "OLO"), col = bluered(100, bias = .5), key = TRUE)
@@ -112,7 +111,7 @@ pimage(d, seriate(d, "OLO"), col = bluered(100, bias = .5), key = TRUE)
 \references{
 Havens, T.C. and Bezdek, J.C. (2012): An Efficient Formulation
 of the Improved Visual Assessment of Cluster Tendency (iVAT) Algorithm,
-\emph{IEEE Transactions on Knowledge and Data Engineering,} \bold{24}(5),
+\emph{IEEE Transactions on Knowledge and Data Engineering,} \strong{24}(5),
 813--822.
 
 Michael Hahsler, Christian Buchta and Kurt Hornik (2021). seriation: Infrastructure for
@@ -121,8 +120,19 @@ Ordering Objects Using Seriation. R package version 1.3.2.
 }
 \seealso{
 \code{\link[=seriate]{seriate()}}, \code{\link[=criterion]{criterion()}}, \code{\link[=iVAT]{iVAT()}}.
+
+Other data: 
+\code{\link{Chameleon}},
+\code{\link{Irish}},
+\code{\link{Munsingen}},
+\code{\link{SupremeCourt}},
+\code{\link{Townships}},
+\code{\link{Wood}},
+\code{\link{Zoo}},
+\code{\link{is.robinson}()}
 }
 \author{
 Michael Hahsler
 }
+\concept{data}
 \keyword{datasets}

@@ -6,18 +6,18 @@
 #'
 #' @name Munsingen
 #' @docType data
+#' @family data
 #' @format A 59 x 70 0-1 matrix. Rows (graves) and columns (artifacts) are in
 #' the order determined by Hodson (1968).
-#' @references Hodson, F.R. (1968): \emph{The La Tene Cemetery at
-#' Münsingen-Rain}. Stämpfli, Bern.
+#' @references Hodson, F.R. (1968).
+#' _The La Tene Cemetery at Münsingen-Rain,_ Stämpfli, Bern.
 #'
 #' Kendall, D.G. (1971): Seriation from abundance matrices. In: Hodson, F.R.,
-#' Kendall, D.G. and Tautu, P., (Editors). \emph{Mathematics in the
-#' Archaeological and Historical Sciences,} Edinburgh University Press,
+#' Kendall, D.G. and Tautu, P., (Editors), _Mathematics in the
+#' Archaeological and Historical Sciences,_ Edinburgh University Press,
 #' Edinburgh, 215--232.
 #' @keywords datasets
 #' @examples
-#'
 #' data("Munsingen")
 #'
 #' ## Seriation method after Kendall (1971)
@@ -68,5 +68,4 @@
 #'     reordered = criterion(x, order),
 #'     Hodson = criterion(Munsingen)
 #'    )
-#'
 NULL

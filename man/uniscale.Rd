@@ -5,7 +5,7 @@
 \alias{MDS_stress}
 \alias{get_config}
 \alias{plot_config}
-\title{Unidimensional Scaling from Seriation Results}
+\title{Fit an Unidimensional Scaling for a Seriation Order}
 \usage{
 uniscale(d, order, accept_reorder = FALSE, warn = TRUE, ...)
 
@@ -51,7 +51,7 @@ even if \code{order} contains a configuration.}
 A vector with the fitted configuration.
 }
 \description{
-Calculates an (approximate) unidimensional scaling configuration given an order.
+Fits an (approximate) unidimensional scaling configuration given an order.
 }
 \details{
 This implementation uses the method describes in Maier and De Leeuw (2015) to calculate the
@@ -62,10 +62,11 @@ for how many positions order could not be preserved.
 The seriation method which is consistent to uniscale is \code{"MDS_smacof"}
 which needs to be registered with \code{\link[=register_smacof]{register_smacof()}}.
 
-The code is similar to \code{uniscale()} in \pkg{smacof} (de Leeuw, 2090), but scales to larger
-datasets since it only uses the permutation given by  \code{order}.
+The code is similar to \code{smacof::uniscale()} (de Leeuw, 2090),
+but scales to larger
+datasets since it only uses the permutation given by \code{order}.
 
-\code{MDS_stress} calculates the normalized stress of a configuration given by a seriation order.
+\code{MDS_stress()} calculates the normalized stress of a configuration given by a seriation order.
 If the order does not contain a configuration, then a minimum-stress configuration if calculates
 for the given order.
 
@@ -118,13 +119,13 @@ Mair P., De Leeuw J. (2015). Unidimensional scaling. In
 \doi{10.1002/9781118445112.stat06462.pub2}
 
 Jan de Leeuw, Patrick Mair (2009). Multidimensional Scaling Using Majorization:
-SMACOF in R. Journal of Statistical Software, 31(3), 1-30.
+SMACOF in R. \emph{Journal of Statistical Software}, \strong{31}(3), 1-30.
 \doi{10.18637/jss.v031.i03}
 }
 \seealso{
 \code{\link[=register_smacof]{register_smacof()}}
 }
 \author{
-Michael Hahsler with code from Patrick Mair (from \pkg{smacof}).
+Michael Hahsler with code from Patrick Mair (from \code{smacof::uniscale()}).
 }
 \keyword{optimize}

@@ -1,3 +1,7 @@
+# seriation 1.5.5 (04/16/2024)
+
+- Updated man pages.
+
 # seriation 1.5.4 (12/11/2023)
 
 ## Bug Fixes

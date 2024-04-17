@@ -30,7 +30,7 @@ Perplexity is automatically set as the minimum between 30 and the number of
 observations. It can be also specified using the control parameter
 \code{"preplexity"}.
 
-\bold{Note:} Package \pkg{Rtsne} needs to be installed.
+\strong{Note:} Package \pkg{Rtsne} needs to be installed.
 }
 \examples{
 
@@ -78,11 +78,12 @@ plot_config(o[[1]], col = class)
 }
 \references{
 van der Maaten, L.J.P. & Hinton, G.E., 2008. Visualizing
-High-Dimensional Data Using t-SNE. Journal of Machine Learning Research, 9,
+High-Dimensional Data Using t-SNE. \emph{Journal of Machine Learning Research,}
+\strong{9},
 pp.2579-2605.
 }
 \seealso{
-\code{\link[Rtsne:Rtsne]{Rtsne::Rtsne()}} in \pkg{Rtsne}.
+\code{\link[Rtsne:Rtsne]{Rtsne::Rtsne()}}
 
 Other seriation: 
 \code{\link{register_DendSer}()},
@@ -91,8 +92,8 @@ Other seriation:
 \code{\link{register_smacof}()},
 \code{\link{register_umap}()},
 \code{\link{registry_for_seriaiton_methods}},
-\code{\link{seriate_best}()},
-\code{\link{seriate}()}
+\code{\link{seriate}()},
+\code{\link{seriate_best}()}
 }
 \concept{seriation}
 \keyword{cluster}

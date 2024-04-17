@@ -6,6 +6,7 @@
 #'
 #' @name Townships
 #' @aliases Townships
+#' @family data
 #' @docType data
 #' @format
 #'   A matrix with 16 0-1 variables (columns) indicating the presence

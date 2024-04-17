@@ -39,7 +39,6 @@ created and donated by Richard S. Forsyth and is available from the UCI
 Machine Learning Repository (Newman et al, 1998).
 }
 \examples{
-
 data("Zoo")
 x <- scale(Zoo[, -17])
 
@@ -49,6 +48,17 @@ pimage(d)
 
 order <- seriate(d, method = "tsp")
 pimage(d, order)
-
 }
+\seealso{
+Other data: 
+\code{\link{Chameleon}},
+\code{\link{Irish}},
+\code{\link{Munsingen}},
+\code{\link{SupremeCourt}},
+\code{\link{Townships}},
+\code{\link{Wood}},
+\code{\link{create_lines_data}()},
+\code{\link{is.robinson}()}
+}
+\concept{data}
 \keyword{datasets}

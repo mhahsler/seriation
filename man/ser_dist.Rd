@@ -28,7 +28,7 @@ rank differences).}
 \item{reverse}{a logical indicating if the orders should also be checked in
 reverse order and the best value (highest correlation, lowest distance) is
 reported. This only affect ranking-based measures and not precedence
-invariant measures (e.g., ppc, aprd).}
+invariant measures (e.g., \code{"ppc"}, \code{"aprd"}).}
 
 \item{...}{Further arguments passed on to the method.}
 
@@ -36,7 +36,7 @@ invariant measures (e.g., ppc, aprd).}
 }
 \value{
 \itemize{
-\item \code{ser_dist()} returns an object of class \link{dist}.
+\item \code{ser_dist()} returns an object of class \link[stats:dist]{stats::dist}.
 \item \code{ser_align()} returns a new list with elements of class
 \link{ser_permutation}.
 }
@@ -104,8 +104,8 @@ rownames(x) <- 1:50
 d <- dist(x)
 
 ## Create a list of different seriations
-methods <- c("HC_single", "HC_complete", "OLO", "GW", "R2E", "VAT",
-  "TSP", "Spectral", "SPIN", "MDS", "Identity", "Random")
+methods <- c("HC_complete", "OLO", "GW", "VAT",
+  "TSP", "Spectral", "MDS", "Identity", "Random")
 
 os <- sapply(methods, function(m) {
   cat("Doing", m, "... ")
@@ -144,8 +144,8 @@ ds <- ser_dist(os_aligned, method = "manhattan")
 plot(hclust(ds))
 }
 \references{
-P. Diaconis (1988): Group Representations in Probability and
-Statistics. Institute of Mathematical Statistics, Hayward, CA.
+P. Diaconis (1988): \emph{Group Representations in Probability and
+Statistics,} Institute of Mathematical Statistics, Hayward, CA.
 
 J.Y. Goulermas, A. Kostopoulos, and T. Mu (2016): A New Measure for
 Analyzing and Fusing Sequences of Objects. \emph{IEEE Transactions on
@@ -157,8 +157,8 @@ Other permutation:
 \code{\link{get_order}()},
 \code{\link{permutation_vector2matrix}()},
 \code{\link{permute}()},
-\code{\link{ser_permutation_vector}()},
-\code{\link{ser_permutation}()}
+\code{\link{ser_permutation}()},
+\code{\link{ser_permutation_vector}()}
 }
 \author{
 Michael Hahsler

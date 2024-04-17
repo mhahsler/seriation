@@ -20,25 +20,25 @@
 #'
 #' Register a GA-based seriation metaheuristic for use with [seriate()].
 #'
-#' Registers the method \code{"GA"} for [seriate()]. This method can be used
+#' Registers the method `"GA"` for [seriate()]. This method can be used
 #' to optimize any criterion in package \pkg{seriation}.
 #'
 #' The GA uses by default the ordered cross-over (OX) operator. For mutation,
 #' the GA uses a mixture of simple insertion and simple inversion operators.
 #' This mixed operator is created using
-#' \code{seriation::gaperm_mixedMutation(ismProb = .8)}, where \code{ismProb}
+#' `seriation::gaperm_mixedMutation(ismProb = .8)`, where `ismProb`
 #' is the probability that the simple insertion mutation operator is used. See
 #' package \pkg{GA} for a description of other available cross-over and
 #' mutation operators for permutations. The appropriate operator functions in
-#' \pkg{GA} start with \code{gaperm_}.
+#' \pkg{GA} start with `gaperm_`.
 #'
-#' We warm start the GA using \code{"suggestions"} given by several heuristics.
-#' Set \code{"suggestions"} to \code{NA} to start with a purely random initial
+#' We warm start the GA using `"suggestions"` given by several heuristics.
+#' Set `"suggestions"` to `NA` to start with a purely random initial
 #' population.
 #'
 #' See Example section for available control parameters.
 #'
-#' \bold{Note:} Package \pkg{GA} needs to be installed.
+#' **Note:** Package \pkg{GA} needs to be installed.
 #'
 #' @aliases register_GA GA ga gaperm_mixedMutation
 #' @family seriation
@@ -46,7 +46,7 @@
 #'
 #' @author Michael Hahsler
 #' @references Luca Scrucca (2013): GA: A Package for Genetic Algorithms in R.
-#' \emph{Journal of Statistical Software,} \bold{53}(4), 1--37. URL
+#' _Journal of Statistical Software,_ **53**(4), 1--37. URL
 #' \doi{10.18637/jss.v053.i04}.
 #' @keywords optimize cluster
 #' @examples

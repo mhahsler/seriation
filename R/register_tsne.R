@@ -35,15 +35,16 @@
 #' observations. It can be also specified using the control parameter
 #' `"preplexity"`.
 #'
-#' \bold{Note:} Package \pkg{Rtsne} needs to be installed.
+#' **Note:** Package \pkg{Rtsne} needs to be installed.
 #'
 #' @aliases register_tsne tsne tSNE
-#' @seealso [Rtsne::Rtsne()] in \pkg{Rtsne}.
+#' @seealso [Rtsne::Rtsne()]
 #' @family seriation
 #' @returns Nothing.
 #'
 #' @references van der Maaten, L.J.P. & Hinton, G.E., 2008. Visualizing
-#' High-Dimensional Data Using t-SNE. Journal of Machine Learning Research, 9,
+#' High-Dimensional Data Using t-SNE. _Journal of Machine Learning Research,_
+#' **9**,
 #' pp.2579-2605.
 #' @keywords optimize cluster
 #' @examples

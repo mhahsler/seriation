@@ -80,7 +80,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#methods-for-seriating-distances" id="toc-methods-for-seriating-distances" class="nav-link active" data-scroll-target="#methods-for-seriating-distances">Methods for seriating distances</a>
+  <li><a href="#methods-distances" id="toc-methods-distances" class="nav-link active" data-scroll-target="#methods-distances">Methods distances</a>
   <ul class="collapse">
   <li><a href="#arsa" id="toc-arsa" class="nav-link" data-scroll-target="#arsa">ARSA</a></li>
   <li><a href="#bburcg" id="toc-bburcg" class="nav-link" data-scroll-target="#bburcg">BBURCG</a></li>
@@ -135,8 +135,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#umap" id="toc-umap" class="nav-link" data-scroll-target="#umap">umap</a></li>
   <li><a href="#vat" id="toc-vat" class="nav-link" data-scroll-target="#vat">VAT</a></li>
   </ul></li>
-  <li><a href="#methods-for-seriating-data-matrices-tables-and-data.frames" id="toc-methods-for-seriating-data-matrices-tables-and-data.frames" class="nav-link" data-scroll-target="#methods-for-seriating-data-matrices-tables-and-data.frames">Methods for seriating data matrices, tables and data.frames</a>
+  <li><a href="#methods-for-data-matrices-tables-and-data.frames" id="toc-methods-for-data-matrices-tables-and-data.frames" class="nav-link" data-scroll-target="#methods-for-data-matrices-tables-and-data.frames">Methods for data matrices, tables and data.frames</a>
   <ul class="collapse">
+  <li><a href="#aoe" id="toc-aoe" class="nav-link" data-scroll-target="#aoe">AOE</a></li>
   <li><a href="#bea" id="toc-bea" class="nav-link" data-scroll-target="#bea">BEA</a></li>
   <li><a href="#bea_tsp" id="toc-bea_tsp" class="nav-link" data-scroll-target="#bea_tsp">BEA_TSP</a></li>
   <li><a href="#ca" id="toc-ca" class="nav-link" data-scroll-target="#ca">CA</a></li>
@@ -151,6 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#tsne-1" id="toc-tsne-1" class="nav-link" data-scroll-target="#tsne-1">tsne</a></li>
   <li><a href="#umap-1" id="toc-umap-1" class="nav-link" data-scroll-target="#umap-1">umap</a></li>
   </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
 </div>
@@ -179,24 +181,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>This document contains all seriation methods implemented in the R package <a href="https://github.com/mhahsler/seriation"><code>seriation</code></a>. The methods are organized by methods for distance matrices and data matrices.</p>
-<p>Some methods need to be registered.</p>
+<p>This document contains the seriation methods currently implemented in the R package <a href="https://github.com/mhahsler/seriation"><code>seriation</code></a>. The methods are organized by methods for distance matrices and data matrices.</p>
+<p>This list was created for the following version of seriation:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"seriation"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">register_DendSer</span>()</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">register_optics</span>()</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">register_smacof</span>()</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">register_GA</span>()</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">register_tsne</span>()</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">register_umap</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">'seriation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] '1.5.5'</code></pre>
 </div>
-<section id="methods-for-seriating-distances" class="level1">
-<h1>Methods for seriating distances</h1>
+</div>
+<p>Some additional methods need to be registered.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_DendSer</span>()</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">register_optics</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">register_smacof</span>()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">register_GA</span>()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">register_tsne</span>()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">register_umap</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="methods-distances" class="level1">
+<h1>Methods distances</h1>
 <section id="arsa" class="level2">
 <h2 class="anchored" data-anchor-id="arsa">ARSA</h2>
 <p>Minimize the linear seriation criterion using simulated annealing (Brusco et al, 2008).</p>
 <ul>
-<li>optimizes: Linear seriation criterion (LS)</li>
+<li>optimizes: LS</li>
 <li>randomized: TRUE</li>
 </ul>
 <p>control parameters:</p>
@@ -241,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="bburcg">BBURCG</h2>
 <p>Minimize the unweighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.</p>
 <ul>
-<li>optimizes: Unweighted gradient condition (Gradient_unweighted)</li>
+<li>optimizes: Gradient_raw</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -271,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="bbwrcg">BBWRCG</h2>
 <p>Minimize the weighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.</p>
 <ul>
-<li>optimizes: Weighted gradient condition (Gradient_weighted)</li>
+<li>optimizes: Gradient_weighted</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -301,7 +310,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="dendser">DendSer</h2>
 <p>Dendrogram seriation (Earle and Hurley, 2015).</p>
 <ul>
-<li>optimizes: Anti-robinson form (BAR) restricted by dendrogram</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -344,9 +353,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="dendser_arc" class="level2">
 <h2 class="anchored" data-anchor-id="dendser_arc">DendSer_ARc</h2>
-<p>Dendrogram seriation (ARc)</p>
+<p>Dendrogram seriation (Anti-Robinson form cost)</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: ARc</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -391,7 +400,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="dendser_bar">DendSer_BAR</h2>
 <p>Dendrogram seriation with BAR (Earle and Hurley, 2015).</p>
 <ul>
-<li>optimizes: Anti-robinson form (BAR) restricted by dendrogram</li>
+<li>optimizes: BAR</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -436,7 +445,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="dendser_lpl">DendSer_LPL</h2>
 <p>Dendrogram seriation (Lazy path length)</p>
 <ul>
-<li>optimizes: Path length restricted by dendrogram</li>
+<li>optimizes: Path_length</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -481,7 +490,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="dendser_pl">DendSer_PL</h2>
 <p>Dendrogram seriation (Path length)</p>
 <ul>
-<li>optimizes: Path length restricted by dendrogram</li>
+<li>optimizes: Path_length</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -526,7 +535,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="enumerate">Enumerate</h2>
 <p>Enumerate all permutations</p>
 <ul>
-<li>optimizes: Various (set via control criterion)</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -556,7 +565,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="ga">GA</h2>
 <p>Use a genetic algorithm to optimize for various criteria.</p>
 <ul>
-<li>optimizes: Various (specified as parameter criterion)</li>
+<li>optimizes: NA</li>
 <li>randomized: TRUE</li>
 </ul>
 <p>control parameters:</p>
@@ -636,7 +645,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="gsa">GSA</h2>
 <p>Minimize a specified seriation measure (criterion) using simulated annealing.</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: TRUE</li>
 </ul>
 <p>control parameters:</p>
@@ -701,7 +710,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="gw">GW</h2>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by the Gruvaeus and Wainer (1972) heuristic</p>
 <ul>
-<li>optimizes: Path length restricted by dendrogram</li>
+<li>optimizes: Path_length</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -731,7 +740,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="gw_average">GW_average</h2>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by the Gruvaeus and Wainer (1972) heuristic (avg.link)</p>
 <ul>
-<li>optimizes: Path length restricted by dendrogram</li>
+<li>optimizes: Path_length</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -740,7 +749,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="gw_complete">GW_complete</h2>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by the Gruvaeus and Wainer (1972) heuristic (complete link)</p>
 <ul>
-<li>optimizes: Path length restricted by dendrogram</li>
+<li>optimizes: Path_length</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -749,7 +758,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="gw_single">GW_single</h2>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by the Gruvaeus and Wainer (1972) heuristic (single link)</p>
 <ul>
-<li>optimizes: Path length restricted by dendrogram</li>
+<li>optimizes: Path_length</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -758,7 +767,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="gw_ward">GW_ward</h2>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by the Gruvaeus and Wainer (1972) heuristic (Ward’s method)</p>
 <ul>
-<li>optimizes: Path length restricted by dendrogram</li>
+<li>optimizes: Path_length</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -767,7 +776,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="hc">HC</h2>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -797,7 +806,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="hc_average">HC_average</h2>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering (avg. link).</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -806,7 +815,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="hc_complete">HC_complete</h2>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering (complete link).</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -815,7 +824,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="hc_single">HC_single</h2>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering (single link)</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -824,7 +833,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="hc_ward">HC_ward</h2>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering (Ward’s method).</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -833,7 +842,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="identity">Identity</h2>
 <p>Identity permutation</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -842,7 +851,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="isomap">isomap</h2>
 <p>Isometric feature mapping ordination</p>
 <ul>
-<li>optimizes: Other (Stress on shortest path distances)</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -872,7 +881,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="isomds">isoMDS</h2>
 <p>Order along the 1D Kruskal’s non-metric multidimensional scaling</p>
 <ul>
-<li>optimizes: Other (MDS stress with monotonic transformation)</li>
+<li>optimizes: MDS_stress</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -917,7 +926,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="mds">MDS</h2>
 <p>Order along the 1D classical metric multidimensional scaling</p>
 <ul>
-<li>optimizes: Other (MDS strain)</li>
+<li>optimizes: MDS_stress</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -940,9 +949,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="mds_angle" class="level2">
 <h2 class="anchored" data-anchor-id="mds_angle">MDS_angle</h2>
-<p>Order by the angle in this space given by 2D metric MDS.</p>
+<p>Order by the angular order in the 2D MDS projection space split by the larges gap</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -967,7 +976,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="mds_smacof">MDS_smacof</h2>
 <p>Seriation based on multidemensional scaling using stress majorization (de Leeuw &amp; Mair, 2009).</p>
 <ul>
-<li>optimizes: Other (MDS stress)</li>
+<li>optimizes: smacof_stress0</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -1022,7 +1031,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="metamds">metaMDS</h2>
 <p>Nonmetric Multidimensional Scaling with Stable Solution from Random Starts.</p>
 <ul>
-<li>optimizes: Other (MDS strain)</li>
+<li>optimizes: MDS_stress</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -1102,8 +1111,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="monomds">monoMDS</h2>
 <p>Kruskal’s (1964a,b) non-metric multidimensional scaling (NMDS) using monotone regression.</p>
 <ul>
-<li>optimizes: Other (MDS strain)</li>
-<li>randomized: FALSE</li>
+<li>optimizes: MDS_stress</li>
+<li>randomized: TRUE</li>
 </ul>
 <p>control parameters:</p>
 <table class="table">
@@ -1177,7 +1186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="olo">OLO</h2>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001)</p>
 <ul>
-<li>optimizes: Path length restricted by dendrogram</li>
+<li>optimizes: Path_length</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -1207,7 +1216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="olo_average">OLO_average</h2>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (avg. link)</p>
 <ul>
-<li>optimizes: Path length restricted by dendrogram</li>
+<li>optimizes: Path_length</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -1216,7 +1225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="olo_complete">OLO_complete</h2>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (complete link)</p>
 <ul>
-<li>optimizes: Path length restricted by dendrogram</li>
+<li>optimizes: Path_length</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -1225,7 +1234,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="olo_single">OLO_single</h2>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (single link)</p>
 <ul>
-<li>optimizes: Path length restricted by dendrogram</li>
+<li>optimizes: Path_length</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -1234,7 +1243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="olo_ward">OLO_ward</h2>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (Ward’s method)</p>
 <ul>
-<li>optimizes: Path length restricted by dendrogram</li>
+<li>optimizes: Path_length</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -1243,7 +1252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="optics">optics</h2>
 <p>Use ordering points to identify the clustering structure (OPTICS) to create an order</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -1273,7 +1282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="qap_2sum">QAP_2SUM</h2>
 <p>Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the 2-Sum Problem criterion (Barnard, Pothen, and Simon 1993).</p>
 <ul>
-<li>optimizes: 2-sum criterion</li>
+<li>optimizes: 2SUM</li>
 <li>randomized: TRUE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -1282,7 +1291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="qap_bar">QAP_BAR</h2>
 <p>Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the banded anti-Robinson form (BAR).</p>
 <ul>
-<li>optimizes: Banded anti-robinson form</li>
+<li>optimizes: BAR</li>
 <li>randomized: TRUE</li>
 </ul>
 <p>control parameters:</p>
@@ -1316,7 +1325,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="qap_ls">QAP_LS</h2>
 <p>Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the Linear Seriation Problem (LS) criterion (Hubert and Schultz 1976).</p>
 <ul>
-<li>optimizes: Linear seriation criterion</li>
+<li>optimizes: LS</li>
 <li>randomized: TRUE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -1325,7 +1334,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="r2e">R2E</h2>
 <p>Rank-two ellipse seriation (Chen 2002)</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -1334,7 +1343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="random">Random</h2>
 <p>Random permutation</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: TRUE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -1343,7 +1352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="reverse">Reverse</h2>
 <p>Reversed identity permutation</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -1352,7 +1361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="sammon_mapping">Sammon_mapping</h2>
 <p>Order along the 1D Sammon’s non-linear mapping</p>
 <ul>
-<li>optimizes: Other (scale free, weighted MDS stress called Sammon’s error)</li>
+<li>optimizes: MDS_stress</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -1397,7 +1406,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="sgd">SGD</h2>
 <p>Improve an existing solution using stochastic gradient descent.</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: TRUE</li>
 </ul>
 <p>control parameters:</p>
@@ -1442,7 +1451,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="spectral">Spectral</h2>
 <p>Spectral seriation (Ding and He 2004) uses a relaxation to minimize the 2-Sum Problem (Barnard, Pothen, and Simon 1993). It uses the order of the Fiedler vector of the similarity matrix’s Laplacian.</p>
 <ul>
-<li>optimizes: 2-sum criterion</li>
+<li>optimizes: 2SUM</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -1451,7 +1460,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="spectral_norm">Spectral_norm</h2>
 <p>Spectral seriation (Ding and He 2004) uses a relaxation to minimize the 2-Sum Problem (Barnard, Pothen, and Simon 1993). It uses the order of the Fiedler vector of the similarity matrix’s normalized Laplacian.</p>
 <ul>
-<li>optimizes: 2-sum criterion</li>
+<li>optimizes: 2SUM</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -1460,7 +1469,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="spin_nh">SPIN_NH</h2>
 <p>Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Neighborhood algorithm to concentrate low distance values around the diagonal.</p>
 <ul>
-<li>optimizes: Energy</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -1500,7 +1509,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="spin_sts">SPIN_STS</h2>
 <p>Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Side-to-Side algorithm which tries to push out large distance values.</p>
 <ul>
-<li>optimizes: Energy</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -1540,7 +1549,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="tsne">tsne</h2>
 <p>Use 1D t-distributed stochastic neighbor embedding (t-SNE) a distance matrix to create an order.</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: TRUE</li>
 </ul>
 <p>control parameters:</p>
@@ -1590,7 +1599,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="tsp">TSP</h2>
 <p>Minimize Hamiltonian path length with a TSP solver.</p>
 <ul>
-<li>optimizes: Path length</li>
+<li>optimizes: Path_length</li>
 <li>randomized: TRUE</li>
 </ul>
 <p>control parameters:</p>
@@ -1625,7 +1634,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="umap">umap</h2>
 <p>Use 1D Uniform manifold approximation and projection (UMAP) embedding of the distances to create an order</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: TRUE</li>
 </ul>
 <p>control parameters:</p>
@@ -1755,20 +1764,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="vat">VAT</h2>
 <p>Visual assesment of clustering tendency (Bezdek and Hathaway (2002). Creates an order based on Prim’s algorithm for finding a minimum spanning tree (MST) in a weighted connected graph representing the distance matrix. The order is given by the order in which the nodes (objects) are added to the MST.</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
 </section>
 </section>
-<section id="methods-for-seriating-data-matrices-tables-and-data.frames" class="level1">
-<h1>Methods for seriating data matrices, tables and data.frames</h1>
+<section id="methods-for-data-matrices-tables-and-data.frames" class="level1">
+<h1>Methods for data matrices, tables and data.frames</h1>
+<section id="aoe" class="level2">
+<h2 class="anchored" data-anchor-id="aoe">AOE</h2>
+<p>Order by the angle of the first two eigenvectors (for correlation matrices)</p>
+<ul>
+<li>optimizes: NA</li>
+<li>randomized: FALSE</li>
+</ul>
+<p>control parameters: no parameters</p>
+</section>
 <section id="bea" class="level2">
 <h2 class="anchored" data-anchor-id="bea">BEA</h2>
 <p>Bond Energy Algorithm (BEA; McCormick 1972) to maximize the Measure of Effectiveness of a non-negative matrix.</p>
 <ul>
-<li>optimizes: Measure of effectiveness (ME)</li>
-<li>randomized: FALSE</li>
+<li>optimizes: ME</li>
+<li>randomized: TRUE</li>
 </ul>
 <p>control parameters:</p>
 <table class="table">
@@ -1797,7 +1815,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="bea_tsp">BEA_TSP</h2>
 <p>Use a TSP to optimize the Measure of Effectiveness (Lenstra 1974).</p>
 <ul>
-<li>optimizes: Measure of effectiveness (ME)</li>
+<li>optimizes: ME</li>
 <li>randomized: TRUE</li>
 </ul>
 <p>control parameters:</p>
@@ -1832,7 +1850,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="ca">CA</h2>
 <p>This method calculates a correspondence analysis of the matrix and computes an order according to the scores on a correspondence analysis dimension.</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -1862,7 +1880,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="heatmap">Heatmap</h2>
 <p>Calculates distances for rows and columns and then independently applies the specified seriation method for distances.</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -1882,7 +1900,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td>seriation_method</td>
-<td style="text-align: left;">list(row = “OLO”, col = “OLO”)</td>
+<td style="text-align: left;">list(row = “OLO_complete”, col = “OLO_complete”)</td>
 <td style="text-align: left;">A named list with row and column seriation methods</td>
 </tr>
 <tr class="odd">
@@ -1907,7 +1925,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="identity-1">Identity</h2>
 <p>Identity permutation</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -1916,7 +1934,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="lle">LLE</h2>
 <p>Find an order using 1D locally linear embedding.</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -1946,7 +1964,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="mean">Mean</h2>
 <p>Reorders rows and columns by row and column means.</p>
 <ul>
-<li>optimizes: Other</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -1971,7 +1989,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="pca">PCA</h2>
 <p>Uses the projection of the data on its first principal component to determine the order.</p>
 <ul>
-<li>optimizes: Least squares for each dimension (for Euclidean distances).</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -2004,9 +2022,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pca_angle" class="level2">
 <h2 class="anchored" data-anchor-id="pca_angle">PCA_angle</h2>
-<p>Projects the data on the first two principal components and then orders by the angle in this space. The order is split by the larges gap between adjacent angles.</p>
+<p>Uses the angular order in the 2D PCA projection space split by the larges gap.</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters:</p>
@@ -2041,7 +2059,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="random-1">Random</h2>
 <p>Random permutation</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: TRUE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -2050,7 +2068,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="reverse-1">Reverse</h2>
 <p>Reversed identity permutation</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: FALSE</li>
 </ul>
 <p>control parameters: no parameters</p>
@@ -2059,7 +2077,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="tsne-1">tsne</h2>
 <p>Use 1D t-distributed stochastic neighbor embedding (t-SNE) of the rows of a matrix to create an order.</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: TRUE</li>
 </ul>
 <p>control parameters:</p>
@@ -2104,7 +2122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="umap-1">umap</h2>
 <p>Use 1D Uniform manifold approximation and projection (UMAP) embedding of the data to create an order</p>
 <ul>
-<li>optimizes: Unspecified</li>
+<li>optimizes: NA</li>
 <li>randomized: TRUE</li>
 </ul>
 <p>control parameters:</p>
@@ -2230,6 +2248,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<p>Arabie, P. and L.J. Hubert (1990): The bond energy algorithm revisited, <em>IEEE Transactions on Systems, Man, and Cybernetics,</em> <strong>20</strong>(1), 268–274. </p>
+<p>Bar-Joseph, Z., E. D. Demaine, D. K. Gifford, and T. Jaakkola. (2001): Fast Optimal Leaf Ordering for Hierarchical Clustering. <em>Bioinformatics,</em> <strong>17</strong>(1), 22–29. </p>
+<p>Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for Envelope Reduction of Sparse Matrices. <em>In Proceedings of the 1993 ACM/IEEE Conference on Supercomputing,</em> 493–502. Supercomputing ’93. New York, NY, USA: ACM. </p>
+<p>Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual assessment of (cluster) tendency. <em>Proceedings of the 2002 International Joint Conference on Neural Networks (IJCNN ’02),</em> Volume: 3, 2225–2230. </p>
+<p>Brusco, M., Koehn, H.F., and Stahl, S. (2008): Heuristic Implementation of Dynamic Programming for Matrix Permutation Problems in Combinatorial Data Analysis. <em>Psychometrika,</em> <strong>73</strong>(3), 503–522. </p>
+<p>Brusco, M., and Stahl, S. (2005): <em>Branch-and-Bound Applications in Combinatorial Data Analysis.</em> New York: Springer. </p>
+<p>Chen, C. H. (2002): Generalized Association Plots: Information Visualization via Iteratively Generated Correlation Matrices. <em>Statistica Sinica,</em> <strong>12</strong>(1), 7–29.</p>
+<p>Ding, C. and Xiaofeng He (2004): Linearized cluster assignment via spectral ordering. <em>Proceedings of the Twenty-first International Conference on Machine learning (ICML ’04)</em>. </p>
+<p>Climer, S. and Xiongnu Zhang (2006): Rearrangement Clustering: Pitfalls, Remedies, and Applications, <em>Journal of Machine Learning Research,</em> <strong>7</strong>(Jun), 919–943.</p>
+<p>D. Earle, C. B. Hurley (2015): Advances in dendrogram seriation for application to visualization. <em>Journal of Computational and Graphical Statistics,</em> <strong>24</strong>(1), 1–25.</p>
+<p>Friendly, M. (2002): Corrgrams: Exploratory Displays for Correlation Matrices. <em>The American Statistician,</em> <strong>56</strong>(4), 316–324. </p>
+<p>Gruvaeus, G. and Wainer, H. (1972): Two Additions to Hierarchical Cluster Analysis, <em>British Journal of Mathematical and Statistical Psychology,</em> <strong>25</strong>, 200–206. </p>
+<p>Hahsler, M. (2017): An experimental comparison of seriation methods for one-mode two-way data. <em>European Journal of Operational Research,</em> <strong>257</strong>, 133–143. </p>
+<p>Hubert, Lawrence, and James Schultz (1976): Quadratic Assignment as a General Data Analysis Strategy. <em>British Journal of Mathematical and Statistical Psychology,</em> <strong>29</strong>(2). Blackwell Publishing Ltd.&nbsp;190–241. </p>
+<p>Hurley, Catherine B. (2004): Clustering Visualizations of Multidimensional Data. <em>Journal of Computational and Graphical Statistics,</em> <strong>13</strong>(4), 788–806. </p>
+<p>Kruskal, J.B. (1964). Nonmetric multidimensional scaling: a numerical method. <em>Psychometrika,</em> <strong>29</strong>, 115–129.</p>
+<p>Lenstra, J.K (1974): Clustering a Data Array and the Traveling-Salesman Problem, <em>Operations Research,</em> <strong>22</strong>(2) 413–414. </p>
+<p>Mair P., De Leeuw J. (2015). Unidimensional scaling. In <em>Wiley StatsRef: Statistics Reference Online,</em> Wiley, New York. </p>
+<p>McCormick, W.T., P.J. Schweitzer and T.W. White (1972): Problem decomposition and data reorganization by a clustering technique, <em>Operations Research,</em> <strong>20</strong>(5), 993–1009. </p>
+<p>Tenenbaum, J.B., de Silva, V. &amp; Langford, J.C. (2000) A global network framework for nonlinear dimensionality reduction. <em>Science</em> <strong>290</strong>, 2319-2323.</p>
+<p>Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany, E. (2005): Sorting points into neighborhoods (SPIN): data analysis and visualization by ordering distance matrices, <em>Bioinformatics,</em> <strong>21</strong>(10) 2301–8. </p>
+<p>Sammon, J. W. (1969) A non-linear mapping for data structure analysis. <em>IEEE Trans. Comput.</em>, <strong>C-18</strong> 401–409.</p>
 </section>
 
 </main>

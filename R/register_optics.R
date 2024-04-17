@@ -21,19 +21,19 @@
 #'
 #' Use ordering points to identify the clustering structure (OPTICS) for [seriate()].
 #'
-#' Registers the method \code{"optics"} for [seriate()]. This method applies
-#' the OPTICS ordering algorithm to create an ordering.
+#' Registers the method `"optics"` for [seriate()]. This method applies
+#' the OPTICS ordering algorithm implemented in [`dbscan::optics()`] to create an ordering.
 #'
-#' \bold{Note:} Package \pkg{dbscan} needs to be installed.
+#' **Note:** Package \pkg{dbscan} needs to be installed.
 #'
 #' @aliases register_optics optics OPTICS
-#' @seealso [dbscan::optics()] in \pkg{dbscan}.
+#' @seealso [dbscan::optics()].
 #' @family seriation
 #' @returns Nothing.
 #'
 #' @references Mihael Ankerst, Markus M. Breunig, Hans-Peter Kriegel, Joerg
 #' Sander (1999). OPTICS: Ordering Points To Identify the Clustering Structure.
-#' ACM SIGMOD international conference on Management of data. ACM Press. pp.
+#' _ACM SIGMOD international conference on Management of data,_ ACM Press, pp.
 #' 49-60. \doi{10.1145/304181.304187}
 #' @keywords optimize cluster
 #' @examples

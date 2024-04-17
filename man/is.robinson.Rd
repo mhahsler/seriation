@@ -3,6 +3,7 @@
 \name{is.robinson}
 \alias{is.robinson}
 \alias{Robinson}
+\alias{robinson}
 \alias{random.robinson}
 \title{Create and Recognize Robinson and Pre-Robinson Matrices}
 \usage{
@@ -53,7 +54,6 @@ added. The coordinates are chosen uniformly between 0 and \code{noise}, with
 \code{noise} between 0 and 1.
 }
 \examples{
-
 ## create a perfect anti Robinson structure
 m <- random.robinson(10)
 pimage(m)
@@ -86,5 +86,17 @@ criterion(m5, method = "AR")
 \references{
 M. Laurent, M. Seminaroti (2015): The quadratic assignment
 problem is easy for Robinsonian matrices with Toeplitz structure,
-\emph{Operations Research Letters} 43(1), 103--109.
+\emph{Operations Research Letters} \strong{43}(1), 103--109.
 }
+\seealso{
+Other data: 
+\code{\link{Chameleon}},
+\code{\link{Irish}},
+\code{\link{Munsingen}},
+\code{\link{SupremeCourt}},
+\code{\link{Townships}},
+\code{\link{Wood}},
+\code{\link{Zoo}},
+\code{\link{create_lines_data}()}
+}
+\concept{data}

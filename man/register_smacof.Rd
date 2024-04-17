@@ -12,7 +12,7 @@ register_smacof()
 Nothing.
 }
 \description{
-Registers the \code{"MDS_smacof"} method for \code{\link[=seriate]{seriate()}} based on multidemensional
+Registers the \code{"MDS_smacof"} method for \code{\link[=seriate]{seriate()}} based on multidimensional
 scaling using stress majorization and the corresponding \code{"smacof_stress0"}
 criterion implemented in package smacof (de Leeuw & Mair, 2009).
 }
@@ -24,12 +24,12 @@ to \code{"ratio"}, which together with \code{"interval"} performs metric MDS.
 for non-metric MDS. See \code{\link[smacof:smacofSym]{smacof::smacofSym()}} for details on the
 control parameters.
 
-The corresponding criterion calles \code{"smacof_stress0"} is also registered.
+The corresponding criterion called \code{"smacof_stress0"} is also registered.
 There additional parameter \code{type} is used to specify the used
 transformation function. It should agree with the function used for seriation.
 See \code{\link[smacof:stress0]{smacof::stress0()}} for details on the stress calculation.
 
-Note: Package \pkg{smacof} needs to be installed.
+\strong{Note:} Package \pkg{smacof} needs to be installed.
 }
 \examples{
 \dontrun{
@@ -63,8 +63,8 @@ Other seriation:
 \code{\link{register_tsne}()},
 \code{\link{register_umap}()},
 \code{\link{registry_for_seriaiton_methods}},
-\code{\link{seriate_best}()},
-\code{\link{seriate}()}
+\code{\link{seriate}()},
+\code{\link{seriate_best}()}
 }
 \concept{seriation}
 \keyword{cluster}

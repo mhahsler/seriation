@@ -136,7 +136,7 @@ get_seriation_method("matrix", "reverse")
 seriate(matrix(1:12, ncol=3), "reverse")
 }
 \seealso{
-This registry uses \code{\link[=registry]{registry()}} in package \pkg{registry}.
+This registry uses \link[registry:registry]{registry::registry}.
 
 Other seriation: 
 \code{\link{register_DendSer}()},
@@ -145,8 +145,8 @@ Other seriation:
 \code{\link{register_smacof}()},
 \code{\link{register_tsne}()},
 \code{\link{register_umap}()},
-\code{\link{seriate_best}()},
-\code{\link{seriate}()}
+\code{\link{seriate}()},
+\code{\link{seriate_best}()}
 }
 \author{
 Michael Hahsler

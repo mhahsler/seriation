@@ -45,17 +45,18 @@
 #' - `"DendSer_LPL"` (lazy path length),
 #' - `"DendSer_PL"` (path length).
 #'
-#' Note: Package \pkg{DendSer} needs to be installed.
+#' **Note:** Package \pkg{DendSer} needs to be installed.
 #'
 #' @aliases register_DendSer DendSer dendser
+#' @seealso [`DendSer::DendSer()`]
 #' @family seriation
 #' @returns Nothing.
 #'
 #' @author Michael Hahsler based on code by Catherine B. Hurley and Denise
 #' Earle
 #' @references D. Earle, C. B. Hurley (2015): Advances in dendrogram seriation
-#' for application to visualization. \emph{Journal of Computational and
-#' Graphical Statistics,} \bold{24}(1), 1--25.
+#' for application to visualization. _Journal of Computational and
+#' Graphical Statistics,_ **24**(1), 1--25.
 #' @keywords optimize cluster
 #' @examples
 #'

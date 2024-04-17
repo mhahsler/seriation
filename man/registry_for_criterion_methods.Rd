@@ -25,6 +25,7 @@ set_criterion_method(
   fun,
   description = NULL,
   merit = NA,
+  control = list(),
   verbose = FALSE,
   ...
 )
@@ -122,7 +123,7 @@ get_criterion_method("matrix", "DiagSum")
 criterion(matrix(1:9, ncol = 3))
 }
 \seealso{
-This registry uses \code{\link[=registry]{registry()}} in package \pkg{registry}.
+This registry uses \link[registry:registry]{registry::registry}.
 
 Other criterion: 
 \code{\link{criterion}()}

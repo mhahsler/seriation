@@ -18,13 +18,23 @@ used in Falguerolles et al (1997).
 Column 6 contains the size of the Electorate in 1992.
 }
 \examples{
-
 data(Irish)
-
 }
 \references{
-de Falguerolles, A., Friedrich, F., Sawitzki, G. (1997): A
-Tribute to J. Bertin's Graphical Data Analysis. In: Proceedings of the
-SoftStat '97 (Advances in Statistical Software 6), 11--20.
+de Falguerolles, A., Friedrich, F., Sawitzki, G. (1997) A
+Tribute to J. Bertin's Graphical Data Analysis. In: \emph{Proceedings of the
+SoftStat '97 (Advances in Statistical Software 6),} 11--20.
 }
+\seealso{
+Other data: 
+\code{\link{Chameleon}},
+\code{\link{Munsingen}},
+\code{\link{SupremeCourt}},
+\code{\link{Townships}},
+\code{\link{Wood}},
+\code{\link{Zoo}},
+\code{\link{create_lines_data}()},
+\code{\link{is.robinson}()}
+}
+\concept{data}
 \keyword{datasets}

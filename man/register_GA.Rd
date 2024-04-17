@@ -39,7 +39,7 @@ population.
 
 See Example section for available control parameters.
 
-\bold{Note:} Package \pkg{GA} needs to be installed.
+\strong{Note:} Package \pkg{GA} needs to be installed.
 }
 \examples{
 
@@ -68,7 +68,7 @@ pimage(d, o)
 }
 \references{
 Luca Scrucca (2013): GA: A Package for Genetic Algorithms in R.
-\emph{Journal of Statistical Software,} \bold{53}(4), 1--37. URL
+\emph{Journal of Statistical Software,} \strong{53}(4), 1--37. URL
 \doi{10.18637/jss.v053.i04}.
 }
 \seealso{
@@ -79,8 +79,8 @@ Other seriation:
 \code{\link{register_tsne}()},
 \code{\link{register_umap}()},
 \code{\link{registry_for_seriaiton_methods}},
-\code{\link{seriate_best}()},
-\code{\link{seriate}()}
+\code{\link{seriate}()},
+\code{\link{seriate_best}()}
 }
 \author{
 Michael Hahsler

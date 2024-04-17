@@ -1,0 +1,162 @@
+---
+title: "List of Seriation Criteria implemented in the R package seriation"
+author: "Michael Hahsler"
+format: 
+  html:
+    toc: true
+editor: visual
+---
+
+This document contains the seriation criteria for judging the quality of permutations given data implemented in the R package [`seriation`](https://github.com/mhahsler/seriation). 
+
+This list was created for the following version of seriation:
+```{r}
+library("seriation")
+packageVersion('seriation')
+```
+
+
+```{r, echo = FALSE}
+.print_control <- function(control,
+                           label = "default values",
+                           help = TRUE,
+                           trim_values = 30L) {
+  if (length(control) < 1L) {
+    writeLines("no parameters")
+  } else{
+    contr <- lapply(
+      control,
+      FUN = function(x)
+        strtrim(paste(deparse(x), collapse = ""), trim_values)
+    )
+
+    contr <- as.data.frame(t(as.data.frame(contr)))
+    colnames(contr) <- c(label)
+
+    contr <- cbind(contr, help = "N/A")
+    if (!is.null(attr(control, "help")))
+      for (i in seq(nrow(contr))) {
+        hlp <- attr(control, "help")[[rownames(contr)[i]]]
+        if (!is.null(hlp))
+        contr[["help"]][i] <- hlp
+      }
+
+    print(knitr::kable(contr, format = "simple"))
+  }
+
+}
+
+optimized_by <- function(criterion) {
+  l <- registry_seriate$get_entries()
+  names <- sapply(l, "[[", "name")
+  ops <- sapply(l, "[[", "optimizes")
+  match <- ops == criterion
+  match[is.na(match)] <- FALSE
+  res <- unname(names[match])
+  if (length(res) == 0) res <- "N/A"
+  res
+}
+
+print_criterion_method_md <- function(x, ...) {
+    cat("\n\n##", x$name, "\n")
+  
+    cat(x$description, "\n\n")
+    
+#    cat("* kind:", x$kind, "\n")
+    cat("* merit:", x$merit, "\n")
+    cat("* optimized by: ", paste(optimized_by(x$name), collapse = ", "), "\n\n")
+#    cat("* randomized:", x$randomized, "\n\n")
+
+  writeLines("additional parameters:")
+  .print_control(x$control, trim_values = 100)
+
+  
+  invisible(x)
+}
+
+```
+
+The criteria are organized by methods that evaluate the permutation based on 
+distance data or data matrices. 
+
+`merit` specified if the criteria function increases with better fit or if
+it is formulated as a loss criteria functions (`merit = FALSE`).
+
+If a seriation method directly tries to optimize the criterion, than its name is 
+specified under "optimized by". The names can be used as the `method` argument in 
+`seriate()`.
+
+# Criteria for distances
+
+```{r, results='asis', echo = FALSE}
+l <- list_criterion_methods(kind = "dist", names_only = FALSE)
+l <- l[order(sapply(l, "[[", "name"))]
+for(i in seq_along(l))
+  print_criterion_method_md(l[[i]])
+```
+
+# Criteria for data matrices, tables and data.frames
+
+```{r, results='asis', echo = FALSE}
+l <- list_criterion_methods(kind = "matrix", names_only = FALSE)
+l <- l[order(sapply(l, "[[", "name"))]
+for(i in seq_along(l))
+  print_criterion_method_md(l[[i]])
+```
+# References
+
+Barnard, S.T., A. Pothen, and H. D. Simon (1993): A Spectral
+Algorithm for Envelope Reduction of Sparse Matrices. _In Proceedings of
+the 1993 ACM/IEEE Conference on Supercomputing,_ 493--502. Supercomputing
+'93. New York, NY, USA: ACM.
+
+Caraux, G. and S. Pinloche (2005): Permutmatrix: A Graphical Environment to
+Arrange Gene Expression Profiles in Optimal Linear Order,
+_Bioinformatics,_ **21**(7), 1280--1281.
+
+Chen, C.-H. (2002): Generalized association plots: Information visualization
+via iteratively generated correlation matrices, _Statistica Sinica,_
+**12**(1), 7--29.
+
+Deutsch, S.B. and J.J. Martin (1971): An ordering algorithm for analysis of
+data arrays. _Operational Research,_ **19**(6), 1350--1362.
+\doi{10.1287/opre.19.6.1350}
+
+Earle, D. and C.B. Hurley (2015): Advances in Dendrogram Seriation for
+Application to Visualization. _Journal of Computational and Graphical
+Statistics,_ **24**(1), 1--25.
+\doi{10.1080/10618600.2013.874295}
+
+Hahsler, M. (2017): An experimental comparison of seriation methods for
+one-mode two-way data. _European Journal of Operational Research,_
+**257**, 133--143.
+\doi{10.1016/j.ejor.2016.08.066}
+
+Hubert, L. and J. Schultz (1976): Quadratic Assignment as a General Data
+Analysis Strategy. _British Journal of Mathematical and Statistical
+Psychology,_ **29**(2). Blackwell Publishing Ltd. 190--241.
+\doi{10.1111/j.2044-8317.1976.tb00714.x}
+
+Hubert, L., P. Arabie, and J. Meulman (2001): _Combinatorial Data
+Analysis: Optimization by Dynamic Programming._ Society for Industrial
+Mathematics.
+\doi{10.1137/1.9780898718553}
+
+Niermann, S. (2005): Optimizing the Ordering of Tables With Evolutionary
+Computation, _The American Statistician,_ **59**(1), 41--46.
+\doi{10.1198/000313005X22770}
+
+McCormick, W.T., P.J. Schweitzer and T.W. White (1972): Problem
+decomposition and data reorganization by a clustering technique,
+_Operations Research,_ **20**(5), 993-1009.
+\doi{10.1287/opre.20.5.993}
+
+Robinson, W.S. (1951): A method for chronologically ordering archaeological
+deposits, _American Antiquity,_ **16**, 293--301.
+\doi{10.2307/276978}
+
+Tien, Y-J., Yun-Shien Lee, Han-Ming Wu and Chun-Houh Chen (2008): Methods
+for simultaneously identifying coherent local clusters with smooth global
+patterns in gene expression profiles, _BMC Bioinformatics,_
+**9**(155), 1--16.
+\doi{10.1186/1471-2105-9-155}

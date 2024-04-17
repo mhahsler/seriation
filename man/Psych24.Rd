@@ -38,11 +38,11 @@ pimage(d, order)
 \references{
 Holzinger, K. L., Swineford, F. (1939):
 A study in factor analysis: The stability of a bi-factor solution.
-\emph{Supplementary Educational Monograph,} No. \bold{48}.
+\emph{Supplementary Educational Monograph,} No. \strong{48}.
 Chicago: University of Chicago Press.
 
 Ling, R. L. (1973): A computer generated aid for cluster analysis.
-\emph{Communications of the ACM},
-\bold{16}(6), pp. 355--361.
+\emph{Communications of the ACM,}
+\strong{16}(6), pp. 355--361.
 }
 \keyword{datasets}

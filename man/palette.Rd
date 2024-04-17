@@ -47,8 +47,8 @@ Defines several color palettes for \code{\link[=pimage]{pimage()}}, \code{\link[
 \code{\link[=hmap]{hmap()}}.
 }
 \details{
-The color palettes are created with \code{\link[=sequential_hcl]{sequential_hcl()}} and
-\code{\link[=diverging_hcl]{diverging_hcl()}} from package \pkg{colorspace}.
+The color palettes are created with \code{\link[colorspace:hcl_palettes]{colorspace::sequential_hcl()}} and
+\code{\link[colorspace:hcl_palettes]{colorspace::diverging_hcl()}}.
 
 The two sequential palettes are: \code{reds()} and \code{grays()} (or
 \code{greys()}).

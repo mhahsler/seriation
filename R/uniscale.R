@@ -16,9 +16,9 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-#' Unidimensional Scaling from Seriation Results
+#' Fit an Unidimensional Scaling for a Seriation Order
 #'
-#' Calculates an (approximate) unidimensional scaling configuration given an order.
+#' Fits an (approximate) unidimensional scaling configuration given an order.
 #'
 #' This implementation uses the method describes in Maier and De Leeuw (2015) to calculate the
 #' minimum stress configuration for a given (seriation) order by performing a 1D MDS fit.
@@ -29,10 +29,11 @@
 #' which needs to be registered with [`register_smacof()`].
 #'
 #'
-#' The code is similar to `uniscale()` in \pkg{smacof} (de Leeuw, 2090), but scales to larger
-#' datasets since it only uses the permutation given by  `order`.
+#' The code is similar to `smacof::uniscale()` (de Leeuw, 2090),
+#' but scales to larger
+#' datasets since it only uses the permutation given by `order`.
 #'
-#' `MDS_stress` calculates the normalized stress of a configuration given by a seriation order.
+#' `MDS_stress()` calculates the normalized stress of a configuration given by a seriation order.
 #' If the order does not contain a configuration, then a minimum-stress configuration if calculates
 #' for the given order.
 #'
@@ -55,13 +56,13 @@
 #'  given order.
 #' @param \dots additional arguments are passed on to the seriation method.
 #' @return A vector with the fitted configuration.
-#' @author Michael Hahsler with code from Patrick Mair (from \pkg{smacof}).
+#' @author Michael Hahsler with code from Patrick Mair (from `smacof::uniscale()`).
 #' @references Mair P., De Leeuw J. (2015). Unidimensional scaling. In
-#' \emph{Wiley StatsRef: Statistics Reference Online,} Wiley, New York.
+#' _Wiley StatsRef: Statistics Reference Online,_ Wiley, New York.
 #' \doi{10.1002/9781118445112.stat06462.pub2}
 #'
 #' Jan de Leeuw, Patrick Mair (2009). Multidimensional Scaling Using Majorization:
-#' SMACOF in R. Journal of Statistical Software, 31(3), 1-30.
+#' SMACOF in R. _Journal of Statistical Software_, **31**(3), 1-30.
 #' \doi{10.18637/jss.v031.i03}
 #' @seealso [register_smacof()]
 #' @keywords optimize
@@ -179,12 +180,22 @@ MDS_stress <- function(d, order, refit = TRUE, warn = FALSE) {
   sqrt(sum((d - d_emb)^2) / sum(d_emb^2))
 }
 
+.smacof_contr <- structure(
+  list(
+    warn = FALSE
+  ),
+  help = list(
+    warn = "produce a warning if the 1D MDS fit does not preserve the given order (see ? seriation::uniscale)."
+  )
+)
+
 set_criterion_method(
   "dist",
   "MDS_stress",
   MDS_stress,
   "Normalized stress of a configuration given by a seriation order",
-  FALSE
+  FALSE,
+  control = .smacof_contr
 )
 
 #' @rdname uniscale

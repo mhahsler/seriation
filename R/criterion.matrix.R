@@ -138,24 +138,27 @@ criterion_R_matrix <- function(x, order, ...) {
 
 ## register built-ins
 set_criterion_method("matrix", "ME", criterion_ME,
-  "Measure of effectiveness", TRUE)
+  "Measure of effectiveness (McCormick, 1972).",
+  TRUE)
+
 set_criterion_method("matrix",
   "Cor_R",
   criterion_R_matrix,
-  "Correlation Coefficient R",
+  "Weighted correlation coefficient R: A measure of effectiveness normalized between -1 and 1 (Deutsch and Martin, 1971).",
   TRUE)
 
 set_criterion_method(
   "matrix",
   "Moore_stress",
   criterion_stress_moore,
-  "Stress (Moore neighborhood)",
+  "Stress criterion (Moore neighborhood) applied to the reordered matrix (Niermann, 2005).",
   FALSE
 )
+
 set_criterion_method(
   "matrix",
   "Neumann_stress",
   criterion_stress_neumann,
-  "Stress (Neumann neighborhood)",
+  "Stress criterion (Neumann neighborhood) applied to the reordered matrix (Niermann, 2005).",
   FALSE
 )

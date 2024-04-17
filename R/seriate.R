@@ -70,7 +70,7 @@
 #'
 #'       Uses the order of the leaf nodes in a dendrogram obtained by hierarchical
 #'       clustering as a simple seriation technique. This method
-#'       applies hierarchical clustering ([hclust()]) to `x`. The clustering
+#'       applies hierarchical clustering ([stats::hclust()]) to `x`. The clustering
 #'       method can be given using a `"linkage"` element in the `control`
 #'       list. If omitted, the default `"complete"` is used.
 #'       For convenience, the other methods are provided as shortcuts.
@@ -86,7 +86,7 @@
 #'
 #'     The methods start with a dendrogram created by [hclust()]. As the
 #'     `"linkage"` element in the `control` list, a clustering method
-#'     (default `"average"`) can be specified. Alternatively, an [hclust]
+#'     (default `"average"`) can be specified. Alternatively, an [stats::hclust]
 #'     object can be supplied using an element named `"hclust"`.
 #'
 #'     A dendrogram (binary tree) has \eqn{2^{n-1}} internal nodes (subtrees) and
@@ -139,7 +139,7 @@
 #'    `"metaMDS"` (Kruskal, 1964)
 #'
 #'      Orders along the 1D Kruskal's non-metric multidimensional scaling.
-#'      Package `vegan` implements an alternative implementation called `monoMDS`
+#'      Package \pkg{vegan} provides an alternative implementation called `monoMDS`
 #'      and a version that uses random restarts for stability called `metaMDS`.
 #'      `control` parameters are passed on to [MASS::isoMDS()], [vegan::monoMDS()] or [vegan::metaMDS()].
 #'
@@ -151,7 +151,7 @@
 #'
 #'   - **Angular order of the first two eigenvectors:** `"MDS_angle"`
 #'
-#'       Finds a 2D configuration using MDS ([cmdscale()])
+#'       Finds a 2D configuration using MDS ([stats::cmdscale()])
 #'       to approximate the eigenvectors of the covariance matrix in the
 #'       original data matrix.
 #'       Orders by the angle in this space and splits the order by the
@@ -439,7 +439,8 @@
 #'
 #' - **Order along the first principal component:** `"PCA"`
 #'
-#'   Uses the projection of the data on its first principal component to
+#'   Uses the projection of the data on its first principal component (using
+#'   `stats::princomp()`) to
 #'   determine the order of rows. Performs the same procedure on the transposed
 #'   matrix to obtain the column order.
 #'
@@ -504,89 +505,89 @@
 #' @author Michael Hahsler
 #'
 #' @references Arabie, P. and L.J. Hubert (1990): The bond energy algorithm
-#' revisited, \emph{IEEE Transactions on Systems, Man, and Cybernetics,}
-#' \bold{20}(1), 268--274.
+#' revisited, _IEEE Transactions on Systems, Man, and Cybernetics,_
+#' **20**(1), 268--274.
 #' \doi{10.1109/21.47829}
 #'
 #' Bar-Joseph, Z., E. D. Demaine, D. K. Gifford, and T. Jaakkola. (2001): Fast
-#' Optimal Leaf Ordering for Hierarchical Clustering. \emph{Bioinformatics,}
-#' \bold{17}(1), 22--29.
+#' Optimal Leaf Ordering for Hierarchical Clustering. _Bioinformatics,_
+#' **17**(1), 22--29.
 #' \doi{10.1093/bioinformatics/17.suppl_1.S22}
 #'
 #' Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for
-#' Envelope Reduction of Sparse Matrices. \emph{In Proceedings of the 1993
-#' ACM/IEEE Conference on Supercomputing,} 493--502. Supercomputing '93. New
+#' Envelope Reduction of Sparse Matrices. _In Proceedings of the 1993
+#' ACM/IEEE Conference on Supercomputing,_ 493--502. Supercomputing '93. New
 #' York, NY, USA: ACM. \url{https://ieeexplore.ieee.org/document/1263497}
 #'
 #' Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual assessment of
-#' (cluster) tendency. \emph{Proceedings of the 2002 International Joint
-#' Conference on Neural Networks (IJCNN '02)}, Volume: 3, 2225--2230.
+#' (cluster) tendency. _Proceedings of the 2002 International Joint
+#' Conference on Neural Networks (IJCNN '02),_ Volume: 3, 2225--2230.
 #' \doi{10.1109/IJCNN.2002.1007487}
 #'
 #' Brusco, M., Koehn, H.F., and Stahl, S. (2008): Heuristic Implementation of
 #' Dynamic Programming for Matrix Permutation Problems in Combinatorial Data
-#' Analysis. \emph{Psychometrika,} \bold{73}(3), 503--522.
+#' Analysis. _Psychometrika,_ **73**(3), 503--522.
 #' \doi{10.1007/s11336-007-9049-5}
 #'
-#' Brusco, M., and Stahl, S. (2005): \emph{Branch-and-Bound Applications in
-#' Combinatorial Data Analysis.} New York: Springer.
+#' Brusco, M., and Stahl, S. (2005): _Branch-and-Bound Applications in
+#' Combinatorial Data Analysis._ New York: Springer.
 #' \doi{10.1007/0-387-28810-4}
 #'
 #' Chen, C. H. (2002): Generalized Association Plots: Information Visualization
-#' via Iteratively Generated Correlation Matrices. \emph{Statistica Sinica,}
-#' \bold{12}(1), 7--29.
+#' via Iteratively Generated Correlation Matrices. _Statistica Sinica,_
+#' **12**(1), 7--29.
 #'
 #' Ding, C. and Xiaofeng He (2004): Linearized cluster assignment via spectral
-#' ordering. \emph{Proceedings of the Twenty-first International Conference on
-#' Machine learning (ICML '04)}.
+#' ordering. _Proceedings of the Twenty-first International Conference on
+#' Machine learning (ICML '04)_.
 #' \doi{10.1145/1015330.1015407}
 #'
 #' Climer, S. and Xiongnu Zhang (2006): Rearrangement Clustering: Pitfalls,
-#' Remedies, and Applications, \emph{Journal of Machine Learning Research,}
-#' \bold{7}(Jun), 919--943.
+#' Remedies, and Applications, _Journal of Machine Learning Research,_
+#' **7**(Jun), 919--943.
 #'
 #' D. Earle, C. B. Hurley (2015): Advances in dendrogram seriation
 #' for application to visualization.
 #' _Journal of Computational and Graphical Statistics,_ **24**(1), 1--25.
 #'
 #' Friendly, M. (2002): Corrgrams: Exploratory Displays for Correlation
-#' Matrices. \emph{The American Statistician}, \bold{56}(4), 316--324.
+#' Matrices. _The American Statistician,_ **56**(4), 316--324.
 #' \doi{10.1198/000313002533}
 #'
 #' Gruvaeus, G. and Wainer, H. (1972): Two Additions to Hierarchical Cluster
-#' Analysis, \emph{British Journal of Mathematical and Statistical Psychology,}
-#' \bold{25}, 200--206.
+#' Analysis, _British Journal of Mathematical and Statistical Psychology,_
+#' **25**, 200--206.
 #' \doi{10.1111/j.2044-8317.1972.tb00491.x}
 #'
 #' Hahsler, M. (2017): An experimental comparison of seriation methods for
-#' one-mode two-way data. \emph{European Journal of Operational Research,}
-#' \bold{257}, 133--143.
+#' one-mode two-way data. _European Journal of Operational Research,_
+#' **257**, 133--143.
 #' \doi{10.1016/j.ejor.2016.08.066}
 #'
 #' Hubert, Lawrence, and James Schultz (1976): Quadratic Assignment as a
-#' General Data Analysis Strategy. \emph{British Journal of Mathematical and
-#' Statistical Psychology} \bold{29}(2). Blackwell Publishing Ltd. 190--241.
+#' General Data Analysis Strategy. _British Journal of Mathematical and
+#' Statistical Psychology,_ **29**(2). Blackwell Publishing Ltd. 190--241.
 #' \doi{10.1111/j.2044-8317.1976.tb00714.x}
 #'
 #' Hurley, Catherine B. (2004): Clustering Visualizations of Multidimensional
-#' Data. \emph{Journal of Computational and Graphical Statistics,}
-#' \bold{13}(4), 788--806.
+#' Data. _Journal of Computational and Graphical Statistics,_
+#' **13**(4), 788--806.
 #' \doi{10.1198/106186004X12425}
 #'
 #' Kruskal, J.B. (1964). Nonmetric multidimensional scaling: a numerical method.
-#' _Psychometrika_ **29**, 115--129.
+#' _Psychometrika,_ **29**, 115--129.
 #'
 #' Lenstra, J.K (1974): Clustering a Data Array and the Traveling-Salesman
-#' Problem, \emph{Operations Research,} \bold{22}(2) 413--414.
+#' Problem, _Operations Research,_ **22**(2) 413--414.
 #' \doi{10.1287/opre.22.2.413}
 #'
-#' Mair P., De Leeuw J. (2015). Unidimensional scaling. In \emph{Wiley
-#' StatsRef: Statistics Reference Online,} Wiley, New York.
+#' Mair P., De Leeuw J. (2015). Unidimensional scaling. In _Wiley
+#' StatsRef: Statistics Reference Online,_ Wiley, New York.
 #' \doi{10.1002/9781118445112.stat06462.pub2}
 #'
 #' McCormick, W.T., P.J. Schweitzer and T.W. White (1972): Problem
 #' decomposition and data reorganization by a clustering technique,
-#' \emph{Operations Research,} \bold{20}(5), 993--1009.
+#' _Operations Research,_ **20**(5), 993--1009.
 #' \doi{10.1287/opre.20.5.993}
 #'
 #' Tenenbaum, J.B., de Silva, V. & Langford, J.C. (2000)
@@ -595,11 +596,12 @@
 #'
 #' Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany,
 #' E. (2005): Sorting points into neighborhoods (SPIN): data analysis and
-#' visualization by ordering distance matrices, \emph{Bioinformatics,}
-#' \bold{21}(10) 2301--8.
+#' visualization by ordering distance matrices, _Bioinformatics,_
+#' **21**(10) 2301--8.
 #' \doi{10.1093/bioinformatics/bti329}
 #'
-#' Sammon, J. W. (1969) A non-linear mapping for data structure analysis. _IEEE Trans. Comput._, **C-18** 401--409.
+#' Sammon, J. W. (1969) A non-linear mapping for data structure analysis.
+#' _IEEE Trans. Comput._, **C-18** 401--409.
 #' @keywords optimize cluster
 #' @examples
 #' # Show available seriation methods (for dist and matrix)
@@ -608,10 +610,10 @@
 #' # show the description for ARSA
 #' get_seriation_method("dist", name = "ARSA")
 #'
-#' ### Seriate as distance matrix (for the iris dataset)
+#' ### Seriate as distance matrix (for 50 flowers from the iris dataset)
 #' data("iris")
 #' x <- as.matrix(iris[-5])
-#' x <- x[sample(1:nrow(x)), ]
+#' x <- x[sample(nrow(x), size = 50), ]
 #' d <- dist(x)
 #'
 #' order <- seriate(d)
@@ -631,9 +633,7 @@
 #' pimage(d_reordered, main = "Distances (Reordered)")
 #'
 #'
-#' ### Seriate a matrix
-#' data("iris")
-#' x <- as.matrix(iris[-5])
+#' ### Seriate a matrix (50 flowers from iris)
 #'
 #' # To make the variables comparable, we scale the data
 #' x <- scale(x, center = FALSE)

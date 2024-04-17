@@ -21,8 +21,8 @@
 #' Defines several color palettes for [pimage()], [dissplot()] and
 #' [hmap()].
 #'
-#' The color palettes are created with [sequential_hcl()] and
-#' [diverging_hcl()] from package \pkg{colorspace}.
+#' The color palettes are created with [colorspace::sequential_hcl()] and
+#' [colorspace::diverging_hcl()].
 #'
 #' The two sequential palettes are: `reds()` and `grays()` (or
 #' `greys()`).

@@ -29,7 +29,19 @@ criterion(Townships, order)
 \references{
 Bertin, J. (1981): \emph{Graphics and Graphic Information Processing}. Berlin, Walter de Gruyter.
 }
+\seealso{
+Other data: 
+\code{\link{Chameleon}},
+\code{\link{Irish}},
+\code{\link{Munsingen}},
+\code{\link{SupremeCourt}},
+\code{\link{Wood}},
+\code{\link{Zoo}},
+\code{\link{create_lines_data}()},
+\code{\link{is.robinson}()}
+}
 \author{
 Michael Hahsler
 }
+\concept{data}
 \keyword{datasets}

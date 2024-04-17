@@ -19,7 +19,7 @@
 
 #' Register Seriation Methods from Package smacof
 #'
-#' Registers the `"MDS_smacof"` method for [seriate()] based on multidemensional
+#' Registers the `"MDS_smacof"` method for [seriate()] based on multidimensional
 #' scaling using stress majorization and the corresponding `"smacof_stress0"`
 #' criterion implemented in package smacof (de Leeuw & Mair, 2009).
 #'
@@ -30,12 +30,12 @@
 #' for non-metric MDS. See [smacof::smacofSym()] for details on the
 #' control parameters.
 #'
-#' The corresponding criterion calles `"smacof_stress0"` is also registered.
+#' The corresponding criterion called `"smacof_stress0"` is also registered.
 #' There additional parameter `type` is used to specify the used
 #' transformation function. It should agree with the function used for seriation.
 #' See [smacof::stress0()] for details on the stress calculation.
 #'
-#' Note: Package \pkg{smacof} needs to be installed.
+#' **Note:** Package \pkg{smacof} needs to be installed.
 #'
 #' @aliases registersmacof smacof
 #' @family seriation
@@ -127,6 +127,19 @@ register_smacof <- function() {
     verbose = TRUE
   )
 
+  .smacof_contr <- structure(
+    list(
+      type = "ratio",
+      warn = FALSE,
+      more = NA
+    ),
+    help = list(
+      type = "MDS type (see ? smacof::stress0)",
+      warn = "produce a warning if the 1D MDS fit does not preserve the given order (see ? seriation::uniscale).",
+      more = "more arguments are passed on to smacof::stress0."
+    )
+  )
+
   smacof_crit_stress0 <-
     function(x,
              order,
@@ -146,7 +159,8 @@ register_smacof <- function() {
     smacof_crit_stress0,
     "Stress0 calculated for different transformation types from package smacof.",
     FALSE,
-    verbose = TRUE
+    verbose = TRUE,
+    control = .smacof_contr
   )
 
 }

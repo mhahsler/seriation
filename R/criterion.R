@@ -43,7 +43,7 @@
 #'   (\eqn{O_i, O_k, O_j}) is counted.
 #'
 #'   Hubert et al (2001) suggest two functions. The first function is given by:
-#'   \deqn{f(z,y) = sign(y-z) = +1 if z < y; 0 if z = y; and -1 if z > y.}
+#'   \deqn{f(z,y) = sign(y-z) = +1 \ \text{if}\ z < y;\ 0\ \text{if}\ z = y; \ \text{and}\ -1 \ \text{if}\ z > y.}
 #'
 #'   It results in raw number of triples satisfying the gradient constraints
 #'   minus triples which violate the constraints.
@@ -58,7 +58,7 @@
 #'   \deqn{ L(D) = \sum_{i=1}^n \sum_{i<k<j} f(d_{ik}, d_{ij}) + \sum_{i<k<j} f(d_{kj}, d_{ij})}
 #'
 #'   with
-#'   \deqn{ f(z, y) = I(z, y) = 1 if z < y and 0 otherwise,}
+#'   \deqn{ f(z, y) = I(z, y) = 1 \ \text{if}\  z < y\ \text{and}\ 0 \ \text{otherwise,}}
 #'
 #'   where \eqn{I(.)} is an indicator function returning 1 only for violations.
 #'   Chen (2002) presented a formulation for an equivalent loss function and
@@ -146,8 +146,8 @@
 #'
 #' - **Least squares criterion:** `"Least_squares"` (Caraux and Pinloche, 2005)
 #'
-#'   The sum of squares of deviations between the dissimilarities and rank
-#'   differences (in the matrix) between two elements: \deqn{L(D) = \sum_{i=1}^n
+#'   The sum of squared differences between distances and the rank differences:
+#'   \deqn{L(D) = \sum_{i=1}^n
 #'   \sum_{j=1}^n (d(i,j) - |i-j|)^2,} where \eqn{d(i,j)} is an element of the
 #'   dissimilarity matrix \eqn{D} and \eqn{|i-j|} is the rank difference between
 #'   the objects.
@@ -256,63 +256,62 @@
 #' @return A named vector of real values.
 #' @author Michael Hahsler
 #' @references Barnard, S.T., A. Pothen, and H. D. Simon (1993): A Spectral
-#' Algorithm for Envelope Reduction of Sparse Matrices. \emph{In Proceedings of
-#' the 1993 ACM/IEEE Conference on Supercomputing,} 493--502. Supercomputing
+#' Algorithm for Envelope Reduction of Sparse Matrices. _In Proceedings of
+#' the 1993 ACM/IEEE Conference on Supercomputing,_ 493--502. Supercomputing
 #' '93. New York, NY, USA: ACM.
 #'
 #' Caraux, G. and S. Pinloche (2005): Permutmatrix: A Graphical Environment to
 #' Arrange Gene Expression Profiles in Optimal Linear Order,
-#' \emph{Bioinformatics,} \bold{21}(7), 1280--1281.
+#' _Bioinformatics,_ **21**(7), 1280--1281.
 #'
 #' Chen, C.-H. (2002): Generalized association plots: Information visualization
-#' via iteratively generated correlation matrices, \emph{Statistica Sinica,}
-#' \bold{12}(1), 7--29.
+#' via iteratively generated correlation matrices, _Statistica Sinica,_
+#' **12**(1), 7--29.
 #'
 #' Deutsch, S.B. and J.J. Martin (1971): An ordering algorithm for analysis of
-#' data arrays. \emph{Operational Research,} \bold{19}(6), 1350--1362.
+#' data arrays. _Operational Research,_ **19**(6), 1350--1362.
 #' \doi{10.1287/opre.19.6.1350}
 #'
 #' Earle, D. and C.B. Hurley (2015): Advances in Dendrogram Seriation for
-#' Application to Visualization. \emph{Journal of Computational and Graphical
-#' Statistics,} \bold{24}(1), 1--25.
+#' Application to Visualization. _Journal of Computational and Graphical
+#' Statistics,_ **24**(1), 1--25.
 #' \doi{10.1080/10618600.2013.874295}
 #'
 #' Hahsler, M. (2017): An experimental comparison of seriation methods for
-#' one-mode two-way data. \emph{European Journal of Operational Research,}
-#' \bold{257}, 133--143.
+#' one-mode two-way data. _European Journal of Operational Research,_
+#' **257**, 133--143.
 #' \doi{10.1016/j.ejor.2016.08.066}
 #'
 #' Hubert, L. and J. Schultz (1976): Quadratic Assignment as a General Data
-#' Analysis Strategy. \emph{British Journal of Mathematical and Statistical
-#' Psychology,} \bold{29}(2). Blackwell Publishing Ltd. 190--241.
+#' Analysis Strategy. _British Journal of Mathematical and Statistical
+#' Psychology,_ **29**(2). Blackwell Publishing Ltd. 190--241.
 #' \doi{10.1111/j.2044-8317.1976.tb00714.x}
 #'
-#' Hubert, L., P. Arabie, and J. Meulman (2001): \emph{Combinatorial Data
-#' Analysis: Optimization by Dynamic Programming.} Society for Industrial
+#' Hubert, L., P. Arabie, and J. Meulman (2001): _Combinatorial Data
+#' Analysis: Optimization by Dynamic Programming._ Society for Industrial
 #' Mathematics.
 #' \doi{10.1137/1.9780898718553}
 #'
 #' Niermann, S. (2005): Optimizing the Ordering of Tables With Evolutionary
-#' Computation, \emph{The American Statistician,} \bold{59}(1), 41--46.
+#' Computation, _The American Statistician,_ **59**(1), 41--46.
 #' \doi{10.1198/000313005X22770}
 #'
 #' McCormick, W.T., P.J. Schweitzer and T.W. White (1972): Problem
 #' decomposition and data reorganization by a clustering technique,
-#' \emph{Operations Research,} \bold{20}(5), 993-1009.
+#' _Operations Research,_ **20**(5), 993-1009.
 #' \doi{10.1287/opre.20.5.993}
 #'
 #' Robinson, W.S. (1951): A method for chronologically ordering archaeological
-#' deposits, \emph{American Antiquity,} \bold{16}, 293--301.
+#' deposits, _American Antiquity,_ **16**, 293--301.
 #' \doi{10.2307/276978}
 #'
 #' Tien, Y-J., Yun-Shien Lee, Han-Ming Wu and Chun-Houh Chen (2008): Methods
 #' for simultaneously identifying coherent local clusters with smooth global
-#' patterns in gene expression profiles, \emph{BMC Bioinformatics,}
-#' \bold{9}(155), 1--16.
+#' patterns in gene expression profiles, _BMC Bioinformatics,_
+#' **9**(155), 1--16.
 #' \doi{10.1186/1471-2105-9-155}
 #' @keywords cluster
 #' @examples
-#'
 #' ## create random data and calculate distances
 #' m <- matrix(runif(20),ncol=2)
 #' d <- dist(m)

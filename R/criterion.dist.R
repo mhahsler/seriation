@@ -128,6 +128,20 @@ criterion_ar_deviations <- function(x, order, ...)
 
 #criterion_ar_weighted <- function(x, order, ...) .ar(x, order, 3L)
 
+
+.rgar_contr <- structure(
+  list(
+    w = NULL,
+    pct = 100,
+    relative = TRUE
+  ),
+  help = list(
+    w = "window size. Default is to use a pct of 100% of n",
+    pct = "specify w as a percentage of n in (0,100]",
+    relative = "set to FALSE to get the GAR, i.e., the absolute number of AR events in the window."
+  )
+)
+
 ## w \in [2,n-1]
 ## or pct \in [0 and 100%]; 0 -> 2 and 100 -> n-1
 criterion_rgar <-
@@ -137,6 +151,7 @@ criterion_rgar <-
     pct = 100,
     relative = TRUE,
     ...) {
+
     if (is.null(order))
       order <- 1:attr(x, "Size")
     else
@@ -158,6 +173,15 @@ criterion_rgar <-
       as.integer(relative),
       PACKAGE = "seriation")
   }
+
+.bar_contr <- structure(
+  list(
+    b = NULL
+  ),
+  help = list(
+    b = "band size defaults to a band of 20% of n"
+  )
+)
 
 criterion_bar <- function(x, order, b = NULL, ...) {
   if (is.null(order))
@@ -247,77 +271,80 @@ criterion_Neumann_stress_dist  <- function(x, order, ...)
 set_criterion_method("dist",
   "AR_events" ,
   criterion_ar_events,
-  "Anti-Robinson events",
+  "Anti-Robinson events: The number of violations of the anti-Robinson form (Chen, 2002).",
   FALSE)
 
 set_criterion_method("dist",
   "AR_deviations",
   criterion_ar_deviations,
-  "Anti-Robinson deviations",
+  "Anti-Robinson deviations: The number of violations of the anti-Robinson form weighted by the deviation (Chen, 2002).",
   FALSE)
 ## set_criterion_method("dist", "AR_weighted", criterion_ar_weighted)
 
 set_criterion_method("dist",
   "RGAR",
   criterion_rgar,
-  "Relative generalized anti-Robinson events",
-  FALSE)
+  "Relative generalized anti-Robinson events: Counts Anti-Robinson events in a variable band of size w around the main diagonal and normalizes by the maximum of possible events (Tien et al, 2008).",
+  FALSE, control = .rgar_contr)
 
 set_criterion_method("dist", "BAR", criterion_bar,
-  "Banded Anti-Robinson Form", FALSE)
+  "Banded Anti-Robinson form criterion: Measure for closeness to the anti-Robinson form in a band of size b (Earle and Hurley, 2015).",
+  FALSE,
+  control = .bar_contr)
 
 set_criterion_method("dist",
   "Gradient_raw" ,
   criterion_gradient_raw,
-  "Gradient measure",
+  "Gradient measure: Evaluates how well distances increase when moving away from the diagonal of the distance matrix (Hubert et al, 2001).",
   TRUE)
 
 set_criterion_method(
   "dist",
   "Gradient_weighted",
   criterion_gradient_weighted,
-  "Gradient measure (weighted)",
+  "Gradient measure (weighted): Evaluates how well distances increase when moving away from the diagonal of the distance matrix (Hubert et al, 2001).",
   TRUE
 )
 
 set_criterion_method("dist",
   "Path_length",
   criterion_path_length,
-  "Hamiltonian path length",
+  "Hamiltonian path length: Sum of distances by following the permutation (Caraux and Pinloche, 2005).",
   FALSE)
 
 set_criterion_method("dist",
   "Lazy_path_length",
   criterion_lazy_path_length,
-  "Lazy path length",
+  "Lazy path length: A weighted version of the Hamiltonian path criterion where later distances are less important (Earl and Hurley, 2015).",
   FALSE)
 
 set_criterion_method("dist", "Inertia", criterion_inertia,
-  "Inertia criterion", TRUE)
+  "Inertia criterion: Measures the moment of the inertia of dissimilarity values around the diagonal of the distance matrix (Caraux and Pinloche, 2005).",
+  TRUE)
 
 set_criterion_method("dist",
   "Least_squares",
   criterion_least_squares,
-  "Least squares criterion",
+  "Least squares criterion: The sum of squared differences between distances and the rank differences (Caraux and Pinloche, 2005).",
   FALSE)
 
 set_criterion_method("dist",
   "ME",
   criterion_ME_dist,
-  "Measure of effectiveness",
+  "Measure of effectiveness applied to the reordered similarity matrix (McCormick, 1972).",
   TRUE)
 
 set_criterion_method("dist",
   "Rho",
   criterion_R_dist,
-  "Absolute value of the Spearman rank correlation between original distances and rank differences of the order",
+  "Absolute value of the Spearman rank correlation between original distances and rank differences of the order.",
   TRUE)
 
 set_criterion_method(
   "dist",
   "Moore_stress",
   criterion_Moore_stress_dist,
-  "Stress (Moore neighborhood)",
+  "Stress criterion (Moore neighborhood) applied to the reordered similarity matrix (Niermann, 2005).",
   FALSE
 )
 
@@ -325,18 +352,18 @@ set_criterion_method(
   "dist",
   "Neumann_stress",
   criterion_Neumann_stress_dist,
-  "Stress (Neumann neighborhood)",
+  "Stress criterion (Neumann neighborhood) applied to the reordered similarity matrix (Niermann, 2005).",
   FALSE
 )
 
 set_criterion_method("dist",
   "2SUM",
   criterion_2SUM,
-  "2-SUM objective value (QAP)",
+  "2-Sum Criterion: The 2-Sum loss criterion multiplies the similarity between objects with the squared rank differences (Barnard, Pothen and Simon, 1993).",
   FALSE)
 
 set_criterion_method("dist",
   "LS",
   criterion_LS,
-  "Linear seriation objective value (QAP)",
+  "Linear Seriation Criterion: Weights the distances with the absolute rank differences (Hubert and Schultz, 1976).",
   FALSE)

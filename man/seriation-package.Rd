@@ -2,10 +2,11 @@
 % Please edit documentation in R/AAA_seriation-package.R
 \docType{package}
 \name{seriation-package}
+\alias{seriation}
 \alias{seriation-package}
 \title{seriation: Infrastructure for Ordering Objects Using Seriation}
 \description{
-Infrastructure for ordering objects with an implementation of several seriation/sequencing/ordination techniques to reorder matrices, dissimilarity matrices, and dendrograms. Also provides (optimally) reordered heatmaps, color images and clustering visualizations like dissimilarity plots, and visual assessment of cluster tendency plots (VAT and iVAT).
+Infrastructure for ordering objects with an implementation of several seriation/sequencing/ordination techniques to reorder matrices, dissimilarity matrices, and dendrograms. Also provides (optimally) reordered heatmaps, color images and clustering visualizations like dissimilarity plots, and visual assessment of cluster tendency plots (VAT and iVAT). Hahsler et al (2008) \doi{10.18637/jss.v025.i03}.
 }
 \section{Key functions}{
 
@@ -15,9 +16,53 @@ Infrastructure for ordering objects with an implementation of several seriation/
 }
 }
 
+\section{Available seriation methods}{
+
+\itemize{
+\item \href{https://mhahsler.github.io/seriation/seriation_methods.html}{A list with the implemented seriation methods}
+\item \href{https://mhahsler.github.io/seriation/visual_comparison.html}{A visual comparison between seriation methods}
+\item \href{https://mhahsler.github.io/seriation/seriation_criteria.html}{A list with the implemented seriation criteria}
+}
+}
+
+\section{Quickstart guides}{
+
+\itemize{
+\item \href{https://mhahsler.github.io/seriation/heatmaps.html}{How to reorder heatmaps}
+\item \href{https://mhahsler.github.io/seriation/correlation_matrix.html}{How to reorder correlation matrices}
+\item \href{https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html}{How to evaluate clusters using dissimilarity plots}
+}
+}
+
 \references{
 Michael Hahsler, Kurt Hornik, and Christian Buchta. Getting things in order: An introduction to the R package seriation. Journal of Statistical Software, 25(3):1--34, March 2008. \doi{10.18637/jss.v025.i03}
 }
-\author{
-Michael Hahsler
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/mhahsler/seriation}
+  \item Report bugs at \url{https://github.com/mhahsler/seriation/issues}
 }
+
+}
+\author{
+\strong{Maintainer}: Michael Hahsler \email{mhahsler@lyle.smu.edu} (\href{https://orcid.org/0000-0003-2716-1405}{ORCID}) [copyright holder]
+
+Authors:
+\itemize{
+  \item Christian Buchta [copyright holder]
+  \item Kurt Hornik (\href{https://orcid.org/0000-0003-4198-9911}{ORCID}) [copyright holder]
+}
+
+Other contributors:
+\itemize{
+  \item David Barnett [contributor]
+  \item Michael Brusco [contributor, copyright holder]
+  \item Michael Friendly [contributor]
+  \item Hans-Friedrich Koehn [contributor, copyright holder]
+  \item Fionn Murtagh [contributor, copyright holder]
+  \item Stephanie Stahl [contributor, copyright holder]
+}
+
+}
+\keyword{internal}

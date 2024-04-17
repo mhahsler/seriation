@@ -7,6 +7,7 @@
 #' @aliases Chameleon chameleon chameleon_ds4 chameleon_ds5 chameleon_ds7
 #' chameleon_ds8
 #' @docType data
+#' @family data
 #' @format
 #' `chameleon_ds4`: The format is a 8,000 x 2 data.frame.
 #'

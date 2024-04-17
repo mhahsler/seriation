@@ -77,7 +77,7 @@
 #'   \code{"seriation_method"}.
 #'
 #' @author Michael Hahsler
-#' @seealso This registry uses [registry()] in package \pkg{registry}.
+#' @seealso This registry uses [registry::registry].
 #' @keywords misc
 #' @examples
 #' # Registry

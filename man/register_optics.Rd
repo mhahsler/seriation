@@ -16,9 +16,9 @@ Use ordering points to identify the clustering structure (OPTICS) for \code{\lin
 }
 \details{
 Registers the method \code{"optics"} for \code{\link[=seriate]{seriate()}}. This method applies
-the OPTICS ordering algorithm to create an ordering.
+the OPTICS ordering algorithm implemented in \code{\link[dbscan:optics]{dbscan::optics()}} to create an ordering.
 
-\bold{Note:} Package \pkg{dbscan} needs to be installed.
+\strong{Note:} Package \pkg{dbscan} needs to be installed.
 }
 \examples{
 
@@ -36,11 +36,11 @@ pimage(d, o)
 \references{
 Mihael Ankerst, Markus M. Breunig, Hans-Peter Kriegel, Joerg
 Sander (1999). OPTICS: Ordering Points To Identify the Clustering Structure.
-ACM SIGMOD international conference on Management of data. ACM Press. pp.
+\emph{ACM SIGMOD international conference on Management of data,} ACM Press, pp.
 49-60. \doi{10.1145/304181.304187}
 }
 \seealso{
-\code{\link[dbscan:optics]{dbscan::optics()}} in \pkg{dbscan}.
+\code{\link[dbscan:optics]{dbscan::optics()}}.
 
 Other seriation: 
 \code{\link{register_DendSer}()},
@@ -49,8 +49,8 @@ Other seriation:
 \code{\link{register_tsne}()},
 \code{\link{register_umap}()},
 \code{\link{registry_for_seriaiton_methods}},
-\code{\link{seriate_best}()},
-\code{\link{seriate}()}
+\code{\link{seriate}()},
+\code{\link{seriate_best}()}
 }
 \concept{seriation}
 \keyword{cluster}

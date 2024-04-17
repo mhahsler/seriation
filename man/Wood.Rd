@@ -17,20 +17,30 @@ A data matrix containing a sample of the normalized gene expression data for
 al (2001). The sample of 136 genes selected by Caraux and Pinloche (2005).
 }
 \examples{
-
 data(Wood)
 head(Wood)
-
 }
 \references{
 Hertzberg M., H. Aspeborg, J. Schrader, A. Andersson,
 R.Erlandsson, K. Blomqvist, R. Bhalerao, M. Uhlen, T. T. Teeri, J.
 Lundeberg, Bjoern Sundberg, P. Nilsson and Goeran Sandberg (2001): A
-transcriptional roadmap to wood formation, \emph{PNAS,} \bold{98}(25),
+transcriptional roadmap to wood formation, \emph{PNAS,} \strong{98}(25),
 14732--14737.
 
 Caraux G. and Pinloche S. (2005): PermutMatrix: a graphical environment to
 arrange gene expression profiles in optimal linear order,
-\emph{Bioinformatics,} \bold{21}(7) 1280--1281.
+\emph{Bioinformatics,} \strong{21}(7) 1280--1281.
 }
+\seealso{
+Other data: 
+\code{\link{Chameleon}},
+\code{\link{Irish}},
+\code{\link{Munsingen}},
+\code{\link{SupremeCourt}},
+\code{\link{Townships}},
+\code{\link{Zoo}},
+\code{\link{create_lines_data}()},
+\code{\link{is.robinson}()}
+}
+\concept{data}
 \keyword{datasets}

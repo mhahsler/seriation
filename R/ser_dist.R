@@ -92,16 +92,16 @@
 #' @param reverse a logical indicating if the orders should also be checked in
 #' reverse order and the best value (highest correlation, lowest distance) is
 #' reported. This only affect ranking-based measures and not precedence
-#' invariant measures (e.g., ppc, aprd).
+#' invariant measures (e.g., `"ppc"`, `"aprd"`).
 #' @param test a logical indicating if a correlation test should be performed.
 #' @param ... Further arguments passed on to the method.
 #' @return
-#' - `ser_dist()` returns an object of class [dist].
+#' - `ser_dist()` returns an object of class [stats::dist].
 #' - `ser_align()` returns a new list with elements of class
 #'   [ser_permutation].
 #' @author Michael Hahsler
-#' @references P. Diaconis (1988): Group Representations in Probability and
-#' Statistics. Institute of Mathematical Statistics, Hayward, CA.
+#' @references P. Diaconis (1988): _Group Representations in Probability and
+#' Statistics,_ Institute of Mathematical Statistics, Hayward, CA.
 #'
 #' J.Y. Goulermas, A. Kostopoulos, and T. Mu (2016): A New Measure for
 #' Analyzing and Fusing Sequences of Objects. _IEEE Transactions on
@@ -118,8 +118,8 @@
 #' d <- dist(x)
 #'
 #' ## Create a list of different seriations
-#' methods <- c("HC_single", "HC_complete", "OLO", "GW", "R2E", "VAT",
-#'   "TSP", "Spectral", "SPIN", "MDS", "Identity", "Random")
+#' methods <- c("HC_complete", "OLO", "GW", "VAT",
+#'   "TSP", "Spectral", "MDS", "Identity", "Random")
 #'
 #' os <- sapply(methods, function(m) {
 #'   cat("Doing", m, "... ")

@@ -63,7 +63,7 @@
 #' - `get_criterion_method()` returns a given method in form of an object of class
 #'   `"criterion_method"`.
 #' @author Michael Hahsler
-#' @seealso This registry uses [registry()] in package \pkg{registry}.
+#' @seealso This registry uses [registry::registry].
 #' @keywords misc
 #' @examples
 #' ## the registry
@@ -122,6 +122,9 @@ registry_criterion$set_field("description", type = "character",
 registry_criterion$set_field("merit", type = "logical",
                              is_key = FALSE)
 
+registry_criterion$set_field("control", type = "list",
+                           is_key = FALSE)
+
 #' @rdname registry_for_criterion_methods
 #' @export
 list_criterion_methods <- function(kind, names_only = TRUE) {
@@ -178,6 +181,7 @@ set_criterion_method <- function(kind,
                                  fun,
                                  description = NULL,
                                  merit = NA,
+                                 control = list(),
                                  verbose = FALSE,
                                  ...) {
   ## check formals
@@ -194,7 +198,8 @@ set_criterion_method <- function(kind,
       name = name,
       fun = fun,
       description = description,
-      merit = merit
+      merit = merit,
+      control = control
     )
   } else {
     registry_criterion$set_entry(
@@ -202,7 +207,8 @@ set_criterion_method <- function(kind,
       name = name,
       fun = fun,
       description = description,
-      merit = merit
+      merit = merit,
+      control = control
     )
   }
 
@@ -217,7 +223,6 @@ set_criterion_method <- function(kind,
 #' @rdname registry_for_criterion_methods
 #' @export
 print.criterion_method <- function(x, ...) {
-  extra_param <- setdiff(names(as.list(args(x$fun))), c("x", "order", "...", ""))
 
   writeLines(c(
     gettextf("name:        %s", x$name),
@@ -230,8 +235,12 @@ print.criterion_method <- function(x, ...) {
     gettextf("merit:       %s", x$merit)
   ))
 
-  if (length(extra_param) > 0L)
-    cat("parameters: ", paste(extra_param, collapse = ", "), "\n")
+  writeLines("additional parameters:")
+  .print_control(x$control)
+
+  #extra_param <- setdiff(names(as.list(args(x$fun))), c("x", "order", "...", ""))
+  #if (length(extra_param) > 0L)
+  #  cat("parameters: ", paste(extra_param, collapse = ", "), "\n")
 
   invisible(x)
 }

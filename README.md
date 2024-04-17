@@ -14,7 +14,7 @@ Seriation arranges a set of objects into a linear order given available
 data with the goal of revealing structural information. This package
 provides the infrastructure for ordering objects with an implementation
 of many
-[seriation](https://en.wikipedia.org/wiki/Seriation_(archaeology))/sequencing/[ordination](https://en.wikipedia.org/wiki/Ordination_(statistics))
+[seriation](https://en.wikipedia.org/wiki/Seriation_(archaeology))/[ordination](https://en.wikipedia.org/wiki/Ordination_(statistics))
 techniques to reorder data matrices, dissimilarity matrices, correlation
 matrices, and dendrograms (see below for a complete list). The package
 provides several visualizations (grid and ggplot2) to reveal structural
@@ -22,7 +22,7 @@ information, including permuted image plots, reordered heatmaps, Bertin
 plots, clustering visualizations like dissimilarity plots, and visual
 assessment of cluster tendency plots (VAT and iVAT).
 
-Here are some quick guides for
+Here are some quick guides and references
 
 - [How to reorder
   heatmaps](https://mhahsler.github.io/seriation/heatmaps.html)
@@ -30,8 +30,10 @@ Here are some quick guides for
   matrices](https://mhahsler.github.io/seriation/correlation_matrix.html)
 - [How to evaluate clusters using dissimilarity
   plots](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html)
-- [A list with all implemented seriation
+- [A list with the implemented seriation
   methods](https://mhahsler.github.io/seriation/seriation_methods.html)
+- [A list with the implemented seriation
+  criteria](https://mhahsler.github.io/seriation/seriation_criteria.html)
 - [A visual comparison between seriation
   methods](https://mhahsler.github.io/seriation/visual_comparison.html)
 
@@ -95,7 +97,7 @@ install.packages("seriation")
 
 ``` r
 install.packages("seriation",
-    repos = c("https://mhahsler.r-universe.dev", "https://cloud.r-project.org/"))
+    repos = c("https://mhahsler.r-universe.dev". "https://cloud.r-project.org/"))
 ```
 
 ## Usage

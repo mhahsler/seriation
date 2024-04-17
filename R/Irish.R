@@ -7,14 +7,13 @@
 #'
 #' @name Irish
 #' @docType data
+#' @family data
 #' @format The format is a 41 x 9 matrix. Two values are missing.
-#' @references de Falguerolles, A., Friedrich, F., Sawitzki, G. (1997): A
-#' Tribute to J. Bertin's Graphical Data Analysis. In: Proceedings of the
-#' SoftStat '97 (Advances in Statistical Software 6), 11--20.
+#' @references de Falguerolles, A., Friedrich, F., Sawitzki, G. (1997) A
+#' Tribute to J. Bertin's Graphical Data Analysis. In: _Proceedings of the
+#' SoftStat '97 (Advances in Statistical Software 6),_ 11--20.
 #' @source The data was kindly provided by Guenter Sawitzki.
 #' @keywords datasets
 #' @examples
-#'
 #' data(Irish)
-#'
 NULL
