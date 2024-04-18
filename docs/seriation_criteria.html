@@ -80,11 +80,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#criteria-for-distances" id="toc-criteria-for-distances" class="nav-link active" data-scroll-target="#criteria-for-distances">Criteria for distances</a>
+  <li><a href="#implemented-criteria" id="toc-implemented-criteria" class="nav-link active" data-scroll-target="#implemented-criteria">Implemented Criteria</a>
+  <ul class="collapse">
+  <li><a href="#criteria-for-distances" id="toc-criteria-for-distances" class="nav-link" data-scroll-target="#criteria-for-distances">Criteria for distances</a>
   <ul class="collapse">
   <li><a href="#sum" id="toc-sum" class="nav-link" data-scroll-target="#sum">2SUM</a></li>
   <li><a href="#ar_deviations" id="toc-ar_deviations" class="nav-link" data-scroll-target="#ar_deviations">AR_deviations</a></li>
   <li><a href="#ar_events" id="toc-ar_events" class="nav-link" data-scroll-target="#ar_events">AR_events</a></li>
+  <li><a href="#arc" id="toc-arc" class="nav-link" data-scroll-target="#arc">ARc</a></li>
   <li><a href="#bar" id="toc-bar" class="nav-link" data-scroll-target="#bar">BAR</a></li>
   <li><a href="#gradient_raw" id="toc-gradient_raw" class="nav-link" data-scroll-target="#gradient_raw">Gradient_raw</a></li>
   <li><a href="#gradient_weighted" id="toc-gradient_weighted" class="nav-link" data-scroll-target="#gradient_weighted">Gradient_weighted</a></li>
@@ -99,6 +102,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#path_length" id="toc-path_length" class="nav-link" data-scroll-target="#path_length">Path_length</a></li>
   <li><a href="#rgar" id="toc-rgar" class="nav-link" data-scroll-target="#rgar">RGAR</a></li>
   <li><a href="#rho" id="toc-rho" class="nav-link" data-scroll-target="#rho">Rho</a></li>
+  <li><a href="#smacof_stress0" id="toc-smacof_stress0" class="nav-link" data-scroll-target="#smacof_stress0">smacof_stress0</a></li>
   </ul></li>
   <li><a href="#criteria-for-data-matrices-tables-and-data.frames" id="toc-criteria-for-data-matrices-tables-and-data.frames" class="nav-link" data-scroll-target="#criteria-for-data-matrices-tables-and-data.frames">Criteria for data matrices, tables and data.frames</a>
   <ul class="collapse">
@@ -106,6 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#me-1" id="toc-me-1" class="nav-link" data-scroll-target="#me-1">ME</a></li>
   <li><a href="#moore_stress-1" id="toc-moore_stress-1" class="nav-link" data-scroll-target="#moore_stress-1">Moore_stress</a></li>
   <li><a href="#neumann_stress-1" id="toc-neumann_stress-1" class="nav-link" data-scroll-target="#neumann_stress-1">Neumann_stress</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -142,263 +147,317 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"seriation"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">'seriation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] '1.5.5'</code></pre>
+<pre><code>[1] '1.5.5.1'</code></pre>
 </div>
 </div>
+<p>Register some additional criteria</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_DendSer</span>()</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">register_smacof</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="implemented-criteria" class="level1">
+<h1>Implemented Criteria</h1>
 <p>The criteria are organized by methods that evaluate the permutation based on distance data or data matrices.</p>
 <p><code>merit</code> specified if the criteria function increases with better fit or if it is formulated as a loss criteria functions (<code>merit = FALSE</code>).</p>
 <p>If a seriation method directly tries to optimize the criterion, than its name is specified under “optimized by”. The names can be used as the <code>method</code> argument in <code>seriate()</code>.</p>
-<section id="criteria-for-distances" class="level1">
-<h1>Criteria for distances</h1>
-<section id="sum" class="level2">
-<h2 class="anchored" data-anchor-id="sum">2SUM</h2>
+<section id="criteria-for-distances" class="level2">
+<h2 class="anchored" data-anchor-id="criteria-for-distances">Criteria for distances</h2>
+<section id="sum" class="level3">
+<h3 class="anchored" data-anchor-id="sum">2SUM</h3>
 <p>2-Sum Criterion: The 2-Sum loss criterion multiplies the similarity between objects with the squared rank differences (Barnard, Pothen and Simon, 1993).</p>
 <ul>
 <li>merit: FALSE</li>
-<li>optimized by: QAP_2SUM, Spectral, Spectral_norm</li>
+<li>optimized by: <a href="seriation_methods.html#qap_2sum">QAP_2SUM</a>, <a href="seriation_methods.html#spectral">Spectral</a>, <a href="seriation_methods.html#spectral_norm">Spectral_norm</a></li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="ar_deviations" class="level2">
-<h2 class="anchored" data-anchor-id="ar_deviations">AR_deviations</h2>
+<section id="ar_deviations" class="level3">
+<h3 class="anchored" data-anchor-id="ar_deviations">AR_deviations</h3>
 <p>Anti-Robinson deviations: The number of violations of the anti-Robinson form weighted by the deviation (Chen, 2002).</p>
 <ul>
 <li>merit: FALSE</li>
 <li>optimized by: N/A</li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="ar_events" class="level2">
-<h2 class="anchored" data-anchor-id="ar_events">AR_events</h2>
+<section id="ar_events" class="level3">
+<h3 class="anchored" data-anchor-id="ar_events">AR_events</h3>
 <p>Anti-Robinson events: The number of violations of the anti-Robinson form (Chen, 2002).</p>
 <ul>
 <li>merit: FALSE</li>
 <li>optimized by: N/A</li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="bar" class="level2">
-<h2 class="anchored" data-anchor-id="bar">BAR</h2>
-<p>Banded Anti-Robinson form criterion: Measure for closeness to the anti-Robinson form in a band of size b (Earle and Hurley, 2015).</p>
+<section id="arc" class="level3">
+<h3 class="anchored" data-anchor-id="arc">ARc</h3>
+<p>Anti-Robinson form cost (Earle and Hurley, 2015).</p>
 <ul>
 <li>merit: FALSE</li>
-<li>optimized by: QAP_BAR</li>
+<li>optimized by: <a href="seriation_methods.html#dendser_arc">DendSer_ARc</a></li>
+<li>registered by: register_DendSer()</li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters:</p>
+</section>
+<section id="bar" class="level3">
+<h3 class="anchored" data-anchor-id="bar">BAR</h3>
+<p>Banded Anti-Robinson form criterion: Measure for closeness to the anti-Robinson form in a band of size b (Earle and Hurley, 2015).</p>
+<ul>
+<li><p>merit: FALSE</p></li>
+<li><p>optimized by: <a href="seriation_methods.html#qap_bar">QAP_BAR</a>, <a href="seriation_methods.html#dendser_bar">DendSer_BAR</a></p></li>
+<li><p>additional parameters:</p>
 <table class="table">
 <thead>
 <tr class="header">
-<th></th>
-<th style="text-align: left;">default values</th>
-<th style="text-align: left;">help</th>
+<th style="text-align: right;">de</th>
+<th>fault values he</th>
+<th style="text-align: left;">lp</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>b</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: right;">b</td>
+<td>NULL</td>
 <td style="text-align: left;">band size defaults to a band of 20% of n</td>
 </tr>
 </tbody>
-</table>
+</table></li>
+</ul>
 </section>
-<section id="gradient_raw" class="level2">
-<h2 class="anchored" data-anchor-id="gradient_raw">Gradient_raw</h2>
+<section id="gradient_raw" class="level3">
+<h3 class="anchored" data-anchor-id="gradient_raw">Gradient_raw</h3>
 <p>Gradient measure: Evaluates how well distances increase when moving away from the diagonal of the distance matrix (Hubert et al, 2001).</p>
 <ul>
 <li>merit: TRUE</li>
-<li>optimized by: BBURCG</li>
+<li>optimized by: <a href="seriation_methods.html#bburcg">BBURCG</a></li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="gradient_weighted" class="level2">
-<h2 class="anchored" data-anchor-id="gradient_weighted">Gradient_weighted</h2>
+<section id="gradient_weighted" class="level3">
+<h3 class="anchored" data-anchor-id="gradient_weighted">Gradient_weighted</h3>
 <p>Gradient measure (weighted): Evaluates how well distances increase when moving away from the diagonal of the distance matrix (Hubert et al, 2001).</p>
 <ul>
 <li>merit: TRUE</li>
-<li>optimized by: BBWRCG</li>
+<li>optimized by: <a href="seriation_methods.html#bbwrcg">BBWRCG</a></li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="inertia" class="level2">
-<h2 class="anchored" data-anchor-id="inertia">Inertia</h2>
+<section id="inertia" class="level3">
+<h3 class="anchored" data-anchor-id="inertia">Inertia</h3>
 <p>Inertia criterion: Measures the moment of the inertia of dissimilarity values around the diagonal of the distance matrix (Caraux and Pinloche, 2005).</p>
 <ul>
 <li>merit: TRUE</li>
-<li>optimized by: QAP_Inertia</li>
+<li>optimized by: <a href="seriation_methods.html#qap_inertia">QAP_Inertia</a></li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="lazy_path_length" class="level2">
-<h2 class="anchored" data-anchor-id="lazy_path_length">Lazy_path_length</h2>
+<section id="lazy_path_length" class="level3">
+<h3 class="anchored" data-anchor-id="lazy_path_length">Lazy_path_length</h3>
 <p>Lazy path length: A weighted version of the Hamiltonian path criterion where later distances are less important (Earl and Hurley, 2015).</p>
 <ul>
 <li>merit: FALSE</li>
-<li>optimized by: N/A</li>
+<li>optimized by: <a href="seriation_methods.html#dendser_lpl">DendSer_LPL</a></li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="least_squares" class="level2">
-<h2 class="anchored" data-anchor-id="least_squares">Least_squares</h2>
+<section id="least_squares" class="level3">
+<h3 class="anchored" data-anchor-id="least_squares">Least_squares</h3>
 <p>Least squares criterion: The sum of squared differences between distances and the rank differences (Caraux and Pinloche, 2005).</p>
 <ul>
 <li>merit: FALSE</li>
 <li>optimized by: N/A</li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="ls" class="level2">
-<h2 class="anchored" data-anchor-id="ls">LS</h2>
+<section id="ls" class="level3">
+<h3 class="anchored" data-anchor-id="ls">LS</h3>
 <p>Linear Seriation Criterion: Weights the distances with the absolute rank differences (Hubert and Schultz, 1976).</p>
 <ul>
 <li>merit: FALSE</li>
-<li>optimized by: ARSA, QAP_LS</li>
+<li>optimized by: <a href="seriation_methods.html#arsa">ARSA</a>, <a href="seriation_methods.html#qap_ls">QAP_LS</a></li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="mds_stress" class="level2">
-<h2 class="anchored" data-anchor-id="mds_stress">MDS_stress</h2>
+<section id="mds_stress" class="level3">
+<h3 class="anchored" data-anchor-id="mds_stress">MDS_stress</h3>
 <p>Normalized stress of a configuration given by a seriation order</p>
 <ul>
-<li>merit: FALSE</li>
-<li>optimized by: MDS, isoMDS, Sammon_mapping, monoMDS, metaMDS</li>
-</ul>
-<p>additional parameters:</p>
+<li><p>merit: FALSE</p></li>
+<li><p>optimized by: <a href="seriation_methods.html#mds">MDS</a>, <a href="seriation_methods.html#isomds">isoMDS</a>, <a href="seriation_methods.html#sammon_mapping">Sammon_mapping</a>, <a href="seriation_methods.html#monomds">monoMDS</a>, <a href="seriation_methods.html#metamds">metaMDS</a></p></li>
+<li><p>additional parameters:</p>
 <table class="table">
 <thead>
 <tr class="header">
-<th></th>
-<th style="text-align: left;">default values</th>
-<th style="text-align: left;">help</th>
+<th style="text-align: right;">de</th>
+<th>fault values he</th>
+<th style="text-align: left;">lp</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>warn</td>
-<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">warn</td>
+<td>FALSE</td>
 <td style="text-align: left;">produce a warning if the 1D MDS fit does not preserve the given order (see ? seriation::uniscale).</td>
 </tr>
 </tbody>
-</table>
+</table></li>
+</ul>
 </section>
-<section id="me" class="level2">
-<h2 class="anchored" data-anchor-id="me">ME</h2>
+<section id="me" class="level3">
+<h3 class="anchored" data-anchor-id="me">ME</h3>
 <p>Measure of effectiveness applied to the reordered similarity matrix (McCormick, 1972).</p>
 <ul>
 <li>merit: TRUE</li>
-<li>optimized by: BEA, BEA_TSP</li>
+<li>optimized by: <a href="seriation_methods.html#bea">BEA</a>, <a href="seriation_methods.html#bea_tsp">BEA_TSP</a></li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="moore_stress" class="level2">
-<h2 class="anchored" data-anchor-id="moore_stress">Moore_stress</h2>
+<section id="moore_stress" class="level3">
+<h3 class="anchored" data-anchor-id="moore_stress">Moore_stress</h3>
 <p>Stress criterion (Moore neighborhood) applied to the reordered similarity matrix (Niermann, 2005).</p>
 <ul>
 <li>merit: FALSE</li>
 <li>optimized by: N/A</li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="neumann_stress" class="level2">
-<h2 class="anchored" data-anchor-id="neumann_stress">Neumann_stress</h2>
+<section id="neumann_stress" class="level3">
+<h3 class="anchored" data-anchor-id="neumann_stress">Neumann_stress</h3>
 <p>Stress criterion (Neumann neighborhood) applied to the reordered similarity matrix (Niermann, 2005).</p>
 <ul>
 <li>merit: FALSE</li>
 <li>optimized by: N/A</li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="path_length" class="level2">
-<h2 class="anchored" data-anchor-id="path_length">Path_length</h2>
+<section id="path_length" class="level3">
+<h3 class="anchored" data-anchor-id="path_length">Path_length</h3>
 <p>Hamiltonian path length: Sum of distances by following the permutation (Caraux and Pinloche, 2005).</p>
 <ul>
 <li>merit: FALSE</li>
-<li>optimized by: TSP, GW, GW_single, GW_average, GW_complete, GW_ward, OLO, OLO_single, OLO_average, OLO_complete, OLO_ward</li>
+<li>optimized by: <a href="seriation_methods.html#tsp">TSP</a>, <a href="seriation_methods.html#gw">GW</a>, <a href="seriation_methods.html#gw_single">GW_single</a>, <a href="seriation_methods.html#gw_average">GW_average</a>, <a href="seriation_methods.html#gw_complete">GW_complete</a>, <a href="seriation_methods.html#gw_ward">GW_ward</a>, <a href="seriation_methods.html#olo">OLO</a>, <a href="seriation_methods.html#olo_single">OLO_single</a>, <a href="seriation_methods.html#olo_average">OLO_average</a>, <a href="seriation_methods.html#olo_complete">OLO_complete</a>, <a href="seriation_methods.html#olo_ward">OLO_ward</a>, <a href="seriation_methods.html#dendser_pl">DendSer_PL</a></li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="rgar" class="level2">
-<h2 class="anchored" data-anchor-id="rgar">RGAR</h2>
+<section id="rgar" class="level3">
+<h3 class="anchored" data-anchor-id="rgar">RGAR</h3>
 <p>Relative generalized anti-Robinson events: Counts Anti-Robinson events in a variable band of size w around the main diagonal and normalizes by the maximum of possible events (Tien et al, 2008).</p>
 <ul>
-<li>merit: FALSE</li>
-<li>optimized by: N/A</li>
-</ul>
-<p>additional parameters:</p>
+<li><p>merit: FALSE</p></li>
+<li><p>optimized by: N/A</p></li>
+<li><p>additional parameters:</p>
 <table class="table">
 <thead>
 <tr class="header">
-<th></th>
-<th style="text-align: left;">default values</th>
-<th style="text-align: left;">help</th>
+<th style="text-align: right;">de</th>
+<th>fault values he</th>
+<th style="text-align: left;">lp</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>w</td>
-<td style="text-align: left;">NULL</td>
+<td style="text-align: right;">w</td>
+<td>NULL</td>
 <td style="text-align: left;">window size. Default is to use a pct of 100% of n</td>
 </tr>
 <tr class="even">
-<td>pct</td>
-<td style="text-align: left;">100</td>
+<td style="text-align: right;">pct</td>
+<td>100</td>
 <td style="text-align: left;">specify w as a percentage of n in (0,100]</td>
 </tr>
 <tr class="odd">
-<td>relative</td>
-<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">relative</td>
+<td>TRUE</td>
 <td style="text-align: left;">set to FALSE to get the GAR, i.e., the absolute number of AR events in the window.</td>
 </tr>
 </tbody>
-</table>
+</table></li>
+</ul>
 </section>
-<section id="rho" class="level2">
-<h2 class="anchored" data-anchor-id="rho">Rho</h2>
+<section id="rho" class="level3">
+<h3 class="anchored" data-anchor-id="rho">Rho</h3>
 <p>Absolute value of the Spearman rank correlation between original distances and rank differences of the order.</p>
 <ul>
 <li>merit: TRUE</li>
 <li>optimized by: N/A</li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
+</section>
+<section id="smacof_stress0" class="level3">
+<h3 class="anchored" data-anchor-id="smacof_stress0">smacof_stress0</h3>
+<p>Stress0 calculated for different transformation types from package smacof.</p>
+<ul>
+<li><p>merit: FALSE</p></li>
+<li><p>optimized by: <a href="seriation_methods.html#mds_smacof">MDS_smacof</a></p></li>
+<li><p>registered by: register_smacof()</p></li>
+<li><p>additional parameters:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">de</th>
+<th>fault values he</th>
+<th style="text-align: left;">lp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">type</td>
+<td>“ratio”</td>
+<td style="text-align: left;">MDS type (see ? smacof::stress0)</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">warn</td>
+<td>FALSE</td>
+<td style="text-align: left;">produce a warning if the 1D MDS fit does not preserve the given order (see ? seriation::uniscale).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">more</td>
+<td>NA</td>
+<td style="text-align: left;">more arguments are passed on to smacof::stress0.</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
 </section>
 </section>
-<section id="criteria-for-data-matrices-tables-and-data.frames" class="level1">
-<h1>Criteria for data matrices, tables and data.frames</h1>
-<section id="cor_r" class="level2">
-<h2 class="anchored" data-anchor-id="cor_r">Cor_R</h2>
+<section id="criteria-for-data-matrices-tables-and-data.frames" class="level2">
+<h2 class="anchored" data-anchor-id="criteria-for-data-matrices-tables-and-data.frames">Criteria for data matrices, tables and data.frames</h2>
+<section id="cor_r" class="level3">
+<h3 class="anchored" data-anchor-id="cor_r">Cor_R</h3>
 <p>Weighted correlation coefficient R: A measure of effectiveness normalized between -1 and 1 (Deutsch and Martin, 1971).</p>
 <ul>
 <li>merit: TRUE</li>
 <li>optimized by: N/A</li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="me-1" class="level2">
-<h2 class="anchored" data-anchor-id="me-1">ME</h2>
+<section id="me-1" class="level3">
+<h3 class="anchored" data-anchor-id="me-1">ME</h3>
 <p>Measure of effectiveness (McCormick, 1972).</p>
 <ul>
 <li>merit: TRUE</li>
-<li>optimized by: BEA, BEA_TSP</li>
+<li>optimized by: <a href="seriation_methods.html#bea">BEA</a>, <a href="seriation_methods.html#bea_tsp">BEA_TSP</a></li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="moore_stress-1" class="level2">
-<h2 class="anchored" data-anchor-id="moore_stress-1">Moore_stress</h2>
+<section id="moore_stress-1" class="level3">
+<h3 class="anchored" data-anchor-id="moore_stress-1">Moore_stress</h3>
 <p>Stress criterion (Moore neighborhood) applied to the reordered matrix (Niermann, 2005).</p>
 <ul>
 <li>merit: FALSE</li>
 <li>optimized by: N/A</li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
 </section>
-<section id="neumann_stress-1" class="level2">
-<h2 class="anchored" data-anchor-id="neumann_stress-1">Neumann_stress</h2>
+<section id="neumann_stress-1" class="level3">
+<h3 class="anchored" data-anchor-id="neumann_stress-1">Neumann_stress</h3>
 <p>Stress criterion (Neumann neighborhood) applied to the reordered matrix (Niermann, 2005).</p>
 <ul>
 <li>merit: FALSE</li>
 <li>optimized by: N/A</li>
+<li>additional parameters: no parameters</li>
 </ul>
-<p>additional parameters: no parameters</p>
+</section>
 </section>
 </section>
 <section id="references" class="level1">

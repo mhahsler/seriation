@@ -46,8 +46,10 @@ function \code{\link[=criterion]{criterion()}}.}
 
 \item{description}{a description of the method. For example, a long name.}
 
-\item{merit}{a boolean indicating if the criterion measure is a merit
+\item{merit}{logical; indicating if the criterion measure is a merit
 (\code{TRUE}) or a loss (\code{FALSE}) measure.}
+
+\item{control}{a list with control arguments and default values.}
 
 \item{verbose}{logical; print a message when a new method is registered.}
 

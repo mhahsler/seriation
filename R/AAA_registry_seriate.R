@@ -93,24 +93,21 @@
 #'
 #' # Example for defining a new seriation method (reverse identity function for matrix)
 #'
-#' # 1. Create the seriation method
-#' #    (with margin since it is for arrays; NA means no seriation is applied)
-#' seriation_method_reverse <- function(x, control = NULL,
-#'                                      margin = seq_along(dim(x))) {
-#'  lapply(seq_along(dim(x)), function(i)
-#'    if (i %in% margin) rev(seq(dim(x)[i]))
-#'    else NA)
-#'}
+#' # 1. Create the seriation method: Reverse the row order
+#' #    (NA means no seriation is applied to columns)
+#' seriation_method_reverse_rows <- function(x, control = NULL, margin = c(1, 2)) {
+#'     list(rev(seq(nrow(x))), NA)[margin]
+#' }
 #'
 #' # 2. Register new method
-#' set_seriation_method("matrix", "Reverse", seriation_method_reverse,
+#' set_seriation_method("matrix", "Reverse_rows", seriation_method_reverse_rows,
 #'     description = "Reverse identity order", control = list())
 #'
 #' list_seriation_methods("matrix")
-#' get_seriation_method("matrix", "reverse")
+#' get_seriation_method("matrix", "reverse_rows")
 #'
 #' # 3. Use the new seriation methods
-#' seriate(matrix(1:12, ncol=3), "reverse")
+#' seriate(matrix(1:12, ncol = 3), "reverse_rows")
 #' @export
 registry_seriate <- registry(registry_class = "seriation_registry",
                              entry_class = "seriation_method")
@@ -139,6 +136,9 @@ registry_seriate$set_field("randomized", type = "logical",
 
 registry_seriate$set_field("optimizes", type = "character",
                            is_key = FALSE)
+
+registry_seriate$set_field("registered_by", type = "character",
+                             is_key = FALSE)
 
 #' @rdname registry_for_seriaiton_methods
 #' @export
@@ -220,6 +220,13 @@ set_seriation_method <- function(kind,
                  c("x", "control", "margin")))
     stop("Seriation methods must have formals 'x', 'control' and optionally 'margin'.")
 
+  if (sys.nframe() > 1) {
+    caller <- deparse(sys.calls()[[sys.nframe()-1]])
+    if (is.null(caller) || !startsWith(caller, "register_"))
+    caller <- NA_character_
+  } else
+    caller <- "manual"
+
   ## check if entry already exists
   r <- registry_seriate$get_entry(kind = kind, name = name)
   if (!is.null(r) && r$name == name) {
@@ -237,7 +244,8 @@ set_seriation_method <- function(kind,
       description = description,
       control = control,
       randomized = randomized,
-      optimizes = optimizes
+      optimizes = optimizes,
+      registered_by = caller
     )
   } else {
     registry_seriate$set_entry(
@@ -247,7 +255,8 @@ set_seriation_method <- function(kind,
       description = description,
       control = control,
       randomized = randomized,
-      optimizes = optimizes
+      optimizes = optimizes,
+      registered_by = caller
     )
   }
 
@@ -255,7 +264,9 @@ set_seriation_method <- function(kind,
     message("Registering new seriation method ",
         sQuote(name),
         " for ",
-        sQuote(kind))
+        sQuote(kind),
+        caller
+        )
 }
 
 
@@ -273,13 +284,19 @@ print.seriation_method <- function(x, ...) {
   writeLines(c(
     gettextf("name:        %s", x$name),
     gettextf("kind:        %s", x$kind),
+    gettextf("optimizes:   %s", opt),
+    gettextf("randomized:  %s", x$randomized)
+  ))
+
+  if(!is.na(x$registered_by))
+    writeLines(gettextf("registered by: %s", x$registered_by))
+
+  writeLines(c(
     strwrap(
       gettextf("description: %s", x$description),
       prefix = "             ",
       initial = ""
-    ),
-    gettextf("optimizes:   %s", opt),
-    gettextf("randomized:  %s", x$randomized)
+    )
   ))
 
   writeLines("control:")

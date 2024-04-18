@@ -182,7 +182,7 @@ register_DendSer <- function() {
     "dist",
     "DendSer_PL",
     DendSer_PL,
-    "Dendrogram seriation (Path length)",
+    "Dendrogram seriation for Path length (Earle and Hurley, 2015).",
     .DendSer_control,
     optimizes = .opt("Path_length", "restricted by dendrogram"),
     verbose = TRUE
@@ -192,9 +192,9 @@ register_DendSer <- function() {
     "dist",
     "DendSer_LPL",
     DendSer_LPL,
-    "Dendrogram seriation (Lazy path length)",
+    "Dendrogram seriation for Lazy path length (Earle and Hurley, 2015).",
     .DendSer_control,
-    optimizes = .opt("Path_length", "restricted by dendrogram"),
+    optimizes = .opt("Lazy_path_length", "restricted by dendrogram"),
     verbose = TRUE
   )
 
@@ -202,7 +202,7 @@ register_DendSer <- function() {
     "dist",
     "DendSer_ARc",
     DendSer_ARc,
-    "Dendrogram seriation (Anti-Robinson form cost)",
+    "Dendrogram seriation for Anti-Robinson form cost (Earle and Hurley, 2015).",
     optimizes = .opt("ARc", "Anti-Robinson form cost restricted by dendrogram"),
     .DendSer_control,
     verbose = TRUE
@@ -223,7 +223,7 @@ register_DendSer <- function() {
   }
 
   set_criterion_method("dist", "ARc", DendSer_crit_ARc,
-                                  "Anti-Robinson form cost", FALSE, verbose = TRUE)
+                                  "Anti-Robinson form cost (Earle and Hurley, 2015).", FALSE, verbose = TRUE)
 
   ## Already in seriation
   #  DendSer_crit_BAR <- function(x, order, ...) {

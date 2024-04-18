@@ -51,10 +51,11 @@
 #'    also the method descriptions.
 #' @param fun a function containing the method's code.
 #' @param description a description of the method. For example, a long name.
-#' @param merit a boolean indicating if the criterion measure is a merit
+#' @param merit logical; indicating if the criterion measure is a merit
 #' (`TRUE`) or a loss (`FALSE`) measure.
 #' @param x an object of class "criterion_method" to be printed.
 #' @param verbose logical; print a message when a new method is registered.
+#' @param control a list with control arguments and default values.
 #' @param ... further information that is stored for the method in the
 #' registry.
 #' @returns
@@ -125,6 +126,9 @@ registry_criterion$set_field("merit", type = "logical",
 registry_criterion$set_field("control", type = "list",
                            is_key = FALSE)
 
+registry_criterion$set_field("registered_by", type = "character",
+                             is_key = FALSE)
+
 #' @rdname registry_for_criterion_methods
 #' @export
 list_criterion_methods <- function(kind, names_only = TRUE) {
@@ -189,6 +193,14 @@ set_criterion_method <- function(kind,
   ##              c("x", "order", "...")))
   ##    stop("Criterion methods must have formals 'x', 'order', and '...'.")
 
+
+  if (sys.nframe() > 1) {
+    caller <- deparse(sys.calls()[[sys.nframe()-1]])
+    if (is.null(caller) || !startsWith(caller, "register_"))
+      caller <- NA_character_
+  } else
+    caller <- "manual"
+
   ## check if criterion is already in registry
   r <- registry_criterion$get_entry(kind = kind, name = name)
   if (!is.null(r) && r$name == name) {
@@ -199,7 +211,8 @@ set_criterion_method <- function(kind,
       fun = fun,
       description = description,
       merit = merit,
-      control = control
+      control = control,
+      registered_by = caller
     )
   } else {
     registry_criterion$set_entry(
@@ -208,16 +221,21 @@ set_criterion_method <- function(kind,
       fun = fun,
       description = description,
       merit = merit,
-      control = control
+      control = control,
+      registered_by = caller
     )
+  }
+
+  if (!is.null(caller)) {
+    caller <- paste0(" using ", caller)
   }
 
   if (verbose)
     message("Registering new seriation criteron ",
         sQuote(name),
         " for ",
-        sQuote(kind))
-
+        sQuote(kind),
+        caller)
 }
 
 #' @rdname registry_for_criterion_methods
@@ -225,14 +243,20 @@ set_criterion_method <- function(kind,
 print.criterion_method <- function(x, ...) {
 
   writeLines(c(
-    gettextf("name:        %s", x$name),
-    gettextf("kind:        %s", x$kind),
+    gettextf("name:          %s", x$name),
+    gettextf("kind:          %s", x$kind),
+    gettextf("merit:         %s", x$merit)
+  ))
+
+  if(!is.na(x$registered_by))
+      writeLines(gettextf("registered by: %s", x$registered_by))
+
+  writeLines(c(
     strwrap(
-      gettextf("description: %s", x$description),
-      prefix = "             ",
+      gettextf("description:   %s", x$description),
+      prefix = "              ",
       initial = ""
-    ),
-    gettextf("merit:       %s", x$merit)
+    )
   ))
 
   writeLines("additional parameters:")

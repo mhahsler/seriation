@@ -1,4 +1,8 @@
-# seriation 1.5.5 (04/16/2024)
+# seriation 1.5.5.1 (xx/xx/2024)
+
+- Added registered_by field to registries. 
+
+# seriation 1.5.5 (04/17/2024)
 
 - Updated man pages.
 
