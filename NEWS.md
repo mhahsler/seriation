@@ -1,9 +1,15 @@
 # seriation 1.5.5.1 (xx/xx/2024)
 
+## New Features
 - Added registered_by field to registries. 
+
+## Bug Fixes
+- Added two missing package anchors to pallette man page.
+
 
 # seriation 1.5.5 (04/17/2024)
 
+## Changed
 - Updated man pages.
 
 # seriation 1.5.4 (12/11/2023)
@@ -29,7 +35,7 @@
 
 # seriation 1.5.1 (07/20/2023)
 
-## New Fearures
+## New Features
 - pimage and permute now accept order = TRUE to perform the default seriation.
 - hmap gained parameter col_dist to define the color palette used for distance
   matrices.

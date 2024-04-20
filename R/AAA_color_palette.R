@@ -38,8 +38,8 @@
 #' linear, 2 = quadratic, etc.)
 #' @param bias a positive number. Higher values give more widely spaced colors
 #' at the high end.
-#' @param ...  further parameters are passed on to [sequential_hcl()]
-#' or [diverging_hcl()].
+#' @param ...  further parameters are passed on to [colorspace::sequential_hcl()]
+#' or [colorspace::diverging_hcl()].
 #' @return A vector with `n` colors.
 #' @author Michael Hahsler
 #' @keywords hplot

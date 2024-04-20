@@ -36,8 +36,8 @@ at the high end.}
 \item{power}{used to control how chroma and luminance is increased (1 =
 linear, 2 = quadratic, etc.)}
 
-\item{...}{further parameters are passed on to \code{\link[=sequential_hcl]{sequential_hcl()}}
-or \code{\link[=diverging_hcl]{diverging_hcl()}}.}
+\item{...}{further parameters are passed on to \code{\link[colorspace:hcl_palettes]{colorspace::sequential_hcl()}}
+or \code{\link[colorspace:hcl_palettes]{colorspace::diverging_hcl()}}.}
 }
 \value{
 A vector with \code{n} colors.
