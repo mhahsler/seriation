@@ -1,12 +1,14 @@
 
 # <img src="man/figures/logo.svg" align="right" height="139" /> R package seriation - Infrastructure for Ordering Objects Using Seriation
 
-[![CRAN
-version](http://www.r-pkg.org/badges/version/seriation)](https://CRAN.R-project.org/package=seriation)
-[![stream r-universe
+[![r-universe
 status](https://mhahsler.r-universe.dev/badges/seriation)](https://mhahsler.r-universe.dev/seriation)
+[![Package on
+CRAN](http://www.r-pkg.org/badges/version/seriation)](https://CRAN.R-project.org/package=seriation)
 [![CRAN RStudio mirror
 downloads](http://cranlogs.r-pkg.org/badges/seriation)](https://CRAN.R-project.org/package=seriation)
+[![Anaconda.org](https://anaconda.org/conda-forge/r-seriation/badges/version.svg)](https://anaconda.org/conda-forge/r-seriation)
+[![StackOverflow](https://img.shields.io/badge/stackoverflow-seriation+r-orange.svg)](https://stackoverflow.com/questions/tagged/seriation+r)
 
 ## Introduction
 
@@ -50,13 +52,11 @@ The following R packages use `seriation`:
 [DendSer](https://CRAN.R-project.org/package=DendSer),
 [dendsort](https://CRAN.R-project.org/package=dendsort),
 [disclapmix](https://CRAN.R-project.org/package=disclapmix),
-[elaborator](https://CRAN.R-project.org/package=elaborator),
 [flexclust](https://CRAN.R-project.org/package=flexclust),
 [ggraph](https://CRAN.R-project.org/package=ggraph),
 [heatmaply](https://CRAN.R-project.org/package=heatmaply),
 [MEDseq](https://CRAN.R-project.org/package=MEDseq),
 [ockc](https://CRAN.R-project.org/package=ockc),
-[pergola](https://CRAN.R-project.org/package=pergola),
 [protti](https://CRAN.R-project.org/package=protti),
 [RMaCzek](https://CRAN.R-project.org/package=RMaCzek),
 [SFS](https://CRAN.R-project.org/package=SFS),
@@ -165,7 +165,10 @@ measures. Note that some measures are merit measures while others
 represent cost. See the manual page for details.
 
 ``` r
-rbind(alphabetical = criterion(d), seriated = criterion(d, order))
+rbind(
+ alphabetical = criterion(d),
+ seriated = criterion(d, order)
+)
 ```
 
     ##              2SUM AR_deviations AR_events BAR Gradient_raw Gradient_weighted

@@ -6,7 +6,7 @@ output: github_document
 pkg <- 'seriation'
 
 source("https://raw.githubusercontent.com/mhahsler/pkg_helpers/main/pkg_helpers.R")
-pkg_title(pkg)
+pkg_title(pkg, anaconda = "r-seriation", stackoverflow = "seriation+r")
 ```
 
 ## Introduction
