@@ -9,7 +9,9 @@ editor: visual
 
 # Introduction
 
-A [Heatmap](https://en.wikipedia.org/wiki/Heat_map) uses colored tiles to represent the values in a data matrix. Patterns can be easily seen if the rows and columns are appropriately reordered. There are many ways to reorder a matrix and the order has a huge impact on how useful the visualization is. The package `seriation` implements a large number of reordering methods (see: the [list with all implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)). `seriation` also provides a set of functions to display reordered heatmaps:
+A [Heatmap](https://en.wikipedia.org/wiki/Heat_map) uses colored tiles to represent the values in a data matrix. Patterns can be easily seen if the rows and columns are appropriately reordered. There are many ways to reorder a matrix and the order has a huge impact on how useful the visualization is. The package 
+[`seriation`](https://github.com/mhahsler/seriation)
+implements a large number of reordering methods (see: the [list with all implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)). `seriation` also provides a set of functions to display reordered heatmaps:
 
 -   `pimage()`
 -   `hmap()`

@@ -69,15 +69,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="visual_comparison_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="visual_comparison_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
-<script src="visual_comparison_files/libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="visual_comparison_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="visual_comparison_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="visual_comparison_files/libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="visual_comparison_files/libs/datatables-binding-0.28/datatables.js"></script>
+<script src="visual_comparison_files/libs/datatables-binding-0.33/datatables.js"></script>
 <script src="visual_comparison_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="visual_comparison_files/libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="visual_comparison_files/libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="visual_comparison_files/libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
-<link href="visual_comparison_files/libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
-<script src="visual_comparison_files/libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="visual_comparison_files/libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="visual_comparison_files/libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="visual_comparison_files/libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="visual_comparison_files/libs/dt-ext-fixedcolumns-1.13.6/css/fixedColumns.dataTables.min.css" rel="stylesheet">
+<script src="visual_comparison_files/libs/dt-ext-fixedcolumns-1.13.6/js/dataTables.fixedColumns.min.js"></script>
+<link href="visual_comparison_files/libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="visual_comparison_files/libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 
 
 </head>
@@ -104,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#methods-1" id="toc-methods-1" class="nav-link" data-scroll-target="#methods-1">Methods</a></li>
   <li><a href="#performing-seriation-1" id="toc-performing-seriation-1" class="nav-link" data-scroll-target="#performing-seriation-1">Performing seriation</a></li>
   <li><a href="#visualize-the-results-1" id="toc-visualize-the-results-1" class="nav-link" data-scroll-target="#visualize-the-results-1">Visualize the results</a></li>
-  <li><a href="#comparison-beween-methods" id="toc-comparison-beween-methods" class="nav-link" data-scroll-target="#comparison-beween-methods">Comparison beween methods</a></li>
+  <li><a href="#comparison-between-methods-1" id="toc-comparison-between-methods-1" class="nav-link" data-scroll-target="#comparison-between-methods-1">Comparison between methods</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -136,7 +139,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>This document compares the seriation methods available in package using the popular Iris data set and randomize the order of the objects.</p>
+<p>This document compares the seriation methods available in package <a href="https://github.com/mhahsler/seriation"><code>seriation</code></a> using the popular Iris data set and randomize the order of the objects.</p>
 </section>
 <section id="preparing-the-data" class="level1">
 <h1>Preparing the data</h1>
@@ -195,23 +198,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">" took"</span>, tm[<span class="dv">1</span>]<span class="sc">+</span>tm[<span class="dv">2</span>], <span class="st">"sec.</span><span class="sc">\n</span><span class="st">"</span>)</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ARSA took 0.776 sec.
-DendSer took 0.728 sec.
-DendSer_ARc took 1.014 sec.
-DendSer_BAR took 0.816 sec.
-DendSer_LPL took 1.057 sec.
-DendSer_PL took 0.914 sec.
-GW took 0.107 sec.
-GW_average took 0.113 sec.
-GW_complete took 0.102 sec.
-GW_single took 0.108 sec.
-GW_ward took 0.113 sec.
-HC took 0.113 sec.
-HC_average took 0.114 sec.
-HC_complete took 0.113 sec.
-HC_single took 0.114 sec.
-HC_ward took 0.117 sec.
-Identity took 0.108 sec.
+<pre><code>ARSA took 1.046 sec.
+DendSer took 0.867 sec.
+DendSer_ARc took 0.638 sec.
+DendSer_BAR took 0.795 sec.
+DendSer_LPL took 0.723 sec.
+DendSer_PL took 0.893 sec.
+GW took 0.168 sec.
+GW_average took 0.145 sec.
+GW_complete took 0.164 sec.
+GW_single took 0.175 sec.
+GW_ward took 0.167 sec.
+HC took 0.169 sec.
+HC_average took 0.168 sec.
+HC_complete took 0.166 sec.
+HC_single took 0.168 sec.
+HC_ward took 0.167 sec.
+Identity took 0.166 sec.
 isomap</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
@@ -220,34 +223,34 @@ isomap</code></pre>
   reorder.hclust gclus</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code> took 0.144 sec.
-isoMDS took 0.14 sec.
-MDS took 0.108 sec.
-MDS_angle took 0.117 sec.
-MDS_smacof took 0.12 sec.
-metaMDS took 0.428 sec.
-monoMDS took 0.116 sec.
-OLO took 0.103 sec.
-OLO_average took 0.104 sec.
-OLO_complete took 0.101 sec.
-OLO_single took 0.104 sec.
-OLO_ward took 0.105 sec.
-optics took 0.11 sec.
-QAP_2SUM took 0.139 sec.
-QAP_BAR took 0.119 sec.
-QAP_Inertia took 0.118 sec.
-QAP_LS took 0.118 sec.
-R2E took 0.118 sec.
-Random took 0.103 sec.
-Reverse took 0.104 sec.
-Sammon_mapping took 0.111 sec.
-SGD took 48.63 sec.
-Spectral took 0.11 sec.
-Spectral_norm took 0.119 sec.
-SPIN_NH took 0.424 sec.
-SPIN_STS took 0.534 sec.
-TSP took 0.114 sec.
-VAT took 0.109 sec.</code></pre>
+<pre><code> took 0.346 sec.
+isoMDS took 1.324 sec.
+MDS took 0.213 sec.
+MDS_angle took 0.214 sec.
+MDS_smacof took 0.551 sec.
+metaMDS took 2.271 sec.
+monoMDS took 0.195 sec.
+OLO took 0.166 sec.
+OLO_average took 0.184 sec.
+OLO_complete took 0.172 sec.
+OLO_single took 0.167 sec.
+OLO_ward took 0.169 sec.
+optics took 0.182 sec.
+QAP_2SUM took 0.197 sec.
+QAP_BAR took 0.207 sec.
+QAP_Inertia took 0.202 sec.
+QAP_LS took 0.196 sec.
+R2E took 0.291 sec.
+Random took 0.179 sec.
+Reverse took 0.166 sec.
+Sammon_mapping took 0.335 sec.
+SGD took 63.492 sec.
+Spectral took 0.23 sec.
+Spectral_norm took 0.262 sec.
+SPIN_NH took 5.012 sec.
+SPIN_STS took 3.329 sec.
+TSP took 0.178 sec.
+VAT took 0.173 sec.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, criterion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -456,7 +459,7 @@ VAT took 0.109 sec.</code></pre>
 <p>We can compare the seriation methods by how similar the orders are that they produce. The following code calculates distances between orders and then performs hierarchical clustering.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dst <span class="ot">&lt;-</span> <span class="fu">ser_dist</span>(orders) </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hmap</span>(dst)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hmap</span>(dst, <span class="at">col =</span> <span class="fu">blues</span>(<span class="at">power =</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -467,11 +470,15 @@ VAT took 0.109 sec.</code></pre>
 </div>
 <p>Here are the criterion measures. Some are maximized and some should be minimized. Details about the measures can be found in the <a href="https://mhahsler.r-universe.dev/seriation/doc/manual.html#criterion">manual page for <code>criterion()</code></a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="fu">round</span>(criterion, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(<span class="fu">round</span>(criterion, <span class="dv">2</span>), <span class="at">extensions =</span> <span class="st">"FixedColumns"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">list</span>(<span class="at">paging =</span> <span class="cn">TRUE</span>, <span class="at">searching =</span> <span class="cn">TRUE</span>, <span class="at">info =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">scrollX =</span> <span class="cn">TRUE</span>, <span class="at">fixedColumns =</span> <span class="fu">list</span>(<span class="at">leftColumns =</span> <span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">formatRound</span>(<span class="at">columns =</span> <span class="fu">colnames</span>(criterion) , <span class="at">mark =</span> <span class="st">""</span>, <span class="at">digits=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-71b2212998715de67bad" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-71b2212998715de67bad">{"x":{"filter":"none","vertical":false,"data":[["ARSA","QAP_LS","metaMDS","isoMDS","MDS_smacof","QAP_Inertia","SGD","Spectral","Sammon_mapping","QAP_2SUM","MDS","QAP_BAR","DendSer_ARc","DendSer","DendSer_BAR","SPIN_STS","isomap","SPIN_NH","R2E","DendSer_PL","HC","HC_complete","OLO_average","OLO","OLO_complete","GW","GW_complete","DendSer_LPL","GW_ward","OLO_single","OLO_ward","GW_average","GW_single","Spectral_norm","VAT","MDS_angle","TSP","HC_single","optics","HC_ward","HC_average","monoMDS","Reverse","Identity","Random"],[0.78,0.12,0.43,0.14,0.12,0.12,48.63,0.11,0.11,0.14,0.11,0.12,1.01,0.73,0.82,0.53,0.14,0.42,0.12,0.91,0.11,0.11,0.1,0.1,0.1,0.11,0.1,1.06,0.11,0.1,0.11,0.11,0.11,0.12,0.11,0.12,0.11,0.11,0.11,0.12,0.11,0.12,0.1,0.11,0.1],[17811232.65,17811388.19,17812686.38,17813936.38,17812731.39,17816687.43,17816879.31,17821593.29,17803289.91,17800646.4,17831638.49,17826713.98,17876078.28,17887028.78,17887028.78,17868738.07,17885505.49,17891673.73,17920401.23,18123489.68,18261322.36,18261322.36,18269341.73,18292979.96,18292979.96,18311674.75,18311674.75,18320334.68,18438936.49,18456707.71,18410342.17,18539068.81,18539229.91,18699746.46,19213961.27,19264911.14,20796401.92,20011502.7,20438517.41,21708956.3,21844714.43,28599059.75,30242212.15,30242212.15,30297459.59],[9438.610000000001,9452.969999999999,9510.370000000001,9576.549999999999,9471.18,9682.540000000001,9702.889999999999,9887.389999999999,9704.719999999999,9742.030000000001,10451.48,10835.82,13412.91,14008.74,14008.74,14397.71,15169.57,16410.58,18183.83,34285.32,38665.52,38665.52,43484.13,45325.49,45325.49,44984.49,44984.49,47051.1,50834.17,53970.73,51902.86,53151.74,62474.04,79141.36,96969.39,108327.34,188862.96,196825.63,227769.1,317318.67,329511.45,852988.54,955040.04,955040.04,964858.4],[54823,54769,54565,54635,55069,54401,54026,54924,61996,62381,58810,69339,76417,80168,80168,77287,80864,89951,90031,144308,137152,137152,162486,168500,168500,173565,173565,172635,178095,159059,179586,184330,182003,166378,199911,221616,263460,273866,309943,368430,387625,502916,552264,552264,558178],[2243448.63,2243449.24,2243468.8,2243489.49,2243518.16,2243562.04,2243616.36,2243682.33,2244220,2244239.28,2244348.59,2245364.85,2247775.23,2248403.43,2248403.43,2248613.71,2249203.1,2251233.73,2251902.63,2268853.29,2271942.99,2271942.99,2277556.24,2279320.21,2279320.21,2279424.9,2279424.9,2280962.93,2284226.93,2284833.4,2285630.63,2286026.05,2294121.15,2306285.9,2321063.77,2332072.92,2395157.95,2412548.24,2441289.81,2525738.94,2541531.09,2771680.25,2837229.27,2837229.27,2846673.51],[56363,56374.63,56434.81,56456.44,56310.21,56526.39,56477.18,56609.97,55760.07,55820.94,56588.08,55356.95,56474.23,56159.74,56159.74,56921.11,56666.77,55903.39,56794.91,57760.12,61893.07,61893.07,58055.28,58416.81,58416.81,59303.16,59303.16,58754.12,60126.35,62925.29,60393.42,64339.93,62257.3,65816.92999999999,67306.67,63869.44,65868.39,80004.17,81739.21000000001,81386.27,80334.77,152311.47,165017.99,165017.99,165640.67],[992260,992368,992775,992635,991764,993106,993852,992058,977903,977136,984277,963217,949063,941567,941567,947325,940173,921993,921858,813271,827592,827592,776925,764888,764888,754760,754760,756620,745680,783791,742715,733206,737886,769117,702072,658672,574955,554124,481975,364976,326584,96184,-2444,-2444,-14320],[1772128.25,1772126.43,1772067.76,1772005.69,1771919.66,1771788.02,1771625.07,1771427.16,1769814.16,1769756.32,1769428.38,1766379.6,1759148.46,1757263.85,1757263.85,1756633.01,1754864.85,1748772.95,1746766.24,1695914.28,1686645.17,1686645.17,1669805.42,1664513.52,1664513.52,1664199.44,1664199.44,1659585.34,1649793.36,1647973.94,1645582.24,1644396,1620110.68,1583616.45,1539282.85,1506255.38,1317000.3,1264829.43,1178604.72,925257.33,877880.86,187433.4,-9213.66,-9213.66,-37546.39],[356949760.46,356955913.86,356963292.77,356965942.09,356954170.3,356979367.67,356957996.91,356910342.64,356624718.43,356636184.55,356821108.54,356200368.8,355838234.97,355580212.39,355580212.39,355592457.62,354956626.48,354608383.85,354057417.51,348962409.09,350316625.22,350316625.22,346780581.73,346350972.72,346350972.72,346549446.39,346549446.39,345988723.7,345371421.88,347019773.4,345352261.17,346812938.22,343536136.32,339396179.61,336361006.76,329715037.11,310853375.76,315027540.56,305986078.23,280876064.8,272025389.5,231993771.78,213926932.07,213926932.07,211189978.7],[6508.59,6506.04,6683.03,6589.63,6249.82,6941.63,6724.97,6987.1,5721.01,6079.52,6633.21,5647.16,4775.3,4164.57,4164.57,7643.86,6501.32,6050.47,6629.01,3651.03,5305.52,5305.52,3671.38,4101.96,4101.96,4532.43,4532.43,3674.68,3815.98,4795.85,3563.63,3922.21,5038.59,7639.25,4491.64,10109.02,4068.68,7392.16,6265.08,5215.94,5297.68,20149.24,29135.06,28444.16,27613.32],[76487634.69,76487637.11,76487715.33,76487798.09,76487912.8,76488088.31999999,76488305.59,76488569.45999999,76490720.14,76490797.26000001,76491234.5,76495299.54000001,76504941.06,76507453.89,76507453.89,76508295,76510652.55,76518775.06999999,76521450.69,76589253.3,76601612.11,76601612.11,76624065.13,76631120.98999999,76631120.98999999,76631539.76000001,76631539.76000001,76637691.89,76650747.87,76653173.75,76656362.69,76657944.34,76690324.77,76738983.75,76798095.22,76842131.84999999,77094471.95,77164033.09999999,77278999.39,77616795.90000001,77679964.53,78600561.15000001,78862757.23,78862757.23,78900534.2],[4486897.27,4486898.48,4486937.59,4486978.97,4487036.32,4487124.09,4487232.72,4487364.66,4488439.99,4488478.55,4488697.18,4490729.69,4495550.46,4496806.87,4496806.87,4497227.43,4498406.2,4502467.46,4503805.27,4537706.58,4543885.98,4543885.98,4555112.49,4558640.42,4558640.42,4558849.8,4558849.8,4561925.87,4568453.86,4569666.8,4571261.27,4572052.09,4588242.31,4612571.8,4642127.53,4664145.85,4790315.9,4825096.48,4882579.62,5051477.88,5083062.19,5543360.5,5674458.54,5674458.54,5693347.02],[0.23,0.1,0.23,0.1,0.1,0.23,0.23,0.18,0.11,0.23,0.1,0.23,0.24,0.24,0.24,0.24,0.24,0.24,0.25,0.28,0.28,0.28,0.29,0.29,0.29,0.3,0.3,0.3,0.3,0.3,0.31,0.31,0.32,0.3,0.36,0.37,0.45,0.46,0.49,0.57,0.58,0.75,0.79,0.79,0.8],[7268.31,7270.17,7261.42,7263.12,7274.22,7261.16,7263.1,7253.72,7292.6,7284.21,7250.22,7313.71,7325.61,7326.94,7326.94,7261.9,7270.79,7311.48,7269.98,7335.83,7285.32,7285.32,7331.85,7337.56,7337.56,7329.05,7329.05,7333.5,7323.99,7312.18,7337.48,7325.74,7309.72,7157.93,7262.76,7165.28,7326.3,7243.38,7237.74,7262.21,7277.72,6344.83,5866.77,5866.77,5786.63],[1039.11,1028.6,1068.91,1056.31,981.9400000000001,1074.39,1055.06,1111.65,854.15,874.85,1167.73,669.4,631.79,618.53,618.53,1074.95,1010.79,691.45,1004.54,519.27,949.49,949.49,519.9,501.42,501.42,598.3200000000001,598.3200000000001,544.29,610.1,784.62,506.27,629.08,770.08,1836.38,1229.9,1945.32,540.79,1396.64,1377.46,1038.05,1028.04,9250.57,11899.7,11899.7,12150.46],[480.34,472.88,508,501.13,456.71,508.9,501.25,538.78,396.54,416.82,552.6799999999999,303.64,264.48,259.07,259.07,505.88,479.84,318.68,467.02,212.75,377.03,377.03,213.03,205.91,205.91,245.17,245.17,222.16,246.17,315.9,206.2,255.42,317.18,822.24,500.22,855.6799999999999,218.35,561.15,560.2,408.98,405.24,4195.06,5991.05,5991.05,6309.2],[86.14,85.48999999999999,88.70999999999999,89.28,85.18000000000001,88.8,88.06999999999999,91.29000000000001,81.31999999999999,84.53,91.92,71.04000000000001,60.24,59.2,59.2,91.94,86.69,73.28,85.43000000000001,51.97,66.48,66.48,52.02,51.31,51.31,56.54,56.54,52.74,54.5,64,50.55,56.96,66.92,114.98,82.70999999999999,106.57,50.72,90.05,91.17,70.93000000000001,71.41,269.72,383.86,383.86,399.94],[0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.06,0.06,0.05,0.06,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.08,0.08,0.13,0.12,0.12,0.15,0.15,0.15,0.16,0.16,0.16,0.16,0.14,0.16,0.17,0.17,0.15,0.18,0.2,0.24,0.25,0.28,0.33,0.35,0.46,0.5,0.5,0.51],[0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.88,0.86,0.86,0.87,0.86,0.86,0.86,0.86,0.86,0.85,0.84,0.85,0.83,0.84,0.83,0.79,0.8,0.72,0.6899999999999999,0.66,0.55,0.55,0.08,0,0,0.02],[0.23,0.1,0.23,0.1,0.1,0.23,0.23,0.18,0.11,0.23,0.1,0.23,0.24,0.24,0.24,0.24,0.24,0.24,0.24,0.27,0.28,0.28,0.29,0.29,0.29,0.29,0.29,0.29,0.3,0.3,0.3,0.3,0.31,0.3,0.35,0.04,0.43,0.45,0.48,0.55,0.5600000000000001,0.6899999999999999,0.73,0.73,0.73]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>time<\/th>\n      <th>X2SUM<\/th>\n      <th>AR_deviations<\/th>\n      <th>AR_events<\/th>\n      <th>ARc<\/th>\n      <th>BAR<\/th>\n      <th>Gradient_raw<\/th>\n      <th>Gradient_weighted<\/th>\n      <th>Inertia<\/th>\n      <th>Lazy_path_length<\/th>\n      <th>Least_squares<\/th>\n      <th>LS<\/th>\n      <th>MDS_stress<\/th>\n      <th>ME<\/th>\n      <th>Moore_stress<\/th>\n      <th>Neumann_stress<\/th>\n      <th>Path_length<\/th>\n      <th>RGAR<\/th>\n      <th>Rho<\/th>\n      <th>smacof_stress0<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-35abbbdec34751fc3c04" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-35abbbdec34751fc3c04">{"x":{"filter":"none","vertical":false,"extensions":["FixedColumns"],"data":[["ARSA","QAP_LS","metaMDS","isoMDS","MDS_smacof","QAP_Inertia","SGD","Spectral","Sammon_mapping","MDS","QAP_2SUM","QAP_BAR","DendSer_ARc","SPIN_STS","DendSer","DendSer_BAR","isomap","DendSer_LPL","SPIN_NH","DendSer_PL","HC","HC_complete","OLO_average","OLO","OLO_complete","GW","GW_complete","GW_ward","OLO_single","OLO_ward","GW_average","GW_single","Spectral_norm","MDS_angle","VAT","optics","HC_single","TSP","HC_ward","HC_average","R2E","monoMDS","Identity","Reverse","Random"],[1.05,0.2,2.27,1.32,0.55,0.2,63.49,0.23,0.34,0.21,0.2,0.21,0.64,3.33,0.87,0.79,0.35,0.72,5.01,0.89,0.17,0.17,0.18,0.17,0.17,0.17,0.16,0.17,0.17,0.17,0.14,0.17,0.26,0.21,0.17,0.18,0.17,0.18,0.17,0.17,0.29,0.2,0.17,0.17,0.18],[17811232.65,17811232.65,17812025.88,17813936.38,17812731.39,17816846.76,17816670.24,17821593.29,17803289.91,17831638.49,17801116.6,17834927.17,17876078.28,17869665.99,17887028.78,17887028.78,17885505.49,18123426.4,18033201.08,18152476.9,18260664.92,18260664.92,18269341.73,18292979.96,18292979.96,18311674.75,18311674.75,18438906.02,18456707.71,18410342.17,18539119.37,18539229.91,18699746.46,19264911.14,19327773.54,20490334.77,20025244.2,21081201.28,21710335.35,21846433.17,22155912.17,26148093.55,30377884.18,30377884.18,30356723.18],[9438.610000000001,9438.610000000001,9504.209999999999,9576.549999999999,9471.18,9685.190000000001,9709.25,9887.389999999999,9704.719999999999,10451.48,10113.45,11398.23,13412.91,14132.42,14008.74,14008.74,15169.57,29170.9,28793.15,36591.02,38602.46,38602.46,43484.13,45325.49,45325.49,44984.49,44984.49,50829.52,53970.73,51902.86,53157.9,62474.04,79141.36,108327.34,131108.53,186876.59,198041.34,210100.4,317369.74,329571.03,339680.8,524150.62,941272.27,941272.27,968997.9399999999],[54823,54823,54604,54635,55069,54386,54085,54924,61996,58810,64789,72444,76417,77814,80168,80168,80864,118784,125320,147109,136667,136667,162486,168500,168500,173565,173565,178026,159059,179586,184425,182003,166378,221616,221323,310296,278366,289979,368883,387973,397967,290462,543937,543937,560253],[2243448.63,2243448.63,2243469.42,2243489.49,2243518.16,2243562.99,2243618.88,2243682.33,2244220,2244348.59,2244756.56,2245982.43,2247775.23,2248230.33,2248403.43,2248403.43,2249203.1,2262789.97,2263617.83,2271242.93,2271881.35,2271881.35,2277556.24,2279320.21,2279320.21,2279424.9,2279424.9,2284222.28,2284833.4,2285630.63,2286032.21,2294121.15,2306285.9,2332072.92,2351870.22,2397500.36,2413742.71,2417698.86,2525790.71,2541590.85,2556039.9,2569977.86,2827589.98,2827589.98,2847793.64],[56363,56363,56418.65,56456.44,56310.21,56532.49,56488.77,56609.97,55760.07,56588.08,55668.68,55189.41,56474.23,57209.45,56159.74,56159.74,56666.77,58336.22,55512.97,57205.43,61870.85,61870.85,58055.28,58416.81,58416.81,59303.16,59303.16,60128.57,62925.29,60393.42,64340.25,62257.3,65816.92999999999,63869.44,73504.31,79129.69,80300.3,65699.52,81387.13,80333.75,74532.39,89841.14999999999,162277.97,162277.97,166833.07],[992260,992260,992695,992635,991764,993136,993738,992058,977903,984277,972321,957014,949063,946277,941567,941567,940173,864329,851261,807677,828562,828562,776925,764888,764888,754760,754760,745818,783791,742715,733016,737886,769117,658672,659212,481279,545127,521934,364070,325889,305960,521056,14158,14158,-18510],[1772128.25,1772128.25,1772065.89,1772005.69,1771919.66,1771785.16,1771617.5,1771427.16,1769814.16,1769428.38,1768204.46,1764526.86,1759148.46,1757783.14,1757263.85,1757263.85,1754864.85,1714104.25,1711620.67,1688745.36,1686830.1,1686830.1,1669805.42,1664513.52,1664513.52,1664199.44,1664199.44,1649807.3,1647973.94,1645582.24,1644377.52,1620110.68,1583616.45,1506255.38,1446863.5,1309973.06,1261246.03,1249377.57,925102.01,877701.59,834354.4399999999,792540.58,19704.19,19704.19,-40906.77],[356949760.46,356949760.46,356960077.43,356965942.09,356954170.3,356979895.33,356957819.06,356910342.64,356624718.43,356821108.54,356470277.62,356033332.69,355838234.97,355751911.47,355580212.39,355580212.39,354956626.48,352175128.11,350040598.75,347957153.67,350330327.55,350330327.55,346780581.73,346350972.72,346350972.72,346549446.39,346549446.39,345373539.51,347019773.4,345352261.17,346811289.88,343536136.32,339396179.61,329715037.11,331311772.84,316699339.72,314761597.24,303737507.81,280861430.89,272004519.23,262816237.29,263721682.16,215720603.32,215720603.32,210695966.94],[6412.07,6412.07,6639.98,6801.93,6526.57,6354.28,6518.05,6705.89,6477.68,7155.17,6523.57,5683.39,4775.3,7168.72,4164.57,4164.57,6502.89,3648.42,5827.04,3662.27,5213.82,5213.82,3671.38,4101.96,4101.96,4532.43,4532.43,3815.98,4795.85,3563.63,3922.21,5038.59,9607.76,10109.02,5505.99,5285.77,7380.09,3970.02,5212.17,5262.37,7100.42,7820.39,29167.02,26677.52,28836.71],[76487634.69,76487634.69,76487717.81999999,76487798.09,76487912.8,76488092.13,76488315.68000001,76488569.45999999,76490720.14,76491234.5,76492866.40000001,76497769.86,76504941.06,76506761.48999999,76507453.89,76507453.89,76510652.55,76565000.01000001,76568311.45999999,76598811.87,76601365.55,76601365.55,76624065.13,76631120.98999999,76631120.98999999,76631539.76000001,76631539.76000001,76650729.28,76653173.75,76656362.69,76657968.98999999,76690324.77,76738983.75,76842131.84999999,76921321.02,77103841.59999999,77168810.98,77184635.59,77617002.98999999,77680203.56,77737999.76000001,77793751.56999999,78824200.09,78824200.09,78905014.7],[4486897.27,4486897.27,4486938.84,4486978.97,4487036.32,4487125.99,4487237.76,4487364.66,4488439.99,4488697.18,4489513.13,4491964.86,4495550.46,4496460.67,4496806.87,4496806.87,4498406.2,4525579.93,4527235.65,4542485.86,4543762.7,4543762.7,4555112.49,4558640.42,4558640.42,4558849.8,4558849.8,4568444.56,4569666.8,4571261.27,4572064.42,4588242.31,4612571.8,4664145.85,4703740.43,4795000.72,4827485.41,4835397.72,5051581.42,5083181.7,5112079.8,5139955.71,5655179.97,5655179.97,5695587.28],[0.23,0.23,0.23,0.1,0.1,0.23,0.23,0.18,0.11,0.1,0.23,0.23,0.24,0.24,0.24,0.24,0.24,0.27,0.27,0.28,0.28,0.28,0.29,0.29,0.29,0.3,0.3,0.3,0.3,0.31,0.31,0.32,0.3,0.37,0.4,0.45,0.47,0.47,0.57,0.58,0.59,0.61,0.78,0.78,0.8],[7268.33,7268.33,7258.74,7263.08,7274.22,7261.87,7261.17,7253.7,7292.58,7250.23,7289.1,7314.31,7325.61,7263.06,7326.94,7326.94,7270.77,7334.29,7305.17,7327.18,7287.52,7287.52,7331.85,7337.56,7337.56,7329.05,7329.05,7324.02,7312.18,7337.48,7325.78,7309.72,7157.91,7165.28,7268.01,7236.29,7241.14,7329.49,7262.87,7279.45,7250.02,7226.52,5930.26,5930.25,5861.72],[1039.11,1039.11,1083,1056.31,981.9400000000001,1073.66,1073.99,1111.65,854.15,1167.73,831.75,688.02,631.79,1052.66,618.53,618.53,1010.79,562.76,721.38,523.89,923.76,923.76,519.9,501.42,501.42,598.3200000000001,598.3200000000001,609.63,784.62,506.27,628.58,770.08,1836.38,1945.32,1236.81,1395.19,1423.18,543.26,1028.35,1023.7,1143.09,1346.42,11550.57,11550.57,11924.66],[480.34,480.34,518.48,501.13,456.71,506.19,508.9,538.78,396.54,552.6799999999999,397.13,309.54,264.48,495.35,259.07,259.07,479.84,227.48,323.69,215.25,368.21,368.21,213.03,205.91,205.91,245.17,245.17,246.01,315.9,206.2,255.26,317.18,822.24,855.6799999999999,495.02,576.8099999999999,570.09,219.15,405.82,402.84,514.8200000000001,613.75,5788.7,5788.7,6049.89],[86.14,86.14,89.34,89.28,85.18000000000001,88.63,88.45999999999999,91.29000000000001,81.31999999999999,91.92,81.94,69.63,60.24,90.09,59.2,59.2,86.69,51.97,70.83,52.56,66,66,52.02,51.31,51.31,56.54,56.54,54.5,64,50.55,56.96,66.92,114.98,106.57,83.28,93.64,90.19,50.76,70.76000000000001,71.03,91.3,100.42,372.3,372.3,392.41],[0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.06,0.05,0.06,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.11,0.11,0.13,0.12,0.12,0.15,0.15,0.15,0.16,0.16,0.16,0.14,0.16,0.17,0.17,0.15,0.2,0.2,0.28,0.25,0.26,0.33,0.35,0.36,0.26,0.49,0.49,0.51],[0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.9,0.9,0.9,0.9,0.9,0.88,0.89,0.88,0.86,0.86,0.87,0.86,0.86,0.86,0.86,0.85,0.84,0.85,0.83,0.84,0.83,0.8,0.75,0.68,0.6899999999999999,0.6899999999999999,0.55,0.55,0.57,0.49,0.01,0.01,0.01],[0.23,0.23,0.23,0.1,0.1,0.23,0.23,0.18,0.11,0.1,0.23,0.23,0.24,0.24,0.24,0.24,0.24,0.26,0.27,0.28,0.28,0.28,0.29,0.29,0.29,0.29,0.29,0.3,0.3,0.3,0.3,0.31,0.3,0.04,0.39,0.44,0.45,0.46,0.55,0.5600000000000001,0.57,0.58,0.72,0.72,0.73]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>time<\/th>\n      <th>X2SUM<\/th>\n      <th>AR_deviations<\/th>\n      <th>AR_events<\/th>\n      <th>ARc<\/th>\n      <th>BAR<\/th>\n      <th>Gradient_raw<\/th>\n      <th>Gradient_weighted<\/th>\n      <th>Inertia<\/th>\n      <th>Lazy_path_length<\/th>\n      <th>Least_squares<\/th>\n      <th>LS<\/th>\n      <th>MDS_stress<\/th>\n      <th>ME<\/th>\n      <th>Moore_stress<\/th>\n      <th>Neumann_stress<\/th>\n      <th>Path_length<\/th>\n      <th>RGAR<\/th>\n      <th>Rho<\/th>\n      <th>smacof_stress0<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"paging":true,"searching":true,"info":false,"sort":true,"scrollX":true,"fixedColumns":{"leftColumns":1},"columnDefs":[{"targets":1,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":6,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":7,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":8,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":9,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":10,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":11,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":12,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":13,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":14,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":15,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":16,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":17,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":18,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":19,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":20,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"time","targets":1},{"name":"X2SUM","targets":2},{"name":"AR_deviations","targets":3},{"name":"AR_events","targets":4},{"name":"ARc","targets":5},{"name":"BAR","targets":6},{"name":"Gradient_raw","targets":7},{"name":"Gradient_weighted","targets":8},{"name":"Inertia","targets":9},{"name":"Lazy_path_length","targets":10},{"name":"Least_squares","targets":11},{"name":"LS","targets":12},{"name":"MDS_stress","targets":13},{"name":"ME","targets":14},{"name":"Moore_stress","targets":15},{"name":"Neumann_stress","targets":16},{"name":"Path_length","targets":17},{"name":"RGAR","targets":18},{"name":"Rho","targets":19},{"name":"smacof_stress0","targets":20}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render","options.columnDefs.4.render","options.columnDefs.5.render","options.columnDefs.6.render","options.columnDefs.7.render","options.columnDefs.8.render","options.columnDefs.9.render","options.columnDefs.10.render","options.columnDefs.11.render","options.columnDefs.12.render","options.columnDefs.13.render","options.columnDefs.14.render","options.columnDefs.15.render","options.columnDefs.16.render","options.columnDefs.17.render","options.columnDefs.18.render","options.columnDefs.19.render"],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -486,8 +493,8 @@ VAT took 0.109 sec.</code></pre>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>methods </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "BEA"       "BEA_TSP"   "CA"        "Heatmap"   "Identity"  "LLE"      
- [7] "Mean"      "PCA"       "PCA_angle" "Random"    "Reverse"  </code></pre>
+<pre><code> [1] "AOE"       "BEA"       "BEA_TSP"   "CA"        "Heatmap"   "Identity" 
+ [7] "LLE"       "Mean"      "PCA"       "PCA_angle" "Random"    "Reverse"  </code></pre>
 </div>
 </div>
 </section>
@@ -503,32 +510,40 @@ VAT took 0.109 sec.</code></pre>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">" took"</span>, tm[<span class="dv">1</span>]<span class="sc">+</span>tm[<span class="dv">2</span>], <span class="st">"sec.</span><span class="sc">\n</span><span class="st">"</span>)</span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>BEA took 0.122 sec.
-BEA_TSP took 0.343 sec.
-CA took 0.117 sec.
-Heatmap took 0.339 sec.
-Identity took 0.113 sec.
-LLE took 0.142 sec.
-Mean took 0.113 sec.
-PCA took 0.113 sec.
-PCA_angle took 0.114 sec.
-Random took 0.114 sec.
-Reverse took 0.111 sec.</code></pre>
+<pre><code>AOE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, criterion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in method$fun(x, control, margin): x is not a correlation matrix. Using
+method 'PCA_angle' instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> took 0.145 sec.
+BEA took 0.14 sec.
+BEA_TSP took 1.695 sec.
+CA took 0.141 sec.
+Heatmap took 0.409 sec.
+Identity took 0.136 sec.
+LLE took 0.394 sec.
+Mean took 0.15 sec.
+PCA took 0.141 sec.
+PCA_angle took 0.136 sec.
+Random took 0.137 sec.
+Reverse took 0.135 sec.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, criterion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="visualize-the-results-1" class="level2">
 <h2 class="anchored" data-anchor-id="visualize-the-results-1">Visualize the results</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>best_to_worse <span class="ot">&lt;-</span> <span class="fu">order</span>(criterion[[<span class="st">"Moore_stress"</span>]], <span class="at">decreasing =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> orders[best_to_worse]</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> criterion[best_to_worse, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>best_to_worse <span class="ot">&lt;-</span> <span class="fu">order</span>(criterion[[<span class="st">"Moore_stress"</span>]], <span class="at">decreasing =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> orders[best_to_worse]</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> criterion[best_to_worse, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="fu">names</span>(orders))</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pimage</span>(x, orders[[n]], <span class="at">main =</span> n , <span class="at">key =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="fu">names</span>(orders))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pimage</span>(x, orders[[n]], <span class="at">main =</span> n , <span class="at">key =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell quarto-layout-panel" data-fig.asp="1">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -574,18 +589,24 @@ Reverse took 0.111 sec.</code></pre>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-11.png" class="img-fluid"></p>
 </div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-12-12.png" class="img-fluid"></p>
+</div>
 </div>
 </div>
 </div>
 </section>
-<section id="comparison-beween-methods" class="level2">
-<h2 class="anchored" data-anchor-id="comparison-beween-methods">Comparison beween methods</h2>
+<section id="comparison-between-methods-1" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-between-methods-1">Comparison between methods</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="fu">round</span>(criterion, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(<span class="fu">round</span>(criterion, <span class="dv">2</span>), <span class="at">extensions =</span> <span class="st">"FixedColumns"</span>,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">list</span>(<span class="at">paging =</span> <span class="cn">TRUE</span>, <span class="at">searching =</span> <span class="cn">TRUE</span>, <span class="at">info =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">scrollX =</span> <span class="cn">TRUE</span>, <span class="at">fixedColumns =</span> <span class="fu">list</span>(<span class="at">leftColumns =</span> <span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">formatRound</span>(<span class="at">columns =</span> <span class="fu">colnames</span>(criterion) , <span class="at">mark =</span> <span class="st">""</span>, <span class="at">digits=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-c14728a8214fc06b99df" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-c14728a8214fc06b99df">{"x":{"filter":"none","vertical":false,"data":[["Heatmap","Mean","PCA","LLE","PCA_angle","BEA_TSP","CA","Identity","Reverse","Random","BEA"],[0.34,0.11,0.11,0.14,0.11,0.34,0.12,0.11,0.11,0.11,0.12],[-0.04,-0.05,0.05,-0.05,0.04,0.15,0.22,-0.01,-0.01,-0.01,-0.03],[15130.21,15107.8,15120.47,15111.45,14291.69,16523.62,16401.6,14016.03,14016.03,13460.41,13341.1],[12980.92,12986.22,13052.16,13074.14,16317.26,19775.94,20347.34,22479.74,22479.74,39039.04,40286.32],[4395.22,4529.2,4484.76,4486.04,5564,6642.32,6934.24,8980.26,8980.26,14180.98,14752.52]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>time<\/th>\n      <th>Cor_R<\/th>\n      <th>ME<\/th>\n      <th>Moore_stress<\/th>\n      <th>Neumann_stress<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-1d16024b71408e0757dc" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1d16024b71408e0757dc">{"x":{"filter":"none","vertical":false,"extensions":["FixedColumns"],"data":[["Heatmap","Mean","PCA","LLE","AOE","PCA_angle","BEA_TSP","CA","Reverse","Identity","Random","BEA"],[0.41,0.15,0.14,0.39,0.15,0.14,1.7,0.14,0.13,0.14,0.14,0.14],[-0.04,-0.05,0.05,0.05,0.04,0.04,0.13,0.22,0,0,-0,-0.01],[15130.21,15113.21,15120.47,15111.44,14291.69,14291.69,16523.19,16401.6,14075.18,14075.18,13904.58,13308.12],[12980.92,13006.46,13052.16,13074.14,16317.26,16317.26,19778.5,20347.34,22371.32,22371.32,33388.32,40372.32],[4395.22,4507.52,4484.76,4486.04,5564,5564,6644.08,6934.24,8826.52,8826.52,12347.26,14794.3]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>time<\/th>\n      <th>Cor_R<\/th>\n      <th>ME<\/th>\n      <th>Moore_stress<\/th>\n      <th>Neumann_stress<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"paging":true,"searching":true,"info":false,"sort":true,"scrollX":true,"fixedColumns":{"leftColumns":1},"columnDefs":[{"targets":1,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"className":"dt-right","targets":[1,2,3,4,5]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"time","targets":1},{"name":"Cor_R","targets":2},{"name":"ME","targets":3},{"name":"Moore_stress","targets":4},{"name":"Neumann_stress","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render","options.columnDefs.4.render"],"jsHooks":[]}</script>
 </div>
 </div>
 </section>

@@ -9,7 +9,9 @@ editor: visual
 
 # Introduction
 
-This document compares the seriation methods available in package \pkg{seriation} using the popular Iris data set and randomize the order of the objects.
+This document compares the seriation methods available in package
+[`seriation`](https://github.com/mhahsler/seriation)
+using the popular Iris data set and randomize the order of the objects.
 
 # Preparing the data
 
@@ -100,7 +102,11 @@ hmap(dst, col = blues(power = 2))
 Here are the criterion measures. Some are maximized and some should be minimized. Details about the measures can be found in the [manual page for `criterion()`](https://mhahsler.r-universe.dev/seriation/doc/manual.html#criterion).
 
 ```{r}
-DT::datatable(round(criterion, 2))
+library(DT)
+datatable(round(criterion, 2), extensions = "FixedColumns",
+    options = list(paging = TRUE, searching = TRUE, info = FALSE,
+      sort = TRUE, scrollX = TRUE, fixedColumns = list(leftColumns = 1))) %>%
+    formatRound(columns = colnames(criterion) , mark = "", digits=1)
 ```
 
 # Matrix seriation
@@ -112,6 +118,8 @@ Matrix seriation reorders rows and columns of a data matrix. We perform the same
 ```{r}
 methods <- sort(list_seriation_methods("matrix"))
 
+# AOE if for correlation matrices only
+methods <- setdiff(methods, c("AOE"))
 methods 
 ```
 
@@ -148,8 +156,11 @@ for (n in names(orders))
   pimage(x, orders[[n]], main = n , key = FALSE)
 ```
 
-## Comparison beween methods
+## Comparison between methods
 
 ```{r}
-DT::datatable(round(criterion, 2))
+datatable(round(criterion, 2), extensions = "FixedColumns",
+    options = list(paging = TRUE, searching = TRUE, info = FALSE,
+      sort = TRUE, scrollX = TRUE, fixedColumns = list(leftColumns = 1))) %>%
+    formatRound(columns = colnames(criterion) , mark = "", digits = 1)
 ```

@@ -9,10 +9,9 @@ editor: visual
 
 # Introduction
 
-A correlation matrix is a square, symmetric matrix showing the pairwise 
-correlation coefficients between two sets of variables. Reordering 
-the variables and plotting the matrix can help to find hidden patterns among 
-the variables. The package `seriation` implements a large number of reordering methods (see: the [list with all implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)). `seriation` also provides a set of functions to display reordered matrices:
+A correlation matrix is a square, symmetric matrix showing the pairwise correlation coefficients between two sets of variables. Reordering the variables and plotting the matrix can help to find hidden patterns among the variables. The package 
+[`seriation`](https://github.com/mhahsler/seriation)
+implements a large number of reordering methods (see: the [list with all implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)). `seriation` also provides a set of functions to display reordered matrices:
 
 -   `pimage()`
 -   `ggpimage()`
@@ -23,8 +22,7 @@ How to cite the `seriation` package:
 
 ## Prepare the data
 
-As an example, we use the `mtcars` dataset 
-which contains data about fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models).
+As an example, we use the `mtcars` dataset which contains data about fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models).
 
 ```{r}
 if (!require("seriation")) install.packages("seriation")
@@ -42,10 +40,7 @@ m <- cor(mtcars)
 round(m, 2)
 ```
 
-We first visualize the matrix without reordering and then use the order method `"AOE"`.
-AOE stands for angle of eigenvectors and was proposed for correlation matrices by
-Friendly (2002).
-
+We first visualize the matrix without reordering and then use the order method `"AOE"`. AOE stands for angle of eigenvectors and was proposed for correlation matrices by Friendly (2002).
 
 ```{r}
 #| fig-asp: 1
@@ -56,16 +51,11 @@ pimage(m)
 pimage(m, order = "AOE")
 ```
 
-The reordering clearly shows that there is tow groups of highly correlated variables and these
-two groups have a strong negative correlation with each other.
-
+The reordering clearly shows that there is tow groups of highly correlated variables and these two groups have a strong negative correlation with each other.
 
 ## Visualization options
 
-Here are some options.
-Many packages represent high correlations as blue and low correlations as red. 
-We can set the colors that way or used other colors.
-
+Here are some options. Many packages represent high correlations as blue and low correlations as red. We can set the colors that way or used other colors.
 
 ```{r}
 #| fig-asp: 1
@@ -75,7 +65,6 @@ We can set the colors that way or used other colors.
 pimage(m, order = "AOE", col = rev(bluered()), diag = FALSE, upper_tri = FALSE)
 pimage(m, order = "AOE", col = colorRampPalette(c("red", "white", "darkgreen"))(100))
 ```
-
 
 The plots are also available in `ggplot2` versions.
 
@@ -98,15 +87,9 @@ ggpimage(m, order = "AOE", diag = FALSE, upper_tri = FALSE) + red_blue
 ggpimage(m, order = "AOE") + scale_fill_gradient2(low = "red", high = "darkgreen")
 ```
 
-
-
 ## Using other seriation methods
 
-We can apply any seriation method for distances to create an order.
-First, we convert the correlation matrix into a distance matrix using
-$d_{ij} = \sqrt{1 - m_{ij}}$. Then we can use the distances for seriation
-and use the resulting order to rearrange the rows and columns of the 
-correlation matrix.
+We can apply any seriation method for distances to create an order. First, we convert the correlation matrix into a distance matrix using $d_{ij} = \sqrt{1 - m_{ij}}$. Then we can use the distances for seriation and use the resulting order to rearrange the rows and columns of the correlation matrix.
 
 ```{r}
 #| fig-asp: 1
@@ -128,14 +111,11 @@ o <- seriate(d, "R2E")
 pimage(m , order = c(o, o), main = "R2E", col = rev(bluered()))
 ```
 
-
 ## Other packages
 
-Several other packages can be used to visualize and explore correlation structure.
-Some of these packages support reordering with the seriation package.
+Several other packages can be used to visualize and explore correlation structure. Some of these packages support reordering with the seriation package.
 
 ### Package corrgram
-
 
 The order argument in [corrgram](https://kwstat.github.io/corrgram/) accepts methods from package seriation.
 
@@ -153,8 +133,7 @@ corrgram(m, order = "OLO", lower.panel=panel.shade, upper.panel=panel.pie)
 
 ### Package corrr
 
-The function `rearrange()` in package [corrr](https://corrr.tidymodels.org/) accepts some methods from seriation. Here is a 
-complete example that uses method `"R2E"`.
+The function `rearrange()` in package [corrr](https://corrr.tidymodels.org/) accepts some methods from seriation. Here is a complete example that uses method `"R2E"`.
 
 ```{r}
 #| fig-asp: 1
@@ -172,12 +151,9 @@ x <- datasets::mtcars |>
 rplot(x)
 ```
 
-
 ### Package corrplot
 
-Package [corrplot](https://github.com/taiyun/corrplot) offers many visualization 
-methods. Orders from package seriation can be used by permuting 
-the correlation matrix before it is passed to `corrplot()`.
+Package [corrplot](https://github.com/taiyun/corrplot) offers many visualization methods. Orders from package seriation can be used by permuting the correlation matrix before it is passed to `corrplot()`.
 
 ```{r}
 #| fig-asp: 1
@@ -195,9 +171,5 @@ corrplot(m_R2E , order = "original")
 
 ## References
 
-* Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things in Order: An Introduction to the R Package seriation,](http://dx.doi.org/10.18637/jss.v025.i03) _Journal of Statistical Software,_ 25(3), 2008.
-DOI: 10.18637/jss.v025.i03
-* Friendly, M. (2002): Corrgrams: Exploratory Displays for Correlation
-Matrices. \emph{The American Statistician}, \bold{56}(4), 316--324.
-DOI: 10.1198/000313002533
-
+-   Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things in Order: An Introduction to the R Package seriation,](http://dx.doi.org/10.18637/jss.v025.i03) *Journal of Statistical Software,* 25(3), 2008. DOI: 10.18637/jss.v025.i03
+-   Friendly, M. (2002): Corrgrams: Exploratory Displays for Correlation Matrices. \emph{The American Statistician}, \bold{56}(4), 316--324. DOI: 10.1198/000313002533

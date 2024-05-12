@@ -24,14 +24,19 @@ information, including permuted image plots, reordered heatmaps, Bertin
 plots, clustering visualizations like dissimilarity plots, and visual
 assessment of cluster tendency plots (VAT and iVAT).
 
-Here are some quick guides and references
+Here are some quick guides on applications of seriation:
 
+- [Introduction the R package
+  seriation](https://cran.r-project.org/web/packages/seriation/vignettes/seriation.pdf)
 - [How to reorder
   heatmaps](https://mhahsler.github.io/seriation/heatmaps.html)
 - [How to reorder correlation
   matrices](https://mhahsler.github.io/seriation/correlation_matrix.html)
 - [How to evaluate clusters using dissimilarity
   plots](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html)
+
+Implemented seriation methods and criteria:
+
 - [A list with the implemented seriation
   methods](https://mhahsler.github.io/seriation/seriation_methods.html)
 - [A list with the implemented seriation

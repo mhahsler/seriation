@@ -7,7 +7,8 @@ format:
 editor: visual
 ---
 
-This document contains the seriation methods currently implemented in the R package [`seriation`](https://github.com/mhahsler/seriation). The methods are organized by methods for distance matrices and data matrices.
+This document contains the seriation methods currently implemented in the R package [`seriation`](https://github.com/mhahsler/seriation). 
+The methods are organized by methods for distance matrices and data matrices.
 
 This list was created for the following version of seriation:
 
@@ -44,13 +45,21 @@ print_seriation_method_md <- function(x, add_link = TRUE, ...) {
       tolower(x)
     }
     
+    opt_info <- attr(optimizes, "description")
     if(is.na(optimizes)) {
       optimizes <- "N/A"
-    } else
+    } else {
+      
       if (add_link) {
         optimizes <- paste0("[", optimizes, "]", "(seriation_criteria.html#", .make_anchor(optimizes) ,")")
       }
-    
+   
+    }
+      
+    if(!is.null(opt_info)) {
+        optimizes <- paste0(optimizes, " (", opt_info, ")")
+    }
+     
     cat("* optimizes:", optimizes, "\n")
     cat("* randomized:", x$randomized, "\n")
     

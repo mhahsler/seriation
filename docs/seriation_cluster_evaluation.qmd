@@ -11,7 +11,7 @@ editor: visual
 
 Dissimilarity plots ([Hahsler and Hornik, 2011](#references)) can be used to visually inspect the quality of a clustering solution. The plot uses a image plots of the reordered dissimilarity matrix organized by the clusters to display the clustered data. This display allows the user to visually assess clustering quality. Dissimilarity plots are implemented in the R package [`seriation`](https://github.com/mhahsler/seriation).
 
-The following examples show how to use dissimilarity plots. The examples are an updated version of the examples in the paper Hahsler and Hornik (2011) using `tidyverse`, `ggplot2`, and the latest version of the `seriation` package.
+The following examples show how to use dissimilarity plots. The examples are an updated version of the examples in the paper [Hahsler and Hornik (2011)](#references) using `tidyverse`, `ggplot2`, and the latest version of the `seriation` package.
 
 ## Examples
 
