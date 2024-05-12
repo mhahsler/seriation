@@ -20,16 +20,16 @@ check_installed <-
     if (action == "check")
       return(!any(needs_install))
 
-    if (any(needs_install)) {
-      if (!interactive())
-        stop(info)
-
       missing_pkgs <- pkg[needs_install]
       missing_pkgs_enum <- paste(missing_pkgs, collapse = ", ")
 
       info <-
         paste("The", missing_pkgs_enum,
           "package(s) is/are required.")
+
+    if (any(needs_install)) {
+      if (!interactive())
+        stop(info)
 
       if (action == "install") {
         question <-
