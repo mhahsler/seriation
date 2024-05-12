@@ -4,7 +4,7 @@
 - Added registered_by field to registries. 
 
 ## Bug Fixes
-- Added two missing package anchors to pallette man page.
+- Added two missing package anchors to palette man page.
 
 
 # seriation 1.5.5 (04/17/2024)
