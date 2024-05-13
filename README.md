@@ -37,9 +37,9 @@ Here are some quick guides on applications of seriation:
 
 Implemented seriation methods and criteria:
 
-- [A list with the implemented seriation
+- [Documentation of the implemented seriation
   methods](https://mhahsler.github.io/seriation/seriation_methods.html)
-- [A list with the implemented seriation
+- [Documentation of the implemented seriation
   criteria](https://mhahsler.github.io/seriation/seriation_criteria.html)
 - [A visual comparison between seriation
   methods](https://mhahsler.github.io/seriation/visual_comparison.html)
@@ -88,123 +88,6 @@ To cite package ‘seriation’ in publications use:
       month = {March},
       issn = {1548-7660},
     }
-
-## Installation
-
-**Stable CRAN version:** Install from within R with
-
-``` r
-install.packages("seriation")
-```
-
-**Current development version:** Install from
-[r-universe.](https://mhahsler.r-universe.dev/seriation)
-
-``` r
-install.packages("seriation",
-    repos = c("https://mhahsler.r-universe.dev". "https://cloud.r-project.org/"))
-```
-
-## Usage
-
-The used example dataset contains the joint probability of disagreement
-between Supreme Court Judges from 1995 to 2002. The goal is to reveal
-structural information in this data. We load the library, read the data,
-convert the data to a distance matrix, and then use the default
-seriation method to reorder the objects.
-
-``` r
-library(seriation)
-data("SupremeCourt")
-
-d <- as.dist(SupremeCourt)
-d
-```
-
-    ##           Breyer Ginsburg Kennedy OConnor Rehnquist Scalia Souter Stevens
-    ## Ginsburg   0.120                                                         
-    ## Kennedy    0.250    0.267                                                
-    ## OConnor    0.209    0.252   0.156                                        
-    ## Rehnquist  0.299    0.308   0.122   0.162                                
-    ## Scalia     0.353    0.370   0.188   0.207     0.143                      
-    ## Souter     0.118    0.096   0.248   0.220     0.293  0.338               
-    ## Stevens    0.162    0.145   0.327   0.329     0.402  0.438  0.169        
-    ## Thomas     0.359    0.368   0.177   0.205     0.137  0.066  0.331   0.436
-
-``` r
-order <- seriate(d)
-order
-```
-
-    ## object of class 'ser_permutation', 'list'
-    ## contains permutation vectors for 1-mode data
-    ## 
-    ##   vector length seriation method
-    ## 1             9         Spectral
-
-Here is the resulting permutation vector.
-
-``` r
-get_order(order)
-```
-
-    ##    Scalia    Thomas Rehnquist   Kennedy   OConnor    Souter    Breyer  Ginsburg 
-    ##         6         9         5         3         4         7         1         2 
-    ##   Stevens 
-    ##         8
-
-Next, we visualize the original and permuted distance matrix.
-
-``` r
-pimage(d, main = "Judges (original alphabetical order)")
-pimage(d, order, main = "Judges (reordered by seriation)")
-```
-
-<img src="inst/README_files/seriation-1.png" width="50%" /><img src="inst/README_files/seriation-2.png" width="50%" />
-
-Darker squares around the main diagonal indicate groups of similar
-objects. After seriation, two groups are visible.
-
-We can compare the available seriation criteria. Seriation improves all
-measures. Note that some measures are merit measures while others
-represent cost. See the manual page for details.
-
-``` r
-rbind(
- alphabetical = criterion(d),
- seriated = criterion(d, order)
-)
-```
-
-    ##              2SUM AR_deviations AR_events BAR Gradient_raw Gradient_weighted
-    ## alphabetical  872        10.304        80 1.8            8              0.54
-    ## seriated      811         0.064         5 1.1          158             19.76
-    ##              Inertia Lazy_path_length Least_squares LS MDS_stress  ME
-    ## alphabetical     267              6.9           967 99       0.62  99
-    ## seriated         364              4.6           942 86       0.17 101
-    ##              Moore_stress Neumann_stress Path_length RGAR   Rho
-    ## alphabetical          7.0            3.9         1.8 0.48 0.028
-    ## seriated              2.5            1.3         1.1 0.03 0.913
-
-Some seriation methods also return a linear configuration where more
-similar objects are located closer to each other.
-
-``` r
-get_config(order)
-```
-
-    ##    Breyer  Ginsburg   Kennedy   OConnor Rehnquist    Scalia    Souter   Stevens 
-    ##      0.24      0.28     -0.15     -0.11     -0.27     -0.42      0.21      0.61 
-    ##    Thomas 
-    ##     -0.41
-
-``` r
-plot_config(order)
-```
-
-<img src="inst/README_files/configuration-1.png" style="display: block; margin: auto;" />
-
-We can see a clear divide between the two groups in the configuration.
 
 ## Available seriation methods to reorder dissimilarity data
 
@@ -332,6 +215,123 @@ to reorder objects (rows). The same approach can be applied to columns.
 - **Identity** permutation
 - **Random** permutation
 - **Reverse** order
+
+## Installation
+
+**Stable CRAN version:** Install from within R with
+
+``` r
+install.packages("seriation")
+```
+
+**Current development version:** Install from
+[r-universe.](https://mhahsler.r-universe.dev/seriation)
+
+``` r
+install.packages("seriation",
+    repos = c("https://mhahsler.r-universe.dev". "https://cloud.r-project.org/"))
+```
+
+## Usage
+
+The used example dataset contains the joint probability of disagreement
+between Supreme Court Judges from 1995 to 2002. The goal is to reveal
+structural information in this data. We load the library, read the data,
+convert the data to a distance matrix, and then use the default
+seriation method to reorder the objects.
+
+``` r
+library(seriation)
+data("SupremeCourt")
+
+d <- as.dist(SupremeCourt)
+d
+```
+
+    ##           Breyer Ginsburg Kennedy OConnor Rehnquist Scalia Souter Stevens
+    ## Ginsburg   0.120                                                         
+    ## Kennedy    0.250    0.267                                                
+    ## OConnor    0.209    0.252   0.156                                        
+    ## Rehnquist  0.299    0.308   0.122   0.162                                
+    ## Scalia     0.353    0.370   0.188   0.207     0.143                      
+    ## Souter     0.118    0.096   0.248   0.220     0.293  0.338               
+    ## Stevens    0.162    0.145   0.327   0.329     0.402  0.438  0.169        
+    ## Thomas     0.359    0.368   0.177   0.205     0.137  0.066  0.331   0.436
+
+``` r
+order <- seriate(d)
+order
+```
+
+    ## object of class 'ser_permutation', 'list'
+    ## contains permutation vectors for 1-mode data
+    ## 
+    ##   vector length seriation method
+    ## 1             9         Spectral
+
+Here is the resulting permutation vector.
+
+``` r
+get_order(order)
+```
+
+    ##    Scalia    Thomas Rehnquist   Kennedy   OConnor    Souter    Breyer  Ginsburg 
+    ##         6         9         5         3         4         7         1         2 
+    ##   Stevens 
+    ##         8
+
+Next, we visualize the original and permuted distance matrix.
+
+``` r
+pimage(d, main = "Judges (original alphabetical order)")
+pimage(d, order, main = "Judges (reordered by seriation)")
+```
+
+<img src="inst/README_files/seriation-1.png" width="50%" /><img src="inst/README_files/seriation-2.png" width="50%" />
+
+Darker squares around the main diagonal indicate groups of similar
+objects. After seriation, two groups are visible.
+
+We can compare the available seriation criteria. Seriation improves all
+measures. Note that some measures are merit measures while others
+represent cost. See the manual page for details.
+
+``` r
+rbind(
+ alphabetical = criterion(d),
+ seriated = criterion(d, order)
+)
+```
+
+    ##              2SUM AR_deviations AR_events BAR Gradient_raw Gradient_weighted
+    ## alphabetical  872        10.304        80 1.8            8              0.54
+    ## seriated      811         0.064         5 1.1          158             19.76
+    ##              Inertia Lazy_path_length Least_squares LS MDS_stress  ME
+    ## alphabetical     267              6.9           967 99       0.62  99
+    ## seriated         364              4.6           942 86       0.17 101
+    ##              Moore_stress Neumann_stress Path_length RGAR   Rho
+    ## alphabetical          7.0            3.9         1.8 0.48 0.028
+    ## seriated              2.5            1.3         1.1 0.03 0.913
+
+Some seriation methods also return a linear configuration where more
+similar objects are located closer to each other.
+
+``` r
+get_config(order)
+```
+
+    ##    Breyer  Ginsburg   Kennedy   OConnor Rehnquist    Scalia    Souter   Stevens 
+    ##      0.24      0.28     -0.15     -0.11     -0.27     -0.42      0.21      0.61 
+    ##    Thomas 
+    ##     -0.41
+
+``` r
+plot_config(order)
+```
+
+<img src="inst/README_files/configuration-1.png" style="display: block; margin: auto;" />
+
+We can see a clear divide between the two groups in the configuration.
 
 ## References
 

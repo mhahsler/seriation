@@ -22,7 +22,7 @@ hmap(
 gghmap(
   x,
   distfun = stats::dist,
-  method = "OLO",
+  method = "OLO_complete",
   control = NULL,
   scale = c("none", "row", "column"),
   prop = FALSE,

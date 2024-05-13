@@ -28,68 +28,14 @@ Here are some quick guides on applications of seriation:
 
 Implemented seriation methods and criteria:
 
-* [A list with the implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)
-* [A list with the implemented seriation criteria](https://mhahsler.github.io/seriation/seriation_criteria.html)
+* [Documentation of the implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)
+* [Documentation of the implemented seriation criteria](https://mhahsler.github.io/seriation/seriation_criteria.html)
 * [A visual comparison between seriation methods](https://mhahsler.github.io/seriation/visual_comparison.html)
 
 ```{r echo=FALSE, results = 'asis'}
 pkg_usage(pkg)
 pkg_citation(pkg, 2L)
-pkg_install(pkg)
 ```
-
-## Usage
-
-The used example dataset contains the joint probability of disagreement 
-between Supreme Court Judges from 1995 to 2002. The goal
-is to reveal structural information in this data.
-We load the library, read the data, convert the data to a distance matrix, 
-and then use the default seriation method to reorder the objects. 
-```{r}
-library(seriation)
-data("SupremeCourt")
-
-d <- as.dist(SupremeCourt)
-d
-
-order <- seriate(d)
-order
-```
-
-Here is the resulting permutation vector.
-```{r}
-get_order(order)
-```
-
-Next, we visualize the original and permuted distance matrix.
-
-```{r seriation, fig.show="hold", out.width="50%"}
-pimage(d, main = "Judges (original alphabetical order)")
-pimage(d, order, main = "Judges (reordered by seriation)")
-```
-
-Darker squares around the main diagonal indicate groups of similar objects.
-After seriation, two groups are visible.
-
-We can compare the available seriation criteria. Seriation improves all measures. 
-Note that some measures are merit measures while others represent cost. 
-See the manual page for details.
-```{r}
-rbind(
- alphabetical = criterion(d),
- seriated = criterion(d, order)
-)
-```
-
-Some seriation methods also return a linear configuration where more similar objects are
-located closer to each other. 
-```{r configuration, fig.align="center", fig.height = 3}
-get_config(order)
-
-plot_config(order)
-```
-
-We can see a clear divide between the two groups in the configuration. 
 
 ## Available seriation methods to reorder dissimilarity data
 
@@ -190,6 +136,63 @@ to reorder objects (rows). The same approach can be applied to columns.
  *  **Random** permutation 
  *  **Reverse** order
 
+
+```{r echo=FALSE, results = 'asis'}
+pkg_install(pkg)
+```
+
+## Usage
+
+The used example dataset contains the joint probability of disagreement 
+between Supreme Court Judges from 1995 to 2002. The goal
+is to reveal structural information in this data.
+We load the library, read the data, convert the data to a distance matrix, 
+and then use the default seriation method to reorder the objects. 
+```{r}
+library(seriation)
+data("SupremeCourt")
+
+d <- as.dist(SupremeCourt)
+d
+
+order <- seriate(d)
+order
+```
+
+Here is the resulting permutation vector.
+```{r}
+get_order(order)
+```
+
+Next, we visualize the original and permuted distance matrix.
+
+```{r seriation, fig.show="hold", out.width="50%"}
+pimage(d, main = "Judges (original alphabetical order)")
+pimage(d, order, main = "Judges (reordered by seriation)")
+```
+
+Darker squares around the main diagonal indicate groups of similar objects.
+After seriation, two groups are visible.
+
+We can compare the available seriation criteria. Seriation improves all measures. 
+Note that some measures are merit measures while others represent cost. 
+See the manual page for details.
+```{r}
+rbind(
+ alphabetical = criterion(d),
+ seriated = criterion(d, order)
+)
+```
+
+Some seriation methods also return a linear configuration where more similar objects are
+located closer to each other. 
+```{r configuration, fig.align="center", fig.height = 3}
+get_config(order)
+
+plot_config(order)
+```
+
+We can see a clear divide between the two groups in the configuration. 
 
 ## References
 

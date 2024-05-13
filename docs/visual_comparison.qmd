@@ -9,9 +9,7 @@ editor: visual
 
 # Introduction
 
-This document compares the seriation methods available in package
-[`seriation`](https://github.com/mhahsler/seriation)
-using the popular Iris data set and randomize the order of the objects.
+This document compares the seriation methods available in package [`seriation`](https://github.com/mhahsler/seriation) using the popular Iris data set and randomize the order of the objects.
 
 # Preparing the data
 
@@ -24,8 +22,6 @@ d <- dist(x)
 ```
 
 # Distance seriation
-
-## Methods
 
 We first register more seriation methods. Some of these methods require the installation of more packages.
 
@@ -48,8 +44,6 @@ methods
 
 Details about the method can be found in the [manual page for `seriate()`](https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriate).
 
-## Performing seriation
-
 We use a loop to run the function `seriate()` with each method and calculate criterion measures which indicate how good the order is.
 
 ```{r}
@@ -65,7 +59,7 @@ for (m in methods) {
 criterion <- do.call(rbind, criterion)
 ```
 
-We align the seriation orders. The reason is that an order 1, 2, 3 and 3, 2, 1 are equivalent and just an artifact of the algorithm. Aligning will reverse some orders so they are in roughly the same order. Then we sort the orders from best to worst according to a popular seriation criterion measure called `Gradient_weighted`.
+We align the seriation orders. The reason is that an order 1, 2, 3 and 3, 2, 1 are equivalent and just an artifact of the algorithm. Aligning will reverse some orders so they are better aligned. Then we sort the orders from best to worst according to a popular seriation criterion measure called `Gradient_weighted`.
 
 ```{r}
 orders <- ser_align(orders)
@@ -73,6 +67,37 @@ best_to_worse <- order(criterion[["Gradient_weighted"]], decreasing = TRUE)
 
 orders <- orders[best_to_worse]
 criterion <- criterion[best_to_worse, ]
+```
+
+## Comparison between methods
+
+We can compare the seriation methods by how similar the orders are that they produce (measured using Spearman). The following code calculates distances between orders and then performs hierarchical clustering.
+
+```{r}
+#| out-width: 100%
+#| fig-align: "center"
+dst <- ser_dist(orders) 
+hmap(dst, col = blues(power = 2))
+```
+
+There are too many labels, so we just plot the dendrogram.
+
+```{r}
+#| out-width: 100%
+#| fig-align: "center"
+plot(permute(hclust(dst), order = "OLO", dist = dst))
+```
+
+We clearly see some groups of methods that create very similar orderings.
+
+Here is a table to compare the seriation methods on different criterion measures. Use the interactive table to sort the methods given different measures. Note that some are maximized and some should be minimized. Details about the measures can be found in the [manual page for `criterion()`](https://mhahsler.r-universe.dev/seriation/doc/manual.html#criterion).
+
+```{r}
+library(DT)
+datatable(round(criterion, 2), extensions = "FixedColumns",
+    options = list(paging = TRUE, searching = TRUE, info = FALSE,
+      sort = TRUE, scrollX = TRUE, fixedColumns = list(leftColumns = 1))) %>%
+    formatRound(columns = colnames(criterion) , mark = "", digits=1)
 ```
 
 ## Visualize the results
@@ -88,32 +113,9 @@ for (n in names(orders))
   pimage(d, orders[[n]], main = n , key = FALSE)
 ```
 
-## Comparison between methods
-
-We can compare the seriation methods by how similar the orders are that they produce. The following code calculates distances between orders and then performs hierarchical clustering.
-
-```{r}
-#| out-width: 100%
-#| fig-align: "center"
-dst <- ser_dist(orders) 
-hmap(dst, col = blues(power = 2))
-```
-
-Here are the criterion measures. Some are maximized and some should be minimized. Details about the measures can be found in the [manual page for `criterion()`](https://mhahsler.r-universe.dev/seriation/doc/manual.html#criterion).
-
-```{r}
-library(DT)
-datatable(round(criterion, 2), extensions = "FixedColumns",
-    options = list(paging = TRUE, searching = TRUE, info = FALSE,
-      sort = TRUE, scrollX = TRUE, fixedColumns = list(leftColumns = 1))) %>%
-    formatRound(columns = colnames(criterion) , mark = "", digits=1)
-```
-
 # Matrix seriation
 
 Matrix seriation reorders rows and columns of a data matrix. We perform the same steps as for distances in the previous section.
-
-## Methods
 
 ```{r}
 methods <- sort(list_seriation_methods("matrix"))
@@ -123,7 +125,7 @@ methods <- setdiff(methods, c("AOE"))
 methods 
 ```
 
-## Performing seriation
+Performing seriation.
 
 ```{r, fig.height= 5}
 orders <- list()
@@ -136,6 +138,15 @@ for (m in methods) {
 }
 
 criterion <- do.call(rbind, criterion)
+```
+
+## Comparison between methods
+
+```{r}
+datatable(round(criterion, 2), extensions = "FixedColumns",
+    options = list(paging = TRUE, searching = TRUE, info = FALSE,
+      sort = TRUE, scrollX = TRUE, fixedColumns = list(leftColumns = 1))) %>%
+    formatRound(columns = colnames(criterion) , mark = "", digits = 1)
 ```
 
 ## Visualize the results
@@ -156,11 +167,4 @@ for (n in names(orders))
   pimage(x, orders[[n]], main = n , key = FALSE)
 ```
 
-## Comparison between methods
-
-```{r}
-datatable(round(criterion, 2), extensions = "FixedColumns",
-    options = list(paging = TRUE, searching = TRUE, info = FALSE,
-      sort = TRUE, scrollX = TRUE, fixedColumns = list(leftColumns = 1))) %>%
-    formatRound(columns = colnames(criterion) , mark = "", digits = 1)
-```
+## 

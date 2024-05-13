@@ -80,9 +80,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#implemented-criteria" id="toc-implemented-criteria" class="nav-link active" data-scroll-target="#implemented-criteria">Implemented Criteria</a>
-  <ul class="collapse">
-  <li><a href="#criteria-for-distances" id="toc-criteria-for-distances" class="nav-link" data-scroll-target="#criteria-for-distances">Criteria for distances</a>
+  <li><a href="#criteria-for-dissimilarity-data-dist" id="toc-criteria-for-dissimilarity-data-dist" class="nav-link active" data-scroll-target="#criteria-for-dissimilarity-data-dist">Criteria for dissimilarity data (dist)</a>
   <ul class="collapse">
   <li><a href="#sum" id="toc-sum" class="nav-link" data-scroll-target="#sum">2SUM</a></li>
   <li><a href="#ar_deviations" id="toc-ar_deviations" class="nav-link" data-scroll-target="#ar_deviations">AR_deviations</a></li>
@@ -110,7 +108,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#me-1" id="toc-me-1" class="nav-link" data-scroll-target="#me-1">ME</a></li>
   <li><a href="#moore_stress-1" id="toc-moore_stress-1" class="nav-link" data-scroll-target="#moore_stress-1">Moore_stress</a></li>
   <li><a href="#neumann_stress-1" id="toc-neumann_stress-1" class="nav-link" data-scroll-target="#neumann_stress-1">Neumann_stress</a></li>
-  </ul></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -155,13 +152,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_DendSer</span>()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">register_smacof</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="implemented-criteria" class="level1">
-<h1>Implemented Criteria</h1>
 <p>The criteria are organized by methods that evaluate the permutation based on distance data or data matrices.</p>
 <p><code>merit</code> specified if the criteria function increases with better fit or if it is formulated as a loss criteria functions (<code>merit = FALSE</code>).</p>
 <p>If a seriation method directly tries to optimize the criterion, than its name is specified under “optimized by”. The names can be used as the <code>method</code> argument in <code>seriate()</code>.</p>
-<section id="criteria-for-distances" class="level2">
-<h2 class="anchored" data-anchor-id="criteria-for-distances">Criteria for distances</h2>
+<section id="criteria-for-dissimilarity-data-dist" class="level2">
+<h2 class="anchored" data-anchor-id="criteria-for-dissimilarity-data-dist">Criteria for dissimilarity data (dist)</h2>
 <section id="sum" class="level3">
 <h3 class="anchored" data-anchor-id="sum">2SUM</h3>
 <p>2-Sum Criterion: The 2-Sum loss criterion multiplies the similarity between objects with the squared rank differences (Barnard, Pothen and Simon, 1993).</p>
@@ -457,7 +452,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>optimized by: N/A</li>
 <li>additional parameters: no parameters</li>
 </ul>
-</section>
 </section>
 </section>
 <section id="references" class="level1">

@@ -20,15 +20,14 @@ coerced into \link{ser_permutation_vector} objects.}
 In this case \code{x} has to be a single seriation order and not a list.}
 
 \item{method}{a character string with the name of the used measure.
-Available measures are: \code{"kendall"}, \code{"spearman"},
-\code{"manhattan"}, \code{"euclidean"}, \code{"hamming"}, \code{"ppc"}
-(positional proximity coefficient), and \code{"aprd"} (absolute pairwise
-rank differences).}
+Available measures are for correlation and distances are
+\code{"kendall"},\code{"spearman"} and \code{"ppc"}
+(positional proximity coefficient). For distances only the additional methods
+\code{"manhattan"}, \code{"euclidean"}, \code{"hamming"}, and \code{"aprd"} (absolute pairwise
+rank differences) are also available.}
 
-\item{reverse}{a logical indicating if the orders should also be checked in
-reverse order and the best value (highest correlation, lowest distance) is
-reported. This only affect ranking-based measures and not precedence
-invariant measures (e.g., \code{"ppc"}, \code{"aprd"}).}
+\item{reverse}{a logical indicating if the revers orders should also be checked in
+for rank-based methods.}
 
 \item{...}{Further arguments passed on to the method.}
 
@@ -46,22 +45,31 @@ Calculates dissimilarities/correlations between seriation orders in a list of ty
 \link{ser_permutation_vector}.
 }
 \details{
-\code{ser_cor()} calculates the correlation between two sequences (orders).
-Note that a seriation order and its reverse are identical and purely an
-artifact due to the method that creates the order. This is a major
-difference to rankings. For ranking-based correlation measures (Spearman and
-Kendall) the absolute value of the correlation is returned for
-\code{reverse = TRUE} (in effect returning the correlation for the reversed order). If
-\code{test = TRUE} then the appropriate test for association is performed
+For seriation, an order and its reverse are considered identical and are
+often just an artifact due to the method that creates the order.
+This is one of the major differences between seriation orders and rankings
+which impacts how correlations and similarities between seriation orders are
+calculated. The default setting \code{reverse = TRUE} corrects for this issue.
+
+\code{ser_cor()} calculates the correlation between two seriation orders.
+For ranking-based correlation measures (Spearman and
+Kendall) the absolute value of the correlation is returned. This effectively
+corrects for correlations between reversed orders but has the effect that
+no negative correlations exist.
+For \code{test = TRUE}, the appropriate test for association is performed
 and a matrix with p-values is returned as the attribute \code{"p-value"}.
 Note that no correction for multiple testing is performed.
 
 For \code{ser_dist()}, the correlation coefficients (Kendall's tau and
 Spearman's rho) are converted into a dissimilarity by taking one minus the
-correlation value. Note that Manhattan distance between the ranks in a
+correlation value. The Manhattan distance between the ranks in a
 linear order is equivalent to Spearman's footrule metric (Diaconis 1988).
-\code{reverse = TRUE} returns the pairwise minima using also reversed
-orders.
+For the non-correlation based measures,
+\code{reverse = TRUE} returns the pairwise minima using also the reversed
+order.
+
+Two precedence invariant measure especially developed for seriation are
+available. Here \code{reverse} is ignored.
 
 The positional proximity coefficient (ppc) is a precedence invariant measure
 based on product of the squared positional distances in two permutations
@@ -73,8 +81,7 @@ defined as (see Goulermas et al 2016):
 where \eqn{R} and \eqn{S} are two seriation orders, \eqn{pi_R} and
 \eqn{pi_S} are the associated permutation vectors and \eqn{h} is a
 normalization factor. The associated generalized correlation coefficient is
-defined as \eqn{1-d_{ppc}}. For this precedence invariant measure
-\code{reverse} is ignored.
+defined as \eqn{1-d_{ppc}}.
 
 The absolute pairwise rank difference (aprd) is also precedence invariant
 and defined as a distance measure:
@@ -83,16 +90,16 @@ and defined as a distance measure:
 |\pi_S(i)-\pi_S(j)| |^p,}
 
 where \eqn{p} is the power which can be passed on as parameter \code{p} and
-is by default set to 2. For this precedence invariant measure \code{reverse}
-is ignored.
+is by default set to 2.
 
 \code{ser_align()} tries to normalize the direction in a list of seriations
 such that ranking-based methods can be used. We add for each permutation
 also the reversed order to the set and then use a modified version of Prim's
 algorithm for finding a minimum spanning tree (MST) to choose if the
-original seriation order or its reverse should be used. We use the orders
-first added to the MST. Every time an order is added, its reverse is removed
-from the possible remaining orders.
+original seriation order or its reverse should be used. We retain the direction
+of each order that is added to the MST first.
+Every time an order is added, its reverse is removed from the possible
+remaining orders.
 }
 \examples{
 set.seed(1234)

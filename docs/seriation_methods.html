@@ -80,8 +80,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#seriation-methods" id="toc-seriation-methods" class="nav-link active" data-scroll-target="#seriation-methods">Seriation Methods</a></li>
-  <li><a href="#methods-distances" id="toc-methods-distances" class="nav-link" data-scroll-target="#methods-distances">Methods distances</a>
+  <li><a href="#methods-for-dissimilarity-data-dist" id="toc-methods-for-dissimilarity-data-dist" class="nav-link active" data-scroll-target="#methods-for-dissimilarity-data-dist">Methods for dissimilarity data (dist)</a>
   <ul class="collapse">
   <li><a href="#arsa" id="toc-arsa" class="nav-link" data-scroll-target="#arsa">ARSA</a></li>
   <li><a href="#bburcg" id="toc-bburcg" class="nav-link" data-scroll-target="#bburcg">BBURCG</a></li>
@@ -200,8 +199,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">register_tsne</span>()</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">register_umap</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="seriation-methods" class="level2">
-<h2 class="anchored" data-anchor-id="seriation-methods">Seriation Methods</h2>
 <p>Seriation methods on the data <code>x</code> can be used in</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seriate</span>(x, <span class="at">method =</span> <span class="st">"Spectral"</span>, <span class="at">control =</span> <span class="cn">NULL</span>, <span class="at">rep =</span> 1L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -209,9 +206,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The list below shows what seriation criterion (if any) is optimized by the method.</p>
 <p>If the method uses randomization (see randomized below), then <code>rep</code> can be used to run the algorithms several times and return the best permutation.</p>
 <p>Available control parameters can be passed on as a list using the <code>control</code> argument.</p>
-</section>
-<section id="methods-distances" class="level2">
-<h2 class="anchored" data-anchor-id="methods-distances">Methods distances</h2>
+<section id="methods-for-dissimilarity-data-dist" class="level2">
+<h2 class="anchored" data-anchor-id="methods-for-dissimilarity-data-dist">Methods for dissimilarity data (dist)</h2>
 <section id="arsa" class="level3">
 <h3 class="anchored" data-anchor-id="arsa">ARSA</h3>
 <p>Minimize the linear seriation criterion using simulated annealing (Brusco et al, 2008).</p>
@@ -759,7 +755,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="gw_complete" class="level3">
@@ -768,7 +764,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="gw_single" class="level3">
@@ -777,7 +773,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="gw_ward" class="level3">
@@ -786,7 +782,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="hc" class="level3">
@@ -825,7 +821,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="hc_complete" class="level3">
@@ -834,7 +830,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="hc_single" class="level3">
@@ -843,7 +839,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="hc_ward" class="level3">
@@ -852,7 +848,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="identity" class="level3">
@@ -861,7 +857,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="isomap" class="level3">
@@ -1236,7 +1232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="olo_complete" class="level3">
@@ -1245,7 +1241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="olo_single" class="level3">
@@ -1254,7 +1250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="olo_ward" class="level3">
@@ -1263,7 +1259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="optics" class="level3">
@@ -1303,7 +1299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#sum">2SUM</a> (2-sum criterion)</li>
 <li>randomized: TRUE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="qap_bar" class="level3">
@@ -1337,7 +1333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#inertia">Inertia</a></li>
 <li>randomized: TRUE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="qap_ls" class="level3">
@@ -1346,7 +1342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#ls">LS</a> (Linear seriation criterion)</li>
 <li>randomized: TRUE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="r2e" class="level3">
@@ -1355,7 +1351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="random" class="level3">
@@ -1364,7 +1360,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: TRUE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="reverse" class="level3">
@@ -1373,7 +1369,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="sammon_mapping" class="level3">
@@ -1472,7 +1468,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#sum">2SUM</a> (2-sum criterion)</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="spectral_norm" class="level3">
@@ -1481,7 +1477,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#sum">2SUM</a> (2-sum criterion)</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="spin_nh" class="level3">
@@ -1787,7 +1783,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 </section>
@@ -1799,7 +1795,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="bea" class="level3">
@@ -1948,7 +1944,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="lle" class="level3">
@@ -2082,7 +2078,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: TRUE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="reverse-1" class="level3">
@@ -2091,7 +2087,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
-<li>control parameters:no parameters</li>
+<li>control parameters: no parameters</li>
 </ul>
 </section>
 <section id="tsne-1" class="level3">

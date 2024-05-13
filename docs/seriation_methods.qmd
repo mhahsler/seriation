@@ -7,8 +7,7 @@ format:
 editor: visual
 ---
 
-This document contains the seriation methods currently implemented in the R package [`seriation`](https://github.com/mhahsler/seriation). 
-The methods are organized by methods for distance matrices and data matrices.
+This document contains the seriation methods currently implemented in the R package [`seriation`](https://github.com/mhahsler/seriation). The methods are organized by methods for distance matrices and data matrices.
 
 This list was created for the following version of seriation:
 
@@ -67,7 +66,7 @@ print_seriation_method_md <- function(x, add_link = TRUE, ...) {
       cat("* registered by: ", x$registered_by, "\n")
     }
 
-  cat("* control parameters:")
+  cat("* control parameters: ")
   .print_control(x$control, trim_values = 100)
 
   invisible(x)
@@ -104,8 +103,6 @@ print_seriation_method_md <- function(x, add_link = TRUE, ...) {
 }
 ```
 
-## Seriation Methods
-
 Seriation methods on the data `x` can be used in
 
 ```{r, eval=FALSE}
@@ -118,7 +115,7 @@ If the method uses randomization (see randomized below), then `rep` can be used 
 
 Available control parameters can be passed on as a list using the `control` argument.
 
-## Methods distances
+## Methods for dissimilarity data (dist)
 
 ```{r, results='asis', echo = FALSE}
 l <- list_seriation_methods(kind = "dist", names_only = FALSE)
