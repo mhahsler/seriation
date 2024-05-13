@@ -63,6 +63,6 @@ set_seriation_method(
   "matrix",
   "AOE",
   seriate_corr_matrix_AOE,
-  "Order by the angle of the first two eigenvectors (for correlation matrices)",
+  "Order by the angle of the first two eigenvectors for correlation matrices (Friendly, 2002)",
 )
 

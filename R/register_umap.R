@@ -38,8 +38,8 @@
 #' @family seriation
 #' @returns Nothing.
 #'
-#' @references McInnes, L, Healy, J, UMAP: Uniform Manifold Approximation and
-#' Projection for Dimension Reduction, ArXiv e-prints 1802.03426, 2018
+#' @references McInnes, L and Healy, J, UMAP: Uniform Manifold Approximation and
+#' Projection for Dimension Reduction, ArXiv e-prints 1802.03426, 2018.
 #' @keywords optimize cluster
 #' @examples
 #'
@@ -142,7 +142,7 @@ register_umap <- function() {
     "dist",
     "umap",
     umap_order,
-    "Use 1D Uniform manifold approximation and projection (UMAP) embedding of the distances to create an order",
+    "Use 1D Uniform manifold approximation and projection (UMAP) embedding of the distances to create an order (McInnes and Healy, 2018)",
     .contr,
     randomized = TRUE,
     verbose = TRUE
@@ -152,7 +152,7 @@ register_umap <- function() {
     "matrix",
     "umap",
     umap_order_matrix_2,
-    "Use 1D Uniform manifold approximation and projection (UMAP) embedding of the data to create an order",
+    "Use 1D Uniform manifold approximation and projection (UMAP) embedding of the data to create an order (McInnes and Healy, 2018)",
     .contr,
     randomized = TRUE,
     verbose = TRUE

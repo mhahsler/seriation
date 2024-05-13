@@ -11,8 +11,6 @@ editor: visual
 
 This document compares the seriation methods available in package [`seriation`](https://github.com/mhahsler/seriation) using the popular Iris data set and randomize the order of the objects.
 
-# Preparing the data
-
 ```{r}
 library("seriation")
 

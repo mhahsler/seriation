@@ -171,8 +171,12 @@ Mair P., De Leeuw J. (2015). Unidimensional scaling. In *Wiley StatsRef: Statist
 
 McCormick, W.T., P.J. Schweitzer and T.W. White (1972): Problem decomposition and data reorganization by a clustering technique, *Operations Research,* **20**(5), 993--1009. \doi{10.1287/opre.20.5.993}
 
+McInnes, L and Healy, J, UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction, ArXiv e-prints 1802.03426, 2018.
+
+Sammon, J. W. (1969) A non-linear mapping for data structure analysis. *IEEE Trans. Comput.*, **C-18** 401--409.
+
 Tenenbaum, J.B., de Silva, V. & Langford, J.C. (2000) A global network framework for nonlinear dimensionality reduction. *Science* **290**, 2319-2323.
 
 Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany, E. (2005): Sorting points into neighborhoods (SPIN): data analysis and visualization by ordering distance matrices, *Bioinformatics,* **21**(10) 2301--8. \doi{10.1093/bioinformatics/bti329}
 
-Sammon, J. W. (1969) A non-linear mapping for data structure analysis. *IEEE Trans. Comput.*, **C-18** 401--409.
+van der Maaten, L.J.P.; Hinton, G.E. (Nov 2008). Visualizing Data Using t-SNE. *Journal of Machine Learning Research*. **9**: 2579--2605.

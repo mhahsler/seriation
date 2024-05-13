@@ -120,7 +120,7 @@ set_seriation_method(
   "dist",
   "QAP_BAR",
   seriate_dist_BAR,
-  "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the banded anti-Robinson form (BAR).",
+  "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the banded anti-Robinson form (Hahsler, 2017).",
   .qap_bar_contr,
   randomized = TRUE,
   optimizes = .opt("BAR", "Banded anti-robinson form")
@@ -130,7 +130,7 @@ set_seriation_method(
   "dist",
   "QAP_Inertia",
   seriate_dist_Inertia,
-  "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the Inertia criterion.",
+  "Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the Inertia criterion (Hahsler, 2017).",
   randomized = TRUE,
   optimizes = .opt("Inertia")
 )

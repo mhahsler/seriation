@@ -215,7 +215,7 @@ set_seriation_method(
   "dist",
   "tsne",
   tsne_order,
-  "Use 1D t-distributed stochastic neighbor embedding (t-SNE) a distance matrix to create an order.",
+  "Use 1D t-distributed stochastic neighbor embedding (t-SNE) a distance matrix to create an order (van der Maaten and Hinton, 2008).",
   .contr,
   randomized = TRUE,
   verbose = TRUE
@@ -225,7 +225,7 @@ set_seriation_method(
   "matrix",
   "tsne",
   tsne_order_matrix_2,
-  "Use 1D t-distributed stochastic neighbor embedding (t-SNE) of the rows of a matrix to create an order.",
+  "Use 1D t-distributed stochastic neighbor embedding (t-SNE) of the rows of a matrix to create an order (van der Maaten and Hinton, 2008).",
   .contr_matrix,
   randomized = TRUE,
   verbose = TRUE
