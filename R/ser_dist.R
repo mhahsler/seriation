@@ -25,27 +25,42 @@
     "ppc",
     "aprd")
 
+.cor_methods <-
+  c("spearman",
+    "kendall",
+    "ppc"
+  )
+
 #' Dissimilarities and Correlations Between Seriation Orders
 #'
 #' Calculates dissimilarities/correlations between seriation orders in a list of type
 #' [ser_permutation_vector].
 #'
-#' `ser_cor()` calculates the correlation between two sequences (orders).
-#' Note that a seriation order and its reverse are identical and purely an
-#' artifact due to the method that creates the order. This is a major
-#' difference to rankings. For ranking-based correlation measures (Spearman and
-#' Kendall) the absolute value of the correlation is returned for
-#' `reverse = TRUE` (in effect returning the correlation for the reversed order). If
-#' `test = TRUE` then the appropriate test for association is performed
+#' For seriation, an order and its reverse are considered identical and are
+#' often just an artifact due to the method that creates the order.
+#' This is one of the major differences between seriation orders and rankings
+#' which impacts how correlations and similarities between seriation orders are
+#' calculated. The default setting `reverse = TRUE` corrects for this issue.
+#'
+#' `ser_cor()` calculates the correlation between two seriation orders.
+#' For ranking-based correlation measures (Spearman and
+#' Kendall) the absolute value of the correlation is returned. This effectively
+#' corrects for correlations between reversed orders but has the effect that
+#' no negative correlations exist.
+#' For `test = TRUE`, the appropriate test for association is performed
 #' and a matrix with p-values is returned as the attribute `"p-value"`.
 #' Note that no correction for multiple testing is performed.
 #'
 #' For `ser_dist()`, the correlation coefficients (Kendall's tau and
 #' Spearman's rho) are converted into a dissimilarity by taking one minus the
-#' correlation value. Note that Manhattan distance between the ranks in a
+#' correlation value. The Manhattan distance between the ranks in a
 #' linear order is equivalent to Spearman's footrule metric (Diaconis 1988).
-#' `reverse = TRUE` returns the pairwise minima using also reversed
-#' orders.
+#' For the non-correlation based measures,
+#' `reverse = TRUE` returns the pairwise minima using also the reversed
+#' order.
+#'
+#' Two precedence invariant measure especially developed for seriation are
+#' available. Here `reverse` is ignored.
 #'
 #' The positional proximity coefficient (ppc) is a precedence invariant measure
 #' based on product of the squared positional distances in two permutations
@@ -57,8 +72,7 @@
 #' where \eqn{R} and \eqn{S} are two seriation orders, \eqn{pi_R} and
 #' \eqn{pi_S} are the associated permutation vectors and \eqn{h} is a
 #' normalization factor. The associated generalized correlation coefficient is
-#' defined as \eqn{1-d_{ppc}}. For this precedence invariant measure
-#' `reverse` is ignored.
+#' defined as \eqn{1-d_{ppc}}.
 #'
 #' The absolute pairwise rank difference (aprd) is also precedence invariant
 #' and defined as a distance measure:
@@ -67,16 +81,16 @@
 #' |\pi_S(i)-\pi_S(j)| |^p,}
 #'
 #' where \eqn{p} is the power which can be passed on as parameter `p` and
-#' is by default set to 2. For this precedence invariant measure `reverse`
-#' is ignored.
+#' is by default set to 2.
 #'
 #' `ser_align()` tries to normalize the direction in a list of seriations
 #' such that ranking-based methods can be used. We add for each permutation
 #' also the reversed order to the set and then use a modified version of Prim's
 #' algorithm for finding a minimum spanning tree (MST) to choose if the
-#' original seriation order or its reverse should be used. We use the orders
-#' first added to the MST. Every time an order is added, its reverse is removed
-#' from the possible remaining orders.
+#' original seriation order or its reverse should be used. We retain the direction
+#' of each order that is added to the MST first.
+#' Every time an order is added, its reverse is removed from the possible
+#' remaining orders.
 #'
 #' @family permutation
 #'
@@ -85,14 +99,13 @@
 #' @param y if not `NULL` then a single seriation order can be specified.
 #' In this case `x` has to be a single seriation order and not a list.
 #' @param method a character string with the name of the used measure.
-#' Available measures are: `"kendall"`, `"spearman"`,
-#' `"manhattan"`, `"euclidean"`, `"hamming"`, `"ppc"`
-#' (positional proximity coefficient), and `"aprd"` (absolute pairwise
-#' rank differences).
-#' @param reverse a logical indicating if the orders should also be checked in
-#' reverse order and the best value (highest correlation, lowest distance) is
-#' reported. This only affect ranking-based measures and not precedence
-#' invariant measures (e.g., `"ppc"`, `"aprd"`).
+#' Available measures are for correlation and distances are
+#' `"kendall"`,`"spearman"` and `"ppc"`
+#' (positional proximity coefficient). For distances only the additional methods
+#' `"manhattan"`, `"euclidean"`, `"hamming"`, and `"aprd"` (absolute pairwise
+#' rank differences) are also available.
+#' @param reverse a logical indicating if the revers orders should also be checked in
+#' for rank-based methods.
 #' @param test a logical indicating if a correlation test should be performed.
 #' @param ... Further arguments passed on to the method.
 #' @return
@@ -229,8 +242,7 @@ ser_cor <- function(x,
   method = "spearman",
   reverse = TRUE,
   test = FALSE) {
-  ## Note: not all .dist_methods are implemented!
-  method <- match.arg(tolower(method), .dist_methods)
+  method <- match.arg(tolower(method), .cor_methods)
 
   ## make sure everything is a permutation vector
   if (!is.null(y))
