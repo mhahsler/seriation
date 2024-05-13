@@ -3,13 +3,16 @@
 ## New Features
 - Added registered_by field to registries. 
 
+## Changes
+- We replaced the FORTRAN implementation for BEA with code from package TSP.
+
 ## Bug Fixes
 - Added two missing package anchors to palette man page.
 
 
 # seriation 1.5.5 (04/17/2024)
 
-## Changed
+## Changes
 - Updated man pages.
 
 # seriation 1.5.4 (12/11/2023)

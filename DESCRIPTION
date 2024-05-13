@@ -55,9 +55,8 @@ Encoding: UTF-8
 RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
 License: GPL-3
-Copyright: The code in src/bea.f is Copyright (C) 1991 F. Murtagh;
-    src/bbwrcg.f, src/arsa.f and src/bburcg.f are Copyright (C) 2005
-    M. Brusco, H.F. Koehn, and S. Stahl.
+Copyright: The code in src/bbwrcg.f, src/arsa.f and src/bburcg.f 
+    are Copyright (C) 2005 M. Brusco, H.F. Koehn, and S. Stahl.
     All other code is Copyright (C) Michael Hahsler, Christian Buchta,
     and Kurt Hornik.
 Collate: 
@@ -78,7 +77,6 @@ Collate:
     'VAT.R'
     'Wood.R'
     'Zoo.R'
-    'bea.R'
     'bertinplot.R'
     'criterion.R'
     'criterion.array.R'

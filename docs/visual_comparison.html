@@ -190,23 +190,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">" took"</span>, tm[<span class="dv">1</span>]<span class="sc">+</span>tm[<span class="dv">2</span>], <span class="st">"sec.</span><span class="sc">\n</span><span class="st">"</span>)</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ARSA took 0.766 sec.
-DendSer took 0.913 sec.
-DendSer_ARc took 0.635 sec.
-DendSer_BAR took 0.855 sec.
-DendSer_LPL took 0.728 sec.
-DendSer_PL took 0.724 sec.
-GW took 0.254 sec.
-GW_average took 0.257 sec.
-GW_complete took 0.247 sec.
-GW_single took 0.257 sec.
-GW_ward took 0.148 sec.
-HC took 0.159 sec.
-HC_average took 0.162 sec.
-HC_complete took 0.164 sec.
-HC_single took 0.162 sec.
-HC_ward took 0.159 sec.
-Identity took 0.159 sec.
+<pre><code>ARSA took 0.789 sec.
+DendSer took 1.006 sec.
+DendSer_ARc took 0.863 sec.
+DendSer_BAR took 0.832 sec.
+DendSer_LPL took 0.94 sec.
+DendSer_PL took 0.88 sec.
+GW took 0.201 sec.
+GW_average took 0.208 sec.
+GW_complete took 0.1 sec.
+GW_single took 0.214 sec.
+GW_ward took 0.158 sec.
+HC took 0.166 sec.
+HC_average took 0.17 sec.
+HC_complete took 0.181 sec.
+HC_single took 0.191 sec.
+HC_ward took 0.174 sec.
+Identity took 0.161 sec.
 isomap</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
@@ -215,34 +215,34 @@ isomap</code></pre>
   reorder.hclust gclus</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code> took 0.327 sec.
-isoMDS took 0.345 sec.
-MDS took 0.204 sec.
-MDS_angle took 0.21 sec.
-MDS_smacof took 0.454 sec.
-metaMDS took 2.312 sec.
-monoMDS took 0.209 sec.
-OLO took 0.16 sec.
-OLO_average took 0.159 sec.
-OLO_complete took 0.159 sec.
-OLO_single took 0.165 sec.
-OLO_ward took 0.161 sec.
-optics took 0.175 sec.
-QAP_2SUM took 0.201 sec.
-QAP_BAR took 0.194 sec.
-QAP_Inertia took 0.181 sec.
-QAP_LS took 0.188 sec.
-R2E took 0.218 sec.
-Random took 0.157 sec.
-Reverse took 0.157 sec.
-Sammon_mapping took 0.323 sec.
-SGD took 61.583 sec.
-Spectral took 0.251 sec.
-Spectral_norm took 0.262 sec.
-SPIN_NH took 4.224 sec.
-SPIN_STS took 2.537 sec.
-TSP took 0.175 sec.
-VAT took 0.166 sec.</code></pre>
+<pre><code> took 0.357 sec.
+isoMDS took 1.28 sec.
+MDS took 0.217 sec.
+MDS_angle took 0.214 sec.
+MDS_smacof took 0.674 sec.
+metaMDS took 2.416 sec.
+monoMDS took 0.19 sec.
+OLO took 0.169 sec.
+OLO_average took 0.166 sec.
+OLO_complete took 0.165 sec.
+OLO_single took 0.166 sec.
+OLO_ward took 0.167 sec.
+optics took 0.179 sec.
+QAP_2SUM took 0.198 sec.
+QAP_BAR took 0.196 sec.
+QAP_Inertia took 0.224 sec.
+QAP_LS took 0.205 sec.
+R2E took 0.223 sec.
+Random took 0.191 sec.
+Reverse took 0.177 sec.
+Sammon_mapping took 0.35 sec.
+SGD took 59.604 sec.
+Spectral took 0.214 sec.
+Spectral_norm took 0.247 sec.
+SPIN_NH took 3.846 sec.
+SPIN_STS took 2.578 sec.
+TSP took 0.169 sec.
+VAT took 0.167 sec.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, criterion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -259,7 +259,8 @@ VAT took 0.166 sec.</code></pre>
 <p>We can compare the seriation methods by how similar the orders are that they produce (measured using Spearman). The following code calculates distances between orders and then performs hierarchical clustering.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dst <span class="ot">&lt;-</span> <span class="fu">ser_dist</span>(orders) </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hmap</span>(dst, <span class="at">col =</span> <span class="fu">blues</span>(<span class="at">power =</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">permute</span>(<span class="fu">hclust</span>(dst), <span class="at">order =</span> <span class="st">"OLO"</span>, <span class="at">dist =</span> dst)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -268,29 +269,18 @@ VAT took 0.166 sec.</code></pre>
 </div>
 </div>
 </div>
-<p>There are too many labels, so we just plot the dendrogram.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">permute</span>(<span class="fu">hclust</span>(dst), <span class="at">order =</span> <span class="st">"OLO"</span>, <span class="at">dist =</span> dst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>We clearly see some groups of methods that create very similar orderings.</p>
+<p>The reordered dendrogram clearly shows a group of methods based on hierarchical clustering focused on path length and another group that tries to optimize the other seriation measures.</p>
 <p>Here is a table to compare the seriation methods on different criterion measures. Use the interactive table to sort the methods given different measures. Note that some are maximized and some should be minimized. Details about the measures can be found in the <a href="https://mhahsler.r-universe.dev/seriation/doc/manual.html#criterion">manual page for <code>criterion()</code></a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(<span class="fu">round</span>(criterion, <span class="dv">2</span>), <span class="at">extensions =</span> <span class="st">"FixedColumns"</span>,</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">list</span>(<span class="at">paging =</span> <span class="cn">TRUE</span>, <span class="at">searching =</span> <span class="cn">TRUE</span>, <span class="at">info =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">scrollX =</span> <span class="cn">TRUE</span>, <span class="at">fixedColumns =</span> <span class="fu">list</span>(<span class="at">leftColumns =</span> <span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">formatRound</span>(<span class="at">columns =</span> <span class="fu">colnames</span>(criterion) , <span class="at">mark =</span> <span class="st">""</span>, <span class="at">digits=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(<span class="fu">round</span>(criterion, <span class="dv">2</span>), <span class="at">extensions =</span> <span class="st">"FixedColumns"</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">list</span>(<span class="at">paging =</span> <span class="cn">TRUE</span>, <span class="at">searching =</span> <span class="cn">TRUE</span>, <span class="at">info =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">scrollX =</span> <span class="cn">TRUE</span>, <span class="at">fixedColumns =</span> <span class="fu">list</span>(<span class="at">leftColumns =</span> <span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">formatRound</span>(<span class="at">columns =</span> <span class="fu">colnames</span>(criterion) , <span class="at">mark =</span> <span class="st">""</span>, <span class="at">digits=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item" id="htmlwidget-57af12a6dbf8df7b8e44" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-57af12a6dbf8df7b8e44">{"x":{"filter":"none","vertical":false,"extensions":["FixedColumns"],"data":[["ARSA","QAP_LS","metaMDS","MDS_smacof","QAP_Inertia","SGD","Spectral","QAP_2SUM","Sammon_mapping","isoMDS","MDS","SPIN_STS","DendSer_ARc","DendSer","DendSer_BAR","isomap","R2E","SPIN_NH","DendSer_PL","HC","HC_complete","OLO_average","DendSer_LPL","OLO","OLO_complete","GW","GW_complete","GW_ward","OLO_ward","GW_average","OLO_single","GW_single","Spectral_norm","VAT","MDS_angle","TSP","HC_single","optics","QAP_BAR","HC_ward","HC_average","monoMDS","Identity","Reverse","Random"],[0.77,0.19,2.31,0.45,0.18,61.58,0.25,0.2,0.32,0.34,0.2,2.54,0.63,0.91,0.85,0.33,0.22,4.22,0.72,0.16,0.16,0.16,0.73,0.16,0.16,0.25,0.25,0.15,0.16,0.26,0.16,0.26,0.26,0.17,0.21,0.18,0.16,0.18,0.19,0.16,0.16,0.21,0.16,0.16,0.16],[17811232.65,17811199.89,17812025.88,17812731.39,17817013.23,17816911.87,17821593.29,17808579.01,17803289.91,17831638.49,17831638.49,17841617.4,17876078.28,17887028.78,17887028.78,17885505.49,17920401.23,18036138.36,18098331.63,18261232.57,18261232.57,18269321.81,18283958.49,18292979.96,18292979.96,18311674.75,18311674.75,18438906.02,18410315.74,18539119.37,18474433.08,18534766.36,18699746.46,19211270.06,19264911.14,19540641.66,19982937.03,19986268.07,21910591.9,21709512.65,21845189.68,28145378.27,30055216.34,30055216.34,30239256.42],[9438.610000000001,9441.530000000001,9504.209999999999,9471.18,9692.59,9671.190000000001,9887.389999999999,9744.299999999999,9704.719999999999,10451.48,10451.48,12811.47,13412.91,14008.74,14008.74,15169.57,18183.83,29168.29,33209.38,38664.62,38664.62,43479.69,44934.75,45325.49,45325.49,44984.49,44984.49,50829.52,51898.42,53157.9,56881.78,62098.9,79141.36,96806.7,108327.34,116973.47,194405.33,200423.12,288412.98,317321.18,329531.16,729792.47,941569.67,941569.67,949799.5600000001],[54823,54836,54604,55069,54439,54051,54924,59760,61996,58810,58810,74048,76417,80168,80168,80864,90031,125723,141641,137450,137450,162421,166943,168500,168500,173565,173565,178026,179521,184425,167560,179034,166378,199371,221616,233316,266052,275330,328027,368393,387457,446850,552429,552429,553698],[2243448.63,2243449.47,2243469.42,2243518.16,2243572.07,2243579.99,2243682.33,2243974.97,2244220,2244348.59,2244348.59,2247128.4,2247775.23,2248403.43,2248403.43,2249203.1,2251902.63,2263995.74,2267968.58,2271942.31,2271942.31,2277551.81,2278941.71,2279320.21,2279320.21,2279424.9,2279424.9,2284222.28,2285626.2,2286032.21,2288159.89,2293745.77,2306285.9,2320904.39,2332072.92,2338550.44,2409997.06,2416229.48,2492167.89,2525741.61,2541551.85,2698864.33,2831928.43,2831928.43,2835825.64],[56363,56367.64,56418.65,56310.21,56530.46,56466.43,56609.97,56183.57,55760.07,56588.08,56588.08,56576.51,56474.23,56159.74,56159.74,56666.77,56794.91,55516.03,56662.2,61898.06,61898.06,58057.61,58180.22,58416.81,58416.81,59303.16,59303.16,60128.57,60395.71,64340.25,62274.58,62255.92,65816.92999999999,67270.72,63869.44,62179.97,79823.71000000001,79675.56,64600.33,81379.38,80326.14999999999,128554.35,163647.22,163647.22,163116.51],[992260,992233,992695,991764,993028,993804,992058,982374,977903,984277,984277,953801,949063,941567,941567,940173,921858,850456,818621,826995,826995,777055,768011,764888,764888,754760,754760,745818,742845,733016,766779,743823,769117,703151,658672,635251,569760,551219,445817,365051,326920,208364,-2843,-2843,-5280],[1772128.25,1772125.73,1772065.89,1771919.66,1771757.94,1771734.16,1771427.16,1770549.24,1769814.16,1769428.38,1769428.38,1761088.95,1759148.46,1757263.85,1757263.85,1754864.85,1746766.24,1710486.92,1698568.39,1686647.22,1686647.22,1669818.72,1665649.01,1664513.52,1664513.52,1664199.44,1664199.44,1649807.3,1645595.55,1644377.52,1637994.46,1621236.84,1583616.45,1539760.97,1506255.38,1486822.81,1272482.97,1253785.71,1025970.48,925249.3199999999,877818.59,405881.17,6688.87,6688.87,-5002.78],[356949760.46,356950046.84,356960077.43,356954170.3,356978487.45,356963750.1,356910342.64,356709924.08,356624718.43,356821108.54,356821108.54,355951339.31,355838234.97,355580212.39,355580212.39,354956626.48,354057417.51,349901285.76,348930104.5,350318855.63,350318855.63,346782618.47,346351655.25,346350972.72,346350972.72,346549446.39,346549446.39,345373539.51,345354308.83,346811289.88,345736868.47,343660139.48,339396179.61,336397957.38,329715037.11,327401075.57,315817352.86,313666062.34,279764747.88,280876325.17,272016448.79,244116992.47,215187975.86,215187975.86,213846545.12],[6412.07,6518.31,6639.98,6526.57,6872.35,6737.58,6987.1,6560.13,6477.68,7155.17,7155.17,6650.07,4775.3,4164.57,4164.57,6502.89,6185.45,6016.34,3651.81,5276.43,5276.43,3671.38,3639.53,4101.96,4101.96,4532.43,4532.43,3815.98,3563.63,3922.21,4796.94,4986.49,7639.25,4464.97,5877.18,3976.9,7332.33,6566.98,4921.14,5147.9,5250.65,12759.86,25160.16,24620.09,26886.41],[76487634.69,76487638.04000001,76487717.81999999,76487912.8,76488128.42,76488160.13,76488569.45999999,76489740.02,76490720.14,76491234.5,76491234.5,76502353.73999999,76504941.06,76507453.89,76507453.89,76510652.55,76521450.69,76569823.12,76585714.48999999,76601609.38,76601609.38,76624047.39,76629607,76631120.98999999,76631120.98999999,76631539.76000001,76631539.76000001,76650729.28,76656344.95,76657968.98999999,76666479.73,76688823.23,76738983.75,76797457.70999999,76842131.84999999,76868041.93000001,77153828.38,77178758.06999999,77482511.70999999,77616806.59,77680047.55,78309297.45,78841553.86,78841553.86,78857142.72],[4486897.27,4486898.95,4486938.84,4487036.32,4487144.13,4487159.99,4487364.66,4487949.94,4488439.99,4488697.18,4488697.18,4494256.8,4495550.46,4496806.87,4496806.87,4498406.2,4503805.27,4527991.48,4535937.17,4543884.62,4543884.62,4555103.62,4557883.42,4558640.42,4558640.42,4558849.8,4558849.8,4568444.56,4571252.4,4572064.42,4576319.79,4587491.54,4612571.8,4641808.78,4664145.85,4677100.89,4819994.11,4832458.96,4984335.78,5051483.22,5083103.7,5397728.65,5663856.85,5663856.85,5671651.28],[0.1,0.23,0.23,0.1,0.23,0.23,0.18,0.23,0.11,0.1,0.1,0.24,0.24,0.24,0.24,0.24,0.25,0.27,0.28,0.28,0.28,0.29,0.29,0.29,0.29,0.3,0.3,0.3,0.31,0.31,0.31,0.32,0.3,0.36,0.37,0.38,0.46,0.47,0.54,0.57,0.58,0.7,0.79,0.79,0.79],[7268.33,7266.64,7258.74,7274.22,7261.84,7260.85,7253.72,7282.31,7292.58,7250.23,7250.23,7278.91,7325.61,7326.94,7326.94,7270.77,7269.95,7310.03,7337.27,7286.9,7286.9,7331.82,7337.3,7337.56,7337.56,7329.05,7329.05,7324.02,7337.45,7325.78,7312.68,7309.66,7157.93,7263.21,7165.29,7316.64,7245.76,7240.28,7309.48,7262.19,7280.85,6949.46,6166.84,6166.86,6030.7],[1039.11,1040.51,1083,981.9400000000001,1071.13,1074.9,1111.65,896.03,854.15,1167.73,1167.73,947.5,631.79,618.53,618.53,1010.79,1004.54,693.0700000000001,502.19,932.01,932.01,520.39,502.82,501.42,501.42,598.3200000000001,598.3200000000001,609.63,506.75,628.58,779.87,772.83,1836.38,1227.11,1945.32,558.74,1365.54,1346.85,677.26,1039.41,1008.58,4294.7,10366.8,10366.8,11165.2],[480.34,487.13,518.48,456.71,506.16,510.31,538.78,424.44,396.54,552.6799999999999,552.6799999999999,437.93,264.48,259.07,259.07,479.84,467.02,321.3,207.06,370.81,370.81,213.19,207.01,205.91,205.91,245.17,245.17,246.01,206.36,255.26,313.92,317.45,822.24,498.43,855.6799999999999,224.91,549.37,557.84,302.12,409.03,397.19,1776.51,4800.87,4800.87,5354.57],[86.14,87.06,89.34,85.18000000000001,88.37,88.06,91.29000000000001,84.02,81.31999999999999,91.92,91.92,83.43000000000001,60.24,59.2,59.2,86.69,85.43000000000001,73.28,51.86,66.15000000000001,66.15000000000001,52.02,51.74,51.31,51.31,56.54,56.54,54.5,50.55,56.96,63.75,66.55,114.98,82.34,106.57,51.04,89.45,93.38,69.67,70.83,70.67,164.75,331.87,331.87,352.81],[0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.06,0.05,0.05,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.08,0.11,0.13,0.12,0.12,0.15,0.15,0.15,0.15,0.16,0.16,0.16,0.16,0.17,0.15,0.16,0.15,0.18,0.2,0.21,0.24,0.25,0.3,0.33,0.35,0.41,0.5,0.5,0.5],[0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.9,0.9,0.9,0.9,0.9,0.89,0.89,0.86,0.86,0.87,0.87,0.86,0.86,0.86,0.86,0.85,0.85,0.83,0.84,0.84,0.83,0.79,0.8,0.8,0.6899999999999999,0.6899999999999999,0.63,0.55,0.55,0.22,0,0,0],[0.1,0.23,0.23,0.1,0.23,0.23,0.18,0.23,0.11,0.1,0.1,0.23,0.24,0.24,0.24,0.24,0.24,0.27,0.27,0.28,0.28,0.29,0.29,0.29,0.29,0.29,0.29,0.3,0.3,0.3,0.31,0.31,0.3,0.35,0.04,0.37,0.45,0.45,0.52,0.55,0.5600000000000001,0.66,0.72,0.72,0.73]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>time<\/th>\n      <th>X2SUM<\/th>\n      <th>AR_deviations<\/th>\n      <th>AR_events<\/th>\n      <th>ARc<\/th>\n      <th>BAR<\/th>\n      <th>Gradient_raw<\/th>\n      <th>Gradient_weighted<\/th>\n      <th>Inertia<\/th>\n      <th>Lazy_path_length<\/th>\n      <th>Least_squares<\/th>\n      <th>LS<\/th>\n      <th>MDS_stress<\/th>\n      <th>ME<\/th>\n      <th>Moore_stress<\/th>\n      <th>Neumann_stress<\/th>\n      <th>Path_length<\/th>\n      <th>RGAR<\/th>\n      <th>Rho<\/th>\n      <th>smacof_stress0<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"paging":true,"searching":true,"info":false,"sort":true,"scrollX":true,"fixedColumns":{"leftColumns":1},"columnDefs":[{"targets":1,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":6,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":7,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":8,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":9,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":10,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":11,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":12,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":13,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":14,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":15,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":16,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":17,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":18,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":19,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":20,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"time","targets":1},{"name":"X2SUM","targets":2},{"name":"AR_deviations","targets":3},{"name":"AR_events","targets":4},{"name":"ARc","targets":5},{"name":"BAR","targets":6},{"name":"Gradient_raw","targets":7},{"name":"Gradient_weighted","targets":8},{"name":"Inertia","targets":9},{"name":"Lazy_path_length","targets":10},{"name":"Least_squares","targets":11},{"name":"LS","targets":12},{"name":"MDS_stress","targets":13},{"name":"ME","targets":14},{"name":"Moore_stress","targets":15},{"name":"Neumann_stress","targets":16},{"name":"Path_length","targets":17},{"name":"RGAR","targets":18},{"name":"Rho","targets":19},{"name":"smacof_stress0","targets":20}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render","options.columnDefs.4.render","options.columnDefs.5.render","options.columnDefs.6.render","options.columnDefs.7.render","options.columnDefs.8.render","options.columnDefs.9.render","options.columnDefs.10.render","options.columnDefs.11.render","options.columnDefs.12.render","options.columnDefs.13.render","options.columnDefs.14.render","options.columnDefs.15.render","options.columnDefs.16.render","options.columnDefs.17.render","options.columnDefs.18.render","options.columnDefs.19.render"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b79f70dab816d532b461" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b79f70dab816d532b461">{"x":{"filter":"none","vertical":false,"extensions":["FixedColumns"],"data":[["ARSA","QAP_LS","metaMDS","isoMDS","MDS_smacof","QAP_Inertia","SGD","Spectral","Sammon_mapping","QAP_2SUM","MDS","DendSer_ARc","SPIN_STS","DendSer","DendSer_BAR","isomap","R2E","DendSer_LPL","QAP_BAR","HC","HC_complete","DendSer_PL","OLO_average","OLO","OLO_complete","GW","GW_complete","GW_ward","OLO_single","OLO_ward","GW_average","GW_single","Spectral_norm","VAT","MDS_angle","TSP","HC_single","optics","HC_ward","SPIN_NH","HC_average","monoMDS","Random","Identity","Reverse"],[0.79,0.2,2.42,1.28,0.67,0.22,59.6,0.21,0.35,0.2,0.22,0.86,2.58,1.01,0.83,0.36,0.22,0.9399999999999999,0.2,0.17,0.18,0.88,0.17,0.17,0.16,0.2,0.1,0.16,0.17,0.17,0.21,0.21,0.25,0.17,0.21,0.17,0.19,0.18,0.17,3.85,0.17,0.19,0.19,0.16,0.18],[17811232.65,17811426.75,17812025.88,17813958.5,17812731.39,17816717.6,17817088.38,17821593.29,17803289.91,17800639.43,17831638.49,17876078.28,17844230.35,17887028.78,17887028.78,17885505.49,17920401.23,18011070.43,17984795.22,18259821.44,18259821.44,18186216.64,18269341.73,18292979.96,18292979.96,18310214.4,18310214.4,18438406.93,18456707.71,18410315.74,18538499.83,18539278.16,18699746.46,19213629.39,19264911.14,20009493.39,20012009.59,20435777.77,21710240.03,21415888.26,21845765.01,28303150.3,30130836.98,30212735.06,30212735.06],[9438.610000000001,9456.58,9504.209999999999,9578.34,9471.18,9680.209999999999,9721.950000000001,9887.389999999999,9704.719999999999,9742.209999999999,10451.48,13412.91,13594.76,14008.74,14008.74,15169.57,18183.83,21255.32,24334.99,38554.4,38554.4,38063.55,43484.13,45325.49,45325.49,44912.7,44912.7,50807.72,53970.73,51898.42,53126.95,62484.63,79141.36,96965,108327.34,146921.6,196879.73,227341.02,317381.32,313283.11,329560.98,667821,952229.02,955330.89,955330.89],[54823,54851,54604,54627,55069,54383,54110,54924,61996,62403,58810,76417,78179,80168,80168,80864,90031,104288,110192,136583,136583,151562,162486,168500,168500,173106,173106,177834,159059,179521,184093,182143,166378,199964,221616,254053,273916,309354,368727,361593,387620,418548,551798,556858,556858],[2243448.63,2243452.25,2243469.42,2243489.52,2243518.16,2243560.21,2243618,2243682.33,2244220,2244239.35,2244348.59,2247775.23,2248063.9,2248403.43,2248403.43,2249203.1,2251902.63,2255503.42,2259038.4,2271833.14,2271833.14,2272508.53,2277556.24,2279320.21,2279320.21,2279352.61,2279352.61,2284200.51,2284833.4,2285626.2,2286001.29,2294131.78,2306285.9,2321060.34,2332072.92,2363324.87,2412602.27,2440838.58,2525802.2,2533760.19,2541580.58,2665818.33,2836156.32,2840145.86,2840145.86],[56363,56372.4,56418.65,56460.35,56310.21,56528.2,56484.75,56609.97,55760.07,55819.13,56588.08,56474.23,56382.84,56159.74,56159.74,56666.77,56794.91,57810.98,54949.24,61869.65,61869.65,58514.99,58055.28,58416.81,58416.81,59279.73,59279.73,60118.16,62925.29,60395.71,64333.62,62250.88,65816.92999999999,67283.99000000001,63869.44,63817.01,80056.39,81682.24000000001,81377.39,72967.33,80320.92,107506.11,166941.9,165502.54,165502.54],[992260,992205,992695,992651,991764,993142,993686,992058,977903,977092,984277,949063,945530,941567,941567,940173,921858,893312,881511,828729,828729,798758,776925,764888,764888,755679,755679,746202,783791,742845,733680,737606,769117,701966,658672,593757,554018,483155,364383,378682,326594,264903,-1573,-11650,-11650],[1772128.25,1772117.38,1772065.89,1772005.59,1771919.66,1771793.5,1771620.14,1771427.16,1769814.16,1769756.08,1769428.38,1759148.46,1758282.45,1757263.85,1757263.85,1754864.85,1746766.24,1735963.9,1725358.95,1686974.73,1686974.73,1684948.56,1669805.42,1664513.52,1664513.52,1664416.32,1664416.32,1649872.61,1647973.94,1645595.55,1644470.27,1620078.8,1583616.45,1539293.14,1506255.38,1412499.52,1264667.35,1179958.42,925067.54,901193.58,877732.42,505019.17,-5994.82,-17963.45,-17963.45],[356949760.46,356954263.13,356960077.43,356966562.96,356954170.3,356980047.43,356958363.87,356910342.64,356624718.43,356635687.76,356821108.54,355838234.97,355601515.36,355580212.39,355580212.39,354956626.48,354057417.51,353979010.82,351234039.67,350346700.53,350346700.53,347967469.85,346780581.73,346350972.72,346350972.72,346562075.61,346562075.61,345375956.54,347019773.4,345354308.83,346817574.15,343530824.78,339396179.61,336356695.13,329715037.11,320241673.36,315020832.52,306065147.89,280854540.98,270274160.72,272004369.13,242350763.59,214488897.82,213119662.84,213119662.84],[6508.59,6342.11,6639.98,6813.52,6526.57,6949.32,6626.33,6987.1,6477.68,6080.4,7155.17,4775.3,6799.42,4164.57,4164.57,6502.89,6185.45,3619.36,6049.62,5174.26,5174.26,3639.42,3671.38,4101.96,4101.96,4521.2,4521.2,3797.78,4795.85,3563.63,3916.32,5023.65,7639.25,4501.35,10109.02,4051.83,7445.75,6445.44,5159.34,6117.79,5296.6,12134.6,28880.47,29008.31,26445.07],[76487634.69,76487649.17,76487717.81999999,76487798.22,76487912.8,76488081.01000001,76488312.16,76488569.45999999,76490720.14,76490797.56999999,76491234.5,76504941.06,76506095.75,76507453.89,76507453.89,76510652.55,76521450.69,76535853.81,76549993.73999999,76601172.7,76601172.7,76603874.26000001,76624065.13,76631120.98999999,76631120.98999999,76631250.58,76631250.58,76650642.2,76653173.75,76656344.95,76657845.33,76690367.28,76738983.75,76798081.5,76842131.84999999,76967139.65000001,77164249.22,77277194.45999999,77617048.95999999,77648880.90000001,77680162.45999999,78177113.45999999,78858465.44,78874423.61,78874423.61],[4486897.27,4486904.51,4486938.84,4486979.03,4487036.32,4487120.43,4487236,4487364.66,4488439.99,4488478.71,4488697.18,4495550.46,4496127.8,4496806.87,4496806.87,4498406.2,4503805.27,4511006.83,4518076.79,4543666.28,4543666.28,4545017.05,4555112.49,4558640.42,4558640.42,4558705.21,4558705.21,4568401.03,4569666.8,4571252.4,4572002.59,4588263.56,4612571.8,4642120.67,4664145.85,4726649.75,4825204.53,4881677.15,5051604.4,5067520.38,5083161.15,5331636.65,5672312.65,5680291.73,5680291.73],[0.1,0.23,0.23,0.1,0.1,0.23,0.23,0.18,0.11,0.23,0.1,0.24,0.24,0.24,0.24,0.24,0.25,0.25,0.26,0.28,0.28,0.28,0.29,0.29,0.29,0.29,0.29,0.3,0.3,0.31,0.31,0.32,0.3,0.36,0.37,0.41,0.46,0.49,0.57,0.58,0.58,0.68,0.79,0.79,0.79],[7268.31,7270.45,7258.74,7262.73,7274.22,7260.84,7261.42,7253.72,7292.58,7284.18,7250.23,7325.61,7282.64,7326.94,7326.94,7270.77,7269.95,7333.86,7303.28,7290.16,7290.16,7326.67,7331.85,7337.56,7337.56,7329.35,7329.35,7324.39,7312.18,7337.45,7325.7,7309.96,7157.93,7262.67,7165.28,7316.95,7238.57,7230.98,7262.77,7257.44,7279.51,7080.81,5760.34,5936.52,5936.54],[1039.11,1021.86,1083,1058.7,981.9400000000001,1077.34,1082.06,1111.65,854.15,875.02,1167.73,631.79,912.13,618.53,618.53,1010.79,1004.54,568.67,754.02,901.67,901.67,531.9,519.9,501.42,501.42,595.6,595.6,606.45,784.62,506.75,629.9400000000001,767.77,1836.38,1230.35,1945.32,554.42,1441.67,1380.51,1033.73,991.22,1023.23,2895.29,12294.26,11596.99,11596.99],[480.34,471.84,518.48,502.61,456.71,510.17,507.96,538.78,396.54,416.92,552.6799999999999,264.48,422.97,259.07,259.07,479.84,467.02,229.2,350.65,357.99,357.99,217.27,213.03,205.91,205.91,244.01,244.01,244.59,315.9,206.36,255.6,316.24,822.24,500.59,855.6799999999999,224.17,578.21,564.88,406.3,426.63,402.6,1223.41,6446.8,5714.69,5714.69],[86.14,85.93000000000001,89.34,89.36,85.18000000000001,88.90000000000001,87.72,91.29000000000001,81.31999999999999,84.56,91.92,60.24,82.8,59.2,59.2,86.69,85.43000000000001,51.88,75.45,64.78,64.78,52.26,52.02,51.31,51.31,56.37,56.37,54.28,64,50.55,56.9,66.81,114.98,82.78,106.57,51.37,91.06,92.62,70.3,80.59,71.02,144.78,402.45,369.69,369.69],[0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.06,0.06,0.05,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.07000000000000001,0.08,0.09,0.1,0.12,0.12,0.14,0.15,0.15,0.15,0.16,0.16,0.16,0.14,0.16,0.17,0.17,0.15,0.18,0.2,0.23,0.25,0.28,0.33,0.33,0.35,0.38,0.5,0.51,0.51],[0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.91,0.9,0.91,0.9,0.9,0.9,0.9,0.89,0.9,0.86,0.86,0.88,0.87,0.86,0.86,0.86,0.86,0.85,0.84,0.85,0.83,0.84,0.83,0.79,0.8,0.76,0.6899999999999999,0.66,0.55,0.6,0.55,0.31,0,0.01,0.01],[0.1,0.23,0.23,0.1,0.1,0.23,0.23,0.18,0.11,0.23,0.1,0.24,0.24,0.24,0.24,0.24,0.24,0.25,0.26,0.28,0.28,0.28,0.29,0.29,0.29,0.29,0.29,0.3,0.3,0.3,0.3,0.31,0.3,0.35,0.04,0.4,0.45,0.48,0.55,0.55,0.5600000000000001,0.64,0.73,0.73,0.73]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>time<\/th>\n      <th>X2SUM<\/th>\n      <th>AR_deviations<\/th>\n      <th>AR_events<\/th>\n      <th>ARc<\/th>\n      <th>BAR<\/th>\n      <th>Gradient_raw<\/th>\n      <th>Gradient_weighted<\/th>\n      <th>Inertia<\/th>\n      <th>Lazy_path_length<\/th>\n      <th>Least_squares<\/th>\n      <th>LS<\/th>\n      <th>MDS_stress<\/th>\n      <th>ME<\/th>\n      <th>Moore_stress<\/th>\n      <th>Neumann_stress<\/th>\n      <th>Path_length<\/th>\n      <th>RGAR<\/th>\n      <th>Rho<\/th>\n      <th>smacof_stress0<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"paging":true,"searching":true,"info":false,"sort":true,"scrollX":true,"fixedColumns":{"leftColumns":1},"columnDefs":[{"targets":1,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":6,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":7,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":8,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":9,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":10,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":11,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":12,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":13,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":14,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":15,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":16,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":17,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":18,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":19,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":20,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"time","targets":1},{"name":"X2SUM","targets":2},{"name":"AR_deviations","targets":3},{"name":"AR_events","targets":4},{"name":"ARc","targets":5},{"name":"BAR","targets":6},{"name":"Gradient_raw","targets":7},{"name":"Gradient_weighted","targets":8},{"name":"Inertia","targets":9},{"name":"Lazy_path_length","targets":10},{"name":"Least_squares","targets":11},{"name":"LS","targets":12},{"name":"MDS_stress","targets":13},{"name":"ME","targets":14},{"name":"Moore_stress","targets":15},{"name":"Neumann_stress","targets":16},{"name":"Path_length","targets":17},{"name":"RGAR","targets":18},{"name":"Rho","targets":19},{"name":"smacof_stress0","targets":20}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render","options.columnDefs.4.render","options.columnDefs.5.render","options.columnDefs.6.render","options.columnDefs.7.render","options.columnDefs.8.render","options.columnDefs.9.render","options.columnDefs.10.render","options.columnDefs.11.render","options.columnDefs.12.render","options.columnDefs.13.render","options.columnDefs.14.render","options.columnDefs.15.render","options.columnDefs.16.render","options.columnDefs.17.render","options.columnDefs.18.render","options.columnDefs.19.render"],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -298,188 +288,188 @@ VAT took 0.166 sec.</code></pre>
 <h2 class="anchored" data-anchor-id="visualize-the-results">Visualize the results</h2>
 <p>Plot the reordered dissimilarity matrices. Dark blocks along the main diagonal mean that the order reveals a “cluster” of similar objects. The Iris dataset contains three species, but two of them are very similar, so we expect to see one smaller block and one larger block.</p>
 <div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="fu">names</span>(orders))</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pimage</span>(d, orders[[n]], <span class="at">main =</span> n , <span class="at">key =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="fu">names</span>(orders))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pimage</span>(d, orders[[n]], <span class="at">main =</span> n , <span class="at">key =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell quarto-layout-panel" data-fig.asp="1">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-4.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-4.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-5.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-5.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-6.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-6.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-7.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-7.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-8.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-8.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-9.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-9.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-10.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-10.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-11.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-11.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-12.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-12.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-13.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-13.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-14.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-14.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-15.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-15.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-16.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-16.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-17.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-17.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-18.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-18.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-19.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-19.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-20.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-20.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-21.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-21.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-22.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-22.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-23.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-23.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-24.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-24.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-25.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-25.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-26.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-26.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-27.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-27.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-28.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-28.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-29.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-29.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-30.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-30.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-31.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-31.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-32.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-32.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-33.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-33.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-34.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-34.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-35.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-35.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-36.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-36.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-37.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-37.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-38.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-38.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-39.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-39.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-40.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-40.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-41.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-41.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-42.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-42.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-43.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-43.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-44.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-44.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-9-45.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-8-45.png" class="img-fluid"></p>
 </div>
 </div>
 </div>
@@ -490,11 +480,11 @@ VAT took 0.166 sec.</code></pre>
 <h1>Matrix seriation</h1>
 <p>Matrix seriation reorders rows and columns of a data matrix. We perform the same steps as for distances in the previous section.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>methods <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">list_seriation_methods</span>(<span class="st">"matrix"</span>))</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># AOE if for correlation matrices only</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>methods <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(methods, <span class="fu">c</span>(<span class="st">"AOE"</span>))</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>methods </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>methods <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">list_seriation_methods</span>(<span class="st">"matrix"</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># AOE if for correlation matrices only</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>methods <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(methods, <span class="fu">c</span>(<span class="st">"AOE"</span>))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>methods </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "BEA"       "BEA_TSP"   "CA"        "Heatmap"   "Identity"  "LLE"      
  [7] "Mean"      "PCA"       "PCA_angle" "Random"    "Reverse"  </code></pre>
@@ -502,98 +492,98 @@ VAT took 0.166 sec.</code></pre>
 </div>
 <p>Performing seriation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (m <span class="cf">in</span> methods) {</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(m)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  tm <span class="ot">&lt;-</span> <span class="fu">system.time</span>(orders[[m]] <span class="ot">&lt;-</span> <span class="fu">seriate</span>(x, <span class="at">method =</span> m))</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  criterion[[m]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">time =</span> tm[<span class="dv">1</span>]<span class="sc">+</span>tm[<span class="dv">2</span>], <span class="fu">rbind</span>(<span class="fu">criterion</span>(x, orders[[m]])))</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">" took"</span>, tm[<span class="dv">1</span>]<span class="sc">+</span>tm[<span class="dv">2</span>], <span class="st">"sec.</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (m <span class="cf">in</span> methods) {</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(m)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  tm <span class="ot">&lt;-</span> <span class="fu">system.time</span>(orders[[m]] <span class="ot">&lt;-</span> <span class="fu">seriate</span>(x, <span class="at">method =</span> m))</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  criterion[[m]] <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">time =</span> tm[<span class="dv">1</span>]<span class="sc">+</span>tm[<span class="dv">2</span>], <span class="fu">rbind</span>(<span class="fu">criterion</span>(x, orders[[m]])))</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">" took"</span>, tm[<span class="dv">1</span>]<span class="sc">+</span>tm[<span class="dv">2</span>], <span class="st">"sec.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>BEA took 0.132 sec.
-BEA_TSP took 1.693 sec.
-CA took 0.13 sec.
-Heatmap took 0.379 sec.
-Identity took 0.124 sec.
-LLE took 0.376 sec.
-Mean took 0.136 sec.
-PCA took 0.127 sec.
-PCA_angle took 0.126 sec.
-Random took 0.124 sec.
-Reverse took 0.124 sec.</code></pre>
+<pre><code>BEA took 1.722 sec.
+BEA_TSP took 1.705 sec.
+CA took 0.132 sec.
+Heatmap took 0.38 sec.
+Identity took 0.127 sec.
+LLE took 0.378 sec.
+Mean took 0.141 sec.
+PCA took 0.133 sec.
+PCA_angle took 0.129 sec.
+Random took 0.126 sec.
+Reverse took 0.127 sec.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, criterion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, criterion)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="comparison-between-methods-1" class="level2">
 <h2 class="anchored" data-anchor-id="comparison-between-methods-1">Comparison between methods</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(<span class="fu">round</span>(criterion, <span class="dv">2</span>), <span class="at">extensions =</span> <span class="st">"FixedColumns"</span>,</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">list</span>(<span class="at">paging =</span> <span class="cn">TRUE</span>, <span class="at">searching =</span> <span class="cn">TRUE</span>, <span class="at">info =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">scrollX =</span> <span class="cn">TRUE</span>, <span class="at">fixedColumns =</span> <span class="fu">list</span>(<span class="at">leftColumns =</span> <span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">formatRound</span>(<span class="at">columns =</span> <span class="fu">colnames</span>(criterion) , <span class="at">mark =</span> <span class="st">""</span>, <span class="at">digits =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(<span class="fu">round</span>(criterion, <span class="dv">2</span>), <span class="at">extensions =</span> <span class="st">"FixedColumns"</span>,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">list</span>(<span class="at">paging =</span> <span class="cn">TRUE</span>, <span class="at">searching =</span> <span class="cn">TRUE</span>, <span class="at">info =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">sort =</span> <span class="cn">TRUE</span>, <span class="at">scrollX =</span> <span class="cn">TRUE</span>, <span class="at">fixedColumns =</span> <span class="fu">list</span>(<span class="at">leftColumns =</span> <span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">formatRound</span>(<span class="at">columns =</span> <span class="fu">colnames</span>(criterion) , <span class="at">mark =</span> <span class="st">""</span>, <span class="at">digits =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item" id="htmlwidget-e8621819b98a95e3530b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-e8621819b98a95e3530b">{"x":{"filter":"none","vertical":false,"extensions":["FixedColumns"],"data":[["BEA","BEA_TSP","CA","Heatmap","Identity","LLE","Mean","PCA","PCA_angle","Random","Reverse"],[0.13,1.69,0.13,0.38,0.12,0.38,0.14,0.13,0.13,0.12,0.12],[-0.02,0.02,0.22,-0.04,-0.03,0.05,-0.05,-0.05,-0.04,-0,-0.03],[13320.87,16523.32,16401.6,15130.21,14107.97,15111.44,15106.35,15120.46,14291.69,14226.13,14107.97],[40341.32,19775.26,20347.34,12980.92,21898.7,13074.14,12995.5,13052.16,16317.26,34354.04,21898.7],[14785.84,6643.52,6934.24,4395.22,8512.120000000001,4486.04,4535,4484.76,5564,13341.58,8512.120000000001]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>time<\/th>\n      <th>Cor_R<\/th>\n      <th>ME<\/th>\n      <th>Moore_stress<\/th>\n      <th>Neumann_stress<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"paging":true,"searching":true,"info":false,"sort":true,"scrollX":true,"fixedColumns":{"leftColumns":1},"columnDefs":[{"targets":1,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"className":"dt-right","targets":[1,2,3,4,5]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"time","targets":1},{"name":"Cor_R","targets":2},{"name":"ME","targets":3},{"name":"Moore_stress","targets":4},{"name":"Neumann_stress","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render","options.columnDefs.4.render"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-88634928cfff677703ba" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-88634928cfff677703ba">{"x":{"filter":"none","vertical":false,"extensions":["FixedColumns"],"data":[["BEA","BEA_TSP","CA","Heatmap","Identity","LLE","Mean","PCA","PCA_angle","Random","Reverse"],[1.72,1.71,0.13,0.38,0.13,0.38,0.14,0.13,0.13,0.13,0.13],[0.12,0.07000000000000001,0.22,-0.04,0.01,-0.05,-0.05,-0.05,-0.04,-0,0.01],[16516.91,16523.2,16401.6,15130.21,14066.74,15111.45,15106.49,15120.46,14291.69,14381.7,14066.74],[19786.5,19782.94,20347.34,12980.92,22208.7,13074.14,13002.38,13052.16,16317.26,33730.12,22208.7],[6669.16,6644.04,6934.24,4395.22,8787.26,4486.04,4534.44,4484.76,5564,12676.54,8787.26]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>time<\/th>\n      <th>Cor_R<\/th>\n      <th>ME<\/th>\n      <th>Moore_stress<\/th>\n      <th>Neumann_stress<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"paging":true,"searching":true,"info":false,"sort":true,"scrollX":true,"fixedColumns":{"leftColumns":1},"columnDefs":[{"targets":1,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 1, 3, \"\", \".\", null);\n  }"},{"className":"dt-right","targets":[1,2,3,4,5]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"time","targets":1},{"name":"Cor_R","targets":2},{"name":"ME","targets":3},{"name":"Moore_stress","targets":4},{"name":"Neumann_stress","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render","options.columnDefs.4.render"],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
 <section id="visualize-the-results-1" class="level2">
 <h2 class="anchored" data-anchor-id="visualize-the-results-1">Visualize the results</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>best_to_worse <span class="ot">&lt;-</span> <span class="fu">order</span>(criterion[[<span class="st">"Moore_stress"</span>]], <span class="at">decreasing =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> orders[best_to_worse]</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> criterion[best_to_worse, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>best_to_worse <span class="ot">&lt;-</span> <span class="fu">order</span>(criterion[[<span class="st">"Moore_stress"</span>]], <span class="at">decreasing =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>orders <span class="ot">&lt;-</span> orders[best_to_worse]</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>criterion <span class="ot">&lt;-</span> criterion[best_to_worse, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="fu">names</span>(orders))</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pimage</span>(x, orders[[n]], <span class="at">main =</span> n , <span class="at">key =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="fu">names</span>(orders))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pimage</span>(x, orders[[n]], <span class="at">main =</span> n , <span class="at">key =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell quarto-layout-panel" data-fig.asp="1">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-14-3.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-13-3.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-14-4.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-13-4.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-14-5.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-13-5.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-14-6.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-13-6.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-14-7.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-13-7.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-14-8.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-13-8.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-14-9.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-13-9.png" class="img-fluid"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-14-10.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-13-10.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="visual_comparison_files/figure-html/unnamed-chunk-14-11.png" class="img-fluid"></p>
+<p><img src="visual_comparison_files/figure-html/unnamed-chunk-13-11.png" class="img-fluid"></p>
 </div>
 </div>
 </div>

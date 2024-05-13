@@ -43,25 +43,12 @@ criterion_ME <- function(x, order = NULL, ...) {
     return(NA_real_)
   }
 
-  n <- nrow(x)
-  m <- ncol(x)
-
-  if (!is.null(order))
-    x <- permute(x, order)
-
-  mode(x) <- "single"
-  ener <- 0.0
-
-  energy <- .Fortran(
-    "energy",
-    n = as.integer(n),
-    m = as.integer(m),
-    b = as.matrix(x),
-    ener = as.single(ener),
-    PACKAGE = "seriation"
-  )
-
-  0.5 * as.numeric(energy$ener)
+  ### TODO: This could be done with less memory utilization in C
+  if (!is.null(order)) x <- permute(x, order)
+  .5 * sum(x * (rbind(0, x[-nrow(x), , drop = FALSE]) +
+    rbind(x[-1L, , drop = FALSE], 0) +
+    cbind(0, x[, -ncol(x), drop = FALSE]) +
+    cbind(x[, -1L , drop = FALSE], 0)))
 }
 
 

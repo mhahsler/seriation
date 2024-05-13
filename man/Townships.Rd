@@ -21,8 +21,8 @@ data("Townships")
 pimage(Townships)
 criterion(Townships)
 
-## seriated data
-order <- seriate(Townships, method = "BEA", control = list(rep = 5))
+## seriated data using an improved Bond-Energy Algorithm
+order <- seriate(Townships, method = "BEA_TSP")
 pimage(Townships, order)
 criterion(Townships, order)
 }

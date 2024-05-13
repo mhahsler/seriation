@@ -76,19 +76,13 @@ We can compare the seriation methods by how similar the orders are that they pro
 ```{r}
 #| out-width: 100%
 #| fig-align: "center"
+
 dst <- ser_dist(orders) 
-hmap(dst, col = blues(power = 2))
+hc <- permute(hclust(dst), order = "OLO", dist = dst)
+plot(hc)
 ```
 
-There are too many labels, so we just plot the dendrogram.
-
-```{r}
-#| out-width: 100%
-#| fig-align: "center"
-plot(permute(hclust(dst), order = "OLO", dist = dst))
-```
-
-We clearly see some groups of methods that create very similar orderings.
+The reordered dendrogram clearly shows a group of methods based on hierarchical clustering focused on path length and another group that tries to optimize the other seriation measures.
 
 Here is a table to compare the seriation methods on different criterion measures. Use the interactive table to sort the methods given different measures. Note that some are maximized and some should be minimized. Details about the measures can be found in the [manual page for `criterion()`](https://mhahsler.r-universe.dev/seriation/doc/manual.html#criterion).
 

@@ -46,39 +46,16 @@ seriate_matrix_bea_tsp <-
     list(row = row, col = col)
   }
 
-## Bond Energy Algorithm (McCormick 1972)
-.bea_contr <- list(istart = 0,
-                   jstart = 0
-)
 
-attr(.bea_contr, "help") <- list(istart = "index of 1st row to be placed (0 = random)",
-                                 jstart = "index of 1st column to be placed (0 = random)"
-)
-
-# BEA always does rows and columns so margin is ignored
 seriate_matrix_bea <- function(x, control = NULL, margin = NULL) {
-  control <- .get_parameters(control, .bea_contr)
+  control <- .get_parameters(control, list())
 
-  if (any(x < 0))
-    stop("Requires a nonnegative matrix.")
-  istart <- control$istart
-  jstart <- control$jstart
-  #rep  <- control$rep
-  rep  <- 1L
+  ### BEA is just cheapest insertion
+  control <- list(method = "cheapest_insertion",
+                  two_opt = FALSE, rep = 1,
+                  verbose = control$verbose)
 
-  res <- replicate(rep, bea(x, istart = istart, jstart = jstart),
-                   simplify = FALSE)
-
-  best <- which.max(sapply(res, "[[", "e"))
-  res <- res[[best]]
-
-  row <- res$ib
-  col <- res$jb
-
-  names(row) <- rownames(x)[row]
-  names(col) <- colnames(x)[col]
-
-  list(row = row, col = col)
+  seriate_matrix_bea_tsp(x, control = control, margin = margin)
 }
 
 ## register methods
@@ -87,7 +64,7 @@ set_seriation_method(
   "BEA",
   seriate_matrix_bea,
   "Bond Energy Algorithm (BEA; McCormick 1972) to maximize the Measure of Effectiveness of a non-negative matrix.",
-  .bea_contr,
+  list(),
   optimizes = .opt("ME", "Measure of effectiveness"),
   randomized = TRUE
 )
