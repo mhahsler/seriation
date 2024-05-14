@@ -212,542 +212,592 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="arsa">ARSA</h3>
 <p>Minimize the linear seriation criterion using simulated annealing (Brusco et al, 2008).</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#ls">LS</a> (Linear seriation criterion)</p></li>
-<li><p>randomized: TRUE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#ls">LS</a> (Linear seriation criterion)</li>
+<li>randomized: TRUE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 11%">
+<col style="width: 63%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">cool</td>
-<td>0.5</td>
+<td style="text-align: left;">cool</td>
+<td style="text-align: left;">0.5</td>
 <td style="text-align: left;">cooling factor (smaller means faster cooling)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">tmin</td>
-<td>1e-04</td>
+<td style="text-align: left;">tmin</td>
+<td style="text-align: left;">1e-04</td>
 <td style="text-align: left;">stopping temperature</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">swap_to_inversion</td>
-<td>0.5</td>
+<td style="text-align: left;">swap_to_inversion</td>
+<td style="text-align: left;">0.5</td>
 <td style="text-align: left;">probability for swap vs inversion local move</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">try_multiplier</td>
-<td>100</td>
+<td style="text-align: left;">try_multiplier</td>
+<td style="text-align: left;">100</td>
 <td style="text-align: left;">number of local move tries per object</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="bburcg" class="level3">
 <h3 class="anchored" data-anchor-id="bburcg">BBURCG</h3>
 <p>Minimize the unweighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#gradient_raw">Gradient_raw</a> (Unweighted gradient condition)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#gradient_raw">Gradient_raw</a> (Unweighted gradient condition)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 78%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">eps</td>
-<td>0</td>
+<td style="text-align: left;">eps</td>
+<td style="text-align: left;">0</td>
 <td style="text-align: left;">Distances need to be at least eps to count as violations</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="bbwrcg" class="level3">
 <h3 class="anchored" data-anchor-id="bbwrcg">BBWRCG</h3>
 <p>Minimize the weighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#gradient_weighted">Gradient_weighted</a> (Weighted gradient condition)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#gradient_weighted">Gradient_weighted</a> (Weighted gradient condition)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 78%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">eps</td>
-<td>0</td>
+<td style="text-align: left;">eps</td>
+<td style="text-align: left;">0</td>
 <td style="text-align: left;">Distances need to be at least eps to count as violations</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="dendser" class="level3">
 <h3 class="anchored" data-anchor-id="dendser">DendSer</h3>
 <p>Dendrogram seriation (Earle and Hurley, 2015).</p>
 <ul>
-<li><p>optimizes: N/A (specified criterion restricted by dendrogram)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>registered by: register_DendSer()</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A (specified criterion restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_DendSer()</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 14%">
+<col style="width: 68%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">h</td>
-<td>NULL</td>
+<td style="text-align: left;">h</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">an hclust object (optional)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">method</td>
-<td>“complete”</td>
+<td style="text-align: left;">method</td>
+<td style="text-align: left;">“complete”</td>
 <td style="text-align: left;">hclust linkage method</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">criterion</td>
-<td>NULL</td>
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">criterion to optimize the dendrogram for</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">DendSer_args</td>
-<td>NULL</td>
+<td style="text-align: left;">DendSer_args</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">more arguments are passed on to DendSer (? DendSer)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="dendser_arc" class="level3">
 <h3 class="anchored" data-anchor-id="dendser_arc">DendSer_ARc</h3>
 <p>Dendrogram seriation for Anti-Robinson form cost (Earle and Hurley, 2015).</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#arc">ARc</a> (Anti-Robinson form cost restricted by dendrogram)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>registered by: register_DendSer()</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#arc">ARc</a> (Anti-Robinson form cost restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_DendSer()</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 14%">
+<col style="width: 68%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">h</td>
-<td>NULL</td>
+<td style="text-align: left;">h</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">an hclust object (optional)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">method</td>
-<td>“complete”</td>
+<td style="text-align: left;">method</td>
+<td style="text-align: left;">“complete”</td>
 <td style="text-align: left;">hclust linkage method</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">criterion</td>
-<td>NULL</td>
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">criterion to optimize the dendrogram for</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">DendSer_args</td>
-<td>NULL</td>
+<td style="text-align: left;">DendSer_args</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">more arguments are passed on to DendSer (? DendSer)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="dendser_bar" class="level3">
 <h3 class="anchored" data-anchor-id="dendser_bar">DendSer_BAR</h3>
 <p>Dendrogram seriation with BAR (Earle and Hurley, 2015).</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#bar">BAR</a> (banded anti-Robinson form restricted by dendrogram)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>registered by: register_DendSer()</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#bar">BAR</a> (banded anti-Robinson form restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_DendSer()</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 14%">
+<col style="width: 68%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">h</td>
-<td>NULL</td>
+<td style="text-align: left;">h</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">an hclust object (optional)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">method</td>
-<td>“complete”</td>
+<td style="text-align: left;">method</td>
+<td style="text-align: left;">“complete”</td>
 <td style="text-align: left;">hclust linkage method</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">criterion</td>
-<td>NULL</td>
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">criterion to optimize the dendrogram for</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">DendSer_args</td>
-<td>NULL</td>
+<td style="text-align: left;">DendSer_args</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">more arguments are passed on to DendSer (? DendSer)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="dendser_lpl" class="level3">
 <h3 class="anchored" data-anchor-id="dendser_lpl">DendSer_LPL</h3>
 <p>Dendrogram seriation for Lazy path length (Earle and Hurley, 2015).</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#lazy_path_length">Lazy_path_length</a> (restricted by dendrogram)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>registered by: register_DendSer()</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#lazy_path_length">Lazy_path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_DendSer()</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 14%">
+<col style="width: 68%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">h</td>
-<td>NULL</td>
+<td style="text-align: left;">h</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">an hclust object (optional)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">method</td>
-<td>“complete”</td>
+<td style="text-align: left;">method</td>
+<td style="text-align: left;">“complete”</td>
 <td style="text-align: left;">hclust linkage method</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">criterion</td>
-<td>NULL</td>
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">criterion to optimize the dendrogram for</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">DendSer_args</td>
-<td>NULL</td>
+<td style="text-align: left;">DendSer_args</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">more arguments are passed on to DendSer (? DendSer)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="dendser_pl" class="level3">
 <h3 class="anchored" data-anchor-id="dendser_pl">DendSer_PL</h3>
 <p>Dendrogram seriation for Path length (Earle and Hurley, 2015).</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>registered by: register_DendSer()</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_DendSer()</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 14%">
+<col style="width: 68%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">h</td>
-<td>NULL</td>
+<td style="text-align: left;">h</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">an hclust object (optional)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">method</td>
-<td>“complete”</td>
+<td style="text-align: left;">method</td>
+<td style="text-align: left;">“complete”</td>
 <td style="text-align: left;">hclust linkage method</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">criterion</td>
-<td>NULL</td>
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">criterion to optimize the dendrogram for</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">DendSer_args</td>
-<td>NULL</td>
+<td style="text-align: left;">DendSer_args</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">more arguments are passed on to DendSer (? DendSer)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="enumerate" class="level3">
 <h3 class="anchored" data-anchor-id="enumerate">Enumerate</h3>
 <p>Enumerate all permutations</p>
 <ul>
-<li><p>optimizes: N/A (set via control criterion))</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A (set via control criterion))</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">criterion</td>
-<td>“Gradient_weighted”</td>
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">“Gradient_weighted”</td>
 <td style="text-align: left;">Criterion measure to optimize</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="ga" class="level3">
 <h3 class="anchored" data-anchor-id="ga">GA</h3>
 <p>Use a genetic algorithm to optimize for various criteria.</p>
 <ul>
-<li><p>optimizes: N/A (specified as parameter criterion)</p></li>
-<li><p>randomized: TRUE</p></li>
-<li><p>registered by: register_GA()</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A (specified as parameter criterion)</li>
+<li>randomized: TRUE</li>
+<li>registered by: register_GA()</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 62%">
+<col style="width: 30%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">criterion</td>
-<td>“BAR”</td>
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">“BAR”</td>
 <td style="text-align: left;">criterion to be optimized</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">suggestions</td>
-<td>c(“TSP”, “QAP_LS”, “Spectral”)</td>
+<td style="text-align: left;">suggestions</td>
+<td style="text-align: left;">c(“TSP”, “QAP_LS”, “Spectral”)</td>
 <td style="text-align: left;">seed the population with these seriation methods</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">selection</td>
-<td>function (object, r = 2/(object@popSize * (object@popSize - 1)), q = 2/object@popSize, …) {</td>
+<td style="text-align: left;">selection</td>
+<td style="text-align: left;">function (object, r = 2/(object@popSize * (object@popSize - 1)), q = 2/object@popSize, …) {</td>
 <td style="text-align: left;">selection operator function</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">crossover</td>
-<td>function (object, parents, …) { if (gaControl(“useRcpp”)) gaperm_oxCrossover_Rcpp(objec</td>
+<td style="text-align: left;">crossover</td>
+<td style="text-align: left;">function (object, parents, …) { if (gaControl(“useRcpp”)) gaperm_oxCrossover_Rcpp(objec</td>
 <td style="text-align: left;">crossover operator function</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">mutation</td>
-<td>function (object, parent, …) { if (runif(1) &gt; ismProb) GA::gaperm_simMutation(object, p</td>
+<td style="text-align: left;">mutation</td>
+<td style="text-align: left;">function (object, parent, …) { if (runif(1) &gt; ismProb) GA::gaperm_simMutation(object, p</td>
 <td style="text-align: left;">mutation operator function</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">pcrossover</td>
-<td>0.8</td>
+<td style="text-align: left;">pcrossover</td>
+<td style="text-align: left;">0.8</td>
 <td style="text-align: left;">probability for crossover</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">pmutation</td>
-<td>0.1</td>
+<td style="text-align: left;">pmutation</td>
+<td style="text-align: left;">0.1</td>
 <td style="text-align: left;">ptobability of mutations</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">popSize</td>
-<td>100</td>
+<td style="text-align: left;">popSize</td>
+<td style="text-align: left;">100</td>
 <td style="text-align: left;">population size</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">maxiter</td>
-<td>1000</td>
+<td style="text-align: left;">maxiter</td>
+<td style="text-align: left;">1000</td>
 <td style="text-align: left;">maximum number of generations</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">run</td>
-<td>50</td>
+<td style="text-align: left;">run</td>
+<td style="text-align: left;">50</td>
 <td style="text-align: left;">stop after run generations without improvement</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">parallel</td>
-<td>FALSE</td>
+<td style="text-align: left;">parallel</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">use multiple cores?</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="gsa" class="level3">
 <h3 class="anchored" data-anchor-id="gsa">GSA</h3>
 <p>Minimize a specified seriation measure (criterion) using simulated annealing.</p>
 <ul>
-<li><p>optimizes: N/A (set via control criterion)</p></li>
-<li><p>randomized: TRUE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A (set via control criterion)</li>
+<li>randomized: TRUE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 15%">
+<col style="width: 68%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">criterion</td>
-<td>“Gradient_raw”</td>
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">“Gradient_raw”</td>
 <td style="text-align: left;">Criterion measure to optimize</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">cool</td>
-<td>0.5</td>
+<td style="text-align: left;">cool</td>
+<td style="text-align: left;">0.5</td>
 <td style="text-align: left;">cooling factor (smaller means faster cooling)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">t_min</td>
-<td>1e-07</td>
+<td style="text-align: left;">t_min</td>
+<td style="text-align: left;">1e-07</td>
 <td style="text-align: left;">stopping temperature</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">localsearch</td>
-<td>“LS_insert”</td>
+<td style="text-align: left;">localsearch</td>
+<td style="text-align: left;">“LS_insert”</td>
 <td style="text-align: left;">used local search move function</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">try_multiplier</td>
-<td>5</td>
+<td style="text-align: left;">try_multiplier</td>
+<td style="text-align: left;">5</td>
 <td style="text-align: left;">number of local move tries per object</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">t0</td>
-<td>NA</td>
+<td style="text-align: left;">t0</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">initial temperature (if NA then it is estimated)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">p_initial_accept</td>
-<td>0.01</td>
+<td style="text-align: left;">p_initial_accept</td>
+<td style="text-align: left;">0.01</td>
 <td style="text-align: left;">Probability to accept a bad move at time 0 (used for t0 estimation)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">warmstart</td>
-<td>“Random”</td>
+<td style="text-align: left;">warmstart</td>
+<td style="text-align: left;">“Random”</td>
 <td style="text-align: left;">permutation or seriation method for warmstart</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="gw" class="level3">
 <h3 class="anchored" data-anchor-id="gw">GW</h3>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by the Gruvaeus and Wainer (1972) heuristic</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">hclust</td>
-<td>NULL</td>
+<td style="text-align: left;">hclust</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">a precomputed hclust object (optional)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">linkage</td>
-<td>“complete”</td>
+<td style="text-align: left;">linkage</td>
+<td style="text-align: left;">“complete”</td>
 <td style="text-align: left;">hclust method</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="gw_average" class="level3">
 <h3 class="anchored" data-anchor-id="gw_average">GW_average</h3>
@@ -789,31 +839,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="hc">HC</h3>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering</p>
 <ul>
-<li><p>optimizes: N/A</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">hclust</td>
-<td>NULL</td>
+<td style="text-align: left;">hclust</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">a precomputed hclust object (optional)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">linkage</td>
-<td>“complete”</td>
+<td style="text-align: left;">linkage</td>
+<td style="text-align: left;">“complete”</td>
 <td style="text-align: left;">hclust method</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="hc_average" class="level3">
 <h3 class="anchored" data-anchor-id="hc_average">HC_average</h3>
@@ -864,367 +914,392 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="isomap">isomap</h3>
 <p>Isometric feature mapping ordination</p>
 <ul>
-<li><p>optimizes: N/A (Stress on shortest path distances)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A (Stress on shortest path distances)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 12%">
+<col style="width: 81%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">k</td>
-<td>30</td>
+<td style="text-align: left;">k</td>
+<td style="text-align: left;">30</td>
 <td style="text-align: left;">number of shortest dissimilarities retained for a point</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">path</td>
-<td>“shortest”</td>
+<td style="text-align: left;">path</td>
+<td style="text-align: left;">“shortest”</td>
 <td style="text-align: left;">method used in to estimate the shortest path (“shortest”/“extended”)</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="isomds" class="level3">
 <h3 class="anchored" data-anchor-id="isomds">isoMDS</h3>
 <p>Order along the 1D Kruskal’s non-metric multidimensional scaling</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (with monotonic transformation)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (with monotonic transformation)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 80%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">add</td>
-<td>1e-09</td>
+<td style="text-align: left;">add</td>
+<td style="text-align: left;">1e-09</td>
 <td style="text-align: left;">small constant to avoid 0 distances</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">maxit</td>
-<td>50</td>
+<td style="text-align: left;">maxit</td>
+<td style="text-align: left;">50</td>
 <td style="text-align: left;">maximum number of iterations</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">trace</td>
-<td>FALSE</td>
+<td style="text-align: left;">trace</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">trace optimization</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">tol</td>
-<td>0.001</td>
+<td style="text-align: left;">tol</td>
+<td style="text-align: left;">0.001</td>
 <td style="text-align: left;">convergence tolerance</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">p</td>
-<td>2</td>
+<td style="text-align: left;">p</td>
+<td style="text-align: left;">2</td>
 <td style="text-align: left;">power for Minkowski distance in the configuration space</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="mds" class="level3">
 <h3 class="anchored" data-anchor-id="mds">MDS</h3>
 <p>Order along the 1D classical metric multidimensional scaling</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (Euclidean distances)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (Euclidean distances)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 9%">
+<col style="width: 85%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">add</td>
-<td>FALSE</td>
+<td style="text-align: left;">add</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">make the distances Euclidean using an additive constant (see ? cmdscale)</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="mds_angle" class="level3">
 <h3 class="anchored" data-anchor-id="mds_angle">MDS_angle</h3>
 <p>Order by the angular order in the 2D MDS projection space split by the larges gap</p>
 <ul>
-<li><p>optimizes: N/A</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 9%">
+<col style="width: 85%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">add</td>
-<td>FALSE</td>
+<td style="text-align: left;">add</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">make the distances Euclidean using an additive constant (see ? cmdscale)</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="mds_smacof" class="level3">
 <h3 class="anchored" data-anchor-id="mds_smacof">MDS_smacof</h3>
 <p>Seriation based on multidemensional scaling using stress majorization (de Leeuw &amp; Mair, 2009).</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#smacof_stress0">smacof_stress0</a> (MDS stress)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>registered by: register_smacof()</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#smacof_stress0">smacof_stress0</a> (MDS stress)</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_smacof()</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 15%">
+<col style="width: 74%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">type</td>
-<td>“ratio”</td>
+<td style="text-align: left;">type</td>
+<td style="text-align: left;">“ratio”</td>
 <td style="text-align: left;">MDS type: “interval”, “ratio”, “ordinal” (nonmetric MDS)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">init</td>
-<td>“torgerson”</td>
+<td style="text-align: left;">init</td>
+<td style="text-align: left;">“torgerson”</td>
 <td style="text-align: left;">start configuration method (“torgerson”/“random”)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">relax</td>
-<td>FALSE</td>
+<td style="text-align: left;">relax</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">use block relaxation for majorization?</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">modulus</td>
-<td>1</td>
+<td style="text-align: left;">modulus</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">number of smacof iterations per monotone regression call</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">itmax</td>
-<td>1000</td>
+<td style="text-align: left;">itmax</td>
+<td style="text-align: left;">1000</td>
 <td style="text-align: left;">maximum number of iterations</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">eps</td>
-<td>1e-06</td>
+<td style="text-align: left;">eps</td>
+<td style="text-align: left;">1e-06</td>
 <td style="text-align: left;">convergence criterion</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="metamds" class="level3">
 <h3 class="anchored" data-anchor-id="metamds">metaMDS</h3>
 <p>Nonmetric Multidimensional Scaling with Stable Solution from Random Starts.</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (Kruskal’s monotone regression stress)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (Kruskal’s monotone regression stress)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">distance</td>
-<td>“bray”</td>
+<td style="text-align: left;">distance</td>
+<td style="text-align: left;">“bray”</td>
 <td style="text-align: left;">see ? metaMDS for help</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">try</td>
-<td>20</td>
+<td style="text-align: left;">try</td>
+<td style="text-align: left;">20</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">trymax</td>
-<td>20</td>
+<td style="text-align: left;">trymax</td>
+<td style="text-align: left;">20</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">engine</td>
-<td>“monoMDS”</td>
+<td style="text-align: left;">engine</td>
+<td style="text-align: left;">“monoMDS”</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">autotransform</td>
-<td>TRUE</td>
+<td style="text-align: left;">autotransform</td>
+<td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">noshare</td>
-<td>FALSE</td>
+<td style="text-align: left;">noshare</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">wascores</td>
-<td>TRUE</td>
+<td style="text-align: left;">wascores</td>
+<td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">expand</td>
-<td>TRUE</td>
+<td style="text-align: left;">expand</td>
+<td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">trace</td>
-<td>0</td>
+<td style="text-align: left;">trace</td>
+<td style="text-align: left;">0</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">plot</td>
-<td>FALSE</td>
+<td style="text-align: left;">plot</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">previous.best</td>
-<td></td>
+<td style="text-align: left;">previous.best</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="monomds" class="level3">
 <h3 class="anchored" data-anchor-id="monomds">monoMDS</h3>
 <p>Kruskal’s (1964a,b) non-metric multidimensional scaling (NMDS) using monotone regression.</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (Kruskal’s monotone regression stress)</p></li>
-<li><p>randomized: TRUE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (Kruskal’s monotone regression stress)</li>
+<li>randomized: TRUE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">y</td>
-<td></td>
+<td style="text-align: left;">y</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">See ? monoMDS for help</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">model</td>
-<td>“global”</td>
+<td style="text-align: left;">model</td>
+<td style="text-align: left;">“global”</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">threshold</td>
-<td>0.8</td>
+<td style="text-align: left;">threshold</td>
+<td style="text-align: left;">0.8</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">maxit</td>
-<td>200</td>
+<td style="text-align: left;">maxit</td>
+<td style="text-align: left;">200</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">weakties</td>
-<td>TRUE</td>
+<td style="text-align: left;">weakties</td>
+<td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">stress</td>
-<td>1</td>
+<td style="text-align: left;">stress</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">scaling</td>
-<td>TRUE</td>
+<td style="text-align: left;">scaling</td>
+<td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">pc</td>
-<td>TRUE</td>
+<td style="text-align: left;">pc</td>
+<td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">smin</td>
-<td>1e-04</td>
+<td style="text-align: left;">smin</td>
+<td style="text-align: left;">1e-04</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">sfgrmin</td>
-<td>1e-07</td>
+<td style="text-align: left;">sfgrmin</td>
+<td style="text-align: left;">1e-07</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">sratmax</td>
-<td>0.999999</td>
+<td style="text-align: left;">sratmax</td>
+<td style="text-align: left;">0.999999</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="olo" class="level3">
 <h3 class="anchored" data-anchor-id="olo">OLO</h3>
 <p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001)</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">hclust</td>
-<td>NULL</td>
+<td style="text-align: left;">hclust</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">a precomputed hclust object (optional)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">linkage</td>
-<td>“complete”</td>
+<td style="text-align: left;">linkage</td>
+<td style="text-align: left;">“complete”</td>
 <td style="text-align: left;">hclust method</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="olo_average" class="level3">
 <h3 class="anchored" data-anchor-id="olo_average">OLO_average</h3>
@@ -1266,32 +1341,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="optics">optics</h3>
 <p>Use ordering points to identify the clustering structure (OPTICS) to create an order</p>
 <ul>
-<li><p>optimizes: N/A</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>registered by: register_optics()</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_optics()</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 81%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">eps</td>
-<td>NULL</td>
+<td style="text-align: left;">eps</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">upper limit of the size of the epsilon neighborhood (see ? optics)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">minPts</td>
-<td>5</td>
+<td style="text-align: left;">minPts</td>
+<td style="text-align: left;">5</td>
 <td style="text-align: left;">minimum density for dense neighborhoods</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="qap_2sum" class="level3">
 <h3 class="anchored" data-anchor-id="qap_2sum">QAP_2SUM</h3>
@@ -1306,26 +1386,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="qap_bar">QAP_BAR</h3>
 <p>Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the banded anti-Robinson form (Hahsler, 2017).</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#bar">BAR</a> (Banded anti-robinson form)</p></li>
-<li><p>randomized: TRUE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#bar">BAR</a> (Banded anti-robinson form)</li>
+<li>randomized: TRUE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">b</td>
-<td>function (n) max(1, floor(n * 0.2))</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: left;">function (n) max(1, floor(n * 0.2))</td>
 <td style="text-align: left;">bandwidth (default is 20%)</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="qap_inertia" class="level3">
 <h3 class="anchored" data-anchor-id="qap_inertia">QAP_Inertia</h3>
@@ -1376,91 +1456,101 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="sammon_mapping">Sammon_mapping</h3>
 <p>Order along the 1D Sammon’s non-linear mapping</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (scale free, weighted stress called Sammon’s error)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (scale free, weighted stress called Sammon’s error)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 82%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">add</td>
-<td>1e-09</td>
+<td style="text-align: left;">add</td>
+<td style="text-align: left;">1e-09</td>
 <td style="text-align: left;">small constant to avoid 0 distances</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">niter</td>
-<td>100</td>
+<td style="text-align: left;">niter</td>
+<td style="text-align: left;">100</td>
 <td style="text-align: left;">maximum number of iterations</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">trace</td>
-<td>FALSE</td>
+<td style="text-align: left;">trace</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">trace optimization</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">magic</td>
-<td>0.2</td>
+<td style="text-align: left;">magic</td>
+<td style="text-align: left;">0.2</td>
 <td style="text-align: left;">initial value of the step size constant in diagonal Newton method</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">tol</td>
-<td>1e-04</td>
+<td style="text-align: left;">tol</td>
+<td style="text-align: left;">1e-04</td>
 <td style="text-align: left;">tolerance for stopping in units of stress</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="sgd" class="level3">
 <h3 class="anchored" data-anchor-id="sgd">SGD</h3>
 <p>Improve an existing solution using stochastic gradient descent.</p>
 <ul>
-<li><p>optimizes: N/A (set via control criterion)</p></li>
-<li><p>randomized: TRUE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A (set via control criterion)</li>
+<li>randomized: TRUE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 20%">
+<col style="width: 64%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">criterion</td>
-<td>“Gradient_raw”</td>
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">“Gradient_raw”</td>
 <td style="text-align: left;">Criterion measure to optimize</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">init</td>
-<td>“Spectral”</td>
+<td style="text-align: left;">init</td>
+<td style="text-align: left;">“Spectral”</td>
 <td style="text-align: left;">Start permutation or name of a seriation method</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">max_iter</td>
-<td>NULL</td>
+<td style="text-align: left;">max_iter</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">number of iterations</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">localsearch</td>
-<td>“LS_insert”</td>
+<td style="text-align: left;">localsearch</td>
+<td style="text-align: left;">“LS_insert”</td>
 <td style="text-align: left;">used local search move function</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="spectral" class="level3">
 <h3 class="anchored" data-anchor-id="spectral">Spectral</h3>
@@ -1484,298 +1574,313 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="spin_nh">SPIN_NH</h3>
 <p>Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Neighborhood algorithm to concentrate low distance values around the diagonal.</p>
 <ul>
-<li><p>optimizes: N/A (Energy)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A (Energy)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 32%">
+<col style="width: 57%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">sigma</td>
-<td>c(20, 17, 15, 13, 11, 9, 7, 5, 3, 1)</td>
+<td style="text-align: left;">sigma</td>
+<td style="text-align: left;">c(20, 17, 15, 13, 11, 9, 7, 5, 3, 1)</td>
 <td style="text-align: left;">emphasize local (small alpha) or global (large alpha) structure.</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">step</td>
-<td>5</td>
+<td style="text-align: left;">step</td>
+<td style="text-align: left;">5</td>
 <td style="text-align: left;">iterations to run for each sigma value.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">W_function</td>
-<td>NULL</td>
+<td style="text-align: left;">W_function</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">custom function to create the weight matrix W</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="spin_sts" class="level3">
 <h3 class="anchored" data-anchor-id="spin_sts">SPIN_STS</h3>
 <p>Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Side-to-Side algorithm which tries to push out large distance values.</p>
 <ul>
-<li><p>optimizes: N/A (Energy)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A (Energy)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 43%">
+<col style="width: 45%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">step</td>
-<td>25L</td>
+<td style="text-align: left;">step</td>
+<td style="text-align: left;">25L</td>
 <td style="text-align: left;">iterations to run</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">nstart</td>
-<td>10L</td>
+<td style="text-align: left;">nstart</td>
+<td style="text-align: left;">10L</td>
 <td style="text-align: left;">number of random restarts</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">X</td>
-<td>function (n) seq(n) - (n + 1)/2</td>
+<td style="text-align: left;">X</td>
+<td style="text-align: left;">function (n) seq(n) - (n + 1)/2</td>
 <td style="text-align: left;">matrix to calculate the W matrix</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="tsne" class="level3">
 <h3 class="anchored" data-anchor-id="tsne">tsne</h3>
 <p>Use 1D t-distributed stochastic neighbor embedding (t-SNE) a distance matrix to create an order (van der Maaten and Hinton, 2008).</p>
 <ul>
-<li><p>optimizes: N/A</p></li>
-<li><p>randomized: TRUE</p></li>
-<li><p>registered by: register_tsne()</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A</li>
+<li>randomized: TRUE</li>
+<li>registered by: register_tsne()</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 10%">
+<col style="width: 73%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">max_iter</td>
-<td>1000</td>
+<td style="text-align: left;">max_iter</td>
+<td style="text-align: left;">1000</td>
 <td style="text-align: left;">number of iterations</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">theta</td>
-<td>0.5</td>
+<td style="text-align: left;">theta</td>
+<td style="text-align: left;">0.5</td>
 <td style="text-align: left;">speed/accuracy trade-off (increase for less accuracy)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">perplexity</td>
-<td>NULL</td>
+<td style="text-align: left;">perplexity</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">perplexity parameter (calculated as n - 1 / 3)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">eta</td>
-<td>100</td>
+<td style="text-align: left;">eta</td>
+<td style="text-align: left;">100</td>
 <td style="text-align: left;">learning rate</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">mds</td>
-<td>TRUE</td>
+<td style="text-align: left;">mds</td>
+<td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">start from a classical MDS solution</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="tsp" class="level3">
 <h3 class="anchored" data-anchor-id="tsp">TSP</h3>
 <p>Minimize Hamiltonian path length with a TSP solver.</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a></p></li>
-<li><p>randomized: TRUE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a></li>
+<li>randomized: TRUE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">method</td>
-<td>“arbitrary insertion”</td>
+<td style="text-align: left;">method</td>
+<td style="text-align: left;">“arbitrary insertion”</td>
 <td style="text-align: left;">used TSP method (see ? solve_TSP)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">rep</td>
-<td>10</td>
+<td style="text-align: left;">rep</td>
+<td style="text-align: left;">10</td>
 <td style="text-align: left;">number of random restarts</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">two_opt</td>
-<td>TRUE</td>
+<td style="text-align: left;">two_opt</td>
+<td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">use the 2-opt improvement heuristic?</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="umap" class="level3">
 <h3 class="anchored" data-anchor-id="umap">umap</h3>
 <p>Use 1D Uniform manifold approximation and projection (UMAP) embedding of the distances to create an order (McInnes and Healy, 2018)</p>
 <ul>
-<li><p>optimizes: N/A</p></li>
-<li><p>randomized: TRUE</p></li>
-<li><p>registered by: register_umap()</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A</li>
+<li>randomized: TRUE</li>
+<li>registered by: register_umap()</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">n_neighbors</td>
-<td>NA</td>
+<td style="text-align: left;">n_neighbors</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">see ? umap::umap for help</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">n_components</td>
-<td>1</td>
+<td style="text-align: left;">n_components</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">metric</td>
-<td>“euclidean”</td>
+<td style="text-align: left;">metric</td>
+<td style="text-align: left;">“euclidean”</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">n_epochs</td>
-<td>1000</td>
+<td style="text-align: left;">n_epochs</td>
+<td style="text-align: left;">1000</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">input</td>
-<td>NA</td>
+<td style="text-align: left;">input</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">init</td>
-<td>“spectral”</td>
+<td style="text-align: left;">init</td>
+<td style="text-align: left;">“spectral”</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">min_dist</td>
-<td>0.1</td>
+<td style="text-align: left;">min_dist</td>
+<td style="text-align: left;">0.1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">set_op_mix_ratio</td>
-<td>1</td>
+<td style="text-align: left;">set_op_mix_ratio</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">local_connectivity</td>
-<td>1</td>
+<td style="text-align: left;">local_connectivity</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">bandwidth</td>
-<td>1</td>
+<td style="text-align: left;">bandwidth</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">alpha</td>
-<td>0.001</td>
+<td style="text-align: left;">alpha</td>
+<td style="text-align: left;">0.001</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">gamma</td>
-<td>1</td>
+<td style="text-align: left;">gamma</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">negative_sample_rate</td>
-<td>5</td>
+<td style="text-align: left;">negative_sample_rate</td>
+<td style="text-align: left;">5</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">a</td>
-<td>NA</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">b</td>
-<td>NA</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">spread</td>
-<td>1</td>
+<td style="text-align: left;">spread</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">random_state</td>
-<td>NA</td>
+<td style="text-align: left;">random_state</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">transform_state</td>
-<td>NA</td>
+<td style="text-align: left;">transform_state</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">knn</td>
-<td>NA</td>
+<td style="text-align: left;">knn</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">knn_repeats</td>
-<td>1</td>
+<td style="text-align: left;">knn_repeats</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">umap_learn_args</td>
-<td>NA</td>
+<td style="text-align: left;">umap_learn_args</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="vat" class="level3">
 <h3 class="anchored" data-anchor-id="vat">VAT</h3>
@@ -1811,111 +1916,116 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="bea_tsp">BEA_TSP</h3>
 <p>Use a TSP to optimize the Measure of Effectiveness (Lenstra 1974).</p>
 <ul>
-<li><p>optimizes: <a href="seriation_criteria.html#me">ME</a> (Measure of effectiveness)</p></li>
-<li><p>randomized: TRUE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: <a href="seriation_criteria.html#me">ME</a> (Measure of effectiveness)</li>
+<li>randomized: TRUE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">method</td>
-<td>“arbitrary insertion”</td>
+<td style="text-align: left;">method</td>
+<td style="text-align: left;">“arbitrary insertion”</td>
 <td style="text-align: left;">used TSP method (see ? solve_TSP)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">rep</td>
-<td>10</td>
+<td style="text-align: left;">rep</td>
+<td style="text-align: left;">10</td>
 <td style="text-align: left;">number of random restarts</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">two_opt</td>
-<td>TRUE</td>
+<td style="text-align: left;">two_opt</td>
+<td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">use the 2-opt improvement heuristic?</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="ca" class="level3">
 <h3 class="anchored" data-anchor-id="ca">CA</h3>
 <p>This method calculates a correspondence analysis of the matrix and computes an order according to the scores on a correspondence analysis dimension.</p>
 <ul>
-<li><p>optimizes: N/A</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">dim</td>
-<td>1L</td>
+<td style="text-align: left;">dim</td>
+<td style="text-align: left;">1L</td>
 <td style="text-align: left;">CA dimension used for reordering</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">ca_param</td>
-<td>NULL</td>
+<td style="text-align: left;">ca_param</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">List with parameters for the call to ca::ca()</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="heatmap" class="level3">
 <h3 class="anchored" data-anchor-id="heatmap">Heatmap</h3>
 <p>Calculates distances for rows and columns and then independently applies the specified seriation method for distances.</p>
 <ul>
-<li><p>optimizes: N/A</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 54%">
+<col style="width: 35%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">dist_fun</td>
-<td>list(row = function (x, method = “euclidean”, diag = FALSE, upper = FALSE, p = 2) { if (!is.n</td>
+<td style="text-align: left;">dist_fun</td>
+<td style="text-align: left;">list(row = function (x, method = “euclidean”, diag = FALSE, upper = FALSE, p = 2) { if (!is.n</td>
 <td style="text-align: left;">A named list with functions to calulate row and column distances</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">seriation_method</td>
-<td>list(row = “OLO_complete”, col = “OLO_complete”)</td>
+<td style="text-align: left;">seriation_method</td>
+<td style="text-align: left;">list(row = “OLO_complete”, col = “OLO_complete”)</td>
 <td style="text-align: left;">A named list with row and column seriation methods</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">seriation_control</td>
-<td>list(row = NULL, col = NULL)</td>
+<td style="text-align: left;">seriation_control</td>
+<td style="text-align: left;">list(row = NULL, col = NULL)</td>
 <td style="text-align: left;">named list with control parameters for the seriation methods</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">scale</td>
-<td>“none”</td>
+<td style="text-align: left;">scale</td>
+<td style="text-align: left;">“none”</td>
 <td style="text-align: left;">Scale “rows”, “cols”, or “none”</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="identity-1" class="level3">
 <h3 class="anchored" data-anchor-id="identity-1">Identity</h3>
@@ -1930,126 +2040,131 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="lle">LLE</h3>
 <p>Find an order using 1D locally linear embedding.</p>
 <ul>
-<li><p>optimizes: N/A</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">k</td>
-<td>30</td>
+<td style="text-align: left;">k</td>
+<td style="text-align: left;">30</td>
 <td style="text-align: left;">used number of neighbors</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">reg</td>
-<td>2</td>
+<td style="text-align: left;">reg</td>
+<td style="text-align: left;">2</td>
 <td style="text-align: left;">regularization method (see ? lle)</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="mean" class="level3">
 <h3 class="anchored" data-anchor-id="mean">Mean</h3>
 <p>Reorders rows and columns by row and column means.</p>
 <ul>
-<li><p>optimizes: N/A</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 8%">
+<col style="width: 75%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">transformation</td>
-<td>NULL</td>
+<td style="text-align: left;">transformation</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">transformation function applied before calculating means (e.g., scale)</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="pca" class="level3">
 <h3 class="anchored" data-anchor-id="pca">PCA</h3>
 <p>Uses the projection of the data on its first principal component to determine the order.</p>
 <ul>
-<li><p>optimizes: N/A (Least squares for each dimension (for Euclidean distances).)</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A (Least squares for each dimension (for Euclidean distances).)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">center</td>
-<td>TRUE</td>
+<td style="text-align: left;">center</td>
+<td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">center the data (mean = 0)?</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">scale</td>
-<td>FALSE</td>
+<td style="text-align: left;">scale</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">scale to unit variance?</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">FALSE</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="pca_angle" class="level3">
 <h3 class="anchored" data-anchor-id="pca_angle">PCA_angle</h3>
 <p>Uses the angular order in the 2D PCA projection space split by the larges gap.</p>
 <ul>
-<li><p>optimizes: N/A</p></li>
-<li><p>randomized: FALSE</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">center</td>
-<td>TRUE</td>
+<td style="text-align: left;">center</td>
+<td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">center the data (mean = 0)?</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">scale</td>
-<td>FALSE</td>
+<td style="text-align: left;">scale</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">scale to unit variance?</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">FALSE</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="random-1" class="level3">
 <h3 class="anchored" data-anchor-id="random-1">Random</h3>
@@ -2073,178 +2188,183 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="tsne-1">tsne</h3>
 <p>Use 1D t-distributed stochastic neighbor embedding (t-SNE) of the rows of a matrix to create an order (van der Maaten and Hinton, 2008).</p>
 <ul>
-<li><p>optimizes: N/A</p></li>
-<li><p>randomized: TRUE</p></li>
-<li><p>registered by: register_tsne()</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A</li>
+<li>randomized: TRUE</li>
+<li>registered by: register_tsne()</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 10%">
+<col style="width: 73%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">max_iter</td>
-<td>1000</td>
+<td style="text-align: left;">max_iter</td>
+<td style="text-align: left;">1000</td>
 <td style="text-align: left;">number of iterations</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">theta</td>
-<td>0.5</td>
+<td style="text-align: left;">theta</td>
+<td style="text-align: left;">0.5</td>
 <td style="text-align: left;">speed/accuracy trade-off (increase for less accuracy)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">perplexity</td>
-<td>NULL</td>
+<td style="text-align: left;">perplexity</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">perplexity parameter (calculated as n - 1 / 3)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">eta</td>
-<td>100</td>
+<td style="text-align: left;">eta</td>
+<td style="text-align: left;">100</td>
 <td style="text-align: left;">learning rate</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">pca</td>
-<td>TRUE</td>
+<td style="text-align: left;">pca</td>
+<td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">start the PCA solution</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="umap-1" class="level3">
 <h3 class="anchored" data-anchor-id="umap-1">umap</h3>
 <p>Use 1D Uniform manifold approximation and projection (UMAP) embedding of the data to create an order (McInnes and Healy, 2018)</p>
 <ul>
-<li><p>optimizes: N/A</p></li>
-<li><p>randomized: TRUE</p></li>
-<li><p>registered by: register_umap()</p></li>
-<li><p>control parameters:</p>
+<li>optimizes: N/A</li>
+<li>randomized: TRUE</li>
+<li>registered by: register_umap()</li>
+<li>control parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">n_neighbors</td>
-<td>NA</td>
+<td style="text-align: left;">n_neighbors</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">see ? umap::umap for help</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">n_components</td>
-<td>1</td>
+<td style="text-align: left;">n_components</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">metric</td>
-<td>“euclidean”</td>
+<td style="text-align: left;">metric</td>
+<td style="text-align: left;">“euclidean”</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">n_epochs</td>
-<td>1000</td>
+<td style="text-align: left;">n_epochs</td>
+<td style="text-align: left;">1000</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">input</td>
-<td>NA</td>
+<td style="text-align: left;">input</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">init</td>
-<td>“spectral”</td>
+<td style="text-align: left;">init</td>
+<td style="text-align: left;">“spectral”</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">min_dist</td>
-<td>0.1</td>
+<td style="text-align: left;">min_dist</td>
+<td style="text-align: left;">0.1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">set_op_mix_ratio</td>
-<td>1</td>
+<td style="text-align: left;">set_op_mix_ratio</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">local_connectivity</td>
-<td>1</td>
+<td style="text-align: left;">local_connectivity</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">bandwidth</td>
-<td>1</td>
+<td style="text-align: left;">bandwidth</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">alpha</td>
-<td>0.001</td>
+<td style="text-align: left;">alpha</td>
+<td style="text-align: left;">0.001</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">gamma</td>
-<td>1</td>
+<td style="text-align: left;">gamma</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">negative_sample_rate</td>
-<td>5</td>
+<td style="text-align: left;">negative_sample_rate</td>
+<td style="text-align: left;">5</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">a</td>
-<td>NA</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">b</td>
-<td>NA</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">spread</td>
-<td>1</td>
+<td style="text-align: left;">spread</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">random_state</td>
-<td>NA</td>
+<td style="text-align: left;">random_state</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">transform_state</td>
-<td>NA</td>
+<td style="text-align: left;">transform_state</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">knn</td>
-<td>NA</td>
+<td style="text-align: left;">knn</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">knn_repeats</td>
-<td>1</td>
+<td style="text-align: left;">knn_repeats</td>
+<td style="text-align: left;">1</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">verbose</td>
-<td>FALSE</td>
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">umap_learn_args</td>
-<td>NA</td>
+<td style="text-align: left;">umap_learn_args</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">N/A</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 </section>
 <section id="references" class="level1">

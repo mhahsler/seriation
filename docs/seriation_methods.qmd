@@ -74,7 +74,6 @@ print_seriation_method_md <- function(x, add_link = TRUE, ...) {
 
 
 .print_control <- function(control,
-                           label = "default values",
                            help = TRUE,
                            trim_values = 30L) {
   if (length(control) < 1L) {
@@ -87,7 +86,7 @@ print_seriation_method_md <- function(x, add_link = TRUE, ...) {
     )
 
     contr <- as.data.frame(t(as.data.frame(contr)))
-    colnames(contr) <- c(label)
+    colnames(contr) <- c("default")
 
     contr <- cbind(contr, help = "N/A")
     if (!is.null(attr(control, "help")))
@@ -96,8 +95,7 @@ print_seriation_method_md <- function(x, add_link = TRUE, ...) {
         if (!is.null(hlp))
         contr[["help"]][i] <- hlp
       }
-
-    print(knitr::kable(contr, format = "simple"))
+    print(knitr::kable(contr))
   }
 
 }

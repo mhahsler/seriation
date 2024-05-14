@@ -198,26 +198,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="bar">BAR</h3>
 <p>Banded Anti-Robinson form criterion: Measure for closeness to the anti-Robinson form in a band of size b (Earle and Hurley, 2015).</p>
 <ul>
-<li><p>merit: FALSE</p></li>
-<li><p>optimized by: <a href="seriation_methods.html#qap_bar">QAP_BAR</a>, <a href="seriation_methods.html#dendser_bar">DendSer_BAR</a></p></li>
-<li><p>additional parameters:</p>
+<li>merit: FALSE</li>
+<li>optimized by: <a href="seriation_methods.html#qap_bar">QAP_BAR</a>, <a href="seriation_methods.html#dendser_bar">DendSer_BAR</a></li>
+<li>additional parameters:</li>
+</ul>
 <table class="table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">b</td>
-<td>NULL</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">band size defaults to a band of 20% of n</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="gradient_raw" class="level3">
 <h3 class="anchored" data-anchor-id="gradient_raw">Gradient_raw</h3>
@@ -277,26 +277,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="mds_stress">MDS_stress</h3>
 <p>Normalized stress of a configuration given by a seriation order</p>
 <ul>
-<li><p>merit: FALSE</p></li>
-<li><p>optimized by: <a href="seriation_methods.html#mds">MDS</a>, <a href="seriation_methods.html#isomds">isoMDS</a>, <a href="seriation_methods.html#sammon_mapping">Sammon_mapping</a>, <a href="seriation_methods.html#monomds">monoMDS</a>, <a href="seriation_methods.html#metamds">metaMDS</a></p></li>
-<li><p>additional parameters:</p>
+<li>merit: FALSE</li>
+<li>optimized by: <a href="seriation_methods.html#mds">MDS</a>, <a href="seriation_methods.html#isomds">isoMDS</a>, <a href="seriation_methods.html#sammon_mapping">Sammon_mapping</a>, <a href="seriation_methods.html#monomds">monoMDS</a>, <a href="seriation_methods.html#metamds">metaMDS</a></li>
+<li>additional parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 7%">
+<col style="width: 88%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">warn</td>
-<td>FALSE</td>
+<td style="text-align: left;">warn</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">produce a warning if the 1D MDS fit does not preserve the given order (see ? seriation::uniscale).</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="me" class="level3">
 <h3 class="anchored" data-anchor-id="me">ME</h3>
@@ -338,36 +343,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="rgar">RGAR</h3>
 <p>Relative generalized anti-Robinson events: Counts Anti-Robinson events in a variable band of size w around the main diagonal and normalizes by the maximum of possible events (Tien et al, 2008).</p>
 <ul>
-<li><p>merit: FALSE</p></li>
-<li><p>optimized by: N/A</p></li>
-<li><p>additional parameters:</p>
+<li>merit: FALSE</li>
+<li>optimized by: N/A</li>
+<li>additional parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 83%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">w</td>
-<td>NULL</td>
+<td style="text-align: left;">w</td>
+<td style="text-align: left;">NULL</td>
 <td style="text-align: left;">window size. Default is to use a pct of 100% of n</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">pct</td>
-<td>100</td>
+<td style="text-align: left;">pct</td>
+<td style="text-align: left;">100</td>
 <td style="text-align: left;">specify w as a percentage of n in (0,100]</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">relative</td>
-<td>TRUE</td>
+<td style="text-align: left;">relative</td>
+<td style="text-align: left;">TRUE</td>
 <td style="text-align: left;">set to FALSE to get the GAR, i.e., the absolute number of AR events in the window.</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 <section id="rho" class="level3">
 <h3 class="anchored" data-anchor-id="rho">Rho</h3>
@@ -382,37 +392,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="smacof_stress0">smacof_stress0</h3>
 <p>Stress0 calculated for different transformation types from package smacof.</p>
 <ul>
-<li><p>merit: FALSE</p></li>
-<li><p>optimized by: <a href="seriation_methods.html#mds_smacof">MDS_smacof</a></p></li>
-<li><p>registered by: register_smacof()</p></li>
-<li><p>additional parameters:</p>
+<li>merit: FALSE</li>
+<li>optimized by: <a href="seriation_methods.html#mds_smacof">MDS_smacof</a></li>
+<li>registered by: register_smacof()</li>
+<li>additional parameters:</li>
+</ul>
 <table class="table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 7%">
+<col style="width: 88%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: right;">de</th>
-<th>fault values he</th>
-<th style="text-align: left;">lp</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">type</td>
-<td>“ratio”</td>
+<td style="text-align: left;">type</td>
+<td style="text-align: left;">“ratio”</td>
 <td style="text-align: left;">MDS type (see ? smacof::stress0)</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">warn</td>
-<td>FALSE</td>
+<td style="text-align: left;">warn</td>
+<td style="text-align: left;">FALSE</td>
 <td style="text-align: left;">produce a warning if the 1D MDS fit does not preserve the given order (see ? seriation::uniscale).</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">more</td>
-<td>NA</td>
+<td style="text-align: left;">more</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">more arguments are passed on to smacof::stress0.</td>
 </tr>
 </tbody>
-</table></li>
-</ul>
+</table>
 </section>
 </section>
 <section id="criteria-for-data-matrices-tables-and-data.frames" class="level2">
