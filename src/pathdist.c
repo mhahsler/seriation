@@ -1,6 +1,6 @@
 /*
  * seriation - Infrastructure for seriation
- * Copyrigth (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
+ * Copyright (C) 2011 Michael Hahsler, Christian Buchta and Kurt Hornik
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

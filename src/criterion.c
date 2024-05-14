@@ -371,3 +371,49 @@ SEXP bar(SEXP R_dist, SEXP R_order, SEXP R_b) {
 
   return R_out;
 }
+
+
+/*
+ * Measure of effectiveness ME (McCormick et al, 1972)
+ */
+SEXP measure_of_effectiveness(SEXP R_mat, SEXP R_order_row, SEXP R_order_col) {
+
+  int *o_row = INTEGER(R_order_row);
+  int *o_col = INTEGER(R_order_col);
+  double *x = REAL(R_mat);
+  int nrow = INTEGER(getAttrib(R_mat, install("dim")))[0];
+  int ncol = INTEGER(getAttrib(R_mat, install("dim")))[1];
+
+  SEXP R_out;
+  double m = 0;
+  double s;
+  int i, j, ii, jj;
+
+  if (nrow != LENGTH(R_order_row) || ncol!= LENGTH(R_order_col))
+    error("dimenstions of matrix and order do not match!");
+
+  for (i = 0; i < nrow; ++i) {
+    for (j = 0; j < ncol; ++j) {
+      ii = o_row[i] - 1;
+      jj = o_col[j] - 1;
+
+      s = 0;
+      if(i > 0)  s += x[M_POS(nrow, o_row[i - 1] - 1, jj)];
+      if(i < (nrow - 1))  s += x[M_POS(nrow, o_row[i + 1] - 1, jj)];
+      if(j > 0)  s += x[M_POS(nrow, ii, o_col[j - 1] - 1)];
+      if(j < (ncol - 1))  s += x[M_POS(nrow, ii, o_col[j + 1] - 1)];
+
+      m += x[M_POS(nrow, ii, jj)] * s;
+    }
+  }
+
+  m = .5 * m;
+
+  // create R object
+  PROTECT(R_out = NEW_NUMERIC(1));
+  REAL(R_out)[0] = m;
+  UNPROTECT(1);
+
+  return R_out;
+}
+

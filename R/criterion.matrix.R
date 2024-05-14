@@ -38,17 +38,32 @@ criterion.table <- criterion.matrix
 criterion_ME <- function(x, order = NULL, ...) {
   # ... unused
 
-  if (any(x < 0)) {
-    warning("Bond energy (ME) is only defined for nonnegative matrices. Returning NA.")
+  if (!is.matrix(x))
+    stop("Argument 'x' must be a matrix.")
+  if (!is.double(x))
+    mode(x) <- "double"
+
+  if (any(x < 0) || any(is.infinite(x)) || any(is.na(x))) {
+    warning("Bond energy (ME) is only defined for nonnegative finite matrices. Returning NA.")
     return(NA_real_)
   }
 
-  ### TODO: This could be done with less memory utilization in C
-  if (!is.null(order)) x <- permute(x, order)
-  .5 * sum(x * (rbind(0, x[-nrow(x), , drop = FALSE]) +
-    rbind(x[-1L, , drop = FALSE], 0) +
-    cbind(0, x[, -ncol(x), drop = FALSE]) +
-    cbind(x[, -1L , drop = FALSE], 0)))
+  if (is.null(order)) {
+    rows <- seq(dim(x)[1])
+    cols <- seq(dim(x)[2])
+  } else{
+    rows <- get_order(order, 1)
+    cols <- get_order(order, 2)
+  }
+
+  .Call("measure_of_effectiveness", x, rows, cols)
+
+  ### The R version needs lots of memory
+  #if (!is.null(order)) x <- permute(x, order)
+  #.5 * sum(x * (rbind(0, x[-nrow(x), , drop = FALSE]) +
+  #  rbind(x[-1L, , drop = FALSE], 0) +
+  #  cbind(0, x[, -ncol(x), drop = FALSE]) +
+  #  cbind(x[, -1L , drop = FALSE], 0)))
 }
 
 
@@ -67,8 +82,8 @@ criterion_ME <- function(x, order = NULL, ...) {
     mode(x) <- "double"
 
   if (is.null(order)) {
-    rows <- as.integer(1:dim(x)[1])
-    cols <- as.integer(1:dim(x)[2])
+    rows <- seq(dim(x)[1])
+    cols <- seq(dim(x)[2])
   } else{
     rows <- get_order(order, 1)
     cols <- get_order(order, 2)
@@ -85,6 +100,7 @@ criterion_ME <- function(x, order = NULL, ...) {
 criterion_stress_moore <-
   function(x, order, ...)
     .stress(x, order, "moore")
+
 criterion_stress_neumann <-
   function(x, order, ...)
     .stress(x, order, "neumann")

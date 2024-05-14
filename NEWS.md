@@ -5,6 +5,7 @@
 
 ## Changes
 - We replaced the FORTRAN implementation for BEA with code from package TSP.
+- ME is now calculated using C code.
 
 ## Bug Fixes
 - Added two missing package anchors to palette man page.

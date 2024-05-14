@@ -13,7 +13,9 @@
 #endif
 
 
-/* M_POS to access matrix column-major order by i and j index (starts with 1) */
+/* M_POS to access matrix column-major order by i and j index (starts with 1)
+ * n is the number of rows
+ */
 
 #ifndef M_POS
 #define M_POS(n, i, j) ((i)+(R_xlen_t)(n)*(j))
