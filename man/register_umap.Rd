@@ -60,8 +60,8 @@ plot_config(o[[1]], col = class)
 }
 }
 \references{
-McInnes, L, Healy, J, UMAP: Uniform Manifold Approximation and
-Projection for Dimension Reduction, ArXiv e-prints 1802.03426, 2018
+McInnes, L and Healy, J, UMAP: Uniform Manifold Approximation and
+Projection for Dimension Reduction, ArXiv e-prints 1802.03426, 2018.
 }
 \seealso{
 \code{\link[umap:umap]{umap::umap()}} in \pkg{umap}.
