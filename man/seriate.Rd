@@ -414,8 +414,6 @@ energy if a better initial column/row is chosen.
 Arabie and Hubert (1990) question its use with non-binary data if
 the objective is to find a seriation or one-dimensional orderings of rows
 and columns.
-
-Fionn Murtagh implemented the BEA code used in this package.
 \item \strong{TSP to optimize the Measure of Effectiveness}: \code{"BEA_TSP"} (Lenstra 1974).
 
 Since BEA is equivalent to a simple TSP heuristic, we can use better TSP
@@ -434,7 +432,7 @@ can be found.
 \itemize{
 \item \code{"method"}: a TSP solver method (see \code{\link[TSP:solve_TSP]{TSP::solve_TSP()}}).
 }
-\item \strong{Correspondence analysis} \code{"CA"}
+\item \strong{Correspondence analysis} \code{"CA"} (Friendly, 2023)
 
 This function is designed to help simplify a mosaic plot or other displays of a
 matrix of frequencies.  It calculates a correspondence analysis of the matrix and
@@ -656,6 +654,9 @@ for application to visualization.
 Friendly, M. (2002): Corrgrams: Exploratory Displays for Correlation
 Matrices. \emph{The American Statistician,} \strong{56}(4), 316--324.
 \doi{10.1198/000313002533}
+
+Friendly, M. (2023). \emph{vcdExtra: 'vcd' Extensions and Additions}. R
+package version 0.8-5, \url{https://CRAN.R-project.org/package=vcdExtra}.
 
 Gruvaeus, G. and Wainer, H. (1972): Two Additions to Hierarchical Cluster
 Analysis, \emph{British Journal of Mathematical and Statistical Psychology,}

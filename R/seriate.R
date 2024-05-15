@@ -406,7 +406,7 @@
 #'   `control` parameter:
 #'      - `"method"`: a TSP solver method (see [TSP::solve_TSP()]).
 #'
-#' - **Correspondence analysis** `"CA"`
+#' - **Correspondence analysis** `"CA"` (Friendly, 2023)
 #'
 #'   This function is designed to help simplify a mosaic plot or other displays of a
 #'   matrix of frequencies.  It calculates a correspondence analysis of the matrix and
@@ -564,6 +564,9 @@
 #' Friendly, M. (2002): Corrgrams: Exploratory Displays for Correlation
 #' Matrices. _The American Statistician,_ **56**(4), 316--324.
 #' \doi{10.1198/000313002533}
+#'
+#' Friendly, M. (2023). _vcdExtra: 'vcd' Extensions and Additions_. R
+#' package version 0.8-5, <https://CRAN.R-project.org/package=vcdExtra>.
 #'
 #' Gruvaeus, G. and Wainer, H. (1972): Two Additions to Hierarchical Cluster
 #' Analysis, _British Journal of Mathematical and Statistical Psychology,_

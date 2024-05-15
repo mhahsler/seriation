@@ -53,6 +53,6 @@ set_seriation_method(
   "matrix",
   "CA",
   seriate_matrix_ca,
-  "This method calculates a correspondence analysis of the matrix and computes an order according to the scores on a correspondence analysis dimension.",
+  "This method calculates a correspondence analysis of the matrix and computes an order according to the scores on a correspondence analysis dimension (Friendly 2023).",
   .ca_contr
 )
