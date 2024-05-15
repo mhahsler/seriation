@@ -131,20 +131,20 @@ Caraux, G. and S. Pinloche (2005): Permutmatrix: A Graphical Environment to Arra
 
 Chen, C.-H. (2002): Generalized association plots: Information visualization via iteratively generated correlation matrices, *Statistica Sinica,* **12**(1), 7--29.
 
-Deutsch, S.B. and J.J. Martin (1971): An ordering algorithm for analysis of data arrays. *Operational Research,* **19**(6), 1350--1362. \doi{10.1287/opre.19.6.1350}
+Deutsch, S.B. and J.J. Martin (1971): An ordering algorithm for analysis of data arrays. *Operational Research,* **19**(6), 1350--1362. <https://doi.org/10.1287/opre.19.6.1350>
 
-Earle, D. and C.B. Hurley (2015): Advances in Dendrogram Seriation for Application to Visualization. *Journal of Computational and Graphical Statistics,* **24**(1), 1--25. \doi{10.1080/10618600.2013.874295}
+Earle, D. and C.B. Hurley (2015): Advances in Dendrogram Seriation for Application to Visualization. *Journal of Computational and Graphical Statistics,* **24**(1), 1--25. <https://doi.org/10.1080/10618600.2013.874295>
 
-Hahsler, M. (2017): An experimental comparison of seriation methods for one-mode two-way data. *European Journal of Operational Research,* **257**, 133--143. \doi{10.1016/j.ejor.2016.08.066}
+Hahsler, M. (2017): An experimental comparison of seriation methods for one-mode two-way data. *European Journal of Operational Research,* **257**, 133--143. <https://doi.org/10.1016/j.ejor.2016.08.066>
 
-Hubert, L. and J. Schultz (1976): Quadratic Assignment as a General Data Analysis Strategy. *British Journal of Mathematical and Statistical Psychology,* **29**(2). Blackwell Publishing Ltd. 190--241. \doi{10.1111/j.2044-8317.1976.tb00714.x}
+Hubert, L. and J. Schultz (1976): Quadratic Assignment as a General Data Analysis Strategy. *British Journal of Mathematical and Statistical Psychology,* **29**(2). Blackwell Publishing Ltd. 190--241. <https://doi.org/10.1111/j.2044-8317.1976.tb00714.x>
 
-Hubert, L., P. Arabie, and J. Meulman (2001): *Combinatorial Data Analysis: Optimization by Dynamic Programming.* Society for Industrial Mathematics. \doi{10.1137/1.9780898718553}
+Hubert, L., P. Arabie, and J. Meulman (2001): *Combinatorial Data Analysis: Optimization by Dynamic Programming.* Society for Industrial Mathematics. <https://doi.org/10.1137/1.9780898718553>
 
-Niermann, S. (2005): Optimizing the Ordering of Tables With Evolutionary Computation, *The American Statistician,* **59**(1), 41--46. \doi{10.1198/000313005X22770}
+Niermann, S. (2005): Optimizing the Ordering of Tables With Evolutionary Computation, *The American Statistician,* **59**(1), 41--46. <https://doi.org/10.1198/000313005X22770>
 
-McCormick, W.T., P.J. Schweitzer and T.W. White (1972): Problem decomposition and data reorganization by a clustering technique, *Operations Research,* **20**(5), 993-1009. \doi{10.1287/opre.20.5.993}
+McCormick, W.T., P.J. Schweitzer and T.W. White (1972): Problem decomposition and data reorganization by a clustering technique, *Operations Research,* **20**(5), 993-1009. <https://doi.org/10.1287/opre.20.5.993>
 
-Robinson, W.S. (1951): A method for chronologically ordering archaeological deposits, *American Antiquity,* **16**, 293--301. \doi{10.2307/276978}
+Robinson, W.S. (1951): A method for chronologically ordering archaeological deposits, *American Antiquity,* **16**, 293--301. <https://doi.org/10.2307/276978>
 
-Tien, Y-J., Yun-Shien Lee, Han-Ming Wu and Chun-Houh Chen (2008): Methods for simultaneously identifying coherent local clusters with smooth global patterns in gene expression profiles, *BMC Bioinformatics,* **9**(155), 1--16. \doi{10.1186/1471-2105-9-155}
+Tien, Y-J., Yun-Shien Lee, Han-Ming Wu and Chun-Houh Chen (2008): Methods for simultaneously identifying coherent local clusters with smooth global patterns in gene expression profiles, *BMC Bioinformatics,* **9**(155), 1--16. <https://doi.org/10.1186/1471-2105-9-155>
