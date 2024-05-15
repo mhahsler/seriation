@@ -1,0 +1,2783 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Michael Hahsler">
+
+<title>R Package Seriation - Seriation Methods implemented in the R package seriation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./seriation_methods.html">Methods and Criteria</a></li><li class="breadcrumb-item"><a href="./seriation_methods.html">Methods</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">R Package Seriation</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Package</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://github.com/mhahsler/seriation" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Package Overview</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Methods and Criteria</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./seriation_methods.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Methods</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./seriation_criteria.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Criteria</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Comparison</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Quick Guides</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://cran.r-project.org/web/packages/seriation/vignettes/seriation.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./heatmaps.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to reorder heatmaps</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./correlation_matrix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to reorder correlation matrices</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to evaluate clusters using dissimilarity plots</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#methods-for-dissimilarity-data-dist" id="toc-methods-for-dissimilarity-data-dist" class="nav-link active" data-scroll-target="#methods-for-dissimilarity-data-dist">Methods for dissimilarity data (dist)</a>
+  <ul class="collapse">
+  <li><a href="#arsa" id="toc-arsa" class="nav-link" data-scroll-target="#arsa">ARSA</a></li>
+  <li><a href="#bburcg" id="toc-bburcg" class="nav-link" data-scroll-target="#bburcg">BBURCG</a></li>
+  <li><a href="#bbwrcg" id="toc-bbwrcg" class="nav-link" data-scroll-target="#bbwrcg">BBWRCG</a></li>
+  <li><a href="#dendser" id="toc-dendser" class="nav-link" data-scroll-target="#dendser">DendSer</a></li>
+  <li><a href="#dendser_arc" id="toc-dendser_arc" class="nav-link" data-scroll-target="#dendser_arc">DendSer_ARc</a></li>
+  <li><a href="#dendser_bar" id="toc-dendser_bar" class="nav-link" data-scroll-target="#dendser_bar">DendSer_BAR</a></li>
+  <li><a href="#dendser_lpl" id="toc-dendser_lpl" class="nav-link" data-scroll-target="#dendser_lpl">DendSer_LPL</a></li>
+  <li><a href="#dendser_pl" id="toc-dendser_pl" class="nav-link" data-scroll-target="#dendser_pl">DendSer_PL</a></li>
+  <li><a href="#enumerate" id="toc-enumerate" class="nav-link" data-scroll-target="#enumerate">Enumerate</a></li>
+  <li><a href="#ga" id="toc-ga" class="nav-link" data-scroll-target="#ga">GA</a></li>
+  <li><a href="#gsa" id="toc-gsa" class="nav-link" data-scroll-target="#gsa">GSA</a></li>
+  <li><a href="#gw" id="toc-gw" class="nav-link" data-scroll-target="#gw">GW</a></li>
+  <li><a href="#gw_average" id="toc-gw_average" class="nav-link" data-scroll-target="#gw_average">GW_average</a></li>
+  <li><a href="#gw_complete" id="toc-gw_complete" class="nav-link" data-scroll-target="#gw_complete">GW_complete</a></li>
+  <li><a href="#gw_single" id="toc-gw_single" class="nav-link" data-scroll-target="#gw_single">GW_single</a></li>
+  <li><a href="#gw_ward" id="toc-gw_ward" class="nav-link" data-scroll-target="#gw_ward">GW_ward</a></li>
+  <li><a href="#hc" id="toc-hc" class="nav-link" data-scroll-target="#hc">HC</a></li>
+  <li><a href="#hc_average" id="toc-hc_average" class="nav-link" data-scroll-target="#hc_average">HC_average</a></li>
+  <li><a href="#hc_complete" id="toc-hc_complete" class="nav-link" data-scroll-target="#hc_complete">HC_complete</a></li>
+  <li><a href="#hc_single" id="toc-hc_single" class="nav-link" data-scroll-target="#hc_single">HC_single</a></li>
+  <li><a href="#hc_ward" id="toc-hc_ward" class="nav-link" data-scroll-target="#hc_ward">HC_ward</a></li>
+  <li><a href="#identity" id="toc-identity" class="nav-link" data-scroll-target="#identity">Identity</a></li>
+  <li><a href="#isomap" id="toc-isomap" class="nav-link" data-scroll-target="#isomap">isomap</a></li>
+  <li><a href="#isomds" id="toc-isomds" class="nav-link" data-scroll-target="#isomds">isoMDS</a></li>
+  <li><a href="#mds" id="toc-mds" class="nav-link" data-scroll-target="#mds">MDS</a></li>
+  <li><a href="#mds_angle" id="toc-mds_angle" class="nav-link" data-scroll-target="#mds_angle">MDS_angle</a></li>
+  <li><a href="#mds_smacof" id="toc-mds_smacof" class="nav-link" data-scroll-target="#mds_smacof">MDS_smacof</a></li>
+  <li><a href="#metamds" id="toc-metamds" class="nav-link" data-scroll-target="#metamds">metaMDS</a></li>
+  <li><a href="#monomds" id="toc-monomds" class="nav-link" data-scroll-target="#monomds">monoMDS</a></li>
+  <li><a href="#olo" id="toc-olo" class="nav-link" data-scroll-target="#olo">OLO</a></li>
+  <li><a href="#olo_average" id="toc-olo_average" class="nav-link" data-scroll-target="#olo_average">OLO_average</a></li>
+  <li><a href="#olo_complete" id="toc-olo_complete" class="nav-link" data-scroll-target="#olo_complete">OLO_complete</a></li>
+  <li><a href="#olo_single" id="toc-olo_single" class="nav-link" data-scroll-target="#olo_single">OLO_single</a></li>
+  <li><a href="#olo_ward" id="toc-olo_ward" class="nav-link" data-scroll-target="#olo_ward">OLO_ward</a></li>
+  <li><a href="#optics" id="toc-optics" class="nav-link" data-scroll-target="#optics">optics</a></li>
+  <li><a href="#qap_2sum" id="toc-qap_2sum" class="nav-link" data-scroll-target="#qap_2sum">QAP_2SUM</a></li>
+  <li><a href="#qap_bar" id="toc-qap_bar" class="nav-link" data-scroll-target="#qap_bar">QAP_BAR</a></li>
+  <li><a href="#qap_inertia" id="toc-qap_inertia" class="nav-link" data-scroll-target="#qap_inertia">QAP_Inertia</a></li>
+  <li><a href="#qap_ls" id="toc-qap_ls" class="nav-link" data-scroll-target="#qap_ls">QAP_LS</a></li>
+  <li><a href="#r2e" id="toc-r2e" class="nav-link" data-scroll-target="#r2e">R2E</a></li>
+  <li><a href="#random" id="toc-random" class="nav-link" data-scroll-target="#random">Random</a></li>
+  <li><a href="#reverse" id="toc-reverse" class="nav-link" data-scroll-target="#reverse">Reverse</a></li>
+  <li><a href="#sammon_mapping" id="toc-sammon_mapping" class="nav-link" data-scroll-target="#sammon_mapping">Sammon_mapping</a></li>
+  <li><a href="#sgd" id="toc-sgd" class="nav-link" data-scroll-target="#sgd">SGD</a></li>
+  <li><a href="#spectral" id="toc-spectral" class="nav-link" data-scroll-target="#spectral">Spectral</a></li>
+  <li><a href="#spectral_norm" id="toc-spectral_norm" class="nav-link" data-scroll-target="#spectral_norm">Spectral_norm</a></li>
+  <li><a href="#spin_nh" id="toc-spin_nh" class="nav-link" data-scroll-target="#spin_nh">SPIN_NH</a></li>
+  <li><a href="#spin_sts" id="toc-spin_sts" class="nav-link" data-scroll-target="#spin_sts">SPIN_STS</a></li>
+  <li><a href="#tsne" id="toc-tsne" class="nav-link" data-scroll-target="#tsne">tsne</a></li>
+  <li><a href="#tsp" id="toc-tsp" class="nav-link" data-scroll-target="#tsp">TSP</a></li>
+  <li><a href="#umap" id="toc-umap" class="nav-link" data-scroll-target="#umap">umap</a></li>
+  <li><a href="#vat" id="toc-vat" class="nav-link" data-scroll-target="#vat">VAT</a></li>
+  </ul></li>
+  <li><a href="#methods-for-data-matrices-tables-and-data.frames" id="toc-methods-for-data-matrices-tables-and-data.frames" class="nav-link" data-scroll-target="#methods-for-data-matrices-tables-and-data.frames">Methods for data matrices, tables and data.frames</a>
+  <ul class="collapse">
+  <li><a href="#aoe" id="toc-aoe" class="nav-link" data-scroll-target="#aoe">AOE</a></li>
+  <li><a href="#bea" id="toc-bea" class="nav-link" data-scroll-target="#bea">BEA</a></li>
+  <li><a href="#bea_tsp" id="toc-bea_tsp" class="nav-link" data-scroll-target="#bea_tsp">BEA_TSP</a></li>
+  <li><a href="#ca" id="toc-ca" class="nav-link" data-scroll-target="#ca">CA</a></li>
+  <li><a href="#heatmap" id="toc-heatmap" class="nav-link" data-scroll-target="#heatmap">Heatmap</a></li>
+  <li><a href="#identity-1" id="toc-identity-1" class="nav-link" data-scroll-target="#identity-1">Identity</a></li>
+  <li><a href="#lle" id="toc-lle" class="nav-link" data-scroll-target="#lle">LLE</a></li>
+  <li><a href="#mean" id="toc-mean" class="nav-link" data-scroll-target="#mean">Mean</a></li>
+  <li><a href="#pca" id="toc-pca" class="nav-link" data-scroll-target="#pca">PCA</a></li>
+  <li><a href="#pca_angle" id="toc-pca_angle" class="nav-link" data-scroll-target="#pca_angle">PCA_angle</a></li>
+  <li><a href="#random-1" id="toc-random-1" class="nav-link" data-scroll-target="#random-1">Random</a></li>
+  <li><a href="#reverse-1" id="toc-reverse-1" class="nav-link" data-scroll-target="#reverse-1">Reverse</a></li>
+  <li><a href="#tsne-1" id="toc-tsne-1" class="nav-link" data-scroll-target="#tsne-1">tsne</a></li>
+  <li><a href="#umap-1" id="toc-umap-1" class="nav-link" data-scroll-target="#umap-1">umap</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Seriation Methods implemented in the R package seriation</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Michael Hahsler </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This document contains the seriation methods currently implemented in the R package <a href="https://github.com/mhahsler/seriation"><code>seriation</code></a>. The methods are organized by methods for distance matrices and data matrices.</p>
+<p>This list was created for the following version of seriation:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"seriation"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">'seriation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] '1.5.5.1'</code></pre>
+</div>
+</div>
+<p>Some additional methods need to be registered.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_DendSer</span>()</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">register_optics</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">register_smacof</span>()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">register_GA</span>()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">register_tsne</span>()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">register_umap</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Seriation methods on the data <code>x</code> can be used in</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seriate</span>(x, <span class="at">method =</span> <span class="st">"Spectral"</span>, <span class="at">control =</span> <span class="cn">NULL</span>, <span class="at">rep =</span> 1L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The list below shows what seriation criterion (if any) is optimized by the method.</p>
+<p>If the method uses randomization (see randomized below), then <code>rep</code> can be used to run the algorithms several times and return the best permutation.</p>
+<p>Available control parameters can be passed on as a list using the <code>control</code> argument.</p>
+<section id="methods-for-dissimilarity-data-dist" class="level2">
+<h2 class="anchored" data-anchor-id="methods-for-dissimilarity-data-dist">Methods for dissimilarity data (dist)</h2>
+<section id="arsa" class="level3">
+<h3 class="anchored" data-anchor-id="arsa">ARSA</h3>
+<p>Minimize the linear seriation criterion using simulated annealing (Brusco et al, 2008).</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#ls">LS</a> (Linear seriation criterion)</li>
+<li>randomized: TRUE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 11%">
+<col style="width: 63%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">cool</td>
+<td style="text-align: left;">0.5</td>
+<td style="text-align: left;">cooling factor (smaller means faster cooling)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tmin</td>
+<td style="text-align: left;">1e-04</td>
+<td style="text-align: left;">stopping temperature</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">swap_to_inversion</td>
+<td style="text-align: left;">0.5</td>
+<td style="text-align: left;">probability for swap vs inversion local move</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">try_multiplier</td>
+<td style="text-align: left;">100</td>
+<td style="text-align: left;">number of local move tries per object</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="bburcg" class="level3">
+<h3 class="anchored" data-anchor-id="bburcg">BBURCG</h3>
+<p>Minimize the unweighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#gradient_raw">Gradient_raw</a> (Unweighted gradient condition)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 78%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">eps</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">Distances need to be at least eps to count as violations</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="bbwrcg" class="level3">
+<h3 class="anchored" data-anchor-id="bbwrcg">BBWRCG</h3>
+<p>Minimize the weighted row/column gradient by branch-and-bound (Brusco and Stahl 2005). This is only feasible for a relatively small number of objects.</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#gradient_weighted">Gradient_weighted</a> (Weighted gradient condition)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 78%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">eps</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">Distances need to be at least eps to count as violations</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dendser" class="level3">
+<h3 class="anchored" data-anchor-id="dendser">DendSer</h3>
+<p>Dendrogram seriation (Earle and Hurley, 2015).</p>
+<ul>
+<li>optimizes: N/A (specified criterion restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_DendSer()</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 14%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">h</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">an hclust object (optional)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">method</td>
+<td style="text-align: left;">“complete”</td>
+<td style="text-align: left;">hclust linkage method</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">criterion to optimize the dendrogram for</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DendSer_args</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">more arguments are passed on to DendSer (? DendSer)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dendser_arc" class="level3">
+<h3 class="anchored" data-anchor-id="dendser_arc">DendSer_ARc</h3>
+<p>Dendrogram seriation for Anti-Robinson form cost (Earle and Hurley, 2015).</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#arc">ARc</a> (Anti-Robinson form cost restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_DendSer()</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 14%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">h</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">an hclust object (optional)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">method</td>
+<td style="text-align: left;">“complete”</td>
+<td style="text-align: left;">hclust linkage method</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">criterion to optimize the dendrogram for</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DendSer_args</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">more arguments are passed on to DendSer (? DendSer)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dendser_bar" class="level3">
+<h3 class="anchored" data-anchor-id="dendser_bar">DendSer_BAR</h3>
+<p>Dendrogram seriation with BAR (Earle and Hurley, 2015).</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#bar">BAR</a> (banded anti-Robinson form restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_DendSer()</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 14%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">h</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">an hclust object (optional)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">method</td>
+<td style="text-align: left;">“complete”</td>
+<td style="text-align: left;">hclust linkage method</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">criterion to optimize the dendrogram for</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DendSer_args</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">more arguments are passed on to DendSer (? DendSer)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dendser_lpl" class="level3">
+<h3 class="anchored" data-anchor-id="dendser_lpl">DendSer_LPL</h3>
+<p>Dendrogram seriation for Lazy path length (Earle and Hurley, 2015).</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#lazy_path_length">Lazy_path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_DendSer()</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 14%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">h</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">an hclust object (optional)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">method</td>
+<td style="text-align: left;">“complete”</td>
+<td style="text-align: left;">hclust linkage method</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">criterion to optimize the dendrogram for</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DendSer_args</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">more arguments are passed on to DendSer (? DendSer)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dendser_pl" class="level3">
+<h3 class="anchored" data-anchor-id="dendser_pl">DendSer_PL</h3>
+<p>Dendrogram seriation for Path length (Earle and Hurley, 2015).</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_DendSer()</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 14%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">h</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">an hclust object (optional)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">method</td>
+<td style="text-align: left;">“complete”</td>
+<td style="text-align: left;">hclust linkage method</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">criterion to optimize the dendrogram for</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DendSer_args</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">more arguments are passed on to DendSer (? DendSer)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="enumerate" class="level3">
+<h3 class="anchored" data-anchor-id="enumerate">Enumerate</h3>
+<p>Enumerate all permutations</p>
+<ul>
+<li>optimizes: N/A (set via control criterion))</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">“Gradient_weighted”</td>
+<td style="text-align: left;">Criterion measure to optimize</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ga" class="level3">
+<h3 class="anchored" data-anchor-id="ga">GA</h3>
+<p>Use a genetic algorithm to optimize for various criteria.</p>
+<ul>
+<li>optimizes: N/A (specified as parameter criterion)</li>
+<li>randomized: TRUE</li>
+<li>registered by: register_GA()</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 62%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">“BAR”</td>
+<td style="text-align: left;">criterion to be optimized</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">suggestions</td>
+<td style="text-align: left;">c(“TSP”, “QAP_LS”, “Spectral”)</td>
+<td style="text-align: left;">seed the population with these seriation methods</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">selection</td>
+<td style="text-align: left;">function (object, r = 2/(object@popSize * (object@popSize - 1)), q = 2/object@popSize, …) {</td>
+<td style="text-align: left;">selection operator function</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">crossover</td>
+<td style="text-align: left;">function (object, parents, …) { if (gaControl(“useRcpp”)) gaperm_oxCrossover_Rcpp(objec</td>
+<td style="text-align: left;">crossover operator function</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mutation</td>
+<td style="text-align: left;">function (object, parent, …) { if (runif(1) &gt; ismProb) GA::gaperm_simMutation(object, p</td>
+<td style="text-align: left;">mutation operator function</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pcrossover</td>
+<td style="text-align: left;">0.8</td>
+<td style="text-align: left;">probability for crossover</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pmutation</td>
+<td style="text-align: left;">0.1</td>
+<td style="text-align: left;">ptobability of mutations</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">popSize</td>
+<td style="text-align: left;">100</td>
+<td style="text-align: left;">population size</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">maxiter</td>
+<td style="text-align: left;">1000</td>
+<td style="text-align: left;">maximum number of generations</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">run</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">stop after run generations without improvement</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">parallel</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">use multiple cores?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="gsa" class="level3">
+<h3 class="anchored" data-anchor-id="gsa">GSA</h3>
+<p>Minimize a specified seriation measure (criterion) using simulated annealing.</p>
+<ul>
+<li>optimizes: N/A (set via control criterion)</li>
+<li>randomized: TRUE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 15%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">“Gradient_raw”</td>
+<td style="text-align: left;">Criterion measure to optimize</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cool</td>
+<td style="text-align: left;">0.5</td>
+<td style="text-align: left;">cooling factor (smaller means faster cooling)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">t_min</td>
+<td style="text-align: left;">1e-07</td>
+<td style="text-align: left;">stopping temperature</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">localsearch</td>
+<td style="text-align: left;">“LS_insert”</td>
+<td style="text-align: left;">used local search move function</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">try_multiplier</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">number of local move tries per object</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">t0</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">initial temperature (if NA then it is estimated)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">p_initial_accept</td>
+<td style="text-align: left;">0.01</td>
+<td style="text-align: left;">Probability to accept a bad move at time 0 (used for t0 estimation)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">warmstart</td>
+<td style="text-align: left;">“Random”</td>
+<td style="text-align: left;">permutation or seriation method for warmstart</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="gw" class="level3">
+<h3 class="anchored" data-anchor-id="gw">GW</h3>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by the Gruvaeus and Wainer (1972) heuristic</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">hclust</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">a precomputed hclust object (optional)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">linkage</td>
+<td style="text-align: left;">“complete”</td>
+<td style="text-align: left;">hclust method</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="gw_average" class="level3">
+<h3 class="anchored" data-anchor-id="gw_average">GW_average</h3>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by the Gruvaeus and Wainer (1972) heuristic (avg.link)</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="gw_complete" class="level3">
+<h3 class="anchored" data-anchor-id="gw_complete">GW_complete</h3>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by the Gruvaeus and Wainer (1972) heuristic (complete link)</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="gw_single" class="level3">
+<h3 class="anchored" data-anchor-id="gw_single">GW_single</h3>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by the Gruvaeus and Wainer (1972) heuristic (single link)</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="gw_ward" class="level3">
+<h3 class="anchored" data-anchor-id="gw_ward">GW_ward</h3>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by the Gruvaeus and Wainer (1972) heuristic (Ward’s method)</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="hc" class="level3">
+<h3 class="anchored" data-anchor-id="hc">HC</h3>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">hclust</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">a precomputed hclust object (optional)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">linkage</td>
+<td style="text-align: left;">“complete”</td>
+<td style="text-align: left;">hclust method</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="hc_average" class="level3">
+<h3 class="anchored" data-anchor-id="hc_average">HC_average</h3>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering (avg. link).</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="hc_complete" class="level3">
+<h3 class="anchored" data-anchor-id="hc_complete">HC_complete</h3>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering (complete link).</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="hc_single" class="level3">
+<h3 class="anchored" data-anchor-id="hc_single">HC_single</h3>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering (single link)</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="hc_ward" class="level3">
+<h3 class="anchored" data-anchor-id="hc_ward">HC_ward</h3>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering (Ward’s method).</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="identity" class="level3">
+<h3 class="anchored" data-anchor-id="identity">Identity</h3>
+<p>Identity permutation</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="isomap" class="level3">
+<h3 class="anchored" data-anchor-id="isomap">isomap</h3>
+<p>Isometric feature mapping ordination</p>
+<ul>
+<li>optimizes: N/A (Stress on shortest path distances)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 12%">
+<col style="width: 81%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">k</td>
+<td style="text-align: left;">30</td>
+<td style="text-align: left;">number of shortest dissimilarities retained for a point</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">path</td>
+<td style="text-align: left;">“shortest”</td>
+<td style="text-align: left;">method used in to estimate the shortest path (“shortest”/“extended”)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="isomds" class="level3">
+<h3 class="anchored" data-anchor-id="isomds">isoMDS</h3>
+<p>Order along the 1D Kruskal’s non-metric multidimensional scaling</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (with monotonic transformation)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">add</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">small constant to avoid 0 distances</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">maxit</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">maximum number of iterations</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">trace</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">trace optimization</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tol</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">convergence tolerance</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">p</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">power for Minkowski distance in the configuration space</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mds" class="level3">
+<h3 class="anchored" data-anchor-id="mds">MDS</h3>
+<p>Order along the 1D classical metric multidimensional scaling</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (Euclidean distances)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 9%">
+<col style="width: 85%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">add</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">make the distances Euclidean using an additive constant (see ? cmdscale)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mds_angle" class="level3">
+<h3 class="anchored" data-anchor-id="mds_angle">MDS_angle</h3>
+<p>Order by the angular order in the 2D MDS projection space split by the larges gap</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 9%">
+<col style="width: 85%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">add</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">make the distances Euclidean using an additive constant (see ? cmdscale)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mds_smacof" class="level3">
+<h3 class="anchored" data-anchor-id="mds_smacof">MDS_smacof</h3>
+<p>Seriation based on multidemensional scaling using stress majorization (de Leeuw &amp; Mair, 2009).</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#smacof_stress0">smacof_stress0</a> (MDS stress)</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_smacof()</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 15%">
+<col style="width: 74%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">type</td>
+<td style="text-align: left;">“ratio”</td>
+<td style="text-align: left;">MDS type: “interval”, “ratio”, “ordinal” (nonmetric MDS)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">init</td>
+<td style="text-align: left;">“torgerson”</td>
+<td style="text-align: left;">start configuration method (“torgerson”/“random”)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">relax</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">use block relaxation for majorization?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">modulus</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">number of smacof iterations per monotone regression call</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">itmax</td>
+<td style="text-align: left;">1000</td>
+<td style="text-align: left;">maximum number of iterations</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eps</td>
+<td style="text-align: left;">1e-06</td>
+<td style="text-align: left;">convergence criterion</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="metamds" class="level3">
+<h3 class="anchored" data-anchor-id="metamds">metaMDS</h3>
+<p>Nonmetric Multidimensional Scaling with Stable Solution from Random Starts.</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (Kruskal’s monotone regression stress)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">distance</td>
+<td style="text-align: left;">“bray”</td>
+<td style="text-align: left;">see ? metaMDS for help</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">try</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">trymax</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">engine</td>
+<td style="text-align: left;">“monoMDS”</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">autotransform</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">noshare</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">wascores</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">expand</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">trace</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">plot</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">previous.best</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="monomds" class="level3">
+<h3 class="anchored" data-anchor-id="monomds">monoMDS</h3>
+<p>Kruskal’s (1964a,b) non-metric multidimensional scaling (NMDS) using monotone regression.</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (Kruskal’s monotone regression stress)</li>
+<li>randomized: TRUE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">y</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">See ? monoMDS for help</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">model</td>
+<td style="text-align: left;">“global”</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">threshold</td>
+<td style="text-align: left;">0.8</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">maxit</td>
+<td style="text-align: left;">200</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">weakties</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">stress</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">scaling</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pc</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">smin</td>
+<td style="text-align: left;">1e-04</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sfgrmin</td>
+<td style="text-align: left;">1e-07</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sratmax</td>
+<td style="text-align: left;">0.999999</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="olo" class="level3">
+<h3 class="anchored" data-anchor-id="olo">OLO</h3>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001)</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">hclust</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">a precomputed hclust object (optional)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">linkage</td>
+<td style="text-align: left;">“complete”</td>
+<td style="text-align: left;">hclust method</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="olo_average" class="level3">
+<h3 class="anchored" data-anchor-id="olo_average">OLO_average</h3>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (avg. link)</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="olo_complete" class="level3">
+<h3 class="anchored" data-anchor-id="olo_complete">OLO_complete</h3>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (complete link)</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="olo_single" class="level3">
+<h3 class="anchored" data-anchor-id="olo_single">OLO_single</h3>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (single link)</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="olo_ward" class="level3">
+<h3 class="anchored" data-anchor-id="olo_ward">OLO_ward</h3>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (Ward’s method)</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="optics" class="level3">
+<h3 class="anchored" data-anchor-id="optics">optics</h3>
+<p>Use ordering points to identify the clustering structure (OPTICS) to create an order</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_optics()</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 81%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">eps</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">upper limit of the size of the epsilon neighborhood (see ? optics)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">minPts</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">minimum density for dense neighborhoods</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qap_2sum" class="level3">
+<h3 class="anchored" data-anchor-id="qap_2sum">QAP_2SUM</h3>
+<p>Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the 2-Sum Problem criterion (Barnard, Pothen, and Simon 1993).</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#sum">2SUM</a> (2-sum criterion)</li>
+<li>randomized: TRUE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="qap_bar" class="level3">
+<h3 class="anchored" data-anchor-id="qap_bar">QAP_BAR</h3>
+<p>Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the banded anti-Robinson form (Hahsler, 2017).</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#bar">BAR</a> (Banded anti-robinson form)</li>
+<li>randomized: TRUE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">b</td>
+<td style="text-align: left;">function (n) max(1, floor(n * 0.2))</td>
+<td style="text-align: left;">bandwidth (default is 20%)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qap_inertia" class="level3">
+<h3 class="anchored" data-anchor-id="qap_inertia">QAP_Inertia</h3>
+<p>Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the Inertia criterion (Hahsler, 2017).</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#inertia">Inertia</a></li>
+<li>randomized: TRUE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="qap_ls" class="level3">
+<h3 class="anchored" data-anchor-id="qap_ls">QAP_LS</h3>
+<p>Quadratic assignment problem formulation for seriation solved using a simulated annealing solver to minimize the Linear Seriation Problem (LS) criterion (Hubert and Schultz 1976).</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#ls">LS</a> (Linear seriation criterion)</li>
+<li>randomized: TRUE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="r2e" class="level3">
+<h3 class="anchored" data-anchor-id="r2e">R2E</h3>
+<p>Rank-two ellipse seriation (Chen 2002)</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="random" class="level3">
+<h3 class="anchored" data-anchor-id="random">Random</h3>
+<p>Random permutation</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: TRUE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="reverse" class="level3">
+<h3 class="anchored" data-anchor-id="reverse">Reverse</h3>
+<p>Reversed identity permutation</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="sammon_mapping" class="level3">
+<h3 class="anchored" data-anchor-id="sammon_mapping">Sammon_mapping</h3>
+<p>Order along the 1D Sammon’s non-linear mapping</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (scale free, weighted stress called Sammon’s error)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 82%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">add</td>
+<td style="text-align: left;">1e-09</td>
+<td style="text-align: left;">small constant to avoid 0 distances</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">niter</td>
+<td style="text-align: left;">100</td>
+<td style="text-align: left;">maximum number of iterations</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">trace</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">trace optimization</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">magic</td>
+<td style="text-align: left;">0.2</td>
+<td style="text-align: left;">initial value of the step size constant in diagonal Newton method</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tol</td>
+<td style="text-align: left;">1e-04</td>
+<td style="text-align: left;">tolerance for stopping in units of stress</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sgd" class="level3">
+<h3 class="anchored" data-anchor-id="sgd">SGD</h3>
+<p>Improve an existing solution using stochastic gradient descent.</p>
+<ul>
+<li>optimizes: N/A (set via control criterion)</li>
+<li>randomized: TRUE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 20%">
+<col style="width: 64%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">criterion</td>
+<td style="text-align: left;">“Gradient_raw”</td>
+<td style="text-align: left;">Criterion measure to optimize</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">init</td>
+<td style="text-align: left;">“Spectral”</td>
+<td style="text-align: left;">Start permutation or name of a seriation method</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">max_iter</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">number of iterations</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">localsearch</td>
+<td style="text-align: left;">“LS_insert”</td>
+<td style="text-align: left;">used local search move function</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="spectral" class="level3">
+<h3 class="anchored" data-anchor-id="spectral">Spectral</h3>
+<p>Spectral seriation (Ding and He 2004) uses a relaxation to minimize the 2-Sum Problem (Barnard, Pothen, and Simon 1993). It uses the order of the Fiedler vector of the similarity matrix’s Laplacian.</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#sum">2SUM</a> (2-sum criterion)</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="spectral_norm" class="level3">
+<h3 class="anchored" data-anchor-id="spectral_norm">Spectral_norm</h3>
+<p>Spectral seriation (Ding and He 2004) uses a relaxation to minimize the 2-Sum Problem (Barnard, Pothen, and Simon 1993). It uses the order of the Fiedler vector of the similarity matrix’s normalized Laplacian.</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#sum">2SUM</a> (2-sum criterion)</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="spin_nh" class="level3">
+<h3 class="anchored" data-anchor-id="spin_nh">SPIN_NH</h3>
+<p>Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Neighborhood algorithm to concentrate low distance values around the diagonal.</p>
+<ul>
+<li>optimizes: N/A (Energy)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 32%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">sigma</td>
+<td style="text-align: left;">c(20, 17, 15, 13, 11, 9, 7, 5, 3, 1)</td>
+<td style="text-align: left;">emphasize local (small alpha) or global (large alpha) structure.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">step</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">iterations to run for each sigma value.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">W_function</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">custom function to create the weight matrix W</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="spin_sts" class="level3">
+<h3 class="anchored" data-anchor-id="spin_sts">SPIN_STS</h3>
+<p>Sorting Points Into Neighborhoods (SPIN) (Tsafrir 2005). Side-to-Side algorithm which tries to push out large distance values.</p>
+<ul>
+<li>optimizes: N/A (Energy)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 43%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">step</td>
+<td style="text-align: left;">25L</td>
+<td style="text-align: left;">iterations to run</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nstart</td>
+<td style="text-align: left;">10L</td>
+<td style="text-align: left;">number of random restarts</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">X</td>
+<td style="text-align: left;">function (n) seq(n) - (n + 1)/2</td>
+<td style="text-align: left;">matrix to calculate the W matrix</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tsne" class="level3">
+<h3 class="anchored" data-anchor-id="tsne">tsne</h3>
+<p>Use 1D t-distributed stochastic neighbor embedding (t-SNE) a distance matrix to create an order (van der Maaten and Hinton, 2008).</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: TRUE</li>
+<li>registered by: register_tsne()</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 10%">
+<col style="width: 73%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">max_iter</td>
+<td style="text-align: left;">1000</td>
+<td style="text-align: left;">number of iterations</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">theta</td>
+<td style="text-align: left;">0.5</td>
+<td style="text-align: left;">speed/accuracy trade-off (increase for less accuracy)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">perplexity</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">perplexity parameter (calculated as n - 1 / 3)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eta</td>
+<td style="text-align: left;">100</td>
+<td style="text-align: left;">learning rate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mds</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">start from a classical MDS solution</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tsp" class="level3">
+<h3 class="anchored" data-anchor-id="tsp">TSP</h3>
+<p>Minimize Hamiltonian path length with a TSP solver.</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a></li>
+<li>randomized: TRUE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">method</td>
+<td style="text-align: left;">“arbitrary insertion”</td>
+<td style="text-align: left;">used TSP method (see ? solve_TSP)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rep</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">number of random restarts</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">two_opt</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">use the 2-opt improvement heuristic?</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="umap" class="level3">
+<h3 class="anchored" data-anchor-id="umap">umap</h3>
+<p>Use 1D Uniform manifold approximation and projection (UMAP) embedding of the distances to create an order (McInnes and Healy, 2018)</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: TRUE</li>
+<li>registered by: register_umap()</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">n_neighbors</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">see ? umap::umap for help</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">n_components</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">metric</td>
+<td style="text-align: left;">“euclidean”</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">n_epochs</td>
+<td style="text-align: left;">1000</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">input</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">init</td>
+<td style="text-align: left;">“spectral”</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">min_dist</td>
+<td style="text-align: left;">0.1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">set_op_mix_ratio</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">local_connectivity</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bandwidth</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">alpha</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gamma</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">negative_sample_rate</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">a</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">b</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">spread</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">random_state</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">transform_state</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">knn</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">knn_repeats</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">umap_learn_args</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="vat" class="level3">
+<h3 class="anchored" data-anchor-id="vat">VAT</h3>
+<p>Visual assesment of clustering tendency (Bezdek and Hathaway (2002). Creates an order based on Prim’s algorithm for finding a minimum spanning tree (MST) in a weighted connected graph representing the distance matrix. The order is given by the order in which the nodes (objects) are added to the MST.</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+</section>
+<section id="methods-for-data-matrices-tables-and-data.frames" class="level2">
+<h2 class="anchored" data-anchor-id="methods-for-data-matrices-tables-and-data.frames">Methods for data matrices, tables and data.frames</h2>
+<section id="aoe" class="level3">
+<h3 class="anchored" data-anchor-id="aoe">AOE</h3>
+<p>Order by the angle of the first two eigenvectors for correlation matrices (Friendly, 2002)</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="bea" class="level3">
+<h3 class="anchored" data-anchor-id="bea">BEA</h3>
+<p>Bond Energy Algorithm (BEA; McCormick 1972) to maximize the Measure of Effectiveness of a non-negative matrix.</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#me">ME</a> (Measure of effectiveness)</li>
+<li>randomized: TRUE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="bea_tsp" class="level3">
+<h3 class="anchored" data-anchor-id="bea_tsp">BEA_TSP</h3>
+<p>Use a TSP to optimize the Measure of Effectiveness (Lenstra 1974).</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#me">ME</a> (Measure of effectiveness)</li>
+<li>randomized: TRUE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">method</td>
+<td style="text-align: left;">“arbitrary insertion”</td>
+<td style="text-align: left;">used TSP method (see ? solve_TSP)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rep</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">number of random restarts</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">two_opt</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">use the 2-opt improvement heuristic?</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ca" class="level3">
+<h3 class="anchored" data-anchor-id="ca">CA</h3>
+<p>This method calculates a correspondence analysis of the matrix and computes an order according to the scores on a correspondence analysis dimension (Friendly 2023).</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">dim</td>
+<td style="text-align: left;">1L</td>
+<td style="text-align: left;">CA dimension used for reordering</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ca_param</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">List with parameters for the call to ca::ca()</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="heatmap" class="level3">
+<h3 class="anchored" data-anchor-id="heatmap">Heatmap</h3>
+<p>Calculates distances for rows and columns and then independently applies the specified seriation method for distances.</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 54%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">dist_fun</td>
+<td style="text-align: left;">list(row = function (x, method = “euclidean”, diag = FALSE, upper = FALSE, p = 2) { if (!is.n</td>
+<td style="text-align: left;">A named list with functions to calulate row and column distances</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">seriation_method</td>
+<td style="text-align: left;">list(row = “OLO_complete”, col = “OLO_complete”)</td>
+<td style="text-align: left;">A named list with row and column seriation methods</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">seriation_control</td>
+<td style="text-align: left;">list(row = NULL, col = NULL)</td>
+<td style="text-align: left;">named list with control parameters for the seriation methods</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">scale</td>
+<td style="text-align: left;">“none”</td>
+<td style="text-align: left;">Scale “rows”, “cols”, or “none”</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="identity-1" class="level3">
+<h3 class="anchored" data-anchor-id="identity-1">Identity</h3>
+<p>Identity permutation</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="lle" class="level3">
+<h3 class="anchored" data-anchor-id="lle">LLE</h3>
+<p>Find an order using 1D locally linear embedding.</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">k</td>
+<td style="text-align: left;">30</td>
+<td style="text-align: left;">used number of neighbors</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reg</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">regularization method (see ? lle)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mean" class="level3">
+<h3 class="anchored" data-anchor-id="mean">Mean</h3>
+<p>Reorders rows and columns by row and column means.</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 8%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">transformation</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">transformation function applied before calculating means (e.g., scale)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="pca" class="level3">
+<h3 class="anchored" data-anchor-id="pca">PCA</h3>
+<p>Uses the projection of the data on its first principal component to determine the order.</p>
+<ul>
+<li>optimizes: N/A (Least squares for each dimension (for Euclidean distances).)</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">center</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">center the data (mean = 0)?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">scale</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">scale to unit variance?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="pca_angle" class="level3">
+<h3 class="anchored" data-anchor-id="pca_angle">PCA_angle</h3>
+<p>Uses the angular order in the 2D PCA projection space split by the larges gap.</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">center</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">center the data (mean = 0)?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">scale</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">scale to unit variance?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="random-1" class="level3">
+<h3 class="anchored" data-anchor-id="random-1">Random</h3>
+<p>Random permutation</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: TRUE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="reverse-1" class="level3">
+<h3 class="anchored" data-anchor-id="reverse-1">Reverse</h3>
+<p>Reversed identity permutation</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
+<section id="tsne-1" class="level3">
+<h3 class="anchored" data-anchor-id="tsne-1">tsne</h3>
+<p>Use 1D t-distributed stochastic neighbor embedding (t-SNE) of the rows of a matrix to create an order (van der Maaten and Hinton, 2008).</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: TRUE</li>
+<li>registered by: register_tsne()</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 10%">
+<col style="width: 73%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">max_iter</td>
+<td style="text-align: left;">1000</td>
+<td style="text-align: left;">number of iterations</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">theta</td>
+<td style="text-align: left;">0.5</td>
+<td style="text-align: left;">speed/accuracy trade-off (increase for less accuracy)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">perplexity</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">perplexity parameter (calculated as n - 1 / 3)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eta</td>
+<td style="text-align: left;">100</td>
+<td style="text-align: left;">learning rate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pca</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">start the PCA solution</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="umap-1" class="level3">
+<h3 class="anchored" data-anchor-id="umap-1">umap</h3>
+<p>Use 1D Uniform manifold approximation and projection (UMAP) embedding of the data to create an order (McInnes and Healy, 2018)</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: TRUE</li>
+<li>registered by: register_umap()</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">default</th>
+<th style="text-align: left;">help</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">n_neighbors</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">see ? umap::umap for help</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">n_components</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">metric</td>
+<td style="text-align: left;">“euclidean”</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">n_epochs</td>
+<td style="text-align: left;">1000</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">input</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">init</td>
+<td style="text-align: left;">“spectral”</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">min_dist</td>
+<td style="text-align: left;">0.1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">set_op_mix_ratio</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">local_connectivity</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bandwidth</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">alpha</td>
+<td style="text-align: left;">0.001</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gamma</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">negative_sample_rate</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">a</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">b</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">spread</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">random_state</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">transform_state</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">knn</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">knn_repeats</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">verbose</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">umap_learn_args</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<p>Arabie, P. and L.J. Hubert (1990): The bond energy algorithm revisited, <em>IEEE Transactions on Systems, Man, and Cybernetics,</em> <strong>20</strong>(1), 268–274. <a href="https://doi.org/10.1109/21.47829" class="uri">https://doi.org/10.1109/21.47829</a></p>
+<p>Bar-Joseph, Z., E. D. Demaine, D. K. Gifford, and T. Jaakkola. (2001): Fast Optimal Leaf Ordering for Hierarchical Clustering. <em>Bioinformatics,</em> <strong>17</strong>(1), 22–29. <a href="https://doi.org/10.1093/bioinformatics/17.suppl_1.S22" class="uri">https://doi.org/10.1093/bioinformatics/17.suppl_1.S22</a></p>
+<p>Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for Envelope Reduction of Sparse Matrices. <em>In Proceedings of the 1993 ACM/IEEE Conference on Supercomputing,</em> 493–502. Supercomputing ’93. New York, NY, USA: ACM. </p>
+<p>Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual assessment of (cluster) tendency. <em>Proceedings of the 2002 International Joint Conference on Neural Networks (IJCNN ’02),</em> Volume: 3, 2225–2230. <a href="https://doi.org/10.1109/IJCNN.2002.1007487" class="uri">https://doi.org/10.1109/IJCNN.2002.1007487</a></p>
+<p>Brusco, M., Koehn, H.F., and Stahl, S. (2008): Heuristic Implementation of Dynamic Programming for Matrix Permutation Problems in Combinatorial Data Analysis. <em>Psychometrika,</em> <strong>73</strong>(3), 503–522. <a href="https://doi.org/10.1007/s11336-007-9049-5" class="uri">https://doi.org/10.1007/s11336-007-9049-5</a></p>
+<p>Brusco, M., and Stahl, S. (2005): <em>Branch-and-Bound Applications in Combinatorial Data Analysis.</em> New York: Springer. <a href="https://doi.org/10.1007/0-387-28810-4" class="uri">https://doi.org/10.1007/0-387-28810-4</a></p>
+<p>Chen, C. H. (2002): Generalized Association Plots: Information Visualization via Iteratively Generated Correlation Matrices. <em>Statistica Sinica,</em> <strong>12</strong>(1), 7–29.</p>
+<p>Ding, C. and Xiaofeng He (2004): Linearized cluster assignment via spectral ordering. <em>Proceedings of the Twenty-first International Conference on Machine learning (ICML ’04)</em>. <a href="https://doi.org/10.1145/1015330.1015407" class="uri">https://doi.org/10.1145/1015330.1015407</a></p>
+<p>Climer, S. and Xiongnu Zhang (2006): Rearrangement Clustering: Pitfalls, Remedies, and Applications, <em>Journal of Machine Learning Research,</em> <strong>7</strong>(Jun), 919–943.</p>
+<p>D. Earle, C. B. Hurley (2015): Advances in dendrogram seriation for application to visualization. <em>Journal of Computational and Graphical Statistics,</em> <strong>24</strong>(1), 1–25.</p>
+<p>Friendly, M. (2002): Corrgrams: Exploratory Displays for Correlation Matrices. <em>The American Statistician,</em> <strong>56</strong>(4), 316–324. <a href="https://doi.org/10.1198/000313002533" class="uri">https://doi.org/10.1198/000313002533</a></p>
+<p>Friendly, M. (2023). <em>vcdExtra: ‘vcd’ Extensions and Additions</em>. R package version 0.8-5, <a href="https://CRAN.R-project.org/package=vcdExtra" class="uri">https://CRAN.R-project.org/package=vcdExtra</a>.</p>
+<p>Gruvaeus, G. and Wainer, H. (1972): Two Additions to Hierarchical Cluster Analysis, <em>British Journal of Mathematical and Statistical Psychology,</em> <strong>25</strong>, 200–206. <a href="https://doi.org/10.1111/j.2044-8317.1972.tb00491.x" class="uri">https://doi.org/10.1111/j.2044-8317.1972.tb00491.x</a></p>
+<p>Hahsler, M. (2017): An experimental comparison of seriation methods for one-mode two-way data. <em>European Journal of Operational Research,</em> <strong>257</strong>, 133–143. <a href="https://doi.org/10.1016/j.ejor.2016.08.066" class="uri">https://doi.org/10.1016/j.ejor.2016.08.066</a></p>
+<p>Hubert, Lawrence, and James Schultz (1976): Quadratic Assignment as a General Data Analysis Strategy. <em>British Journal of Mathematical and Statistical Psychology,</em> <strong>29</strong>(2). Blackwell Publishing Ltd.&nbsp;190–241. <a href="https://doi.org/10.1111/j.2044-8317.1976.tb00714.x" class="uri">https://doi.org/10.1111/j.2044-8317.1976.tb00714.x</a></p>
+<p>Hurley, Catherine B. (2004): Clustering Visualizations of Multidimensional Data. <em>Journal of Computational and Graphical Statistics,</em> <strong>13</strong>(4), 788–806. <a href="https://doi.org/10.1198/106186004X12425" class="uri">https://doi.org/10.1198/106186004X12425</a></p>
+<p>Kruskal, J.B. (1964). Nonmetric multidimensional scaling: a numerical method. <em>Psychometrika,</em> <strong>29</strong>, 115–129.</p>
+<p>Lenstra, J.K (1974): Clustering a Data Array and the Traveling-Salesman Problem, <em>Operations Research,</em> <strong>22</strong>(2) 413–414. <a href="https://doi.org/10.1287/opre.22.2.413" class="uri">https://doi.org/10.1287/opre.22.2.413</a></p>
+<p>Mair P., De Leeuw J. (2015). Unidimensional scaling. In <em>Wiley StatsRef: Statistics Reference Online,</em> Wiley, New York. <a href="https://doi.org/10.1002/9781118445112.stat06462.pub2" class="uri">https://doi.org/10.1002/9781118445112.stat06462.pub2</a></p>
+<p>McCormick, W.T., P.J. Schweitzer and T.W. White (1972): Problem decomposition and data reorganization by a clustering technique, <em>Operations Research,</em> <strong>20</strong>(5), 993–1009. <a href="https://doi.org/10.1287/opre.20.5.993" class="uri">https://doi.org/10.1287/opre.20.5.993</a></p>
+<p>McInnes, L and Healy, J, UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction, ArXiv e-prints 1802.03426, 2018.</p>
+<p>Sammon, J. W. (1969) A non-linear mapping for data structure analysis. <em>IEEE Trans. Comput.</em>, <strong>C-18</strong> 401–409.</p>
+<p>Tenenbaum, J.B., de Silva, V. &amp; Langford, J.C. (2000) A global network framework for nonlinear dimensionality reduction. <em>Science</em> <strong>290</strong>, 2319-2323.</p>
+<p>Tsafrir, D., Tsafrir, I., Ein-Dor, L., Zuk, O., Notterman, D.A. and Domany, E. (2005): Sorting points into neighborhoods (SPIN): data analysis and visualization by ordering distance matrices, <em>Bioinformatics,</em> <strong>21</strong>(10) 2301–8. <a href="https://doi.org/10.1093/bioinformatics/bti329" class="uri">https://doi.org/10.1093/bioinformatics/bti329</a></p>
+<p>van der Maaten, L.J.P.; Hinton, G.E. (Nov 2008). Visualizing Data Using t-SNE. <em>Journal of Machine Learning Research</em>. <strong>9</strong>: 2579–2605.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

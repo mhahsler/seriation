@@ -1,9 +1,6 @@
 ---
-title: "List of Seriation Criteria implemented in the R package seriation"
+title: "Seriation Criteria implemented in the R package seriation"
 author: "Michael Hahsler"
-format: 
-  html:
-    toc: true
 editor: visual
 ---
 

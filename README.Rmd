@@ -28,9 +28,9 @@ Here are some quick guides on applications of seriation:
 
 Implemented seriation methods and criteria:
 
-* [Documentation of the implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)
-* [Documentation of the implemented seriation criteria](https://mhahsler.github.io/seriation/seriation_criteria.html)
-* [A visual comparison between seriation methods](https://mhahsler.github.io/seriation/visual_comparison.html)
+* [Documentation of the implemented seriation methods](https://mhahsler.github.io/seriation/_site/seriation_methods.html)
+* [Documentation of the implemented seriation criteria](https://mhahsler.github.io/seriation/_site/seriation_criteria.html)
+* [A visual comparison between seriation methods](https://mhahsler.github.io/seriation/_site/comparison.html)
 
 ```{r echo=FALSE, results = 'asis'}
 pkg_usage(pkg)

@@ -1,5 +1,5 @@
 ---
-title: "List of Seriation Methods implemented in the R package seriation"
+title: "Seriation Methods implemented in the R package seriation"
 author: "Michael Hahsler"
 format: 
   html:

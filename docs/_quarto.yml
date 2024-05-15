@@ -1,0 +1,43 @@
+project:
+  type: website
+  render:
+    - seriation_methods.qmd
+    - seriation_criteria.qmd
+    - heatmaps.qmd
+    - correlation_matrix.qmd
+    - clustering.qmd
+    - comparison.qmd
+
+website:
+  title: "R Package Seriation"
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "Package"
+        contents:
+        - text: Package Overview
+          href: https://github.com/mhahsler/seriation
+      - section: "Methods and Criteria"
+        contents:
+        - text: Methods
+          href: seriation_methods.qmd
+        - text: Criteria
+          href: seriation_criteria.qmd
+        - text: Comparison
+          href: comparison.qmd
+      - section: "Quick Guides"
+        contents:
+        - text: Introduction
+          href: https://cran.r-project.org/web/packages/seriation/vignettes/seriation.pdf
+        - text: How to reorder heatmaps
+          href: heatmaps.qmd
+        - text: How to reorder correlation matrices
+          href: correlation_matrix.qmd
+        - text: How to evaluate clusters using dissimilarity plots
+          href: clustering.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
