@@ -33,7 +33,7 @@ Here are some quick guides on applications of seriation:
 - [How to reorder correlation
   matrices](https://mhahsler.github.io/seriation/correlation_matrix.html)
 - [How to evaluate clusters using dissimilarity
-  plots](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html)
+  plots](https://mhahsler.github.io/seriation/clustering.html)
 
 Implemented seriation methods and criteria:
 
@@ -42,7 +42,7 @@ Implemented seriation methods and criteria:
 - [Documentation of the implemented seriation
   criteria](https://mhahsler.github.io/seriation/seriation_criteria.html)
 - [A visual comparison between seriation
-  methods](https://mhahsler.github.io/seriation/visual_comparison.html)
+  methods](https://mhahsler.github.io/seriation/comparison.html)
 
 The following R packages use `seriation`:
 [adepro](https://CRAN.R-project.org/package=adepro),
@@ -63,6 +63,7 @@ The following R packages use `seriation`:
 [MEDseq](https://CRAN.R-project.org/package=MEDseq),
 [ockc](https://CRAN.R-project.org/package=ockc),
 [protti](https://CRAN.R-project.org/package=protti),
+[qlcVisualize](https://CRAN.R-project.org/package=qlcVisualize),
 [RMaCzek](https://CRAN.R-project.org/package=RMaCzek),
 [SFS](https://CRAN.R-project.org/package=SFS),
 [tidygraph](https://CRAN.R-project.org/package=tidygraph),

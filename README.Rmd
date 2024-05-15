@@ -24,13 +24,13 @@ Here are some quick guides on applications of seriation:
 * [Introduction the R package seriation](https://cran.r-project.org/web/packages/seriation/vignettes/seriation.pdf)
 * [How to reorder heatmaps](https://mhahsler.github.io/seriation/heatmaps.html)
 * [How to reorder correlation matrices](https://mhahsler.github.io/seriation/correlation_matrix.html)
-* [How to evaluate clusters using dissimilarity plots](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html)
+* [How to evaluate clusters using dissimilarity plots](https://mhahsler.github.io/seriation/clustering.html)
 
 Implemented seriation methods and criteria:
 
-* [Documentation of the implemented seriation methods](https://mhahsler.github.io/seriation/_site/seriation_methods.html)
-* [Documentation of the implemented seriation criteria](https://mhahsler.github.io/seriation/_site/seriation_criteria.html)
-* [A visual comparison between seriation methods](https://mhahsler.github.io/seriation/_site/comparison.html)
+* [Documentation of the implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)
+* [Documentation of the implemented seriation criteria](https://mhahsler.github.io/seriation/seriation_criteria.html)
+* [A visual comparison between seriation methods](https://mhahsler.github.io/seriation/comparison.html)
 
 ```{r echo=FALSE, results = 'asis'}
 pkg_usage(pkg)
