@@ -17,7 +17,6 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-
 #include <R.h>
 #include <Rdefines.h>
 
@@ -34,46 +33,51 @@
  * NA if there was no legal edge at all.
  */
 
-double stressMoore(double *x, int *r, int *c, int nr, int nc, int nrx) {
+double stressMoore(double *x, int *r, int *c, int nr, int nc, int nrx)
+{
 
   double d, v, z;
   R_xlen_t i, j, l, ll, k, kk;
 
   z = 0;
   l = r[0];
-  for (i = 0; i < nr-1; i++) {
-    ll = r[i+1];
-    k  = c[0] * nrx;
-    for (j = 0; j < nc-1; j++) {
-      kk = c[j+1] * nrx;
-      v  = x[l+k];
-      if (!ISNAN(v)) {
-        d = v - x[ll+k];
+  for (i = 0; i < nr - 1; i++)
+  {
+    ll = r[i + 1];
+    k = c[0] * nrx;
+    for (j = 0; j < nc - 1; j++)
+    {
+      kk = c[j + 1] * nrx;
+      v = x[l + k];
+      if (!ISNAN(v))
+      {
+        d = v - x[ll + k];
         if (!ISNAN(d))
           z += d * d;
-        d = v - x[ll+kk];
+        d = v - x[ll + kk];
         if (!ISNAN(d))
           z += d * d;
-        d = v - x[l+kk];
+        d = v - x[l + kk];
         if (!ISNAN(d))
           z += d * d;
       }
-      d = x[ll+k] - x[l+kk];
+      d = x[ll + k] - x[l + kk];
       k = kk;
       if (!ISNAN(d))
         z += d * d;
     }
-    d  = x[l+k] - x[ll+k];
-    l  = ll;
+    d = x[l + k] - x[ll + k];
+    l = ll;
     if (!ISNAN(d))
       z += d * d;
     R_CheckUserInterrupt();
   }
   k = c[0] * nrx;
-  for (j = 0; j < nc-1; j++) {
-    kk = c[j+1] * nrx;
-    d  = x[l+k] - x[l+kk];
-    k  = kk;
+  for (j = 0; j < nc - 1; j++)
+  {
+    kk = c[j + 1] * nrx;
+    d = x[l + k] - x[l + kk];
+    k = kk;
     if (!ISNAN(d))
       z += d * d;
   }
@@ -85,40 +89,45 @@ double stressMoore(double *x, int *r, int *c, int nr, int nc, int nrx) {
  * neighboring points on the diagonals are excluded.
  */
 
-double stressNeumann(double *x, int *r, int *c, int nr, int nc, int nrx) {
+double stressNeumann(double *x, int *r, int *c, int nr, int nc, int nrx)
+{
 
   double d, v, z;
   R_xlen_t i, j, l, ll, k, kk;
 
   z = 0;
   l = r[0];
-  for (i = 0; i < nr-1; i++) {
-    ll = r[i+1];
-    k  = c[0] * nrx;
-    for (j = 0; j < nc-1; j++) {
-      kk = c[j+1] * nrx;
-      v  = x[l+k];
-      if (!ISNAN(v)) {
-        d = v - x[ll+k];
+  for (i = 0; i < nr - 1; i++)
+  {
+    ll = r[i + 1];
+    k = c[0] * nrx;
+    for (j = 0; j < nc - 1; j++)
+    {
+      kk = c[j + 1] * nrx;
+      v = x[l + k];
+      if (!ISNAN(v))
+      {
+        d = v - x[ll + k];
         if (!ISNAN(d))
           z += d * d;
-        d = v - x[l+kk];
+        d = v - x[l + kk];
         if (!ISNAN(d))
           z += d * d;
       }
       k = kk;
     }
-    d  = x[l+k] - x[ll+k];
-    l  = ll;
+    d = x[l + k] - x[ll + k];
+    l = ll;
     if (!ISNAN(d))
       z += d * d;
     R_CheckUserInterrupt();
   }
   k = c[0] * nrx;
-  for (j = 0; j < nc-1; j++) {
-    kk = c[j+1] * nrx;
-    d  = x[l+k] - x[l+kk];
-    k  = kk;
+  for (j = 0; j < nc - 1; j++)
+  {
+    kk = c[j + 1] * nrx;
+    d = x[l + k] - x[l + kk];
+    k = kk;
     if (!ISNAN(d))
       z += d * d;
   }
@@ -129,7 +138,8 @@ double stressNeumann(double *x, int *r, int *c, int nr, int nc, int nrx) {
 /* R wrapper to the stress functions
  */
 
-SEXP stress(SEXP R_x, SEXP R_r, SEXP R_c, SEXP R_type) {
+SEXP stress(SEXP R_x, SEXP R_r, SEXP R_c, SEXP R_type)
+{
 
   int nrx, nr, nc;
   R_xlen_t k;
@@ -145,7 +155,7 @@ SEXP stress(SEXP R_x, SEXP R_r, SEXP R_c, SEXP R_type) {
    (STRING_ELT), R_x));
    */
 
-  nrx = INTEGER(GET_DIM(R_x))[0];		/* number of rows */
+  nrx = INTEGER(GET_DIM(R_x))[0]; /* number of rows */
 
   nr = LENGTH(R_r);
   nc = LENGTH(R_c);
@@ -160,23 +170,26 @@ SEXP stress(SEXP R_x, SEXP R_r, SEXP R_c, SEXP R_type) {
   /* copy and shift indexes */
 
   for (k = 0; k < nr; k++)
-    r[k] = INTEGER(R_r)[k]-1;
+    r[k] = INTEGER(R_r)[k] - 1;
   for (k = 0; k < nc; k++)
-    c[k] = INTEGER(R_c)[k]-1;
+    c[k] = INTEGER(R_c)[k] - 1;
 
   PROTECT(R_obj = NEW_NUMERIC(1));
 
-  switch (INTEGER(R_type)[0]) {
+  switch (INTEGER(R_type)[0])
+  {
   case 1:
-    REAL(R_obj)[0] = stressMoore(REAL(R_x), r, c, nr, nc, nrx);
+    REAL(R_obj)
+    [0] = stressMoore(REAL(R_x), r, c, nr, nc, nrx);
     break;
   case 2:
-    REAL(R_obj)[0] = stressNeumann(REAL(R_x), r, c, nr, nc, nrx);
+    REAL(R_obj)
+    [0] = stressNeumann(REAL(R_x), r, c, nr, nc, nrx);
     break;
   default:
     Free(r);
-  Free(c);
-  error("stress: type not implemented");
+    Free(c);
+    error("stress: type not implemented");
   }
   Free(r);
   Free(c);
@@ -208,21 +221,24 @@ SEXP stress(SEXP R_x, SEXP R_r, SEXP R_c, SEXP R_type) {
  */
 
 void distMoore(double *x, int *r, int *c, int nr, int nc, int nrx, int ncx,
-  double *d, double *t) {
+               double *d, double *t)
+{
 
   double v, w, z;
   R_xlen_t i, ii, j, jj, k, kk, kkk, l;
 
-  for (k = 0; k < nr*(nr-1)/2; k++)	    /* initialize distances */
-d[k] = 0;
+  for (k = 0; k < nr * (nr - 1) / 2; k++) /* initialize distances */
+    d[k] = 0;
 
-  for (i = 0; i < nr; i++) {
-    z  = 0;
+  for (i = 0; i < nr; i++)
+  {
+    z = 0;
     ii = r[i] * ncx;
     kk = c[0] * nrx;
-    for (k = 0; k < nc-1; k++) {
-      kkk = c[k+1] * nrx;
-      w = x[ii+kk] - x[ii+kkk];
+    for (k = 0; k < nc - 1; k++)
+    {
+      kkk = c[k + 1] * nrx;
+      w = x[ii + kk] - x[ii + kkk];
       if (!ISNAN(w))
         z += w * w;
       kk = kkk;
@@ -231,29 +247,33 @@ d[k] = 0;
     R_CheckUserInterrupt();
   }
   l = 0;
-  for (i = 0; i < nr-1; i++) {
+  for (i = 0; i < nr - 1; i++)
+  {
     ii = r[i] * ncx;
-    for (j = i+1; j < nr; j++) {
-      z  = t[i] + t[j];
+    for (j = i + 1; j < nr; j++)
+    {
+      z = t[i] + t[j];
       jj = r[j] * ncx;
       kk = c[0] * nrx;
-      for (k = 0; k < nc-1; k++) {
-        kkk = c[k+1] * nrx;
-        v   = x[ii+kk];
-        if (!ISNAN(v)) {
-          w = v - x[jj+kk];
+      for (k = 0; k < nc - 1; k++)
+      {
+        kkk = c[k + 1] * nrx;
+        v = x[ii + kk];
+        if (!ISNAN(v))
+        {
+          w = v - x[jj + kk];
           if (!ISNAN(w))
             z += w * w;
-          w = v - x[jj+kkk];
+          w = v - x[jj + kkk];
           if (!ISNAN(w))
             z += w * w;
         }
-        w = x[jj+kk] - x[ii+kkk];
+        w = x[jj + kk] - x[ii + kkk];
         if (!ISNAN(w))
           z += w * w;
         kk = kkk;
       }
-      w = x[ii+kk] - x[jj+kk];
+      w = x[ii + kk] - x[jj + kk];
       if (!ISNAN(w))
         z += w * w;
 
@@ -270,21 +290,24 @@ d[k] = 0;
  */
 
 void distNeumann(double *x, int *r, int *c, int nr, int nc, int nrx, int ncx,
-  double *d, double *t) {
+                 double *d, double *t)
+{
 
   double w, z;
   R_xlen_t i, ii, j, jj, k, kk, kkk, l;
 
-  for (k = 0; k < nr*(nr-1)/2; k++)	    /* initialize distances */
+  for (k = 0; k < nr * (nr - 1) / 2; k++) /* initialize distances */
     d[k] = 0;
 
-  for (i = 0; i < nr; i++) {
-    z  = 0;
+  for (i = 0; i < nr; i++)
+  {
+    z = 0;
     ii = r[i] * ncx;
     kk = c[0] * nrx;
-    for (k = 0; k < nc-1; k++) {
-      kkk = c[k+1] * nrx;
-      w = x[ii+kk] - x[ii+kkk];
+    for (k = 0; k < nc - 1; k++)
+    {
+      kkk = c[k + 1] * nrx;
+      w = x[ii + kk] - x[ii + kkk];
       if (!ISNAN(w))
         z += w * w;
       kk = kkk;
@@ -293,19 +316,22 @@ void distNeumann(double *x, int *r, int *c, int nr, int nc, int nrx, int ncx,
     R_CheckUserInterrupt();
   }
   l = 0;
-  for (i = 0; i < nr-1; i++) {
+  for (i = 0; i < nr - 1; i++)
+  {
     ii = r[i] * ncx;
-    for (j = i+1; j < nr; j++) {
-      z  = t[i] + t[j];
+    for (j = i + 1; j < nr; j++)
+    {
+      z = t[i] + t[j];
       jj = r[j] * ncx;
-      for (k = 0; k < nc-1; k++) {
+      for (k = 0; k < nc - 1; k++)
+      {
         kk = c[k] * nrx;
-        w = x[ii+kk]- x[jj+kk];
+        w = x[ii + kk] - x[jj + kk];
         if (!ISNAN(w))
           z += w * w;
       }
       kk = c[k] * nrx;
-      w  = x[ii+kk] - x[jj+kk];
+      w = x[ii + kk] - x[jj + kk];
       if (!ISNAN(w))
         z += w * w;
 
@@ -318,7 +344,8 @@ void distNeumann(double *x, int *r, int *c, int nr, int nc, int nrx, int ncx,
 /* R wrapper
  */
 
-SEXP stress_dist(SEXP R_x, SEXP R_r, SEXP R_c, SEXP R_bycol, SEXP R_type) {
+SEXP stress_dist(SEXP R_x, SEXP R_r, SEXP R_c, SEXP R_bycol, SEXP R_type)
+{
 
   int nrx, nr, nc;
   R_xlen_t k;
@@ -326,44 +353,45 @@ SEXP stress_dist(SEXP R_x, SEXP R_r, SEXP R_c, SEXP R_bycol, SEXP R_type) {
 
   double *d, *t;
 
-  SEXP R_obj = R_NilValue;	/* compiler hack */
+  SEXP R_obj = R_NilValue; /* compiler hack */
 
+  /* Translation form character to int index not needed
+   * R part makes sure it is int!
+   PROTECT(R_r = arraySubscript(0, R_r, GET_DIM(R_x), getAttrib,
+   (STRING_ELT), R_x));
+   PROTECT(R_c = arraySubscript(1, R_c, GET_DIM(R_x), getAttrib,
+   (STRING_ELT), R_x));
+   */
 
-/* Translation form character to int index not needed
- * R part makes sure it is int!
- PROTECT(R_r = arraySubscript(0, R_r, GET_DIM(R_x), getAttrib,
- (STRING_ELT), R_x));
- PROTECT(R_c = arraySubscript(1, R_c, GET_DIM(R_x), getAttrib,
- (STRING_ELT), R_x));
- */
-
-  nrx = INTEGER(GET_DIM(R_x))[0];		/* number of rows */
+  nrx = INTEGER(GET_DIM(R_x))[0]; /* number of rows */
 
   nr = LENGTH(R_r);
   nc = LENGTH(R_c);
 
-/* remap R indexes to C indexes
- * this sucks!
- */
+  /* remap R indexes to C indexes
+   * this sucks!
+   */
 
   r = Calloc(nr, int);
   c = Calloc(nc, int);
 
-/* copy and shift indexes */
+  /* copy and shift indexes */
 
   for (k = 0; k < nr; k++)
-    r[k] = INTEGER(R_r)[k]-1;
+    r[k] = INTEGER(R_r)[k] - 1;
   for (k = 0; k < nc; k++)
-    c[k] = INTEGER(R_c)[k]-1;
+    c[k] = INTEGER(R_c)[k] - 1;
 
-  switch(LOGICAL(R_bycol)[0]) {
+  switch (LOGICAL(R_bycol)[0])
+  {
   case 0:
-    PROTECT(R_obj = NEW_NUMERIC(nr*(nr-1)/2));
+    PROTECT(R_obj = NEW_NUMERIC(nr * (nr - 1) / 2));
 
     d = REAL(R_obj);
     t = Calloc(nr, double);
 
-    switch(INTEGER(R_type)[0]) {
+    switch (INTEGER(R_type)[0])
+    {
     case 1:
       distMoore(REAL(R_x), r, c, nr, nc, nrx, 1, d, t);
       break;
@@ -372,19 +400,20 @@ SEXP stress_dist(SEXP R_x, SEXP R_r, SEXP R_c, SEXP R_bycol, SEXP R_type) {
       break;
     default:
       Free(r);
-    Free(c);
-    Free(t);
-    error("stress_dist: \"type\" not implemented");
+      Free(c);
+      Free(t);
+      error("stress_dist: \"type\" not implemented");
     }
     Free(t);
     break;
   case 1:
-    PROTECT(R_obj = NEW_NUMERIC(nc*(nc-1)/2));
+    PROTECT(R_obj = NEW_NUMERIC(nc * (nc - 1) / 2));
 
     d = REAL(R_obj);
     t = Calloc(nc, double);
 
-    switch(INTEGER(R_type)[0]) {
+    switch (INTEGER(R_type)[0])
+    {
     case 1:
       distMoore(REAL(R_x), c, r, nc, nr, 1, nrx, d, t);
       break;
@@ -393,16 +422,16 @@ SEXP stress_dist(SEXP R_x, SEXP R_r, SEXP R_c, SEXP R_bycol, SEXP R_type) {
       break;
     default:
       Free(r);
-    Free(c);
-    Free(t);
-    error("stress_dist: type not implemented");
+      Free(c);
+      Free(t);
+      error("stress_dist: type not implemented");
     }
     Free(t);
     break;
   default:
     Free(r);
-  Free(c);
-  error("stress_dist: \"bycol\" invalid");
+    Free(c);
+    error("stress_dist: \"bycol\" invalid");
   }
   Free(r);
   Free(c);
@@ -412,4 +441,3 @@ SEXP stress_dist(SEXP R_x, SEXP R_r, SEXP R_c, SEXP R_bycol, SEXP R_type) {
 
   return R_obj;
 }
-

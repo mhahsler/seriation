@@ -27,7 +27,7 @@ assessment of cluster tendency plots (VAT and iVAT).
 Here are some quick guides on applications of seriation:
 
 - [Introduction the R package
-  seriation](https://cran.r-project.org/web/packages/seriation/vignettes/seriation.pdf)
+  seriation](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf)
 - [How to reorder
   heatmaps](https://mhahsler.github.io/seriation/heatmaps.html)
 - [How to reorder correlation
@@ -230,7 +230,8 @@ install.packages("seriation")
 
 ``` r
 install.packages("seriation",
-    repos = c("https://mhahsler.r-universe.dev". "https://cloud.r-project.org/"))
+    repos = c("https://mhahsler.r-universe.dev",
+              "https://cloud.r-project.org/"))
 ```
 
 ## Usage
@@ -298,10 +299,7 @@ measures. Note that some measures are merit measures while others
 represent cost. See the manual page for details.
 
 ``` r
-rbind(
- alphabetical = criterion(d),
- seriated = criterion(d, order)
-)
+rbind(alphabetical = criterion(d), seriated = criterion(d, order))
 ```
 
     ##              2SUM AR_deviations AR_events BAR Gradient_raw Gradient_weighted

@@ -71,15 +71,15 @@ SEXP order_length(SEXP R_dist, SEXP R_order) {
     if (LENGTH(R_dist) != n * (n - 1) / 2)
        error("order_length: length of \"dist\" and \"order\" do not match");
 
-    o = Calloc(n, int);
+    o = R_Calloc(n, int);
 
     for (k = 0; k < n; k++)		/* offset to C indexing */
-	o[k] = INTEGER(R_order)[k]-1;
+	    o[k] = INTEGER(R_order)[k]-1;
 
     PROTECT(R_obj = NEW_NUMERIC(1));
 
     REAL(R_obj)[0] = orderLength(REAL(R_dist), o, n);
-    Free(o);
+    R_Free(o);
 
     UNPROTECT(1);
 
@@ -276,14 +276,14 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 
     /* copy similarities into lower triangle */
 
-    x = Calloc(n*n, double);	    /* data + part order lengths + temporary */
+    x = R_Calloc(n*n, double);	    /* data + part order lengths + temporary */
 
     k = 0;
     for (i = 0; i < n-1; i++)
 	for (j = i+1; j < n; j++) {
 	    z = REAL(R_dist)[k++];
 	    if (!R_FINITE(z)) {
-	       Free(x);
+	       R_Free(x);
 	       error("order_optimal: \"dist\" invalid");
 	    }
 	    else
@@ -302,12 +302,12 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 
     GetRNGstate();
 
-    l = Calloc(n,   int);	/* offset of leftmost leaf of left tree */
-    r = Calloc(n,   int);	/* offset of leftmost leaf of right tree;
+    l = R_Calloc(n,   int);	/* offset of leftmost leaf of left tree */
+    r = R_Calloc(n,   int);	/* offset of leftmost leaf of right tree;
 				 * reverse mapping of order */
-    c = Calloc(n-1, int);	/* number of leaves in a tree */
+    c = R_Calloc(n-1, int);	/* number of leaves in a tree */
 
-    e = Calloc(n*n, int);	/* inner endpoints */
+    e = R_Calloc(n*n, int);	/* inner endpoints */
 
     /* for each tree count the number of leaves.
      */
@@ -395,13 +395,13 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 	/* compute temporary sums for all endpoints */
 
 	if (!calcAllOrder(x, e, oll, olr, or, cll, clr, cr, n)) {
-	   Free(x); Free(r); Free(l); Free(c); Free(e);
+	   R_Free(x); R_Free(r); R_Free(l); R_Free(c); R_Free(e);
 	   error("order_optimal: non-finite values");
 	}
 
 	if (olr != oll)
 	   if (!calcAllOrder(x, e, olr, oll, or, clr, cll, cr, n)) {
-	      Free(x); Free(r); Free(l); Free(c); Free(e);
+	      R_Free(x); R_Free(r); R_Free(l); R_Free(c); R_Free(e);
 	      error("order_optimal: non-finite values");
 	   }
 
@@ -421,13 +421,13 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 	/* compute best orders for all endpoints */
 
 	if (!calcAllOrder(x, e, orl, orr, ol, crl, crr, cl, n)) {
-	   Free(x); Free(r); Free(l); Free(c); Free(e);
+	   R_Free(x); R_Free(r); R_Free(l); R_Free(c); R_Free(e);
 	   error("order_optimal: non-finite values");
 	}
 
 	if (orr != orl)
 	   if (!calcAllOrder(x, e, orr, orl, ol, crr, crl, cl, n)) {
-	      Free(x); Free(r); Free(l); Free(c); Free(e);
+	      R_Free(x); R_Free(r); R_Free(l); R_Free(c); R_Free(e);
 	      error("order_optimal: non-finite values");
 	   }
 
@@ -467,24 +467,24 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
      */
 
     if (!calcEndOrder(x, e, oll, olr, cll, clr, n)) {
-       Free(x); Free(r); Free(l); Free(c); Free(e);
+       R_Free(x); R_Free(r); R_Free(l); R_Free(c); R_Free(e);
        error("order_optimal: non-finite values");
     }
 
     if (olr != oll)
        if (!calcEndOrder(x, e, olr, oll, clr, cll, n)) {
-	  Free(x); Free(r); Free(l); Free(c); Free(e);
+	  R_Free(x); R_Free(r); R_Free(l); R_Free(c); R_Free(e);
 	  error("order_optimal: non-finite values");
        }
 
     if (!calcEndOrder(x, e, orl, orr, crl, crr, n)) {
-       Free(x); Free(r); Free(l); Free(c); Free(e);
+       R_Free(x); R_Free(r); R_Free(l); R_Free(c); R_Free(e);
        error("order_optimal: non-finite values");
     }
 
     if (orr != orl)
        if (!calcEndOrder(x, e, orr, orl, crr, crl, n)) {
-	  Free(x); Free(r); Free(l); Free(c); Free(e);
+	  R_Free(x); R_Free(r); R_Free(l); R_Free(c); R_Free(e);
 	  error("order_optimal: non-finite values");
        }
 
@@ -517,7 +517,7 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
 		 }
 	}
 	if (!R_FINITE(z)) {
-	   Free(x); Free(r); Free(l); Free(c); Free(e);
+	   R_Free(x); R_Free(r); R_Free(l); R_Free(c); R_Free(e);
 	   error("order_optimal: non-finite values");
 	}
     }
@@ -620,11 +620,11 @@ SEXP order_optimal(SEXP R_dist, SEXP R_merge) {
        }
     }
 
-    Free(x);
-    Free(l);
-    Free(r);
-    Free(c);
-    Free(e);
+    R_Free(x);
+    R_Free(l);
+    R_Free(r);
+    R_Free(c);
+    R_Free(e);
 
     PutRNGstate();
 

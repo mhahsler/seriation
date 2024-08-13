@@ -34,17 +34,19 @@ if(seriation:::check_installed("dbscan", "check")) {
   expect_equal(length(o[[1]]), 4L)
 }
 
-# this is very slow see we only for 10 iterations
+# The following tests are too slow for CRAN and skipped
 skip_on_cran()
 
+# this is very slow see we only do 10 iterations
 if(seriation:::check_installed("GA", "check")) {
   register_GA()
   o <- seriate(d, "GA", maxiter = 10, parallel = FALSE, verb = F)
   expect_equal(length(o[[1]]), 4L)
 }
 
-# This produces too many messages
-# Python (keras) leaves some files in temp and that upsets CRAN
+# Notes:
+# * This produces too many messages
+# * Python (keras) leaves some files in temp and that upsets CRAN
 skip()
 
 # only do 10 epochs.

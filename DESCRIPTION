@@ -1,8 +1,8 @@
 Package: seriation
 Type: Package
 Title: Infrastructure for Ordering Objects Using Seriation
-Version: 1.5.5.1
-Date: 2024-xx-xx
+Version: 1.5.6
+Date: 2024-08-13
 Authors@R: c(
 	person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
 	  email = "mhahsler@lyle.smu.edu",
@@ -52,7 +52,7 @@ Suggests: dbscan,
   testthat, 
   umap
 Encoding: UTF-8
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 License: GPL-3
 Copyright: The code in src/bbwrcg.f, src/arsa.f and src/bburcg.f 
