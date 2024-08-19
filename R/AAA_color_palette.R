@@ -30,7 +30,7 @@
 #' The two diverging palettes are: `bluered()` and `greenred()`.
 #'
 #' @name palette
-#' @aliases palette, colors
+#' @aliases palette colors
 #' @family plots
 #'
 #' @param n number of different colors produces.

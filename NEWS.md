@@ -1,4 +1,4 @@
-# seriation 1.5.6 (08/13/2024)
+# seriation 1.5.6 (08/19/2024)
 
 ## New Features
 - Added registered_by field to registries. 
@@ -7,6 +7,7 @@
 - We replaced the FORTRAN implementation for BEA with code from package TSP.
 - ME is now calculated using C code.
 - optimal.c: updated memory allocation to R allocation.
+- stress.c: updated memory allocation to R allocation.
 
 ## Bug Fixes
 - Added two missing package anchors to palette man page.

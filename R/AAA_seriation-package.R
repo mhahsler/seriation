@@ -4,9 +4,9 @@
 #' - Seriation: [seriate()], [criterion()], [get_order()], [permute()]
 #' - Visualization: [pimage()], [bertinplot()], [hmap()], [dissplot()], [VAT()]
 #'
-#' @section Available seriation methods:
+#' @section Available seriation methods and criteria:
 #' * [A list with the implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)
-#' * [A visual comparison between seriation methods](https://mhahsler.github.io/seriation/visual_comparison.html)
+#' * [A visual comparison between seriation methods](https://mhahsler.github.io/seriation/comparison.html)
 #' * [A list with the implemented seriation criteria](https://mhahsler.github.io/seriation/seriation_criteria.html)
 #'
 #' @section Quickstart guides:

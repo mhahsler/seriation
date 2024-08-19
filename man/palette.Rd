@@ -3,7 +3,6 @@
 \name{palette}
 \alias{palette}
 \alias{bluered}
-\alias{palette,}
 \alias{colors}
 \alias{greenred}
 \alias{reds}
