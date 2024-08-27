@@ -4,9 +4,9 @@
 [![r-universe
 status](https://mhahsler.r-universe.dev/badges/seriation)](https://mhahsler.r-universe.dev/seriation)
 [![Package on
-CRAN](http://www.r-pkg.org/badges/version/seriation)](https://CRAN.R-project.org/package=seriation)
+CRAN](https://www.r-pkg.org/badges/version/seriation)](https://CRAN.R-project.org/package=seriation)
 [![CRAN RStudio mirror
-downloads](http://cranlogs.r-pkg.org/badges/seriation)](https://CRAN.R-project.org/package=seriation)
+downloads](https://cranlogs.r-pkg.org/badges/seriation)](https://CRAN.R-project.org/package=seriation)
 [![Anaconda.org](https://anaconda.org/conda-forge/r-seriation/badges/version.svg)](https://anaconda.org/conda-forge/r-seriation)
 [![StackOverflow](https://img.shields.io/badge/stackoverflow-seriation+r-orange.svg)](https://stackoverflow.com/questions/tagged/seriation+r)
 
