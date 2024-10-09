@@ -40,7 +40,7 @@
 #'
 #' **Criterion**
 #'
-#' If no criterion is specified, ten the criterion specified for the method in
+#' If no criterion is specified, then the criterion specified for the method in
 #' the registry (see `[get_seriation_method()]`) is used. For methods with no
 #' criterion in the registry (marked as "other"), a default method is used.
 #' The defaults are:
