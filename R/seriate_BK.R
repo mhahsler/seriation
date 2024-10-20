@@ -43,7 +43,7 @@ concentrate <- function(x){
   
 }
 
-seriate_bku <- function(x, control = NULL){
+seriate_bku <- function(x, control = NULL, margin = NULL){
 
   old <- x
   
@@ -59,7 +59,16 @@ seriate_bku <- function(x, control = NULL){
     
   }
   
-  new
+  # return order of rows and columns
+  rows <- 1:nrow(x)
+  names(rows) <- rownames(x)
+  rows <- rows[rownames(new)]
+
+  cols <- 1:ncol(x)
+  names(cols) <- colnames(x)
+  cols <- cols[colnames(new)]
+
+  list(row = rows, col = cols)
 
 }
 
