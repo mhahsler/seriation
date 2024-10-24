@@ -72,7 +72,7 @@ Other seriation:
 \code{\link{register_optics}()},
 \code{\link{register_smacof}()},
 \code{\link{register_tsne}()},
-\code{\link{registry_for_seriaiton_methods}},
+\code{\link{registry_for_seriation_methods}},
 \code{\link{seriate}()},
 \code{\link{seriate_best}()}
 }

@@ -57,7 +57,9 @@ The following R packages use `seriation`:
 [DendSer](https://CRAN.R-project.org/package=DendSer),
 [dendsort](https://CRAN.R-project.org/package=dendsort),
 [disclapmix](https://CRAN.R-project.org/package=disclapmix),
+[elaborator](https://CRAN.R-project.org/package=elaborator),
 [flexclust](https://CRAN.R-project.org/package=flexclust),
+[ggalign](https://CRAN.R-project.org/package=ggalign),
 [ggraph](https://CRAN.R-project.org/package=ggraph),
 [heatmaply](https://CRAN.R-project.org/package=heatmaply),
 [MEDseq](https://CRAN.R-project.org/package=MEDseq),
@@ -184,6 +186,8 @@ Row and column order influence each other.
 - **BEA** - Bond Energy Algorithm to maximize the measure of
   effectiveness (ME)
 - **BEA_TSP** - TSP to optimize the measure of effectiveness
+- **BK_unconstrained** - Algorithm by Brower and Kyle (1988) to arrange
+  binary matrices.
 - **CA** - calculates a correspondence analysis of a matrix of
   frequencies (count table) and reorders according to the scores on a
   correspondence analysis dimension

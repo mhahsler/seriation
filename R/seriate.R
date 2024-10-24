@@ -406,6 +406,14 @@
 #'   `control` parameter:
 #'      - `"method"`: a TSP solver method (see [TSP::solve_TSP()]).
 #'
+#' - **Unconstrained Brower and Kyle seriation**: `"BK_unconstrained"` (Brower and Kyle 1988).
+#'
+#'   Reorderes 0-1 matrices to create a block structure along the diagonal. It iteratively
+#'   reorders by the mean row indices of 1s and mean column indices of 1s till the orders
+#'   become stable.
+#'
+#'   `control` parameter: None
+#'
 #' - **Correspondence analysis** `"CA"` (Friendly, 2023)
 #'
 #'   This function is designed to help simplify a mosaic plot or other displays of a
@@ -534,6 +542,10 @@
 #' (cluster) tendency. _Proceedings of the 2002 International Joint
 #' Conference on Neural Networks (IJCNN '02),_ Volume: 3, 2225--2230.
 #' \doi{10.1109/IJCNN.2002.1007487}
+#'
+#' Brower, J.C. and Kile, K.M. (1988): Sedation of an original data matrix
+#' as applied to paleoecology. _Lethaia,_ **21**, 79--93.
+#' \doi{10.1111/j.1502-3931.1988.tb01756.x}
 #'
 #' Brusco, M., Koehn, H.F., and Stahl, S. (2008): Heuristic Implementation of
 #' Dynamic Programming for Matrix Permutation Problems in Combinatorial Data

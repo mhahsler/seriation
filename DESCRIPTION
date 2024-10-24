@@ -117,6 +117,7 @@ Collate:
     'seriate_ARSA_Branch-Bound.R'
     'seriate_TSP.R'
     'seriate_BEA.R'
+    'seriate_BK.R'
     'seriate_CA.R'
     'seriate_GSA.R'
     'seriate_HC.R'

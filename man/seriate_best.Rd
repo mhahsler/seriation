@@ -93,7 +93,7 @@ parameters for this method are accepted.
 
 \strong{Criterion}
 
-If no criterion is specified, ten the criterion specified for the method in
+If no criterion is specified, then the criterion specified for the method in
 the registry (see \verb{[get_seriation_method()]}) is used. For methods with no
 criterion in the registry (marked as "other"), a default method is used.
 The defaults are:
@@ -164,7 +164,7 @@ Other seriation:
 \code{\link{register_smacof}()},
 \code{\link{register_tsne}()},
 \code{\link{register_umap}()},
-\code{\link{registry_for_seriaiton_methods}},
+\code{\link{registry_for_seriation_methods}},
 \code{\link{seriate}()}
 }
 \author{
