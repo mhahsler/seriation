@@ -283,6 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#aoe" id="toc-aoe" class="nav-link" data-scroll-target="#aoe">AOE</a></li>
   <li><a href="#bea" id="toc-bea" class="nav-link" data-scroll-target="#bea">BEA</a></li>
   <li><a href="#bea_tsp" id="toc-bea_tsp" class="nav-link" data-scroll-target="#bea_tsp">BEA_TSP</a></li>
+  <li><a href="#bk_unconstrained" id="toc-bk_unconstrained" class="nav-link" data-scroll-target="#bk_unconstrained">BK_unconstrained</a></li>
   <li><a href="#ca" id="toc-ca" class="nav-link" data-scroll-target="#ca">CA</a></li>
   <li><a href="#heatmap" id="toc-heatmap" class="nav-link" data-scroll-target="#heatmap">Heatmap</a></li>
   <li><a href="#identity-1" id="toc-identity-1" class="nav-link" data-scroll-target="#identity-1">Identity</a></li>
@@ -331,7 +332,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"seriation"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">'seriation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] '1.5.5.1'</code></pre>
+<pre><code>[1] '1.5.6'</code></pre>
 </div>
 </div>
 <p>Some additional methods need to be registered.</p>
@@ -2091,6 +2092,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
+<section id="bk_unconstrained" class="level3">
+<h3 class="anchored" data-anchor-id="bk_unconstrained">BK_unconstrained</h3>
+<p>Implements the method for binary matrices described in Brower and Kile (1988). Reorders using the mean row and column position of presences (1s).</p>
+<ul>
+<li>optimizes: N/A</li>
+<li>randomized: FALSE</li>
+<li>control parameters: no parameters</li>
+</ul>
+</section>
 <section id="ca" class="level3">
 <h3 class="anchored" data-anchor-id="ca">CA</h3>
 <p>This method calculates a correspondence analysis of the matrix and computes an order according to the scores on a correspondence analysis dimension (Friendly 2023).</p>
@@ -2517,6 +2527,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Bar-Joseph, Z., E. D. Demaine, D. K. Gifford, and T. Jaakkola. (2001): Fast Optimal Leaf Ordering for Hierarchical Clustering. <em>Bioinformatics,</em> <strong>17</strong>(1), 22–29. <a href="https://doi.org/10.1093/bioinformatics/17.suppl_1.S22" class="uri">https://doi.org/10.1093/bioinformatics/17.suppl_1.S22</a></p>
 <p>Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for Envelope Reduction of Sparse Matrices. <em>In Proceedings of the 1993 ACM/IEEE Conference on Supercomputing,</em> 493–502. Supercomputing ’93. New York, NY, USA: ACM. </p>
 <p>Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual assessment of (cluster) tendency. <em>Proceedings of the 2002 International Joint Conference on Neural Networks (IJCNN ’02),</em> Volume: 3, 2225–2230. <a href="https://doi.org/10.1109/IJCNN.2002.1007487" class="uri">https://doi.org/10.1109/IJCNN.2002.1007487</a></p>
+<p>Brower, J.C. and Kile, K.M. (1988): Sedation of an original data matrix as applied to paleoecology. <em>Lethaia,</em> <strong>21</strong>, 79–93. <a href="https://doi.org/10.1111/j.1502-3931.1988.tb01756.x" class="uri">https://doi.org/10.1111/j.1502-3931.1988.tb01756.x</a></p>
 <p>Brusco, M., Koehn, H.F., and Stahl, S. (2008): Heuristic Implementation of Dynamic Programming for Matrix Permutation Problems in Combinatorial Data Analysis. <em>Psychometrika,</em> <strong>73</strong>(3), 503–522. <a href="https://doi.org/10.1007/s11336-007-9049-5" class="uri">https://doi.org/10.1007/s11336-007-9049-5</a></p>
 <p>Brusco, M., and Stahl, S. (2005): <em>Branch-and-Bound Applications in Combinatorial Data Analysis.</em> New York: Springer. <a href="https://doi.org/10.1007/0-387-28810-4" class="uri">https://doi.org/10.1007/0-387-28810-4</a></p>
 <p>Chen, C. H. (2002): Generalized Association Plots: Information Visualization via Iteratively Generated Correlation Matrices. <em>Statistica Sinica,</em> <strong>12</strong>(1), 7–29.</p>

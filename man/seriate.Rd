@@ -432,6 +432,13 @@ can be found.
 \itemize{
 \item \code{"method"}: a TSP solver method (see \code{\link[TSP:solve_TSP]{TSP::solve_TSP()}}).
 }
+\item \strong{Unconstrained Brower and Kyle seriation}: \code{"BK_unconstrained"} (Brower and Kyle 1988).
+
+Reorderes 0-1 matrices to create a block structure along the diagonal. It iteratively
+reorders by the mean row indices of 1s and mean column indices of 1s till the orders
+become stable.
+
+\code{control} parameter: None
 \item \strong{Correspondence analysis} \code{"CA"} (Friendly, 2023)
 
 This function is designed to help simplify a mosaic plot or other displays of a
@@ -625,6 +632,10 @@ Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual assessment of
 Conference on Neural Networks (IJCNN '02),} Volume: 3, 2225--2230.
 \doi{10.1109/IJCNN.2002.1007487}
 
+Brower, J.C. and Kile, K.M. (1988): Sedation of an original data matrix
+as applied to paleoecology. \emph{Lethaia,} \strong{21}, 79--93.
+\doi{10.1111/j.1502-3931.1988.tb01756.x}
+
 Brusco, M., Koehn, H.F., and Stahl, S. (2008): Heuristic Implementation of
 Dynamic Programming for Matrix Permutation Problems in Combinatorial Data
 Analysis. \emph{Psychometrika,} \strong{73}(3), 503--522.
@@ -715,7 +726,7 @@ Other seriation:
 \code{\link{register_smacof}()},
 \code{\link{register_tsne}()},
 \code{\link{register_umap}()},
-\code{\link{registry_for_seriaiton_methods}},
+\code{\link{registry_for_seriation_methods}},
 \code{\link{seriate_best}()}
 }
 \author{

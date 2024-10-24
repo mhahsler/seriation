@@ -62,7 +62,7 @@ Other seriation:
 \code{\link{register_optics}()},
 \code{\link{register_tsne}()},
 \code{\link{register_umap}()},
-\code{\link{registry_for_seriaiton_methods}},
+\code{\link{registry_for_seriation_methods}},
 \code{\link{seriate}()},
 \code{\link{seriate_best}()}
 }

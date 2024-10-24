@@ -18,47 +18,47 @@
 
 # brower and kile 1988
 concentrate <- function(x){
-  
+
   # step 1: calculate mean column position (mcp) of presences across rows
   mcp <- unlist(apply(
-    x, 
-    MARGIN = 1, 
-    FUN = function(z){ mean(which(z == 1)) }, 
+    x,
+    MARGIN = 1,
+    FUN = function(z){ mean(which(z == 1)) },
     simplify = FALSE
   ))
-  
+
   # step 2: sort rows by mcp
   x <- x[order(mcp), ]
-  
+
   # step 3: calculate mean row position (mrp) of presences across columns
   mrp <- unlist(apply(
-    x, 
-    MARGIN = 2, 
-    FUN = function(z){ mean(which(z == 1)) }, 
+    x,
+    MARGIN = 2,
+    FUN = function(z){ mean(which(z == 1)) },
     simplify = FALSE
   ))
-  
+
   # step 4: sort columns by mrp
   x[, order(mrp)]
-  
+
 }
 
 seriate_bku <- function(x, control = NULL, margin = NULL){
 
   old <- x
-  
+
   not_identical <- TRUE
-  
+
   while(not_identical){
-    
+
     new <- concentrate(old)
-    
+
     not_identical <- !identical(old, new)
-    
+
     old <- new
-    
+
   }
-  
+
   # return order of rows and columns
   rows <- 1:nrow(x)
   names(rows) <- rownames(x)
@@ -76,5 +76,5 @@ set_seriation_method(
   kind = "matrix",
   name = "BK_unconstrained",
   definition = seriate_bku,
-  description = "Order using mean row and column position of presences (1s)."
+  description = "Implements the method for binary matrices described in Brower and Kile (1988). Reorders using the mean row and column position of presences (1s)."
 )

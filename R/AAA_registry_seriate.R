@@ -49,7 +49,7 @@
 #' corresponding order to the dimensions of \code{x}.
 #'
 #' @import registry
-#' @name registry_for_seriaiton_methods
+#' @name registry_for_seriation_methods
 #' @family seriation
 #'
 #' @param kind the data type the method works on. For example, \code{"dist"},
@@ -140,7 +140,7 @@ registry_seriate$set_field("optimizes", type = "character",
 registry_seriate$set_field("registered_by", type = "character",
                              is_key = FALSE)
 
-#' @rdname registry_for_seriaiton_methods
+#' @rdname registry_for_seriation_methods
 #' @export
 list_seriation_methods <- function(kind, names_only = TRUE) {
   if (missing(kind)) {
@@ -167,7 +167,7 @@ list_seriation_methods <- function(kind, names_only = TRUE) {
   }
 }
 
-#' @rdname registry_for_seriaiton_methods
+#' @rdname registry_for_seriation_methods
 #' @export
 get_seriation_method <- function(kind, name) {
 
@@ -202,7 +202,7 @@ get_seriation_method <- function(kind, name) {
   method
 }
 
-#' @rdname registry_for_seriaiton_methods
+#' @rdname registry_for_seriation_methods
 #' @export
 set_seriation_method <- function(kind,
                                  name,
@@ -270,7 +270,7 @@ set_seriation_method <- function(kind,
 }
 
 
-#' @rdname registry_for_seriaiton_methods
+#' @rdname registry_for_seriation_methods
 #' @export
 print.seriation_method <- function(x, ...) {
   if (is.na(x$optimizes))

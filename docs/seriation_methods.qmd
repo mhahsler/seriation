@@ -139,6 +139,8 @@ Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for Enve
 
 Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual assessment of (cluster) tendency. *Proceedings of the 2002 International Joint Conference on Neural Networks (IJCNN '02),* Volume: 3, 2225--2230. <https://doi.org/10.1109/IJCNN.2002.1007487>
 
+Brower, J.C. and Kile, K.M. (1988): Sedation of an original data matrix as applied to paleoecology. *Lethaia,* **21**, 79--93. <https://doi.org/10.1111/j.1502-3931.1988.tb01756.x>
+
 Brusco, M., Koehn, H.F., and Stahl, S. (2008): Heuristic Implementation of Dynamic Programming for Matrix Permutation Problems in Combinatorial Data Analysis. *Psychometrika,* **73**(3), 503--522. <https://doi.org/10.1007/s11336-007-9049-5>
 
 Brusco, M., and Stahl, S. (2005): *Branch-and-Bound Applications in Combinatorial Data Analysis.* New York: Springer. <https://doi.org/10.1007/0-387-28810-4>
