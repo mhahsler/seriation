@@ -16,7 +16,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-# brower and kile 1988
+# brower and kile 1988 implemented by kbvernon
 concentrate <- function(x){
 
   # step 1: calculate mean column position (mcp) of presences across rows

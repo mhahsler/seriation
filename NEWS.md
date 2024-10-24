@@ -1,3 +1,8 @@
+# seriation 1.5.6.1 (xx/xx/2024)
+
+## New Features
+- Added seriation method BK_unconstrained by kbvernon.
+
 # seriation 1.5.6 (08/19/2024)
 
 ## New Features
