@@ -33,6 +33,9 @@
   if (!is.character(method) || (length(method) != 1L))
     stop("Argument 'method' must be a character string.")
 
+  if (any(dim(x) == 0L))
+    stop("All dimensions need to have at least one object.")
+
   method <- get_seriation_method(datatype, method)
 
   if (!is.null(control$verbose) &&
@@ -49,7 +52,7 @@
   for (i in margin)
     if (!is.null(dimnames(x)[[i]]) &&
         is.integer(order[[i]]))
-      names(order[[i]]) <- dimnames(x)[[i]]
+      names(order[[i]]) <- dimnames(x)[[i]][order[[i]]]
   perm <- do.call("ser_permutation",
     unname(lapply(
       order, "ser_permutation_vector", method$name
