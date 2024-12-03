@@ -106,8 +106,11 @@
 #' @keywords classes
 #' @export
 ser_permutation_vector <- function(x, method = NULL) {
-  if (inherits(x, "ser_permutation_vector"))
+  if (inherits(x, "ser_permutation_vector")) {
+    if (!is.null(method))
+      attr(x, "method") <- method
     return(x)
+  }
 
   if  (inherits(x, "hclust") || inherits(x, "dendrogram")) {
     # nothing to do
