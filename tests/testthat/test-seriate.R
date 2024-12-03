@@ -31,19 +31,36 @@ x <- matrix(
 
 d <- dist(x)
 
+x0 <- matrix(NA, nrow = 0, ncol = 0)
+d0 <- dist(x0)
+
+x1 <- rbind(c(1,2,3))
+d1 <- dist(x1)
+
 
 test_that("test if seriate.dist returns expected results", {
 
-  cat("\n      dist\n") # for cleaner testthat output
-  methods <- list_seriation_methods(kind = "dist")
+  if (interactive())
+    cat("\n      seriate dist\n") # for cleaner testthat output
 
+  methods <- list_seriation_methods(kind = "dist")
   ### insufficient data for metaMDS
   methods <- setdiff(methods, "metaMDS")
 
   os <- sapply(methods, function(m) {
-    cat("   -> testing", format(m, width = 13), "... ")
+
+    if (interactive())
+      cat("   -> testing", format(m, width = 13), "... ")
+
+    # check 0 and 1 objects
+    expect_error(o <- seriate(d0, method = m))
+    o <- seriate(d1, method = m)
+    expect_length(0, 1L)
+
+    # check example with timing
     tm <- system.time(o <- seriate(d, method = m))
-    cat("took", formatC(tm[3], digits = 4), "s.\n")
+    if (interactive())
+      cat("took", formatC(tm[3], digits = 4), "s.\n")
     o
   })
   # make sure they are all the right length
@@ -273,6 +290,9 @@ test_that("test if seriate.dist returns expected results", {
         identical(correct[[m]], rev(get_order(os[[m]]))),
       label = paste("Seriation method", m, "does not return the correct order!\n")
     )
+
+  # make sure they are all the right length
+  expect_true(all(sapply(os, length) == nrow(x)))
 })
 
 # check seriate errors for bad dist objects
@@ -307,16 +327,29 @@ test_that("test if dist objects without Diag or Upper attributes can be permuted
 test_that("test if seriate.matrix returns expected results", {
   #local_edition(3) # for snapshot testing
 
-  cat("\n      matrix\n") # for cleaner testthat output
+  if (interactive())
+    cat("\n      seriate matrix\n") # for cleaner testthat output
   methods <- list_seriation_methods(kind = "matrix")
 
   ### AOE is for symmetric correlation matrices
   methods <- setdiff(methods, "AOE")
 
   os <- sapply(methods, function(m) {
-    cat("   -> testing", format(m, width = 13), "... ")
+    if (interactive())
+      cat("   -> testing", format(m, width = 13), "... ")
+
+    # check with 0 and 1 objects
+    expect_error(o <- seriate(x0, method = m))
+
+    # need at least 2x2 matrix
+    if (m %in% c("PCA_angle", "umap"))
+      expect_error(o <- seriate(x1, method = m))
+    else
+      o <- seriate(x1, method = m)
+
     tm <- system.time(o <- seriate(x, method = m))
-    cat("took", formatC(tm[3], digits = 4), "s.\n")
+    if (interactive())
+      cat("took", formatC(tm[3], digits = 4), "s.\n")
     o
   }, simplify = FALSE)
 
@@ -345,12 +378,18 @@ test_that("test if seriate.matrix returns expected results", {
     D = 4,
     E = 5
   ))
+  expect_equal(get_order(os$Reverse, 1), c(
+    d = 4,
+    c = 3,
+    b = 2,
+    a = 1
+  ))
   expect_equal(get_order(os$Reverse, 2), c(
-    A = 5,
-    B = 4,
+    E = 5,
+    D = 4,
     C = 3,
-    D = 2,
-    E = 1
+    B = 2,
+    A = 1
   ))
 
   # check snapshot of some deterministic methods
@@ -361,16 +400,22 @@ test_that("test if seriate.matrix returns expected results", {
 test_that("test if seriate.matrix with margin returns expected results", {
   #local_edition(3) # for snapshot testing
 
-  cat("\n     matrix with margin\n") # for cleaner testthat output
+
+  if (interactive())
+    cat("\n     seriate matrix with margin\n") # for cleaner testthat output
   methods <- list_seriation_methods(kind = "matrix")
 
   ### AOE is for symmetric correlation matrices
   methods <- setdiff(methods, "AOE")
 
   os <- sapply(methods, function(m) {
-    cat("   -> testing", format(m, width = 13), "... ")
+    if (interactive())
+      cat("   -> testing", format(m, width = 13), "... ")
+
     tm <- system.time(o <- seriate(x, method = m, margin = 2))
-    cat("took", formatC(tm[3], digits = 4), "s.\n")
+
+    if (interactive())
+      cat("took", formatC(tm[3], digits = 4), "s.\n")
     o
   }, simplify = FALSE)
 

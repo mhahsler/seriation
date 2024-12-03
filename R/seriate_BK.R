@@ -28,7 +28,7 @@ concentrate <- function(x){
   ))
 
   # step 2: sort rows by mcp
-  x <- x[order(mcp), ]
+  x <- x[order(mcp), , drop = FALSE]
 
   # step 3: calculate mean row position (mrp) of presences across columns
   mrp <- unlist(apply(
@@ -39,37 +39,26 @@ concentrate <- function(x){
   ))
 
   # step 4: sort columns by mrp
-  x[, order(mrp)]
+  x[, order(mrp), drop = FALSE]
 
 }
 
+# This implementation uses the dimnames for sorting.
 seriate_bku <- function(x, control = NULL, margin = NULL){
-
   old <- x
-
   not_identical <- TRUE
 
+  dimnames(old) <- list(seq_len(nrow(old)), seq_len(ncol(old)))
+
   while(not_identical){
-
     new <- concentrate(old)
-
     not_identical <- !identical(old, new)
-
     old <- new
-
   }
 
-  # return order of rows and columns
-  rows <- 1:nrow(x)
-  names(rows) <- rownames(x)
-  rows <- rows[rownames(new)]
-
-  cols <- 1:ncol(x)
-  names(cols) <- colnames(x)
-  cols <- cols[colnames(new)]
-
+  rows <- as.integer(rownames(new))
+  cols <- as.integer(colnames(new))
   list(row = rows, col = cols)
-
 }
 
 set_seriation_method(

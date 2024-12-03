@@ -83,26 +83,26 @@ seriate_matrix_angle <- function(x, control = NULL, margin) {
   center  <- control$center
   scale  <- control$scale
 
+  if (nrow(x) < 2L || ncol(x) < 2L)
+    stop("PCA angle needs at least 2 rows and 2 columns!")
+
   if (1L %in% margin) {
-    pr <- prcomp(x,
-                 center = center,
-                 scale. = scale,
-                rank = 2L)
-    row <- .order_angle(pr$x[, 1:2])
-    names(row) <- rownames(x)[row]
+      pr <- prcomp(x,
+                   center = center,
+                   scale. = scale,
+                   rank = 2L)
+      row <- .order_angle(pr$x[, 1:2])
   } else
     row <- NA
 
   if (2L %in% margin) {
-    pr <- prcomp(t(x),
-                 center = center,
-                 scale. = scale,
-                 rank = 2L)
-    col <- .order_angle(pr$x[, 1:2])
-    names(col) <- colnames(x)[col]
+      pr <- prcomp(t(x),
+                   center = center,
+                   scale. = scale,
+                   rank = 2L)
+      col <- .order_angle(pr$x[, 1:2])
   } else
     col <- NA
-
 
   list(row = row, col = col)
 }

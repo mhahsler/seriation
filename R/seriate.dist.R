@@ -24,15 +24,20 @@ seriate.dist <-
     control = NULL,
     rep = 1L,
     ...) {
+    ## check x
+    if (anyNA(x)) stop("NAs not allowed in distance matrix x!")
+    if (any(x < 0)) stop("Negative distances not supported!")
+
+    N <- attr(x, "Size")
+    if (N < 1L)
+      stop("x needs to contain at least one object.")
+
+    ## rep?
     if (rep > 1L)
       return(seriate_rep(x, method, control, rep =  rep, ...))
 
     ## add ... to control
     control <- c(control, list(...))
-
-    ## check x
-    if (anyNA(x)) stop("NAs not allowed in distance matrix x!")
-    if (any(x < 0)) stop("Negative distances not supported!")
 
     if (!is.character(method) || (length(method) != 1L))
       stop("Argument 'method' must be a character string.")
@@ -42,6 +47,10 @@ seriate.dist <-
         control$verbose)
       cat("Using seriation method: ", method$name, "\n",
         method$description, "\n\n", sep = "")
+
+    # no ordering for a single object
+    if (N < 2L)
+      return(ser_permutation(ser_permutation_vector(1L, method = method$name)))
 
     tm <- system.time(order <- method$fun(x, control = control))
     if (is.integer(order)) names(order) <- labels(x)[order]

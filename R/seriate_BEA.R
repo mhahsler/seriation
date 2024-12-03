@@ -25,20 +25,29 @@ seriate_matrix_bea_tsp <-
     if (any(x < 0))
       stop("Requires a nonnegative matrix.")
 
+    # single objects do not work so we skip them
     if (1L %in% margin) {
-      criterion <- as.dist(tcrossprod(x))
-      row <- seriate(max(criterion) - criterion,
-                     method = "TSP",
-                     control = control)[[1]]
+      if (nrow(x) > 1L) {
+        criterion <- as.dist(tcrossprod(x))
+        row <- seriate(max(criterion) - criterion,
+                       method = "TSP",
+                       control = control)[[1]]
+      } else {
+        row <- 1L
+      }
       attr(row, "method") <- "BEA_TSP"
     } else
       row <- NA
 
     if (2L %in% margin) {
-      criterion <- as.dist(crossprod(x))
-      col <- seriate(max(criterion) - criterion,
-                     method = "TSP",
-                     control = control)[[1]]
+      if (ncol(x) > 1L) {
+        criterion <- as.dist(crossprod(x))
+        col <- seriate(max(criterion) - criterion,
+                       method = "TSP",
+                       control = control)[[1]]
+      } else {
+        col <- 1L
+      }
       attr(col, "method") <- "BEA_TSP"
     } else
       col <- NA

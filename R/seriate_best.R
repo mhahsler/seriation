@@ -240,7 +240,6 @@ seriate_rep <- function(x,
   if (is.na(criterion))
     criterion <- get_default_criterion(x)
 
-
   if (!m$randomized && rep > 1L) {
     rep <- 1L
     if (verbose)
