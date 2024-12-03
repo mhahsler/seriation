@@ -27,7 +27,7 @@
   try_multiplier = 100,
   ## Brusco: 100
   ### we do rep now for all
-#  reps = 1L,
+  #  reps = 1L,
   ## Brusco: 20
   verbose = FALSE
 )
@@ -50,8 +50,13 @@ seriate_dist_arsa <- function(x, control = NULL) {
   #      S, T, SB, ZBEST, verbose)
   N <- ncol(A)
 
+  # the Fortran code has issues with 2 objects.
+  if (N < 1L)
+    stop("x needs to contain at least one object.")
+  if (N < 3L)
+    return(seq_len(N))
   if (N*N > .Machine$integer.max)
-    stop("Long vectors not supported! Algorithm needs n^2 space.")
+    stop("Long vectors not supported! The algorithm needs n^2 space.")
 
   #NREPS <- as.integer(param$reps)
   NREPS <- 1L
@@ -65,12 +70,19 @@ seriate_dist_arsa <- function(x, control = NULL) {
   SB <- integer(N)
   ZBEST <- double(1)
 
+  # these cannot be NULL because of the defaults
+  cool <- as.numeric(param$cool)
+  tmin <- as.numeric(param$tmin)
+  swap_to_inversion <- as.numeric(param$swap_to_inversion)
+  try_multiplier <- as.numeric(param$try_multiplier)
+  verbose <- as.integer(param$verbose)
+
   ret <- .Fortran(
     "arsa",
     N,
     A,
-    as.numeric(param$cool),
-    as.numeric(param$tmin),
+    cool,
+    tmin,
     NREPS,
     IPERM,
     D,
@@ -79,9 +91,9 @@ seriate_dist_arsa <- function(x, control = NULL) {
     T,
     SB,
     ZBEST,
-    as.numeric(param$swap_to_insertion),
-    as.numeric(param$try_multiplier),
-    as.integer(param$verbose),
+    swap_to_inversion,
+    try_multiplier,
+    verbose,
     PACKAGE = "seriation"
   )
 
@@ -115,6 +127,10 @@ seriate_dist_bburcg <- function(x, control = NULL) {
   A <- as.matrix(x)
   N <- ncol(A)
 
+  if (N < 1L)
+    stop("x needs to contain at least one object.")
+  if (N < 3L)
+    return(seq_len(N))
   if (N*N*N > .Machine$integer.max)
     stop("Long vectors not supported! Algorithm needs n^3 space.")
 
@@ -125,9 +141,10 @@ seriate_dist_bburcg <- function(x, control = NULL) {
   DD <- integer(N * N * N)
   S <- integer(N)
   UNSEL <- integer(N)
+  eps <- as.numeric(param$eps)
+  verbose <- as.integer(param$verbose)
 
-  ret <- .Fortran("bburcg", N, A, param$eps, X, Q, D, DD, S, UNSEL,
-    param$verbose)
+  ret <- .Fortran("bburcg", N, A, eps, X, Q, D, DD, S, UNSEL, verbose)
 
   o <- ret[[4]]
   o
@@ -141,6 +158,11 @@ seriate_dist_bbwrcg <- function(x, control = NULL) {
   A <- as.matrix(x)
   N <- ncol(A)
 
+  # the Fortran code has issues with 2 objects.
+  if (N < 1L)
+    stop("x needs to contain at least one object.")
+  if (N < 3L)
+    return(seq_len(N))
   if (N*N*N > .Machine$integer.max)
     stop("Long vectors not supported! Algorithm needs n^3 space.")
 
@@ -151,10 +173,10 @@ seriate_dist_bbwrcg <- function(x, control = NULL) {
   DD <- double(N * N * N)
   S <- integer(N)
   UNSEL <- integer(N)
+  verbose <- as.integer(param$verbose)
 
   ### eps is unused!
-  ret <- .Fortran("bbwrcg", N, A, 0.0, X, Q, D, DD, S, UNSEL,
-    param$verbose)
+  ret <- .Fortran("bbwrcg", N, A, 0.0, X, Q, D, DD, S, UNSEL, verbose)
 
   o <- ret[[4]]
   o
