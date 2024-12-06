@@ -11,3 +11,4 @@ Work
 README.Rmd
 docs
 revdep
+^\.github

@@ -1,7 +1,14 @@
-# seriation 1.5.6.1 (xx/xx/2024)
+# seriation 1.5.7 (12/05/2024)
 
 ## New Features
 - Added seriation method BK_unconstrained by kbvernon.
+- All methods now gracefully handle data with two few objects.
+- ser_permutation_vector() now updates method name.
+
+## Bug Fixes
+- Fixed label order for seriate.matrix.
+- Fixed typo in parameter name for seriation method 
+  ARSA (reported by Brian Ripley)
 
 # seriation 1.5.6 (08/19/2024)
 
