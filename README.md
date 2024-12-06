@@ -59,7 +59,6 @@ The following R packages use `seriation`:
 [disclapmix](https://CRAN.R-project.org/package=disclapmix),
 [elaborator](https://CRAN.R-project.org/package=elaborator),
 [flexclust](https://CRAN.R-project.org/package=flexclust),
-[ggalign](https://CRAN.R-project.org/package=ggalign),
 [ggraph](https://CRAN.R-project.org/package=ggraph),
 [heatmaply](https://CRAN.R-project.org/package=heatmaply),
 [MEDseq](https://CRAN.R-project.org/package=MEDseq),
@@ -141,7 +140,7 @@ reconstruction error.
 These methods try to optimize a seriation criterion directly, typically
 using a heuristic approach.
 
-- **ARSA** - optimize the linear seriation critreion using simulated
+- **ARSA** - optimize the linear seriation criterion using simulated
   annealing  
 - **Branch-and-bound** to minimize the unweighted/weighted column
   gradient

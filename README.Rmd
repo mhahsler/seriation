@@ -74,7 +74,7 @@ by minimizing a stress measure or the reconstruction error.
 
  These methods try to optimize a seriation criterion directly, typically using a heuristic approach.
  
- *  **ARSA** - optimize the linear seriation critreion using simulated annealing   
+ *  **ARSA** - optimize the linear seriation criterion using simulated annealing   
  *  **Branch-and-bound** to minimize the unweighted/weighted column gradient 
  *  **GA** - Genetic algorithm with warm start to optimize any seriation criteria
  *  **GSA** - General simulated annealing to optimize any seriation criteria
