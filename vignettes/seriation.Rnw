@@ -157,7 +157,7 @@ contingency table was done manually and the adequacy was only judged
 subjectively by the researcher.  Later, \cite{seriation:Robinson:1951},
 \cite{seriation:Kendall:1971} and others proposed measures of agreement
 between rows to quantify optimality of the resulting table.  A
-comprehensive description of the development of seriation in archeology
+comprehensive description of the development of seriation in archaeology
 is presented by \cite{seriation:Ihm:2005}.
 
 Techniques related to seriation are also popular in several other
@@ -1015,7 +1015,7 @@ In the following example, we use the well known iris data set
 (from \proglang{R}'s \pkg{datasets} package) which gives the
 measurements in centimeters of the variables sepal length and width and petal
 length and width, respectively, for 50 flowers from each of 3 species of the
-iris family (Iris setosa, versicolor and virginica).
+iris family (Iris Setosa, Versicolor and Virginica).
 
 First, we load the package \pkg{seriation} and the iris data set.  We
 remove the species classification and reorder the objects randomly since
@@ -1578,12 +1578,12 @@ visible after rearrangement.
 
 Binary or $0$-$1$ data matrices are quite common.  Often such matrices are
 called \emph{incidence matrices} since a $1$ in a cell indicates the incidence
-of an event. In archeology such an event could be that a special type of
+of an event. In archaeology such an event could be that a special type of
 artifact was found at a certain archaeological site.
 This can be seen as a simplification of a so-called \emph{abundance matrix}
 which codes in each cell the (relative) frequency or quantity of an artifact
 type at a site.  See \cite{seriation:Ihm:2005} for a comparison of
-incidence and abundance matrices in archeology.
+incidence and abundance matrices in archaeology.
 
 Here we are interested in binary data.
 For the example we use an artificial data set from~\cite{seriation:Bertin:1981}
@@ -1872,8 +1872,8 @@ table(iris[res$order, 5], res$label)[,res$cluster_order]
 
 As the plot in Figure~\ref{fig:dissplot3} indicated, the clusters 10, 9, 5, 7,
 8, 4 and 2 should be a single cluster containing only flowers of the species
-Iris setosa. The clusters 6, 3 and 1 are more problematic since they contain a
-mixture of Iris versicolor and virginica.
+Iris Setosa. The clusters 6, 3 and 1 are more problematic since they contain a
+mixture of Iris Versicolor and Virginica.
 
 To illustrate the results of the dissimilarity plot in case a clustering
 with a $k$ smaller than the actual number of groups in the data is used,

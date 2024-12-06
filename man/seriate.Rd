@@ -273,7 +273,7 @@ Several popular local neighborhood functions are
 provided, and new ones can be defined (see \link{LS}). Local moves are tried in each
 iteration \code{nlocal} times the number of objects.
 
-Note that this is an R implementation repeatedly calling the criterion funciton
+Note that this is an R implementation repeatedly calling the criterion function
 which is very slow.
 \item \strong{Stochastic gradient descent:} \code{"SGD"}
 

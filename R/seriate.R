@@ -243,7 +243,7 @@
 #'   provided, and new ones can be defined (see [LS]). Local moves are tried in each
 #'   iteration `nlocal` times the number of objects.
 #'
-#'   Note that this is an R implementation repeatedly calling the criterion funciton
+#'   Note that this is an R implementation repeatedly calling the criterion function
 #'   which is very slow.
 #'
 #' - **Stochastic gradient descent:** `"SGD"`

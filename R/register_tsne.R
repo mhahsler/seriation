@@ -24,7 +24,7 @@
 #' 1D t-SNE to a data matrix or a distance matrix and extracts the order
 #' from the 1D embedding. To speed up the process, an initial embedding is
 #' created using 1D multi-dimensional scaling (MDS) or principal
-#' comonents analysis (PCA) which is improved by t-SNE.
+#' components analysis (PCA) which is improved by t-SNE.
 #'
 #' The `control` parameter `"mds"` or `"pca"` controls if MDS (for distances)
 #' or PCA (for data matrices) is used to create an
