@@ -106,9 +106,6 @@ automatically or can be specifies as a vector of two numbers (in lines).
 \examples{
 data("Wood")
 
-# regular heatmap from package stats
-heatmap(Wood, main = "Wood (standard heatmap)")
-
 # Default heatmap does Euclidean distance, hierarchical clustering with
 # complete-link and optimal leaf ordering. Note that the rows are
 # ordered top-down in the seriation order (stats::heatmap orders in reverse)
@@ -122,10 +119,6 @@ dist_cor <- function(x) as.dist(sqrt(1 - cor(t(x))))
 hmap(Wood, distfun = dist_cor, col = greenred(100),
   main = "Wood (reorded by corr. between obs.)")
 
-# Heatmap with order based on the angle in two-dimensional MDS space.
-hmap(Wood, method = "MDS_angle", col = greenred(100), row_labels = FALSE,
-  main = "Wood (reorderd using ange in MDS space)")
-
 # Heatmap for distances
 d <- dist(Wood)
 hmap(d, main = "Wood (Euclidean distances)")
@@ -134,10 +127,6 @@ hmap(d, main = "Wood (Euclidean distances)")
 hmap(Wood, method = "MDS_angle",
   col = greenred(100), col_dist = greens(100, power = 2),
   keylab = "norm. Expression", main = "Wood (reorderd with distances)")
-
-# without the distance matrices
-hmap(Wood, method = "MDS_angle", plot_margins = "none",
-  col = greenred(100), main = "Wood (reorderd without distances)")
 
 # Manually create a simple heatmap with pimage.
 o <- seriate(Wood, method = "heatmap",
@@ -156,13 +145,6 @@ if (require("ggplot2")) {
   library("ggplot2")
 
   gghmap(Wood) + labs(title = "Wood", subtitle = "Optimal leaf ordering")
-
-  # More parameters (see ? ggpimage): reverse column order and flip axes, make a proportional plot
-  gghmap(Wood, reverse_columns = TRUE) +
-    labs(title = "Wood", subtitle = "Optimal leaf ordering")
-
-  gghmap(Wood, flip_axes = TRUE) +
-    labs(title = "Wood", subtitle = "Optimal leaf ordering")
 
   gghmap(Wood, flip_axes = TRUE, prop = TRUE) +
     labs(title = "Wood", subtitle = "Optimal leaf ordering")
