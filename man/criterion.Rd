@@ -123,9 +123,8 @@ Simplified measure for closeness to the anti-Robinson form in a band of size
 \deqn{ L(D) = \sum_{|i-j|<=b} (b+1-|i-j|) d_{ij} }
 
 For \eqn{b = 1} the measure reduces to the Hamiltonian path length.  For
-\eqn{b = n-1} the measure is equivalent to ARc defined (Earle and Hurley,
-2015). Note that ARc is equivalent to the Linear Seriation criterion (scaled
-by 1/2).
+\eqn{b = n-1} the measure is equivalent to ARc defined
+(see \code{\link[=register_DendSer]{register_DendSer()}}).
 
 \code{...} parameter is: \code{b} band size defaults to a band of 20\% of \eqn{n}.
 \item \strong{Hamiltonian path length:} \code{"Path_length"}  (Caraux and Pinloche, 2005)
@@ -179,7 +178,7 @@ least squares criterion is related to \emph{unidimensional scaling.}
 
 Weights the distances with the absolute rank differences.
 
-\deqn{L(D) \sum_{i,j=1}^n d(i,j) (-|i-j|)}
+\deqn{L(D) \sum_{i,j=1}^n d(i,j) |i-j|}
 \item \strong{2-Sum Criterion:} \code{"2SUM"}  (Barnard, Pothen and Simon, 1993)
 
 The 2-Sum loss criterion multiplies the similarity between objects with the

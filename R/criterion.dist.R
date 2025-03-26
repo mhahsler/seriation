@@ -241,6 +241,14 @@ criterion_2SUM <- function(x, order, ...) {
       n - abs(i - j)
   )
 
+.A_LS_crit <- function(n)
+  outer(
+    1:n,
+    1:n,
+    FUN = function(i, j)
+      abs(i - j)
+  )
+
 criterion_LS <- function(x, order, ...) {
   if (is.null(order))
     order <- 1:attr(x, "Size")
@@ -248,7 +256,7 @@ criterion_LS <- function(x, order, ...) {
     order <- get_order(order)
 
   # this is sum(diag(A%*%B[o,o]))
-  qap::qap.obj(.A_LS(attr(x, "Size")), as.matrix(x), order)
+  qap::qap.obj(.A_LS_crit(attr(x, "Size")), as.matrix(x), order)
 }
 
 # Spearman rank correlation between distances and rank differences of the order
@@ -366,4 +374,4 @@ set_criterion_method("dist",
   "LS",
   criterion_LS,
   "Linear Seriation Criterion: Weights the distances with the absolute rank differences (Hubert and Schultz, 1976).",
-  FALSE)
+  TRUE)

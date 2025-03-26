@@ -1,3 +1,9 @@
+# seriation 1.5.8 (xx/xx/2025)
+
+## Changes
+- Linear seriation criterion follows now the original definition of 
+  Hubert, L. and J. Schultz (1976) and is a merit measure. (reported by Lucew)
+
 # seriation 1.5.7 (12/05/2024)
 
 ## New Features

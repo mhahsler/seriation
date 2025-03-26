@@ -100,9 +100,8 @@
 #'   \deqn{ L(D) = \sum_{|i-j|<=b} (b+1-|i-j|) d_{ij} }
 #'
 #'   For \eqn{b = 1} the measure reduces to the Hamiltonian path length.  For
-#'   \eqn{b = n-1} the measure is equivalent to ARc defined (Earle and Hurley,
-#'   2015). Note that ARc is equivalent to the Linear Seriation criterion (scaled
-#'   by 1/2).
+#'   \eqn{b = n-1} the measure is equivalent to ARc defined
+#'   (see [`register_DendSer()`]).
 #'
 #'   `...` parameter is: `b` band size defaults to a band of 20% of \eqn{n}.
 #'
@@ -161,7 +160,7 @@
 #'
 #'   Weights the distances with the absolute rank differences.
 #'
-#'   \deqn{L(D) \sum_{i,j=1}^n d(i,j) (-|i-j|)}
+#'   \deqn{L(D) \sum_{i,j=1}^n d(i,j) |i-j|}
 #'
 #' - **2-Sum Criterion:** `"2SUM"`  (Barnard, Pothen and Simon, 1993)
 #'
