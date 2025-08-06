@@ -145,23 +145,23 @@
 #' ## Spearman's rank correlation coefficient where reverse orders are
 #' ## also considered.
 #' ds <- ser_dist(os)
-#' hmap(ds, margin = c(7,7))
+#' hmap(ds, margins = c(7,7))
 #'
 #' ## Compare using correlation between orders. Reversed orders have
 #' ## negative correlation!
 #' cs <- ser_cor(os, reverse = FALSE)
-#' hmap(cs, margin = c(7,7))
+#' hmap(cs, margins = c(7,7))
 #'
 #' ## Compare orders by allowing orders to be reversed.
 #' ## Now all but random and identity are highly positive correlated
 #' cs2 <- ser_cor(os, reverse = TRUE)
-#' hmap(cs2, margin=c(7,7))
+#' hmap(cs2, margins = c(7,7))
 #'
 #' ## A better approach is to align the direction of the orders first
 #' ## and then calculate correlation.
 #' os_aligned <- ser_align(os)
 #' cs3 <- ser_cor(os_aligned, reverse = FALSE)
-#' hmap(cs3, margin = c(7,7))
+#' hmap(cs3, margins = c(7,7))
 #'
 #' ## Compare the orders using clustering. We use Spearman's foot rule
 #' ## (Manhattan distance of ranks). In order to use rank-based method,

@@ -206,7 +206,7 @@ pimage(d)
 pimage(d, order = TRUE)
 
 # Supress the upper triangle and diagonal
-pimage(d, order = TRUE, upper = FALSE, diag = FALSE)
+pimage(d, order = TRUE, upper_tri = FALSE, diag = FALSE)
 
 # Show only distances that are smaller than 2 using limits on z.
 pimage(d, order = TRUE, zlim = c(0, 3))
@@ -218,7 +218,7 @@ pimage(d, order = TRUE, zlim = c(0, 3))
 r <- cor(t(x))
 o <- seriate(as.dist(sqrt(1 - r)))
 pimage(r, order = c(o, o),
-  upper = FALSE, diag = FALSE,
+  upper_tri = FALSE, diag = FALSE,
   zlim = c(-1, 1),
   reverse_columns = TRUE,
   main = "Correlation matrix")
@@ -250,7 +250,7 @@ popViewport(0)
 library(grid)
 grid.newpage()
 top_vp <- viewport(layout = grid.layout(nrow = 1, ncol = 2,
-  widths = unit(c(.4, .6), unit = "npc")))
+  widths = unit(c(.4, .6), units = "npc")))
 col1_vp <- viewport(layout.pos.row = 1, layout.pos.col = 1, name = "col1_vp")
 col2_vp <- viewport(layout.pos.row = 1, layout.pos.col = 2, name = "col2_vp")
 splot <- vpTree(top_vp, vpList(col1_vp, col2_vp))
@@ -303,7 +303,7 @@ ggpimage(d)
 ggpimage(d, order = TRUE)
 
 # Supress the upper triangle and diagonal
-ggpimage(d, order = TRUE, upper = FALSE, diag = FALSE)
+ggpimage(d, order = TRUE, upper_tri = FALSE, diag = FALSE)
 
 # Show only distances that are smaller than 2 using limits on z.
 ggpimage(d, order = TRUE, zlim = c(0, 2))
@@ -313,7 +313,7 @@ ggpimage(d, order = TRUE, zlim = c(0, 2))
 r <- cor(t(x))
 o <- seriate(as.dist(sqrt(1 - r)))
 ggpimage(r, order = c(o, o),
-  upper = FALSE, diag = FALSE,
+  upper_tri = FALSE, diag = FALSE,
   zlim = c(-1, 1),
   reverse_columns = TRUE) + labs(title = "Correlation matrix")
 

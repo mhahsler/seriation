@@ -156,10 +156,10 @@ order <- c(
 bertinplot(x, order)
 
 # Some alternative displays
-bertinplot(x, order, panel = panel.tiles, shading_col = bluered(100), highlight = FALSE)
-bertinplot(x, order, panel = panel.circles, spacing = -.2)
-bertinplot(x, order, panel = panel.rectangles)
-bertinplot(x, order, panel = panel.lines)
+bertinplot(x, order, panel.function = panel.tiles, shading_col = bluered(100), highlight = FALSE)
+bertinplot(x, order, panel.function = panel.circles, spacing = -.2)
+bertinplot(x, order, panel.function = panel.rectangles)
+bertinplot(x, order, panel.function = panel.lines)
 
 # Plot with cut lines (we manually set the order here)
 order <- ser_permutation(c(6L, 9L, 29L, 10L, 32L, 22L, 2L, 35L,

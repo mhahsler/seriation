@@ -113,7 +113,7 @@ ggdissplot <- function(x,
         g <-
           g + ggplot2::scale_x_discrete(
             breaks = breaks,
-            label = as.character(labels),
+            labels = as.character(labels),
             expand = c(0, 0),
             position = "top"
           ) +

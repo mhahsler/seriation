@@ -197,8 +197,9 @@ pushViewport(viewport(layout=grid.layout(nrow = 2, ncol = 2),
 pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 # Visualize the clustering (using Spectral between clusters and MDS within)
-res <- dissplot(d, l, method = list(inter = "Spectral", intra = "MDS"),
-  main = "K-Means + Seriation", newpage = FALSE)
+res <- dissplot(d, l, method = list(inter_cluster = "Spectral", 
+                                    intra_cluster = "MDS"),
+    main = "K-Means + Seriation", newpage = FALSE)
 
 popViewport()
 pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
@@ -222,7 +223,7 @@ pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
 plot(res, main = "K-Means + Seriation (logistic scale)",
   col = gray(
     plogis(seq(max(res$x_reordered), min(res$x_reordered), length.out = 100),
-      location = 2, scale = 1/2, log = FALSE)
+      location = 2, scale = 1/2, log.p = FALSE)
     ),
   newpage = FALSE)
 
@@ -260,7 +261,8 @@ ggdissplot(d, labels = l, cluster_lines = FALSE, cluster_labels = FALSE) +
   labs(title = "K-means + Seriation", fill = "Distances\n(Euclidean)")
 
 # Diverging color palette with manual set midpoint and different seriation methods
-ggdissplot(d, l, method = list(inter = "Spectral", intra = "MDS")) +
+ggdissplot(d, l, method = list(inter_cluster = "Spectral", 
+                               intra_cluster = "MDS")) +
   labs(title = "K-Means + Seriation", subtitle = "biased color scale") +
   scale_fill_gradient2(midpoint = median(d))
 
@@ -271,28 +273,30 @@ library("scales")
 cubic_dist_trans <- trans_new(
   name = "cubic",
   # note that we have to do the inverse transformation for distances
-  trans = function(x) x^(1/3),
+  transform = function(x) x^(1/3),
   inverse = function(x) x^3
 )
 
-ggdissplot(d, l, method = list(inter = "Spectral", intra = "MDS")) +
+ggdissplot(d, l, method = list(inter_cluster = "Spectral", 
+                               intra_cluster = "MDS")) +
   labs(title = "K-Means + Seriation", subtitle = "cubic + biased color scale") +
   scale_fill_gradient(low = "black", high = "white",
-    limit = c(0,2), na.value = "white",
-    trans = cubic_dist_trans)
+    limits = c(0,2), na.value = "white",
+    transform = cubic_dist_trans)
 
 # Use gray scale with logistic transformation
 logis_2_.5_dist_trans <- trans_new(
   name = "Logistic transform (location, scale)",
   # note that we have to do the inverse transformation for distances
-  trans = function(x) plogis(x, location = 2, scale = .5, log = FALSE),
-  inverse = function(x) qlogis(x, location = 2, scale = .5, log = FALSE),
+  transform = function(x) plogis(x, location = 2, scale = .5, log.p = FALSE),
+  inverse = function(x) qlogis(x, location = 2, scale = .5, log.p = FALSE),
 )
 
-ggdissplot(d, l, method = list(inter = "Spectral", intra = "MDS")) +
+ggdissplot(d, l, method = list(inter_cluster = "Spectral", 
+                               intra_cluster = "MDS")) +
   labs(title = "K-Means + Seriation", subtitle = "logistic color scale") +
   scale_fill_gradient(low = "black", high = "white",
-    trans = logis_2_.5_dist_trans,
+    transform = logis_2_.5_dist_trans,
     breaks = c(0, 1, 2, 3, 4))
 }
 }
