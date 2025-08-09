@@ -202,7 +202,7 @@ DOI: 10.18637/jss.v025.i03
 * Michael Hahsler. [An experimental comparison of seriation methods for one-mode two-way data.](http://dx.doi.org/10.1016/j.ejor.2016.08.066) _European Journal of Operational Research,_ 257:133-143, 2017. 
 DOI: 10.1016/j.ejor.2016.08.066
 (read the [preprint](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf))
-* Hahsler, M. and Hornik, K. (2011): [Dissimilarity plots: A visual exploration tool for partitional clustering.](http://dx.doi.org/10.1198/jcgs.2010.09139) _Journal of Computational and Graphical Statistics,_ **10**(2):335–354. doi:10.1198/jcgs.2010.09139 (read the
+* Hahsler, M. and Hornik, K. (2011): [Dissimilarity plots: A visual exploration tool for partitional clustering.](http://dx.doi.org/10.1198/jcgs.2010.09139) _Journal of Computational and Graphical Statistics,_ **10**(2):335–354. DOI: 10.1198/jcgs.2010.09139 (read the
 [preprint](https://michael.hahsler.net/research/paper/dissplot_JCGS2011_preprint.pdf); [code examples](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html))
 * [Reference manual for package seriation.](https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriation-package)
 

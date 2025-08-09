@@ -1,13 +1,14 @@
 
 # <img src="man/figures/logo.svg" align="right" height="139" /> R package seriation - Infrastructure for Ordering Objects Using Seriation
 
-[![r-universe
-status](https://mhahsler.r-universe.dev/badges/seriation)](https://mhahsler.r-universe.dev/seriation)
 [![Package on
 CRAN](https://www.r-pkg.org/badges/version/seriation)](https://CRAN.R-project.org/package=seriation)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/seriation)](https://CRAN.R-project.org/package=seriation)
+![License](https://img.shields.io/cran/l/seriation)
 [![Anaconda.org](https://anaconda.org/conda-forge/r-seriation/badges/version.svg)](https://anaconda.org/conda-forge/r-seriation)
+[![r-universe
+status](https://mhahsler.r-universe.dev/badges/seriation)](https://mhahsler.r-universe.dev/seriation)
 [![StackOverflow](https://img.shields.io/badge/stackoverflow-seriation+r-orange.svg)](https://stackoverflow.com/questions/tagged/seriation+r)
 
 ## Introduction
@@ -49,7 +50,6 @@ The following R packages use `seriation`:
 [arulesViz](https://CRAN.R-project.org/package=arulesViz),
 [baizer](https://CRAN.R-project.org/package=baizer),
 [ChemoSpec](https://CRAN.R-project.org/package=ChemoSpec),
-[ClusteredMutations](https://CRAN.R-project.org/package=ClusteredMutations),
 [corrgram](https://CRAN.R-project.org/package=corrgram),
 [corrplot](https://CRAN.R-project.org/package=corrplot),
 [corrr](https://CRAN.R-project.org/package=corrr),
@@ -59,12 +59,12 @@ The following R packages use `seriation`:
 [disclapmix](https://CRAN.R-project.org/package=disclapmix),
 [elaborator](https://CRAN.R-project.org/package=elaborator),
 [flexclust](https://CRAN.R-project.org/package=flexclust),
+[GAPR](https://CRAN.R-project.org/package=GAPR),
 [ggraph](https://CRAN.R-project.org/package=ggraph),
 [heatmaply](https://CRAN.R-project.org/package=heatmaply),
 [MEDseq](https://CRAN.R-project.org/package=MEDseq),
 [ockc](https://CRAN.R-project.org/package=ockc),
 [protti](https://CRAN.R-project.org/package=protti),
-[qlcVisualize](https://CRAN.R-project.org/package=qlcVisualize),
 [RMaCzek](https://CRAN.R-project.org/package=RMaCzek),
 [SFS](https://CRAN.R-project.org/package=SFS),
 [tidygraph](https://CRAN.R-project.org/package=tidygraph),
@@ -349,8 +349,8 @@ We can see a clear divide between the two groups in the configuration.
 - Hahsler, M. and Hornik, K. (2011): [Dissimilarity plots: A visual
   exploration tool for partitional
   clustering.](http://dx.doi.org/10.1198/jcgs.2010.09139) *Journal of
-  Computational and Graphical Statistics,* **10**(2):335–354.
-  <doi:10.1198/jcgs.2010.09139> (read the
+  Computational and Graphical Statistics,* **10**(2):335–354. DOI:
+  10.1198/jcgs.2010.09139 (read the
   [preprint](https://michael.hahsler.net/research/paper/dissplot_JCGS2011_preprint.pdf);
   [code
   examples](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html))
