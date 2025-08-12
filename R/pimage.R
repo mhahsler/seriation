@@ -49,6 +49,7 @@
 #' @param x a matrix, a data.frame, or an object of class `dist`.
 #' @param order a logical where `FALSE` means no reordering and `TRUE` applies
 #'  a permutation using the default seriation method for the type of `x`. Alternatively,
+#'  the name of a seriation method or 
 #'  any object that can be coerced to class `ser_permutation`
 #'  can be supplied.
 #' @param col a list of colors used. If `NULL`, a gray scale is used (for

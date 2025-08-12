@@ -33,12 +33,17 @@
 #' which symbol should be highlighted.
 #'
 #' Cut lines can be added to an existing Bertin plot using
-#' `bertin_cut_line(x = NULL, y = NULL)`. `x`/`y` is can be a
-#' number indicating where to draw the cut line between two columns/rows. If
-#' both `x` and `y` is specified then one can select a row/column and
+#' `bertin_cut_line(x = NULL, y = NULL)`. `x` and `y` indicate 
+#' where to draw the cut line between two columns/rows. If
+#' both `x` and `y` are specified then one can select a row/column and
 #' the other can select a range to draw a line which does only span a part of
 #' the row/column. It is important to call `bertinplot()` with the option
 #' `pop = FALSE`.
+#' 
+#' `bertinplot()` uses `grid.lines()`, `grid.rect()` and `grid.circle()` to 
+#' draw the panels. For large matrices, the outline around rectangles may cover
+#' most of the image. Use the parameter `gp_panels = gpar(col = NA)` to 
+#' remove the outline.  
 #'
 #' `ggbertinplot()` calls [ggpimage()] and all additional parameters are
 #' passed on.
@@ -47,8 +52,8 @@
 #' @param x a data matrix. Note that following Bertin, columns are variables
 #' and rows are cases. This behavior can be reversed using `reverse = TRUE`
 #' in `options`.
-#' @param order an object of class `ser_permutation` to rearrange `x`
-#' before plotting.  If `NULL`, no rearrangement is performed.
+#' @param order an object of class `ser_permutation` or a seriation method name 
+#' to rearrange `x` before plotting.  If `NULL`, no rearrangement is performed.
 #' @param panel.function a function to produce the symbols. Currently available
 #' functions are `panel.bars` (default), `panel.circles`,
 #' `panel.rectangles`, `panel.tiles` and `panel.lines`. For

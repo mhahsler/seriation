@@ -104,6 +104,7 @@ ggpimage(x, order = NULL, ...)
 
 \item{order}{a logical where \code{FALSE} means no reordering and \code{TRUE} applies
 a permutation using the default seriation method for the type of \code{x}. Alternatively,
+the name of a seriation method or
 any object that can be coerced to class \code{ser_permutation}
 can be supplied.}
 
