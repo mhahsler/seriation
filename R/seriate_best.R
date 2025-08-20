@@ -92,7 +92,7 @@
 #' d_supreme <- as.dist(SupremeCourt)
 #'
 #' # find best seriation order (tries by by default several fast methods)
-#' o <- seriate_best(d_supreme, criterion = "AR_events")
+#' o <- seriate_best(d_supreme, criterion = "AR_events", rep = 5)
 #' o
 #' pimage(d_supreme, o)
 #'
@@ -175,7 +175,7 @@ seriate_best <- function(x,
     FUN = function(m) {
       if (verbose) {
         cat("\n")
-        cat(m, " - ")
+        cat(m, "- ")
       }
       #tm <- system.time(o <- seriate(x, m, ...))
       tm <-
@@ -247,7 +247,7 @@ seriate_rep <- function(x,
   }
 
   if (verbose && rep > 1L) {
-    cat("Tries", rep, " ")
+    cat("Replications", rep, " ")
   }
 
   #r <- replicate(rep, { if (verbose) cat("."); seriate(x, method, control) },
