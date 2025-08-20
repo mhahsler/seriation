@@ -1,4 +1,4 @@
-# seriation 1.5.8 (xx/xx/2025)
+# seriation 1.5.8 (08/20/2025)
 
 ## Changes
 - Linear seriation criterion follows now the original definition of 
