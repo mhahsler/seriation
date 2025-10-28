@@ -155,7 +155,7 @@ D. Earle, C. B. Hurley (2015): Advances in dendrogram seriation for application 
 
 Friendly, M. (2002): Corrgrams: Exploratory Displays for Correlation Matrices. *The American Statistician,* **56**(4), 316--324. <https://doi.org/10.1198/000313002533>
 
-Friendly, M. (2023). _vcdExtra: 'vcd' Extensions and Additions_. R package version 0.8-5, <https://CRAN.R-project.org/package=vcdExtra>.
+Friendly, M. (2023). *vcdExtra: 'vcd' Extensions and Additions*. R package version 0.8-5, <https://CRAN.R-project.org/package=vcdExtra>.
 
 Gruvaeus, G. and Wainer, H. (1972): Two Additions to Hierarchical Cluster Analysis, *British Journal of Mathematical and Statistical Psychology,* **25**, 200--206. <https://doi.org/10.1111/j.2044-8317.1972.tb00491.x>
 

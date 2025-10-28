@@ -36,6 +36,8 @@ website:
           href: correlation_matrix.qmd
         - text: How to evaluate clusters using dissimilarity plots
           href: clustering.qmd
+        - text: How to use Tree-Penalized Path Length Criterion with Package seriation
+          href: tpPL.qmd
 
 format:
   html:
