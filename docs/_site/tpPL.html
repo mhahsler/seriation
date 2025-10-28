@@ -8,7 +8,7 @@
 
 <meta name="author" content="Michael Hahsler">
 
-<title>How to Evaluate Clusters Using Dissimilarity Plots – R Package Seriation</title>
+<title>How to use Tree-Penalized Path Length Criterion with Package seriation – R Package Seriation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -145,7 +145,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://cran.r-project.org/web/packages/seriation/vignettes/seriation.pdf">Quick Guides</a></li><li class="breadcrumb-item"><a href="./clustering.html">How to evaluate clusters using dissimilarity plots</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://cran.r-project.org/web/packages/seriation/vignettes/seriation.pdf">Quick Guides</a></li><li class="breadcrumb-item"><a href="./tpPL.html">How to use Tree-Penalized Path Length Criterion with Package seriation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -245,13 +245,13 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./clustering.html" class="sidebar-item-text sidebar-link active">
+  <a href="./clustering.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to evaluate clusters using dissimilarity plots</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tpPL.html" class="sidebar-item-text sidebar-link">
+  <a href="./tpPL.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">How to use Tree-Penalized Path Length Criterion with Package seriation</span></a>
   </div>
 </li>
@@ -268,22 +268,16 @@ window.Quarto = {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
-  <ul class="collapse">
-  <li><a href="#ruspini-a-simple-dataset" id="toc-ruspini-a-simple-dataset" class="nav-link" data-scroll-target="#ruspini-a-simple-dataset">Ruspini: A simple dataset</a></li>
-  <li><a href="#votes-high-dimensional-data" id="toc-votes-high-dimensional-data" class="nav-link" data-scroll-target="#votes-high-dimensional-data">Votes: High dimensional data</a></li>
-  </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#numeric-example" id="toc-numeric-example" class="nav-link" data-scroll-target="#numeric-example">Numeric Example</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://cran.r-project.org/web/packages/seriation/vignettes/seriation.pdf">Quick Guides</a></li><li class="breadcrumb-item"><a href="./clustering.html">How to evaluate clusters using dissimilarity plots</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://cran.r-project.org/web/packages/seriation/vignettes/seriation.pdf">Quick Guides</a></li><li class="breadcrumb-item"><a href="./tpPL.html">How to use Tree-Penalized Path Length Criterion with Package seriation</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">How to Evaluate Clusters Using Dissimilarity Plots</h1>
+<h1 class="title">How to use Tree-Penalized Path Length Criterion with Package seriation</h1>
 </div>
 
 
@@ -308,262 +302,110 @@ window.Quarto = {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Dissimilarity plots (<a href="#references">Hahsler and Hornik, 2011</a>) can be used to visually inspect the quality of a clustering solution. The plot uses a image plots of the reordered dissimilarity matrix organized by the clusters to display the clustered data. This display allows the user to visually assess clustering quality. Dissimilarity plots are implemented in the R package <a href="https://github.com/mhahsler/seriation"><code>seriation</code></a>.</p>
-<p>The following examples show how to use dissimilarity plots. The examples are an updated version of the examples in the paper <a href="#references">Hahsler and Hornik (2011)</a> using <code>tidyverse</code>, <code>ggplot2</code>, and the latest version of the <code>seriation</code> package.</p>
+<p>The tree-penalized path length criterion was introduced in</p>
+<blockquote class="blockquote">
+<p>Denis A. Aliyev, Craig L. Zirbel, <a href="https://doi.org/10.1016/j.ejor.2022.06.026">Seriation using tree-penalized path length</a>, European Journal of Operational Research, Volume 305, Issue 2, 2023, Pages 617-629</p>
+</blockquote>
+<p>This short vignette shows how to used tree-penalized path length criterion seriation with the R package <a href="https://github.com/mhahsler/seriation"><code>seriation</code></a>.</p>
+<p>The idea of the tree-penalized path length criterion to use a TSP-based seriation on a modified distance matrix that adds clustering structure to the distance information. This is achieved by using the modified distance matrix:</p>
+<p><span class="math display">\[T = D * \beta P\]</span> where <span class="math inline">\(P\)</span> contains the cophenetic distances for a hierarchical clustering. By adjusting <span class="math inline">\(\beta\)</span>, the seriation can be seamlessly move from a TSP based on only distances (<span class="math inline">\(\beta = 0\)</span>) to a seriation order that represents purely the clustering structure (<span class="math inline">\(\beta = \infty\)</span>).</p>
 </section>
-<section id="examples" class="level2">
-<h2 class="anchored" data-anchor-id="examples">Examples</h2>
-<p>We load the used packages and set a seed for the random number generator to make the examples reproducible.</p>
+<section id="numeric-example" class="level2">
+<h2 class="anchored" data-anchor-id="numeric-example">Numeric Example</h2>
+<p>We use a sample of the Chameleon data set 7 which comes with the seriation package and has a cluster structure.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"seriation"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<section id="ruspini-a-simple-dataset" class="level3">
-<h3 class="anchored" data-anchor-id="ruspini-a-simple-dataset">Ruspini: A simple dataset</h3>
-<p>The Ruspini dataset from package <code>cluster</code> is a popular dataset for illustrating clustering techniques. It consists of 75 points in two-dimensional space with four clearly distinguishable groups and thus is easy to cluster.</p>
-<p>The data points (rows) are called objects. We randomize the order of the objects to avoid the order of the data affecting the methods.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ruspini)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ruspini <span class="ot">&lt;-</span> ruspini <span class="sc">|&gt;</span> <span class="fu">sample_frac</span>()</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ruspini)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    x   y
-28 38 143
-22 32 149
-9  18  61
-5  13  49
-38 53 144
-16 28  60</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ruspini)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Chameleon"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> chameleon_ds7[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(chameleon_ds7), <span class="dv">500</span>), ]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure class="figure">
-<p><img src="clustering_files/figure-html/ruspini-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
+<p><img src="tpPL_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The scatter plot shows that the data points fall into four well defined groups.</p>
-<p>We cluster with k-means to find 4 groups and a produce dissimilarity plot. For comparison, we also add a cluster plot (<code>clusplot()</code> from package <code>cluster</code>). For the dissimilarity plot, we first calculate a distance matrix. We use the <code>ggplot2</code> version of the dissimilarity plot (a non-ggplot version is available using function <code>dissplot()</code> with the same parameters).</p>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cl_ruspini <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(ruspini, <span class="at">centers =</span> <span class="dv">4</span>, <span class="at">nstart =</span> <span class="dv">5</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>d_ruspini <span class="ot">&lt;-</span> ruspini <span class="sc">|&gt;</span> <span class="fu">dist</span>()</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdissplot</span>(d_ruspini, cl_ruspini<span class="sc">$</span>cluster) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Dissimilarity Plot"</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">clusplot</span>(ruspini, cl_ruspini<span class="sc">$</span>cluster, <span class="at">labels =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in rep(col.p, length = n): partial argument match of 'length' to
-'length.out'</code></pre>
-</div>
-<div class="cell quarto-layout-panel" data-layout-nrow="1">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="clustering_files/figure-html/ruspini4-1.png" class="img-fluid"></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="clustering_files/figure-html/ruspini4-2.png" class="img-fluid"></p>
-</div>
-</div>
-</div>
-<p>The cluster plot (to the right) shows that the clusters were easy to find.</p>
-<p>Dissimilarity plots visualize the distances between points in a <a href="https://en.wikipedia.org/wiki/Distance_matrix">distance matrix</a>. A distance matrix for <span class="math inline">\(n\)</span> objects is a <span class="math inline">\(n \times n\)</span> matrix with pairwise distances as values. The diagonal contains the distances between each object and itself and therefore is always zero. In this visualization, low distance values are shown using a darker color. The result of a “good” clustering should be a matrix with low dissimilarity values forming blocks around the main diagonal corresponding to the clusters.</p>
-<p>The dissimilarity plot shows a good clustering structure with the clusters forming four dark squares. The lower triangle shows the pairwise distances and the upper triangle shows cluster averages. The clusters are ordered by similarity indicating that cluster 1 and 3 are similar and clusters 1 and 2 are the most dissimilar.</p>
-<p>Deciding on the number of clusters is a difficult problem. Next, we look at what happens when we misspecify the number of clusters. First, we use too few clusters with <span class="math inline">\(k = 3\)</span>.</p>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cl_ruspini3 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(ruspini, <span class="at">center=</span><span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in kmeans(ruspini, center = 3, nstart = 5): partial argument match of
-'center' to 'centers'</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdissplot</span>(d_ruspini, cl_ruspini3<span class="sc">$</span>cluster) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Dissimilarity Plot"</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">clusplot</span>(ruspini, cl_ruspini3<span class="sc">$</span>cluster, <span class="at">labels =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in rep(col.p, length = n): partial argument match of 'length' to
-'length.out'</code></pre>
-</div>
-<div class="cell quarto-layout-panel" data-layout-nrow="1">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="clustering_files/figure-html/ruspini3-1.png" class="img-fluid"></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="clustering_files/figure-html/ruspini3-2.png" class="img-fluid"></p>
-</div>
-</div>
-</div>
-<p>In the cluster plot to the right, we see that the cluster plot merges two clusters together.</p>
-<p>The dissimilarity plot shows that cluster 2 actually consists of two clusters. This can be seen by the two triangles separated by a lighter square inside the cluster.</p>
-<p>Next, we use too many clusters with <span class="math inline">\(k=7\)</span>.</p>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cl_ruspini7 <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(ruspini, <span class="at">centers=</span><span class="dv">7</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdissplot</span>(d_ruspini, cl_ruspini7<span class="sc">$</span>cluster) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Dissimilarity Plot"</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">clusplot</span>(ruspini, cl_ruspini7<span class="sc">$</span>cluster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in rep(col.p, length = n): partial argument match of 'length' to
-'length.out'</code></pre>
-</div>
-<div class="cell quarto-layout-panel" data-layout-nrow="1">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="clustering_files/figure-html/ruspini7-1.png" class="img-fluid"></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="clustering_files/figure-html/ruspini7-2.png" class="img-fluid"></p>
-</div>
-</div>
-</div>
-<p>The cluster plot to the right shows that 7 may be a reasonable number to identify smaller groups. However, the dissimilarity plot also rearranges the clusters and still clearly shows that there are actually four well-defined clusters in the data. Dissimilarity plots make detecting a misspecification of <span class="math inline">\(k\)</span> a lot easier.</p>
-<p>We can also use dissimilarity plots for exploring data without clustering.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdissplot</span>(d_ruspini) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Dissimilarity Plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="clustering_files/figure-html/ruspini0-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="votes-high-dimensional-data" class="level3">
-<h3 class="anchored" data-anchor-id="votes-high-dimensional-data">Votes: High dimensional data</h3>
-<p>The <a href="https://archive.ics.uci.edu/dataset/105/congressional+voting+records">Congressional Voting Records</a> data set is available via the UCI Repository of Machine Learning Databases. This data set includes votes (voted for, voted against, not voted) for each of the 435 congressmen of the U.S. House of Representatives on the 16 key votes during the second session of 1984.</p>
-<p>To preserve the information that some congressmen, possibly on purpose, did not vote on some topics, we encoded the 16 votes using 32 binary variables, two for each key vote. A 1 for the first variable codes for a vote in favor, a 1 for the second variable codes for a vote against, and a 0 for both indicates that the congressman did not vote on the topic. Then we used the <a href="https://en.wikipedia.org/wiki/Jaccard_index">Jaccard index</a> (called “binary” in <code>dist()</code>) to calculate a dissimilarity matrix between congressmen.</p>
+<p>We calculate the penalty matrix from complete-link hierarchical clustering. The penalties are the copehenetic distances in the dendrogram.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Votes, <span class="at">package =</span> <span class="st">"cba"</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> cba<span class="sc">::</span><span class="fu">as.dummy</span>(Votes[<span class="sc">-</span><span class="dv">17</span>])</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>d_votes <span class="ot">&lt;-</span> <span class="fu">dist</span>(x, <span class="at">method =</span> <span class="st">"binary"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Since our distances are not Euclidean now, we use PAM for clustering. <a href="https://en.wikipedia.org/wiki/K-medoids">PAM</a> is similar to k-means, but accepts as input a distance matrix. We cluster with <span class="math inline">\(k=2\)</span>, since we suspect two main political groups in the data.</p>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>labels_votes2 <span class="ot">&lt;-</span> <span class="fu">pam</span>(d_votes, <span class="at">k=</span><span class="dv">2</span>, <span class="at">cluster.only =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdissplot</span>(d_votes, labels_votes2) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Dissimilarity Plot"</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">clusplot</span>(d_votes, <span class="at">diss =</span> <span class="cn">TRUE</span>, labels_votes2, <span class="at">labels =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in rep(col.p, length = n): partial argument match of 'length' to
-'length.out'</code></pre>
-</div>
-<div class="cell quarto-layout-panel" data-layout-nrow="1">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="clustering_files/figure-html/votes2-1.png" class="img-fluid"></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="clustering_files/figure-html/votes2-2.png" class="img-fluid"></p>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">dist</span>(x)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(D, <span class="at">method =</span> <span class="st">"complete"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc, <span class="at">labels =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tpPL_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">cophenetic</span>(hc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This clearly gives a good clustering result. The dissimilarity plot shows that the two groups are slightly different in size (number of representatives) and that the members of the smaller group vote slightly more similar with each other (a slightly darker color). We also see that the clusters are not completely clear inside with lighter streaks on one side.</p>
-<p>Maybe there are several sub-groups in each political party. We cluster again with <span class="math inline">\(k = 12\)</span>.</p>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>labels_votes12 <span class="ot">&lt;-</span> <span class="fu">pam</span>(d_votes, <span class="at">k=</span><span class="dv">12</span>, <span class="at">cluster.only =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdissplot</span>(d_votes, labels_votes12) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Dissimilarity Plot"</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">clusplot</span>(d_votes, <span class="at">diss =</span> <span class="cn">TRUE</span>, labels_votes12, <span class="at">labels =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'
-Warning in seq.default(-sqrt(yl2), sqrt(yl2), length = n.half): partial
-argument match of 'length' to 'length.out'</code></pre>
+<p>Next, we calculate the penalized distance matrix, perform seriation and calculate the tree-penalized path length seriation criterion. The seriation criterion can be calculated using the path length criterion on the modified distance matrix <span class="math inline">\(F\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>F <span class="ot">&lt;-</span> D <span class="sc">+</span> beta <span class="sc">*</span> P</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>o <span class="ot">&lt;-</span> <span class="fu">seriate</span>(F, <span class="at">method =</span> <span class="st">"TSP"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">criterion</span>(F, o, <span class="at">method =</span> <span class="st">"Path_length"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Path_length 
+   28552.86 </code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in rep(col.p, length = n): partial argument match of 'length' to
-'length.out'</code></pre>
 </div>
-<div class="cell quarto-layout-panel" data-layout-nrow="1">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="clustering_files/figure-html/votes12-1.png" class="img-fluid"></p>
+<p>Finally, we perform TSP seriation using different values for <span class="math inline">\(\beta\)</span> to see how the clustering structure emerges more and more in the seriation result.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>betas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">25</span>, .<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">10</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (beta <span class="cf">in</span> betas) {</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  F <span class="ot">&lt;-</span> D <span class="sc">+</span> beta <span class="sc">*</span> P</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pimage</span>(F, <span class="at">order =</span> <span class="st">"TSP"</span>, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"beta ="</span>, beta))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tpPL_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="clustering_files/figure-html/votes12-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tpPL_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tpPL_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tpPL_files/figure-html/unnamed-chunk-4-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tpPL_files/figure-html/unnamed-chunk-4-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tpPL_files/figure-html/unnamed-chunk-4-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
 </div>
-<p>The cluster plot gets too complicated, but the dissimilarity plot shows that one group has a very compact core (a dark square) with a few more clusters more loosely connected. The other group is slightly larger, but consists of many more diverse clusters. There are two clusters (9 and 3) with similarity to both groups. Analyzing the party affiliation shows that the more compact group consists of representatives of the republican party, while the more diverse group contains democrats.</p>
-</section>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>Dissimilarity plots scale well with the dimensionality of the data and by reordering clusters and objects within clusters can provide a very concise structural representation of the clustering. Dissimilarity plots are also helpful in spotting the mis-specification of the number of clusters used for partitioning.</p>
-<p>Dissimilarity plots are implemented in the package seriation and are easy to use. Details on the method can be found in Hahsler and Hornik (2011).</p>
-</section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<ul>
-<li>Hahsler, M. and Hornik, K. (2011): Dissimilarity plots: A visual exploration tool for partitional clustering. <em>Journal of Computational and Graphical Statistics,</em> <strong>10</strong>(2):335–354. <a href="http://dx.doi.org/10.1198/jcgs.2010.09139">doi:10.1198/jcgs.2010.09139</a> (read the <a href="http://michael.hahsler.net/research/paper/dissplot_JCGS2011_preprint.pdf">preprint</a>)</li>
-</ul>
+<p>We see that as <span class="math inline">\(\beta\)</span> is increased the seriation follows more and more the clustering. For <span class="math inline">\(\beta\)</span> approaching <span class="math inline">\(\infty\)</span>, the seriation order approaches optimal leaf ordering (OLO).</p>
 
 
 </section>
