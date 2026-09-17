@@ -31,22 +31,29 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-      - name: Create landing page from README
-        working-directory: docs
+      - name: Prepare Jekyll source
         run: |
-          cp ../README.md index.md
-          cp -R ../man ../inst .
-          quarto render index.md --profile landing
-          test -f _site/index.html
+          mkdir jekyll-source
+          cp -R docs/_site/. jekyll-source/
+          cp -R man inst jekyll-source/
+          printf '%s\n' 'theme: jekyll-theme-slate' > jekyll-source/_config.yml
+          {
+            printf '%s\n' '---' 'layout: default' '---'
+            cat README.md
+          } > jekyll-source/index.md
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Build README with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./jekyll-source
+          destination: ./jekyll-site
+      - name: Verify landing page
+        run: test -f jekyll-site/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: 'docs/_site'
+          path: 'jekyll-site'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

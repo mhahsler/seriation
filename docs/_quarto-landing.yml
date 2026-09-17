@@ -1,9 +1,0 @@
-project:
-  type: default
-  output-dir: _site
-  render:
-    - index.md
-
-format:
-  html:
-    toc: false
