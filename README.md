@@ -11,6 +11,8 @@ downloads](https://cranlogs.r-pkg.org/badges/seriation)](https://CRAN.R-project.
 status](https://mhahsler.r-universe.dev/badges/seriation)](https://mhahsler.r-universe.dev/seriation)
 [![StackOverflow](https://img.shields.io/badge/stackoverflow-seriation+r-orange.svg)](https://stackoverflow.com/questions/tagged/seriation+r)
 
+**Maintainer:** [Michael Hahsler](https://michael.hahsler.net)
+
 ## Introduction
 
 Seriation arranges a set of objects into a linear order given available
@@ -49,7 +51,9 @@ The following R packages use `seriation`:
 [adepro](https://CRAN.R-project.org/package=adepro),
 [arulesViz](https://CRAN.R-project.org/package=arulesViz),
 [baizer](https://CRAN.R-project.org/package=baizer),
+[cellGeometry](https://CRAN.R-project.org/package=cellGeometry),
 [ChemoSpec](https://CRAN.R-project.org/package=ChemoSpec),
+[ClusteredMutations](https://CRAN.R-project.org/package=ClusteredMutations),
 [corrgram](https://CRAN.R-project.org/package=corrgram),
 [corrplot](https://CRAN.R-project.org/package=corrplot),
 [corrr](https://CRAN.R-project.org/package=corrr),
@@ -59,14 +63,16 @@ The following R packages use `seriation`:
 [disclapmix](https://CRAN.R-project.org/package=disclapmix),
 [elaborator](https://CRAN.R-project.org/package=elaborator),
 [flexclust](https://CRAN.R-project.org/package=flexclust),
+[futurize](https://CRAN.R-project.org/package=futurize),
 [GAPR](https://CRAN.R-project.org/package=GAPR),
 [ggraph](https://CRAN.R-project.org/package=ggraph),
 [heatmaply](https://CRAN.R-project.org/package=heatmaply),
 [MEDseq](https://CRAN.R-project.org/package=MEDseq),
 [ockc](https://CRAN.R-project.org/package=ockc),
+[PairViz](https://CRAN.R-project.org/package=PairViz),
 [protti](https://CRAN.R-project.org/package=protti),
+[Proximum](https://CRAN.R-project.org/package=Proximum),
 [RMaCzek](https://CRAN.R-project.org/package=RMaCzek),
-[SFS](https://CRAN.R-project.org/package=SFS),
 [tidygraph](https://CRAN.R-project.org/package=tidygraph),
 [treeheatr](https://CRAN.R-project.org/package=treeheatr),
 [vcdExtra](https://CRAN.R-project.org/package=vcdExtra)
@@ -75,7 +81,7 @@ To cite package ‘seriation’ in publications use:
 
 > Hahsler M, Hornik K, Buchta C (2008). “Getting things in order: An
 > introduction to the R package seriation.” *Journal of Statistical
-> Software*, *25*(3), 1-34. ISSN 1548-7660, <doi:10.18637/jss.v025.i03>
+> Software*, *25*(3), 1-34. ISSN 1548-7660. <doi:10.18637/jss.v025.i03>
 > <https://doi.org/10.18637/jss.v025.i03>.
 
     @Article{,
@@ -292,7 +298,7 @@ pimage(d, main = "Judges (original alphabetical order)")
 pimage(d, order, main = "Judges (reordered by seriation)")
 ```
 
-<img src="inst/README_files/seriation-1.png" width="50%" /><img src="inst/README_files/seriation-2.png" width="50%" />
+<img src="inst/README_files/seriation-1.png" alt="" width="50%" /><img src="inst/README_files/seriation-2.png" alt="" width="50%" />
 
 Darker squares around the main diagonal indicate groups of similar
 objects. After seriation, two groups are visible.
@@ -302,15 +308,18 @@ measures. Note that some measures are merit measures while others
 represent cost. See the manual page for details.
 
 ``` r
-rbind(alphabetical = criterion(d), seriated = criterion(d, order))
+rbind(
+ alphabetical = criterion(d),
+ seriated = criterion(d, order)
+)
 ```
 
     ##              2SUM AR_deviations AR_events BAR Gradient_raw Gradient_weighted
     ## alphabetical  872        10.304        80 1.8            8              0.54
     ## seriated      811         0.064         5 1.1          158             19.76
     ##              Inertia Lazy_path_length Least_squares LS MDS_stress  ME
-    ## alphabetical     267              6.9           967 99       0.62  99
-    ## seriated         364              4.6           942 86       0.17 101
+    ## alphabetical     267              6.9           967 59       0.62  99
+    ## seriated         364              4.6           942 72       0.17 101
     ##              Moore_stress Neumann_stress Path_length RGAR   Rho
     ## alphabetical          7.0            3.9         1.8 0.48 0.028
     ## seriated              2.5            1.3         1.1 0.03 0.913
@@ -331,7 +340,7 @@ get_config(order)
 plot_config(order)
 ```
 
-<img src="inst/README_files/configuration-1.png" style="display: block; margin: auto;" />
+<img src="inst/README_files/configuration-1.png" alt="" style="display: block; margin: auto;" />
 
 We can see a clear divide between the two groups in the configuration.
 
