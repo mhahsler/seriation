@@ -182,7 +182,7 @@ dissplot(d, method = NA)
 # Plot reordered matrix using the nearest insertion algorithm (from tsp)
 dissplot(d, method = "TSP", main = "Seriation (TSP)")
 
-# Cluster iris with k-means and 3 clusters and reorder the dissimality matrix
+# Cluster iris with k-means and 3 clusters and reorder the dissimilarity matrix
 l <- kmeans(x_iris, centers = 3)$cluster
 dissplot(d, labels = l, main = "k-means")
 

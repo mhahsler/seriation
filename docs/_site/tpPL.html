@@ -306,9 +306,9 @@ window.Quarto = {
 <blockquote class="blockquote">
 <p>Denis A. Aliyev, Craig L. Zirbel, <a href="https://doi.org/10.1016/j.ejor.2022.06.026">Seriation using tree-penalized path length</a>, European Journal of Operational Research, Volume 305, Issue 2, 2023, Pages 617-629</p>
 </blockquote>
-<p>This short vignette shows how to used tree-penalized path length criterion seriation with the R package <a href="https://github.com/mhahsler/seriation"><code>seriation</code></a>.</p>
-<p>The idea of the tree-penalized path length criterion to use a TSP-based seriation on a modified distance matrix that adds clustering structure to the distance information. This is achieved by using the modified distance matrix:</p>
-<p><span class="math display">\[T = D * \beta P\]</span> where <span class="math inline">\(P\)</span> contains the cophenetic distances for a hierarchical clustering. By adjusting <span class="math inline">\(\beta\)</span>, the seriation can be seamlessly move from a TSP based on only distances (<span class="math inline">\(\beta = 0\)</span>) to a seriation order that represents purely the clustering structure (<span class="math inline">\(\beta = \infty\)</span>).</p>
+<p>This short vignette shows how to use tree-penalized path length criterion seriation with the R package <a href="https://github.com/mhahsler/seriation"><code>seriation</code></a>.</p>
+<p>The idea of the tree-penalized path length criterion is to use TSP-based seriation on a modified distance matrix that adds clustering structure to the distance information. This is achieved by using the modified distance matrix:</p>
+<p><span class="math display">\[T = D * \beta P\]</span> where <span class="math inline">\(P\)</span> contains the cophenetic distances for a hierarchical clustering. By adjusting <span class="math inline">\(\beta\)</span>, the seriation can move seamlessly from a TSP based only on distances (<span class="math inline">\(\beta = 0\)</span>) to a seriation order that represents purely the clustering structure (<span class="math inline">\(\beta = \infty\)</span>).</p>
 </section>
 <section id="numeric-example" class="level2">
 <h2 class="anchored" data-anchor-id="numeric-example">Numeric Example</h2>
@@ -327,7 +327,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>We calculate the penalty matrix from complete-link hierarchical clustering. The penalties are the copehenetic distances in the dendrogram.</p>
+<p>We calculate the penalty matrix from complete-link hierarchical clustering. The penalties are the cophenetic distances in the dendrogram.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">dist</span>(x)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>

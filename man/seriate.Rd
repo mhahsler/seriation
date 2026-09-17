@@ -190,7 +190,7 @@ Finds a 2D configuration using MDS (\code{\link[stats:cmdscale]{stats::cmdscale(
 to approximate the eigenvectors of the covariance matrix in the
 original data matrix.
 Orders by the angle in this space and splits the order by the
-larges gap between adjacent angles. A similar method was used by
+largest gap between adjacent angles. A similar method was used by
 Friendly (2002) to order variables in correlation matrices
 by angles of first two eigenvectors.
 \item \strong{Smacof:} \code{"MDS_smacof"} (de Leeuw and Mair, 2009)
@@ -434,7 +434,7 @@ can be found.
 }
 \item \strong{Unconstrained Brower and Kyle seriation}: \code{"BK_unconstrained"} (Brower and Kyle 1988).
 
-Reorderes 0-1 matrices to create a block structure along the diagonal. It iteratively
+Reorders 0-1 matrices to create a block structure along the diagonal. It iteratively
 reorders by the mean row indices of 1s and mean column indices of 1s till the orders
 become stable.
 
@@ -478,7 +478,7 @@ seriation methods.
 \strong{Seriate rows using the data matrix}
 
 These methods need access to the data matrix instead of dissimilarities to
-reorder objects (rows). Columns can also be reorderd by applying the same technique
+reorder objects (rows). Columns can also be reordered by applying the same technique
 to the transposed data matrix.
 \itemize{
 \item \strong{Order along the 1D locally linear embedding:} \code{"LLE"}
@@ -499,7 +499,7 @@ distance, this method minimizes the least square criterion.
 \item \strong{Angular order of the first two PCA components:} \code{"PCA_angle"}
 
 For rows, projects the data on the first two principal components
-and then orders by the angle in this space. The order is split by the larges
+and then orders by the angle in this space. The order is split by the largest
 gap between adjacent angles. A similar method was suggested by
 Friendly (2002) to order variables in correlation matrices
 by angles of first two eigenvectors. PCA also computes the eigenvectors

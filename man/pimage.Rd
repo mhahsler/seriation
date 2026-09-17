@@ -206,7 +206,7 @@ d <- dist(x)
 pimage(d)
 pimage(d, order = TRUE)
 
-# Supress the upper triangle and diagonal
+# Suppress the upper triangle and diagonal
 pimage(d, order = TRUE, upper_tri = FALSE, diag = FALSE)
 
 # Show only distances that are smaller than 2 using limits on z.
@@ -303,7 +303,7 @@ d <- dist(x)
 ggpimage(d)
 ggpimage(d, order = TRUE)
 
-# Supress the upper triangle and diagonal
+# Suppress the upper triangle and diagonal
 ggpimage(d, order = TRUE, upper_tri = FALSE, diag = FALSE)
 
 # Show only distances that are smaller than 2 using limits on z.

@@ -52,7 +52,7 @@ set_seriation_method(
   list(k = 30,
        path = "shortest"),
   help = list(k = "number of shortest dissimilarities retained for a point",
-              path = "method used in to estimate the shortest path (\"shortest\"/\"extended\")")
+              path = "method used to estimate the shortest path (\"shortest\"/\"extended\")")
 )
 
 seriate_dist_isomap <- function(x, control = NULL) {

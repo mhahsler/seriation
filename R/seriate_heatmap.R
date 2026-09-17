@@ -27,7 +27,7 @@
 )
 
  attr(.heatmap_contr, "help") <- list(
-  dist_fun = "A named list with functions to calulate row and column distances",
+  dist_fun = "A named list with functions to calculate row and column distances",
   seriation_method = "A named list with row and column seriation methods",
   seriation_control = "named list with control parameters for the seriation methods",
   scale = 'Scale "rows", "cols", or "none"'

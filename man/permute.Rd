@@ -108,7 +108,7 @@ permute(m, "PCA")
 ## permute only rows using PCA
 permute(m, "PCA", margin = 1)
 
-# Permute data.frames using heatmap seration (= hierarchical
+# Permute data.frames using heatmap seriation (= hierarchical
 #  clustering + optimal leaf ordering)
 df <- as.data.frame(m)
 permute(df, "Heatmap")
@@ -132,7 +132,6 @@ hc <- hclust(d)
 plot(hc)
 
 plot(permute(hc, 5:1))
-plot(permute(hc, 5:1, incompartible = "stop"))
 
 plot(permute(hc, "OLO", dist = d))
 plot(permute(hc, "GW", dist = d))

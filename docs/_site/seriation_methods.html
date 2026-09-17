@@ -831,7 +831,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">pmutation</td>
 <td style="text-align: left;">0.1</td>
-<td style="text-align: left;">ptobability of mutations</td>
+<td style="text-align: left;">probability of mutations</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">popSize</td>
@@ -1102,7 +1102,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td style="text-align: left;">path</td>
 <td style="text-align: left;">“shortest”</td>
-<td style="text-align: left;">method used in to estimate the shortest path (“shortest”/“extended”)</td>
+<td style="text-align: left;">method used to estimate the shortest path (“shortest”/“extended”)</td>
 </tr>
 </tbody>
 </table>
@@ -1189,7 +1189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="mds_angle" class="level3">
 <h3 class="anchored" data-anchor-id="mds_angle">MDS_angle</h3>
-<p>Order by the angular order in the 2D MDS projection space split by the larges gap</p>
+<p>Order by the angular order in the 2D MDS projection space split by the largest gap</p>
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
@@ -1219,7 +1219,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="mds_smacof" class="level3">
 <h3 class="anchored" data-anchor-id="mds_smacof">MDS_smacof</h3>
-<p>Seriation based on multidemensional scaling using stress majorization (de Leeuw &amp; Mair, 2009).</p>
+<p>Seriation based on multidimensional scaling using stress majorization (de Leeuw &amp; Mair, 2009).</p>
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#smacof_stress0">smacof_stress0</a> (MDS stress)</li>
 <li>randomized: FALSE</li>
@@ -1435,7 +1435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="olo" class="level3">
 <h3 class="anchored" data-anchor-id="olo">OLO</h3>
-<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001)</p>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered with optimal leaf ordering (Bar-Joseph et al., 2001)</p>
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
@@ -1465,7 +1465,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="olo_average" class="level3">
 <h3 class="anchored" data-anchor-id="olo_average">OLO_average</h3>
-<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (avg. link)</p>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered with optimal leaf ordering (Bar-Joseph et al., 2001) (avg. link)</p>
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
@@ -1474,7 +1474,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="olo_complete" class="level3">
 <h3 class="anchored" data-anchor-id="olo_complete">OLO_complete</h3>
-<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (complete link)</p>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered with optimal leaf ordering (Bar-Joseph et al., 2001) (complete link)</p>
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
@@ -1483,7 +1483,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="olo_single" class="level3">
 <h3 class="anchored" data-anchor-id="olo_single">OLO_single</h3>
-<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (single link)</p>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered with optimal leaf ordering (Bar-Joseph et al., 2001) (single link)</p>
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
@@ -1492,7 +1492,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="olo_ward" class="level3">
 <h3 class="anchored" data-anchor-id="olo_ward">OLO_ward</h3>
-<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (Ward’s method)</p>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered with optimal leaf ordering (Bar-Joseph et al., 2001) (Ward’s method)</p>
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
@@ -1824,7 +1824,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="tsne" class="level3">
 <h3 class="anchored" data-anchor-id="tsne">tsne</h3>
-<p>Use 1D t-distributed stochastic neighbor embedding (t-SNE) a distance matrix to create an order (van der Maaten and Hinton, 2008).</p>
+<p>Use 1D t-distributed stochastic neighbor embedding (t-SNE) of a distance matrix to create an order (van der Maaten and Hinton, 2008).</p>
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: TRUE</li>
@@ -2046,7 +2046,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="vat" class="level3">
 <h3 class="anchored" data-anchor-id="vat">VAT</h3>
-<p>Visual assesment of clustering tendency (Bezdek and Hathaway (2002). Creates an order based on Prim’s algorithm for finding a minimum spanning tree (MST) in a weighted connected graph representing the distance matrix. The order is given by the order in which the nodes (objects) are added to the MST.</p>
+<p>Visual assessment of clustering tendency (Bezdek and Hathaway (2002). Creates an order based on Prim’s algorithm for finding a minimum spanning tree (MST) in a weighted connected graph representing the distance matrix. The order is given by the order in which the nodes (objects) are added to the MST.</p>
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
@@ -2173,7 +2173,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">dist_fun</td>
 <td style="text-align: left;">list(row = function (x, method = “euclidean”, diag = FALSE, upper = FALSE, p = 2) { if (!is.n</td>
-<td style="text-align: left;">A named list with functions to calulate row and column distances</td>
+<td style="text-align: left;">A named list with functions to calculate row and column distances</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">seriation_method</td>
@@ -2304,7 +2304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pca_angle" class="level3">
 <h3 class="anchored" data-anchor-id="pca_angle">PCA_angle</h3>
-<p>Uses the angular order in the 2D PCA projection space split by the larges gap.</p>
+<p>Uses the angular order in the 2D PCA projection space split by the largest gap.</p>
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>

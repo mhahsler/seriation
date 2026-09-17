@@ -132,7 +132,7 @@ set_seriation_method(
   "dist",
   "MDS_angle",
   seriate_dist_angle,
-  "Order by the angular order in the 2D MDS projection space split by the larges gap",
+  "Order by the angular order in the 2D MDS projection space split by the largest gap",
   control = .mds_control
 )
 
@@ -153,4 +153,3 @@ set_seriation_method(
   control = .mds_sammon_control,
   optimizes = .opt("MDS_stress", "scale free, weighted stress called Sammon's error")
   )
-

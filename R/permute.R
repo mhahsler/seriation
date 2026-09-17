@@ -109,7 +109,7 @@ find_order <- function(x, order, ...) {
 #' ## permute only rows using PCA
 #' permute(m, "PCA", margin = 1)
 #'
-#' # Permute data.frames using heatmap seration (= hierarchical
+#' # Permute data.frames using heatmap seriation (= hierarchical
 #' #  clustering + optimal leaf ordering)
 #' df <- as.data.frame(m)
 #' permute(df, "Heatmap")
@@ -133,7 +133,6 @@ find_order <- function(x, order, ...) {
 #' plot(hc)
 #'
 #' plot(permute(hc, 5:1))
-#' plot(permute(hc, 5:1, incompartible = "stop"))
 #'
 #' plot(permute(hc, "OLO", dist = d))
 #' plot(permute(hc, "GW", dist = d))
@@ -215,7 +214,7 @@ permute.dendrogram <- function(x, order, dist = NULL,  ...) {
 
   if (is.character(order)) {
     if (is.null(dist))
-      stop("dist need for seriation-based reordering.")
+      stop("dist is needed for seriation-based reordering.")
 
     suppressWarnings(order <- seriate(dist, method = order, hclust = x, ...))
   }
@@ -345,7 +344,7 @@ permute.hclust <- function(x, order, dist = NULL, ...) {
 .permute_1d <- function(x, order, ...) {
   if (is.logical(order)) {
     if(order)
-      stop("No default seritation method for vectors avaialble. Specify the order.")
+      stop("No default seriation method for vectors available. Specify the order.")
     else
       return(x)
   }

@@ -29,7 +29,7 @@ assessment of cluster tendency plots (VAT and iVAT).
 
 Here are some quick guides on applications of seriation:
 
-- [Introduction the R package
+- [Introduction to the R package
   seriation](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf)
 - [How to reorder
   heatmaps](https://mhahsler.github.io/seriation/heatmaps.html)
@@ -126,8 +126,8 @@ reconstruction error.
 
 - **MDS** - classical metric multidimensional scaling
 - **MDS_angle** - order by the angular order in the 2D MDS projection
-  space split by the larges gap
-- **isoMDS** - 1D Krusakl’s non-metric multidimensional scaling
+  space split by the largest gap
+- **isoMDS** - 1D Kruskal’s non-metric multidimensional scaling
 - **isomap** - 1D isometric feature mapping ordination
 - **monoMDS** - order along 1D global and local non-metric
   multidimensional scaling using monotone regression (NMDS)
@@ -172,7 +172,7 @@ using a heuristic approach.
 - **Random** permutation
 - **Reverse** order
 - **SPIN** - Sorting points into neighborhoods (neighborhood algorithm,
-  side-to-site algorithm)
+  side-to-side algorithm)
 - **VAT** - Order of the visual assessment of clustering tendency
 
 A detailed comparison of the most popular methods is available in the
@@ -209,7 +209,7 @@ These methods need access to the data matrix instead of dissimilarities
 to reorder objects (rows). The same approach can be applied to columns.
 
 - **PCA_angle** - order by the angular order in the 2D PCA projection
-  space split by the larges gap
+  space split by the largest gap
 - **LLE** reorder along a 1D locally linear embedding
 - **Means** - reorders using row means
 - **PCA** - orders along the first principal component

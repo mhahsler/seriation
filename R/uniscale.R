@@ -243,7 +243,7 @@ plot_config <- function (x,
 
   if (is.null(x))
     stop(
-      "Permutation vector has no configuration attribute. Use uniscale() first to calcualte a configuration"
+      "Permutation vector has no configuration attribute. Use uniscale() first to calculate a configuration"
     )
 
   # 2D

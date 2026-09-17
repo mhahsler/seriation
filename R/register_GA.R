@@ -97,7 +97,7 @@ register_GA <- function() {
     crossover = "crossover operator function",
     mutation = "mutation operator function",
     pcrossover = "probability for crossover",
-    pmutation = "ptobability of mutations",
+    pmutation = "probability of mutations",
     popSize = "population size",
     maxiter = "maximum number of generations",
     run = "stop after run generations without improvement",

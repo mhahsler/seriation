@@ -22,7 +22,7 @@
 #' seriation algorithms and criterion functions.
 #'
 #' `create_lines_data()` recreates the lines data set used in for [iVAT()] in
-#' Havens and Bezdeck (2012).
+#' Havens and Bezdek (2012).
 #'
 #' `create_ordered_data()` (Hahsler et al, 2021) is a versatile
 #' function which creates "orderable"

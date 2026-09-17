@@ -28,7 +28,7 @@ available \code{control} parameters.
 
 Perplexity is automatically set as the minimum between 30 and the number of
 observations. It can be also specified using the control parameter
-\code{"preplexity"}.
+\code{"perplexity"}.
 
 \strong{Note:} Package \pkg{Rtsne} needs to be installed.
 }

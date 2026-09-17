@@ -21,7 +21,7 @@ visual assessment of cluster tendency plots (VAT and iVAT).
 
 Here are some quick guides on applications of seriation:
 
-* [Introduction the R package seriation](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf)
+* [Introduction to the R package seriation](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf)
 * [How to reorder heatmaps](https://mhahsler.github.io/seriation/heatmaps.html)
 * [How to reorder correlation matrices](https://mhahsler.github.io/seriation/correlation_matrix.html)
 * [How to evaluate clusters using dissimilarity plots](https://mhahsler.github.io/seriation/clustering.html)
@@ -60,8 +60,8 @@ Find a seriation order by reducing the dimensionality to 1 dimension. This is ty
 by minimizing a stress measure or the reconstruction error.
 
  *  **MDS** - classical metric multidimensional scaling
- *  **MDS_angle** - order by the angular order in the 2D MDS projection space split by the larges gap
- *  **isoMDS** -  1D Krusakl's non-metric multidimensional scaling
+ *  **MDS_angle** - order by the angular order in the 2D MDS projection space split by the largest gap
+ *  **isoMDS** -  1D Kruskal's non-metric multidimensional scaling
  *  **isomap** -  1D isometric feature mapping ordination
  *  **monoMDS** - order along 1D global and local non-metric multidimensional scaling using monotone regression (NMDS)
  *  **metaMDS** - 1D non-metric multidimensional scaling (NMDS) with stable solution from random starts
@@ -92,7 +92,7 @@ by minimizing a stress measure or the reconstruction error.
  *  **R2E** - Rank-two ellipse seriation 
  *  **Random** permutation
  *  **Reverse** order
- *  **SPIN** - Sorting points into neighborhoods (neighborhood algorithm, side-to-site algorithm)
+ *  **SPIN** - Sorting points into neighborhoods (neighborhood algorithm, side-to-side algorithm)
  *  **VAT** - Order of the visual assessment of clustering tendency
   
 A detailed comparison of the most popular methods is available in the paper 
@@ -123,7 +123,7 @@ Row and column order influence each other.
 These methods need access to the data matrix instead of dissimilarities
 to reorder objects (rows). The same approach can be applied to columns.
 
- *  **PCA_angle** - order by the angular order in the 2D PCA projection space split by the larges gap
+ *  **PCA_angle** - order by the angular order in the 2D PCA projection space split by the largest gap
  *  **LLE** reorder along a 1D locally linear embedding
  *  **Means** - reorders using row means
  *  **PCA** - orders along the first principal component
@@ -205,4 +205,3 @@ DOI: 10.1016/j.ejor.2016.08.066
 * Hahsler, M. and Hornik, K. (2011): [Dissimilarity plots: A visual exploration tool for partitional clustering.](http://dx.doi.org/10.1198/jcgs.2010.09139) _Journal of Computational and Graphical Statistics,_ **10**(2):335–354. DOI: 10.1198/jcgs.2010.09139 (read the
 [preprint](https://michael.hahsler.net/research/paper/dissplot_JCGS2011_preprint.pdf); [code examples](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html))
 * [Reference manual for package seriation.](https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriation-package)
-

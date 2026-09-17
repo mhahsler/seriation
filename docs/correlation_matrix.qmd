@@ -1,5 +1,5 @@
 ---
-title: "Correlation Matix Visualization with Package Seriation"
+title: "Correlation Matrix Visualization with Package Seriation"
 author: "Michael Hahsler"
 format:
   html:
@@ -33,7 +33,7 @@ data("mtcars")
 DT::datatable(mtcars)
 ```
 
-We calcualte a correlation matrix.
+We calculate a correlation matrix.
 
 ```{r}
 m <- cor(mtcars)
@@ -51,11 +51,11 @@ pimage(m)
 pimage(m, order = "AOE")
 ```
 
-The reordering clearly shows that there is tow groups of highly correlated variables and these two groups have a strong negative correlation with each other.
+The reordering clearly shows that there are two groups of highly correlated variables and these two groups have a strong negative correlation with each other.
 
 ## Visualization options
 
-Here are some options. Many packages represent high correlations as blue and low correlations as red. We can set the colors that way or used other colors.
+Here are some options. Many packages represent high correlations as blue and low correlations as red. We can set the colors that way or use other colors.
 
 ```{r}
 #| fig-asp: 1

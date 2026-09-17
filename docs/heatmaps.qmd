@@ -21,7 +21,7 @@ How to cite the `seriation` package:
 
 ## Prepare the data
 
-As an example, we use the `Wood` dataset with the normalized gene expression data (a sample of 136 genes) for wood formation in poplar trees in 6 locations. In case the data has alread some order, we randomly reorder rows and columns for this example.
+As an example, we use the `Wood` dataset with the normalized gene expression data (a sample of 136 genes) for wood formation in poplar trees in 6 locations. In case the data already has some order, we randomly reorder rows and columns for this example.
 
 ```{r}
 if (!require("seriation")) install.packages("seriation")
@@ -47,14 +47,14 @@ pimage(Wood)
 
 Many seriation methods are available. The [manual page for seriate()](https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriate) describes the methods available in package `seriation`.
 
-Methods of interest for heatmaps are dendrogram leaf order-based methods applied to rows and columns. This is done using `method = "heatmap"`. The actual seriation method can be passed on as parameter `seriaton_method`, but it has a suitable default if it is omitted. Here is an example:
+Methods of interest for heatmaps are dendrogram leaf order-based methods applied to rows and columns. This is done using `method = "heatmap"`. The actual seriation method can be passed on as parameter `seriation_method`, but it has a suitable default if it is omitted. Here is an example:
 
 ```{r}
 o <- seriate(Wood, method = "Heatmap", seriation_method = "HC_Mean")
 o
 ```
 
-This is the order for rows and columns. The method `heatmap` automatically performs hierarchical clustering and then applies the seriation method for reordering of dendrogram leafs. Here we use the row/column mean to reorder the dendrogram. The resulting order (2 means second dimension, i.e., columns) can be shown, and the reordered dendrogram and a reorderd image can be plotted.
+This is the order for rows and columns. The method `heatmap` automatically performs hierarchical clustering and then applies the seriation method for reordering of dendrogram leaves. Here we use the row/column mean to reorder the dendrogram. The resulting order (2 means second dimension, i.e., columns) can be shown, and the reordered dendrogram and a reordered image can be plotted.
 
 ```{r}
 get_order(o, 2)
@@ -83,7 +83,7 @@ The permutation image plot in `seriation` provides a simple heatmap. The order a
 #| out-width: 50%
 #| layout-ncol: 2 
 pimage(Wood, order = "Heatmap", seriation_method = "HC_complete", 
-       main = "Wood (hierarichal clustering)")
+       main = "Wood (hierarchical clustering)")
 pimage(Wood, order = "Heatmap", seriation_method = "HC_Mean", 
        main = "Wood (reorder by row/col mean)")
 pimage(Wood, order = "Heatmap", seriation_method = "GW_complete", 
@@ -101,7 +101,7 @@ Here are some typical reordering schemes.
 #| fig-show: hold
 #| out-width: 50%
 #| layout-ncol: 2 
-hmap(Wood, method = "HC_complete", main = "Wood (hierarichal clustering)")
+hmap(Wood, method = "HC_complete", main = "Wood (hierarchical clustering)")
 hmap(Wood, method = "HC_Mean", main = "Wood (reorder by row/col mean)")
 hmap(Wood, method = "GW_complete", main = "Wood (reorder by Gruvaeus and Wainer heuristic)")
 hmap(Wood, method = "OLO_complete", main = "Wood (opt. leaf ordering)")
@@ -130,7 +130,7 @@ Instead of dendrograms, also reordered distance matrices can be displayed. Dark 
 #| fig-align: "center"
 hmap(Wood, method = "HC_complete", 
      plot_margins = "distances",
-     main = "Wood (hierarichal clustering)")
+     main = "Wood (hierarchical clustering)")
 ```
 
 Also non-dendrogram-based reordering methods can be used. These methods reorder rows and columns. Instead of the dendrograms, reordered distance matrices are shown.
@@ -239,7 +239,7 @@ superheat(Wood,
 
 ## Package heatmaply
 
-The package creates interactive heatmaps. It already uses package `seriation` for parameter `seriate` and supports the methods `OLO` () and `GW`.
+The package creates interactive heatmaps. It already uses package `seriation` for parameter `seriate` and supports the `OLO` and `GW` methods.
 
 ```{r}
 #| fig-asp: 1

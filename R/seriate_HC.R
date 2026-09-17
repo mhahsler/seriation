@@ -147,7 +147,7 @@ set_seriation_method(
 )
 
 .olo_desc <-
-  "Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001)"
+  "Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered with optimal leaf ordering (Bar-Joseph et al., 2001)"
 
 set_seriation_method("dist",
                      "OLO",

@@ -316,7 +316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </blockquote>
 <section id="prepare-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="prepare-the-data">Prepare the data</h2>
-<p>As an example, we use the <code>Wood</code> dataset with the normalized gene expression data (a sample of 136 genes) for wood formation in poplar trees in 6 locations. In case the data has alread some order, we randomly reorder rows and columns for this example.</p>
+<p>As an example, we use the <code>Wood</code> dataset with the normalized gene expression data (a sample of 136 genes) for wood formation in poplar trees in 6 locations. In case the data has already some order, we randomly reorder rows and columns for this example.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"seriation"</span>)) <span class="fu">install.packages</span>(<span class="st">"seriation"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -350,7 +350,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="reordering-in-seriation" class="level2">
 <h2 class="anchored" data-anchor-id="reordering-in-seriation">Reordering in seriation</h2>
 <p>Many seriation methods are available. The <a href="https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriate">manual page for seriate()</a> describes the methods available in package <code>seriation</code>.</p>
-<p>Methods of interest for heatmaps are dendrogram leaf order-based methods applied to rows and columns. This is done using <code>method = "heatmap"</code>. The actual seriation method can be passed on as parameter <code>seriaton_method</code>, but it has a suitable default if it is omitted. Here is an example:</p>
+<p>Methods of interest for heatmaps are dendrogram leaf order-based methods applied to rows and columns. This is done using <code>method = "heatmap"</code>. The actual seriation method can be passed on as parameter <code>seriation_method</code>, but it has a suitable default if it is omitted. Here is an example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>o <span class="ot">&lt;-</span> <span class="fu">seriate</span>(Wood, <span class="at">method =</span> <span class="st">"Heatmap"</span>, <span class="at">seriation_method =</span> <span class="st">"HC_Mean"</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>o</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -363,7 +363,7 @@ contains permutation vectors for 2-mode data
 2             6          Heatmap</code></pre>
 </div>
 </div>
-<p>This is the order for rows and columns. The method <code>heatmap</code> automatically performs hierarchical clustering and then applies the seriation method for reordering of dendrogram leafs. Here we use the row/column mean to reorder the dendrogram. The resulting order (2 means second dimension, i.e., columns) can be shown, and the reordered dendrogram and a reorderd image can be plotted.</p>
+<p>This is the order for rows and columns. The method <code>heatmap</code> automatically performs hierarchical clustering and then applies the seriation method for reordering of dendrogram leaves. Here we use the row/column mean to reorder the dendrogram. The resulting order (2 means second dimension, i.e., columns) can be shown, and the reordered dendrogram and a reordered image can be plotted.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_order</span>(o, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -392,7 +392,7 @@ contains permutation vectors for 2-mode data
 <h2 class="anchored" data-anchor-id="without-dendrograms-pimage">Without dendrograms: pimage</h2>
 <p>The permutation image plot in <code>seriation</code> provides a simple heatmap. The order argument not only accepts a seriation order, but also a seriation method.</p>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pimage</span>(Wood, <span class="at">order =</span> <span class="st">"Heatmap"</span>, <span class="at">seriation_method =</span> <span class="st">"HC_complete"</span>, </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">"Wood (hierarichal clustering)"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">"Wood (hierarchical clustering)"</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pimage</span>(Wood, <span class="at">order =</span> <span class="st">"Heatmap"</span>, <span class="at">seriation_method =</span> <span class="st">"HC_Mean"</span>, </span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">"Wood (reorder by row/col mean)"</span>)</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pimage</span>(Wood, <span class="at">order =</span> <span class="st">"Heatmap"</span>, <span class="at">seriation_method =</span> <span class="st">"GW_complete"</span>, </span>
@@ -426,7 +426,7 @@ contains permutation vectors for 2-mode data
 <section id="with-dendrograms-hmap" class="level2">
 <h2 class="anchored" data-anchor-id="with-dendrograms-hmap">With dendrograms: hmap</h2>
 <p>Here are some typical reordering schemes.</p>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hmap</span>(Wood, <span class="at">method =</span> <span class="st">"HC_complete"</span>, <span class="at">main =</span> <span class="st">"Wood (hierarichal clustering)"</span>)</span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hmap</span>(Wood, <span class="at">method =</span> <span class="st">"HC_complete"</span>, <span class="at">main =</span> <span class="st">"Wood (hierarchical clustering)"</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hmap</span>(Wood, <span class="at">method =</span> <span class="st">"HC_Mean"</span>, <span class="at">main =</span> <span class="st">"Wood (reorder by row/col mean)"</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hmap</span>(Wood, <span class="at">method =</span> <span class="st">"GW_complete"</span>, <span class="at">main =</span> <span class="st">"Wood (reorder by Gruvaeus and Wainer heuristic)"</span>)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hmap</span>(Wood, <span class="at">method =</span> <span class="st">"OLO_complete"</span>, <span class="at">main =</span> <span class="st">"Wood (opt. leaf ordering)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -468,7 +468,7 @@ contains permutation vectors for 2-mode data
 <pre><code>Registering new seriation method 'DendSer_ARc' for 'dist'register_DendSer()</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Registering new seriation criteron 'ARc' for 'dist' using register_DendSer()</code></pre>
+<pre><code>Registering new seriation criterion 'ARc' for 'dist' using register_DendSer()</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hmap</span>(Wood, <span class="at">method =</span> <span class="st">"DendSer_BAR"</span>, <span class="at">main =</span> <span class="st">"Wood (banded anti-Robinson)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -486,7 +486,7 @@ contains permutation vectors for 2-mode data
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hmap</span>(Wood, <span class="at">method =</span> <span class="st">"HC_complete"</span>, </span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">plot_margins =</span> <span class="st">"distances"</span>,</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Wood (hierarichal clustering)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Wood (hierarchical clustering)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -703,7 +703,7 @@ match of 'length' to 'length.out'</code></pre>
 </section>
 <section id="package-heatmaply" class="level2">
 <h2 class="anchored" data-anchor-id="package-heatmaply">Package heatmaply</h2>
-<p>The package creates interactive heatmaps. It already uses package <code>seriation</code> for parameter <code>seriate</code> and supports the methods <code>OLO</code> () and <code>GW</code>.</p>
+<p>The package creates interactive heatmaps. It already uses package <code>seriation</code> for parameter <code>seriate</code> and supports the <code>OLO</code> and <code>GW</code> methods.</p>
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">suppressMessages</span>(<span class="fu">require</span>(<span class="st">"heatmaply"</span>))) <span class="fu">install.packages</span>(<span class="st">"heatmaply"</span>)</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"heatmaply"</span>)</span>

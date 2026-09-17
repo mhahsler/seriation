@@ -120,6 +120,6 @@ set_seriation_method(
   "matrix",
   "PCA_angle",
   seriate_matrix_angle,
-  "Uses the angular order in the 2D PCA projection space split by the larges gap.",
+  "Uses the angular order in the 2D PCA projection space split by the largest gap.",
   .pca_contr
 )

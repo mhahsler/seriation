@@ -75,7 +75,7 @@ heuristics may produce unstable results.
 \code{seriate_best()} and \code{seriate_rep()} automatically try different seriation methods or
 rerun randomized methods several times to find the best and order
 given a criterion measure. \code{seriate_improve()} uses a local improvement strategy
-to imporve an existing solution.
+to improve an existing solution.
 }
 \details{
 \code{seriate_rep()} rerun a randomized seriation methods to find the best solution

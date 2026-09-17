@@ -93,7 +93,7 @@
 #' # predefined) and optimal leaf ordering and no row label
 #' dist_cor <- function(x) as.dist(sqrt(1 - cor(t(x))))
 #' hmap(Wood, distfun = dist_cor, col = greenred(100),
-#'   main = "Wood (reorded by corr. between obs.)")
+#'   main = "Wood (reordered by corr. between obs.)")
 #'
 #' # Heatmap for distances
 #' d <- dist(Wood)
@@ -102,7 +102,7 @@
 #' # order-based with dissimilarity matrices
 #' hmap(Wood, method = "MDS_angle",
 #'   col = greenred(100), col_dist = greens(100, power = 2),
-#'   keylab = "norm. Expression", main = "Wood (reorderd with distances)")
+#'   keylab = "norm. Expression", main = "Wood (reordered with distances)")
 #'
 #' # Manually create a simple heatmap with pimage.
 #' o <- seriate(Wood, method = "heatmap",
@@ -111,7 +111,7 @@
 #'
 #' pimage(Wood, o)
 #'
-#' # Note: method heatmap calculates reorderd hclust objects which can be used
+#' # Note: method heatmap calculates reordered hclust objects which can be used
 #' #       for many heatmap implementations like the standard implementation in
 #' #       package stats.
 #' heatmap(Wood, Rowv = as.dendrogram(o[[1]]), Colv = as.dendrogram(o[[2]]))
@@ -127,7 +127,7 @@
 #'
 #'   dist_cor <- function(x) as.dist(sqrt(1 - cor(t(x))))
 #'   gghmap(Wood, distfun = dist_cor) +
-#'     labs(title = "Wood", subtitle = "Reorded by correlation between observations") +
+#'     labs(title = "Wood", subtitle = "Reordered by correlation between observations") +
 #'     scale_fill_gradient2(low = "darkgreen", high = "red")
 #'
 #'   gghmap(d, prop = TRUE) +

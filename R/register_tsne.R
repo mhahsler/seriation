@@ -33,7 +33,7 @@
 #'
 #' Perplexity is automatically set as the minimum between 30 and the number of
 #' observations. It can be also specified using the control parameter
-#' `"preplexity"`.
+#' `"perplexity"`.
 #'
 #' **Note:** Package \pkg{Rtsne} needs to be installed.
 #'
@@ -122,7 +122,7 @@ register_tsne <- function() {
       Y_init <- NULL
 
     # default is 30 (reduced for low n)
-    if (is.null(control$preplexity))
+    if (is.null(control$perplexity))
       control$perplexity <- 30
 
     control$perplexity <-
@@ -168,7 +168,7 @@ tsne_order_matrix <- function(x, control) {
   control <- .get_parameters(control, .contr_matrix)
 
   # default is 30 (reduced for low n)
-  if (is.null(control$preplexity))
+  if (is.null(control$perplexity))
     control$perplexity <- 30
 
   control$perplexity <-
@@ -215,7 +215,7 @@ set_seriation_method(
   "dist",
   "tsne",
   tsne_order,
-  "Use 1D t-distributed stochastic neighbor embedding (t-SNE) a distance matrix to create an order (van der Maaten and Hinton, 2008).",
+  "Use 1D t-distributed stochastic neighbor embedding (t-SNE) of a distance matrix to create an order (van der Maaten and Hinton, 2008).",
   .contr,
   randomized = TRUE,
   verbose = TRUE
