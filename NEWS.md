@@ -1,5 +1,8 @@
 # seriation 1.5.8.1 (Unreleased)
 
+## Changes
+* Spelling, fixed broken links.
+
 ## Bug Fixes
 * Fixed method warning for seriate.TSP.
 
