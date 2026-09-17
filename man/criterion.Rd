@@ -335,7 +335,7 @@ patterns in gene expression profiles, \emph{BMC Bioinformatics,}
 \doi{10.1186/1471-2105-9-155}
 }
 \seealso{
-Other criterion: 
+Other criterion:
 \code{\link{registry_for_criterion_methods}}
 }
 \author{

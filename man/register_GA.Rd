@@ -12,7 +12,7 @@ register_GA()
 gaperm_mixedMutation(ismProb = 0.8)
 }
 \arguments{
-\item{ismProb}{probability to use \code{\link[GA:ga_Mutation]{GA::gaperm_ismMutation()}} (inversion) versus \code{\link[GA:ga_Mutation]{GA::gaperm_simMutation()}} (simple insertion).}
+\item{ismProb}{probability to use \code{\link[GA:gaperm_ismMutation]{GA::gaperm_ismMutation()}} (inversion) versus \code{\link[GA:gaperm_simMutation]{GA::gaperm_simMutation()}} (simple insertion).}
 }
 \value{
 Nothing.
@@ -72,15 +72,15 @@ Luca Scrucca (2013): GA: A Package for Genetic Algorithms in R.
 \doi{10.18637/jss.v053.i04}.
 }
 \seealso{
-Other seriation: 
-\code{\link{register_DendSer}()},
-\code{\link{register_optics}()},
-\code{\link{register_smacof}()},
-\code{\link{register_tsne}()},
-\code{\link{register_umap}()},
+Other seriation:
+\code{\link[=register_DendSer]{register_DendSer()}},
+\code{\link[=register_optics]{register_optics()}},
+\code{\link[=register_smacof]{register_smacof()}},
+\code{\link[=register_tsne]{register_tsne()}},
+\code{\link[=register_umap]{register_umap()}},
 \code{\link{registry_for_seriation_methods}},
-\code{\link{seriate}()},
-\code{\link{seriate_best}()}
+\code{\link[=seriate]{seriate()}},
+\code{\link[=seriate_best]{seriate_best()}}
 }
 \author{
 Michael Hahsler

@@ -32,15 +32,15 @@ arrange gene expression profiles in optimal linear order,
 \emph{Bioinformatics,} \strong{21}(7) 1280--1281.
 }
 \seealso{
-Other data: 
+Other data:
 \code{\link{Chameleon}},
 \code{\link{Irish}},
 \code{\link{Munsingen}},
 \code{\link{SupremeCourt}},
 \code{\link{Townships}},
 \code{\link{Zoo}},
-\code{\link{create_lines_data}()},
-\code{\link{is.robinson}()}
+\code{\link[=create_lines_data]{create_lines_data()}},
+\code{\link[=is.robinson]{is.robinson()}}
 }
 \concept{data}
 \keyword{datasets}

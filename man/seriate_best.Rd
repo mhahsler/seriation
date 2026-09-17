@@ -55,7 +55,7 @@ can be specified.}
 
 \item{parallel}{logical; perform replications in parallel.
 Uses \code{\link[foreach:foreach]{foreach::foreach()}} if a
-\verb{\%dopar\%} backend (e.g., \link[doParallel:doParallel-package]{doParallel::doParallel}) is registered.}
+\verb{\%dopar\%} backend (e.g., \link[doParallel:doParallel]{doParallel::doParallel}) is registered.}
 
 \item{verbose}{logical; show progress and results for different methods}
 
@@ -108,14 +108,14 @@ criterion has high similarity with most other criteria.
 Some methods support for parallel execution is provided using the
 \link[foreach:foreach]{foreach} package. To
 use parallel execution, a suitable backend needs to be registered (see
-the Examples section for using the \link[doParallel:doParallel-package]{doParallel} backend).
+the Examples section for using the \link[doParallel:doParallel]{doParallel} backend).
 }
 \examples{
 data(SupremeCourt)
 d_supreme <- as.dist(SupremeCourt)
 
 # find best seriation order (tries by by default several fast methods)
-o <- seriate_best(d_supreme, criterion = "AR_events")
+o <- seriate_best(d_supreme, criterion = "AR_events", rep = 5)
 o
 pimage(d_supreme, o)
 
@@ -157,15 +157,15 @@ one-mode two-way data. \emph{European Journal of Operational Research,}
 \doi{10.1016/j.ejor.2016.08.066}
 }
 \seealso{
-Other seriation: 
-\code{\link{register_DendSer}()},
-\code{\link{register_GA}()},
-\code{\link{register_optics}()},
-\code{\link{register_smacof}()},
-\code{\link{register_tsne}()},
-\code{\link{register_umap}()},
+Other seriation:
+\code{\link[=register_DendSer]{register_DendSer()}},
+\code{\link[=register_GA]{register_GA()}},
+\code{\link[=register_optics]{register_optics()}},
+\code{\link[=register_smacof]{register_smacof()}},
+\code{\link[=register_tsne]{register_tsne()}},
+\code{\link[=register_umap]{register_umap()}},
 \code{\link{registry_for_seriation_methods}},
-\code{\link{seriate}()}
+\code{\link[=seriate]{seriate()}}
 }
 \author{
 Michael Hahsler

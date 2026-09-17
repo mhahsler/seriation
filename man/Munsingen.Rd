@@ -75,15 +75,15 @@ Archaeological and Historical Sciences,} Edinburgh University Press,
 Edinburgh, 215--232.
 }
 \seealso{
-Other data: 
+Other data:
 \code{\link{Chameleon}},
 \code{\link{Irish}},
 \code{\link{SupremeCourt}},
 \code{\link{Townships}},
 \code{\link{Wood}},
 \code{\link{Zoo}},
-\code{\link{create_lines_data}()},
-\code{\link{is.robinson}()}
+\code{\link[=create_lines_data]{create_lines_data()}},
+\code{\link[=is.robinson]{is.robinson()}}
 }
 \concept{data}
 \keyword{datasets}

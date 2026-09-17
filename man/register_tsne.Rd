@@ -85,15 +85,15 @@ pp.2579-2605.
 \seealso{
 \code{\link[Rtsne:Rtsne]{Rtsne::Rtsne()}}
 
-Other seriation: 
-\code{\link{register_DendSer}()},
-\code{\link{register_GA}()},
-\code{\link{register_optics}()},
-\code{\link{register_smacof}()},
-\code{\link{register_umap}()},
+Other seriation:
+\code{\link[=register_DendSer]{register_DendSer()}},
+\code{\link[=register_GA]{register_GA()}},
+\code{\link[=register_optics]{register_optics()}},
+\code{\link[=register_smacof]{register_smacof()}},
+\code{\link[=register_umap]{register_umap()}},
 \code{\link{registry_for_seriation_methods}},
-\code{\link{seriate}()},
-\code{\link{seriate_best}()}
+\code{\link[=seriate]{seriate()}},
+\code{\link[=seriate_best]{seriate_best()}}
 }
 \concept{seriation}
 \keyword{cluster}

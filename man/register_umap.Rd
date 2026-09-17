@@ -66,15 +66,15 @@ Projection for Dimension Reduction, ArXiv e-prints 1802.03426, 2018.
 \seealso{
 \code{\link[umap:umap]{umap::umap()}} in \pkg{umap}.
 
-Other seriation: 
-\code{\link{register_DendSer}()},
-\code{\link{register_GA}()},
-\code{\link{register_optics}()},
-\code{\link{register_smacof}()},
-\code{\link{register_tsne}()},
+Other seriation:
+\code{\link[=register_DendSer]{register_DendSer()}},
+\code{\link[=register_GA]{register_GA()}},
+\code{\link[=register_optics]{register_optics()}},
+\code{\link[=register_smacof]{register_smacof()}},
+\code{\link[=register_tsne]{register_tsne()}},
 \code{\link{registry_for_seriation_methods}},
-\code{\link{seriate}()},
-\code{\link{seriate_best}()}
+\code{\link[=seriate]{seriate()}},
+\code{\link[=seriate_best]{seriate_best()}}
 }
 \concept{seriation}
 \keyword{cluster}

@@ -121,7 +121,7 @@ Ordering Objects Using Seriation. R package version 1.3.2.
 \seealso{
 \code{\link[=seriate]{seriate()}}, \code{\link[=criterion]{criterion()}}, \code{\link[=iVAT]{iVAT()}}.
 
-Other data: 
+Other data:
 \code{\link{Chameleon}},
 \code{\link{Irish}},
 \code{\link{Munsingen}},
@@ -129,7 +129,7 @@ Other data:
 \code{\link{Townships}},
 \code{\link{Wood}},
 \code{\link{Zoo}},
-\code{\link{is.robinson}()}
+\code{\link[=is.robinson]{is.robinson()}}
 }
 \author{
 Michael Hahsler

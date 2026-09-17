@@ -220,12 +220,12 @@ Tribute to J. Bertin's Graphical Data Analysis. In: Proceedings of the
 SoftStat '97 (Advances in Statistical Software 6), 11--20.
 }
 \seealso{
-Other plots: 
-\code{\link{VAT}()},
-\code{\link{dissplot}()},
-\code{\link{hmap}()},
-\code{\link{palette}()},
-\code{\link{pimage}()}
+Other plots:
+\code{\link[=VAT]{VAT()}},
+\code{\link[=dissplot]{dissplot()}},
+\code{\link[=hmap]{hmap()}},
+\code{\link{palette}},
+\code{\link[=pimage]{pimage()}}
 }
 \author{
 Michael Hahsler

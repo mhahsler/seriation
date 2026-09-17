@@ -42,15 +42,15 @@ Sander (1999). OPTICS: Ordering Points To Identify the Clustering Structure.
 \seealso{
 \code{\link[dbscan:optics]{dbscan::optics()}}.
 
-Other seriation: 
-\code{\link{register_DendSer}()},
-\code{\link{register_GA}()},
-\code{\link{register_smacof}()},
-\code{\link{register_tsne}()},
-\code{\link{register_umap}()},
+Other seriation:
+\code{\link[=register_DendSer]{register_DendSer()}},
+\code{\link[=register_GA]{register_GA()}},
+\code{\link[=register_smacof]{register_smacof()}},
+\code{\link[=register_tsne]{register_tsne()}},
+\code{\link[=register_umap]{register_umap()}},
 \code{\link{registry_for_seriation_methods}},
-\code{\link{seriate}()},
-\code{\link{seriate_best}()}
+\code{\link[=seriate]{seriate()}},
+\code{\link[=seriate_best]{seriate_best()}}
 }
 \concept{seriation}
 \keyword{cluster}

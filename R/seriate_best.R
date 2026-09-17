@@ -218,7 +218,7 @@ seriate_best <- function(x,
 }
 
 #' @rdname seriate_best
-#' @importFrom foreach times `%dopar%` `%do%`
+#' @importFrom foreach times "%dopar%" "%do%"
 #' @export
 seriate_rep <- function(x,
                         method = NULL,

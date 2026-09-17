@@ -58,7 +58,7 @@ Data. \emph{Journal of Computational and Graphical Statistics,}
 \bold{13}(4), 788--806.
 }
 \seealso{
-\code{\link[gclus:hclust]{gclus::reorder.hclust()}}
+\code{\link[gclus:reorder.hclust]{gclus::reorder.hclust()}}
 }
 \author{
 Michael Hahsler

@@ -6,6 +6,8 @@
 \alias{seriation-package}
 \title{seriation: Infrastructure for Ordering Objects Using Seriation}
 \description{
+\if{html}{\figure{logo.svg}{options: style='float: right' alt='logo' width='120'}}
+
 Infrastructure for ordering objects with an implementation of several seriation/sequencing/ordination techniques to reorder matrices, dissimilarity matrices, and dendrograms. Also provides (optimally) reordered heatmaps, color images and clustering visualizations like dissimilarity plots, and visual assessment of cluster tendency plots (VAT and iVAT). Hahsler et al (2008) \doi{10.18637/jss.v025.i03}.
 }
 \section{Key functions}{
@@ -50,6 +52,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Michael Hahsler \email{mhahsler@lyle.smu.edu} (\href{https://orcid.org/0000-0003-2716-1405}{ORCID}) [copyright holder]
   \item Christian Buchta [copyright holder]
   \item Kurt Hornik (\href{https://orcid.org/0000-0003-4198-9911}{ORCID}) [copyright holder]
 }

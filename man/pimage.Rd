@@ -347,12 +347,12 @@ ggpimage(d, order = seriate(d), upper_tri = FALSE) +
 }
 }
 \seealso{
-Other plots: 
-\code{\link{VAT}()},
-\code{\link{bertinplot}()},
-\code{\link{dissplot}()},
-\code{\link{hmap}()},
-\code{\link{palette}()}
+Other plots:
+\code{\link[=VAT]{VAT()}},
+\code{\link[=bertinplot]{bertinplot()}},
+\code{\link[=dissplot]{dissplot()}},
+\code{\link[=hmap]{hmap()}},
+\code{\link{palette}}
 }
 \author{
 Christian Buchta and Michael Hahsler

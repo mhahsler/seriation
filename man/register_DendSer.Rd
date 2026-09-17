@@ -70,15 +70,15 @@ Graphical Statistics,} \strong{24}(1), 1--25.
 \seealso{
 \code{\link[DendSer:DendSer]{DendSer::DendSer()}}
 
-Other seriation: 
-\code{\link{register_GA}()},
-\code{\link{register_optics}()},
-\code{\link{register_smacof}()},
-\code{\link{register_tsne}()},
-\code{\link{register_umap}()},
+Other seriation:
+\code{\link[=register_GA]{register_GA()}},
+\code{\link[=register_optics]{register_optics()}},
+\code{\link[=register_smacof]{register_smacof()}},
+\code{\link[=register_tsne]{register_tsne()}},
+\code{\link[=register_umap]{register_umap()}},
 \code{\link{registry_for_seriation_methods}},
-\code{\link{seriate}()},
-\code{\link{seriate_best}()}
+\code{\link[=seriate]{seriate()}},
+\code{\link[=seriate_best]{seriate_best()}}
 }
 \author{
 Michael Hahsler based on code by Catherine B. Hurley and Denise

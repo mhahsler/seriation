@@ -72,7 +72,7 @@ set_seriation_method(
   "dist",
   "isomap",
   seriate_dist_isomap,
-  "Isometric feature mapping ordination",
+  "Isometric feature mapping ordination (Tenenbaum, 2000)",
   control = .isomap_control,
   optimizes = .opt(NA, "Stress on shortest path distances")
 )

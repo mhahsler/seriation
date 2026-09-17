@@ -160,12 +160,12 @@ Pattern Analysis and Machine Intelligence} \strong{38}(5):833-48.
 \doi{10.1109/TPAMI.2015.2470671}
 }
 \seealso{
-Other permutation: 
-\code{\link{get_order}()},
-\code{\link{permutation_vector2matrix}()},
-\code{\link{permute}()},
-\code{\link{ser_permutation}()},
-\code{\link{ser_permutation_vector}()}
+Other permutation:
+\code{\link[=get_order]{get_order()}},
+\code{\link[=permutation_vector2matrix]{permutation_vector2matrix()}},
+\code{\link[=permute]{permute()}},
+\code{\link[=ser_permutation]{ser_permutation()}},
+\code{\link[=ser_permutation_vector]{ser_permutation_vector()}}
 }
 \author{
 Michael Hahsler

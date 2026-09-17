@@ -36,12 +36,12 @@ pm
 permutation_matrix2vector(pm)
 }
 \seealso{
-Other permutation: 
-\code{\link{get_order}()},
-\code{\link{permute}()},
-\code{\link{ser_dist}()},
-\code{\link{ser_permutation}()},
-\code{\link{ser_permutation_vector}()}
+Other permutation:
+\code{\link[=get_order]{get_order()}},
+\code{\link[=permute]{permute()}},
+\code{\link[=ser_dist]{ser_dist()}},
+\code{\link[=ser_permutation]{ser_permutation()}},
+\code{\link[=ser_permutation_vector]{ser_permutation_vector()}}
 }
 \author{
 Michael Hahsler

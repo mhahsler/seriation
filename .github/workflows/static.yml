@@ -31,6 +31,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+      - name: Create landing page from README
+        run: |
+          cp README.md docs/index.md
+          cp -R man inst docs/
+          quarto render docs/index.md
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

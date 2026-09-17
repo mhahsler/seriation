@@ -26,15 +26,15 @@ Tribute to J. Bertin's Graphical Data Analysis. In: \emph{Proceedings of the
 SoftStat '97 (Advances in Statistical Software 6),} 11--20.
 }
 \seealso{
-Other data: 
+Other data:
 \code{\link{Chameleon}},
 \code{\link{Munsingen}},
 \code{\link{SupremeCourt}},
 \code{\link{Townships}},
 \code{\link{Wood}},
 \code{\link{Zoo}},
-\code{\link{create_lines_data}()},
-\code{\link{is.robinson}()}
+\code{\link[=create_lines_data]{create_lines_data()}},
+\code{\link[=is.robinson]{is.robinson()}}
 }
 \concept{data}
 \keyword{datasets}

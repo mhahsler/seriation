@@ -89,12 +89,12 @@ Wang L., U.T.V. Nguyen, J.C. Bezdek, C.A. Leckie and K. Ramamohanarao
 Assessment, \emph{Proceedings of the PAKDD 2010, Part I, LNAI 6118,} 16--27.
 }
 \seealso{
-Other plots: 
-\code{\link{bertinplot}()},
-\code{\link{dissplot}()},
-\code{\link{hmap}()},
-\code{\link{palette}()},
-\code{\link{pimage}()}
+Other plots:
+\code{\link[=bertinplot]{bertinplot()}},
+\code{\link[=dissplot]{dissplot()}},
+\code{\link[=hmap]{hmap()}},
+\code{\link{palette}},
+\code{\link[=pimage]{pimage()}}
 }
 \author{
 Michael Hahsler

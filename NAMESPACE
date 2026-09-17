@@ -129,18 +129,24 @@ import("TSP")
 import("grid")
 import(registry)
 importFrom(ca,ca)
-importFrom(foreach,`%do%`)
-importFrom(foreach,`%dopar%`)
-importFrom(foreach,times)
-importFrom(graphics,plot)
-importFrom(graphics,text)
-importFrom(graphics,title)
-importFrom(stats,as.dist)
-importFrom(stats,dist)
-importFrom(stats,hclust)
-importFrom(stats,order.dendrogram)
-importFrom(stats,prcomp)
-importFrom(stats,reorder)
-importFrom(stats,rnorm)
-importFrom(stats,runif)
+importFrom(foreach,
+  "%do%",
+  "%dopar%",
+  times
+)
+importFrom(graphics,
+  plot,
+  text,
+  title
+)
+importFrom(stats,
+  as.dist,
+  dist,
+  hclust,
+  order.dendrogram,
+  prcomp,
+  reorder,
+  rnorm,
+  runif
+)
 useDynLib(seriation, .registration=TRUE)

@@ -120,7 +120,7 @@ For convenience, the other methods are provided as shortcuts.
 \code{"GW_complete"}, \code{"GW_ward"}  (Gruvaeus and Wainer, 1972)
 
 Method \code{"GW"} uses an algorithm developed by Gruvaeus and Wainer (1972)
-as implemented \code{\link[gclus:hclust]{gclus::reorder.hclust()}} (Hurley 2004).  The clusters are
+as implemented \code{\link[gclus:reorder.hclust]{gclus::reorder.hclust()}} (Hurley 2004).  The clusters are
 ordered at each level so that the objects at the edge of each cluster are
 adjacent to the nearest object outside the cluster. The
 method produces a unique order.
@@ -719,15 +719,15 @@ Sammon, J. W. (1969) A non-linear mapping for data structure analysis.
 \emph{IEEE Trans. Comput.}, \strong{C-18} 401--409.
 }
 \seealso{
-Other seriation: 
-\code{\link{register_DendSer}()},
-\code{\link{register_GA}()},
-\code{\link{register_optics}()},
-\code{\link{register_smacof}()},
-\code{\link{register_tsne}()},
-\code{\link{register_umap}()},
+Other seriation:
+\code{\link[=register_DendSer]{register_DendSer()}},
+\code{\link[=register_GA]{register_GA()}},
+\code{\link[=register_optics]{register_optics()}},
+\code{\link[=register_smacof]{register_smacof()}},
+\code{\link[=register_tsne]{register_tsne()}},
+\code{\link[=register_umap]{register_umap()}},
 \code{\link{registry_for_seriation_methods}},
-\code{\link{seriate_best}()}
+\code{\link[=seriate_best]{seriate_best()}}
 }
 \author{
 Michael Hahsler

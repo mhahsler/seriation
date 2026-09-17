@@ -35,8 +35,8 @@ at the high end.}
 \item{power}{used to control how chroma and luminance is increased (1 =
 linear, 2 = quadratic, etc.)}
 
-\item{...}{further parameters are passed on to \code{\link[colorspace:hcl_palettes]{colorspace::sequential_hcl()}}
-or \code{\link[colorspace:hcl_palettes]{colorspace::diverging_hcl()}}.}
+\item{...}{further parameters are passed on to \code{\link[colorspace:sequential_hcl]{colorspace::sequential_hcl()}}
+or \code{\link[colorspace:diverging_hcl]{colorspace::diverging_hcl()}}.}
 }
 \value{
 A vector with \code{n} colors.
@@ -46,8 +46,8 @@ Defines several color palettes for \code{\link[=pimage]{pimage()}}, \code{\link[
 \code{\link[=hmap]{hmap()}}.
 }
 \details{
-The color palettes are created with \code{\link[colorspace:hcl_palettes]{colorspace::sequential_hcl()}} and
-\code{\link[colorspace:hcl_palettes]{colorspace::diverging_hcl()}}.
+The color palettes are created with \code{\link[colorspace:sequential_hcl]{colorspace::sequential_hcl()}} and
+\code{\link[colorspace:diverging_hcl]{colorspace::diverging_hcl()}}.
 
 The two sequential palettes are: \code{reds()} and \code{grays()} (or
 \code{greys()}).
@@ -78,12 +78,12 @@ pimage(m,
   col = colorspace::diverging_hcl(100, "Cork"))
 }
 \seealso{
-Other plots: 
-\code{\link{VAT}()},
-\code{\link{bertinplot}()},
-\code{\link{dissplot}()},
-\code{\link{hmap}()},
-\code{\link{pimage}()}
+Other plots:
+\code{\link[=VAT]{VAT()}},
+\code{\link[=bertinplot]{bertinplot()}},
+\code{\link[=dissplot]{dissplot()}},
+\code{\link[=hmap]{hmap()}},
+\code{\link[=pimage]{pimage()}}
 }
 \author{
 Michael Hahsler

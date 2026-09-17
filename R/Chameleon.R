@@ -4,8 +4,12 @@
 #' the paper by Karypis et al (1999).
 #'
 #' @name Chameleon
-#' @aliases Chameleon chameleon chameleon_ds4 chameleon_ds5 chameleon_ds7
-#' chameleon_ds8
+#' @aliases Chameleon 
+#' @aliases chameleon 
+#' @aliases chameleon_ds4 
+#' @aliases chameleon_ds5 
+#' @aliases chameleon_ds7
+#' @aliases chameleon_ds8
 #' @docType data
 #' @family data
 #' @format

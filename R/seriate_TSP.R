@@ -38,8 +38,12 @@ seriate_dist_tsp <- function(x, control = NULL) {
   if (is.null(control))
     control <- .tsp_control
 
-  tour <- solve_TSP(tsp, method = control$method,
-    control = control)
+  tsp_method <- control$method
+  tsp_control <- control
+  tsp_control$method <- NULL
+  
+  tour <- solve_TSP(tsp, method = tsp_method,
+    control = tsp_control)
 
   o <- cut_tour(tour, cut = "cut_here", exclude_cut = TRUE)
   o

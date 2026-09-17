@@ -169,12 +169,12 @@ if (require("ggplot2")) {
 }
 }
 \seealso{
-Other plots: 
-\code{\link{VAT}()},
-\code{\link{bertinplot}()},
-\code{\link{dissplot}()},
-\code{\link{palette}()},
-\code{\link{pimage}()}
+Other plots:
+\code{\link[=VAT]{VAT()}},
+\code{\link[=bertinplot]{bertinplot()}},
+\code{\link[=dissplot]{dissplot()}},
+\code{\link{palette}},
+\code{\link[=pimage]{pimage()}}
 }
 \author{
 Michael Hahsler

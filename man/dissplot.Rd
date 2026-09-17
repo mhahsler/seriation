@@ -321,12 +321,12 @@ Computing,} \bold{15}(2), 208--230.
 \doi{10.1287/ijoc.15.2.208.14448}
 }
 \seealso{
-Other plots: 
-\code{\link{VAT}()},
-\code{\link{bertinplot}()},
-\code{\link{hmap}()},
-\code{\link{palette}()},
-\code{\link{pimage}()}
+Other plots:
+\code{\link[=VAT]{VAT()}},
+\code{\link[=bertinplot]{bertinplot()}},
+\code{\link[=hmap]{hmap()}},
+\code{\link{palette}},
+\code{\link[=pimage]{pimage()}}
 }
 \author{
 Michael Hahsler

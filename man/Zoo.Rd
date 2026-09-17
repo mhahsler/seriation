@@ -50,15 +50,15 @@ order <- seriate(d, method = "tsp")
 pimage(d, order)
 }
 \seealso{
-Other data: 
+Other data:
 \code{\link{Chameleon}},
 \code{\link{Irish}},
 \code{\link{Munsingen}},
 \code{\link{SupremeCourt}},
 \code{\link{Townships}},
 \code{\link{Wood}},
-\code{\link{create_lines_data}()},
-\code{\link{is.robinson}()}
+\code{\link[=create_lines_data]{create_lines_data()}},
+\code{\link[=is.robinson]{is.robinson()}}
 }
 \concept{data}
 \keyword{datasets}

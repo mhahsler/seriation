@@ -37,15 +37,15 @@ Clustering Algorithm Using Dynamic Modeling, \emph{IEEE Computer,}
 \doi{10.1109/2.781637}
 }
 \seealso{
-Other data: 
+Other data:
 \code{\link{Irish}},
 \code{\link{Munsingen}},
 \code{\link{SupremeCourt}},
 \code{\link{Townships}},
 \code{\link{Wood}},
 \code{\link{Zoo}},
-\code{\link{create_lines_data}()},
-\code{\link{is.robinson}()}
+\code{\link[=create_lines_data]{create_lines_data()}},
+\code{\link[=is.robinson]{is.robinson()}}
 }
 \concept{data}
 \keyword{datasets}

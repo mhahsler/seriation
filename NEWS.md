@@ -1,5 +1,8 @@
 # seriation 1.5.8.1 (Unreleased)
 
+## Bug Fixes
+* Fixed method warning for seriate.TSP.
+
 # seriation 1.5.8 (08/20/2025)
 
 ## Changes

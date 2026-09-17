@@ -52,7 +52,6 @@ Suggests: dbscan,
   testthat, 
   umap
 Encoding: UTF-8
-RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 License: GPL-3
 Copyright: The code in src/bbwrcg.f, src/arsa.f and src/bburcg.f 
@@ -139,3 +138,4 @@ Collate:
     'seriate_spectral.R'
     'seriate_vegan.R'
     'uniscale.R'
+Config/roxygen2/version: 8.1.0
