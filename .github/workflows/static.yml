@@ -34,10 +34,11 @@ jobs:
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
       - name: Create landing page from README
+        working-directory: docs
         run: |
-          cp README.md docs/index.md
-          cp -R man inst docs/
-          quarto render docs/index.md
+          cp ../README.md index.md
+          cp -R ../man ../inst .
+          quarto render index.md
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
