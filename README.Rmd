@@ -21,7 +21,6 @@ visual assessment of cluster tendency plots (VAT and iVAT).
 
 Here are some quick guides on applications of seriation:
 
-* [Introduction to the R package seriation](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf)
 * [How to reorder heatmaps](https://mhahsler.github.io/seriation/heatmaps.html)
 * [How to reorder correlation matrices](https://mhahsler.github.io/seriation/correlation_matrix.html)
 * [How to evaluate clusters using dissimilarity plots](https://mhahsler.github.io/seriation/clustering.html)
@@ -31,6 +30,9 @@ Implemented seriation methods and criteria:
 * [Documentation of the implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)
 * [Documentation of the implemented seriation criteria](https://mhahsler.github.io/seriation/seriation_criteria.html)
 * [A visual comparison between seriation methods](https://mhahsler.github.io/seriation/comparison.html)
+
+A detailed introduction is available in the package vignette:
+[Introduction to the R package seriation](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf)
 
 ```{r echo=FALSE, results = 'asis'}
 pkg_usage(pkg)

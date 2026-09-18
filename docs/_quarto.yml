@@ -21,18 +21,8 @@ website:
           href: https://mhahsler.github.io/seriation
         - text: GitHub Page
           href: https://github.com/mhahsler/seriation
-      - section: "Methods and Criteria"
-        contents:
-        - text: Methods
-          href: seriation_methods.qmd
-        - text: Criteria
-          href: seriation_criteria.qmd
-        - text: Comparison
-          href: comparison.qmd
       - section: "Quick Guides"
         contents:
-        - text: Introduction
-          href: https://cran.r-project.org/web/packages/seriation/vignettes/seriation.pdf
         - text: How to reorder heatmaps
           href: heatmaps.qmd
         - text: How to reorder correlation matrices
@@ -41,6 +31,19 @@ website:
           href: clustering.qmd
         - text: How to use Tree-Penalized Path Length Criterion with Package seriation
           href: tpPL.qmd
+      - section: "Methods and Criteria"
+        contents:
+        - text: Methods
+          href: seriation_methods.qmd
+        - text: Criteria
+          href: seriation_criteria.qmd
+        - text: Comparison
+          href: comparison.qmd
+      - section: "Package Vignette"
+        contents:
+        - text: Introduction to seriation
+          href: https://cran.r-project.org/web/packages/seriation/vignettes/seriation.pdf
+      
 
 format:
   html:

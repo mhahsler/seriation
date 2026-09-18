@@ -29,8 +29,6 @@ assessment of cluster tendency plots (VAT and iVAT).
 
 Here are some quick guides on applications of seriation:
 
-- [Introduction to the R package
-  seriation](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf)
 - [How to reorder
   heatmaps](https://mhahsler.github.io/seriation/heatmaps.html)
 - [How to reorder correlation
@@ -46,6 +44,9 @@ Implemented seriation methods and criteria:
   criteria](https://mhahsler.github.io/seriation/seriation_criteria.html)
 - [A visual comparison between seriation
   methods](https://mhahsler.github.io/seriation/comparison.html)
+
+A detailed introduction is available in: [Introduction to the R package
+seriation](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf)
 
 The following R packages use `seriation`:
 [adepro](https://CRAN.R-project.org/package=adepro),
