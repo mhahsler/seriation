@@ -35,6 +35,7 @@ jobs:
         run: |
           mkdir jekyll-source
           cp -R docs/_site/. jekyll-source/
+          rm jekyll-source/index.html
           cp -R man inst jekyll-source/
           printf '%s\n' 'theme: jekyll-theme-slate' > jekyll-source/_config.yml
           {
@@ -48,8 +49,6 @@ jobs:
         with:
           source: ./jekyll-source
           destination: ./jekyll-site
-      - name: Verify landing page
-        run: test -f jekyll-site/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
