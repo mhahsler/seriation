@@ -1,0 +1,20 @@
+name: Check Links
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  linkChecker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # Check all Markdown, Text, and HTML files
+          args: --verbose --no-progress "**/*.md" "**/*.html" "**/*.Rd"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
