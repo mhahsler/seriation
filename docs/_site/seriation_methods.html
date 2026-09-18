@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,10 +10,16 @@
 
 <title>Seriation Methods implemented in the R package seriation – R Package Seriation</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -72,10 +78,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e8ed9d6b886f31797aaa4941d6e8f0a1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-3d6d9d14b05b879268dba5124e83a922.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -152,8 +158,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="https://github.com/mhahsler/seriation" class="sidebar-item-text sidebar-link">
+  <a href="https://mhahsler.github.io/seriation" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Package Overview</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://github.com/mhahsler/seriation" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GitHub Page</span></a>
   </div>
 </li>
       </ul>
@@ -343,27 +355,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This document contains the seriation methods currently implemented in the R package <a href="https://github.com/mhahsler/seriation"><code>seriation</code></a>. The methods are organized by methods for distance matrices and data matrices.</p>
+<p>This document contains the seriation methods currently implemented in the R package <code>seriation</code>. The methods are organized by methods for distance matrices and data matrices.</p>
 <p>This list was created for the following version of seriation:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"seriation"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">'seriation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"seriation"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">'seriation'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] '1.5.8'</code></pre>
+<pre><code>[1] '1.5.8.1'</code></pre>
 </div>
 </div>
 <p>Some additional methods need to be registered.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_DendSer</span>()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_DendSer</span>()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">register_optics</span>()</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">register_smacof</span>()</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">register_GA</span>()</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">register_tsne</span>()</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">register_umap</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">register_umap</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Seriation methods on the data <code>x</code> can be used in</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seriate</span>(x, <span class="at">method =</span> <span class="st">"Spectral"</span>, <span class="at">control =</span> <span class="cn">NULL</span>, <span class="at">rep =</span> <span class="dv">1</span>L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seriate</span>(x, <span class="at">method =</span> <span class="st">"Spectral"</span>, <span class="at">control =</span> <span class="cn">NULL</span>, <span class="at">rep =</span> <span class="dv">1</span>L)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The list below shows what seriation criterion (if any) is optimized by the method.</p>
 <p>If the method uses randomization (see randomized below), then <code>rep</code> can be used to run the algorithms several times and return the best permutation.</p>
@@ -831,7 +843,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">pmutation</td>
 <td style="text-align: left;">0.1</td>
-<td style="text-align: left;">probability of mutations</td>
+<td style="text-align: left;">ptobability of mutations</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">popSize</td>
@@ -1074,7 +1086,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="isomap" class="level3">
 <h3 class="anchored" data-anchor-id="isomap">isomap</h3>
-<p>Isometric feature mapping ordination</p>
+<p>Isometric feature mapping ordination (Tenenbaum, 2000)</p>
 <ul>
 <li>optimizes: N/A (Stress on shortest path distances)</li>
 <li>randomized: FALSE</li>
@@ -1102,7 +1114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td style="text-align: left;">path</td>
 <td style="text-align: left;">“shortest”</td>
-<td style="text-align: left;">method used to estimate the shortest path (“shortest”/“extended”)</td>
+<td style="text-align: left;">method used in to estimate the shortest path (“shortest”/“extended”)</td>
 </tr>
 </tbody>
 </table>
@@ -1189,7 +1201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="mds_angle" class="level3">
 <h3 class="anchored" data-anchor-id="mds_angle">MDS_angle</h3>
-<p>Order by the angular order in the 2D MDS projection space split by the largest gap</p>
+<p>Order by the angular order in the 2D MDS projection space split by the larges gap</p>
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
@@ -1219,7 +1231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="mds_smacof" class="level3">
 <h3 class="anchored" data-anchor-id="mds_smacof">MDS_smacof</h3>
-<p>Seriation based on multidimensional scaling using stress majorization (de Leeuw &amp; Mair, 2009).</p>
+<p>Seriation based on multidemensional scaling using stress majorization (de Leeuw &amp; Mair, 2009).</p>
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#smacof_stress0">smacof_stress0</a> (MDS stress)</li>
 <li>randomized: FALSE</li>
@@ -1435,7 +1447,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="olo" class="level3">
 <h3 class="anchored" data-anchor-id="olo">OLO</h3>
-<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered with optimal leaf ordering (Bar-Joseph et al., 2001)</p>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001)</p>
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
@@ -1465,7 +1477,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="olo_average" class="level3">
 <h3 class="anchored" data-anchor-id="olo_average">OLO_average</h3>
-<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered with optimal leaf ordering (Bar-Joseph et al., 2001) (avg. link)</p>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (avg. link)</p>
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
@@ -1474,7 +1486,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="olo_complete" class="level3">
 <h3 class="anchored" data-anchor-id="olo_complete">OLO_complete</h3>
-<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered with optimal leaf ordering (Bar-Joseph et al., 2001) (complete link)</p>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (complete link)</p>
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
@@ -1483,7 +1495,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="olo_single" class="level3">
 <h3 class="anchored" data-anchor-id="olo_single">OLO_single</h3>
-<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered with optimal leaf ordering (Bar-Joseph et al., 2001) (single link)</p>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (single link)</p>
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
@@ -1492,7 +1504,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="olo_ward" class="level3">
 <h3 class="anchored" data-anchor-id="olo_ward">OLO_ward</h3>
-<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered with optimal leaf ordering (Bar-Joseph et al., 2001) (Ward’s method)</p>
+<p>Using the order of the leaf nodes in a dendrogram obtained by hierarchical clustering and reordered by with optimal leaf ordering (Bar-Joseph et al., 2001) (Ward’s method)</p>
 <ul>
 <li>optimizes: <a href="seriation_criteria.html#path_length">Path_length</a> (restricted by dendrogram)</li>
 <li>randomized: FALSE</li>
@@ -1824,7 +1836,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="tsne" class="level3">
 <h3 class="anchored" data-anchor-id="tsne">tsne</h3>
-<p>Use 1D t-distributed stochastic neighbor embedding (t-SNE) of a distance matrix to create an order (van der Maaten and Hinton, 2008).</p>
+<p>Use 1D t-distributed stochastic neighbor embedding (t-SNE) a distance matrix to create an order (van der Maaten and Hinton, 2008).</p>
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: TRUE</li>
@@ -2046,7 +2058,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="vat" class="level3">
 <h3 class="anchored" data-anchor-id="vat">VAT</h3>
-<p>Visual assessment of clustering tendency (Bezdek and Hathaway (2002). Creates an order based on Prim’s algorithm for finding a minimum spanning tree (MST) in a weighted connected graph representing the distance matrix. The order is given by the order in which the nodes (objects) are added to the MST.</p>
+<p>Visual assesment of clustering tendency (Bezdek and Hathaway (2002). Creates an order based on Prim’s algorithm for finding a minimum spanning tree (MST) in a weighted connected graph representing the distance matrix. The order is given by the order in which the nodes (objects) are added to the MST.</p>
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
@@ -2173,7 +2185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">dist_fun</td>
 <td style="text-align: left;">list(row = function (x, method = “euclidean”, diag = FALSE, upper = FALSE, p = 2) { if (!is.n</td>
-<td style="text-align: left;">A named list with functions to calculate row and column distances</td>
+<td style="text-align: left;">A named list with functions to calulate row and column distances</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">seriation_method</td>
@@ -2304,7 +2316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pca_angle" class="level3">
 <h3 class="anchored" data-anchor-id="pca_angle">PCA_angle</h3>
-<p>Uses the angular order in the 2D PCA projection space split by the largest gap.</p>
+<p>Uses the angular order in the 2D PCA projection space split by the larges gap.</p>
 <ul>
 <li>optimizes: N/A</li>
 <li>randomized: FALSE</li>
@@ -2622,13 +2634,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

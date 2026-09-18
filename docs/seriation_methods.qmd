@@ -7,7 +7,7 @@ format:
 editor: visual
 ---
 
-This document contains the seriation methods currently implemented in the R package [`seriation`](https://github.com/mhahsler/seriation). The methods are organized by methods for distance matrices and data matrices.
+This document contains the seriation methods currently implemented in the R package `seriation`. The methods are organized by methods for distance matrices and data matrices.
 
 This list was created for the following version of seriation:
 

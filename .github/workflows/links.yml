@@ -15,6 +15,7 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           # Check all Markdown, Text, and HTML files
-          args: --verbose --no-progress "**/*.md" "**/*.html" "**/*.Rd"
+          # 403 is Forbidden shown for doi.org
+          args: --verbose --no-progress --accept "200, 403" "**/*.md" "**/*.html" "**/*.Rd"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

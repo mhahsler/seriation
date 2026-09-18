@@ -9,11 +9,11 @@ editor: visual
 
 # Introduction
 
-A [Heatmap](https://en.wikipedia.org/wiki/Heat_map) uses colored tiles to represent the values in a data matrix. Patterns can be easily seen if the rows and columns are appropriately reordered. There are many ways to reorder a matrix and the order has a huge impact on how useful the visualization is. The package [`seriation`](https://github.com/mhahsler/seriation) implements a large number of reordering methods (see: the [list with all implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)). `seriation` also provides a set of functions to display reordered heatmaps:
+A [Heatmap](https://en.wikipedia.org/wiki/Heat_map) uses colored tiles to represent the values in a data matrix. Patterns can be easily seen if the rows and columns are appropriately reordered. There are many ways to reorder a matrix, and the order has a significant impact on the visualization's usefulness. The package `seriation` implements a large number of reordering methods (see: the [list with all implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)). `seriation` also provides a set of functions to display reordered heatmaps:
 
--   `pimage()`
--   `hmap()`
--   `gghmap()`
+- `pimage()`
+- `hmap()`
+- `gghmap()`
 
 How to cite the `seriation` package:
 
@@ -204,42 +204,9 @@ o <- seriate(Wood, method = "Heatmap", seriation_method = "Spectral")
 heatmap(Wood, Rowv =  get_rank(o, 1), Colv =  get_rank(o, 2))
 ```
 
-## Package superheat
-
-Default ordering using hierarchical clustering.
-
-```{r}
-#| fig-asp: 1
-#| out-width: "50%"
-#| fig-align: "center"
-if (!require("superheat")) install.packages("superheat")
-
-library("superheat")
-superheat(Wood, 
-          row.dendrogram = TRUE, col.dendrogram = TRUE)
-```
-
-Order with \`seriation\`. Currently, the dendrograms are not reordered.
-
-```{r}
-#| fig-asp: 1
-#| fig-show: hold
-#| out-width: 50%
-#| layout-ncol: 2 
-o <- seriate(Wood, method = "Heatmap", seriation_method = "OLO_ward")
-superheat(Wood, 
-          order.row = as.vector(get_order(o, 1)),  order.col = as.vector(get_order(o, 2)),
-          row.dendrogram = FALSE, col.dendrogram = FALSE)
-
-o <- seriate(Wood, method = "Heatmap", seriation_method = "Spectral")
-superheat(Wood, 
-          order.row = as.vector(get_order(o, 1)),  order.col = as.vector(get_order(o, 2)),
-          row.dendrogram = FALSE, col.dendrogram = FALSE)
-```
-
 ## Package heatmaply
 
-The package creates interactive heatmaps. It already uses package `seriation` for parameter `seriate` and supports the `OLO` and `GW` methods.
+The package creates interactive heatmaps. It already uses the package `seriation` for parameter `seriate` and supports the `OLO` and `GW` methods.
 
 ```{r}
 #| fig-asp: 1

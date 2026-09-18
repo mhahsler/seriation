@@ -18,6 +18,8 @@ website:
       - section: "Package"
         contents:
         - text: Package Overview
+          href: https://mhahsler.github.io/seriation
+        - text: GitHub Page
           href: https://github.com/mhahsler/seriation
       - section: "Methods and Criteria"
         contents:

@@ -32,7 +32,7 @@ Infrastructure for ordering objects with an implementation of several seriation/
 \itemize{
 \item \href{https://mhahsler.github.io/seriation/heatmaps.html}{How to reorder heatmaps}
 \item \href{https://mhahsler.github.io/seriation/correlation_matrix.html}{How to reorder correlation matrices}
-\item \href{https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html}{How to evaluate clusters using dissimilarity plots}
+\item \href{https://mhahsler.github.io/seriation/clustering.html}{How to evaluate clusters using dissimilarity plots}
 }
 }
 

@@ -13,9 +13,9 @@ The tree-penalized path length criterion was introduced in
 
 > Denis A. Aliyev, Craig L. Zirbel, [Seriation using tree-penalized path length](https://doi.org/10.1016/j.ejor.2022.06.026), European Journal of Operational Research, Volume 305, Issue 2, 2023, Pages 617-629
 
-This short vignette shows how to use tree-penalized path length criterion seriation with the R package [`seriation`](https://github.com/mhahsler/seriation).
+This short vignette shows how to use the tree-penalized path length criterion seriation with the R package `seriation`.
 
-The idea of the tree-penalized path length criterion is to use TSP-based seriation on a modified distance matrix that adds clustering structure to the distance information. This is achieved by using the modified distance matrix:
+The idea of the tree-penalized path length criterion is to apply TSP-based seriation to a modified distance matrix that incorporates clustering structure into the distance information. This is achieved by using the modified distance matrix:
 
 $$T = D * \beta P$$ where $P$ contains the cophenetic distances for a hierarchical clustering. By adjusting $\beta$, the seriation can move seamlessly from a TSP based only on distances ($\beta = 0$) to a seriation order that represents purely the clustering structure ($\beta = \infty$).
 

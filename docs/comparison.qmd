@@ -6,7 +6,7 @@ editor: visual
 
 # Introduction
 
-This document compares the seriation methods available in package [`seriation`](https://github.com/mhahsler/seriation) using the popular Iris data set and randomize the order of the objects.
+This document compares the seriation methods available in the package `seriation` using the popular Iris dataset and randomizes the order of the objects.
 
 ```{r}
 library("seriation")
@@ -18,7 +18,7 @@ d <- dist(x)
 
 # Distance seriation
 
-We first register more seriation methods. Some of these methods require the installation of more packages.
+We first register more seriation methods. Some of these methods require installing additional packages.
 
 ```{r}
 #| message: false

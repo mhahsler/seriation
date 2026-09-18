@@ -9,12 +9,10 @@ editor: visual
 
 # Introduction
 
-A correlation matrix is a square, symmetric matrix showing the pairwise correlation coefficients between two sets of variables. Reordering the variables and plotting the matrix can help to find hidden patterns among the variables. The package 
-[`seriation`](https://github.com/mhahsler/seriation)
-implements a large number of reordering methods (see: the [list with all implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)). `seriation` also provides a set of functions to display reordered matrices:
+A correlation matrix is a square, symmetric matrix that shows the pairwise correlation coefficients between variables. Reordering the variables and plotting the matrix can help reveal hidden patterns among them. The package `seriation` implements a large number of reordering methods (see: the [list with all implemented seriation methods](https://mhahsler.github.io/seriation/seriation_methods.html)). `seriation` also provides a set of functions to display reordered matrices:
 
--   `pimage()`
--   `ggpimage()`
+- `pimage()`
+- `ggpimage()`
 
 How to cite the `seriation` package:
 
@@ -171,5 +169,5 @@ corrplot(m_R2E , order = "original")
 
 ## References
 
--   Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things in Order: An Introduction to the R Package seriation,](http://dx.doi.org/10.18637/jss.v025.i03) *Journal of Statistical Software,* 25(3), 2008. DOI: 10.18637/jss.v025.i03
--   Friendly, M. (2002): Corrgrams: Exploratory Displays for Correlation Matrices. \emph{The American Statistician}, \bold{56}(4), 316--324. DOI: 10.1198/000313002533
+- Michael Hahsler, Kurt Hornik and Christian Buchta, [Getting Things in Order: An Introduction to the R Package seriation,](http://dx.doi.org/10.18637/jss.v025.i03) *Journal of Statistical Software,* 25(3), 2008. DOI: 10.18637/jss.v025.i03
+- Friendly, M. (2002): Corrgrams: Exploratory Displays for Correlation Matrices. \emph{The American Statistician}, \bold{56}(4), 316--324. DOI: 10.1198/000313002533

@@ -4,7 +4,7 @@ author: "Michael Hahsler"
 editor: visual
 ---
 
-This document contains the seriation criteria for judging the quality of permutations given data implemented in the R package [`seriation`](https://github.com/mhahsler/seriation).
+This document contains the seriation criteria for judging the quality of permutations given data implemented in the R package `seriation`.
 
 This list was created for the following version of seriation:
 
