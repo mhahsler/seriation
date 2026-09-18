@@ -16,6 +16,6 @@ jobs:
         with:
           # Check all Markdown, Text, and HTML files
           # 403 is Forbidden shown for doi.org
-          args: --verbose --no-progress --accept "200, 403" "**/*.md" "**/*.html" "**/*.Rd"
+          args: --verbose --no-progress --accept "100..=103, 200..=299, 403" "**/*.md" "**/*.html" "**/*.Rd"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

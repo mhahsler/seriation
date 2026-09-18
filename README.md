@@ -361,7 +361,6 @@ We can see a clear divide between the two groups in the configuration.
   Computational and Graphical Statistics,* **10**(2):335–354. DOI:
   10.1198/jcgs.2010.09139 (read the
   [preprint](https://michael.hahsler.net/research/paper/dissplot_JCGS2011_preprint.pdf);
-  [code
-  examples](https://mhahsler.github.io/seriation/seriation_cluster_evaluation.html))
+  [code examples](https://mhahsler.github.io/seriation/clustering.html))
 - [Reference manual for package
   seriation.](https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriation-package)

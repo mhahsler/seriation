@@ -8,8 +8,7 @@
 The format is a 136 x 6 matrix.
 }
 \source{
-The data was obtained from
-\url{http://www.atgc-montpellier.fr/permutmatrix/manual/Exemples/Wood/Wood.htm}.
+The data was obtained from the Montpellier Bioinformatics Platform
 }
 \description{
 A data matrix containing a sample of the normalized gene expression data for

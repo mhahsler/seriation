@@ -17,8 +17,7 @@
 #' Caraux G. and Pinloche S. (2005): PermutMatrix: a graphical environment to
 #' arrange gene expression profiles in optimal linear order,
 #' _Bioinformatics,_ **21**(7) 1280--1281.
-#' @source The data was obtained from
-#' \url{http://www.atgc-montpellier.fr/permutmatrix/manual/Exemples/Wood/Wood.htm}.
+#' @source The data was obtained from the Montpellier Bioinformatics Platform
 #' @keywords datasets
 #' @examples
 #' data(Wood)
