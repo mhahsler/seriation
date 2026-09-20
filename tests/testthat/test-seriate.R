@@ -44,8 +44,8 @@ test_that("test if seriate.dist returns expected results", {
     cat("\n      seriate dist\n") # for cleaner testthat output
 
   methods <- list_seriation_methods(kind = "dist")
-  ### insufficient data for metaMDS
-  methods <- setdiff(methods, "metaMDS")
+  ### insufficient data for metaMDS; deprecated aliases are tested separately
+  methods <- setdiff(methods, c("metaMDS", "SGD"))
 
   os <- sapply(methods, function(m) {
 
@@ -114,7 +114,7 @@ test_that("test if seriate.dist returns expected results", {
       "Random",
       "Reverse",
       "GSA",
-      "SGD",
+      "SGLS",
       "Spectral",
       "Spectral_norm",
       "SPIN_NH",
@@ -465,4 +465,3 @@ test_that("test if optimizes in registry is a valid criterion", {
           get_criterion_method(kind, name = m$optimizes)
   })
 })
-

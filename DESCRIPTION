@@ -126,7 +126,7 @@ Collate:
     'seriate_PCA.R'
     'seriate_QAP.R'
     'seriate_R2E.R'
-    'seriate_SGD.R'
+    'seriate_SGLS.R'
     'seriate_SPIN.R'
     'seriate_VAT.R'
     'seriate_best.R'

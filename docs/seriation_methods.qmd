@@ -4,6 +4,7 @@ author: "Michael Hahsler"
 format: 
   html:
     toc: true
+    toc-depth: 4
 editor: visual
 ---
 
@@ -28,8 +29,8 @@ register_umap()
 ```
 
 ```{r, echo = FALSE}
-print_seriation_method_md <- function(x, add_link = TRUE, ...) {
-    cat("\n\n###", x$name, "\n")
+print_seriation_method_md <- function(x, add_link = TRUE, heading = 5L, ...) {
+    cat("\n\n", paste0(strrep("#", heading), collapse = ""), " ", x$name, "\n", sep = "")
   
     cat(x$description, "\n\n")
     
@@ -70,6 +71,14 @@ print_seriation_method_md <- function(x, add_link = TRUE, ...) {
   .print_control(x$control, trim_values = 100)
 
   invisible(x)
+}
+
+print_method_group <- function(title, methods, l) {
+  cat("\n\n####", title, "\n")
+  available <- vapply(l, function(x) x$name, character(1))
+  methods <- intersect(methods, available)
+  for (name in methods)
+    print_seriation_method_md(l[[which(available == name)[1L]]])
 }
 
 
@@ -117,16 +126,42 @@ Available control parameters can be passed on as a list using the `control` argu
 
 ```{r, results='asis', echo = FALSE}
 l <- list_seriation_methods(kind = "dist", names_only = FALSE)
-for(i in seq_along(l))
-  print_seriation_method_md(l[[i]])
+available <- vapply(l, function(x) x$name, character(1))
+
+print_method_group("Dendrogram leaf order",
+  c("DendSer", grep("^DendSer_", available, value = TRUE),
+    "GW", grep("^GW_", available, value = TRUE),
+    "HC", grep("^HC_", available, value = TRUE),
+    "OLO", grep("^OLO_", available, value = TRUE)), l)
+
+print_method_group("Dimensionality reduction",
+  c("MDS", "MDS_angle", "isoMDS", "isomap", "monoMDS", "metaMDS",
+    "Sammon_mapping", "MDS_smacof", "tsne", "umap"), l)
+
+print_method_group("Optimization",
+  c("ARSA", "Enumerate", "BBURCG", "BBWRCG", "GA", "GSA", "SGLS",
+    "QAP_LS", "QAP_2SUM", "QAP_BAR", "QAP_Inertia", "Spectral",
+    "Spectral_norm", "TSP"), l)
+
+print_method_group("Other methods",
+  c("Identity", "optics", "R2E", "Random", "Reverse", "SPIN_NH",
+    "SPIN_STS", "VAT"), l)
 ```
 
 ## Methods for data matrices, tables and data.frames
 
 ```{r, results='asis', echo = FALSE}
 l <- list_seriation_methods(kind = "matrix", names_only = FALSE)
-for(i in seq_along(l))
-  print_seriation_method_md(l[[i]])
+
+print_method_group("Seriating rows and columns simultaneously",
+  c("BEA", "BEA_TSP", "BK_unconstrained", "CA"), l)
+
+print_method_group("Seriating rows and columns separately using dissimilarities",
+  "Heatmap", l)
+
+print_method_group("Seriate rows using the data matrix",
+  c("LLE", "PCA", "PCA_angle", "AOE", "Mean", "Identity", "Reverse",
+    "Random"), l)
 ```
 
 # References
@@ -135,7 +170,7 @@ Arabie, P. and L.J. Hubert (1990): The bond energy algorithm revisited, *IEEE Tr
 
 Bar-Joseph, Z., E. D. Demaine, D. K. Gifford, and T. Jaakkola. (2001): Fast Optimal Leaf Ordering for Hierarchical Clustering. *Bioinformatics,* **17**(1), 22--29. <https://doi.org/10.1093/bioinformatics/17.suppl_1.S22>
 
-Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for Envelope Reduction of Sparse Matrices. *In Proceedings of the 1993 ACM/IEEE Conference on Supercomputing,* 493--502. Supercomputing '93. New York, NY, USA: ACM. \url{https://ieeexplore.ieee.org/document/1263497}
+Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for Envelope Reduction of Sparse Matrices. *In Proceedings of the 1993 ACM/IEEE Conference on Supercomputing,* 493--502. Supercomputing '93. New York, NY, USA: ACM. <https://ieeexplore.ieee.org/document/1263497>
 
 Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual assessment of (cluster) tendency. *Proceedings of the 2002 International Joint Conference on Neural Networks (IJCNN '02),* Volume: 3, 2225--2230. <https://doi.org/10.1109/IJCNN.2002.1007487>
 
@@ -160,6 +195,10 @@ Friendly, M. (2023). *vcdExtra: 'vcd' Extensions and Additions*. R package versi
 Gruvaeus, G. and Wainer, H. (1972): Two Additions to Hierarchical Cluster Analysis, *British Journal of Mathematical and Statistical Psychology,* **25**, 200--206. <https://doi.org/10.1111/j.2044-8317.1972.tb00491.x>
 
 Hahsler, M. (2017): An experimental comparison of seriation methods for one-mode two-way data. *European Journal of Operational Research,* **257**, 133--143. <https://doi.org/10.1016/j.ejor.2016.08.066>
+
+Hahsler M, Buchta C, Hornik K (2023): *seriation: Infrastructure for Ordering Objects Using Seriation*. R package version 1.5.0. <https://doi.org/10.32614/CRAN.package.seriation>
+
+Hahsler, M., Hornik, K., and Buchta, C. (2008): Getting things in order: An introduction to ithe R package seriation. *Journal of Statistical Software,* **25**(3), 1--34. <https://doi.org/10.18637/jss.v025.i03>
 
 Hubert, Lawrence, and James Schultz (1976): Quadratic Assignment as a General Data Analysis Strategy. *British Journal of Mathematical and Statistical Psychology,* **29**(2). Blackwell Publishing Ltd. 190--241. <https://doi.org/10.1111/j.2044-8317.1976.tb00714.x>
 

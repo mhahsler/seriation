@@ -45,7 +45,8 @@ Implemented seriation methods and criteria:
 - [A visual comparison between seriation
   methods](https://mhahsler.github.io/seriation/comparison.html)
 
-A detailed introduction is available in: [Introduction to the R package
+A detailed introduction is available in the package vignette:
+[Introduction to the R package
 seriation](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf)
 
 The following R packages use `seriation`:
@@ -155,8 +156,8 @@ using a heuristic approach.
   criteria
 - **GSA** - General simulated annealing to optimize any seriation
   criteria
-- **SGD** - stochastic gradient descent to find a local optimum given an
-  initial order and a seriation criterion.
+- **SGLS** - stochastic greedy local search to improve an initial order
+  for a specified seriation criterion.
 - **QAP** - Quadratic assignment problem heuristic (optimizes 2-SUM,
   linear seriation, inertia, banded anti-Robinson form)
 - **Spectral** seriation to optimize the 2-SUM criterion (unnormalized,

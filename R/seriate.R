@@ -222,14 +222,18 @@
 #'   given number of repetitions with random restarts. The default is 1, but bigger
 #'   numbers result in better and more stable results.
 #'
-#' - **General Simulated Annealing:** `"GSA"`
+#' - **General Simulated Annealing:** `"GSA"` (Hahsler, Hornik,
+#'   and Buchta, 2023)
 #'
-#'   Implement simulated annealing similar to the ARSA method. However, it
-#'   can optimize
+#'   Implement simulated annealing similar to the ARSA method
+#'   (Brusco et al 2008) which can optimize
 #'   for any criterion measure defined in \pkg{seriation}. By default, the
 #'   algorithm optimizes for the raw gradient measure, and is warm started with the
 #'   result of spectral seriation (2-Sum problem) since Hahsler (2017) shows that
 #'   2-Sum solutions are similar to solutions for the gradient measure.
+#'   This method was first introduced in the R package **seriation**
+#'   version 1.5.0.
+#'
 #'   Use `warmstart = "random"` for no warm start.
 #'
 #'   The initial temperature `t0` and minimum temperature `tmin` can be set. If
@@ -246,10 +250,13 @@
 #'   Note that this is an R implementation repeatedly calling the criterion function
 #'   which is very slow.
 #'
-#' - **Stochastic gradient descent:** `"SGD"`
+#' - **Stochastic greedy local search:** `"SGLS"` (Hahsler, Hornik, and Buchta, 2023)
 #'
-#'   Starts with a solution and then performs stochastic gradient descent to find
-#'   a close-by local optimum given a specified criterion.
+#'   Starts with a solution and repeatedly applies a randomly selected local
+#'   move, accepting only moves that improve the specified criterion. This is
+#'   stochastic greedy local search over permutations.
+#'   This method was first introduced in the R package **seriation**
+#'   version 1.5.0.
 #'
 #'   Important `control` parameters:
 #'     - `"criterion"`: the criterion to optimize
@@ -589,6 +596,10 @@
 #' one-mode two-way data. _European Journal of Operational Research,_
 #' **257**, 133--143.
 #' \doi{10.1016/j.ejor.2016.08.066}
+#'
+#' Hahsler M, Buchta C, Hornik K (2023). _seriation: Infrastructure for Ordering
+#' Objects Using Seriation_. R package version 1.5.0/
+#' \doi{10.32614/CRAN.package.seriation}
 #'
 #' Hubert, Lawrence, and James Schultz (1976): Quadratic Assignment as a
 #' General Data Analysis Strategy. _British Journal of Mathematical and

@@ -16,7 +16,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-.sgd_contr <- structure(
+.sgls_contr <- structure(
   list(
     criterion = "Gradient_raw",
     init = "Spectral",
@@ -32,8 +32,8 @@
   )
 )
 
-seriate_sgd <- function(x, control = NULL) {
-  param <- .get_parameters(control, .sgd_contr)
+seriate_sgls <- function(x, control = NULL) {
+  param <- .get_parameters(control, .sgls_contr)
   n <- attr(x, "Size")
 
   if (is.numeric(param$init)) {
@@ -90,10 +90,28 @@ seriate_sgd <- function(x, control = NULL) {
 
 set_seriation_method(
   "dist",
+  "SGLS",
+  seriate_sgls,
+  "Improve an existing solution using stochastic greedy local search. (Hahsler, Hornik, and Buchta, 2023)",
+  .sgls_contr,
+  optimizes = .opt (NA, "set via control criterion"),
+  randomized = TRUE
+)
+
+seriate_sgd <- function(x, control = NULL) {
+  warning(
+    'Method "SGD" is deprecated; use "SGLS" instead.',
+    call. = FALSE
+  )
+  seriate_sgls(x, control)
+}
+
+set_seriation_method(
+  "dist",
   "SGD",
   seriate_sgd,
-  "Improve an existing solution using stochastic gradient descent.",
-  .sgd_contr,
+  "SGD is deprecated. Use SGLS instead.",
+  .sgls_contr,
   optimizes = .opt (NA, "set via control criterion"),
   randomized = TRUE
 )

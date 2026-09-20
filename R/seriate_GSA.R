@@ -208,7 +208,7 @@ set_seriation_method(
   "dist",
   "GSA",
   seriate_sa,
-  "Minimize a specified seriation measure (criterion) using simulated annealing.",
+  "Minimize a specified seriation measure (criterion) using simulated annealing. (Hahsler, Hornik, and Buchta, 2023)",
   .sa_contr,
   optimizes = .opt (NA, "set via control criterion"),
   randomized = TRUE

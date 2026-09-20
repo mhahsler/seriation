@@ -252,14 +252,18 @@ the \strong{2-Sum Problem} formulation (Barnard, Pothen, and Simon 1993), the
 An important parameter is \code{rep} to return the best result from the
 given number of repetitions with random restarts. The default is 1, but bigger
 numbers result in better and more stable results.
-\item \strong{General Simulated Annealing:} \code{"GSA"}
+\item \strong{General Simulated Annealing:} \code{"GSA"} (Hahsler, Hornik,
+and Buchta, 2023)
 
-Implement simulated annealing similar to the ARSA method. However, it
-can optimize
+Implement simulated annealing similar to the ARSA method
+(Brusco et al 2008) which can optimize
 for any criterion measure defined in \pkg{seriation}. By default, the
 algorithm optimizes for the raw gradient measure, and is warm started with the
 result of spectral seriation (2-Sum problem) since Hahsler (2017) shows that
 2-Sum solutions are similar to solutions for the gradient measure.
+This method was first introduced in the R package \strong{seriation}
+version 1.5.0.
+
 Use \code{warmstart = "random"} for no warm start.
 
 The initial temperature \code{t0} and minimum temperature \code{tmin} can be set. If
@@ -275,10 +279,13 @@ iteration \code{nlocal} times the number of objects.
 
 Note that this is an R implementation repeatedly calling the criterion function
 which is very slow.
-\item \strong{Stochastic gradient descent:} \code{"SGD"}
+\item \strong{Stochastic greedy local search:} \code{"SGLS"} (Hahsler, Hornik, and Buchta, 2023)
 
-Starts with a solution and then performs stochastic gradient descent to find
-a close-by local optimum given a specified criterion.
+Starts with a solution and repeatedly applies a randomly selected local
+move, accepting only moves that improve the specified criterion. This is
+stochastic greedy local search over permutations.
+This method was first introduced in the R package \strong{seriation}
+version 1.5.0.
 
 Important \code{control} parameters:
 \itemize{
@@ -678,6 +685,10 @@ Hahsler, M. (2017): An experimental comparison of seriation methods for
 one-mode two-way data. \emph{European Journal of Operational Research,}
 \strong{257}, 133--143.
 \doi{10.1016/j.ejor.2016.08.066}
+
+Hahsler M, Buchta C, Hornik K (2023). \emph{seriation: Infrastructure for Ordering
+Objects Using Seriation}. R package version 1.5.0/
+\doi{10.32614/CRAN.package.seriation}
 
 Hubert, Lawrence, and James Schultz (1976): Quadratic Assignment as a
 General Data Analysis Strategy. \emph{British Journal of Mathematical and

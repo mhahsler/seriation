@@ -2,6 +2,10 @@
 
 ## Changes
 * Spelling, fixed broken links.
+* Renamed method "SGD" to "SGLS" (stochastic greedy local search) for
+  distances. The old "SGD" name remains available as a deprecated alias and
+  issues a warning.
+* Added documentation for the `tpPL` example.
 
 ## Bug Fixes
 * Fixed method warning for seriate.TSP.
@@ -101,7 +105,7 @@
 - New seriation methods from vegan: isomap, monoMDS, metaMDS.
 - New seriation method "Enumerate" for complete enumeration.
 - New seriation method "Mean" for matrix.
-- New seriation method "SGD" for distances to improve solutions using stochastic gradient descent.
+- New seriation method "SGD" for distances to improve solutions using stochastic greedy local search.
 - New seriation method "LLE" (locally linear embedding) for matrix.
 - Heatmap seriation has now special seriation_method "HC_Mean".
 - New  seriation criterion "Rho" calculates the absolute Spearman's rank correlation coefficient.
