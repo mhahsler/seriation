@@ -29,7 +29,7 @@ register_umap()
 ```
 
 ```{r, echo = FALSE}
-print_seriation_method_md <- function(x, add_link = TRUE, heading = 5L, ...) {
+print_seriation_method_md <- function(x, add_link = TRUE, heading = 4L, ...) {
     cat("\n\n", paste0(strrep("#", heading), collapse = ""), " ", x$name, "\n", sep = "")
   
     cat(x$description, "\n\n")
@@ -74,7 +74,7 @@ print_seriation_method_md <- function(x, add_link = TRUE, heading = 5L, ...) {
 }
 
 print_method_group <- function(title, methods, l) {
-  cat("\n\n####", title, "\n")
+  cat("\n\n###", title, "\n")
   available <- vapply(l, function(x) x$name, character(1))
   methods <- intersect(methods, available)
   for (name in methods)
