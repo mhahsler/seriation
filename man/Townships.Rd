@@ -34,6 +34,7 @@ Other data:
 \code{\link{Chameleon}},
 \code{\link{Irish}},
 \code{\link{Munsingen}},
+\code{\link{Psych24}},
 \code{\link{SupremeCourt}},
 \code{\link{Wood}},
 \code{\link{Zoo}},

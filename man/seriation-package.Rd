@@ -43,6 +43,7 @@ Michael Hahsler, Kurt Hornik, and Christian Buchta. Getting things in order: An 
 Useful links:
 \itemize{
   \item \url{https://github.com/mhahsler/seriation}
+  \item \url{http://michael.hahsler.net/seriation/}
   \item Report bugs at \url{https://github.com/mhahsler/seriation/issues}
 }
 

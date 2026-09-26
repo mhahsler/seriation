@@ -66,8 +66,14 @@ Grilli, Elisa (2007) Automated Local Linear Embedding with an application
 to microarray data, Dissertation thesis, University of Bologna.
 \doi{10.6092/unibo/amsdottorato/380}
 }
+\seealso{
+Other helper:
+\code{\link{LS}},
+\code{\link[=uniscale]{uniscale()}}
+}
 \author{
 Michael Hahsler (based on code by Holger Diedrich and Markus Abel)
 }
+\concept{helper}
 \keyword{cluster}
 \keyword{manip}

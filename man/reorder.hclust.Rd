@@ -59,9 +59,18 @@ Data. \emph{Journal of Computational and Graphical Statistics,}
 }
 \seealso{
 \code{\link[gclus:reorder.hclust]{gclus::reorder.hclust()}}
+
+Other permutation:
+\code{\link[=get_order]{get_order()}},
+\code{\link[=permutation_vector2matrix]{permutation_vector2matrix()}},
+\code{\link[=permute]{permute()}},
+\code{\link[=ser_dist]{ser_dist()}},
+\code{\link[=ser_permutation]{ser_permutation()}},
+\code{\link[=ser_permutation_vector]{ser_permutation_vector()}}
 }
 \author{
 Michael Hahsler
 }
+\concept{permutation}
 \keyword{cluster}
 \keyword{optimize}

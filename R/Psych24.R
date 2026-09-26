@@ -10,6 +10,7 @@
 #' @name Psych24
 #' @aliases Psych24
 #' @docType data
+#' @family data
 
 #' @format
 #'  A 24 x 24 correlation matrix.

@@ -1,6 +1,0 @@
-Compile via terminal:
-> quarto render
-
-
-Single file
-> quarto render seriation_methods.qmd --no-clean

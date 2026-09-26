@@ -27,6 +27,7 @@
 #' Wainer is implemented in package \pkg{gclus} (Hurley 2004).
 #'
 #' @aliases reorder reorder.hclust
+#' @family permutation
 #' @param x an object of class \code{hclust}.
 #' @param dist an object of class \code{dist} with dissimilarities between the
 #' objects in \code{x}.

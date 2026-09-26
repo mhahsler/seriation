@@ -103,6 +103,7 @@ get_permutation_matrix(p2, dim = 2)
 Other permutation:
 \code{\link[=permutation_vector2matrix]{permutation_vector2matrix()}},
 \code{\link[=permute]{permute()}},
+\code{\link[=reorder.hclust]{reorder.hclust()}},
 \code{\link[=ser_dist]{ser_dist()}},
 \code{\link[=ser_permutation]{ser_permutation()}},
 \code{\link[=ser_permutation_vector]{ser_permutation_vector()}}

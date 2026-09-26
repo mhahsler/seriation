@@ -29,6 +29,7 @@ SoftStat '97 (Advances in Statistical Software 6),} 11--20.
 Other data:
 \code{\link{Chameleon}},
 \code{\link{Munsingen}},
+\code{\link{Psych24}},
 \code{\link{SupremeCourt}},
 \code{\link{Townships}},
 \code{\link{Wood}},

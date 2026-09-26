@@ -5,7 +5,6 @@
 * Renamed method "SGD" to "SGLS" (stochastic greedy local search) for
   distances. The old "SGD" name remains available as a deprecated alias and
   issues a warning.
-* Added documentation for the `tpPL` example.
 
 ## Bug Fixes
 * Fixed method warning for seriate.TSP.

@@ -28,6 +28,7 @@
 #'  (1/3 insertion, 1/3 swap and 1/3 reverse). Any neighborhood function can be defined.
 #' @name LS
 #' @aliases LS
+#' @family helper
 #' @param o an integer vector with the order
 #' @param pos random positions used for the local move.
 #' @returns returns the new order vector representing the random neighbor.

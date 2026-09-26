@@ -67,6 +67,7 @@ Other permutation:
 \code{\link[=get_order]{get_order()}},
 \code{\link[=permutation_vector2matrix]{permutation_vector2matrix()}},
 \code{\link[=permute]{permute()}},
+\code{\link[=reorder.hclust]{reorder.hclust()}},
 \code{\link[=ser_dist]{ser_dist()}},
 \code{\link[=ser_permutation_vector]{ser_permutation_vector()}}
 }

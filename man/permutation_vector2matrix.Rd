@@ -39,6 +39,7 @@ permutation_matrix2vector(pm)
 Other permutation:
 \code{\link[=get_order]{get_order()}},
 \code{\link[=permute]{permute()}},
+\code{\link[=reorder.hclust]{reorder.hclust()}},
 \code{\link[=ser_dist]{ser_dist()}},
 \code{\link[=ser_permutation]{ser_permutation()}},
 \code{\link[=ser_permutation_vector]{ser_permutation_vector()}}

@@ -40,6 +40,7 @@ Clustering Algorithm Using Dynamic Modeling, \emph{IEEE Computer,}
 Other data:
 \code{\link{Irish}},
 \code{\link{Munsingen}},
+\code{\link{Psych24}},
 \code{\link{SupremeCourt}},
 \code{\link{Townships}},
 \code{\link{Wood}},

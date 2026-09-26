@@ -12,3 +12,7 @@ README.Rmd
 docs
 revdep
 ^\.github
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$

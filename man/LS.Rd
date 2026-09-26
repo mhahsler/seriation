@@ -31,3 +31,9 @@ Definition of different local neighborhood functions for the method \code{"SA"} 
 Local neighborhood functions are \code{LS_insert}, \code{LS_swap}, \code{LS_reverse}, and \code{LS_mix}
 (1/3 insertion, 1/3 swap and 1/3 reverse). Any neighborhood function can be defined.
 }
+\seealso{
+Other helper:
+\code{\link[=lle]{lle()}},
+\code{\link[=uniscale]{uniscale()}}
+}
+\concept{helper}

@@ -47,6 +47,7 @@
 #' `plot_config()` plots 1D and 2D configurations. `...` is passed on
 #'   to [`plot.default`] and accepts `col`, `labels`, etc.
 #'
+#' @family helper
 #' @param d a dissimilarity matrix.
 #' @param order a precomputed permutation (configuration) order.
 #' @param accept_reorder logical; accept a configuration that does not preserve

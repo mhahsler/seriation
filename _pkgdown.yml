@@ -1,0 +1,50 @@
+url: http://michael.hahsler.net/seriation/
+template:
+  bootstrap: 5
+
+toc:
+  depth: 3
+
+articles:
+- title: How-to Guides
+  navbar: How-to Guides
+  contents:
+  - heatmaps
+  - correlation_matrix
+  - clustering
+  - tpPL
+- title: Seriation Methods
+  navbar: Seriation Methods
+  contents:
+  - seriation_methods
+  - seriation_criteria
+  - comparison
+
+reference:
+- title: Seriation
+  desc: Create a seriation order which is a permutation of objects.
+- contents: 
+  - seriate
+  - seriate_best
+  - has_concept("seriation")
+- title: Seriation Criterion
+  desc: Calculate seriation creteria for a seriation order.
+- contents: 
+  - has_concept("criterion")
+- title: Permutations
+  desc: Work with permutations returned by seriation methods.
+- contents: 
+  - get_order
+  - permute
+  - has_concept("permutation")
+- title: Visualizations
+  desc: Visualize seriated data to discover patterns.
+- contents: 
+  - has_concept("plots")
+- title: Data Sets
+- contents:
+  - has_concept("data") 
+- title: Helper
+- contents: 
+  - has_concept("helper")
+  

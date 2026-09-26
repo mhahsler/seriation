@@ -25,6 +25,7 @@
 #'
 #' @name lle
 #' @aliases lle LLE
+#' @family helper
 #'
 #' @param x a matrix.
 #' @param m dimensions of the desired embedding.

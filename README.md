@@ -27,23 +27,12 @@ information, including permuted image plots, reordered heatmaps, Bertin
 plots, clustering visualizations like dissimilarity plots, and visual
 assessment of cluster tendency plots (VAT and iVAT).
 
-Here are some quick guides on applications of seriation:
-
-- [How to reorder
-  heatmaps](https://mhahsler.github.io/seriation/heatmaps.html)
-- [How to reorder correlation
-  matrices](https://mhahsler.github.io/seriation/correlation_matrix.html)
-- [How to evaluate clusters using dissimilarity
-  plots](https://mhahsler.github.io/seriation/clustering.html)
-
 Implemented seriation methods and criteria:
 
 - [Documentation of the implemented seriation
-  methods](https://mhahsler.github.io/seriation/seriation_methods.html)
+  methods](https://mhahsler.github.io/seriation/articles/seriation_methods.html)
 - [Documentation of the implemented seriation
-  criteria](https://mhahsler.github.io/seriation/seriation_criteria.html)
-- [A visual comparison between seriation
-  methods](https://mhahsler.github.io/seriation/comparison.html)
+  criteria](https://mhahsler.github.io/seriation/articles/seriation_criteria.html)
 
 A detailed introduction is available in the package vignette:
 [Introduction to the R package
@@ -300,7 +289,7 @@ pimage(d, main = "Judges (original alphabetical order)")
 pimage(d, order, main = "Judges (reordered by seriation)")
 ```
 
-<img src="inst/README_files/seriation-1.png" alt="" width="50%" /><img src="inst/README_files/seriation-2.png" alt="" width="50%" />
+<img src="man/figures/README-seriation-1.png" alt="" width="50%" /><img src="man/figures/README-seriation-2.png" alt="" width="50%" />
 
 Darker squares around the main diagonal indicate groups of similar
 objects. After seriation, two groups are visible.
@@ -310,10 +299,7 @@ measures. Note that some measures are merit measures while others
 represent cost. See the manual page for details.
 
 ``` r
-rbind(
- alphabetical = criterion(d),
- seriated = criterion(d, order)
-)
+rbind(alphabetical = criterion(d), seriated = criterion(d, order))
 ```
 
     ##              2SUM AR_deviations AR_events BAR Gradient_raw Gradient_weighted
@@ -342,7 +328,7 @@ get_config(order)
 plot_config(order)
 ```
 
-<img src="inst/README_files/configuration-1.png" alt="" style="display: block; margin: auto;" />
+<img src="man/figures/README-configuration-1.png" alt="" style="display: block; margin: auto;" />
 
 We can see a clear divide between the two groups in the configuration.
 

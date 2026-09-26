@@ -124,8 +124,13 @@ SMACOF in R. \emph{Journal of Statistical Software}, \strong{31}(3), 1-30.
 }
 \seealso{
 \code{\link[=register_smacof]{register_smacof()}}
+
+Other helper:
+\code{\link{LS}},
+\code{\link[=lle]{lle()}}
 }
 \author{
 Michael Hahsler with code from Patrick Mair (from \code{smacof::uniscale()}).
 }
+\concept{helper}
 \keyword{optimize}

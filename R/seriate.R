@@ -53,7 +53,7 @@
 #' Seriation algorithms fall into different groups based on the approach.
 #' In the following, we describe the currently implemented methods.
 #' A list with all methods and the available parameters is available
-#' [here](https://mhahsler.github.io/seriation/seriation_methods.html).
+#' [here](https://mhahsler.github.io/seriation/articles/seriation_methods.html).
 #' [Hahsler (2017)](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf)
 #' for a more detailed description and an experimental comparison of the most
 #' popular methods.
