@@ -111,6 +111,8 @@ If a seriation method directly tries to optimize the criterion, than its name is
 
 ## Criteria for dissimilarity data (dist)
 
+
+
 ```{r, results='asis', echo = FALSE}
 l <- list_criterion_methods(kind = "dist", names_only = FALSE)
 l <- l[order(sapply(l, "[[", "name"))]
