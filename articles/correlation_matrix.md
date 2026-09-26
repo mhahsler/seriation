@@ -167,12 +167,6 @@ if (!require("corrgram")) install.packages("corrgram")
 
     ## Loading required package: corrgram
 
-    ## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
-    ## logical.return = TRUE, : there is no package called 'corrgram'
-
-    ## Installing package into '/home/runner/work/_temp/Library'
-    ## (as 'lib' is unspecified)
-
 ``` r
 
 library("corrgram")
@@ -196,14 +190,6 @@ if (!require("corrr")) install.packages("corrr")
 ```
 
     ## Loading required package: corrr
-
-    ## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
-    ## logical.return = TRUE, : there is no package called 'corrr'
-
-    ## Installing package into '/home/runner/work/_temp/Library'
-    ## (as 'lib' is unspecified)
-
-    ## also installing the dependency 'ggrepel'
 
 ``` r
 
@@ -250,20 +236,11 @@ if (!require("corrplot")) install.packages("corrplot")
 
     ## Loading required package: corrplot
 
-    ## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
-    ## logical.return = TRUE, : there is no package called 'corrplot'
-
-    ## Installing package into '/home/runner/work/_temp/Library'
-    ## (as 'lib' is unspecified)
+    ## corrplot 0.95 loaded
 
 ``` r
 
 library("corrplot")
-```
-
-    ## corrplot 0.95 loaded
-
-``` r
 
 d <- as.dist(sqrt(1 - m))
 o <- seriate(d, "R2E")

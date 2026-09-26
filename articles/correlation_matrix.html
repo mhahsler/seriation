@@ -215,11 +215,7 @@ from package seriation.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://kwstat.github.io/corrgram/" class="external-link">"corrgram"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"corrgram"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required package: corrgram</span></span></code></pre>
-<pre><code><span><span class="co">## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,</span></span>
-<span><span class="co">## logical.return = TRUE, : there is no package called 'corrgram'</span></span></code></pre>
-<pre><code><span><span class="co">## Installing package into '/home/runner/work/_temp/Library'</span></span>
-<span><span class="co">## (as 'lib' is unspecified)</span></span></code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://kwstat.github.io/corrgram/" class="external-link">"corrgram"</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="http://kwstat.github.io/corrgram/reference/corrgram.html" class="external-link">corrgram</a></span><span class="op">(</span><span class="va">m</span>, order <span class="op">=</span> <span class="st">"OLO"</span><span class="op">)</span></span>
@@ -232,15 +228,10 @@ from package seriation.</p>
 <p>The function <code><a href="https://corrr.tidymodels.org/reference/rearrange.html" class="external-link">rearrange()</a></code> in package <a href="https://corrr.tidymodels.org/" class="external-link">corrr</a> accepts some methods from
 seriation. Here is a complete example that uses method
 <code>"R2E"</code>.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/tidymodels/corrr" class="external-link">"corrr"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"corrr"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required package: corrr</span></span></code></pre>
-<pre><code><span><span class="co">## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,</span></span>
-<span><span class="co">## logical.return = TRUE, : there is no package called 'corrr'</span></span></code></pre>
-<pre><code><span><span class="co">## Installing package into '/home/runner/work/_temp/Library'</span></span>
-<span><span class="co">## (as 'lib' is unspecified)</span></span></code></pre>
-<pre><code><span><span class="co">## also installing the dependency 'ggrepel'</span></span></code></pre>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/tidymodels/corrr" class="external-link">"corrr"</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">datasets</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/datasets/mtcars.html" class="external-link">mtcars</a></span> <span class="op">|&gt;</span></span>
@@ -251,7 +242,7 @@ seriation. Here is a complete example that uses method
 <pre><code><span><span class="co">## Correlation computed with</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">•</span> Method: 'pearson'</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">•</span> Missing treated using: 'pairwise.complete.obs'</span></span></code></pre>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://corrr.tidymodels.org/reference/rplot.html" class="external-link">rplot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: `aes_string()` was deprecated in ggplot2 3.0.0.</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Please use tidy evaluation idioms with `aes()`.</span></span>
@@ -270,18 +261,14 @@ seriation. Here is a complete example that uses method
 offers many visualization methods. Orders from package seriation can be
 used by permuting the correlation matrix before it is passed to
 <code><a href="https://rdrr.io/pkg/corrplot/man/corrplot.html" class="external-link">corrplot()</a></code>.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://github.com/taiyun/corrplot" class="external-link">"corrplot"</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"corrplot"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required package: corrplot</span></span></code></pre>
-<pre><code><span><span class="co">## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,</span></span>
-<span><span class="co">## logical.return = TRUE, : there is no package called 'corrplot'</span></span></code></pre>
-<pre><code><span><span class="co">## Installing package into '/home/runner/work/_temp/Library'</span></span>
-<span><span class="co">## (as 'lib' is unspecified)</span></span></code></pre>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/taiyun/corrplot" class="external-link">"corrplot"</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## corrplot 0.95 loaded</span></span></code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">as.dist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">m</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/taiyun/corrplot" class="external-link">"corrplot"</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">as.dist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">m</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seriate.html">seriate</a></span><span class="op">(</span><span class="va">d</span>, <span class="st">"R2E"</span><span class="op">)</span></span>
 <span><span class="va">m_R2E</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/permute.html">permute</a></span><span class="op">(</span><span class="va">m</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">o</span>,<span class="va">o</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>

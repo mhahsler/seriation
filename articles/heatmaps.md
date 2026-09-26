@@ -301,53 +301,8 @@ methods.
 ``` r
 
 if (!suppressMessages(require("heatmaply"))) install.packages("heatmaply")
-```
-
-    ## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
-    ## logical.return = TRUE, : there is no package called 'heatmaply'
-
-    ## Installing package into '/home/runner/work/_temp/Library'
-    ## (as 'lib' is unspecified)
-
-    ## also installing the dependencies 'httr', 'plyr', 'plotly', 'reshape2', 'webshot', 'assertthat', 'egg'
-
-``` r
 
 library("heatmaply")
-```
-
-    ## Loading required package: plotly
-
-    ## 
-    ## Attaching package: 'plotly'
-
-    ## The following object is masked from 'package:ggplot2':
-    ## 
-    ##     last_plot
-
-    ## The following object is masked from 'package:stats':
-    ## 
-    ##     filter
-
-    ## The following object is masked from 'package:graphics':
-    ## 
-    ##     layout
-
-    ## 
-    ## ======================
-    ## Welcome to heatmaply version 1.6.0
-    ## 
-    ## Type citation('heatmaply') for how to cite the package.
-    ## Type ?heatmaply for the main documentation.
-    ## 
-    ## The github page is: https://github.com/talgalili/heatmaply/
-    ## Please submit your suggestions and bug-reports at: https://github.com/talgalili/heatmaply/issues
-    ## You may ask questions at stackoverflow, use the r and heatmaply tags: 
-    ##   https://stackoverflow.com/questions/tagged/heatmaply
-    ## ======================
-
-``` r
-
 heatmaply(Wood, seriate = "none", main = "HC")
 ```
 
