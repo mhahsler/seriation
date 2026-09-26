@@ -13,7 +13,7 @@ articles:
   - correlation_matrix
   - clustering
   - tpPL
-- title: Seriation Methods
+- title: Implemented Methods
   navbar: Seriation Methods
   contents:
   - seriation_methods
