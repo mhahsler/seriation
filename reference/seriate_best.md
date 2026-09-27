@@ -198,14 +198,14 @@ o <- seriate_best(d_supreme, criterion = "AR_events", rep = 5)
 #> 
 #> Results (first was chosen):
 #>        method criterion  secs
-#> 1    spectral         5 0.253
-#> 3    QAP_2SUM         5 1.250
-#> 5      QAP_LS         5 1.259
-#> 6 QAP_Inertia         5 1.200
-#> 4     QAP_BAR         7 1.238
-#> 7         TSP         7 1.195
-#> 8 OLO_average         7 0.241
-#> 2         MDS        10 0.254
+#> 1    spectral         5 0.265
+#> 3    QAP_2SUM         5 1.269
+#> 5      QAP_LS         5 1.250
+#> 6 QAP_Inertia         5 1.251
+#> 4     QAP_BAR         7 1.255
+#> 7         TSP         7 1.255
+#> 8 OLO_average         7 0.252
+#> 2         MDS        10 0.262
 #> 
 o
 #> object of class ‘ser_permutation’, ‘list’

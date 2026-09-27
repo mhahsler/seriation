@@ -1,6 +1,6 @@
 # Package index
 
-## Seriation
+## Seriation Methods
 
 Create a seriation order which is a permutation of objects.
 

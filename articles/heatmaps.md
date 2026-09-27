@@ -166,15 +166,15 @@ methods can be registered using \`register_DendSer()\`\`
 register_DendSer()
 ```
 
-    ## Registering new seriation method 'DendSer' for 'dist'register_DendSer()
+    ## Registering new seriation method 'DendSer' for 'dist' requested by register_DendSer()
 
-    ## Registering new seriation method 'DendSer_BAR' for 'dist'register_DendSer()
+    ## Registering new seriation method 'DendSer_BAR' for 'dist' requested by register_DendSer()
 
-    ## Registering new seriation method 'DendSer_PL' for 'dist'register_DendSer()
+    ## Registering new seriation method 'DendSer_PL' for 'dist' requested by register_DendSer()
 
-    ## Registering new seriation method 'DendSer_LPL' for 'dist'register_DendSer()
+    ## Registering new seriation method 'DendSer_LPL' for 'dist' requested by register_DendSer()
 
-    ## Registering new seriation method 'DendSer_ARc' for 'dist'register_DendSer()
+    ## Registering new seriation method 'DendSer_ARc' for 'dist' requested by register_DendSer()
 
     ## Registering new seriation criterion 'ARc' for 'dist' using register_DendSer()
 
