@@ -264,7 +264,7 @@ set_seriation_method <- function(kind,
     message("Registering new seriation method ",
         sQuote(name),
         " for ",
-        sQuote(kind),
+        sQuote(kind), " requested by ",
         caller
         )
 }
