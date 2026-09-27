@@ -319,13 +319,12 @@ test_that("test if dist objects without Diag or Upper attributes can be permuted
 })
 
 ### Stress test to find memory access problems with randomized algorithms
-#context("memory stress test")
+# Memory stress test
 #replicate(1000, seriate(d, method="bburcg"))
 #replicate(1000, seriate(d, method="bbwrcg"))
 #replicate(1000, seriate(d, method="arsa"))
 
 test_that("test if seriate.matrix returns expected results", {
-  #local_edition(3) # for snapshot testing
 
   if (interactive())
     cat("\n      seriate matrix\n") # for cleaner testthat output
@@ -398,7 +397,6 @@ test_that("test if seriate.matrix returns expected results", {
 })
 
 test_that("test if seriate.matrix with margin returns expected results", {
-  #local_edition(3) # for snapshot testing
 
 
   if (interactive())
@@ -436,7 +434,6 @@ test_that("test if seriate.matrix with margin returns expected results", {
 })
 
 test_that("test if data.frame seriation works as expected", {
-  #local_edition(3) # for snapshot testing
 
   df <- as.data.frame(x)
   o <- seriate(df)

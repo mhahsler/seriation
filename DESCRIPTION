@@ -2,7 +2,7 @@ Package: seriation
 Type: Package
 Title: Infrastructure for Ordering Objects Using Seriation
 Version: 1.5.8.1
-Date: 2025-xx-xx
+Date: 2026-xx-xx
 Authors@R: c(
 	person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
 	  email = "mhahsler@lyle.smu.edu",
@@ -51,13 +51,14 @@ Suggests: cba,
   scales,
   smacof,
   tensorflow,
-  testthat, 
+  testthat (>= 3.0.0),
   umap,
   knitr,
   rmarkdown
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
+Config/testthat/edition: 3
 License: GPL-3
 Copyright: The code in src/bbwrcg.f, src/arsa.f and src/bburcg.f 
     are Copyright (C) 2005 M. Brusco, H.F. Koehn, and S. Stahl.
