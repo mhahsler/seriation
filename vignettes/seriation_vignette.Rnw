@@ -1068,8 +1068,8 @@ pimage(d, o, main = "Reordered")
 @
 \begin{figure}
     \centering
-    \includegraphics[width=7.5cm]{seriation-pimage1}
-    \includegraphics[width=7.5cm]{seriation-pimage1-2}
+    \includegraphics[width=7.5cm]{seriation_vignette-pimage1}
+    \includegraphics[width=7.5cm]{seriation_vignette-pimage1-2}
     \caption{Matrix shading of the  distance matrix for the iris data.}
     \label{fig:pimage1}
 \end{figure}
@@ -1114,8 +1114,8 @@ pimage(scale(x), o_2mode, main = "Reordered", prop = FALSE)
 
 \begin{figure}
     \centering
-    \includegraphics[width=7.5cm]{seriation-pimage2}
-    \includegraphics[width=7.5cm]{seriation-pimage2-2}
+    \includegraphics[width=7.5cm]{seriation_vignette-pimage2}
+    \includegraphics[width=7.5cm]{seriation_vignette-pimage2-2}
     \caption{Matrix shading of the iris data matrix.}
     \label{fig:pimage2}
 \end{figure}
@@ -1181,7 +1181,7 @@ for(s in o) pimage(d, s, main = get_method(s), key = FALSE)
 <<label=pimage3, echo=FALSE, fig=TRUE, include=FALSE>>=
 o <- ser_align(o)
 for(i in 1:length(o)) {
-    pdf(file=paste("seriation-pimage_comp_", i , ".pdf", sep=""))
+    pdf(file=paste("seriation_vignette-pimage_comp_", i , ".pdf", sep=""))
     pimage(d, o[[i]], main = get_method(o[[i]]), key = FALSE)
     dev.off()
 }
@@ -1189,12 +1189,12 @@ for(i in 1:length(o)) {
 
 \begin{figure}
     \centering
-    \includegraphics[width=.3\linewidth]{seriation-pimage_comp_1.pdf}
-    \includegraphics[width=.3\linewidth]{seriation-pimage_comp_2.pdf}
-    \includegraphics[width=.3\linewidth]{seriation-pimage_comp_3.pdf}\\
-    \includegraphics[width=.3\linewidth]{seriation-pimage_comp_4.pdf}
-    \includegraphics[width=.3\linewidth]{seriation-pimage_comp_5.pdf}
-    \includegraphics[width=.3\linewidth]{seriation-pimage_comp_6.pdf}
+    \includegraphics[width=.3\linewidth]{seriation_vignette-pimage_comp_1.pdf}
+    \includegraphics[width=.3\linewidth]{seriation_vignette-pimage_comp_2.pdf}
+    \includegraphics[width=.3\linewidth]{seriation_vignette-pimage_comp_3.pdf}\\
+    \includegraphics[width=.3\linewidth]{seriation_vignette-pimage_comp_4.pdf}
+    \includegraphics[width=.3\linewidth]{seriation_vignette-pimage_comp_5.pdf}
+    \includegraphics[width=.3\linewidth]{seriation_vignette-pimage_comp_6.pdf}
     \caption{Image plot of the distance matrix for the iris data
     using rearrangement by different seriation methods.}
     \label{fig:pimage3}
@@ -1235,7 +1235,7 @@ block. This effect vanishes after rearranging the dendrogram branches
 %' @
 %' <<echo=FALSE, fig=FALSE, include=FALSE, width=9>>=
 %' def.par <- par(no.readonly = TRUE)
-%' pdf(file="seriation-pimage3_dendrogram.pdf", width=9, height=4)
+%' pdf(file="seriation_vignette-pimage3_dendrogram.pdf", width=9, height=4)
 %' layout(t(1:2))
 %' plot(o[["HC"]], labels = FALSE, main = "Dendrogram HC")
 %' symbols(74.7,.5, rect = matrix(c(4, 3), ncol=2), add= TRUE,
@@ -1250,7 +1250,7 @@ block. This effect vanishes after rearranging the dendrogram branches
 %'
 %' \begin{figure}
 %'     \centering
-%'     \includegraphics[width=\linewidth, trim=0 80 0 0, clip=TRUE]{seriation-pimage3_dendrogram}
+%'     \includegraphics[width=\linewidth, trim=0 80 0 0, clip=TRUE]{seriation_vignette-pimage3_dendrogram}
 %'     \caption{Dendrograms for the seriation with HC and GW.}
 %'     \label{fig:pimage3_dendrogram}
 %' \end{figure}
@@ -1279,7 +1279,7 @@ par(def.par)
 
 \begin{figure}
     \centering
-    \includegraphics[width=14cm]{seriation-crit1}
+    \includegraphics[width=14cm]{seriation_vignette-crit1}
     \caption{Comparison of different methods and seriation criteria}
     \label{fig:crit1}
 \end{figure}
@@ -1426,14 +1426,14 @@ displayed (see Figure~\ref{fig:heatmap}(b)). A \code{method} argument can be use
 seriation methods.
 
 <<echo=FALSE, fig=FALSE, include=FALSE>>=
-#bitmap(file = "seriation-heatmap1.png", type = "pnggray",
+#bitmap(file = "seriation_vignette-heatmap1.png", type = "pnggray",
 #    height = 6, width = 6, res = 300, pointsize=14)
-pdf(file = "seriation-heatmap1.pdf")
+pdf(file = "seriation_vignette-heatmap1.pdf")
 hmap(x, margin = c(7, 4), row_labels = FALSE, cexCol = 1)
 tmp <- dev.off()
 @
 <<echo=FALSE, fig=FALSE, include=FALSE>>=
-pdf(file = "seriation-heatmap2.pdf")
+pdf(file = "seriation_vignette-heatmap2.pdf")
 hmap(x, method="MDS")
 tmp <- dev.off()
 @
@@ -1441,12 +1441,12 @@ tmp <- dev.off()
 \begin{figure}
     \begin{minipage}[b]{.48\linewidth}
         \centering
-        \includegraphics[width=\linewidth]{seriation-heatmap1} \\
+        \includegraphics[width=\linewidth]{seriation_vignette-heatmap1} \\
             (a)
     \end{minipage}
     \begin{minipage}[b]{.48\linewidth}
         \centering
-        \includegraphics[width=\linewidth]{seriation-heatmap2} \\
+        \includegraphics[width=\linewidth]{seriation_vignette-heatmap2} \\
             (b)
     \end{minipage}
     \caption{Two presentations of the rearranged iris data matrix. (a) as an
@@ -1544,10 +1544,10 @@ bertinplot(orig_matrix, o)
 @
 \begin{figure}
     \centering
-    \includegraphics[width=15cm, trim=60 60 0 0]{seriation-bertin1} \\
+    \includegraphics[width=15cm, trim=60 60 0 0]{seriation_vignette-bertin1} \\
     (a)
 
-    \includegraphics[width=15cm, trim=60 60 0 0]{seriation-bertin2} \\
+    \includegraphics[width=15cm, trim=60 60 0 0]{seriation_vignette-bertin2} \\
     (b)
     \caption{Bertin plot for the (a) original arrangement and the (b)
     reordered Irish data set.}
@@ -1640,10 +1640,10 @@ next higher group.
 
 \begin{figure}
     \centering
-    \includegraphics[width=12cm, trim=0 40 0 30]{seriation-binary1} \\
+    \includegraphics[width=12cm, trim=0 40 0 30]{seriation_vignette-binary1} \\
     (a)
 
-    \includegraphics[width=12cm, trim=0 40 0 30]{seriation-binary2} \\
+    \includegraphics[width=12cm, trim=0 40 0 30]{seriation_vignette-binary2} \\
     (b)
 
     \caption{The townships data set in original order (a) and
@@ -1750,10 +1750,10 @@ dissplot(d_iris, main = "Dissimilarity plot with seriation")
 @
 
 <<echo=FALSE, fig=FALSE, include=FALSE>>=
-pdf(file = "seriation-dissplot1.pdf")
+pdf(file = "seriation_vignette-dissplot1.pdf")
 <<dissplot1>>
 tmp <- dev.off()
-pdf(file = "seriation-dissplot2.pdf")
+pdf(file = "seriation_vignette-dissplot2.pdf")
 <<dissplot2>>
 tmp <- dev.off()
 @
@@ -1762,12 +1762,12 @@ tmp <- dev.off()
 \begin{figure}
     \begin{minipage}[b]{.48\linewidth}
     \centering
-    \includegraphics[width=\linewidth]{seriation-dissplot1} \\
+    \includegraphics[width=\linewidth]{seriation_vignette-dissplot1} \\
     (a)
     \end{minipage}
     \begin{minipage}[b]{.48\linewidth}
     \centering
-    \includegraphics[width=\linewidth]{seriation-dissplot2} \\
+    \includegraphics[width=\linewidth]{seriation_vignette-dissplot2} \\
     (b)
     \end{minipage}
     \caption{Two dissimilarity plots.
@@ -1801,14 +1801,14 @@ res <- dissplot(d_iris, labels = l,
     main = "Dissimilarity plot - standard")
 @
 <<echo=FALSE, fig=FALSE, include=FALSE>>=
-pdf(file = "seriation-dissplot3.pdf")
+pdf(file = "seriation_vignette-dissplot3.pdf")
 
 ## visualize the clustering
 <<dissplot3>>
 tmp <- dev.off()
 
 
-pdf(file = "seriation-dissplot4.pdf")
+pdf(file = "seriation_vignette-dissplot4.pdf")
 ## threshold
 plot(res, main = "Dissimilarity plot - threshold",
     threshold = 3)
@@ -1818,10 +1818,10 @@ tmp <- dev.off()
 
 \begin{figure}
     \centering
-    \includegraphics[width=10cm]{seriation-dissplot3}\\
+    \includegraphics[width=10cm]{seriation_vignette-dissplot3}\\
     (a)
 
-    \includegraphics[width=10cm]{seriation-dissplot4}\\
+    \includegraphics[width=10cm]{seriation_vignette-dissplot4}\\
     (b)
     \caption{Dissimilarity plot for $k$-means solution with 10 clusters.
     (a) standard plot and (b) plot with threshold.}
@@ -1892,7 +1892,7 @@ dissplot(d, labels = l)
 
 \begin{figure}
     \centering
-    \includegraphics[width=10cm]{seriation-ruspini}\\
+    \includegraphics[width=10cm]{seriation_vignette-ruspini}\\
     \caption{Dissimilarity plot for $k$-means solution with 3 clusters
     for the Ruspini data set with 4 groups.}
     \label{fig:ruspini}

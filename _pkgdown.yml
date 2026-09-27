@@ -21,7 +21,7 @@ articles:
   - comparison
 
 reference:
-- title: Seriation
+- title: Seriation Methods
   desc: Create a seriation order which is a permutation of objects.
 - contents: 
   - seriate

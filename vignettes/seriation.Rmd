@@ -1,0 +1,201 @@
+---
+title: "Getting started with seriation"
+author: "Michael Hahsler"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Getting started with seriation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center"
+)
+library(seriation)
+set.seed(1234)
+```
+
+Seriation arranges objects in a linear order so that related objects are close
+to one another. Reordering does not change the data; it changes only how rows,
+columns, or objects are presented. A useful order can expose clusters,
+gradients, and other structure that is difficult to see in the original
+ordering.
+
+Package `seriation` provides a common interface to many seriation methods and
+tools for applying, assessing, and visualizing the resulting orders. This
+vignette introduces the basic workflow:
+
+1. prepare a dissimilarity or data matrix,
+2. find an order with `seriate()`,
+3. inspect or apply the order, and
+4. visualize and assess the result.
+
+## Installation
+
+Install the released version from CRAN:
+
+```{r install, eval=FALSE}
+install.packages("seriation")
+```
+
+Load the package in each R session where you want to use it:
+
+```{r load-package}
+library(seriation)
+```
+
+## Seriate a dissimilarity matrix
+
+We first use the `SupremeCourt` data. It contains pairwise disagreement
+probabilities for nine U.S. Supreme Court justices. Because these values are
+dissimilarities, we convert the symmetric matrix to an R `dist` object.
+
+```{r prepare-distance}
+data("SupremeCourt")
+d <- as.dist(SupremeCourt)
+d
+```
+
+The original rows and columns are alphabetical. A permutation image plot
+shows the dissimilarities using color; darker cells represent smaller
+dissimilarities.
+
+```{r original-distance, fig.width=5, fig.height=5}
+pimage(d, main = "Original alphabetical order")
+```
+
+`seriate()` computes an order. Methods are selected by name. Here we use
+spectral seriation, which is also the default for a `dist` object.
+
+```{r find-order}
+o <- seriate(d, method = "Spectral")
+o
+```
+
+The result is a `ser_permutation` object. `get_order()` extracts the ordinary
+integer permutation vector, with names showing the labels in their new order.
+
+```{r inspect-order}
+get_order(o)
+```
+
+The vector can be used for standard R subsetting. More generally,
+`permute()` applies a seriation order while preserving the input object's
+class.
+
+```{r apply-order}
+d_ordered <- permute(d, o)
+as.matrix(d_ordered)[1:4, 1:4]
+```
+
+Most plotting functions in the package accept the order directly, so it is
+usually unnecessary to create a reordered copy just for visualization.
+
+```{r reordered-distance, fig.width=5, fig.height=5}
+pimage(d, order = o, main = "Spectral seriation")
+```
+
+The reordered plot places justices with similar voting patterns next to one
+another and reveals two darker blocks along the diagonal.
+
+## Assess an order
+
+`criterion()` calculates objective measures for an order. The spectral method
+targets the 2-Sum criterion. Both 2-Sum and Hamiltonian path length are loss
+functions, so smaller values are better.
+
+```{r assess-order}
+rbind(
+  original = criterion(d, method = c("2SUM", "Path_length")),
+  seriated = criterion(d, o, method = c("2SUM", "Path_length"))
+)
+```
+
+Different methods optimize different criteria, and a method that performs
+well for one goal need not be best for another. Use `criterion()` to compare
+orders using measures that match the purpose of the analysis.
+
+## Seriate a data matrix
+
+For a rectangular matrix, rows and columns can be seriated separately. The
+`Wood` data contains expression measurements for 136 genes at six locations.
+
+```{r matrix-order}
+data("Wood")
+dim(Wood)
+
+o_matrix <- seriate(Wood, method = "Heatmap")
+o_matrix
+```
+
+This order contains one permutation for each matrix dimension. Use `dim = 1`
+for rows and `dim = 2` for columns.
+
+```{r matrix-permutations}
+head(get_order(o_matrix, dim = 1))
+get_order(o_matrix, dim = 2)
+```
+
+The same object can reorder both dimensions with `permute()` or can be passed
+directly to `pimage()`.
+
+```{r matrix-images, fig.show="hold", out.width="49%", fig.width=5, fig.height=5}
+pimage(Wood, main = "Original order")
+pimage(Wood, order = o_matrix, main = "Seriated rows and columns")
+```
+
+To order only one dimension, use the `margin` argument. For example, this
+orders rows using the first principal component and leaves columns unchanged:
+
+```{r one-margin}
+o_rows <- seriate(Wood, method = "PCA", margin = 1)
+head(get_order(o_rows, dim = 1))
+```
+
+## Choose a method
+
+Available methods depend on the input type. Use
+`list_seriation_methods()` to discover valid method names and
+`get_seriation_method()` to see a method's description and control parameters.
+
+```{r methods}
+head(list_seriation_methods("dist"))
+list_seriation_methods("matrix")
+get_seriation_method("dist", "Spectral")
+```
+
+Useful starting points are:
+
+- `"Spectral"` for general dissimilarity data,
+- `"OLO"` for a hierarchical clustering with optimal leaf ordering,
+- `"TSP"` for a short path through the objects, and
+- `"Heatmap"` for ordering the rows and columns of a data matrix using
+  separate dissimilarities.
+
+Some methods are randomized. For those methods, set a seed for reproducibility
+and use the `rep` argument to keep the best result from several restarts.
+Method-specific arguments can be supplied in `control` or directly through
+`...`; see `?seriate` and the method information returned by
+`get_seriation_method()`.
+
+## Where to go next
+
+The package includes more focused guides:
+
+- [Seriation methods](seriation_methods.html) lists the available algorithms
+  and their control parameters.
+- [Seriation criteria](seriation_criteria.html) describes measures for
+  evaluating an order.
+- [Heatmaps](heatmaps.html) covers `pimage()`, `hmap()`, and `gghmap()`.
+- [Correlation matrices](correlation_matrix.html) shows methods designed for
+  correlations.
+- [Seriation and clustering](clustering.html) demonstrates reordered
+  dissimilarity plots and cluster visualization.
+
+The help pages `?seriate`, `?permute`, `?criterion`, and `?pimage` provide the
+complete function reference.
