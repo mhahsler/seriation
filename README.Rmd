@@ -29,7 +29,6 @@ A detailed introduction is available in the package vignette:
 
 ```{r echo=FALSE, results = 'asis'}
 pkg_usage(pkg)
-pkg_citation(pkg, 2L)
 ```
 
 ## Available seriation methods to reorder dissimilarity data
@@ -189,6 +188,12 @@ plot_config(order)
 ```
 
 We can see a clear divide between the two groups in the configuration. 
+
+## Citation request
+
+```{r echo=FALSE, results = 'asis'}
+pkg_citation(pkg, 2L)
+```
 
 ## References
 
