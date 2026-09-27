@@ -8,7 +8,7 @@ extra_integer <- NULL
 extra_hclust <- NULL
 
 if(seriation:::check_installed("DendSer", "check")) {
-  register_DendSer()
+  suppressMessages(register_DendSer())
   extra_hclust <- append(extra_hclust, c("DendSer", "DendSer_ARc",
                                            "DendSer_BAR", "DendSer_LPL",
                                            "DendSer_PL"))
@@ -16,7 +16,7 @@ if(seriation:::check_installed("DendSer", "check")) {
 
 if(seriation:::check_installed("umap", "check")) {
   extra_integer <- append(extra_integer, "umap")
-  register_umap()
+  suppressMessages(register_umap())
 }
 
 x <- matrix(

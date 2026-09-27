@@ -63,7 +63,6 @@ register_optics <- function() {
     control <- .get_parameters(control, .contr)
 
     control$minPts <- min(control$minPts, attr(x, "Size"))
-
     dbscan::optics(x, eps = control$eps, minPts = control$minPts)$order
   }
 

@@ -39,7 +39,7 @@ Imports: ca,
   TSP,
   vegan
 Suggests: cba,
-  dbscan,
+  dbscan (>= 1.2.5),
   DendSer, 
   dendextend,
   doParallel,

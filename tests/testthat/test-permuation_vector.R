@@ -1,6 +1,6 @@
 library(testthat)
 library(seriation)
-library(dendextend) ## Needed because it redefined all.equal for dendrograms
+suppressMessages(library(dendextend, quietly = True)) ## Needed because it redefined all.equal for dendrograms
 
 set.seed(0)
 

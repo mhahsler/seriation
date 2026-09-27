@@ -23,7 +23,7 @@ test_that("t-SNE seriation returns an order", {
   skip_if_not_installed("Rtsne")
 
   # Note: t-SNE does not work with duplicate entries, which is an issue.
-  register_tsne()
+  suppressMessages(register_tsne())
   o <- seriate(d, method = "tsne")
   expect_equal(length(o[[1]]), 4L)
 
@@ -33,7 +33,7 @@ test_that("t-SNE seriation returns an order", {
 test_that("OPTICS seriation returns an order", {
   skip_if_not_installed("dbscan")
 
-  register_optics()
+  suppressMessages(register_optics())
   o <- seriate(d, method = "optics")
   expect_equal(length(o[[1]]), 4L)
 })
@@ -43,7 +43,7 @@ test_that("GA seriation returns an order", {
   skip_on_cran()
   skip_if_not_installed("GA")
 
-  register_GA()
+  suppressMessages(register_GA())
   o <- seriate(d, "GA", maxiter = 10, parallel = FALSE, verb = FALSE)
   expect_equal(length(o[[1]]), 4L)
 })
