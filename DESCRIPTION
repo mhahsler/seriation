@@ -16,7 +16,7 @@ Authors@R: c(
 	person("Hans-Friedrich", "Koehn", role = c("ctb", "cph")),
 	person("Fionn", "Murtagh", role = c("ctb", "cph")),
 	person("Stephanie", "Stahl", role = c("ctb", "cph")))
-Description: Infra  structure for ordering objects with an implementation of several
+Description: Infrastructure for ordering objects with an implementation of several
     seriation/sequencing/ordination techniques to reorder matrices, dissimilarity
     matrices, and dendrograms. Also provides (optimally) reordered heatmaps,
     color images and clustering visualizations like dissimilarity plots, and
