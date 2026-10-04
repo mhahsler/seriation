@@ -1,7 +1,7 @@
 Package: seriation
 Type: Package
 Title: Infrastructure for Ordering Objects Using Seriation
-Version: 1.5.8.1
+Version: 1.5.9
 Date: 2026-xx-xx
 Authors@R: c(
 	person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
@@ -16,7 +16,7 @@ Authors@R: c(
 	person("Hans-Friedrich", "Koehn", role = c("ctb", "cph")),
 	person("Fionn", "Murtagh", role = c("ctb", "cph")),
 	person("Stephanie", "Stahl", role = c("ctb", "cph")))
-Description: Infrastructure for ordering objects with an implementation of several
+Description: Infra  structure for ordering objects with an implementation of several
     seriation/sequencing/ordination techniques to reorder matrices, dissimilarity
     matrices, and dendrograms. Also provides (optimally) reordered heatmaps,
     color images and clustering visualizations like dissimilarity plots, and
@@ -24,7 +24,7 @@ Description: Infrastructure for ordering objects with an implementation of sever
 Classification/ACM: G.1.6, G.2.1, G.4
 URL: https://github.com/mhahsler/seriation, http://michael.hahsler.net/seriation/
 BugReports: https://github.com/mhahsler/seriation/issues
-Depends: R (>= 2.14.0)
+Depends: R (>= 4.3.0)
 Imports: ca,
   cluster, 
   colorspace, 
@@ -39,7 +39,7 @@ Imports: ca,
   TSP,
   vegan
 Suggests: cba,
-  dbscan (>= 1.2.5),
+  dbscan (>= 1.2.7),
   DendSer, 
   dendextend,
   doParallel,

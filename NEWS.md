@@ -1,6 +1,7 @@
-# seriation 1.5.8.1 (Unreleased)
+# seriation 1.5.9 (Unreleased)
 
 ## Changes
+* Raised required R version. 
 * Spelling, fixed broken links.
 * Renamed method "SGD" to "SGLS" (stochastic greedy local search) for
   distances. The old "SGD" name remains available as a deprecated alias and
