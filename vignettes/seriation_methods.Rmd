@@ -185,7 +185,7 @@ Arabie, P. and L.J. Hubert (1990): The bond energy algorithm revisited, *IEEE Tr
 
 Bar-Joseph, Z., E. D. Demaine, D. K. Gifford, and T. Jaakkola. (2001): Fast Optimal Leaf Ordering for Hierarchical Clustering. *Bioinformatics,* **17**(1), 22--29. <https://doi.org/10.1093/bioinformatics/17.suppl_1.S22>
 
-Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for Envelope Reduction of Sparse Matrices. *In Proceedings of the 1993 ACM/IEEE Conference on Supercomputing,* 493--502. Supercomputing '93. New York, NY, USA: ACM. <https://ieeexplore.ieee.org/document/1263497>
+Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for Envelope Reduction of Sparse Matrices. *In Proceedings of the 1993 ACM/IEEE Conference on Supercomputing,* 493--502. Supercomputing '93. New York, NY, USA: ACM. <https://doi.org/10.1145/169627.169790>
 
 Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual assessment of (cluster) tendency. *Proceedings of the 2002 International Joint Conference on Neural Networks (IJCNN '02),* Volume: 3, 2225--2230. <https://doi.org/10.1109/IJCNN.2002.1007487>
 
