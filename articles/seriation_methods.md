@@ -1174,7 +1174,7 @@ Fast Optimal Leaf Ordering for Hierarchical Clustering.
 Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm
 for Envelope Reduction of Sparse Matrices. *In Proceedings of the 1993
 ACM/IEEE Conference on Supercomputing,* 493–502. Supercomputing ’93. New
-York, NY, USA: ACM. <https://ieeexplore.ieee.org/document/1263497>
+York, NY, USA: ACM. <https://doi.org/10.1145/169627.169790>
 
 Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual
 assessment of (cluster) tendency. *Proceedings of the 2002 International
