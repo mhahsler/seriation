@@ -9,7 +9,7 @@ reorder a matrix, and the order has a significant impact on the
 visualization’s usefulness. The package `seriation` implements a large
 number of reordering methods (see: the [list with all implemented
 seriation
-methods](https://michael.hahsler.net/seriation/seriation_methods.html)).
+methods](https://michael.hahsler.net/seriation/articles/seriation_methods.html)).
 `seriation` also provides a set of functions to display reordered
 heatmaps:
 

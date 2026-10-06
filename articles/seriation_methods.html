@@ -101,7 +101,8 @@ methods for distance matrices and data matrices.</p>
 <span><span class="fu"><a href="../reference/register_smacof.html">register_smacof</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/register_GA.html">register_GA</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/register_tsne.html">register_tsne</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/register_umap.html">register_umap</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/register_umap.html">register_umap</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/register_vegan.html">register_vegan</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Seriation methods on the data <code>x</code> can be used in</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/seriate.html">seriate</a></span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="st">"Spectral"</span>, control <span class="op">=</span> <span class="cn">NULL</span>, rep <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></code></pre></div>
@@ -762,6 +763,205 @@ transformation)</li>
 <td align="left">2</td>
 <td align="left">power for Minkowski distance in the configuration
 space</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</div>
+<div class="section level5">
+<h5 id="isomap">isomap<a class="anchor" aria-label="anchor" href="#isomap"></a>
+</h5>
+<p>Isometric feature mapping ordination (Tenenbaum, 2000)</p>
+<ul>
+<li>optimizes: N/A (Stress on shortest path distances)</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_vegan()</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col width="6%">
+<col width="13%">
+<col width="80%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="left">default</th>
+<th align="left">help</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">k</td>
+<td align="left">30</td>
+<td align="left">number of shortest dissimilarities retained for a
+point</td>
+</tr>
+<tr class="even">
+<td align="left">path</td>
+<td align="left">“shortest”</td>
+<td align="left">method used to estimate the shortest path
+(“shortest”/“extended”)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</div>
+<div class="section level5">
+<h5 id="monomds">monoMDS<a class="anchor" aria-label="anchor" href="#monomds"></a>
+</h5>
+<p>Kruskal’s (1964a,b) non-metric multidimensional scaling (NMDS) using
+monotone regression.</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (Kruskal’s
+monotone regression stress)</li>
+<li>randomized: TRUE</li>
+<li>registered by: register_vegan()</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="left">default</th>
+<th align="left">help</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">y</td>
+<td align="left"></td>
+<td align="left">See ? monoMDS for help</td>
+</tr>
+<tr class="even">
+<td align="left">model</td>
+<td align="left">“global”</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="odd">
+<td align="left">threshold</td>
+<td align="left">0.8</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="even">
+<td align="left">maxit</td>
+<td align="left">200</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="odd">
+<td align="left">weakties</td>
+<td align="left">TRUE</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="even">
+<td align="left">stress</td>
+<td align="left">1</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="odd">
+<td align="left">scaling</td>
+<td align="left">TRUE</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="even">
+<td align="left">pc</td>
+<td align="left">TRUE</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="odd">
+<td align="left">smin</td>
+<td align="left">1e-04</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="even">
+<td align="left">sfgrmin</td>
+<td align="left">1e-07</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="odd">
+<td align="left">sratmax</td>
+<td align="left">0.999999</td>
+<td align="left">N/A</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</div>
+<div class="section level5">
+<h5 id="metamds">metaMDS<a class="anchor" aria-label="anchor" href="#metamds"></a>
+</h5>
+<p>Nonmetric Multidimensional Scaling with Stable Solution from Random
+Starts.</p>
+<ul>
+<li>optimizes: <a href="seriation_criteria.html#mds_stress">MDS_stress</a> (Kruskal’s
+monotone regression stress)</li>
+<li>randomized: FALSE</li>
+<li>registered by: register_vegan()</li>
+<li>control parameters:</li>
+</ul>
+<table class="table">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="left">default</th>
+<th align="left">help</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">distance</td>
+<td align="left">“bray”</td>
+<td align="left">see ? metaMDS for help</td>
+</tr>
+<tr class="even">
+<td align="left">try</td>
+<td align="left">20</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="odd">
+<td align="left">trymax</td>
+<td align="left">20</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="even">
+<td align="left">engine</td>
+<td align="left">“monoMDS”</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="odd">
+<td align="left">autotransform</td>
+<td align="left">TRUE</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="even">
+<td align="left">noshare</td>
+<td align="left">FALSE</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="odd">
+<td align="left">wascores</td>
+<td align="left">TRUE</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="even">
+<td align="left">expand</td>
+<td align="left">TRUE</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="odd">
+<td align="left">trace</td>
+<td align="left">0</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="even">
+<td align="left">plot</td>
+<td align="left">FALSE</td>
+<td align="left">N/A</td>
+</tr>
+<tr class="odd">
+<td align="left">previous.best</td>
+<td align="left"></td>
+<td align="left">N/A</td>
+</tr>
+<tr class="even">
+<td align="left">verbose</td>
+<td align="left">FALSE</td>
+<td align="left">N/A</td>
 </tr>
 </tbody>
 </table>
