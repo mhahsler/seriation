@@ -15,7 +15,7 @@ check_installed <-
     needs_install <-
       sapply(pkg, function(x)
         ! requireNamespace(x,
-          quietly = TRUE))
+                           quietly = TRUE))
 
     if (action == "check")
       return(!any(needs_install))
@@ -51,5 +51,5 @@ check_installed <-
       }
     }
 
-    invisible(TRUE)
+    TRUE
   }

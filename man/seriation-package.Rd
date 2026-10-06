@@ -21,23 +21,26 @@ Infrastructure for ordering objects with an implementation of several seriation/
 \section{Available seriation methods and criteria}{
 
 \itemize{
-\item \href{https://michael.hahsler.net/seriation/seriation_methods.html}{A list with the implemented seriation methods}
-\item \href{https://michael.hahsler.net/seriation/comparison.html}{A visual comparison between seriation methods}
-\item \href{https://michael.hahsler.net/seriation/seriation_criteria.html}{A list with the implemented seriation criteria}
+\item \href{https://michael.hahsler.net/seriation/articles/seriation_methods.html}{A list with the implemented seriation methods}
+\item \href{https://michael.hahsler.net/seriation/articles/comparison.html}{A visual comparison between seriation methods}
+\item \href{https://michael.hahsler.net/seriation/articles/seriation_criteria.html}{A list with the implemented seriation criteria}
 }
 }
 
 \section{Quickstart guides}{
 
 \itemize{
-\item \href{https://michael.hahsler.net/seriation/heatmaps.html}{How to reorder heatmaps}
-\item \href{https://michael.hahsler.net/seriation/correlation_matrix.html}{How to reorder correlation matrices}
-\item \href{https://michael.hahsler.net/seriation/clustering.html}{How to evaluate clusters using dissimilarity plots}
+\item \href{https://michael.hahsler.net/seriation/articles/heatmaps.html}{How to reorder heatmaps}
+\item \href{https://michael.hahsler.net/seriation/articles/correlation_matrix.html}{How to reorder correlation matrices}
+\item \href{https://michael.hahsler.net/seriation/articles/clustering.html}{How to evaluate clusters using dissimilarity plots}
 }
 }
 
 \references{
-Michael Hahsler, Kurt Hornik, and Christian Buchta. Getting things in order: An introduction to the R package seriation. Journal of Statistical Software, 25(3):1--34, March 2008. \doi{10.18637/jss.v025.i03}
+Michael Hahsler, Kurt Hornik, and Christian Buchta.
+Getting things in order: An introduction to the R package seriation.
+Journal of Statistical Software, 25(3):1--34, March 2008.
+\doi{10.18637/jss.v025.i03}
 }
 \seealso{
 Useful links:

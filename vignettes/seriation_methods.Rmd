@@ -28,6 +28,7 @@ register_smacof()
 register_GA()
 register_tsne()
 register_umap()
+register_vegan()
 ```
 
 ```{r, echo = FALSE}

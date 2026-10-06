@@ -17,7 +17,7 @@ x <- matrix(
 
 d <- dist(x)
 
-
+# Note: seriate() checks that it returns a valid permutation
 
 test_that("t-SNE seriation returns an order", {
   skip_if_not_installed("Rtsne")
@@ -35,7 +35,21 @@ test_that("OPTICS seriation returns an order", {
 
   suppressMessages(register_optics())
   o <- seriate(d, method = "optics")
-  expect_equal(length(o[[1]]), 4L)
+  expect_length(o[[1]], 4L)
+})
+
+test_that("vegan seriation methods return orders", {
+  skip_if_not_installed("vegan")
+
+  suppressMessages(register_vegan())
+
+  set.seed(1)
+  vegan_d <- dist(matrix(rnorm(40 * 5), ncol = 5))
+
+  for (method in c("isomap", "monoMDS", "metaMDS")) {
+    o <- seriate(vegan_d, method = method)
+    expect_length(o[[1]], 40L)
+  }
 })
 
 test_that("GA seriation returns an order", {
@@ -45,7 +59,7 @@ test_that("GA seriation returns an order", {
 
   suppressMessages(register_GA())
   o <- seriate(d, "GA", maxiter = 10, parallel = FALSE, verb = FALSE)
-  expect_equal(length(o[[1]]), 4L)
+  expect_length(o[[1]], 4L)
 })
 
 test_that("VAE seriation returns orders", {

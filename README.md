@@ -351,6 +351,7 @@ To cite package ‘seriation’ in publications use:
   Computational and Graphical Statistics,* **10**(2):335–354. DOI:
   10.1198/jcgs.2010.09139 (read the
   [preprint](https://michael.hahsler.net/research/paper/dissplot_JCGS2011_preprint.pdf);
-  [code examples](https://michael.hahsler.net/seriation/clustering.html))
+  [code
+  examples](https://michael.hahsler.net/seriation/articles/clustering.html))
 - [Reference manual for package
   seriation.](https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriation-package)

@@ -12,7 +12,7 @@
 #' @section Quickstart guides:
 #' * [How to reorder heatmaps](https://michael.hahsler.net/seriation/articles/heatmaps.html)
 #' * [How to reorder correlation matrices](https://michael.hahsler.net/seriation/articles/correlation_matrix.html)
-#' * [How to evaluate clusters using dissimilarity plots](https://michael.hahsler.net/articles/seriation/clustering.html)
+#' * [How to evaluate clusters using dissimilarity plots](https://michael.hahsler.net/seriation/articles/clustering.html)
 #'
 #' @references Michael Hahsler, Kurt Hornik, and Christian Buchta. 
 #' Getting things in order: An introduction to the R package seriation. 
@@ -21,6 +21,7 @@
 #'
 #' @importFrom graphics plot text title
 #' @importFrom ca ca
+#' @importFrom utils head tail
 #' @importFrom stats reorder as.dist hclust runif rnorm dist order.dendrogram prcomp
 #' @useDynLib seriation, .registration=TRUE
 "_PACKAGE"

@@ -55,7 +55,7 @@ test_that("test if seriate.dist returns expected results", {
     # check 0 and 1 objects
     expect_error(o <- seriate(d0, method = m))
     o <- seriate(d1, method = m)
-    expect_length(0, 1L)
+    expect_length(o[[1]], 1L)
 
     # check example with timing
     tm <- system.time(o <- seriate(d, method = m))
@@ -101,9 +101,6 @@ test_that("test if seriate.dist returns expected results", {
       "Identity",
       "MDS",
       "MDS_angle",
-      # "metaMDS",
-      "monoMDS",
-      "isomap",
       "isoMDS",
       "Sammon_mapping",
       "QAP_2SUM",

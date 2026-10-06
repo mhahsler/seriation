@@ -150,4 +150,8 @@ importFrom(stats,
   rnorm,
   runif
 )
+importFrom(utils,
+  head,
+  tail
+)
 useDynLib(seriation, .registration=TRUE)

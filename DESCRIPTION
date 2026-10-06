@@ -112,6 +112,7 @@ Collate:
     'register_smacof.R'
     'register_tsne.R'
     'register_umap.R'
+    'register_vegan.R'
     'reorder.hclust.R'
     'robinson.R'
     'ser_dist.R'
@@ -148,6 +149,5 @@ Collate:
     'seriate_random.R'
     'seriate_reverse.R'
     'seriate_spectral.R'
-    'seriate_vegan.R'
     'uniscale.R'
 Config/roxygen2/version: 8.1.0
