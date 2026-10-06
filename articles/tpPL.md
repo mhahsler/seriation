@@ -16,13 +16,11 @@ TSP-based seriation to a modified distance matrix that incorporates
 clustering structure into the distance information. This is achieved by
 using the modified distance matrix:
 
-``` math
-T = D * \beta P
-```
-where $`P`$ contains the cophenetic distances for a hierarchical
-clustering. By adjusting $`\beta`$, the seriation can move seamlessly
-from a TSP based only on distances ($`\beta = 0`$) to a seriation order
-that represents purely the clustering structure ($`\beta = \infty`$).
+\\T = D \* \beta P\\ where \\P\\ contains the cophenetic distances for a
+hierarchical clustering. By adjusting \\\beta\\, the seriation can move
+seamlessly from a TSP based only on distances (\\\beta = 0\\) to a
+seriation order that represents purely the clustering structure (\\\beta
+= \infty\\).
 
 ## Numeric Example
 
@@ -62,7 +60,7 @@ P <- cophenetic(hc)
 Next, we calculate the penalized distance matrix, perform seriation and
 calculate the tree-penalized path length seriation criterion. The
 seriation criterion can be calculated using the path length criterion on
-the modified distance matrix $`F`$.
+the modified distance matrix \\F\\.
 
 ``` r
 
@@ -76,7 +74,7 @@ criterion(F, o, method = "Path_length")
     ## Path_length 
     ##    28689.18
 
-Finally, we perform TSP seriation using different values for $`\beta`$
+Finally, we perform TSP seriation using different values for \\\beta\\
 to see how the clustering structure emerges more and more in the
 seriation result.
 
@@ -92,6 +90,6 @@ for (beta in betas) {
 
 ![](tpPL_files/figure-html/unnamed-chunk-4-1.png)![](tpPL_files/figure-html/unnamed-chunk-4-2.png)![](tpPL_files/figure-html/unnamed-chunk-4-3.png)![](tpPL_files/figure-html/unnamed-chunk-4-4.png)![](tpPL_files/figure-html/unnamed-chunk-4-5.png)![](tpPL_files/figure-html/unnamed-chunk-4-6.png)
 
-We see that as $`\beta`$ is increased the seriation follows more and
-more the clustering. For $`\beta`$ approaching $`\infty`$, the seriation
+We see that as \\\beta\\ is increased the seriation follows more and
+more the clustering. For \\\beta\\ approaching \\\infty\\, the seriation
 order approaches optimal leaf ordering (OLO).

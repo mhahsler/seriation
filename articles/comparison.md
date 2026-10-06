@@ -41,13 +41,13 @@ methods
     ##  [5] "DendSer_LPL"    "DendSer_PL"     "GW"             "GW_average"    
     ##  [9] "GW_complete"    "GW_single"      "GW_ward"        "HC"            
     ## [13] "HC_average"     "HC_complete"    "HC_single"      "HC_ward"       
-    ## [17] "Identity"       "isomap"         "isoMDS"         "MDS"           
-    ## [21] "MDS_angle"      "MDS_smacof"     "metaMDS"        "monoMDS"       
-    ## [25] "OLO"            "OLO_average"    "OLO_complete"   "OLO_single"    
-    ## [29] "OLO_ward"       "optics"         "QAP_2SUM"       "QAP_BAR"       
-    ## [33] "QAP_Inertia"    "QAP_LS"         "R2E"            "Random"        
-    ## [37] "Reverse"        "Sammon_mapping" "Spectral"       "Spectral_norm" 
-    ## [41] "SPIN_NH"        "SPIN_STS"       "TSP"            "VAT"
+    ## [17] "Identity"       "isoMDS"         "MDS"            "MDS_angle"     
+    ## [21] "MDS_smacof"     "OLO"            "OLO_average"    "OLO_complete"  
+    ## [25] "OLO_single"     "OLO_ward"       "optics"         "QAP_2SUM"      
+    ## [29] "QAP_BAR"        "QAP_Inertia"    "QAP_LS"         "R2E"           
+    ## [33] "Random"         "Reverse"        "Sammon_mapping" "Spectral"      
+    ## [37] "Spectral_norm"  "SPIN_NH"        "SPIN_STS"       "TSP"           
+    ## [41] "VAT"
 
 Details about the method can be found in the [manual page for
 `seriate()`](https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriate).
@@ -69,52 +69,47 @@ for (m in methods) {
 }
 ```
 
-    ## ARSA took 0.203 sec.
-    ## DendSer took 0.337 sec.
-    ## DendSer_ARc took 0.413 sec.
-    ## DendSer_BAR took 0.337 sec.
-    ## DendSer_LPL took 0.403 sec.
-    ## DendSer_PL took 0.403 sec.
-    ## GW took 0.193 sec.
-    ## GW_average took 0.191 sec.
-    ## GW_complete took 0.192 sec.
-    ## GW_single took 0.193 sec.
-    ## GW_ward took 0.195 sec.
-    ## HC took 0.194 sec.
-    ## HC_average took 0.191 sec.
-    ## HC_complete took 0.201 sec.
-    ## HC_single took 0.193 sec.
-    ## HC_ward took 0.198 sec.
-    ## Identity took 0.199 sec.
-    ## isomap
-
-    ##  took 0.227 sec.
-    ## isoMDS took 0.199 sec.
-    ## MDS took 0.201 sec.
-    ## MDS_angle took 0.2 sec.
-    ## MDS_smacof took 0.201 sec.
-    ## metaMDS took 0.212 sec.
-    ## monoMDS took 0.202 sec.
-    ## OLO took 0.196 sec.
-    ## OLO_average took 0.197 sec.
-    ## OLO_complete took 0.203 sec.
-    ## OLO_single took 0.2 sec.
-    ## OLO_ward took 0.199 sec.
-    ## optics took 0.2 sec.
-    ## QAP_2SUM took 0.205 sec.
-    ## QAP_BAR took 0.204 sec.
-    ## QAP_Inertia took 0.205 sec.
-    ## QAP_LS took 0.197 sec.
-    ## R2E took 0.197 sec.
-    ## Random took 0.198 sec.
-    ## Reverse took 0.201 sec.
-    ## Sammon_mapping took 0.197 sec.
-    ## Spectral took 0.197 sec.
-    ## Spectral_norm took 0.204 sec.
-    ## SPIN_NH took 0.221 sec.
-    ## SPIN_STS took 0.215 sec.
-    ## TSP took 0.196 sec.
-    ## VAT took 0.195 sec.
+    ## ARSA took 0.227 sec.
+    ## DendSer took 0.296 sec.
+    ## DendSer_ARc took 0.346 sec.
+    ## DendSer_BAR took 0.303 sec.
+    ## DendSer_LPL took 0.345 sec.
+    ## DendSer_PL took 0.339 sec.
+    ## GW took 0.225 sec.
+    ## GW_average took 0.215 sec.
+    ## GW_complete took 0.216 sec.
+    ## GW_single took 0.218 sec.
+    ## GW_ward took 0.218 sec.
+    ## HC took 0.219 sec.
+    ## HC_average took 0.217 sec.
+    ## HC_complete took 0.218 sec.
+    ## HC_single took 0.218 sec.
+    ## HC_ward took 0.213 sec.
+    ## Identity took 0.219 sec.
+    ## isoMDS took 0.22 sec.
+    ## MDS took 0.215 sec.
+    ## MDS_angle took 0.221 sec.
+    ## MDS_smacof took 0.221 sec.
+    ## OLO took 0.219 sec.
+    ## OLO_average took 0.217 sec.
+    ## OLO_complete took 0.216 sec.
+    ## OLO_single took 0.217 sec.
+    ## OLO_ward took 0.22 sec.
+    ## optics took 0.221 sec.
+    ## QAP_2SUM took 0.221 sec.
+    ## QAP_BAR took 0.218 sec.
+    ## QAP_Inertia took 0.222 sec.
+    ## QAP_LS took 0.219 sec.
+    ## R2E took 0.222 sec.
+    ## Random took 0.221 sec.
+    ## Reverse took 0.218 sec.
+    ## Sammon_mapping took 0.213 sec.
+    ## Spectral took 0.218 sec.
+    ## Spectral_norm took 0.215 sec.
+    ## SPIN_NH took 0.231 sec.
+    ## SPIN_STS took 0.224 sec.
+    ## TSP took 0.223 sec.
+    ## VAT took 0.221 sec.
 
 ``` r
 
@@ -183,7 +178,7 @@ for (n in names(orders))
   pimage(d, orders[[n]], main = n , key = FALSE)
 ```
 
-![](comparison_files/figure-html/unnamed-chunk-8-1.png)![](comparison_files/figure-html/unnamed-chunk-8-2.png)![](comparison_files/figure-html/unnamed-chunk-8-3.png)![](comparison_files/figure-html/unnamed-chunk-8-4.png)![](comparison_files/figure-html/unnamed-chunk-8-5.png)![](comparison_files/figure-html/unnamed-chunk-8-6.png)![](comparison_files/figure-html/unnamed-chunk-8-7.png)![](comparison_files/figure-html/unnamed-chunk-8-8.png)![](comparison_files/figure-html/unnamed-chunk-8-9.png)![](comparison_files/figure-html/unnamed-chunk-8-10.png)![](comparison_files/figure-html/unnamed-chunk-8-11.png)![](comparison_files/figure-html/unnamed-chunk-8-12.png)![](comparison_files/figure-html/unnamed-chunk-8-13.png)![](comparison_files/figure-html/unnamed-chunk-8-14.png)![](comparison_files/figure-html/unnamed-chunk-8-15.png)![](comparison_files/figure-html/unnamed-chunk-8-16.png)![](comparison_files/figure-html/unnamed-chunk-8-17.png)![](comparison_files/figure-html/unnamed-chunk-8-18.png)![](comparison_files/figure-html/unnamed-chunk-8-19.png)![](comparison_files/figure-html/unnamed-chunk-8-20.png)![](comparison_files/figure-html/unnamed-chunk-8-21.png)![](comparison_files/figure-html/unnamed-chunk-8-22.png)![](comparison_files/figure-html/unnamed-chunk-8-23.png)![](comparison_files/figure-html/unnamed-chunk-8-24.png)![](comparison_files/figure-html/unnamed-chunk-8-25.png)![](comparison_files/figure-html/unnamed-chunk-8-26.png)![](comparison_files/figure-html/unnamed-chunk-8-27.png)![](comparison_files/figure-html/unnamed-chunk-8-28.png)![](comparison_files/figure-html/unnamed-chunk-8-29.png)![](comparison_files/figure-html/unnamed-chunk-8-30.png)![](comparison_files/figure-html/unnamed-chunk-8-31.png)![](comparison_files/figure-html/unnamed-chunk-8-32.png)![](comparison_files/figure-html/unnamed-chunk-8-33.png)![](comparison_files/figure-html/unnamed-chunk-8-34.png)![](comparison_files/figure-html/unnamed-chunk-8-35.png)![](comparison_files/figure-html/unnamed-chunk-8-36.png)![](comparison_files/figure-html/unnamed-chunk-8-37.png)![](comparison_files/figure-html/unnamed-chunk-8-38.png)![](comparison_files/figure-html/unnamed-chunk-8-39.png)![](comparison_files/figure-html/unnamed-chunk-8-40.png)![](comparison_files/figure-html/unnamed-chunk-8-41.png)![](comparison_files/figure-html/unnamed-chunk-8-42.png)![](comparison_files/figure-html/unnamed-chunk-8-43.png)![](comparison_files/figure-html/unnamed-chunk-8-44.png)
+![](comparison_files/figure-html/unnamed-chunk-8-1.png)![](comparison_files/figure-html/unnamed-chunk-8-2.png)![](comparison_files/figure-html/unnamed-chunk-8-3.png)![](comparison_files/figure-html/unnamed-chunk-8-4.png)![](comparison_files/figure-html/unnamed-chunk-8-5.png)![](comparison_files/figure-html/unnamed-chunk-8-6.png)![](comparison_files/figure-html/unnamed-chunk-8-7.png)![](comparison_files/figure-html/unnamed-chunk-8-8.png)![](comparison_files/figure-html/unnamed-chunk-8-9.png)![](comparison_files/figure-html/unnamed-chunk-8-10.png)![](comparison_files/figure-html/unnamed-chunk-8-11.png)![](comparison_files/figure-html/unnamed-chunk-8-12.png)![](comparison_files/figure-html/unnamed-chunk-8-13.png)![](comparison_files/figure-html/unnamed-chunk-8-14.png)![](comparison_files/figure-html/unnamed-chunk-8-15.png)![](comparison_files/figure-html/unnamed-chunk-8-16.png)![](comparison_files/figure-html/unnamed-chunk-8-17.png)![](comparison_files/figure-html/unnamed-chunk-8-18.png)![](comparison_files/figure-html/unnamed-chunk-8-19.png)![](comparison_files/figure-html/unnamed-chunk-8-20.png)![](comparison_files/figure-html/unnamed-chunk-8-21.png)![](comparison_files/figure-html/unnamed-chunk-8-22.png)![](comparison_files/figure-html/unnamed-chunk-8-23.png)![](comparison_files/figure-html/unnamed-chunk-8-24.png)![](comparison_files/figure-html/unnamed-chunk-8-25.png)![](comparison_files/figure-html/unnamed-chunk-8-26.png)![](comparison_files/figure-html/unnamed-chunk-8-27.png)![](comparison_files/figure-html/unnamed-chunk-8-28.png)![](comparison_files/figure-html/unnamed-chunk-8-29.png)![](comparison_files/figure-html/unnamed-chunk-8-30.png)![](comparison_files/figure-html/unnamed-chunk-8-31.png)![](comparison_files/figure-html/unnamed-chunk-8-32.png)![](comparison_files/figure-html/unnamed-chunk-8-33.png)![](comparison_files/figure-html/unnamed-chunk-8-34.png)![](comparison_files/figure-html/unnamed-chunk-8-35.png)![](comparison_files/figure-html/unnamed-chunk-8-36.png)![](comparison_files/figure-html/unnamed-chunk-8-37.png)![](comparison_files/figure-html/unnamed-chunk-8-38.png)![](comparison_files/figure-html/unnamed-chunk-8-39.png)![](comparison_files/figure-html/unnamed-chunk-8-40.png)![](comparison_files/figure-html/unnamed-chunk-8-41.png)
 
 ## Matrix seriation
 
@@ -217,18 +212,18 @@ for (m in methods) {
 }
 ```
 
-    ## BEA took 0.62 sec.
-    ## BEA_TSP took 0.632 sec.
-    ## BK_unconstrained took 0.206 sec.
-    ## CA took 0.209 sec.
-    ## Heatmap took 0.62 sec.
-    ## Identity took 0.202 sec.
-    ## LLE took 0.208 sec.
-    ## Mean took 0.202 sec.
-    ## PCA took 0.205 sec.
-    ## PCA_angle took 0.209 sec.
-    ## Random took 0.198 sec.
-    ## Reverse took 0.198 sec.
+    ## BEA took 0.679 sec.
+    ## BEA_TSP took 0.678 sec.
+    ## BK_unconstrained took 0.227 sec.
+    ## CA took 0.227 sec.
+    ## Heatmap took 0.672 sec.
+    ## Identity took 0.225 sec.
+    ## LLE took 0.233 sec.
+    ## Mean took 0.221 sec.
+    ## PCA took 0.224 sec.
+    ## PCA_angle took 0.228 sec.
+    ## Random took 0.222 sec.
+    ## Reverse took 0.226 sec.
 
 ``` r
 

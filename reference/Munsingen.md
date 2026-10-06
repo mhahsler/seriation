@@ -64,11 +64,11 @@ sigma <- SoS(x)
 library("MASS")
 mds <- isoMDS(1/(1+sigma))$points
 #> initial  value 21.862779 
-#> iter   5 value 15.918885
-#> iter  10 value 15.609393
-#> iter  10 value 15.600691
-#> iter  10 value 15.597381
-#> final  value 15.597381 
+#> iter   5 value 15.929728
+#> iter  10 value 15.610483
+#> iter  10 value 15.599976
+#> iter  10 value 15.596311
+#> final  value 15.596311 
 #> converged
 
 ## plot Kendall's horse shoe

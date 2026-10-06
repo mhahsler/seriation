@@ -11,7 +11,7 @@ library("seriation")
 packageVersion('seriation')
 ```
 
-    ## [1] '1.5.8.1'
+    ## [1] '1.6.0'
 
 Register some additional criteria
 
@@ -182,9 +182,7 @@ Normalized stress of a configuration given by a seriation order
 - optimized by:
   [MDS](http://michael.hahsler.net/seriation/articles/seriation_methods.html#mds),
   [isoMDS](http://michael.hahsler.net/seriation/articles/seriation_methods.html#isomds),
-  [Sammon_mapping](http://michael.hahsler.net/seriation/articles/seriation_methods.html#sammon_mapping),
-  [monoMDS](http://michael.hahsler.net/seriation/articles/seriation_methods.html#monomds),
-  [metaMDS](http://michael.hahsler.net/seriation/articles/seriation_methods.html#metamds)
+  [Sammon_mapping](http://michael.hahsler.net/seriation/articles/seriation_methods.html#sammon_mapping)
 - additional parameters:
 
 |  | default | help |

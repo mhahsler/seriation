@@ -128,6 +128,7 @@ Other seriation:
 [`register_smacof()`](http://michael.hahsler.net/seriation/reference/register_smacof.md),
 [`register_tsne()`](http://michael.hahsler.net/seriation/reference/register_tsne.md),
 [`register_umap()`](http://michael.hahsler.net/seriation/reference/register_umap.md),
+[`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md),
 [`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md),
 [`seriate_best()`](http://michael.hahsler.net/seriation/reference/seriate_best.md)
 
@@ -140,7 +141,7 @@ Michael Hahsler
 ``` r
 # Registry
 registry_seriate
-#> An object of class 'registry' with 59 entries.
+#> An object of class 'registry' with 56 entries.
 
 # List all seriation methods by type
 list_seriation_methods()
@@ -158,7 +159,6 @@ list_seriation_methods()
 #> [29] "Random"         "Reverse"        "SGD"            "SGLS"          
 #> [33] "SPIN_NH"        "SPIN_STS"       "Sammon_mapping" "Spectral"      
 #> [37] "Spectral_norm"  "TSP"            "VAT"            "isoMDS"        
-#> [41] "isomap"         "metaMDS"        "monoMDS"       
 #> 
 #> $matrix
 #>  [1] "AOE"              "BEA"              "BEA_TSP"          "BK_unconstrained"

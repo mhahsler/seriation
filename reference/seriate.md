@@ -81,8 +81,9 @@ Returns an object of class
 
 Seriation methods are managed via a registry. See
 [`list_seriation_methods()`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md)
-for help. In the following, we focus on discussing the built-in methods
-that are registered automatically by the package seriation.
+for help. In the following, we focus on discussing the methods provided
+by the package seriation. Some methods that use optional packages need
+to be registered first using a `register_*()` function.
 
 The available control options, default settings, and a description for
 each algorithm can be retrieved using
@@ -110,7 +111,7 @@ matrix). Similarities have to be transformed into dissimilarities.
 Seriation algorithms fall into different groups based on the approach.
 In the following, we describe the currently implemented methods. A list
 with all methods and the available parameters is available
-[here](https://mhahsler.github.io/seriation/articles/seriation_methods.html).
+[here](https://michael.hahsler.net/seriation/articles/seriation_methods.html).
 [Hahsler
 (2017)](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf)
 for a more detailed description and an experimental comparison of the
@@ -198,17 +199,22 @@ sufficient for applications like visualization.
 
 - **Isometric feature mapping:** `"isomap"` (Tenenbaum, 2000)
 
-  Orders along the 1D isometric feature mapping. `control` parameters
-  are passed on to
+  Orders along the 1D isometric feature mapping. This method is
+  available after calling
+  [`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md).
+  `control` parameters are passed on to
   [`vegan::isomap()`](https://vegandevs.github.io/vegan/reference/isomap.html)
 
 - **Kruskal's non-metric multidimensional scaling:** `"isoMDS"`,
   `"monoMDS"`, `"metaMDS"` (Kruskal, 1964)
 
   Orders along the 1D Kruskal's non-metric multidimensional scaling.
-  Package vegan provides an alternative implementation called `monoMDS`
-  and a version that uses random restarts for stability called
-  `metaMDS`. `control` parameters are passed on to
+  Package vegan provides optional methods. Call
+  [`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md)
+  to register `"monoMDS"` and `"metaMDS"`. It provides an alternative
+  implementation called `monoMDS` and a version that uses random
+  restarts for stability called `metaMDS`. `control` parameters are
+  passed on to
   [`MASS::isoMDS()`](https://rdrr.io/pkg/MASS/man/isoMDS.html),
   [`vegan::monoMDS()`](https://vegandevs.github.io/vegan/reference/monoMDS.html)
   or
@@ -293,10 +299,10 @@ using a heuristic approach.
   the **inertia criterion**.
 
   `control` parameters are passed on to
-  [`qap::qap()`](https://rdrr.io/pkg/qap/man/qap.html). An important
-  parameter is `rep` to return the best result from the given number of
-  repetitions with random restarts. The default is 1, but bigger numbers
-  result in better and more stable results.
+  [`qap::qap()`](https://michael.hahsler.net/qap/reference/qap.html). An
+  important parameter is `rep` to return the best result from the given
+  number of repetitions with random restarts. The default is 1, but
+  bigger numbers result in better and more stable results.
 
 - **General Simulated Annealing:** `"GSA"` (Hahsler, Hornik, and Buchta,
   2023)
@@ -620,7 +626,8 @@ Fast Optimal Leaf Ordering for Hierarchical Clustering.
 Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm
 for Envelope Reduction of Sparse Matrices. *In Proceedings of the 1993
 ACM/IEEE Conference on Supercomputing,* 493–502. Supercomputing '93. New
-York, NY, USA: ACM. <https://ieeexplore.ieee.org/document/1263497>
+York, NY, USA: ACM.
+[doi:10.1145/169627.169790](https://doi.org/10.1145/169627.169790)
 
 Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual
 assessment of (cluster) tendency. *Proceedings of the 2002 International
@@ -726,6 +733,7 @@ Other seriation:
 [`register_smacof()`](http://michael.hahsler.net/seriation/reference/register_smacof.md),
 [`register_tsne()`](http://michael.hahsler.net/seriation/reference/register_tsne.md),
 [`register_umap()`](http://michael.hahsler.net/seriation/reference/register_umap.md),
+[`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md),
 [`registry_for_seriation_methods`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md),
 [`seriate_best()`](http://michael.hahsler.net/seriation/reference/seriate_best.md)
 
@@ -752,7 +760,6 @@ list_seriation_methods()
 #> [29] "Random"         "Reverse"        "SGD"            "SGLS"          
 #> [33] "SPIN_NH"        "SPIN_STS"       "Sammon_mapping" "Spectral"      
 #> [37] "Spectral_norm"  "TSP"            "VAT"            "isoMDS"        
-#> [41] "isomap"         "metaMDS"        "monoMDS"       
 #> 
 #> $matrix
 #>  [1] "AOE"              "BEA"              "BEA_TSP"          "BK_unconstrained"

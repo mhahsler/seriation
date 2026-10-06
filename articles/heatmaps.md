@@ -9,7 +9,7 @@ reorder a matrix, and the order has a significant impact on the
 visualization’s usefulness. The package `seriation` implements a large
 number of reordering methods (see: the [list with all implemented
 seriation
-methods](https://mhahsler.github.io/seriation/seriation_methods.html)).
+methods](https://michael.hahsler.net/seriation/seriation_methods.html)).
 `seriation` also provides a set of functions to display reordered
 heatmaps:
 
@@ -30,13 +30,6 @@ As an example, we use the `Wood` dataset with the normalized gene
 expression data (a sample of 136 genes) for wood formation in poplar
 trees in 6 locations. In case the data already has some order, we
 randomly reorder rows and columns for this example.
-
-``` r
-
-if (!require("seriation")) install.packages("seriation")
-```
-
-    ## Loading required package: seriation
 
 ``` r
 
@@ -222,15 +215,6 @@ hmap(Wood, col = grays())
 hmap(Wood, col = greenred())
 
 hmap(Wood, col = colorRampPalette(c("brown", "orange", "red"))( 100 ) )
-
-if (!require("viridis")) install.packages("viridis")
-```
-
-    ## Loading required package: viridis
-
-    ## Loading required package: viridisLite
-
-``` r
 
 hmap(Wood, col = viridis::viridis(100))
 ```

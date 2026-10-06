@@ -11,7 +11,13 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -25,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">seriation</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,7 +99,7 @@ Hahsler</h4>
 pairwise correlation coefficients between variables. Reordering the
 variables and plotting the matrix can help reveal hidden patterns among
 them. The package <code>seriation</code> implements a large number of
-reordering methods (see: the <a href="https://mhahsler.github.io/seriation/seriation_methods.html" class="external-link">list
+reordering methods (see: the <a href="https://michael.hahsler.net/seriation/seriation_methods.html" class="external-link">list
 with all implemented seriation methods</a>). <code>seriation</code> also
 provides a set of functions to display reordered matrices:</p>
 <ul>
@@ -183,9 +189,9 @@ other colors.</p>
 </h3>
 <p>We can apply any seriation method for distances to create an order.
 First, we convert the correlation matrix into a distance matrix using
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><msqrt><mrow><mn>1</mn><mo>−</mo><msub><mi>m</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow></msqrt></mrow><annotation encoding="application/x-tex">d_{ij} = \sqrt{1 - m_{ij}}</annotation></semantics></math>.
-Then we can use the distances for seriation and use the resulting order
-to rearrange the rows and columns of the correlation matrix.</p>
+<span class="math inline">\(d_{ij} = \sqrt{1 - m_{ij}}\)</span>. Then we
+can use the distances for seriation and use the resulting order to
+rearrange the rows and columns of the correlation matrix.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">as.dist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">m</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>

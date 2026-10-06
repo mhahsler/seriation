@@ -44,6 +44,7 @@ Other seriation:
 [`register_optics()`](http://michael.hahsler.net/seriation/reference/register_optics.md),
 [`register_smacof()`](http://michael.hahsler.net/seriation/reference/register_smacof.md),
 [`register_tsne()`](http://michael.hahsler.net/seriation/reference/register_tsne.md),
+[`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md),
 [`registry_for_seriation_methods`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md),
 [`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md),
 [`seriate_best()`](http://michael.hahsler.net/seriation/reference/seriate_best.md)

@@ -11,7 +11,13 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -25,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">seriation</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,16 +103,11 @@ criterion seriation with the R package <code>seriation</code>.</p>
 TSP-based seriation to a modified distance matrix that incorporates
 clustering structure into the distance information. This is achieved by
 using the modified distance matrix:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mi>D</mi><mo>*</mo><mi>β</mi><mi>P</mi></mrow><annotation encoding="application/x-tex">T = D * \beta P</annotation></semantics></math>
-where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
-contains the cophenetic distances for a hierarchical clustering. By
-adjusting
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>,
-the seriation can move seamlessly from a TSP based only on distances
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\beta = 0</annotation></semantics></math>)
-to a seriation order that represents purely the clustering structure
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mi>∞</mi></mrow><annotation encoding="application/x-tex">\beta = \infty</annotation></semantics></math>).</p>
+<p><span class="math display">\[T = D * \beta P\]</span> where <span class="math inline">\(P\)</span> contains the cophenetic distances for a
+hierarchical clustering. By adjusting <span class="math inline">\(\beta\)</span>, the seriation can move seamlessly
+from a TSP based only on distances (<span class="math inline">\(\beta =
+0\)</span>) to a seriation order that represents purely the clustering
+structure (<span class="math inline">\(\beta = \infty\)</span>).</p>
 </div>
 <div class="section level2">
 <h2 id="numeric-example">Numeric Example<a class="anchor" aria-label="anchor" href="#numeric-example"></a>
@@ -134,8 +135,7 @@ dendrogram.</p>
 <p>Next, we calculate the penalized distance matrix, perform seriation
 and calculate the tree-penalized path length seriation criterion. The
 seriation criterion can be calculated using the path length criterion on
-the modified distance matrix
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>.</p>
+the modified distance matrix <span class="math inline">\(F\)</span>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beta</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span><span class="cn">F</span> <span class="op">&lt;-</span> <span class="va">D</span> <span class="op">+</span> <span class="va">beta</span> <span class="op">*</span> <span class="va">P</span></span>
@@ -144,10 +144,8 @@ the modified distance matrix
 <span><span class="fu"><a href="../reference/criterion.html">criterion</a></span><span class="op">(</span><span class="cn">F</span>, <span class="va">o</span>, method <span class="op">=</span> <span class="st">"Path_length"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Path_length </span></span>
 <span><span class="co">##    28689.18</span></span></code></pre>
-<p>Finally, we perform TSP seriation using different values for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
-to see how the clustering structure emerges more and more in the
-seriation result.</p>
+<p>Finally, we perform TSP seriation using different values for <span class="math inline">\(\beta\)</span> to see how the clustering structure
+emerges more and more in the seriation result.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">betas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">.25</span>, <span class="fl">.5</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
@@ -156,13 +154,9 @@ seriation result.</p>
 <span>  <span class="fu"><a href="../reference/pimage.html">pimage</a></span><span class="op">(</span><span class="cn">F</span>, order <span class="op">=</span> <span class="st">"TSP"</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"beta ="</span>, <span class="va">beta</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p><img src="tpPL_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="700"><img src="tpPL_files/figure-html/unnamed-chunk-4-2.png" class="r-plt" alt="" width="700"><img src="tpPL_files/figure-html/unnamed-chunk-4-3.png" class="r-plt" alt="" width="700"><img src="tpPL_files/figure-html/unnamed-chunk-4-4.png" class="r-plt" alt="" width="700"><img src="tpPL_files/figure-html/unnamed-chunk-4-5.png" class="r-plt" alt="" width="700"><img src="tpPL_files/figure-html/unnamed-chunk-4-6.png" class="r-plt" alt="" width="700"></p>
-<p>We see that as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
-is increased the seriation follows more and more the clustering. For
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
-approaching
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>∞</mi><annotation encoding="application/x-tex">\infty</annotation></semantics></math>,
-the seriation order approaches optimal leaf ordering (OLO).</p>
+<p>We see that as <span class="math inline">\(\beta\)</span> is
+increased the seriation follows more and more the clustering. For <span class="math inline">\(\beta\)</span> approaching <span class="math inline">\(\infty\)</span>, the seriation order approaches
+optimal leaf ordering (OLO).</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

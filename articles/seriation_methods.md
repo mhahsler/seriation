@@ -12,7 +12,7 @@ library("seriation")
 packageVersion('seriation')
 ```
 
-    ## [1] '1.5.8.1'
+    ## [1] '1.6.0'
 
 Some additional methods need to be registered.
 
@@ -424,76 +424,6 @@ Order along the 1D Kruskal’s non-metric multidimensional scaling
 | trace | FALSE   | trace optimization                                      |
 | tol   | 0.001   | convergence tolerance                                   |
 | p     | 2       | power for Minkowski distance in the configuration space |
-
-------------------------------------------------------------------------
-
-##### isomap
-
-Isometric feature mapping ordination (Tenenbaum, 2000)
-
-- optimizes: N/A (Stress on shortest path distances)
-- randomized: FALSE
-- control parameters:
-
-|  | default | help |
-|:---|:---|:---|
-| k | 30 | number of shortest dissimilarities retained for a point |
-| path | “shortest” | method used to estimate the shortest path (“shortest”/“extended”) |
-
-------------------------------------------------------------------------
-
-##### monoMDS
-
-Kruskal’s (1964a,b) non-metric multidimensional scaling (NMDS) using
-monotone regression.
-
-- optimizes:
-  [MDS_stress](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#mds_stress)
-  (Kruskal’s monotone regression stress)
-- randomized: TRUE
-- control parameters:
-
-|           | default  | help                   |
-|:----------|:---------|:-----------------------|
-| y         |          | See ? monoMDS for help |
-| model     | “global” | N/A                    |
-| threshold | 0.8      | N/A                    |
-| maxit     | 200      | N/A                    |
-| weakties  | TRUE     | N/A                    |
-| stress    | 1        | N/A                    |
-| scaling   | TRUE     | N/A                    |
-| pc        | TRUE     | N/A                    |
-| smin      | 1e-04    | N/A                    |
-| sfgrmin   | 1e-07    | N/A                    |
-| sratmax   | 0.999999 | N/A                    |
-
-------------------------------------------------------------------------
-
-##### metaMDS
-
-Nonmetric Multidimensional Scaling with Stable Solution from Random
-Starts.
-
-- optimizes:
-  [MDS_stress](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#mds_stress)
-  (Kruskal’s monotone regression stress)
-- randomized: FALSE
-- control parameters:
-
-|               | default   | help                   |
-|:--------------|:----------|:-----------------------|
-| distance      | “bray”    | see ? metaMDS for help |
-| try           | 20        | N/A                    |
-| trymax        | 20        | N/A                    |
-| engine        | “monoMDS” | N/A                    |
-| autotransform | TRUE      | N/A                    |
-| noshare       | FALSE     | N/A                    |
-| wascores      | TRUE      | N/A                    |
-| expand        | TRUE      | N/A                    |
-| trace         | 0         | N/A                    |
-| plot          | FALSE     | N/A                    |
-| previous.best |           | N/A                    |
-| verbose       | FALSE     | N/A                    |
 
 ------------------------------------------------------------------------
 

@@ -27,14 +27,15 @@
 Source:
 [`inst/CITATION`](https://github.com/mhahsler/seriation/blob/master/inst/CITATION)
 
-Hahsler M, Buchta C, Hornik K (????). *seriation: Infrastructure for
-Ordering Objects Using Seriation*. R package version 1.5.8.1,
+Hahsler M, Buchta C, Hornik K (2026). *seriation: Infrastructure for
+Ordering Objects Using Seriation*. R package version 1.6.0,
 <https://github.com/mhahsler/seriation>.
 
     @Manual{,
       title = {seriation: Infrastructure for Ordering Objects Using Seriation},
       author = {Michael Hahsler and Christian Buchta and Kurt Hornik},
-      note = {R package version 1.5.8.1},
+      year = {2026},
+      note = {R package version 1.6.0},
       url = {https://github.com/mhahsler/seriation},
     }
 

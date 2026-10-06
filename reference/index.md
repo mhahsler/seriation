@@ -23,6 +23,8 @@ Create a seriation order which is a permutation of objects.
   : Register Seriation Based on 1D t-SNE
 - [`register_umap()`](http://michael.hahsler.net/seriation/reference/register_umap.md)
   : Register Seriation Based on 1D UMAP
+- [`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md)
+  : Register Seriation Methods from Package vegan
 - [`registry_seriate`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md)
   [`list_seriation_methods()`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md)
   [`get_seriation_method()`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md)

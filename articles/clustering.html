@@ -11,7 +11,13 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -25,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">seriation</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -152,16 +158,14 @@ same parameters).</p>
 <p>The cluster plot (to the right) shows that the clusters were easy to
 find.</p>
 <p>Dissimilarity plots visualize the distances between points in a <a href="https://en.wikipedia.org/wiki/Distance_matrix" class="external-link">distance
-matrix</a>. A distance matrix for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-objects is a
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">n \times n</annotation></semantics></math>
-matrix with pairwise distances as values. The diagonal contains the
-distances between each object and itself and therefore is always zero.
-In this visualization, low distance values are shown using a darker
-color. The result of a “good” clustering should be a matrix with low
-dissimilarity values forming blocks around the main diagonal
-corresponding to the clusters.</p>
+matrix</a>. A distance matrix for <span class="math inline">\(n\)</span>
+objects is a <span class="math inline">\(n \times n\)</span> matrix with
+pairwise distances as values. The diagonal contains the distances
+between each object and itself and therefore is always zero. In this
+visualization, low distance values are shown using a darker color. The
+result of a “good” clustering should be a matrix with low dissimilarity
+values forming blocks around the main diagonal corresponding to the
+clusters.</p>
 <p>The dissimilarity plot shows a good clustering structure with the
 clusters forming four dark squares. The lower triangle shows the
 pairwise distances and the upper triangle shows cluster averages. The
@@ -169,8 +173,8 @@ clusters are ordered by similarity indicating that cluster 1 and 3 are
 similar and clusters 1 and 2 are the most dissimilar.</p>
 <p>Deciding on the number of clusters is a difficult problem. Next, we
 look at what happens when we misspecify the number of clusters. First,
-we use too few clusters with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">k = 3</annotation></semantics></math>.</p>
+we use too few clusters with <span class="math inline">\(k =
+3\)</span>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cl_ruspini3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html" class="external-link">kmeans</a></span><span class="op">(</span><span class="va">ruspini</span>, center<span class="op">=</span><span class="fl">3</span>, nstart <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
@@ -183,8 +187,7 @@ two clusters together.</p>
 <p>The dissimilarity plot shows that cluster 2 actually consists of two
 clusters. This can be seen by the two triangles separated by a lighter
 square inside the cluster.</p>
-<p>Next, we use too many clusters with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">k=7</annotation></semantics></math>.</p>
+<p>Next, we use too many clusters with <span class="math inline">\(k=7\)</span>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cl_ruspini7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html" class="external-link">kmeans</a></span><span class="op">(</span><span class="va">ruspini</span>, centers<span class="op">=</span><span class="fl">7</span><span class="op">)</span></span>
 <span></span>
@@ -196,9 +199,8 @@ square inside the cluster.</p>
 to identify smaller groups. However, the dissimilarity plot also
 rearranges the clusters and still clearly shows that there are actually
 four well-defined clusters in the data. Dissimilarity plots make
-detecting a misspecification of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-a lot easier.</p>
+detecting a misspecification of <span class="math inline">\(k\)</span> a
+lot easier.</p>
 <p>We can also use dissimilarity plots for exploring data without
 clustering.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -230,9 +232,8 @@ matrix between congressmen.</p>
 <span><span class="va">d_votes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="st">"binary"</span><span class="op">)</span></span></code></pre></div>
 <p>Since our distances are not Euclidean now, we use PAM for clustering.
 <a href="https://en.wikipedia.org/wiki/K-medoids" class="external-link">PAM</a> is similar to
-k-means, but accepts as input a distance matrix. We cluster with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k=2</annotation></semantics></math>,
-since we suspect two main political groups in the data.</p>
+k-means, but accepts as input a distance matrix. We cluster with <span class="math inline">\(k=2\)</span>, since we suspect two main political
+groups in the data.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">labels_votes2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cluster/man/pam.html" class="external-link">pam</a></span><span class="op">(</span><span class="va">d_votes</span>, k<span class="op">=</span><span class="fl">2</span>, cluster.only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
@@ -247,8 +248,7 @@ more similar with each other (a slightly darker color). We also see that
 the clusters are not completely clear inside with lighter streaks on one
 side.</p>
 <p>Maybe there are several sub-groups in each political party. We
-cluster again with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">k = 12</annotation></semantics></math>.</p>
+cluster again with <span class="math inline">\(k = 12\)</span>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">labels_votes12</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cluster/man/pam.html" class="external-link">pam</a></span><span class="op">(</span><span class="va">d_votes</span>, k<span class="op">=</span><span class="fl">12</span>, cluster.only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
@@ -286,7 +286,7 @@ easy to use. Details on the method can be found in Hahsler and Hornik
 exploration tool for partitional clustering. <em>Journal of
 Computational and Graphical Statistics,</em>
 <strong>10</strong>(2):335–354. <a href="http://dx.doi.org/10.1198/jcgs.2010.09139" class="external-link">doi:10.1198/jcgs.2010.09139</a>
-(read the <a href="http://michael.hahsler.net/research/paper/dissplot_JCGS2011_preprint.pdf" class="external-link">preprint</a>)</li>
+(read the <a href="https://michael.hahsler.net/research/paper/dissplot_JCGS2011_preprint.pdf" class="external-link">preprint</a>)</li>
 </ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

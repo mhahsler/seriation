@@ -158,6 +158,7 @@ Other seriation:
 [`register_smacof()`](http://michael.hahsler.net/seriation/reference/register_smacof.md),
 [`register_tsne()`](http://michael.hahsler.net/seriation/reference/register_tsne.md),
 [`register_umap()`](http://michael.hahsler.net/seriation/reference/register_umap.md),
+[`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md),
 [`registry_for_seriation_methods`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md),
 [`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md)
 
@@ -198,14 +199,14 @@ o <- seriate_best(d_supreme, criterion = "AR_events", rep = 5)
 #> 
 #> Results (first was chosen):
 #>        method criterion  secs
-#> 1    spectral         5 0.265
-#> 3    QAP_2SUM         5 1.269
-#> 5      QAP_LS         5 1.250
-#> 6 QAP_Inertia         5 1.251
-#> 4     QAP_BAR         7 1.255
-#> 7         TSP         7 1.255
-#> 8 OLO_average         7 0.252
-#> 2         MDS        10 0.262
+#> 1    spectral         5 0.284
+#> 3    QAP_2SUM         5 1.369
+#> 5      QAP_LS         5 1.368
+#> 6 QAP_Inertia         5 1.365
+#> 4     QAP_BAR         7 1.369
+#> 7         TSP         7 1.371
+#> 8 OLO_average         7 0.281
+#> 2         MDS        10 0.274
 #> 
 o
 #> object of class ‘ser_permutation’, ‘list’

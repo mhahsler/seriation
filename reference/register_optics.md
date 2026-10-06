@@ -18,8 +18,8 @@ Nothing.
 Registers the method `"optics"` for
 [`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md).
 This method applies the OPTICS ordering algorithm implemented in
-[`dbscan::optics()`](https://rdrr.io/pkg/dbscan/man/optics.html) to
-create an ordering.
+[`dbscan::optics()`](http://michael.hahsler.net/dbscan/reference/optics.md)
+to create an ordering.
 
 **Note:** Package dbscan needs to be installed.
 
@@ -33,7 +33,7 @@ pp. 49-60.
 
 ## See also
 
-[`dbscan::optics()`](https://rdrr.io/pkg/dbscan/man/optics.html).
+[`dbscan::optics()`](http://michael.hahsler.net/dbscan/reference/optics.md).
 
 Other seriation:
 [`register_DendSer()`](http://michael.hahsler.net/seriation/reference/register_DendSer.md),
@@ -41,6 +41,7 @@ Other seriation:
 [`register_smacof()`](http://michael.hahsler.net/seriation/reference/register_smacof.md),
 [`register_tsne()`](http://michael.hahsler.net/seriation/reference/register_tsne.md),
 [`register_umap()`](http://michael.hahsler.net/seriation/reference/register_umap.md),
+[`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md),
 [`registry_for_seriation_methods`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md),
 [`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md),
 [`seriate_best()`](http://michael.hahsler.net/seriation/reference/seriate_best.md)

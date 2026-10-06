@@ -26,24 +26,24 @@ dissimilarity plots, and visual assessment of cluster tendency plots
 ## Available seriation methods and criteria
 
 - [A list with the implemented seriation
-  methods](https://mhahsler.github.io/seriation/seriation_methods.html)
+  methods](https://michael.hahsler.net/seriation/seriation_methods.html)
 
 - [A visual comparison between seriation
-  methods](https://mhahsler.github.io/seriation/comparison.html)
+  methods](https://michael.hahsler.net/seriation/comparison.html)
 
 - [A list with the implemented seriation
-  criteria](https://mhahsler.github.io/seriation/seriation_criteria.html)
+  criteria](https://michael.hahsler.net/seriation/seriation_criteria.html)
 
 ## Quickstart guides
 
 - [How to reorder
-  heatmaps](https://mhahsler.github.io/seriation/heatmaps.html)
+  heatmaps](https://michael.hahsler.net/seriation/heatmaps.html)
 
 - [How to reorder correlation
-  matrices](https://mhahsler.github.io/seriation/correlation_matrix.html)
+  matrices](https://michael.hahsler.net/seriation/correlation_matrix.html)
 
 - [How to evaluate clusters using dissimilarity
-  plots](https://mhahsler.github.io/seriation/clustering.html)
+  plots](https://michael.hahsler.net/seriation/clustering.html)
 
 ## References
 

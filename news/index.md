@@ -1,9 +1,12 @@
 # Changelog
 
-## seriation 1.5.8.1 (Unreleased)
+## seriation 1.6.0 (10/06-2026)
 
 ### Changes
 
+- Methods from vegan need now to be registered before use.
+- Raised required R version.
+- Added howto vignettes.
 - Spelling, fixed broken links.
 - Renamed method “SGD” to “SGLS” (stochastic greedy local search) for
   distances. The old “SGD” name remains available as a deprecated alias
