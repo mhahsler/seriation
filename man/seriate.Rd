@@ -70,7 +70,8 @@ used to reorder the dissimilarity matrix/data matrix using
 Seriation methods are managed via a registry. See
 \code{\link[=list_seriation_methods]{list_seriation_methods()}} for help. In the following, we focus on
 discussing the
-built-in methods that are registered automatically by the package \pkg{seriation}.
+methods provided by the package \pkg{seriation}. Some methods that use
+optional packages need to be registered first using a \verb{register_*()} function.
 
 The available control options, default settings, and
 a description for each algorithm
@@ -96,7 +97,7 @@ dissimilarities.
 Seriation algorithms fall into different groups based on the approach.
 In the following, we describe the currently implemented methods.
 A list with all methods and the available parameters is available
-\href{https://mhahsler.github.io/seriation/articles/seriation_methods.html}{here}.
+\href{https://michael.hahsler.net/seriation/articles/seriation_methods.html}{here}.
 \href{https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf}{Hahsler (2017)}
 for a more detailed description and an experimental comparison of the most
 popular methods.
@@ -171,13 +172,16 @@ Orders along the 1D classical metric multidimensional scaling.
 \code{control} parameters are passed on to \code{\link[stats:cmdscale]{stats::cmdscale()}}.
 \item \strong{Isometric feature mapping:} \code{"isomap"} (Tenenbaum, 2000)
 
-Orders along the 1D isometric feature mapping.
+Orders along the 1D isometric feature mapping. This method is available
+after calling \code{\link[=register_vegan]{register_vegan()}}.
 \code{control} parameters are passed on to \code{\link[vegan:isomap]{vegan::isomap()}}
 \item \strong{Kruskal's non-metric multidimensional scaling:} \code{"isoMDS"}, \code{"monoMDS"},
 \code{"metaMDS"} (Kruskal, 1964)
 
 Orders along the 1D Kruskal's non-metric multidimensional scaling.
-Package \pkg{vegan} provides an alternative implementation called \code{monoMDS}
+Package \pkg{vegan} provides optional methods. Call
+\code{\link[=register_vegan]{register_vegan()}} to register \code{"monoMDS"} and \code{"metaMDS"}.
+It provides an alternative implementation called \code{monoMDS}
 and a version that uses random restarts for stability called \code{metaMDS}.
 \code{control} parameters are passed on to \code{\link[MASS:isoMDS]{MASS::isoMDS()}}, \code{\link[vegan:monoMDS]{vegan::monoMDS()}} or \code{\link[vegan:metaMDS]{vegan::metaMDS()}}.
 \item \strong{Sammon's non-linear mapping:} \code{"Sammon_mapping"} (Sammon, 1969)
@@ -632,7 +636,8 @@ Optimal Leaf Ordering for Hierarchical Clustering. \emph{Bioinformatics,}
 Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for
 Envelope Reduction of Sparse Matrices. \emph{In Proceedings of the 1993
 ACM/IEEE Conference on Supercomputing,} 493--502. Supercomputing '93. New
-York, NY, USA: ACM. \url{https://ieeexplore.ieee.org/document/1263497}
+York, NY, USA: ACM.
+\doi{10.1145/169627.169790}
 
 Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual assessment of
 (cluster) tendency. \emph{Proceedings of the 2002 International Joint
@@ -737,6 +742,7 @@ Other seriation:
 \code{\link[=register_smacof]{register_smacof()}},
 \code{\link[=register_tsne]{register_tsne()}},
 \code{\link[=register_umap]{register_umap()}},
+\code{\link[=register_vegan]{register_vegan()}},
 \code{\link{registry_for_seriation_methods}},
 \code{\link[=seriate_best]{seriate_best()}}
 }

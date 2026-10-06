@@ -27,7 +27,8 @@
 #' Seriation methods are managed via a registry. See
 #' [list_seriation_methods()] for help. In the following, we focus on
 #' discussing the
-#' built-in methods that are registered automatically by the package \pkg{seriation}.
+#' methods provided by the package \pkg{seriation}. Some methods that use
+#' optional packages need to be registered first using a `register_*()` function.
 #'
 #' The available control options, default settings, and
 #' a description for each algorithm
@@ -53,7 +54,7 @@
 #' Seriation algorithms fall into different groups based on the approach.
 #' In the following, we describe the currently implemented methods.
 #' A list with all methods and the available parameters is available
-#' [here](https://mhahsler.github.io/seriation/articles/seriation_methods.html).
+#' [here](https://michael.hahsler.net/seriation/articles/seriation_methods.html).
 #' [Hahsler (2017)](https://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf)
 #' for a more detailed description and an experimental comparison of the most
 #' popular methods.
@@ -132,14 +133,17 @@
 
 #'   - **Isometric feature mapping:** `"isomap"` (Tenenbaum, 2000)
 #'
-#'     Orders along the 1D isometric feature mapping.
+#'     Orders along the 1D isometric feature mapping. This method is available
+#'     after calling [`register_vegan()`].
 #'     `control` parameters are passed on to [vegan::isomap()]
 #'
 #'   - **Kruskal's non-metric multidimensional scaling:** `"isoMDS"`, `"monoMDS"`,
 #'    `"metaMDS"` (Kruskal, 1964)
 #'
 #'      Orders along the 1D Kruskal's non-metric multidimensional scaling.
-#'      Package \pkg{vegan} provides an alternative implementation called `monoMDS`
+#'      Package \pkg{vegan} provides optional methods. Call
+#'      [`register_vegan()`] to register `"monoMDS"` and `"metaMDS"`.
+#'      It provides an alternative implementation called `monoMDS`
 #'      and a version that uses random restarts for stability called `metaMDS`.
 #'      `control` parameters are passed on to [MASS::isoMDS()], [vegan::monoMDS()] or [vegan::metaMDS()].
 #'
@@ -543,7 +547,8 @@
 #' Barnard, S. T., A. Pothen, and H. D. Simon (1993): A Spectral Algorithm for
 #' Envelope Reduction of Sparse Matrices. _In Proceedings of the 1993
 #' ACM/IEEE Conference on Supercomputing,_ 493--502. Supercomputing '93. New
-#' York, NY, USA: ACM. \url{https://ieeexplore.ieee.org/document/1263497}
+#' York, NY, USA: ACM.
+#' \doi{10.1145/169627.169790}
 #'
 #' Bezdek, J.C. and Hathaway, R.J. (2002): VAT: a tool for visual assessment of
 #' (cluster) tendency. _Proceedings of the 2002 International Joint

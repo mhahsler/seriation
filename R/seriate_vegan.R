@@ -16,6 +16,26 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+#' Register Seriation Methods from Package vegan
+#'
+#' Register the `"isomap"`, `"monoMDS"`, and `"metaMDS"` seriation methods
+#' for dissimilarity matrices. These methods use the corresponding functions
+#' from package \pkg{vegan}.
+#'
+#' **Note:** Package \pkg{vegan} needs to be installed.
+#'
+#' @aliases register_vegan isomap monoMDS metaMDS
+#' @family seriation
+#' @returns Nothing.
+#' @examples
+#' \dontrun{
+#' register_vegan()
+#' list_seriation_methods("dist")
+#' }
+#' @export
+register_vegan <- function() {
+  check_installed("vegan")
+
 .monoMDS_control <- structure({
   l <- as.list(args(vegan::monoMDS))
   l$k <- NULL
@@ -117,3 +137,4 @@ set_seriation_method(
   randomized = FALSE,          ### it is randomized, but internally does replication
   optimizes = .opt("MDS_stress", "Kruskal's monotone regression stress")
 )
+}

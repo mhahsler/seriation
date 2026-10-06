@@ -21,7 +21,7 @@
 #' Compute the value for different loss functions \eqn{L} and merit function
 #' \eqn{M} for data given a permutation. A list with all methods and the 
 #' available parameters is available
-#' [here](https://mhahsler.github.io/seriation/articles/seriation_criteria.html).
+#' [here](https://michael.hahsler.net/seriation/articles/seriation_criteria.html).
 #'
 #' **Criteria for distance matrices (dist)**
 #'

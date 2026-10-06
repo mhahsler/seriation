@@ -21,18 +21,18 @@ Infrastructure for ordering objects with an implementation of several seriation/
 \section{Available seriation methods and criteria}{
 
 \itemize{
-\item \href{https://mhahsler.github.io/seriation/seriation_methods.html}{A list with the implemented seriation methods}
-\item \href{https://mhahsler.github.io/seriation/comparison.html}{A visual comparison between seriation methods}
-\item \href{https://mhahsler.github.io/seriation/seriation_criteria.html}{A list with the implemented seriation criteria}
+\item \href{https://michael.hahsler.net/seriation/seriation_methods.html}{A list with the implemented seriation methods}
+\item \href{https://michael.hahsler.net/seriation/comparison.html}{A visual comparison between seriation methods}
+\item \href{https://michael.hahsler.net/seriation/seriation_criteria.html}{A list with the implemented seriation criteria}
 }
 }
 
 \section{Quickstart guides}{
 
 \itemize{
-\item \href{https://mhahsler.github.io/seriation/heatmaps.html}{How to reorder heatmaps}
-\item \href{https://mhahsler.github.io/seriation/correlation_matrix.html}{How to reorder correlation matrices}
-\item \href{https://mhahsler.github.io/seriation/clustering.html}{How to evaluate clusters using dissimilarity plots}
+\item \href{https://michael.hahsler.net/seriation/heatmaps.html}{How to reorder heatmaps}
+\item \href{https://michael.hahsler.net/seriation/correlation_matrix.html}{How to reorder correlation matrices}
+\item \href{https://michael.hahsler.net/seriation/clustering.html}{How to evaluate clusters using dissimilarity plots}
 }
 }
 

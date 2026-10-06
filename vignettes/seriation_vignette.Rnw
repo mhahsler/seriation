@@ -71,21 +71,21 @@ Michael Hahsler\\
     P.O. Box 750123 \\
     Dallas, TX 75275-0123\\
     E-mail: \email{mhahsler@lyle.smu.edu}\\
-    URL: \url{http://lyle.smu.edu/~mhahsler}
+    URL: \url{https://michael.hahsler.net/}
 
 Kurt Hornik\\
 Department f\"ur Statistik \& Mathematik\\
 Wirtschaftsuniversit\"at Wien\\
 1090 Wien, Austria\\
 E-mail: \email{kurt.hornik@wu.ac.at}\\
-URL: \url{http://statmath.wu.ac.at/~hornik/}
+URL: \url{https://statmath.wu.ac.at/~hornik/}
 
 Christian Buchta\\
 Department f\"ur Welthandel\\
 Wirtschaftsuniversit\"at Wien\\
 1090 Wien, Austria\\
 E-mail: \email{christian.buchta@wu.ac.at}\\
-URL: \url{http://www.wu.ac.at/itf/institute/staff/buchta}
+URL: \url{https://www.wu.ac.at/mca}
 			    }
 
 \hyphenation{Brusco}
@@ -1497,7 +1497,7 @@ using the infrastructure provided by \pkg{seriation}.
 As an example, we use the results of $8$ constitutional referenda for $41$
 Irish communities~\citep{seriation:Falguerolles:1997}\footnote{The Irish data
 set is included in this package. The original data and the text of the
-referenda can be obtained from~\url{http://www.electionsireland.org/}}.  To
+referenda can be obtained from~\url{https://www.electionsireland.org/}}.  To
 make values comparable across columns (variables), the ranks of the values for
 each variable are used instead of the original values.
 
@@ -1955,4 +1955,3 @@ and suggestions.
 \bibliography{seriation}
 %
 \end{document}
-

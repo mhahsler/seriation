@@ -1,8 +1,8 @@
 Package: seriation
 Type: Package
 Title: Infrastructure for Ordering Objects Using Seriation
-Version: 1.5.9
-Date: 2026-xx-xx
+Version: 1.6.0
+Date: 2026-10-06
 Authors@R: c(
 	person("Michael", "Hahsler", role = c("aut", "cre", "cph"),
 	  email = "mhahsler@lyle.smu.edu",
@@ -36,16 +36,20 @@ Imports: ca,
   qap, 
   registry,
   stats, 
-  TSP,
-  vegan
+  TSP
 Suggests: cba,
+  corrgram,
+  corrplot,
+  corrr,
   dbscan (>= 1.2.7),
   DendSer, 
   dendextend,
   doParallel,
   DT,
+  dplyr,
   GA,
   ggplot2,
+  heatmaply,
   keras,
   Rtsne,
   scales,
@@ -53,6 +57,8 @@ Suggests: cba,
   tensorflow,
   testthat (>= 3.0.0),
   umap,
+  vegan,
+  viridis,
   knitr,
   rmarkdown
 Encoding: UTF-8

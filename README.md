@@ -30,9 +30,9 @@ assessment of cluster tendency plots (VAT and iVAT).
 Implemented seriation methods and criteria:
 
 - [Documentation of the implemented seriation
-  methods](https://mhahsler.github.io/seriation/articles/seriation_methods.html)
+  methods](https://michael.hahsler.net/seriation/articles/seriation_methods.html)
 - [Documentation of the implemented seriation
-  criteria](https://mhahsler.github.io/seriation/articles/seriation_criteria.html)
+  criteria](https://michael.hahsler.net/seriation/articles/seriation_criteria.html)
 
 A detailed introduction is available in the package vignette:
 [Introduction to the R package
@@ -351,6 +351,6 @@ To cite package ‘seriation’ in publications use:
   Computational and Graphical Statistics,* **10**(2):335–354. DOI:
   10.1198/jcgs.2010.09139 (read the
   [preprint](https://michael.hahsler.net/research/paper/dissplot_JCGS2011_preprint.pdf);
-  [code examples](https://mhahsler.github.io/seriation/clustering.html))
+  [code examples](https://michael.hahsler.net/seriation/clustering.html))
 - [Reference manual for package
   seriation.](https://mhahsler.r-universe.dev/seriation/doc/manual.html#seriation-package)
