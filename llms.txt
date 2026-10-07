@@ -32,9 +32,8 @@ Implemented seriation methods and criteria:
 - [Documentation of the implemented seriation
   criteria](https://michael.hahsler.net/seriation/articles/seriation_criteria.html)
 
-A detailed introduction is available in the package vignette:
-[Introduction to the R package
-seriation](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf)
+A good starting point is the vignette [Getting started with
+seriation](https://michael.hahsler.net/seriation/articles/seriation.html)
 
 The following R packages use `seriation`:
 [adepro](https://CRAN.R-project.org/package=adepro),

@@ -161,15 +161,15 @@ os <- sapply(methods, function(m) {
   cat("took", tm[3],"s.\n")
   o
 })
-#> Doing HC_complete ... took 0.278 s.
-#> Doing OLO ... took 0.274 s.
-#> Doing GW ... took 0.31 s.
-#> Doing VAT ... took 0.294 s.
-#> Doing TSP ... took 0.287 s.
-#> Doing Spectral ... took 0.283 s.
-#> Doing MDS ... took 0.458 s.
-#> Doing Identity ... took 0.297 s.
-#> Doing Random ... took 0.278 s.
+#> Doing HC_complete ... took 0.232 s.
+#> Doing OLO ... took 0.235 s.
+#> Doing GW ... took 0.234 s.
+#> Doing VAT ... took 0.235 s.
+#> Doing TSP ... took 0.245 s.
+#> Doing Spectral ... took 0.251 s.
+#> Doing MDS ... took 0.242 s.
+#> Doing Identity ... took 0.238 s.
+#> Doing Random ... took 0.241 s.
 
 ## Compare the methods using distances. Default is based on
 ## Spearman's rank correlation coefficient where reverse orders are

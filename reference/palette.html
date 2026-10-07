@@ -96,8 +96,8 @@ linear, 2 = quadratic, etc.)</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>further parameters are passed on to <code><a href="https://rdrr.io/pkg/colorspace/man/hcl_palettes.html" class="external-link">colorspace::sequential_hcl()</a></code>
-or <code><a href="https://rdrr.io/pkg/colorspace/man/hcl_palettes.html" class="external-link">colorspace::diverging_hcl()</a></code>.</p></dd>
+<dd><p>further parameters are passed on to <code><a href="https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html" class="external-link">colorspace::sequential_hcl()</a></code>
+or <code><a href="https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html" class="external-link">colorspace::diverging_hcl()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -106,8 +106,8 @@ or <code><a href="https://rdrr.io/pkg/colorspace/man/hcl_palettes.html" class="e
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The color palettes are created with <code><a href="https://rdrr.io/pkg/colorspace/man/hcl_palettes.html" class="external-link">colorspace::sequential_hcl()</a></code> and
-<code><a href="https://rdrr.io/pkg/colorspace/man/hcl_palettes.html" class="external-link">colorspace::diverging_hcl()</a></code>.</p>
+    <p>The color palettes are created with <code><a href="https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html" class="external-link">colorspace::sequential_hcl()</a></code> and
+<code><a href="https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html" class="external-link">colorspace::diverging_hcl()</a></code>.</p>
 <p>The two sequential palettes are: <code>reds()</code> and <code>grays()</code> (or
 <code>greys()</code>).</p>
 <p>The two diverging palettes are: <code>bluered()</code> and <code>greenred()</code>.</p>
@@ -159,16 +159,16 @@ or <code><a href="https://rdrr.io/pkg/colorspace/man/hcl_palettes.html" class="e
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## choose your own color palettes</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://colorspace.R-Forge.R-project.org/" class="external-link">colorspace</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/colorspace/man/hcl_palettes.html" class="external-link">hcl_palettes</a></span><span class="op">(</span>plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html" class="external-link">hcl_palettes</a></span><span class="op">(</span>plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="palette-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## blues (with 20 shades)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="pimage.html">pimage</a></span><span class="op">(</span><span class="va">m</span>,</span></span>
-<span class="r-in"><span>  col <span class="op">=</span> <span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/colorspace/man/hcl_palettes.html" class="external-link">sequential_hcl</a></span><span class="op">(</span><span class="fl">20</span>, <span class="st">"Blues"</span>, rev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  col <span class="op">=</span> <span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html" class="external-link">sequential_hcl</a></span><span class="op">(</span><span class="fl">20</span>, <span class="st">"Blues"</span>, rev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="palette-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co">## blue to green (aka "Cork")</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="pimage.html">pimage</a></span><span class="op">(</span><span class="va">m</span>,</span></span>
-<span class="r-in"><span>  col <span class="op">=</span> <span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/colorspace/man/hcl_palettes.html" class="external-link">diverging_hcl</a></span><span class="op">(</span><span class="fl">100</span>, <span class="st">"Cork"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  col <span class="op">=</span> <span class="fu">colorspace</span><span class="fu">::</span><span class="fu"><a href="https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html" class="external-link">diverging_hcl</a></span><span class="op">(</span><span class="fl">100</span>, <span class="st">"Cork"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="palette-10.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
