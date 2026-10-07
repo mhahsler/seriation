@@ -24,8 +24,7 @@ Implemented seriation methods and criteria:
 * [Documentation of the implemented seriation methods](https://michael.hahsler.net/seriation/articles/seriation_methods.html)
 * [Documentation of the implemented seriation criteria](https://michael.hahsler.net/seriation/articles/seriation_criteria.html)
 
-A detailed introduction is available in the package vignette:
-[Introduction to the R package seriation](https://cran.r-project.org/package=seriation/vignettes/seriation.pdf)
+A good starting point is the vignette [Getting started with seriation](https://michael.hahsler.net/seriation/articles/seriation.html)
 
 ```{r echo=FALSE, results = 'asis'}
 pkg_usage(pkg)
