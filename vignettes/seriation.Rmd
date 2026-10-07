@@ -28,12 +28,9 @@ ordering.
 
 Package `seriation` provides a common interface to many seriation methods and
 tools for applying, assessing, and visualizing the resulting orders. This
-vignette introduces the basic workflow:
-
-1. prepare a dissimilarity or data matrix,
-2. find an order with `seriate()`,
-3. inspect or apply the order, and
-4. visualize and assess the result.
+vignette introduces how to use seriation for distance and data matrices,
+and how to assess the quality of an resulting order. Finally, some guidance for
+choosing an appropriate method are given.
 
 ## Installation
 
@@ -103,7 +100,7 @@ pimage(d, order = o, main = "Spectral seriation")
 The reordered plot places justices with similar voting patterns next to one
 another and reveals two darker blocks along the diagonal.
 
-## Assess an order
+## Assess the quality of a seriation order
 
 `criterion()` calculates objective measures for an order. The spectral method
 targets the 2-Sum criterion. Both 2-Sum and Hamiltonian path length are loss
@@ -160,28 +157,38 @@ head(get_order(o_rows, dim = 1))
 ## Choose a method
 
 Available methods depend on the input type. Use
-`list_seriation_methods()` to discover valid method names and
-`get_seriation_method()` to see a method's description and control parameters.
+`list_seriation_methods()` to discover valid method names. 
 
 ```{r methods}
-head(list_seriation_methods("dist"))
+list_seriation_methods("dist")
 list_seriation_methods("matrix")
-get_seriation_method("dist", "Spectral")
 ```
 
+A comprehensive comparison of different seriation methods can be found in
+the paper 
+[An experimental comparison of seriation methods for one-mode two-way data](http://dx.doi.org/10.1016/j.ejor.2016.08.066)
+([open-access preprint](http://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf)).
 Useful starting points are:
 
-- `"Spectral"` for general dissimilarity data,
+- `"Spectral"` and `"QAP_2SUM"` for general dissimilarity data,
 - `"OLO"` for a hierarchical clustering with optimal leaf ordering,
 - `"TSP"` for a short path through the objects, and
 - `"Heatmap"` for ordering the rows and columns of a data matrix using
   separate dissimilarities.
+  
+
+Detailed method descriptions, what measure is optimized, 
+and a list with available control parameters can be obtained 
+with `get_seriation_method()`.
+
+```{r methods2}
+get_seriation_method("dist", "Spectral")
+```
 
 Some methods are randomized. For those methods, set a seed for reproducibility
 and use the `rep` argument to keep the best result from several restarts.
-Method-specific arguments can be supplied in `control` or directly through
-`...`; see `?seriate` and the method information returned by
-`get_seriation_method()`.
+Method-specific arguments can be supplied to `seriate()` in `control` or 
+directly through `...`.
 
 ## Where to go next
 
