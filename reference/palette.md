@@ -42,9 +42,9 @@ grays(n = 100, bias = 1, power = 1, ...)
 - ...:
 
   further parameters are passed on to
-  [`colorspace::sequential_hcl()`](https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html)
+  [`colorspace::sequential_hcl()`](https://rdrr.io/pkg/colorspace/man/hcl_palettes.html)
   or
-  [`colorspace::diverging_hcl()`](https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html).
+  [`colorspace::diverging_hcl()`](https://rdrr.io/pkg/colorspace/man/hcl_palettes.html).
 
 ## Value
 
@@ -53,9 +53,9 @@ A vector with `n` colors.
 ## Details
 
 The color palettes are created with
-[`colorspace::sequential_hcl()`](https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html)
+[`colorspace::sequential_hcl()`](https://rdrr.io/pkg/colorspace/man/hcl_palettes.html)
 and
-[`colorspace::diverging_hcl()`](https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html).
+[`colorspace::diverging_hcl()`](https://rdrr.io/pkg/colorspace/man/hcl_palettes.html).
 
 The two sequential palettes are: `reds()` and `grays()` (or `greys()`).
 

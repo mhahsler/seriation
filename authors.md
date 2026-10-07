@@ -25,7 +25,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/mhahsler/seriation/blob/seriation_1.6.0/inst/CITATION)
+[`inst/CITATION`](https://github.com/mhahsler/seriation/blob/master/inst/CITATION)
 
 Hahsler M, Buchta C, Hornik K (2026). *seriation: Infrastructure for
 Ordering Objects Using Seriation*. R package version 1.6.0,

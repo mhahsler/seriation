@@ -82,7 +82,7 @@
 Hahsler</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/mhahsler/seriation/blob/seriation_1.6.0/vignettes/seriation.Rmd" class="external-link"><code>vignettes/seriation.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mhahsler/seriation/blob/master/vignettes/seriation.Rmd" class="external-link"><code>vignettes/seriation.Rmd</code></a></small>
       <div class="d-none name"><code>seriation.Rmd</code></div>
     </div>
 
@@ -95,13 +95,10 @@ can expose clusters, gradients, and other structure that is difficult to
 see in the original ordering.</p>
 <p>Package <code>seriation</code> provides a common interface to many
 seriation methods and tools for applying, assessing, and visualizing the
-resulting orders. This vignette introduces the basic workflow:</p>
-<ol style="list-style-type: decimal">
-<li>prepare a dissimilarity or data matrix,</li>
-<li>find an order with <code><a href="../reference/seriate.html">seriate()</a></code>,</li>
-<li>inspect or apply the order, and</li>
-<li>visualize and assess the result.</li>
-</ol>
+resulting orders. This vignette introduces how to use seriation for
+distance and data matrices, and how to assess the quality of an
+resulting order. Finally, some guidance for choosing an appropriate
+method are given.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -179,7 +176,7 @@ visualization.</p>
 to one another and reveals two darker blocks along the diagonal.</p>
 </div>
 <div class="section level2">
-<h2 id="assess-an-order">Assess an order<a class="anchor" aria-label="anchor" href="#assess-an-order"></a>
+<h2 id="assess-the-quality-of-a-seriation-order">Assess the quality of a seriation order<a class="anchor" aria-label="anchor" href="#assess-the-quality-of-a-seriation-order"></a>
 </h2>
 <p><code><a href="../reference/criterion.html">criterion()</a></code> calculates objective measures for an order.
 The spectral method targets the 2-Sum criterion. Both 2-Sum and
@@ -246,18 +243,47 @@ leaves columns unchanged:</p>
 <h2 id="choose-a-method">Choose a method<a class="anchor" aria-label="anchor" href="#choose-a-method"></a>
 </h2>
 <p>Available methods depend on the input type. Use
-<code><a href="../reference/registry_for_seriation_methods.html">list_seriation_methods()</a></code> to discover valid method names and
-<code><a href="../reference/registry_for_seriation_methods.html">get_seriation_method()</a></code> to see a method’s description and
-control parameters.</p>
+<code><a href="../reference/registry_for_seriation_methods.html">list_seriation_methods()</a></code> to discover valid method
+names.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/registry_for_seriation_methods.html">list_seriation_methods</a></span><span class="op">(</span><span class="st">"dist"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "ARSA"      "BBURCG"    "BBWRCG"    "Enumerate" "GSA"       "GW"</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/registry_for_seriation_methods.html">list_seriation_methods</a></span><span class="op">(</span><span class="st">"dist"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "ARSA"           "BBURCG"         "BBWRCG"         "Enumerate"     </span></span>
+<span><span class="co">#&gt;  [5] "GSA"            "GW"             "GW_average"     "GW_complete"   </span></span>
+<span><span class="co">#&gt;  [9] "GW_single"      "GW_ward"        "HC"             "HC_average"    </span></span>
+<span><span class="co">#&gt; [13] "HC_complete"    "HC_single"      "HC_ward"        "Identity"      </span></span>
+<span><span class="co">#&gt; [17] "isoMDS"         "MDS"            "MDS_angle"      "OLO"           </span></span>
+<span><span class="co">#&gt; [21] "OLO_average"    "OLO_complete"   "OLO_single"     "OLO_ward"      </span></span>
+<span><span class="co">#&gt; [25] "QAP_2SUM"       "QAP_BAR"        "QAP_Inertia"    "QAP_LS"        </span></span>
+<span><span class="co">#&gt; [29] "R2E"            "Random"         "Reverse"        "Sammon_mapping"</span></span>
+<span><span class="co">#&gt; [33] "SGD"            "SGLS"           "Spectral"       "Spectral_norm" </span></span>
+<span><span class="co">#&gt; [37] "SPIN_NH"        "SPIN_STS"       "TSP"            "VAT"</span></span>
 <span><span class="fu"><a href="../reference/registry_for_seriation_methods.html">list_seriation_methods</a></span><span class="op">(</span><span class="st">"matrix"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "AOE"              "BEA"              "BEA_TSP"          "BK_unconstrained"</span></span>
 <span><span class="co">#&gt;  [5] "CA"               "Heatmap"          "Identity"         "LLE"             </span></span>
 <span><span class="co">#&gt;  [9] "Mean"             "PCA"              "PCA_angle"        "Random"          </span></span>
-<span><span class="co">#&gt; [13] "Reverse"</span></span>
-<span><span class="fu"><a href="../reference/registry_for_seriation_methods.html">get_seriation_method</a></span><span class="op">(</span><span class="st">"dist"</span>, <span class="st">"Spectral"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [13] "Reverse"</span></span></code></pre></div>
+<p>A comprehensive comparison of different seriation methods can be
+found in the paper <a href="http://dx.doi.org/10.1016/j.ejor.2016.08.066" class="external-link">An experimental
+comparison of seriation methods for one-mode two-way data</a> (<a href="http://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf" class="external-link">open-access
+preprint</a>). Useful starting points are:</p>
+<ul>
+<li>
+<code>"Spectral"</code> and <code>"QAP_2SUM"</code> for general
+dissimilarity data,</li>
+<li>
+<code>"OLO"</code> for a hierarchical clustering with optimal leaf
+ordering,</li>
+<li>
+<code>"TSP"</code> for a short path through the objects, and</li>
+<li>
+<code>"Heatmap"</code> for ordering the rows and columns of a data
+matrix using separate dissimilarities.</li>
+</ul>
+<p>Detailed method descriptions, what measure is optimized, and a list
+with available control parameters can be obtained with
+<code><a href="../reference/registry_for_seriation_methods.html">get_seriation_method()</a></code>.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/registry_for_seriation_methods.html">get_seriation_method</a></span><span class="op">(</span><span class="st">"dist"</span>, <span class="st">"Spectral"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; name:        Spectral</span></span>
 <span><span class="co">#&gt; kind:        dist</span></span>
 <span><span class="co">#&gt; optimizes:   2SUM (2-sum criterion)</span></span>
@@ -268,25 +294,11 @@ control parameters.</p>
 <span><span class="co">#&gt;              similarity matrix's Laplacian.</span></span>
 <span><span class="co">#&gt; control:</span></span>
 <span><span class="co">#&gt; no parameters</span></span></code></pre></div>
-<p>Useful starting points are:</p>
-<ul>
-<li>
-<code>"Spectral"</code> for general dissimilarity data,</li>
-<li>
-<code>"OLO"</code> for a hierarchical clustering with optimal leaf
-ordering,</li>
-<li>
-<code>"TSP"</code> for a short path through the objects, and</li>
-<li>
-<code>"Heatmap"</code> for ordering the rows and columns of a data
-matrix using separate dissimilarities.</li>
-</ul>
 <p>Some methods are randomized. For those methods, set a seed for
 reproducibility and use the <code>rep</code> argument to keep the best
 result from several restarts. Method-specific arguments can be supplied
-in <code>control</code> or directly through <code>...</code>; see
-<code><a href="../reference/seriate.html">?seriate</a></code> and the method information returned by
-<code><a href="../reference/registry_for_seriation_methods.html">get_seriation_method()</a></code>.</p>
+to <code><a href="../reference/seriate.html">seriate()</a></code> in <code>control</code> or directly through
+<code>...</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="where-to-go-next">Where to go next<a class="anchor" aria-label="anchor" href="#where-to-go-next"></a>

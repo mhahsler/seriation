@@ -69,47 +69,47 @@ for (m in methods) {
 }
 ```
 
-    ## ARSA took 0.193 sec.
-    ## DendSer took 0.317 sec.
-    ## DendSer_ARc took 0.393 sec.
-    ## DendSer_BAR took 0.323 sec.
-    ## DendSer_LPL took 0.384 sec.
-    ## DendSer_PL took 0.388 sec.
-    ## GW took 0.183 sec.
-    ## GW_average took 0.179 sec.
-    ## GW_complete took 0.18 sec.
-    ## GW_single took 0.177 sec.
-    ## GW_ward took 0.179 sec.
-    ## HC took 0.176 sec.
-    ## HC_average took 0.176 sec.
-    ## HC_complete took 0.177 sec.
-    ## HC_single took 0.176 sec.
-    ## HC_ward took 0.177 sec.
-    ## Identity took 0.177 sec.
-    ## isoMDS took 0.175 sec.
-    ## MDS took 0.176 sec.
-    ## MDS_angle took 0.175 sec.
-    ## MDS_smacof took 0.176 sec.
-    ## OLO took 0.177 sec.
-    ## OLO_average took 0.177 sec.
-    ## OLO_complete took 0.176 sec.
-    ## OLO_single took 0.18 sec.
-    ## OLO_ward took 0.175 sec.
-    ## optics took 0.182 sec.
-    ## QAP_2SUM took 0.177 sec.
-    ## QAP_BAR took 0.173 sec.
-    ## QAP_Inertia took 0.179 sec.
-    ## QAP_LS took 0.173 sec.
-    ## R2E took 0.172 sec.
-    ## Random took 0.176 sec.
-    ## Reverse took 0.174 sec.
-    ## Sammon_mapping took 0.173 sec.
-    ## Spectral took 0.177 sec.
-    ## Spectral_norm took 0.174 sec.
-    ## SPIN_NH took 0.192 sec.
-    ## SPIN_STS took 0.185 sec.
-    ## TSP took 0.175 sec.
-    ## VAT took 0.175 sec.
+    ## ARSA took 0.253 sec.
+    ## DendSer took 0.382 sec.
+    ## DendSer_ARc took 0.455 sec.
+    ## DendSer_BAR took 0.387 sec.
+    ## DendSer_LPL took 0.452 sec.
+    ## DendSer_PL took 0.549 sec.
+    ## GW took 0.25 sec.
+    ## GW_average took 0.243 sec.
+    ## GW_complete took 0.243 sec.
+    ## GW_single took 0.231 sec.
+    ## GW_ward took 0.234 sec.
+    ## HC took 0.225 sec.
+    ## HC_average took 0.24 sec.
+    ## HC_complete took 0.232 sec.
+    ## HC_single took 0.22 sec.
+    ## HC_ward took 0.219 sec.
+    ## Identity took 0.234 sec.
+    ## isoMDS took 0.221 sec.
+    ## MDS took 0.226 sec.
+    ## MDS_angle took 0.23 sec.
+    ## MDS_smacof took 0.223 sec.
+    ## OLO took 0.24 sec.
+    ## OLO_average took 0.227 sec.
+    ## OLO_complete took 0.238 sec.
+    ## OLO_single took 0.222 sec.
+    ## OLO_ward took 0.222 sec.
+    ## optics took 0.231 sec.
+    ## QAP_2SUM took 0.231 sec.
+    ## QAP_BAR took 0.22 sec.
+    ## QAP_Inertia took 0.225 sec.
+    ## QAP_LS took 0.214 sec.
+    ## R2E took 0.21 sec.
+    ## Random took 0.225 sec.
+    ## Reverse took 0.24 sec.
+    ## Sammon_mapping took 0.239 sec.
+    ## Spectral took 0.238 sec.
+    ## Spectral_norm took 0.226 sec.
+    ## SPIN_NH took 0.264 sec.
+    ## SPIN_STS took 0.227 sec.
+    ## TSP took 0.233 sec.
+    ## VAT took 0.218 sec.
 
 ``` r
 
@@ -212,18 +212,18 @@ for (m in methods) {
 }
 ```
 
-    ## BEA took 0.548 sec.
-    ## BEA_TSP took 0.535 sec.
-    ## BK_unconstrained took 0.178 sec.
-    ## CA took 0.175 sec.
-    ## Heatmap took 0.536 sec.
-    ## Identity took 0.178 sec.
-    ## LLE took 0.186 sec.
-    ## Mean took 0.181 sec.
-    ## PCA took 0.18 sec.
-    ## PCA_angle took 0.18 sec.
-    ## Random took 0.18 sec.
-    ## Reverse took 0.182 sec.
+    ## BEA took 0.749 sec.
+    ## BEA_TSP took 0.764 sec.
+    ## BK_unconstrained took 0.253 sec.
+    ## CA took 0.264 sec.
+    ## Heatmap took 0.767 sec.
+    ## Identity took 0.256 sec.
+    ## LLE took 0.261 sec.
+    ## Mean took 0.256 sec.
+    ## PCA took 0.246 sec.
+    ## PCA_angle took 0.258 sec.
+    ## Random took 0.249 sec.
+    ## Reverse took 0.26 sec.
 
 ``` r
 

@@ -8,13 +8,9 @@ in the original ordering.
 
 Package `seriation` provides a common interface to many seriation
 methods and tools for applying, assessing, and visualizing the resulting
-orders. This vignette introduces the basic workflow:
-
-1.  prepare a dissimilarity or data matrix,
-2.  find an order with
-    [`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md),
-3.  inspect or apply the order, and
-4.  visualize and assess the result.
+orders. This vignette introduces how to use seriation for distance and
+data matrices, and how to assess the quality of an resulting order.
+Finally, some guidance for choosing an appropriate method are given.
 
 ## Installation
 
@@ -124,7 +120,7 @@ pimage(d, order = o, main = "Spectral seriation")
 The reordered plot places justices with similar voting patterns next to
 one another and reveals two darker blocks along the diagonal.
 
-## Assess an order
+## Assess the quality of a seriation order
 
 [`criterion()`](http://michael.hahsler.net/seriation/reference/criterion.md)
 calculates objective measures for an order. The spectral method targets
@@ -211,19 +207,47 @@ head(get_order(o_rows, dim = 1))
 
 Available methods depend on the input type. Use
 [`list_seriation_methods()`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md)
-to discover valid method names and
-[`get_seriation_method()`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md)
-to see a method’s description and control parameters.
+to discover valid method names.
 
 ``` r
 
-head(list_seriation_methods("dist"))
-#> [1] "ARSA"      "BBURCG"    "BBWRCG"    "Enumerate" "GSA"       "GW"
+list_seriation_methods("dist")
+#>  [1] "ARSA"           "BBURCG"         "BBWRCG"         "Enumerate"     
+#>  [5] "GSA"            "GW"             "GW_average"     "GW_complete"   
+#>  [9] "GW_single"      "GW_ward"        "HC"             "HC_average"    
+#> [13] "HC_complete"    "HC_single"      "HC_ward"        "Identity"      
+#> [17] "isoMDS"         "MDS"            "MDS_angle"      "OLO"           
+#> [21] "OLO_average"    "OLO_complete"   "OLO_single"     "OLO_ward"      
+#> [25] "QAP_2SUM"       "QAP_BAR"        "QAP_Inertia"    "QAP_LS"        
+#> [29] "R2E"            "Random"         "Reverse"        "Sammon_mapping"
+#> [33] "SGD"            "SGLS"           "Spectral"       "Spectral_norm" 
+#> [37] "SPIN_NH"        "SPIN_STS"       "TSP"            "VAT"
 list_seriation_methods("matrix")
 #>  [1] "AOE"              "BEA"              "BEA_TSP"          "BK_unconstrained"
 #>  [5] "CA"               "Heatmap"          "Identity"         "LLE"             
 #>  [9] "Mean"             "PCA"              "PCA_angle"        "Random"          
 #> [13] "Reverse"
+```
+
+A comprehensive comparison of different seriation methods can be found
+in the paper [An experimental comparison of seriation methods for
+one-mode two-way data](http://dx.doi.org/10.1016/j.ejor.2016.08.066)
+([open-access
+preprint](http://michael.hahsler.net/research/paper/EJOR_seriation_2016.pdf)).
+Useful starting points are:
+
+- `"Spectral"` and `"QAP_2SUM"` for general dissimilarity data,
+- `"OLO"` for a hierarchical clustering with optimal leaf ordering,
+- `"TSP"` for a short path through the objects, and
+- `"Heatmap"` for ordering the rows and columns of a data matrix using
+  separate dissimilarities.
+
+Detailed method descriptions, what measure is optimized, and a list with
+available control parameters can be obtained with
+[`get_seriation_method()`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md).
+
+``` r
+
 get_seriation_method("dist", "Spectral")
 #> name:        Spectral
 #> kind:        dist
@@ -237,21 +261,11 @@ get_seriation_method("dist", "Spectral")
 #> no parameters
 ```
 
-Useful starting points are:
-
-- `"Spectral"` for general dissimilarity data,
-- `"OLO"` for a hierarchical clustering with optimal leaf ordering,
-- `"TSP"` for a short path through the objects, and
-- `"Heatmap"` for ordering the rows and columns of a data matrix using
-  separate dissimilarities.
-
 Some methods are randomized. For those methods, set a seed for
 reproducibility and use the `rep` argument to keep the best result from
-several restarts. Method-specific arguments can be supplied in `control`
-or directly through `...`; see
-[`?seriate`](http://michael.hahsler.net/seriation/reference/seriate.md)
-and the method information returned by
-[`get_seriation_method()`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md).
+several restarts. Method-specific arguments can be supplied to
+[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md)
+in `control` or directly through `...`.
 
 ## Where to go next
 
