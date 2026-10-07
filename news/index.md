@@ -2,6 +2,8 @@
 
 ## seriation 1.6.0 (10/06-2026)
 
+CRAN release: 2026-10-07
+
 ### Changes
 
 - Methods from vegan need now to be registered before use.
