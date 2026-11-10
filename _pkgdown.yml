@@ -1,7 +1,7 @@
-url: http://michael.hahsler.net/seriation/
+url: https://michael.hahsler.net/seriation/
 template:
   bootstrap: 5
-  math-rendering: mathjax
+  math-rendering: katex
 
 toc:
   depth: 3
