@@ -2,7 +2,7 @@
 
 Register the DendSer dendrogram seriation method and the ARc criterion
 (Earle and Hurley, 2015) for use with
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md).
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md).
 
 ## Usage
 
@@ -21,7 +21,7 @@ heuristic for reordering dendrograms developed by Earle and Hurley
 (2015) able to use different criteria.
 
 `control` for
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md)
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md)
 with method `"DendSer"` accepts the following parameters:
 
 - `"h"` or `"method"`: A dendrogram or a method for hierarchical
@@ -61,15 +61,15 @@ Statistics,* **24**(1), 1–25.
 [`DendSer::DendSer()`](https://rdrr.io/pkg/DendSer/man/DendSer.html)
 
 Other seriation:
-[`register_GA()`](http://michael.hahsler.net/seriation/reference/register_GA.md),
-[`register_optics()`](http://michael.hahsler.net/seriation/reference/register_optics.md),
-[`register_smacof()`](http://michael.hahsler.net/seriation/reference/register_smacof.md),
-[`register_tsne()`](http://michael.hahsler.net/seriation/reference/register_tsne.md),
-[`register_umap()`](http://michael.hahsler.net/seriation/reference/register_umap.md),
-[`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md),
-[`registry_for_seriation_methods`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md),
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md),
-[`seriate_best()`](http://michael.hahsler.net/seriation/reference/seriate_best.md)
+[`register_GA()`](https://michael.hahsler.net/seriation/reference/register_GA.md),
+[`register_optics()`](https://michael.hahsler.net/seriation/reference/register_optics.md),
+[`register_smacof()`](https://michael.hahsler.net/seriation/reference/register_smacof.md),
+[`register_tsne()`](https://michael.hahsler.net/seriation/reference/register_tsne.md),
+[`register_umap()`](https://michael.hahsler.net/seriation/reference/register_umap.md),
+[`register_vegan()`](https://michael.hahsler.net/seriation/reference/register_vegan.md),
+[`registry_for_seriation_methods`](https://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md),
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md),
+[`seriate_best()`](https://michael.hahsler.net/seriation/reference/seriate_best.md)
 
 ## Author
 

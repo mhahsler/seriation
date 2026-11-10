@@ -22,15 +22,15 @@ Edinburgh, 215–232.
 ## See also
 
 Other data:
-[`Chameleon`](http://michael.hahsler.net/seriation/reference/Chameleon.md),
-[`Irish`](http://michael.hahsler.net/seriation/reference/Irish.md),
-[`Psych24`](http://michael.hahsler.net/seriation/reference/Psych24.md),
-[`SupremeCourt`](http://michael.hahsler.net/seriation/reference/SupremeCourt.md),
-[`Townships`](http://michael.hahsler.net/seriation/reference/Townships.md),
-[`Wood`](http://michael.hahsler.net/seriation/reference/Wood.md),
-[`Zoo`](http://michael.hahsler.net/seriation/reference/Zoo.md),
-[`create_lines_data()`](http://michael.hahsler.net/seriation/reference/create_lines_data.md),
-[`is.robinson()`](http://michael.hahsler.net/seriation/reference/is.robinson.md)
+[`Chameleon`](https://michael.hahsler.net/seriation/reference/Chameleon.md),
+[`Irish`](https://michael.hahsler.net/seriation/reference/Irish.md),
+[`Psych24`](https://michael.hahsler.net/seriation/reference/Psych24.md),
+[`SupremeCourt`](https://michael.hahsler.net/seriation/reference/SupremeCourt.md),
+[`Townships`](https://michael.hahsler.net/seriation/reference/Townships.md),
+[`Wood`](https://michael.hahsler.net/seriation/reference/Wood.md),
+[`Zoo`](https://michael.hahsler.net/seriation/reference/Zoo.md),
+[`create_lines_data()`](https://michael.hahsler.net/seriation/reference/create_lines_data.md),
+[`is.robinson()`](https://michael.hahsler.net/seriation/reference/is.robinson.md)
 
 ## Examples
 
@@ -64,11 +64,8 @@ sigma <- SoS(x)
 library("MASS")
 mds <- isoMDS(1/(1+sigma))$points
 #> initial  value 21.862779 
-#> iter   5 value 15.918885
-#> iter  10 value 15.609393
-#> iter  10 value 15.600691
-#> iter  10 value 15.597381
-#> final  value 15.597381 
+#> iter   5 value 15.941716
+#> final  value 15.596555 
 #> converged
 
 ## plot Kendall's horse shoe
@@ -98,6 +95,6 @@ rbind(
    )
 #>                 Cor_R  ME Moore_stress Neumann_stress
 #> random    -0.01319356 143         3484           1556
-#> reordered -0.44671351 226         2738           1258
+#> reordered -0.93086430 229         2700           1246
 #> Hodson     0.94236369 239         2574           1206
 ```

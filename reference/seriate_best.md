@@ -56,7 +56,7 @@ seriate_improve(
 - control:
 
   a list of control options passed on to
-  [`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md).
+  [`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md).
   For `seriate_best()` control needs to be a named list of control lists
   with the names matching the seriation methods.
 
@@ -64,7 +64,7 @@ seriate_improve(
 
   `seriate_rep()` chooses the criterion specified for the method in the
   registry. A character string with the
-  [criterion](http://michael.hahsler.net/seriation/reference/criterion.md)
+  [criterion](https://michael.hahsler.net/seriation/reference/criterion.md)
   to optimize can be specified.
 
 - rep:
@@ -86,7 +86,7 @@ seriate_improve(
 - ...:
 
   further arguments are passed on to the
-  [`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md).
+  [`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md).
 
 - method:
 
@@ -101,7 +101,7 @@ seriate_improve(
 ## Value
 
 Returns an object of class
-[ser_permutation](http://michael.hahsler.net/seriation/reference/ser_permutation.md).
+[ser_permutation](https://michael.hahsler.net/seriation/reference/ser_permutation.md).
 
 ## Details
 
@@ -116,7 +116,7 @@ several times.
 
 `seriate_improve()` improves a seriation order using simulated annealing
 using a specified criterion measure. It uses
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md)
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md)
 with method "`GSA`", a reduced probability to accept bad moves, and a
 lower minimum temperature. Control parameters for this method are
 accepted.
@@ -152,15 +152,15 @@ one-mode two-way data. *European Journal of Operational Research,*
 ## See also
 
 Other seriation:
-[`register_DendSer()`](http://michael.hahsler.net/seriation/reference/register_DendSer.md),
-[`register_GA()`](http://michael.hahsler.net/seriation/reference/register_GA.md),
-[`register_optics()`](http://michael.hahsler.net/seriation/reference/register_optics.md),
-[`register_smacof()`](http://michael.hahsler.net/seriation/reference/register_smacof.md),
-[`register_tsne()`](http://michael.hahsler.net/seriation/reference/register_tsne.md),
-[`register_umap()`](http://michael.hahsler.net/seriation/reference/register_umap.md),
-[`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md),
-[`registry_for_seriation_methods`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md),
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md)
+[`register_DendSer()`](https://michael.hahsler.net/seriation/reference/register_DendSer.md),
+[`register_GA()`](https://michael.hahsler.net/seriation/reference/register_GA.md),
+[`register_optics()`](https://michael.hahsler.net/seriation/reference/register_optics.md),
+[`register_smacof()`](https://michael.hahsler.net/seriation/reference/register_smacof.md),
+[`register_tsne()`](https://michael.hahsler.net/seriation/reference/register_tsne.md),
+[`register_umap()`](https://michael.hahsler.net/seriation/reference/register_umap.md),
+[`register_vegan()`](https://michael.hahsler.net/seriation/reference/register_vegan.md),
+[`registry_for_seriation_methods`](https://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md),
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md)
 
 ## Author
 
@@ -199,14 +199,14 @@ o <- seriate_best(d_supreme, criterion = "AR_events", rep = 5)
 #> 
 #> Results (first was chosen):
 #>        method criterion  secs
-#> 1    spectral         5 0.254
-#> 3    QAP_2SUM         5 1.206
-#> 5      QAP_LS         5 1.225
-#> 6 QAP_Inertia         5 1.205
-#> 4     QAP_BAR         7 1.226
-#> 7         TSP         7 1.240
-#> 8 OLO_average         7 0.246
-#> 2         MDS        10 0.245
+#> 1    spectral         5 0.306
+#> 3    QAP_2SUM         5 1.640
+#> 5      QAP_LS         5 1.622
+#> 6 QAP_Inertia         5 1.479
+#> 4     QAP_BAR         7 1.479
+#> 7         TSP         7 1.476
+#> 8 OLO_average         7 0.302
+#> 2         MDS        10 0.298
 #> 
 o
 #> object of class ‘ser_permutation’, ‘list’

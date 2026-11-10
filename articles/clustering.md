@@ -70,7 +70,7 @@ plot. For comparison, we also add a cluster plot
 from package `cluster`). For the dissimilarity plot, we first calculate
 a distance matrix. We use the `ggplot2` version of the dissimilarity
 plot (a non-ggplot version is available using function
-[`dissplot()`](http://michael.hahsler.net/seriation/reference/dissplot.md)
+[`dissplot()`](https://michael.hahsler.net/seriation/reference/dissplot.md)
 with the same parameters).
 
 ``` r
@@ -90,13 +90,12 @@ find.
 
 Dissimilarity plots visualize the distances between points in a
 [distance matrix](https://en.wikipedia.org/wiki/Distance_matrix). A
-distance matrix for \\n\\ objects is a \\n \times n\\ matrix with
-pairwise distances as values. The diagonal contains the distances
-between each object and itself and therefore is always zero. In this
-visualization, low distance values are shown using a darker color. The
-result of a “good” clustering should be a matrix with low dissimilarity
-values forming blocks around the main diagonal corresponding to the
-clusters.
+distance matrix for n objects is a n \times n matrix with pairwise
+distances as values. The diagonal contains the distances between each
+object and itself and therefore is always zero. In this visualization,
+low distance values are shown using a darker color. The result of a
+“good” clustering should be a matrix with low dissimilarity values
+forming blocks around the main diagonal corresponding to the clusters.
 
 The dissimilarity plot shows a good clustering structure with the
 clusters forming four dark squares. The lower triangle shows the
@@ -106,7 +105,7 @@ similar and clusters 1 and 2 are the most dissimilar.
 
 Deciding on the number of clusters is a difficult problem. Next, we look
 at what happens when we misspecify the number of clusters. First, we use
-too few clusters with \\k = 3\\.
+too few clusters with k = 3.
 
 ``` r
 
@@ -126,7 +125,7 @@ The dissimilarity plot shows that cluster 2 actually consists of two
 clusters. This can be seen by the two triangles separated by a lighter
 square inside the cluster.
 
-Next, we use too many clusters with \\k=7\\.
+Next, we use too many clusters with k=7.
 
 ``` r
 
@@ -143,7 +142,7 @@ The cluster plot to the right shows that 7 may be a reasonable number to
 identify smaller groups. However, the dissimilarity plot also rearranges
 the clusters and still clearly shows that there are actually four
 well-defined clusters in the data. Dissimilarity plots make detecting a
-misspecification of \\k\\ a lot easier.
+misspecification of k a lot easier.
 
 We can also use dissimilarity plots for exploring data without
 clustering.
@@ -185,8 +184,8 @@ d_votes <- dist(x, method = "binary")
 
 Since our distances are not Euclidean now, we use PAM for clustering.
 [PAM](https://en.wikipedia.org/wiki/K-medoids) is similar to k-means,
-but accepts as input a distance matrix. We cluster with \\k=2\\, since
-we suspect two main political groups in the data.
+but accepts as input a distance matrix. We cluster with k=2, since we
+suspect two main political groups in the data.
 
 ``` r
 
@@ -207,7 +206,7 @@ the clusters are not completely clear inside with lighter streaks on one
 side.
 
 Maybe there are several sub-groups in each political party. We cluster
-again with \\k = 12\\.
+again with k = 12.
 
 ``` r
 

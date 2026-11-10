@@ -13,9 +13,9 @@ methods](https://michael.hahsler.net/seriation/articles/seriation_methods.html))
 `seriation` also provides a set of functions to display reordered
 heatmaps:
 
-- [`pimage()`](http://michael.hahsler.net/seriation/reference/pimage.md)
-- [`hmap()`](http://michael.hahsler.net/seriation/reference/hmap.md)
-- [`gghmap()`](http://michael.hahsler.net/seriation/reference/hmap.md)
+- [`pimage()`](https://michael.hahsler.net/seriation/reference/pimage.md)
+- [`hmap()`](https://michael.hahsler.net/seriation/reference/hmap.md)
+- [`gghmap()`](https://michael.hahsler.net/seriation/reference/hmap.md)
 
 How to cite the `seriation` package:
 
@@ -227,7 +227,7 @@ There are many other packages to create color palettes in R like
 ### ggplot2
 
 All options are also available for `ggplot2` using
-[`gghmap()`](http://michael.hahsler.net/seriation/reference/hmap.md).
+[`gghmap()`](https://michael.hahsler.net/seriation/reference/hmap.md).
 Currently there is no support to display dendrograms.
 
 ``` r
@@ -253,7 +253,7 @@ heatmap packages.
 ### heatmap in package stats
 
 This is R’s standard heatmap function.
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md)
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md)
 can be used to supply the reordered dendrogram.
 
 ``` r

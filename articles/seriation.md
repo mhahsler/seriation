@@ -62,7 +62,7 @@ pimage(d, main = "Original alphabetical order")
 
 ![](seriation_files/figure-html/original-distance-1.png)
 
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md)
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md)
 computes an order. Methods are selected by name. Here we use spectral
 seriation, which is also the default for a `dist` object.
 
@@ -78,7 +78,7 @@ o
 ```
 
 The result is a `ser_permutation` object.
-[`get_order()`](http://michael.hahsler.net/seriation/reference/get_order.md)
+[`get_order()`](https://michael.hahsler.net/seriation/reference/get_order.md)
 extracts the ordinary integer permutation vector, with names showing the
 labels in their new order.
 
@@ -92,7 +92,7 @@ get_order(o)
 ```
 
 The vector can be used for standard R subsetting. More generally,
-[`permute()`](http://michael.hahsler.net/seriation/reference/permute.md)
+[`permute()`](https://michael.hahsler.net/seriation/reference/permute.md)
 applies a seriation order while preserving the input object’s class.
 
 ``` r
@@ -122,7 +122,7 @@ one another and reveals two darker blocks along the diagonal.
 
 ## Assess the quality of a seriation order
 
-[`criterion()`](http://michael.hahsler.net/seriation/reference/criterion.md)
+[`criterion()`](https://michael.hahsler.net/seriation/reference/criterion.md)
 calculates objective measures for an order. The spectral method targets
 the 2-Sum criterion. Both 2-Sum and Hamiltonian path length are loss
 functions, so smaller values are better.
@@ -140,7 +140,7 @@ rbind(
 
 Different methods optimize different criteria, and a method that
 performs well for one goal need not be best for another. Use
-[`criterion()`](http://michael.hahsler.net/seriation/reference/criterion.md)
+[`criterion()`](https://michael.hahsler.net/seriation/reference/criterion.md)
 to compare orders using measures that match the purpose of the analysis.
 
 ## Seriate a data matrix
@@ -179,9 +179,9 @@ get_order(o_matrix, dim = 2)
 ```
 
 The same object can reorder both dimensions with
-[`permute()`](http://michael.hahsler.net/seriation/reference/permute.md)
+[`permute()`](https://michael.hahsler.net/seriation/reference/permute.md)
 or can be passed directly to
-[`pimage()`](http://michael.hahsler.net/seriation/reference/pimage.md).
+[`pimage()`](https://michael.hahsler.net/seriation/reference/pimage.md).
 
 ``` r
 
@@ -206,7 +206,7 @@ head(get_order(o_rows, dim = 1))
 ## Choose a method
 
 Available methods depend on the input type. Use
-[`list_seriation_methods()`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md)
+[`list_seriation_methods()`](https://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md)
 to discover valid method names.
 
 ``` r
@@ -244,7 +244,7 @@ Useful starting points are:
 
 Detailed method descriptions, what measure is optimized, and a list with
 available control parameters can be obtained with
-[`get_seriation_method()`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md).
+[`get_seriation_method()`](https://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md).
 
 ``` r
 
@@ -264,7 +264,7 @@ get_seriation_method("dist", "Spectral")
 Some methods are randomized. For those methods, set a seed for
 reproducibility and use the `rep` argument to keep the best result from
 several restarts. Method-specific arguments can be supplied to
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md)
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md)
 in `control` or directly through `...`.
 
 ## Where to go next
@@ -272,28 +272,28 @@ in `control` or directly through `...`.
 The package includes more focused guides:
 
 - [Seriation
-  methods](http://michael.hahsler.net/seriation/articles/seriation_methods.md)
+  methods](https://michael.hahsler.net/seriation/articles/seriation_methods.md)
   lists the available algorithms and their control parameters.
 - [Seriation
-  criteria](http://michael.hahsler.net/seriation/articles/seriation_criteria.md)
+  criteria](https://michael.hahsler.net/seriation/articles/seriation_criteria.md)
   describes measures for evaluating an order.
-- [Heatmaps](http://michael.hahsler.net/seriation/articles/heatmaps.md)
+- [Heatmaps](https://michael.hahsler.net/seriation/articles/heatmaps.md)
   covers
-  [`pimage()`](http://michael.hahsler.net/seriation/reference/pimage.md),
-  [`hmap()`](http://michael.hahsler.net/seriation/reference/hmap.md),
+  [`pimage()`](https://michael.hahsler.net/seriation/reference/pimage.md),
+  [`hmap()`](https://michael.hahsler.net/seriation/reference/hmap.md),
   and
-  [`gghmap()`](http://michael.hahsler.net/seriation/reference/hmap.md).
+  [`gghmap()`](https://michael.hahsler.net/seriation/reference/hmap.md).
 - [Correlation
-  matrices](http://michael.hahsler.net/seriation/articles/correlation_matrix.md)
+  matrices](https://michael.hahsler.net/seriation/articles/correlation_matrix.md)
   shows methods designed for correlations.
 - [Seriation and
-  clustering](http://michael.hahsler.net/seriation/articles/clustering.md)
+  clustering](https://michael.hahsler.net/seriation/articles/clustering.md)
   demonstrates reordered dissimilarity plots and cluster visualization.
 
 The help pages
-[`?seriate`](http://michael.hahsler.net/seriation/reference/seriate.md),
-[`?permute`](http://michael.hahsler.net/seriation/reference/permute.md),
-[`?criterion`](http://michael.hahsler.net/seriation/reference/criterion.md),
+[`?seriate`](https://michael.hahsler.net/seriation/reference/seriate.md),
+[`?permute`](https://michael.hahsler.net/seriation/reference/permute.md),
+[`?criterion`](https://michael.hahsler.net/seriation/reference/criterion.md),
 and
-[`?pimage`](http://michael.hahsler.net/seriation/reference/pimage.md)
+[`?pimage`](https://michael.hahsler.net/seriation/reference/pimage.md)
 provide the complete function reference.

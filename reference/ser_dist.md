@@ -2,7 +2,7 @@
 
 Calculates dissimilarities/correlations between seriation orders in a
 list of type
-[ser_permutation_vector](http://michael.hahsler.net/seriation/reference/ser_permutation_vector.md).
+[ser_permutation_vector](https://michael.hahsler.net/seriation/reference/ser_permutation_vector.md).
 
 ## Usage
 
@@ -20,7 +20,7 @@ ser_align(x, method = "spearman")
 
   set of seriation orders as a list with elements which can be coerced
   into
-  [ser_permutation_vector](http://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
+  [ser_permutation_vector](https://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
   objects.
 
 - y:
@@ -56,7 +56,7 @@ ser_align(x, method = "spearman")
   [stats::dist](https://rdrr.io/r/stats/dist.html).
 
 - `ser_align()` returns a new list with elements of class
-  [ser_permutation](http://michael.hahsler.net/seriation/reference/ser_permutation.md).
+  [ser_permutation](https://michael.hahsler.net/seriation/reference/ser_permutation.md).
 
 ## Details
 
@@ -129,12 +129,12 @@ Analysis and Machine Intelligence* **38**(5):833-48.
 ## See also
 
 Other permutation:
-[`get_order()`](http://michael.hahsler.net/seriation/reference/get_order.md),
-[`permutation_vector2matrix()`](http://michael.hahsler.net/seriation/reference/permutation_vector2matrix.md),
-[`permute()`](http://michael.hahsler.net/seriation/reference/permute.md),
-[`reorder.hclust()`](http://michael.hahsler.net/seriation/reference/reorder.hclust.md),
-[`ser_permutation()`](http://michael.hahsler.net/seriation/reference/ser_permutation.md),
-[`ser_permutation_vector()`](http://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
+[`get_order()`](https://michael.hahsler.net/seriation/reference/get_order.md),
+[`permutation_vector2matrix()`](https://michael.hahsler.net/seriation/reference/permutation_vector2matrix.md),
+[`permute()`](https://michael.hahsler.net/seriation/reference/permute.md),
+[`reorder.hclust()`](https://michael.hahsler.net/seriation/reference/reorder.hclust.md),
+[`ser_permutation()`](https://michael.hahsler.net/seriation/reference/ser_permutation.md),
+[`ser_permutation_vector()`](https://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
 
 ## Author
 
@@ -161,15 +161,15 @@ os <- sapply(methods, function(m) {
   cat("took", tm[3],"s.\n")
   o
 })
-#> Doing HC_complete ... took 0.232 s.
-#> Doing OLO ... took 0.235 s.
-#> Doing GW ... took 0.234 s.
-#> Doing VAT ... took 0.235 s.
-#> Doing TSP ... took 0.245 s.
-#> Doing Spectral ... took 0.251 s.
-#> Doing MDS ... took 0.242 s.
-#> Doing Identity ... took 0.238 s.
-#> Doing Random ... took 0.241 s.
+#> Doing HC_complete ... took 0.29 s.
+#> Doing OLO ... took 0.288 s.
+#> Doing GW ... took 0.297 s.
+#> Doing VAT ... took 0.297 s.
+#> Doing TSP ... took 0.297 s.
+#> Doing Spectral ... took 0.295 s.
+#> Doing MDS ... took 0.298 s.
+#> Doing Identity ... took 0.298 s.
+#> Doing Random ... took 0.304 s.
 
 ## Compare the methods using distances. Default is based on
 ## Spearman's rank correlation coefficient where reverse orders are

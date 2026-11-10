@@ -2,7 +2,7 @@
 
 Definition of different local neighborhood functions for the method
 `"SA"` for
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md).
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md).
 
 ## Usage
 
@@ -39,5 +39,5 @@ function can be defined.
 ## See also
 
 Other helper:
-[`lle()`](http://michael.hahsler.net/seriation/reference/lle.md),
-[`uniscale()`](http://michael.hahsler.net/seriation/reference/uniscale.md)
+[`lle()`](https://michael.hahsler.net/seriation/reference/lle.md),
+[`uniscale()`](https://michael.hahsler.net/seriation/reference/uniscale.md)

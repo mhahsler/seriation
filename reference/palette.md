@@ -1,9 +1,9 @@
 # Different Useful Color Palettes
 
 Defines several color palettes for
-[`pimage()`](http://michael.hahsler.net/seriation/reference/pimage.md),
-[`dissplot()`](http://michael.hahsler.net/seriation/reference/dissplot.md)
-and [`hmap()`](http://michael.hahsler.net/seriation/reference/hmap.md).
+[`pimage()`](https://michael.hahsler.net/seriation/reference/pimage.md),
+[`dissplot()`](https://michael.hahsler.net/seriation/reference/dissplot.md)
+and [`hmap()`](https://michael.hahsler.net/seriation/reference/hmap.md).
 
 ## Usage
 
@@ -42,9 +42,9 @@ grays(n = 100, bias = 1, power = 1, ...)
 - ...:
 
   further parameters are passed on to
-  [`colorspace::sequential_hcl()`](https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html)
+  [`colorspace::sequential_hcl()`](https://zeileis.codeberg.page/colorspace/reference/hcl_palettes.html)
   or
-  [`colorspace::diverging_hcl()`](https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html).
+  [`colorspace::diverging_hcl()`](https://zeileis.codeberg.page/colorspace/reference/hcl_palettes.html).
 
 ## Value
 
@@ -53,9 +53,9 @@ A vector with `n` colors.
 ## Details
 
 The color palettes are created with
-[`colorspace::sequential_hcl()`](https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html)
+[`colorspace::sequential_hcl()`](https://zeileis.codeberg.page/colorspace/reference/hcl_palettes.html)
 and
-[`colorspace::diverging_hcl()`](https://colorspace.R-Forge.R-project.org/reference/hcl_palettes.html).
+[`colorspace::diverging_hcl()`](https://zeileis.codeberg.page/colorspace/reference/hcl_palettes.html).
 
 The two sequential palettes are: `reds()` and `grays()` (or `greys()`).
 
@@ -64,11 +64,11 @@ The two diverging palettes are: `bluered()` and `greenred()`.
 ## See also
 
 Other plots:
-[`VAT()`](http://michael.hahsler.net/seriation/reference/VAT.md),
-[`bertinplot()`](http://michael.hahsler.net/seriation/reference/bertinplot.md),
-[`dissplot()`](http://michael.hahsler.net/seriation/reference/dissplot.md),
-[`hmap()`](http://michael.hahsler.net/seriation/reference/hmap.md),
-[`pimage()`](http://michael.hahsler.net/seriation/reference/pimage.md)
+[`VAT()`](https://michael.hahsler.net/seriation/reference/VAT.md),
+[`bertinplot()`](https://michael.hahsler.net/seriation/reference/bertinplot.md),
+[`dissplot()`](https://michael.hahsler.net/seriation/reference/dissplot.md),
+[`hmap()`](https://michael.hahsler.net/seriation/reference/hmap.md),
+[`pimage()`](https://michael.hahsler.net/seriation/reference/pimage.md)
 
 ## Author
 

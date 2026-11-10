@@ -11,8 +11,8 @@ methods](https://michael.hahsler.net/seriation/articles/seriation_methods.html))
 `seriation` also provides a set of functions to display reordered
 matrices:
 
-- [`pimage()`](http://michael.hahsler.net/seriation/reference/pimage.md)
-- [`ggpimage()`](http://michael.hahsler.net/seriation/reference/pimage.md)
+- [`pimage()`](https://michael.hahsler.net/seriation/reference/pimage.md)
+- [`ggpimage()`](https://michael.hahsler.net/seriation/reference/pimage.md)
 
 How to cite the `seriation` package:
 
@@ -126,7 +126,7 @@ ggpimage(m, order = "AOE") + scale_fill_gradient2(low = "red", high = "darkgreen
 
 We can apply any seriation method for distances to create an order.
 First, we convert the correlation matrix into a distance matrix using
-\\d\_{ij} = \sqrt{1 - m\_{ij}}\\. Then we can use the distances for
+d\_{ij} = \sqrt{1 - m\_{ij}}. Then we can use the distances for
 seriation and use the resulting order to rearrange the rows and columns
 of the correlation matrix.
 

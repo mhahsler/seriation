@@ -82,7 +82,7 @@ Dendrogram seriation for Anti-Robinson form cost (Earle and Hurley,
 2015).
 
 - optimizes:
-  [ARc](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#arc)
+  [ARc](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#arc)
   (Anti-Robinson form cost restricted by dendrogram)
 - randomized: FALSE
 - registered by: register_DendSer()
@@ -103,7 +103,7 @@ Dendrogram seriation for Anti-Robinson form cost (Earle and Hurley,
 Dendrogram seriation with BAR (Earle and Hurley, 2015).
 
 - optimizes:
-  [BAR](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#bar)
+  [BAR](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#bar)
   (banded anti-Robinson form restricted by dendrogram)
 - randomized: FALSE
 - registered by: register_DendSer()
@@ -124,7 +124,7 @@ Dendrogram seriation with BAR (Earle and Hurley, 2015).
 Dendrogram seriation for Lazy path length (Earle and Hurley, 2015).
 
 - optimizes:
-  [Lazy_path_length](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#lazy_path_length)
+  [Lazy_path_length](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#lazy_path_length)
   (restricted by dendrogram)
 - randomized: FALSE
 - registered by: register_DendSer()
@@ -145,7 +145,7 @@ Dendrogram seriation for Lazy path length (Earle and Hurley, 2015).
 Dendrogram seriation for Path length (Earle and Hurley, 2015).
 
 - optimizes:
-  [Path_length](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
+  [Path_length](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
   (restricted by dendrogram)
 - randomized: FALSE
 - registered by: register_DendSer()
@@ -168,7 +168,7 @@ hierarchical clustering and reordered by the Gruvaeus and Wainer (1972)
 heuristic
 
 - optimizes:
-  [Path_length](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
+  [Path_length](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
   (restricted by dendrogram)
 - randomized: FALSE
 - control parameters:
@@ -187,7 +187,7 @@ hierarchical clustering and reordered by the Gruvaeus and Wainer (1972)
 heuristic (avg.link)
 
 - optimizes:
-  [Path_length](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
+  [Path_length](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
   (restricted by dendrogram)
 - randomized: FALSE
 - control parameters: no parameters
@@ -201,7 +201,7 @@ hierarchical clustering and reordered by the Gruvaeus and Wainer (1972)
 heuristic (complete link)
 
 - optimizes:
-  [Path_length](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
+  [Path_length](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
   (restricted by dendrogram)
 - randomized: FALSE
 - control parameters: no parameters
@@ -215,7 +215,7 @@ hierarchical clustering and reordered by the Gruvaeus and Wainer (1972)
 heuristic (single link)
 
 - optimizes:
-  [Path_length](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
+  [Path_length](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
   (restricted by dendrogram)
 - randomized: FALSE
 - control parameters: no parameters
@@ -229,7 +229,7 @@ hierarchical clustering and reordered by the Gruvaeus and Wainer (1972)
 heuristic (Ward’s method)
 
 - optimizes:
-  [Path_length](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
+  [Path_length](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
   (restricted by dendrogram)
 - randomized: FALSE
 - control parameters: no parameters
@@ -303,7 +303,7 @@ hierarchical clustering and reordered with optimal leaf ordering
 (Bar-Joseph et al., 2001)
 
 - optimizes:
-  [Path_length](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
+  [Path_length](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
   (restricted by dendrogram)
 - randomized: FALSE
 - control parameters:
@@ -322,7 +322,7 @@ hierarchical clustering and reordered with optimal leaf ordering
 (Bar-Joseph et al., 2001) (avg. link)
 
 - optimizes:
-  [Path_length](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
+  [Path_length](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
   (restricted by dendrogram)
 - randomized: FALSE
 - control parameters: no parameters
@@ -336,7 +336,7 @@ hierarchical clustering and reordered with optimal leaf ordering
 (Bar-Joseph et al., 2001) (complete link)
 
 - optimizes:
-  [Path_length](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
+  [Path_length](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
   (restricted by dendrogram)
 - randomized: FALSE
 - control parameters: no parameters
@@ -350,7 +350,7 @@ hierarchical clustering and reordered with optimal leaf ordering
 (Bar-Joseph et al., 2001) (single link)
 
 - optimizes:
-  [Path_length](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
+  [Path_length](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
   (restricted by dendrogram)
 - randomized: FALSE
 - control parameters: no parameters
@@ -364,7 +364,7 @@ hierarchical clustering and reordered with optimal leaf ordering
 (Bar-Joseph et al., 2001) (Ward’s method)
 
 - optimizes:
-  [Path_length](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
+  [Path_length](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
   (restricted by dendrogram)
 - randomized: FALSE
 - control parameters: no parameters
@@ -382,7 +382,7 @@ reconstruction error.
 Order along the 1D classical metric multidimensional scaling
 
 - optimizes:
-  [MDS_stress](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#mds_stress)
+  [MDS_stress](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#mds_stress)
   (Euclidean distances)
 - randomized: FALSE
 - control parameters:
@@ -413,7 +413,7 @@ largest gap
 Order along the 1D Kruskal’s non-metric multidimensional scaling
 
 - optimizes:
-  [MDS_stress](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#mds_stress)
+  [MDS_stress](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#mds_stress)
   (with monotonic transformation)
 - randomized: FALSE
 - control parameters:
@@ -450,7 +450,7 @@ Kruskal’s (1964a,b) non-metric multidimensional scaling (NMDS) using
 monotone regression.
 
 - optimizes:
-  [MDS_stress](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#mds_stress)
+  [MDS_stress](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#mds_stress)
   (Kruskal’s monotone regression stress)
 - randomized: TRUE
 - registered by: register_vegan()
@@ -478,7 +478,7 @@ Nonmetric Multidimensional Scaling with Stable Solution from Random
 Starts.
 
 - optimizes:
-  [MDS_stress](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#mds_stress)
+  [MDS_stress](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#mds_stress)
   (Kruskal’s monotone regression stress)
 - randomized: FALSE
 - registered by: register_vegan()
@@ -506,7 +506,7 @@ Starts.
 Order along the 1D Sammon’s non-linear mapping
 
 - optimizes:
-  [MDS_stress](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#mds_stress)
+  [MDS_stress](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#mds_stress)
   (scale free, weighted stress called Sammon’s error)
 - randomized: FALSE
 - control parameters:
@@ -527,7 +527,7 @@ Seriation based on multidimensional scaling using stress majorization
 (de Leeuw & Mair, 2009).
 
 - optimizes:
-  [smacof_stress0](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#smacof_stress0)
+  [smacof_stress0](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#smacof_stress0)
   (MDS stress)
 - randomized: FALSE
 - registered by: register_smacof()
@@ -614,7 +614,7 @@ Minimize the linear seriation criterion using simulated annealing
 (Brusco et al, 2008).
 
 - optimizes:
-  [LS](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#ls)
+  [LS](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#ls)
   (Linear seriation criterion)
 - randomized: TRUE
 - control parameters:
@@ -651,7 +651,7 @@ and Stahl 2005). This is only feasible for a relatively small number of
 objects.
 
 - optimizes:
-  [Gradient_raw](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#gradient_raw)
+  [Gradient_raw](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#gradient_raw)
   (Unweighted gradient condition)
 - randomized: FALSE
 - control parameters:
@@ -670,7 +670,7 @@ and Stahl 2005). This is only feasible for a relatively small number of
 objects.
 
 - optimizes:
-  [Gradient_weighted](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#gradient_weighted)
+  [Gradient_weighted](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#gradient_weighted)
   (Weighted gradient condition)
 - randomized: FALSE
 - control parameters:
@@ -757,7 +757,7 @@ simulated annealing solver to minimize the Linear Seriation Problem (LS)
 criterion (Hubert and Schultz 1976).
 
 - optimizes:
-  [LS](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#ls)
+  [LS](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#ls)
   (Linear seriation criterion)
 - randomized: TRUE
 - control parameters: no parameters
@@ -771,7 +771,7 @@ simulated annealing solver to minimize the 2-Sum Problem criterion
 (Barnard, Pothen, and Simon 1993).
 
 - optimizes:
-  [2SUM](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#sum)
+  [2SUM](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#sum)
   (2-sum criterion)
 - randomized: TRUE
 - control parameters: no parameters
@@ -785,7 +785,7 @@ simulated annealing solver to minimize the banded anti-Robinson form
 (Hahsler, 2017).
 
 - optimizes:
-  [BAR](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#bar)
+  [BAR](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#bar)
   (Banded anti-robinson form)
 - randomized: TRUE
 - control parameters:
@@ -803,7 +803,7 @@ simulated annealing solver to minimize the Inertia criterion (Hahsler,
 2017).
 
 - optimizes:
-  [Inertia](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#inertia)
+  [Inertia](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#inertia)
 - randomized: TRUE
 - control parameters: no parameters
 
@@ -816,7 +816,7 @@ Spectral seriation (Ding and He 2004) uses a relaxation to minimize the
 the Fiedler vector of the similarity matrix’s Laplacian.
 
 - optimizes:
-  [2SUM](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#sum)
+  [2SUM](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#sum)
   (2-sum criterion)
 - randomized: FALSE
 - control parameters: no parameters
@@ -830,7 +830,7 @@ Spectral seriation (Ding and He 2004) uses a relaxation to minimize the
 the Fiedler vector of the similarity matrix’s normalized Laplacian.
 
 - optimizes:
-  [2SUM](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#sum)
+  [2SUM](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#sum)
   (2-sum criterion)
 - randomized: FALSE
 - control parameters: no parameters
@@ -842,7 +842,7 @@ the Fiedler vector of the similarity matrix’s normalized Laplacian.
 Minimize Hamiltonian path length with a TSP solver.
 
 - optimizes:
-  [Path_length](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
+  [Path_length](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#path_length)
 - randomized: TRUE
 - control parameters:
 
@@ -975,7 +975,7 @@ Bond Energy Algorithm (BEA; McCormick 1972) to maximize the Measure of
 Effectiveness of a non-negative matrix.
 
 - optimizes:
-  [ME](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#me)
+  [ME](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#me)
   (Measure of effectiveness)
 - randomized: TRUE
 - control parameters: no parameters
@@ -987,7 +987,7 @@ Effectiveness of a non-negative matrix.
 Use a TSP to optimize the Measure of Effectiveness (Lenstra 1974).
 
 - optimizes:
-  [ME](http://michael.hahsler.net/seriation/articles/seriation_criteria.html#me)
+  [ME](https://michael.hahsler.net/seriation/articles/seriation_criteria.html#me)
   (Measure of effectiveness)
 - randomized: TRUE
 - control parameters:

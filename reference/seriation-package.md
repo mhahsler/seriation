@@ -11,17 +11,17 @@ dissimilarity plots, and visual assessment of cluster tendency plots
 ## Key functions
 
 - Seriation:
-  [`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md),
-  [`criterion()`](http://michael.hahsler.net/seriation/reference/criterion.md),
-  [`get_order()`](http://michael.hahsler.net/seriation/reference/get_order.md),
-  [`permute()`](http://michael.hahsler.net/seriation/reference/permute.md)
+  [`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md),
+  [`criterion()`](https://michael.hahsler.net/seriation/reference/criterion.md),
+  [`get_order()`](https://michael.hahsler.net/seriation/reference/get_order.md),
+  [`permute()`](https://michael.hahsler.net/seriation/reference/permute.md)
 
 - Visualization:
-  [`pimage()`](http://michael.hahsler.net/seriation/reference/pimage.md),
-  [`bertinplot()`](http://michael.hahsler.net/seriation/reference/bertinplot.md),
-  [`hmap()`](http://michael.hahsler.net/seriation/reference/hmap.md),
-  [`dissplot()`](http://michael.hahsler.net/seriation/reference/dissplot.md),
-  [`VAT()`](http://michael.hahsler.net/seriation/reference/VAT.md)
+  [`pimage()`](https://michael.hahsler.net/seriation/reference/pimage.md),
+  [`bertinplot()`](https://michael.hahsler.net/seriation/reference/bertinplot.md),
+  [`hmap()`](https://michael.hahsler.net/seriation/reference/hmap.md),
+  [`dissplot()`](https://michael.hahsler.net/seriation/reference/dissplot.md),
+  [`VAT()`](https://michael.hahsler.net/seriation/reference/VAT.md)
 
 ## Available seriation methods and criteria
 

@@ -1,7 +1,7 @@
 # Register Seriation Methods from Package smacof
 
 Registers the `"MDS_smacof"` method for
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md)
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md)
 based on multidimensional scaling using stress majorization and the
 corresponding `"smacof_stress0"` criterion implemented in package smacof
 (de Leeuw & Mair, 2009).
@@ -44,15 +44,15 @@ Majorization: SMACOF in R. *Journal of Statistical Software, 31(3),*
 ## See also
 
 Other seriation:
-[`register_DendSer()`](http://michael.hahsler.net/seriation/reference/register_DendSer.md),
-[`register_GA()`](http://michael.hahsler.net/seriation/reference/register_GA.md),
-[`register_optics()`](http://michael.hahsler.net/seriation/reference/register_optics.md),
-[`register_tsne()`](http://michael.hahsler.net/seriation/reference/register_tsne.md),
-[`register_umap()`](http://michael.hahsler.net/seriation/reference/register_umap.md),
-[`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md),
-[`registry_for_seriation_methods`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md),
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md),
-[`seriate_best()`](http://michael.hahsler.net/seriation/reference/seriate_best.md)
+[`register_DendSer()`](https://michael.hahsler.net/seriation/reference/register_DendSer.md),
+[`register_GA()`](https://michael.hahsler.net/seriation/reference/register_GA.md),
+[`register_optics()`](https://michael.hahsler.net/seriation/reference/register_optics.md),
+[`register_tsne()`](https://michael.hahsler.net/seriation/reference/register_tsne.md),
+[`register_umap()`](https://michael.hahsler.net/seriation/reference/register_umap.md),
+[`register_vegan()`](https://michael.hahsler.net/seriation/reference/register_vegan.md),
+[`registry_for_seriation_methods`](https://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md),
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md),
+[`seriate_best()`](https://michael.hahsler.net/seriation/reference/seriate_best.md)
 
 ## Examples
 

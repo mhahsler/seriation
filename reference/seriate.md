@@ -4,7 +4,7 @@ Tries to find a linear order for objects using data in the form of a
 dissimilarity matrix (two-way one-mode data), a data matrix (two-way
 two-mode data), or a data array (k-way k-mode data). The order can then
 be used to reorder the dissimilarity matrix/data matrix using
-[`permute()`](http://michael.hahsler.net/seriation/reference/permute.md).
+[`permute()`](https://michael.hahsler.net/seriation/reference/permute.md).
 
 ## Usage
 
@@ -63,7 +63,7 @@ seriate(x, method = "CA", control = NULL, margin = c(1L, 2L), ...)
 - rep:
 
   number of random restarts for randomized methods. Uses
-  [`seriate_rep()`](http://michael.hahsler.net/seriation/reference/seriate_best.md).
+  [`seriate_rep()`](https://michael.hahsler.net/seriation/reference/seriate_best.md).
 
 - margin:
 
@@ -75,12 +75,12 @@ seriate(x, method = "CA", control = NULL, margin = c(1L, 2L), ...)
 ## Value
 
 Returns an object of class
-[ser_permutation](http://michael.hahsler.net/seriation/reference/ser_permutation.md).
+[ser_permutation](https://michael.hahsler.net/seriation/reference/ser_permutation.md).
 
 ## Details
 
 Seriation methods are managed via a registry. See
-[`list_seriation_methods()`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md)
+[`list_seriation_methods()`](https://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md)
 for help. In the following, we focus on discussing the methods provided
 by the package seriation. Some methods that use optional packages need
 to be registered first using a `register_*()` function.
@@ -96,12 +96,12 @@ control parameter `verbose = TRUE`.
 Many seriation methods (heuristically) optimize (minimize or maximize)
 an objective function often called seriation criterion. The value of the
 seriation criterion for a given order can be calculated using
-[`criterion()`](http://michael.hahsler.net/seriation/reference/criterion.md).
+[`criterion()`](https://michael.hahsler.net/seriation/reference/criterion.md).
 In this manual page, we include the criterion, which is optimized by
 each method using **bold font**. If no criterion is mentioned, then the
 method does not directly optimize a criterion. A definition of the
 different seriation criteria can be found on the
-[`criterion()`](http://michael.hahsler.net/seriation/reference/criterion.md)
+[`criterion()`](https://michael.hahsler.net/seriation/reference/criterion.md)
 manual page.
 
 **Seriation methods for distance matrices (dist)**
@@ -178,7 +178,7 @@ reordering may be applied.
   Use heuristic dendrogram seriation to optimize for various criteria.
   The DendSer code has to be first registered. A detailed description
   can be found on the manual page for
-  [`register_DendSer()`](http://michael.hahsler.net/seriation/reference/register_DendSer.md).
+  [`register_DendSer()`](https://michael.hahsler.net/seriation/reference/register_DendSer.md).
 
 **Dimensionality reduction**
 
@@ -201,7 +201,7 @@ sufficient for applications like visualization.
 
   Orders along the 1D isometric feature mapping. This method is
   available after calling
-  [`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md).
+  [`register_vegan()`](https://michael.hahsler.net/seriation/reference/register_vegan.md).
   `control` parameters are passed on to
   [`vegan::isomap()`](https://vegandevs.github.io/vegan/reference/isomap.html)
 
@@ -210,7 +210,7 @@ sufficient for applications like visualization.
 
   Orders along the 1D Kruskal's non-metric multidimensional scaling.
   Package vegan provides optional methods. Call
-  [`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md)
+  [`register_vegan()`](https://michael.hahsler.net/seriation/reference/register_vegan.md)
   to register `"monoMDS"` and `"metaMDS"`. It provides an alternative
   implementation called `monoMDS` and a version that uses random
   restarts for stability called `metaMDS`. `control` parameters are
@@ -240,7 +240,7 @@ sufficient for applications like visualization.
 
   Perform seriation using stress majorization with several
   transformation functions. This method has to be registered first using
-  [`register_smacof()`](http://michael.hahsler.net/seriation/reference/register_smacof.md).
+  [`register_smacof()`](https://michael.hahsler.net/seriation/reference/register_smacof.md).
 
 **Optimization**
 
@@ -286,7 +286,7 @@ using a heuristic approach.
 
   The GA code has to be first registered. A detailed description can be
   found on the manual page for
-  [`register_GA()`](http://michael.hahsler.net/seriation/reference/register_GA.md).
+  [`register_GA()`](https://michael.hahsler.net/seriation/reference/register_GA.md).
 
 - **Quadratic assignment problem seriation:** `"QAP_LS"`, `"QAP_2SUM"`,
   `"QAP_BAR"`, `"QAP_Inertia"` (Hahsler, 2017)
@@ -325,7 +325,7 @@ using a heuristic approach.
 
   Several popular local neighborhood functions are provided, and new
   ones can be defined (see
-  [LS](http://michael.hahsler.net/seriation/reference/LS.md)). Local
+  [LS](https://michael.hahsler.net/seriation/reference/LS.md)). Local
   moves are tried in each iteration `nlocal` times the number of
   objects.
 
@@ -563,7 +563,7 @@ same technique to the transposed data matrix.
 
 Performs 1D the non-linear dimensionality reduction method locally
 linear embedding (see
-[`lle()`](http://michael.hahsler.net/seriation/reference/lle.md)).
+[`lle()`](https://michael.hahsler.net/seriation/reference/lle.md)).
 
 - **Order along the first principal component:** `"PCA"`
 
@@ -727,15 +727,15 @@ Sammon, J. W. (1969) A non-linear mapping for data structure analysis.
 ## See also
 
 Other seriation:
-[`register_DendSer()`](http://michael.hahsler.net/seriation/reference/register_DendSer.md),
-[`register_GA()`](http://michael.hahsler.net/seriation/reference/register_GA.md),
-[`register_optics()`](http://michael.hahsler.net/seriation/reference/register_optics.md),
-[`register_smacof()`](http://michael.hahsler.net/seriation/reference/register_smacof.md),
-[`register_tsne()`](http://michael.hahsler.net/seriation/reference/register_tsne.md),
-[`register_umap()`](http://michael.hahsler.net/seriation/reference/register_umap.md),
-[`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md),
-[`registry_for_seriation_methods`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md),
-[`seriate_best()`](http://michael.hahsler.net/seriation/reference/seriate_best.md)
+[`register_DendSer()`](https://michael.hahsler.net/seriation/reference/register_DendSer.md),
+[`register_GA()`](https://michael.hahsler.net/seriation/reference/register_GA.md),
+[`register_optics()`](https://michael.hahsler.net/seriation/reference/register_optics.md),
+[`register_smacof()`](https://michael.hahsler.net/seriation/reference/register_smacof.md),
+[`register_tsne()`](https://michael.hahsler.net/seriation/reference/register_tsne.md),
+[`register_umap()`](https://michael.hahsler.net/seriation/reference/register_umap.md),
+[`register_vegan()`](https://michael.hahsler.net/seriation/reference/register_vegan.md),
+[`registry_for_seriation_methods`](https://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md),
+[`seriate_best()`](https://michael.hahsler.net/seriation/reference/seriate_best.md)
 
 ## Author
 

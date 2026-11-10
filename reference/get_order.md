@@ -1,9 +1,9 @@
 # Extracting Order Information from a Permutation Object
 
 Method to get the order information from an object of class
-[ser_permutation](http://michael.hahsler.net/seriation/reference/ser_permutation.md)
+[ser_permutation](https://michael.hahsler.net/seriation/reference/ser_permutation.md)
 or
-[ser_permutation_vector](http://michael.hahsler.net/seriation/reference/ser_permutation_vector.md).
+[ser_permutation_vector](https://michael.hahsler.net/seriation/reference/ser_permutation_vector.md).
 Order information can be extracted as a permutation vector, a vector
 containing each object's rank or a permutation matrix.
 
@@ -40,9 +40,9 @@ get_permutation_matrix(x, ...)
 - x:
 
   an object of class
-  [ser_permutation](http://michael.hahsler.net/seriation/reference/ser_permutation.md)
+  [ser_permutation](https://michael.hahsler.net/seriation/reference/ser_permutation.md)
   or
-  [ser_permutation_vector](http://michael.hahsler.net/seriation/reference/ser_permutation_vector.md).
+  [ser_permutation_vector](https://michael.hahsler.net/seriation/reference/ser_permutation_vector.md).
 
 - ...:
 
@@ -84,12 +84,12 @@ an order.
 ## See also
 
 Other permutation:
-[`permutation_vector2matrix()`](http://michael.hahsler.net/seriation/reference/permutation_vector2matrix.md),
-[`permute()`](http://michael.hahsler.net/seriation/reference/permute.md),
-[`reorder.hclust()`](http://michael.hahsler.net/seriation/reference/reorder.hclust.md),
-[`ser_dist()`](http://michael.hahsler.net/seriation/reference/ser_dist.md),
-[`ser_permutation()`](http://michael.hahsler.net/seriation/reference/ser_permutation.md),
-[`ser_permutation_vector()`](http://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
+[`permutation_vector2matrix()`](https://michael.hahsler.net/seriation/reference/permutation_vector2matrix.md),
+[`permute()`](https://michael.hahsler.net/seriation/reference/permute.md),
+[`reorder.hclust()`](https://michael.hahsler.net/seriation/reference/reorder.hclust.md),
+[`ser_dist()`](https://michael.hahsler.net/seriation/reference/ser_dist.md),
+[`ser_permutation()`](https://michael.hahsler.net/seriation/reference/ser_permutation.md),
+[`ser_permutation_vector()`](https://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
 
 ## Author
 

@@ -1,7 +1,7 @@
 # Registry for Criterion Methods
 
 A registry to manage methods used by
-[`criterion()`](http://michael.hahsler.net/seriation/reference/criterion.md)
+[`criterion()`](https://michael.hahsler.net/seriation/reference/criterion.md)
 to calculate a criterion value given data and a permutation.
 
 ## Usage
@@ -43,7 +43,7 @@ print(x, ...)
 - name:
 
   the name for the method used to refer to the method in the function
-  [`criterion()`](http://michael.hahsler.net/seriation/reference/criterion.md).
+  [`criterion()`](https://michael.hahsler.net/seriation/reference/criterion.md).
 
 - fun:
 
@@ -78,7 +78,7 @@ print(x, ...)
 
 - `list_criterion_method()` results is a vector of character strings
   with the names of the methods used for
-  [`criterion()`](http://michael.hahsler.net/seriation/reference/criterion.md).
+  [`criterion()`](https://michael.hahsler.net/seriation/reference/criterion.md).
 
 - `get_criterion_method()` returns a given method in form of an object
   of class `"criterion_method"`.
@@ -101,10 +101,10 @@ With `set_criterion_method()` new criterion methods can be added by the
 user. The implementing function (`fun`) needs to have the formal
 arguments `x, order, ...`, where `x` is the data object, order is an
 object of class
-[ser_permutation_vector](http://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
+[ser_permutation_vector](https://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
 and `...` can contain additional information for the method passed on
 from
-[`criterion()`](http://michael.hahsler.net/seriation/reference/criterion.md).
+[`criterion()`](https://michael.hahsler.net/seriation/reference/criterion.md).
 The implementation has to return the criterion value as a scalar.
 
 ## See also
@@ -113,7 +113,7 @@ This registry uses
 [registry::registry](https://rdrr.io/pkg/registry/man/registry.html).
 
 Other criterion:
-[`criterion()`](http://michael.hahsler.net/seriation/reference/criterion.md)
+[`criterion()`](https://michael.hahsler.net/seriation/reference/criterion.md)
 
 ## Author
 

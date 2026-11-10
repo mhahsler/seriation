@@ -5,7 +5,7 @@ various objects including vectors, lists, dendrograms (also `hclust`
 objects), the order of observations in a `dist` object, the rows and
 columns of a matrix or data.frame, and all dimensions of an array given
 a suitable
-[ser_permutation](http://michael.hahsler.net/seriation/reference/ser_permutation.md)
+[ser_permutation](https://michael.hahsler.net/seriation/reference/ser_permutation.md)
 object.
 
 ## Usage
@@ -55,11 +55,11 @@ permute(x, order, dist = NULL, ...)
 - order:
 
   an object of class
-  [ser_permutation](http://michael.hahsler.net/seriation/reference/ser_permutation.md)
+  [ser_permutation](https://michael.hahsler.net/seriation/reference/ser_permutation.md)
   which contains suitable permutation vectors for `x`. Alternatively, a
   character string with the name of a seriation method appropriate for
   `x` can be specified (see
-  [`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md)).
+  [`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md)).
   This will perform seriation and permute `x`. The value `TRUE` will
   permute using the default seriation method.
 
@@ -67,7 +67,7 @@ permute(x, order, dist = NULL, ...)
 
   if `order` is the name of a seriation method, then additional
   arguments are passed on to
-  [`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md).
+  [`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md).
 
 - margin:
 
@@ -88,32 +88,32 @@ A permuted object of the same class as `x`.
 ## Details
 
 The permutation vectors in
-[ser_permutation](http://michael.hahsler.net/seriation/reference/ser_permutation.md)
+[ser_permutation](https://michael.hahsler.net/seriation/reference/ser_permutation.md)
 are suitable if the number of permutation vectors matches the number of
 dimensions of `x` and if the length of each permutation vector has the
 same length as the corresponding dimension of `x`.
 
 For 1-dimensional/1-mode data (list, vector, `dist`), `order` can also
 be a single permutation vector of class
-[ser_permutation_vector](http://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
+[ser_permutation_vector](https://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
 or data which can be automatically coerced to this class (e.g. a numeric
 vector).
 
 For `dendrogram` and `hclust`, subtrees are rotated to represent the
 order best possible. If the order is not achieved perfectly then the
 user is warned. See also
-[`reorder.hclust()`](http://michael.hahsler.net/seriation/reference/reorder.hclust.md)
+[`reorder.hclust()`](https://michael.hahsler.net/seriation/reference/reorder.hclust.md)
 for reordering `hclust` objects.
 
 ## See also
 
 Other permutation:
-[`get_order()`](http://michael.hahsler.net/seriation/reference/get_order.md),
-[`permutation_vector2matrix()`](http://michael.hahsler.net/seriation/reference/permutation_vector2matrix.md),
-[`reorder.hclust()`](http://michael.hahsler.net/seriation/reference/reorder.hclust.md),
-[`ser_dist()`](http://michael.hahsler.net/seriation/reference/ser_dist.md),
-[`ser_permutation()`](http://michael.hahsler.net/seriation/reference/ser_permutation.md),
-[`ser_permutation_vector()`](http://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
+[`get_order()`](https://michael.hahsler.net/seriation/reference/get_order.md),
+[`permutation_vector2matrix()`](https://michael.hahsler.net/seriation/reference/permutation_vector2matrix.md),
+[`reorder.hclust()`](https://michael.hahsler.net/seriation/reference/reorder.hclust.md),
+[`ser_dist()`](https://michael.hahsler.net/seriation/reference/ser_dist.md),
+[`ser_permutation()`](https://michael.hahsler.net/seriation/reference/ser_permutation.md),
+[`ser_permutation_vector()`](https://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
 
 ## Author
 

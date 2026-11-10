@@ -62,12 +62,12 @@ Statistics,* **13**(4), 788–806.
 [`gclus::reorder.hclust()`](https://rdrr.io/pkg/gclus/man/hclust.html)
 
 Other permutation:
-[`get_order()`](http://michael.hahsler.net/seriation/reference/get_order.md),
-[`permutation_vector2matrix()`](http://michael.hahsler.net/seriation/reference/permutation_vector2matrix.md),
-[`permute()`](http://michael.hahsler.net/seriation/reference/permute.md),
-[`ser_dist()`](http://michael.hahsler.net/seriation/reference/ser_dist.md),
-[`ser_permutation()`](http://michael.hahsler.net/seriation/reference/ser_permutation.md),
-[`ser_permutation_vector()`](http://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
+[`get_order()`](https://michael.hahsler.net/seriation/reference/get_order.md),
+[`permutation_vector2matrix()`](https://michael.hahsler.net/seriation/reference/permutation_vector2matrix.md),
+[`permute()`](https://michael.hahsler.net/seriation/reference/permute.md),
+[`ser_dist()`](https://michael.hahsler.net/seriation/reference/ser_dist.md),
+[`ser_permutation()`](https://michael.hahsler.net/seriation/reference/ser_permutation.md),
+[`ser_permutation_vector()`](https://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
 
 ## Author
 

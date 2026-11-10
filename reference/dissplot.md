@@ -73,7 +73,7 @@ ggdissplot(
   for inter and intra cluster seriation are required, `method` can be a
   `list` of two named elements (`inter_cluster` and `intra_cluster` each
   containing the name of the respective seriation method. Use
-  [`list_seriation_methods()`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md)
+  [`list_seriation_methods()`](https://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md)
   with `kind = "dist"` to find available algorithms.
 
   Set method to `NA` to plot the matrix as is (no or, if cluster labels
@@ -82,7 +82,7 @@ ggdissplot(
   `dissplot()` only). Objects in clusters are then ordered by silhouette
   width (from silhouette plots). If no `method` is given, the default
   method of
-  [`seriate.dist()`](http://michael.hahsler.net/seriation/reference/seriate.md)
+  [`seriate.dist()`](https://michael.hahsler.net/seriation/reference/seriate.md)
   is used.
 
   A third list element (named `aggregation`) can be added to control how
@@ -165,7 +165,7 @@ ggdissplot(
 
   `dissplot()`: further arguments are added to `options`. `ggdissplot()`
   further arguments are passed on to
-  [`ggpimage()`](http://michael.hahsler.net/seriation/reference/pimage.md).
+  [`ggpimage()`](https://michael.hahsler.net/seriation/reference/pimage.md).
 
 ## Value
 
@@ -217,7 +217,7 @@ This visualization is similar to CLUSION (see Strehl and Ghosh 2002),
 however, allows for using arbitrary seriating algorithms.
 
 **Note:** Since
-[`pimage()`](http://michael.hahsler.net/seriation/reference/pimage.md)
+[`pimage()`](https://michael.hahsler.net/seriation/reference/pimage.md)
 uses grid, it should not be mixed with base R primitive plotting
 functions.
 
@@ -245,11 +245,11 @@ Computing,* **15**(2), 208–230.
 ## See also
 
 Other plots:
-[`VAT()`](http://michael.hahsler.net/seriation/reference/VAT.md),
-[`bertinplot()`](http://michael.hahsler.net/seriation/reference/bertinplot.md),
-[`hmap()`](http://michael.hahsler.net/seriation/reference/hmap.md),
-[`palette`](http://michael.hahsler.net/seriation/reference/palette.md),
-[`pimage()`](http://michael.hahsler.net/seriation/reference/pimage.md)
+[`VAT()`](https://michael.hahsler.net/seriation/reference/VAT.md),
+[`bertinplot()`](https://michael.hahsler.net/seriation/reference/bertinplot.md),
+[`hmap()`](https://michael.hahsler.net/seriation/reference/hmap.md),
+[`palette`](https://michael.hahsler.net/seriation/reference/palette.md),
+[`pimage()`](https://michael.hahsler.net/seriation/reference/pimage.md)
 
 ## Author
 

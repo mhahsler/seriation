@@ -73,7 +73,7 @@ with index 3 then the object with index 1 and finally the object with
 index 2. This representation is often called a (re)arrangement or
 ordering. The ordering can be extracted from a permutation vector object
 via
-[`get_order()`](http://michael.hahsler.net/seriation/reference/get_order.md).
+[`get_order()`](https://michael.hahsler.net/seriation/reference/get_order.md).
 Such an ordering can be directly used to subset the list of original
 objects with `"["` to apply the permutation.
 
@@ -81,15 +81,15 @@ objects with `"["` to apply the permutation.
 via a list of the ranks of the objects after permutation. This
 representation is often called a map or substitution. Ranks can be
 extracted from a permutation vector using
-[`get_rank()`](http://michael.hahsler.net/seriation/reference/get_order.md).
+[`get_rank()`](https://michael.hahsler.net/seriation/reference/get_order.md).
 
 **Permutation Matrix:** Another popular representation is a permutation
 matrix which performs permutations using matrix multiplication. A
 permutation matrix can be obtained using
-[`get_permutation_matrix()`](http://michael.hahsler.net/seriation/reference/get_order.md).
+[`get_permutation_matrix()`](https://michael.hahsler.net/seriation/reference/get_order.md).
 
 `ser_permutation_vector` objects are usually packed into a
-[ser_permutation](http://michael.hahsler.net/seriation/reference/ser_permutation.md)
+[ser_permutation](https://michael.hahsler.net/seriation/reference/ser_permutation.md)
 object which is a collection (a `list`) of \\k\\ permutation vectors for
 \\k\\-mode data.
 
@@ -99,12 +99,12 @@ vector is valid (i.e. if all integers occur exactly once).
 ## See also
 
 Other permutation:
-[`get_order()`](http://michael.hahsler.net/seriation/reference/get_order.md),
-[`permutation_vector2matrix()`](http://michael.hahsler.net/seriation/reference/permutation_vector2matrix.md),
-[`permute()`](http://michael.hahsler.net/seriation/reference/permute.md),
-[`reorder.hclust()`](http://michael.hahsler.net/seriation/reference/reorder.hclust.md),
-[`ser_dist()`](http://michael.hahsler.net/seriation/reference/ser_dist.md),
-[`ser_permutation()`](http://michael.hahsler.net/seriation/reference/ser_permutation.md)
+[`get_order()`](https://michael.hahsler.net/seriation/reference/get_order.md),
+[`permutation_vector2matrix()`](https://michael.hahsler.net/seriation/reference/permutation_vector2matrix.md),
+[`permute()`](https://michael.hahsler.net/seriation/reference/permute.md),
+[`reorder.hclust()`](https://michael.hahsler.net/seriation/reference/reorder.hclust.md),
+[`ser_dist()`](https://michael.hahsler.net/seriation/reference/ser_dist.md),
+[`ser_permutation()`](https://michael.hahsler.net/seriation/reference/ser_permutation.md)
 
 ## Author
 

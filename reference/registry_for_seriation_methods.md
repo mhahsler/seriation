@@ -1,7 +1,7 @@
 # Registry for Seriation Methods
 
 A registry to manage methods used by
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md).
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md).
 
 ## Usage
 
@@ -43,7 +43,7 @@ print(x, ...)
 - name:
 
   the name for the method used to refer to the method in
-  [`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md).
+  [`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md).
 
 - definition:
 
@@ -61,12 +61,12 @@ print(x, ...)
 
   logical; does the algorithm use randomization and re-running the
   algorithm several times will lead to different results (see:
-  [`seriate_rep()`](http://michael.hahsler.net/seriation/reference/seriate_best.md)).
+  [`seriate_rep()`](https://michael.hahsler.net/seriation/reference/seriate_best.md)).
 
 - optimizes:
 
   what criterion does the algorithm try to optimize (see:
-  [`list_criterion_methods()`](http://michael.hahsler.net/seriation/reference/registry_for_criterion_methods.md)).
+  [`list_criterion_methods()`](https://michael.hahsler.net/seriation/reference/registry_for_criterion_methods.md)).
 
 - verbose:
 
@@ -84,7 +84,7 @@ print(x, ...)
 
 - `list_seriation_method()` result is a vector of character strings with
   the names of the methods. These names are used for methods in
-  [`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md).
+  [`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md).
 
 - `get_seriation_method()` returns a given method in form of an object
   of class `"seriation_method"`.
@@ -97,7 +97,7 @@ The functions below are convenience function for the registry
 `list_seriation_method()` lists all available methods for a given data
 type (`kind`) (e.g., "dist", "matrix"). The result is a vector of
 character strings with the method names that can be used in function
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md).
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md).
 If `kind` is missing, then a list of methods is returned.
 
 `get_seriation_method()` returns detailed information for a given method
@@ -109,7 +109,7 @@ user. The implementing function (`definition`) needs to have the formal
 arguments `x, control` and, for arrays and matrices `margin`, where `x`
 is the data object and `control` contains a list with additional
 information for the method passed on from
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md),
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md),
 and `margin` is a vector specifying what dimensions should be seriated.
 The implementation has to return a list of objects which can be coerced
 into `ser_permutation_vector` objects (e.g., integer vectors). The
@@ -122,15 +122,15 @@ This registry uses
 [registry::registry](https://rdrr.io/pkg/registry/man/registry.html).
 
 Other seriation:
-[`register_DendSer()`](http://michael.hahsler.net/seriation/reference/register_DendSer.md),
-[`register_GA()`](http://michael.hahsler.net/seriation/reference/register_GA.md),
-[`register_optics()`](http://michael.hahsler.net/seriation/reference/register_optics.md),
-[`register_smacof()`](http://michael.hahsler.net/seriation/reference/register_smacof.md),
-[`register_tsne()`](http://michael.hahsler.net/seriation/reference/register_tsne.md),
-[`register_umap()`](http://michael.hahsler.net/seriation/reference/register_umap.md),
-[`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md),
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md),
-[`seriate_best()`](http://michael.hahsler.net/seriation/reference/seriate_best.md)
+[`register_DendSer()`](https://michael.hahsler.net/seriation/reference/register_DendSer.md),
+[`register_GA()`](https://michael.hahsler.net/seriation/reference/register_GA.md),
+[`register_optics()`](https://michael.hahsler.net/seriation/reference/register_optics.md),
+[`register_smacof()`](https://michael.hahsler.net/seriation/reference/register_smacof.md),
+[`register_tsne()`](https://michael.hahsler.net/seriation/reference/register_tsne.md),
+[`register_umap()`](https://michael.hahsler.net/seriation/reference/register_umap.md),
+[`register_vegan()`](https://michael.hahsler.net/seriation/reference/register_vegan.md),
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md),
+[`seriate_best()`](https://michael.hahsler.net/seriation/reference/seriate_best.md)
 
 ## Author
 

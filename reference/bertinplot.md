@@ -95,7 +95,7 @@ ggbertinplot(
 - ...:
 
   `ggbertinplot()`: further parameters are passed on to
-  [`ggpimage()`](http://michael.hahsler.net/seriation/reference/pimage.md).
+  [`ggpimage()`](https://michael.hahsler.net/seriation/reference/pimage.md).
 
   `bertinplot()`: further parameters can include:
 
@@ -170,7 +170,7 @@ cover most of the image. Use the parameter `gp_panels = gpar(col = NA)`
 to remove the outline.
 
 `ggbertinplot()` calls
-[`ggpimage()`](http://michael.hahsler.net/seriation/reference/pimage.md)
+[`ggpimage()`](https://michael.hahsler.net/seriation/reference/pimage.md)
 and all additional parameters are passed on.
 
 ## References
@@ -182,11 +182,11 @@ Bertin's Graphical Data Analysis. In: Proceedings of the SoftStat '97
 ## See also
 
 Other plots:
-[`VAT()`](http://michael.hahsler.net/seriation/reference/VAT.md),
-[`dissplot()`](http://michael.hahsler.net/seriation/reference/dissplot.md),
-[`hmap()`](http://michael.hahsler.net/seriation/reference/hmap.md),
-[`palette`](http://michael.hahsler.net/seriation/reference/palette.md),
-[`pimage()`](http://michael.hahsler.net/seriation/reference/pimage.md)
+[`VAT()`](https://michael.hahsler.net/seriation/reference/VAT.md),
+[`dissplot()`](https://michael.hahsler.net/seriation/reference/dissplot.md),
+[`hmap()`](https://michael.hahsler.net/seriation/reference/hmap.md),
+[`palette`](https://michael.hahsler.net/seriation/reference/palette.md),
+[`pimage()`](https://michael.hahsler.net/seriation/reference/pimage.md)
 
 ## Author
 

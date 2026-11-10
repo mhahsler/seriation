@@ -1,7 +1,7 @@
 # Register Seriation Based on OPTICS
 
 Use ordering points to identify the clustering structure (OPTICS) for
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md).
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md).
 
 ## Usage
 
@@ -16,9 +16,9 @@ Nothing.
 ## Details
 
 Registers the method `"optics"` for
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md).
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md).
 This method applies the OPTICS ordering algorithm implemented in
-[`dbscan::optics()`](http://michael.hahsler.net/dbscan/reference/optics.md)
+[`dbscan::optics()`](https://michael.hahsler.net/dbscan/reference/optics.html)
 to create an ordering.
 
 **Note:** Package dbscan needs to be installed.
@@ -33,18 +33,18 @@ pp. 49-60.
 
 ## See also
 
-[`dbscan::optics()`](http://michael.hahsler.net/dbscan/reference/optics.md).
+[`dbscan::optics()`](https://michael.hahsler.net/dbscan/reference/optics.html).
 
 Other seriation:
-[`register_DendSer()`](http://michael.hahsler.net/seriation/reference/register_DendSer.md),
-[`register_GA()`](http://michael.hahsler.net/seriation/reference/register_GA.md),
-[`register_smacof()`](http://michael.hahsler.net/seriation/reference/register_smacof.md),
-[`register_tsne()`](http://michael.hahsler.net/seriation/reference/register_tsne.md),
-[`register_umap()`](http://michael.hahsler.net/seriation/reference/register_umap.md),
-[`register_vegan()`](http://michael.hahsler.net/seriation/reference/register_vegan.md),
-[`registry_for_seriation_methods`](http://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md),
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md),
-[`seriate_best()`](http://michael.hahsler.net/seriation/reference/seriate_best.md)
+[`register_DendSer()`](https://michael.hahsler.net/seriation/reference/register_DendSer.md),
+[`register_GA()`](https://michael.hahsler.net/seriation/reference/register_GA.md),
+[`register_smacof()`](https://michael.hahsler.net/seriation/reference/register_smacof.md),
+[`register_tsne()`](https://michael.hahsler.net/seriation/reference/register_tsne.md),
+[`register_umap()`](https://michael.hahsler.net/seriation/reference/register_umap.md),
+[`register_vegan()`](https://michael.hahsler.net/seriation/reference/register_vegan.md),
+[`registry_for_seriation_methods`](https://michael.hahsler.net/seriation/reference/registry_for_seriation_methods.md),
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md),
+[`seriate_best()`](https://michael.hahsler.net/seriation/reference/seriate_best.md)
 
 ## Examples
 

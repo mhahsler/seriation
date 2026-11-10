@@ -30,7 +30,7 @@ if it is formulated as a loss criteria functions (`merit = FALSE`).
 If a seriation method directly tries to optimize the criterion, than its
 name is specified under “optimized by”. The names can be used as the
 `method` argument in
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md).
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md).
 
 ### Criteria for dissimilarity data (dist)
 
@@ -42,9 +42,9 @@ Simon, 1993).
 
 - merit: FALSE
 - optimized by:
-  [QAP_2SUM](http://michael.hahsler.net/seriation/articles/seriation_methods.html#qap_2sum),
-  [Spectral](http://michael.hahsler.net/seriation/articles/seriation_methods.html#spectral),
-  [Spectral_norm](http://michael.hahsler.net/seriation/articles/seriation_methods.html#spectral_norm)
+  [QAP_2SUM](https://michael.hahsler.net/seriation/articles/seriation_methods.html#qap_2sum),
+  [Spectral](https://michael.hahsler.net/seriation/articles/seriation_methods.html#spectral),
+  [Spectral_norm](https://michael.hahsler.net/seriation/articles/seriation_methods.html#spectral_norm)
 - additional parameters: no parameters
 
 ------------------------------------------------------------------------
@@ -77,7 +77,7 @@ Anti-Robinson form cost (Earle and Hurley, 2015).
 
 - merit: FALSE
 - optimized by:
-  [DendSer_ARc](http://michael.hahsler.net/seriation/articles/seriation_methods.html#dendser_arc)
+  [DendSer_ARc](https://michael.hahsler.net/seriation/articles/seriation_methods.html#dendser_arc)
 - registered by: register_DendSer()
 - additional parameters: no parameters
 
@@ -90,8 +90,8 @@ anti-Robinson form in a band of size b (Earle and Hurley, 2015).
 
 - merit: FALSE
 - optimized by:
-  [QAP_BAR](http://michael.hahsler.net/seriation/articles/seriation_methods.html#qap_bar),
-  [DendSer_BAR](http://michael.hahsler.net/seriation/articles/seriation_methods.html#dendser_bar)
+  [QAP_BAR](https://michael.hahsler.net/seriation/articles/seriation_methods.html#qap_bar),
+  [DendSer_BAR](https://michael.hahsler.net/seriation/articles/seriation_methods.html#dendser_bar)
 - additional parameters:
 
 |     | default | help                                     |
@@ -107,7 +107,7 @@ from the diagonal of the distance matrix (Hubert et al, 2001).
 
 - merit: TRUE
 - optimized by:
-  [BBURCG](http://michael.hahsler.net/seriation/articles/seriation_methods.html#bburcg)
+  [BBURCG](https://michael.hahsler.net/seriation/articles/seriation_methods.html#bburcg)
 - additional parameters: no parameters
 
 ------------------------------------------------------------------------
@@ -120,7 +120,7 @@ moving away from the diagonal of the distance matrix (Hubert et al,
 
 - merit: TRUE
 - optimized by:
-  [BBWRCG](http://michael.hahsler.net/seriation/articles/seriation_methods.html#bbwrcg)
+  [BBWRCG](https://michael.hahsler.net/seriation/articles/seriation_methods.html#bbwrcg)
 - additional parameters: no parameters
 
 ------------------------------------------------------------------------
@@ -133,7 +133,7 @@ values around the diagonal of the distance matrix (Caraux and Pinloche,
 
 - merit: TRUE
 - optimized by:
-  [QAP_Inertia](http://michael.hahsler.net/seriation/articles/seriation_methods.html#qap_inertia)
+  [QAP_Inertia](https://michael.hahsler.net/seriation/articles/seriation_methods.html#qap_inertia)
 - additional parameters: no parameters
 
 ------------------------------------------------------------------------
@@ -145,7 +145,7 @@ where later distances are less important (Earl and Hurley, 2015).
 
 - merit: FALSE
 - optimized by:
-  [DendSer_LPL](http://michael.hahsler.net/seriation/articles/seriation_methods.html#dendser_lpl)
+  [DendSer_LPL](https://michael.hahsler.net/seriation/articles/seriation_methods.html#dendser_lpl)
 - additional parameters: no parameters
 
 ------------------------------------------------------------------------
@@ -168,8 +168,8 @@ differences (Hubert and Schultz, 1976).
 
 - merit: TRUE
 - optimized by:
-  [ARSA](http://michael.hahsler.net/seriation/articles/seriation_methods.html#arsa),
-  [QAP_LS](http://michael.hahsler.net/seriation/articles/seriation_methods.html#qap_ls)
+  [ARSA](https://michael.hahsler.net/seriation/articles/seriation_methods.html#arsa),
+  [QAP_LS](https://michael.hahsler.net/seriation/articles/seriation_methods.html#qap_ls)
 - additional parameters: no parameters
 
 ------------------------------------------------------------------------
@@ -180,9 +180,9 @@ Normalized stress of a configuration given by a seriation order
 
 - merit: FALSE
 - optimized by:
-  [MDS](http://michael.hahsler.net/seriation/articles/seriation_methods.html#mds),
-  [isoMDS](http://michael.hahsler.net/seriation/articles/seriation_methods.html#isomds),
-  [Sammon_mapping](http://michael.hahsler.net/seriation/articles/seriation_methods.html#sammon_mapping)
+  [MDS](https://michael.hahsler.net/seriation/articles/seriation_methods.html#mds),
+  [isoMDS](https://michael.hahsler.net/seriation/articles/seriation_methods.html#isomds),
+  [Sammon_mapping](https://michael.hahsler.net/seriation/articles/seriation_methods.html#sammon_mapping)
 - additional parameters:
 
 |  | default | help |
@@ -198,8 +198,8 @@ Measure of effectiveness applied to the reordered similarity matrix
 
 - merit: TRUE
 - optimized by:
-  [BEA](http://michael.hahsler.net/seriation/articles/seriation_methods.html#bea),
-  [BEA_TSP](http://michael.hahsler.net/seriation/articles/seriation_methods.html#bea_tsp)
+  [BEA](https://michael.hahsler.net/seriation/articles/seriation_methods.html#bea),
+  [BEA_TSP](https://michael.hahsler.net/seriation/articles/seriation_methods.html#bea_tsp)
 - additional parameters: no parameters
 
 ------------------------------------------------------------------------
@@ -233,18 +233,18 @@ Hamiltonian path length: Sum of distances by following the permutation
 
 - merit: FALSE
 - optimized by:
-  [TSP](http://michael.hahsler.net/seriation/articles/seriation_methods.html#tsp),
-  [GW](http://michael.hahsler.net/seriation/articles/seriation_methods.html#gw),
-  [GW_single](http://michael.hahsler.net/seriation/articles/seriation_methods.html#gw_single),
-  [GW_average](http://michael.hahsler.net/seriation/articles/seriation_methods.html#gw_average),
-  [GW_complete](http://michael.hahsler.net/seriation/articles/seriation_methods.html#gw_complete),
-  [GW_ward](http://michael.hahsler.net/seriation/articles/seriation_methods.html#gw_ward),
-  [OLO](http://michael.hahsler.net/seriation/articles/seriation_methods.html#olo),
-  [OLO_single](http://michael.hahsler.net/seriation/articles/seriation_methods.html#olo_single),
-  [OLO_average](http://michael.hahsler.net/seriation/articles/seriation_methods.html#olo_average),
-  [OLO_complete](http://michael.hahsler.net/seriation/articles/seriation_methods.html#olo_complete),
-  [OLO_ward](http://michael.hahsler.net/seriation/articles/seriation_methods.html#olo_ward),
-  [DendSer_PL](http://michael.hahsler.net/seriation/articles/seriation_methods.html#dendser_pl)
+  [TSP](https://michael.hahsler.net/seriation/articles/seriation_methods.html#tsp),
+  [GW](https://michael.hahsler.net/seriation/articles/seriation_methods.html#gw),
+  [GW_single](https://michael.hahsler.net/seriation/articles/seriation_methods.html#gw_single),
+  [GW_average](https://michael.hahsler.net/seriation/articles/seriation_methods.html#gw_average),
+  [GW_complete](https://michael.hahsler.net/seriation/articles/seriation_methods.html#gw_complete),
+  [GW_ward](https://michael.hahsler.net/seriation/articles/seriation_methods.html#gw_ward),
+  [OLO](https://michael.hahsler.net/seriation/articles/seriation_methods.html#olo),
+  [OLO_single](https://michael.hahsler.net/seriation/articles/seriation_methods.html#olo_single),
+  [OLO_average](https://michael.hahsler.net/seriation/articles/seriation_methods.html#olo_average),
+  [OLO_complete](https://michael.hahsler.net/seriation/articles/seriation_methods.html#olo_complete),
+  [OLO_ward](https://michael.hahsler.net/seriation/articles/seriation_methods.html#olo_ward),
+  [DendSer_PL](https://michael.hahsler.net/seriation/articles/seriation_methods.html#dendser_pl)
 - additional parameters: no parameters
 
 ------------------------------------------------------------------------
@@ -285,7 +285,7 @@ smacof.
 
 - merit: FALSE
 - optimized by:
-  [MDS_smacof](http://michael.hahsler.net/seriation/articles/seriation_methods.html#mds_smacof)
+  [MDS_smacof](https://michael.hahsler.net/seriation/articles/seriation_methods.html#mds_smacof)
 - registered by: register_smacof()
 - additional parameters:
 
@@ -316,8 +316,8 @@ Measure of effectiveness (McCormick, 1972).
 
 - merit: TRUE
 - optimized by:
-  [BEA](http://michael.hahsler.net/seriation/articles/seriation_methods.html#bea),
-  [BEA_TSP](http://michael.hahsler.net/seriation/articles/seriation_methods.html#bea_tsp)
+  [BEA](https://michael.hahsler.net/seriation/articles/seriation_methods.html#bea),
+  [BEA_TSP](https://michael.hahsler.net/seriation/articles/seriation_methods.html#bea_tsp)
 - additional parameters: no parameters
 
 ------------------------------------------------------------------------

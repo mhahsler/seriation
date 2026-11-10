@@ -88,7 +88,7 @@ preserve the given order perfectly, then a warning is produced
 indicating for how many positions order could not be preserved. The
 seriation method which is consistent to uniscale is `"MDS_smacof"` which
 needs to be registered with
-[`register_smacof()`](http://michael.hahsler.net/seriation/reference/register_smacof.md).
+[`register_smacof()`](https://michael.hahsler.net/seriation/reference/register_smacof.md).
 
 The code is similar to
 [`smacof::uniscale()`](https://rdrr.io/pkg/smacof/man/uniscale.html) (de
@@ -124,11 +124,11 @@ Majorization: SMACOF in R. *Journal of Statistical Software*, **31**(3),
 
 ## See also
 
-[`register_smacof()`](http://michael.hahsler.net/seriation/reference/register_smacof.md)
+[`register_smacof()`](https://michael.hahsler.net/seriation/reference/register_smacof.md)
 
 Other helper:
-[`LS`](http://michael.hahsler.net/seriation/reference/LS.md),
-[`lle()`](http://michael.hahsler.net/seriation/reference/lle.md)
+[`LS`](https://michael.hahsler.net/seriation/reference/LS.md),
+[`lle()`](https://michael.hahsler.net/seriation/reference/lle.md)
 
 ## Author
 

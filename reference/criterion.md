@@ -36,13 +36,13 @@ criterion(x, order = NULL, method = NULL, force_loss = FALSE, ...)
 - order:
 
   an object of class
-  [ser_permutation](http://michael.hahsler.net/seriation/reference/ser_permutation.md)
+  [ser_permutation](https://michael.hahsler.net/seriation/reference/ser_permutation.md)
   suitable for `x`. If `NULL`, the identity permutation is used.
 
 - method:
 
   a character vector with the names of the criteria to be employed (see
-  [`list_criterion_methods()`](http://michael.hahsler.net/seriation/reference/registry_for_criterion_methods.md)),
+  [`list_criterion_methods()`](https://michael.hahsler.net/seriation/reference/registry_for_criterion_methods.md)),
   or `NULL` (default) in which case all available criteria are used.
 
 - force_loss:
@@ -149,7 +149,7 @@ experimental comparison see Hahsler (2017)):
 
   For \\b = 1\\ the measure reduces to the Hamiltonian path length. For
   \\b = n-1\\ the measure is equivalent to ARc defined (see
-  [`register_DendSer()`](http://michael.hahsler.net/seriation/reference/register_DendSer.md)).
+  [`register_DendSer()`](https://michael.hahsler.net/seriation/reference/register_DendSer.md)).
 
   `...` parameter is: `b` band size defaults to a band of 20% of \\n\\.
 
@@ -353,7 +353,7 @@ Bioinformatics,* **9**(155), 1–16.
 ## See also
 
 Other criterion:
-[`registry_for_criterion_methods`](http://michael.hahsler.net/seriation/reference/registry_for_criterion_methods.md)
+[`registry_for_criterion_methods`](https://michael.hahsler.net/seriation/reference/registry_for_criterion_methods.md)
 
 ## Author
 
@@ -384,8 +384,8 @@ rbind(
 #> unordered 1132.228     25.248456       109 11.518294           22
 #> ordered   1010.628      2.533581        22  7.107991          196
 #>           Gradient_weighted   Inertia       LS Lazy_path_length Least_squares
-#> unordered          6.883682  821.8416 157.8410        19.795951      1358.307
-#> ordered           55.140573 1080.5100 190.0122         8.795002      1293.965
+#> unordered          6.883682  821.8416 157.8410         19.79595      1358.307
+#> ordered           55.140573 1080.5100 190.0122         13.01644      1293.965
 #>           MDS_stress       ME Moore_stress Neumann_stress Path_length
 #> unordered  0.6428636 97.18996    22.694707      11.697180    3.717250
 #> ordered    0.2631493 99.49022     9.243974       4.726517    2.181144

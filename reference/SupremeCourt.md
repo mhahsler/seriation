@@ -18,15 +18,15 @@ disagreement.
 ## See also
 
 Other data:
-[`Chameleon`](http://michael.hahsler.net/seriation/reference/Chameleon.md),
-[`Irish`](http://michael.hahsler.net/seriation/reference/Irish.md),
-[`Munsingen`](http://michael.hahsler.net/seriation/reference/Munsingen.md),
-[`Psych24`](http://michael.hahsler.net/seriation/reference/Psych24.md),
-[`Townships`](http://michael.hahsler.net/seriation/reference/Townships.md),
-[`Wood`](http://michael.hahsler.net/seriation/reference/Wood.md),
-[`Zoo`](http://michael.hahsler.net/seriation/reference/Zoo.md),
-[`create_lines_data()`](http://michael.hahsler.net/seriation/reference/create_lines_data.md),
-[`is.robinson()`](http://michael.hahsler.net/seriation/reference/is.robinson.md)
+[`Chameleon`](https://michael.hahsler.net/seriation/reference/Chameleon.md),
+[`Irish`](https://michael.hahsler.net/seriation/reference/Irish.md),
+[`Munsingen`](https://michael.hahsler.net/seriation/reference/Munsingen.md),
+[`Psych24`](https://michael.hahsler.net/seriation/reference/Psych24.md),
+[`Townships`](https://michael.hahsler.net/seriation/reference/Townships.md),
+[`Wood`](https://michael.hahsler.net/seriation/reference/Wood.md),
+[`Zoo`](https://michael.hahsler.net/seriation/reference/Zoo.md),
+[`create_lines_data()`](https://michael.hahsler.net/seriation/reference/create_lines_data.md),
+[`is.robinson()`](https://michael.hahsler.net/seriation/reference/is.robinson.md)
 
 ## Author
 

@@ -32,9 +32,9 @@ ggiVAT(x, upper_tri = TRUE, lower_tri = TRUE, ...)
 - ...:
 
   further arguments are passed on to
-  [`pimage`](http://michael.hahsler.net/seriation/reference/pimage.md)
+  [`pimage`](https://michael.hahsler.net/seriation/reference/pimage.md)
   for the regular plots and
-  [`ggpimage`](http://michael.hahsler.net/seriation/reference/pimage.md)
+  [`ggpimage`](https://michael.hahsler.net/seriation/reference/pimage.md)
   for the ggplot2 plots.
 
 ## Value
@@ -64,11 +64,11 @@ Assessment, *Proceedings of the PAKDD 2010, Part I, LNAI 6118,* 16–27.
 ## See also
 
 Other plots:
-[`bertinplot()`](http://michael.hahsler.net/seriation/reference/bertinplot.md),
-[`dissplot()`](http://michael.hahsler.net/seriation/reference/dissplot.md),
-[`hmap()`](http://michael.hahsler.net/seriation/reference/hmap.md),
-[`palette`](http://michael.hahsler.net/seriation/reference/palette.md),
-[`pimage()`](http://michael.hahsler.net/seriation/reference/pimage.md)
+[`bertinplot()`](https://michael.hahsler.net/seriation/reference/bertinplot.md),
+[`dissplot()`](https://michael.hahsler.net/seriation/reference/dissplot.md),
+[`hmap()`](https://michael.hahsler.net/seriation/reference/hmap.md),
+[`palette`](https://michael.hahsler.net/seriation/reference/palette.md),
+[`pimage()`](https://michael.hahsler.net/seriation/reference/pimage.md)
 
 ## Author
 

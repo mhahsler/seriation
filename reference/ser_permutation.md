@@ -2,7 +2,7 @@
 
 The class `ser_permutation` is a collection of permutation vectors (see
 class
-[ser_permutation_vector](http://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)),
+[ser_permutation_vector](https://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)),
 one for each dimension (mode) of the data to be permuted.
 
 ## Usage
@@ -50,12 +50,12 @@ An object of class `ser_permutation`.
 ## See also
 
 Other permutation:
-[`get_order()`](http://michael.hahsler.net/seriation/reference/get_order.md),
-[`permutation_vector2matrix()`](http://michael.hahsler.net/seriation/reference/permutation_vector2matrix.md),
-[`permute()`](http://michael.hahsler.net/seriation/reference/permute.md),
-[`reorder.hclust()`](http://michael.hahsler.net/seriation/reference/reorder.hclust.md),
-[`ser_dist()`](http://michael.hahsler.net/seriation/reference/ser_dist.md),
-[`ser_permutation_vector()`](http://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
+[`get_order()`](https://michael.hahsler.net/seriation/reference/get_order.md),
+[`permutation_vector2matrix()`](https://michael.hahsler.net/seriation/reference/permutation_vector2matrix.md),
+[`permute()`](https://michael.hahsler.net/seriation/reference/permute.md),
+[`reorder.hclust()`](https://michael.hahsler.net/seriation/reference/reorder.hclust.md),
+[`ser_dist()`](https://michael.hahsler.net/seriation/reference/ser_dist.md),
+[`ser_permutation_vector()`](https://michael.hahsler.net/seriation/reference/ser_permutation_vector.md)
 
 ## Author
 

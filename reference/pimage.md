@@ -210,11 +210,11 @@ functions (`labs`, `scale_fill_continuous`, `labs`, etc.).
 ## See also
 
 Other plots:
-[`VAT()`](http://michael.hahsler.net/seriation/reference/VAT.md),
-[`bertinplot()`](http://michael.hahsler.net/seriation/reference/bertinplot.md),
-[`dissplot()`](http://michael.hahsler.net/seriation/reference/dissplot.md),
-[`hmap()`](http://michael.hahsler.net/seriation/reference/hmap.md),
-[`palette`](http://michael.hahsler.net/seriation/reference/palette.md)
+[`VAT()`](https://michael.hahsler.net/seriation/reference/VAT.md),
+[`bertinplot()`](https://michael.hahsler.net/seriation/reference/bertinplot.md),
+[`dissplot()`](https://michael.hahsler.net/seriation/reference/dissplot.md),
+[`hmap()`](https://michael.hahsler.net/seriation/reference/hmap.md),
+[`palette`](https://michael.hahsler.net/seriation/reference/palette.md)
 
 ## Author
 

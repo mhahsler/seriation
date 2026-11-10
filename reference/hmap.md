@@ -48,7 +48,7 @@ gghmap(
 - method:
 
   a character strings indicating the used seriation algorithm (see
-  [`seriate.dist()`](http://michael.hahsler.net/seriation/reference/seriate.md)).
+  [`seriate.dist()`](https://michael.hahsler.net/seriation/reference/seriate.md)).
   If the method results in a dendrogram then
   [`stats::heatmap()`](https://rdrr.io/r/stats/heatmap.html) is used to
   show the dendrograms, otherwise reordered distance matrices are shown
@@ -146,11 +146,11 @@ For seriation-based heat maps further arguments include:
 ## See also
 
 Other plots:
-[`VAT()`](http://michael.hahsler.net/seriation/reference/VAT.md),
-[`bertinplot()`](http://michael.hahsler.net/seriation/reference/bertinplot.md),
-[`dissplot()`](http://michael.hahsler.net/seriation/reference/dissplot.md),
-[`palette`](http://michael.hahsler.net/seriation/reference/palette.md),
-[`pimage()`](http://michael.hahsler.net/seriation/reference/pimage.md)
+[`VAT()`](https://michael.hahsler.net/seriation/reference/VAT.md),
+[`bertinplot()`](https://michael.hahsler.net/seriation/reference/bertinplot.md),
+[`dissplot()`](https://michael.hahsler.net/seriation/reference/dissplot.md),
+[`palette`](https://michael.hahsler.net/seriation/reference/palette.md),
+[`pimage()`](https://michael.hahsler.net/seriation/reference/pimage.md)
 
 ## Author
 

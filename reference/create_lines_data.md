@@ -61,7 +61,7 @@ a data.frame with the created data.
 ## Details
 
 `create_lines_data()` recreates the lines data set used in for
-[`iVAT()`](http://michael.hahsler.net/seriation/reference/VAT.md) in
+[`iVAT()`](https://michael.hahsler.net/seriation/reference/VAT.md) in
 Havens and Bezdek (2012).
 
 `create_ordered_data()` (Hahsler et al, 2021) is a versatile function
@@ -90,20 +90,20 @@ Infrastructure for Ordering Objects Using Seriation. R package version
 
 ## See also
 
-[`seriate()`](http://michael.hahsler.net/seriation/reference/seriate.md),
-[`criterion()`](http://michael.hahsler.net/seriation/reference/criterion.md),
-[`iVAT()`](http://michael.hahsler.net/seriation/reference/VAT.md).
+[`seriate()`](https://michael.hahsler.net/seriation/reference/seriate.md),
+[`criterion()`](https://michael.hahsler.net/seriation/reference/criterion.md),
+[`iVAT()`](https://michael.hahsler.net/seriation/reference/VAT.md).
 
 Other data:
-[`Chameleon`](http://michael.hahsler.net/seriation/reference/Chameleon.md),
-[`Irish`](http://michael.hahsler.net/seriation/reference/Irish.md),
-[`Munsingen`](http://michael.hahsler.net/seriation/reference/Munsingen.md),
-[`Psych24`](http://michael.hahsler.net/seriation/reference/Psych24.md),
-[`SupremeCourt`](http://michael.hahsler.net/seriation/reference/SupremeCourt.md),
-[`Townships`](http://michael.hahsler.net/seriation/reference/Townships.md),
-[`Wood`](http://michael.hahsler.net/seriation/reference/Wood.md),
-[`Zoo`](http://michael.hahsler.net/seriation/reference/Zoo.md),
-[`is.robinson()`](http://michael.hahsler.net/seriation/reference/is.robinson.md)
+[`Chameleon`](https://michael.hahsler.net/seriation/reference/Chameleon.md),
+[`Irish`](https://michael.hahsler.net/seriation/reference/Irish.md),
+[`Munsingen`](https://michael.hahsler.net/seriation/reference/Munsingen.md),
+[`Psych24`](https://michael.hahsler.net/seriation/reference/Psych24.md),
+[`SupremeCourt`](https://michael.hahsler.net/seriation/reference/SupremeCourt.md),
+[`Townships`](https://michael.hahsler.net/seriation/reference/Townships.md),
+[`Wood`](https://michael.hahsler.net/seriation/reference/Wood.md),
+[`Zoo`](https://michael.hahsler.net/seriation/reference/Zoo.md),
+[`is.robinson()`](https://michael.hahsler.net/seriation/reference/is.robinson.md)
 
 ## Author
 
